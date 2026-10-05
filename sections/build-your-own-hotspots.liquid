@@ -1,126 +1,129 @@
-<section class="hotspots-MILE-section" id="hotspots">
- <div class="section-container">
-  
-  <div class="hotspots-header">
-   <span class="protocol-tag">{{ section.settings.tag }}</span>
-   {%- assign hotspots_title = section.settings.title | replace: 'Hotspot in Cabina', '<em>Hotspot in Cabina</em>' -%}
-   <h2>{{ hotspots_title }}</h2>
-   <p style="color: var(--color-text-secondary); font-size: 1rem; margin-top: 0.5rem;">
-    {{ section.settings.subtitle }}
-   </p>
+<section class="hotspots-splendor-section" id="hotspots">
+  <div class="section-container">
+    
+    <div class="hotspots-header">
+      <span class="protocol-tag">{{ section.settings.tag }}</span>
+      {%- assign hotspots_title = section.settings.title | replace: 'Hotspot in Cabina', '<em>Hotspot in Cabina</em>' -%}
+      <h2>{{ hotspots_title }}</h2>
+      <p style="color: var(--color-text-secondary); font-size: 1rem; margin-top: 0.5rem;">
+        {{ section.settings.subtitle }}
+      </p>
+    </div>
+
+    <div class="hotspots-lifestyle-container">
+      <img 
+        src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=85" 
+        alt="Trattamento Viso Milebiolab Team Dr Joseph" 
+        class="hotspots-lifestyle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+
+      <!-- Hotspot 1: Step 1 Cleansing (Top-Left) -->
+      <button 
+        type="button" 
+        class="hotspot-pin" 
+        data-hotspot-id="1" 
+        style="top: 28%; left: 24%;"
+        onclick="toggleHotspot(1)"
+        aria-label="Dettagli Step 1 Detersione"
+      >
+        1
+      </button>
+
+      <div class="hotspot-popover" data-hotspot-id="1" style="top: 36%; left: 16%;">
+        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80" alt="Daily Cleansing Milk" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <span class="popover-step">STEP 01 • DETERSIONE PURIFICANTE</span>
+        <h4 class="popover-title">Daily Cleansing Milk</h4>
+        <p class="popover-actives">Fieno Greco & Fiori di Camomilla Bio. Rimuove le impurità preservando il film idrolipidico.</p>
+        <div class="popover-price-row">
+          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 38,00</strong>
+          <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Daily Cleansing Milk', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', 'STEP 01')">
+            + Carrello
+          </button>
+        </div>
+      </div>
+
+      <!-- Hotspot 2: Step 2 Serum (Center-Right) -->
+      <button 
+        type="button" 
+        class="hotspot-pin" 
+        data-hotspot-id="2" 
+        style="top: 45%; left: 58%;"
+        onclick="toggleHotspot(2)"
+        aria-label="Dettagli Step 2 Siero Attivo"
+      >
+        2
+      </button>
+
+      <div class="hotspot-popover" data-hotspot-id="2" style="top: 20%; left: 62%;">
+        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80" alt="Intense Hyaluronic Power Serum" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <span class="popover-step">STEP 02 • BOOSTER ATTIVO</span>
+        <h4 class="popover-title">Intense Hyaluronic Power Serum</h4>
+        <p class="popover-actives">5 Pesi Molecolari di Acido Ialuronico e Biofermentato di Mirtillo Alpino.</p>
+        <div class="popover-price-row">
+          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 86,00</strong>
+          <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Intense Hyaluronic Power Serum', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', 'STEP 02')">
+            + Carrello
+          </button>
+        </div>
+      </div>
+
+      <!-- Hotspot 3: Step 3 Cream (Bottom-Center) -->
+      <button 
+        type="button" 
+        class="hotspot-pin" 
+        data-hotspot-id="3" 
+        style="top: 68%; left: 42%;"
+        onclick="toggleHotspot(3)"
+        aria-label="Dettagli Step 3 Crema Barriera"
+      >
+        3
+      </button>
+
+      <div class="hotspot-popover" data-hotspot-id="3" style="top: 40%; left: 24%;">
+        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" alt="Supreme Moisture Cream" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <span class="popover-step">STEP 03 • BARRIERA CELLULARE</span>
+        <h4 class="popover-title">Supreme Moisture & Cellular Cream</h4>
+        <p class="popover-actives">Cellule staminali di Stella Alpina e Olio di Jojoba bio. Idratazione continua 72 ore.</p>
+        <div class="popover-price-row">
+          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 84,00</strong>
+          <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Supreme Moisture Cream', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', 'STEP 03')">
+            + Carrello
+          </button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-
-  <div class="hotspots-lifestyle-container">
-   {{ 'product-1' | placeholder_svg_tag: 'hotspots-lifestyle-img' }}
-
-   <!-- Hotspot 1: Step 1 Cleansing (Top-Left) -->
-   <button 
-    type="button" 
-    class="hotspot-pin" 
-    data-hotspot-id="1" 
-    style="top: 28%; left: 24%;"
-    onclick="toggleHotspot(1)"
-    aria-label="Dettagli Step 1 Detersione"
-   >
-    1
-   </button>
-
-   <div class="hotspot-popover" data-hotspot-id="1" style="top: 36%; left: 16%;">
-    {{ 'product-1' | placeholder_svg_tag: 'popover-img' }}
-    <span class="popover-step">STEP 01 • DETERSIONE PURIFICANTE</span>
-    <h4 class="popover-title">Daily Cleansing Milk</h4>
-    <p class="popover-actives">Fieno Greco & Fiori di Camomilla Bio. Rimuove le impurità preservando il film idrolipidico.</p>
-    <div class="popover-price-row">
-     <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 38,00</strong>
-     <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Daily Cleansing Milk', 38.00, '', '200 ml', 'STEP 01')">
-      + Carrello
-     </button>
-    </div>
-   </div>
-
-   <!-- Hotspot 2: Step 2 Serum (Center-Right) -->
-   <button 
-    type="button" 
-    class="hotspot-pin" 
-    data-hotspot-id="2" 
-    style="top: 45%; left: 58%;"
-    onclick="toggleHotspot(2)"
-    aria-label="Dettagli Step 2 Siero Attivo"
-   >
-    2
-   </button>
-
-   <div class="hotspot-popover" data-hotspot-id="2" style="top: 20%; left: 62%;">
-    {{ 'product-1' | placeholder_svg_tag: 'popover-img' }}
-    <span class="popover-step">STEP 02 • BOOSTER ATTIVO</span>
-    <h4 class="popover-title">Intense Hyaluronic Power Serum</h4>
-    <p class="popover-actives">5 Pesi Molecolari di Acido Ialuronico e Biofermentato di Mirtillo Alpino.</p>
-    <div class="popover-price-row">
-     <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 86,00</strong>
-     <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Intense Hyaluronic Power Serum', 86.00, '', '30 ml', 'STEP 02')">
-      + Carrello
-     </button>
-    </div>
-   </div>
-
-   <!-- Hotspot 3: Step 3 Cream (Bottom-Center) -->
-   <button 
-    type="button" 
-    class="hotspot-pin" 
-    data-hotspot-id="3" 
-    style="top: 68%; left: 42%;"
-    onclick="toggleHotspot(3)"
-    aria-label="Dettagli Step 3 Crema Barriera"
-   >
-    3
-   </button>
-
-   <div class="hotspot-popover" data-hotspot-id="3" style="top: 40%; left: 24%;">
-    {{ 'product-1' | placeholder_svg_tag: 'popover-img' }}
-    <span class="popover-step">STEP 03 • BARRIERA CELLULARE</span>
-    <h4 class="popover-title">Supreme Moisture & Cellular Cream</h4>
-    <p class="popover-actives">Cellule staminali di Stella Alpina e Olio di Jojoba bio. Idratazione continua 72 ore.</p>
-    <div class="popover-price-row">
-     <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 84,00</strong>
-     <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Supreme Moisture Cream', 84.00, '', '50 ml', 'STEP 03')">
-      + Carrello
-     </button>
-    </div>
-   </div>
-
-  </div>
-
- </div>
 </section>
 
 {% schema %}
 {
- "name": "Build Your Own Hotspots",
- "settings": [
-  {
-   "type": "text",
-   "id": "tag",
-   "label": "Tag Sezione",
-   "default": "ESPERIENZA INTERATTIVA"
-  },
-  {
-   "type": "text",
-   "id": "title",
-   "label": "Titolo",
-   "default": "Costruisci il Tuo Rituale: Hotspot in Cabina"
-  },
-  {
-   "type": "textarea",
-   "id": "subtitle",
-   "label": "Sottotitolo",
-   "default": "Tocca i punti interattivi del trattamento per scoprire i cosmetici biomimetici applicati durante il protocollo in cabina a Verona."
-  }
- ],
- "presets": [
-  {
-   "name": "Build Your Own Hotspots",
-   "category": "Interactive"
-  }
- ]
+  "name": "Build Your Own Hotspots",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag Sezione",
+      "default": "ESPERIENZA INTERATTIVA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Costruisci il Tuo Rituale: Hotspot in Cabina"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Tocca i punti interattivi del trattamento per scoprire i cosmetici biomimetici applicati durante il protocollo in cabina a Verona."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Build Your Own Hotspots",
+      "category": "Interactive"
+    }
+  ]
 }
 {% endschema %}

@@ -1,17 +1,17 @@
 {
- "sections": {
-  "main": {
-   "type": "main-page",
-   "settings": {
-    "eyebrow": "Istituto MileBioLab • Verona",
-    "show_title": true,
-    "show_breadcrumbs": true,
-    "page_width": "medium",
-    "show_verona_banner": true
-   }
-  }
- },
- "order": [
-  "main"
- ]
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "eyebrow": "Istituto MileBioLab • Verona",
+        "show_title": true,
+        "show_breadcrumbs": true,
+        "page_width": "medium",
+        "show_verona_banner": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
 }

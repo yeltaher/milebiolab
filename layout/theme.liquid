@@ -1,177 +1,177 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
- <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#4A5340">
-  <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS with Bespoke MILE & Dr Joseph Palette -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-   tailwind.config = {
-    theme: {
-     extend: {
-      colors: {
-       linen: '#F5F2EB',
-       ink: '#1A1A1A',
-       sand: '#DDD7CE',
-       borderLinen: '#E5E0D8',
-       ash: '#7A7265',
-       sage: '#5C6B56',
-       amber: '#C8A878',
-       slatePrice: '#555E6B'
-      },
-      fontFamily: {
-       serif: ['"Cormorant Garamond"', 'serif'],
-       sans: ['Inter', 'sans-serif'],
-      }
-     }
-    }
-   }
-  </script>
-  
-  <title>
-   {{ page_title }}
-   {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
-   {%- if current_page != 1 %} &ndash; Pagina {{ current_page }}{%- endif -%}
-   {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{%- endunless -%}
-  </title>
-
-  {% if page_description %}
-   <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
-
-  <!-- Global Shopify Routing Config -->
-  <script>
-   window.routes = {
-    cart_add_url: '{{ routes.cart_add_url }}',
-    cart_change_url: '{{ routes.cart_change_url }}',
-    cart_url: '{{ routes.cart_url }}',
-    search_url: '{{ routes.search_url }}'
-   };
-  </script>
-
-  <style>
-   :root {
-    --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
-    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-   }
-   body {
-    background-color: #F5F2EB;
-    color: #1A1A1A;
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-   }
-   .luxury-interactive {
-    transition: transform 0.3s var(--ease-luxury), opacity 0.3s var(--ease-luxury), background-color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
-   }
-   .luxury-interactive:active {
-    transform: scale(0.97);
-   }
-   .accordion-grid {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.35s var(--ease-luxury);
-   }
-   .accordion-grid.open {
-    grid-template-rows: 1fr;
-   }
-   .accordion-grid-inner {
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-   }
-   .accordion-grid.open .accordion-grid-inner {
-    opacity: 1;
-   }
-   .slider-no-scrollbar::-webkit-scrollbar { display: none; }
-   .slider-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
-
-  <!-- Shopify OS 2.0 Theme Assets -->
-  {{ 'theme.css' | asset_url | stylesheet_tag }}
-  {{ content_for_header }}
- </head>
-
- <body class="template-{{ template.name | handle }} theme-splendor-bespoke bg-linen text-ink font-sans antialiased">
-  <a class="skip-to-content-link visually-hidden" href="#MainContent">
-   Vai al contenuto principale
-  </a>
-
-  <!-- Main Header with Announcement, Utility Bar & Mega Menu -->
-  {% section 'header' %}
-
-  <main id="MainContent" class="main-content focus-none" role="main" tabindex="-1">
-   {{ content_for_layout }}
-  </main>
-
-  <!-- Pre-Footer Marquee & Mega Footer -->
-  {% section 'footer' %}
-
-  <!-- MILE Interactive Modals & Drawers -->
-  {% render 'cart-drawer' %}
-  {% render 'wishlist-drawer' %}
-  {% render 'quick-view-modal' %}
-  {% render 'skin-quiz-modal' %}
-  {% render 'search-predictive-modal' %}
-
-  <!-- Modal Ritiro Sede Flagship Verona -->
-  <div id="verona-modal-overlay" class="modal-overlay" aria-hidden="true" onclick="closeVeronaModal()">
-   <div class="verona-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-verona-title" style="background: #FFFFFF; border: var(--border-splendor); max-width: 580px; width: 92%; padding: 2.5rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
-    <button type="button" class="modal-close-btn" onclick="closeVeronaModal()" aria-label="Chiudi finestra">&times;</button>
-    <span class="protocol-tag">ISTITUTO MILEBIOLAB &bull; VERONA FLAGSHIP</span>
-    <h3 id="modal-verona-title" style="font-size: 1.7rem; margin: 0.4rem 0 0.8rem 0;">Ritiro Esclusivo in Sede a Verona</h3>
-    <p style="font-size: 0.88rem; color: var(--color-text-secondary); margin-bottom: 1.5rem;">
-     Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura.
-    </p>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#4A5340">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.84rem; margin-bottom: 1.5rem;">
-     <div>📍 <strong>Indirizzo:</strong> Corso Cavour, 18 &bull; 37121 Verona (VR)</div>
-     <div>⏱️ <strong>Tempo di preparazione:</strong> 2 Ore lavorative (notifica via SMS / Email)</div>
-     <div>🎁 <strong>Omaggio Cabina:</strong> 2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)</div>
-     <div>🕒 <strong>Orari Ritiro:</strong> Lunedì &ndash; Sabato: 09:30 &ndash; 19:30 (Orario Continuato)</div>
+    <!-- Tailwind CSS with Bespoke Splendor & Dr Joseph Palette -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              linen: '#F5F2EB',
+              ink: '#1A1A1A',
+              sand: '#DDD7CE',
+              borderLinen: '#E5E0D8',
+              ash: '#7A7265',
+              sage: '#5C6B56',
+              amber: '#C8A878',
+              slatePrice: '#555E6B'
+            },
+            fontFamily: {
+              serif: ['"Cormorant Garamond"', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
+      {%- if current_page != 1 %} &ndash; Pagina {{ current_page }}{%- endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{%- endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- Global Shopify Routing Config -->
+    <script>
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        search_url: '{{ routes.search_url }}'
+      };
+    </script>
+
+    <style>
+      :root {
+        --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+        --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      body {
+        background-color: #F5F2EB;
+        color: #1A1A1A;
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .luxury-interactive {
+        transition: transform 0.3s var(--ease-luxury), opacity 0.3s var(--ease-luxury), background-color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
+      }
+      .luxury-interactive:active {
+        transform: scale(0.97);
+      }
+      .accordion-grid {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.35s var(--ease-luxury);
+      }
+      .accordion-grid.open {
+        grid-template-rows: 1fr;
+      }
+      .accordion-grid-inner {
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .accordion-grid.open .accordion-grid-inner {
+        opacity: 1;
+      }
+      .slider-no-scrollbar::-webkit-scrollbar { display: none; }
+      .slider-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+
+    <!-- Shopify OS 2.0 Theme Assets -->
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name | handle }} theme-splendor-bespoke bg-linen text-ink font-sans antialiased">
+    <a class="skip-to-content-link visually-hidden" href="#MainContent">
+      Vai al contenuto principale
+    </a>
+
+    <!-- Main Header with Announcement, Utility Bar & Mega Menu -->
+    {% section 'header' %}
+
+    <main id="MainContent" class="main-content focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Pre-Footer Marquee & Mega Footer -->
+    {% section 'footer' %}
+
+    <!-- Splendor Interactive Modals & Drawers -->
+    {% render 'cart-drawer' %}
+    {% render 'wishlist-drawer' %}
+    {% render 'quick-view-modal' %}
+    {% render 'skin-quiz-modal' %}
+    {% render 'search-predictive-modal' %}
+
+    <!-- Modal Ritiro Sede Flagship Verona -->
+    <div id="verona-modal-overlay" class="modal-overlay" aria-hidden="true" onclick="closeVeronaModal()">
+      <div class="verona-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-verona-title" style="background: #FFFFFF; border: var(--border-splendor); max-width: 580px; width: 92%; padding: 2.5rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
+        <button type="button" class="modal-close-btn" onclick="closeVeronaModal()" aria-label="Chiudi finestra">&times;</button>
+        <span class="protocol-tag">ISTITUTO MILEBIOLAB &bull; VERONA FLAGSHIP</span>
+        <h3 id="modal-verona-title" style="font-size: 1.7rem; margin: 0.4rem 0 0.8rem 0;">Ritiro Esclusivo in Sede a Verona</h3>
+        <p style="font-size: 0.88rem; color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+          Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura.
+        </p>
+        
+        <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.84rem; margin-bottom: 1.5rem;">
+          <div>📍 <strong>Indirizzo:</strong> Corso Cavour, 18 &bull; 37121 Verona (VR)</div>
+          <div>⏱️ <strong>Tempo di preparazione:</strong> 2 Ore lavorative (notifica via SMS / Email)</div>
+          <div>🎁 <strong>Omaggio Cabina:</strong> 2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)</div>
+          <div>🕒 <strong>Orari Ritiro:</strong> Lunedì &ndash; Sabato: 09:30 &ndash; 19:30 (Orario Continuato)</div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label for="postal-code-input" style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">
+            Verifica tempo di disponibilità per il tuo CAP:
+          </label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="postal-code-input" placeholder="Es. 37121, 37122, 37138" value="37121" style="flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.9rem;">
+            <button type="button" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;" onclick="checkVeronaCap()">Verifica</button>
+          </div>
+          <div id="postal-result-msg" class="postal-msg-success" style="font-size: 0.78rem; color: #2E7D32; font-weight: 600; margin-top: 6px;">
+            ✅ Ritiro disponibile oggi in 2 ore per il tuo CAP.
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeVeronaModal(); setDeliveryChoice('pickup'); openCartDrawer();">
+          Seleziona Ritiro a Verona per il Tuo Ordine &rarr;
+        </button>
+      </div>
     </div>
 
-    <div style="margin-bottom: 1.5rem;">
-     <label for="postal-code-input" style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">
-      Verifica tempo di disponibilità per il tuo CAP:
-     </label>
-     <div style="display: flex; gap: 8px;">
-      <input type="text" id="postal-code-input" placeholder="Es. 37121, 37122, 37138" value="37121" style="flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.9rem;">
-      <button type="button" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;" onclick="checkVeronaCap()">Verifica</button>
-     </div>
-     <div id="postal-result-msg" class="postal-msg-success" style="font-size: 0.78rem; color: #2E7D32; font-weight: 600; margin-top: 6px;">
-      ✅ Ritiro disponibile oggi in 2 ore per il tuo CAP.
-     </div>
-    </div>
+    <!-- Sticky Mobile & Scroll ATC Snippet Render -->
+    {% render 'product-sticky-atc' %}
 
-    <button type="button" class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeVeronaModal(); setDeliveryChoice('pickup'); openCartDrawer();">
-     Seleziona Ritiro a Verona per il Tuo Ordine &rarr;
-    </button>
-   </div>
-  </div>
+    <!-- Scripts -->
+    {{ 'theme.js' | asset_url | script_tag }}
 
-  <!-- Sticky Mobile & Scroll ATC Snippet Render -->
-  {% render 'product-sticky-atc' %}
-
-  <!-- Scripts -->
-  {{ 'theme.js' | asset_url | script_tag }}
-
-  <script>
-   window.ShopifyThemeConfig = {
-    themeName: "MILE Editorial Boutique",
-    themeId: "theme-1-botanical-haute-couture",
-    veronaPickupEnabled: true,
-    boutiqueAddress: "Corso Cavour 18, 37121 Verona",
-    customerAccountsMode: "new_passwordless",
-    currency: "EUR"
-   };
-  </script>
- </body>
+    <script>
+      window.ShopifyThemeConfig = {
+        themeName: "Splendor Editorial Boutique",
+        themeId: "theme-1-botanical-haute-couture",
+        veronaPickupEnabled: true,
+        boutiqueAddress: "Corso Cavour 18, 37121 Verona",
+        customerAccountsMode: "new_passwordless",
+        currency: "EUR"
+      };
+    </script>
+  </body>
 </html>

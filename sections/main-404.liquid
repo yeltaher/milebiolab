@@ -1,122 +1,128 @@
 <div class="py-20 lg:py-28 bg-[#F5F2EB] text-[#1A1A1A]">
- <main class="max-w-7xl mx-auto px-4 sm:px-8 text-center">
-  <div class="max-w-2xl mx-auto">
-   <span class="text-[#C8A878] font-mono text-sm tracking-widest uppercase font-semibold">Errore 404 &bull; Pagina Non Trovata</span>
-   <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#1A1A1A] tracking-tight mt-3 leading-tight">
-    {{ section.settings.heading }}
-   </h1>
-   <p class="text-sm text-[#7A7265] mt-4 leading-relaxed font-light">
-    {{ section.settings.subheading }}
-   </p>
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 text-center">
+    <div class="max-w-2xl mx-auto">
+      <span class="text-[#C8A878] font-mono text-sm tracking-widest uppercase font-semibold">Errore 404 &bull; Pagina Non Trovata</span>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#1A1A1A] tracking-tight mt-3 leading-tight">
+        {{ section.settings.heading }}
+      </h1>
+      <p class="text-sm text-[#7A7265] mt-4 leading-relaxed font-light">
+        {{ section.settings.subheading }}
+      </p>
 
-   <!-- Search Field -->
-   <form action="{{ routes.search_url }}" method="get" class="mt-8 max-w-md mx-auto flex items-center border border-[#DDD7CE] bg-white rounded-none overflow-hidden shadow-xs focus-within:border-[#C8A878] transition-colors">
-    <input type="text" name="q" placeholder="Cerca un ingrediente, formula o trattamento..." class="flex-1 px-4 py-3 text-xs text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none bg-transparent">
-    <button type="submit" class="px-5 py-3 bg-[#1A1A1A] hover:bg-[#C8A878] text-white text-xs uppercase tracking-wider font-semibold transition-colors">
-     Cerca
-    </button>
-   </form>
+      <!-- Search Field -->
+      <form action="{{ routes.search_url }}" method="get" class="mt-8 max-w-md mx-auto flex items-center border border-[#DDD7CE] bg-white rounded-none overflow-hidden shadow-xs focus-within:border-[#C8A878] transition-colors">
+        <input type="text" name="q" placeholder="Cerca un ingrediente, formula o trattamento..." class="flex-1 px-4 py-3 text-xs text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none bg-transparent">
+        <button type="submit" class="px-5 py-3 bg-[#1A1A1A] hover:bg-[#C8A878] text-white text-xs uppercase tracking-wider font-semibold transition-colors">
+          Cerca
+        </button>
+      </form>
 
-   <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs">
-    <a href="{{ routes.root_url }}" class="px-6 py-2.5 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] transition-colors uppercase tracking-wider font-medium">
-     Torna alla Home
-    </a>
-    <a href="/collections/all" class="px-6 py-2.5 bg-white border border-[#DDD7CE] text-[#1A1A1A] hover:border-[#1A1A1A] transition-colors uppercase tracking-wider font-medium">
-     Esplora il Catalogo
-    </a>
-    <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-2.5 bg-[#F5F2EB] border border-[#DDD7CE] text-[#1A1A1A] hover:text-[#C8A878] transition-colors uppercase tracking-wider font-medium">
-     Ritiro a Verona
-    </a>
-   </div>
-  </div>
-
-  <!-- Curated Recommended Products -->
-  <div class="mt-20 border-t border-[#DDD7CE] pt-16">
-   <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold block mb-2">Bestseller In Evidenza</span>
-   <h2 class="text-2xl sm:text-3xl font-serif text-[#1A1A1A] mb-10">Formule Botaniche Più Amate</h2>
-
-   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto text-left">
-    <!-- Product 1 -->
-    <div class="bg-white border border-[#DDD7CE] overflow-hidden shadow-xs flex flex-col justify-between group hover:shadow-lg transition-shadow">
-     <div class="relative overflow-hidden aspect-square bg-[#F5F2EB]">
-      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover  transition-transform duration-500' }}
-     </div>
-     <div class="p-5 flex flex-col flex-1 justify-between">
-      <div>
-       <div class="text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold">Dr Joseph &bull; Bestseller</div>
-       <h3 class="font-serif text-base text-[#1A1A1A] mt-1"><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878]">Golden Glow Botanical Body Oil</a></h3>
-       <p class="text-xs text-[#7A7265] mt-1">Con micro-particelle dorate minerali ed estratti di calendula selvatica.</p>
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs">
+        <a href="{{ routes.root_url }}" class="px-6 py-2.5 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] transition-colors uppercase tracking-wider font-medium">
+          Torna alla Home
+        </a>
+        <a href="/collections/all" class="px-6 py-2.5 bg-white border border-[#DDD7CE] text-[#1A1A1A] hover:border-[#1A1A1A] transition-colors uppercase tracking-wider font-medium">
+          Esplora il Catalogo
+        </a>
+        <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-2.5 bg-[#F5F2EB] border border-[#DDD7CE] text-[#1A1A1A] hover:text-[#C8A878] transition-colors uppercase tracking-wider font-medium">
+          Ritiro a Verona
+        </a>
       </div>
-      <div class="mt-5 pt-4 border-t border-[#F5F2EB] flex items-center justify-between">
-       <span class="text-sm font-semibold text-[#1A1A1A] font-mono">€ 76,00</span>
-       <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('1', 1);} else if(window.addToCart){addToCart({id: 1, title: 'Golden Glow Body Oil', price: 76.00, volume: '100 ml', qty: 1, image: ''});}" class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-medium transition-colors">
-        + Aggiungi
-       </button>
-      </div>
-     </div>
     </div>
 
-    <!-- Product 2 -->
-    <div class="bg-white border border-[#DDD7CE] overflow-hidden shadow-xs flex flex-col justify-between group hover:shadow-lg transition-shadow">
-     <div class="relative overflow-hidden aspect-square bg-[#F5F2EB]">
-      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover  transition-transform duration-500' }}
-     </div>
-     <div class="p-5 flex flex-col flex-1 justify-between">
-      <div>
-       <div class="text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold">Rigenerazione Notte</div>
-       <h3 class="font-serif text-base text-[#1A1A1A] mt-1"><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878]">Cellular Alpine Repair Elixir</a></h3>
-       <p class="text-xs text-[#7A7265] mt-1">Acido ialuronico multi-molecolare e fitosomi di Stella Alpina bio.</p>
-      </div>
-      <div class="mt-5 pt-4 border-t border-[#F5F2EB] flex items-center justify-between">
-       <span class="text-sm font-semibold text-[#1A1A1A] font-mono">€ 88,00</span>
-       <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('2', 1);} else if(window.addToCart){addToCart({id: 2, title: 'Cellular Alpine Repair Elixir', price: 88.00, volume: '30 ml', qty: 1, image: ''});}" class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-medium transition-colors">
-        + Aggiungi
-       </button>
-      </div>
-     </div>
-    </div>
+    <!-- Curated Recommended Products -->
+    <div class="mt-20 border-t border-[#DDD7CE] pt-16">
+      <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold block mb-2">Bestseller In Evidenza</span>
+      <h2 class="text-2xl sm:text-3xl font-serif text-[#1A1A1A] mb-10">Formule Botaniche Più Amate</h2>
 
-    <!-- Product 3 -->
-    <div class="bg-white border border-[#DDD7CE] overflow-hidden shadow-xs flex flex-col justify-between group hover:shadow-lg transition-shadow">
-     <div class="relative overflow-hidden aspect-square bg-[#F5F2EB]">
-      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover  transition-transform duration-500' }}
-     </div>
-     <div class="p-5 flex flex-col flex-1 justify-between">
-      <div>
-       <div class="text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold">Trattamento Barriera</div>
-       <h3 class="font-serif text-base text-[#1A1A1A] mt-1"><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878]">Supreme Moisture Cream</a></h3>
-       <p class="text-xs text-[#7A7265] mt-1">Lipidi biomimetici da cera d'api alpina ed estratti floreali puri.</p>
-      </div>
-      <div class="mt-5 pt-4 border-t border-[#F5F2EB] flex items-center justify-between">
-       <span class="text-sm font-semibold text-[#1A1A1A] font-mono">€ 84,00</span>
-       <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('3', 1);} else if(window.addToCart){addToCart({id: 3, title: 'Supreme Moisture Cream', price: 84.00, volume: '50 ml', qty: 1, image: ''});}" class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-medium transition-colors">
-        + Aggiungi
-       </button>
-      </div>
-     </div>
-    </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto text-left">
+        <!-- Product 1 -->
+        <div class="bg-white border border-[#DDD7CE] overflow-hidden shadow-xs flex flex-col justify-between group hover:shadow-lg transition-shadow">
+          <div class="relative overflow-hidden aspect-square bg-[#F5F2EB]">
+            <img src="https://images.unsplash.com/photo-1608248597359-54876b0521e4?auto=format&fit=crop&w=600&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Golden Glow Oil" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold">Dr Joseph &bull; Bestseller</div>
+              <h3 class="font-serif text-base text-[#1A1A1A] mt-1"><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878]">Golden Glow Botanical Body Oil</a></h3>
+              <p class="text-xs text-[#7A7265] mt-1">Con micro-particelle dorate minerali ed estratti di calendula selvatica.</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-[#F5F2EB] flex items-center justify-between">
+              <span class="text-sm font-semibold text-[#1A1A1A] font-mono">€ 76,00</span>
+              <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('1', 1);} else if(window.addToCart){addToCart({id: 1, title: 'Golden Glow Body Oil', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1608248597359-54876b0521e4?auto=format&fit=crop&w=300&q=80'});}" class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-medium transition-colors">
+                + Aggiungi
+              </button>
+            </div>
+          </div>
+        </div>
 
-   </div>
-  </div>
- </main>
+        <!-- Product 2 -->
+        <div class="bg-white border border-[#DDD7CE] overflow-hidden shadow-xs flex flex-col justify-between group hover:shadow-lg transition-shadow">
+          <div class="relative overflow-hidden aspect-square bg-[#F5F2EB]">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Cellular Repair Serum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold">Rigenerazione Notte</div>
+              <h3 class="font-serif text-base text-[#1A1A1A] mt-1"><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878]">Cellular Alpine Repair Elixir</a></h3>
+              <p class="text-xs text-[#7A7265] mt-1">Acido ialuronico multi-molecolare e fitosomi di Stella Alpina bio.</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-[#F5F2EB] flex items-center justify-between">
+              <span class="text-sm font-semibold text-[#1A1A1A] font-mono">€ 88,00</span>
+              <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('2', 1);} else if(window.addToCart){addToCart({id: 2, title: 'Cellular Alpine Repair Elixir', price: 88.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80'});}" class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-medium transition-colors">
+                + Aggiungi
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="bg-white border border-[#DDD7CE] overflow-hidden shadow-xs flex flex-col justify-between group hover:shadow-lg transition-shadow">
+          <div class="relative overflow-hidden aspect-square bg-[#F5F2EB]">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Supreme Moisture Cream" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold">Trattamento Barriera</div>
+              <h3 class="font-serif text-base text-[#1A1A1A] mt-1"><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878]">Supreme Moisture Cream</a></h3>
+              <p class="text-xs text-[#7A7265] mt-1">Lipidi biomimetici da cera d'api alpina ed estratti floreali puri.</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-[#F5F2EB] flex items-center justify-between">
+              <span class="text-sm font-semibold text-[#1A1A1A] font-mono">€ 84,00</span>
+              <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('3', 1);} else if(window.addToCart){addToCart({id: 3, title: 'Supreme Moisture Cream', price: 84.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80'});}" class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-medium transition-colors">
+                + Aggiungi
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
 </div>
 
 {% schema %}
 {
- "name": "Main 404 MILE",
- "settings": [
-  {
-   "type": "text",
-   "id": "heading",
-   "label": "Titolo",
-   "default": "Un sentiero inesplorato tra le erbe alpine"
-  },
-  {
-   "type": "textarea",
-   "id": "subheading",
-   "label": "Descrizione",
-   "default": "La pagina o il trattamento che stai cercando potrebbe essere stato spostato o riformulato per un'esperienza ancora più sublime."
-  }
- ]
+  "name": "Main 404 Splendor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titolo",
+      "default": "Un sentiero inesplorato tra le erbe alpine"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Descrizione",
+      "default": "La pagina o il trattamento che stai cercando potrebbe essere stato spostato o riformulato per un'esperienza ancora più sublime."
+    }
+  ]
 }
 {% endschema %}

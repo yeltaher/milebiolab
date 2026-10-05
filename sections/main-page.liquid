@@ -1,91 +1,91 @@
 <div class="py-12 sm:py-16 lg:py-20 bg-[#F5F2EB] text-[#1A1A1A]">
- <div class="{% if section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-8">
-  
-  <!-- Breadcrumbs -->
-  {% if section.settings.show_breadcrumbs %}
-   <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
-    <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
-    <span class="text-[#DDD7CE]">/</span>
-    <span class="text-[#1A1A1A] font-semibold truncate">{{ page.title }}</span>
-   </nav>
-  {% endif %}
+  <div class="{% if section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-8">
+    
+    <!-- Breadcrumbs -->
+    {% if section.settings.show_breadcrumbs %}
+      <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
+        <span class="text-[#DDD7CE]">/</span>
+        <span class="text-[#1A1A1A] font-semibold truncate">{{ page.title }}</span>
+      </nav>
+    {% endif %}
 
-  <!-- Page Header -->
-  {% if section.settings.show_title %}
-   <header class="text-center mb-12 sm:mb-16">
-    <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
-     {{ section.settings.eyebrow | default: 'Istituto MileBioLab • Verona' }}
-    </span>
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#1A1A1A] tracking-tight leading-tight">
-     {{ page.title }}
-    </h1>
-    <div class="w-16 h-0.5 bg-[#C8A878] mx-auto mt-6"></div>
-   </header>
-  {% endif %}
+    <!-- Page Header -->
+    {% if section.settings.show_title %}
+      <header class="text-center mb-12 sm:mb-16">
+        <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
+          {{ section.settings.eyebrow | default: 'Istituto MileBioLab • Verona' }}
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#1A1A1A] tracking-tight leading-tight">
+          {{ page.title }}
+        </h1>
+        <div class="w-16 h-0.5 bg-[#C8A878] mx-auto mt-6"></div>
+      </header>
+    {% endif %}
 
-  <!-- Page Content Area -->
-  <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
-   <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
-    {{ page.content }}
-   </div>
-  </article>
+    <!-- Page Content Area -->
+    <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
+      <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
+        {{ page.content }}
+      </div>
+    </article>
 
-  <!-- Optional Verona Boutique Banner -->
-  {% if section.settings.show_verona_banner %}
-   <div class="mt-12 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-    <div class="text-center sm:text-left">
-     <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">Boutique & Cabina Esclusiva</span>
-     <h3 class="font-serif text-xl text-[#1A1A1A]">Desideri una consulenza vis-à-vis a Verona?</h3>
-     <p class="text-xs text-[#7A7265] mt-1">Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste.</p>
-    </div>
-    <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0 text-center">
-     Info Ritiro in Sede
-    </a>
-   </div>
-  {% endif %}
+    <!-- Optional Verona Boutique Banner -->
+    {% if section.settings.show_verona_banner %}
+      <div class="mt-12 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="text-center sm:text-left">
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">Boutique & Cabina Esclusiva</span>
+          <h3 class="font-serif text-xl text-[#1A1A1A]">Desideri una consulenza vis-à-vis a Verona?</h3>
+          <p class="text-xs text-[#7A7265] mt-1">Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste.</p>
+        </div>
+        <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0 text-center">
+          Info Ritiro in Sede
+        </a>
+      </div>
+    {% endif %}
 
- </div>
+  </div>
 </div>
 
 {% schema %}
 {
- "name": "Main Page MILE",
- "settings": [
-  {
-   "type": "text",
-   "id": "eyebrow",
-   "label": "Sottotitolo / Eyebrow",
-   "default": "Istituto MileBioLab • Verona"
-  },
-  {
-   "type": "checkbox",
-   "id": "show_title",
-   "label": "Mostra titolo pagina",
-   "default": true
-  },
-  {
-   "type": "checkbox",
-   "id": "show_breadcrumbs",
-   "label": "Mostra breadcrumb",
-   "default": true
-  },
-  {
-   "type": "select",
-   "id": "page_width",
-   "label": "Larghezza Contenuto",
-   "options": [
-    { "value": "narrow", "label": "Stretta (Max 3xl)" },
-    { "value": "medium", "label": "Media (Max 4xl)" },
-    { "value": "wide", "label": "Larga (Max 6xl)" }
-   ],
-   "default": "medium"
-  },
-  {
-   "type": "checkbox",
-   "id": "show_verona_banner",
-   "label": "Mostra box Sede Verona",
-   "default": true
-  }
- ]
+  "name": "Main Page Splendor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Eyebrow",
+      "default": "Istituto MileBioLab • Verona"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Mostra titolo pagina",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Mostra breadcrumb",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "page_width",
+      "label": "Larghezza Contenuto",
+      "options": [
+        { "value": "narrow", "label": "Stretta (Max 3xl)" },
+        { "value": "medium", "label": "Media (Max 4xl)" },
+        { "value": "wide", "label": "Larga (Max 6xl)" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_verona_banner",
+      "label": "Mostra box Sede Verona",
+      "default": true
+    }
+  ]
 }
 {% endschema %}

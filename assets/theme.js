@@ -748,7 +748,7 @@ function renderQuizRecommendation() {
   }
 
   if (titleEl) titleEl.textContent = profile;
-  if (descEl) descEl.textContent = `Calibrato per pelle ${MilebiolabState.quiz.skinType} con obiettivo ${MilebiolabState.quiz.concern} e texture ${MilebiolabState.quiz.texture}. Include codice sconto di benvenuto -15% [MILE15].`;
+  if (descEl) descEl.textContent = `Calibrato per pelle ${MilebiolabState.quiz.skinType} con obiettivo ${MilebiolabState.quiz.concern} e texture ${MilebiolabState.quiz.texture}. Include codice sconto di benvenuto -15% [SPLENDOR15].`;
 }
 
 function addQuizBundleToCart() {

@@ -1,136 +1,136 @@
-<!-- MILE HAUTE BOTANIQUE FOOTER - PALETTE AVORIO / LINO #F5F2EB -->
+<!-- SPLENDOR HAUTE BOTANIQUE FOOTER - PALETTE AVORIO / LINO #F5F2EB -->
 <footer class="bg-[#F5F2EB] text-[#1A1A1A] border-t border-[#E5E0D8] pt-16 pb-8 px-4 sm:px-8 lg:px-16 mt-0 site-footer" id="site-footer-{{ section.id }}">
- <div class="max-w-7xl mx-auto">
-  
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-[#E5E0D8]">
-   
-   <!-- Col 1: Maison & Mission -->
-   <div class="space-y-4">
-    <a href="{{ routes.root_url }}" class="inline-block group">
-     <span class="font-serif text-2xl tracking-[0.28em] text-[#1A1A1A] font-medium block">MILE</span>
-     <span class="text-[8px] uppercase tracking-[0.38em] text-[#7A7265] block -mt-1 font-light">Botanical Haute Couture &bull; Verona</span>
-    </a>
-    <p class="text-xs text-[#7A7265] font-light leading-relaxed">
-     Dermocosmesi botanica di precisione formulata in sinergia con Team Dr Joseph. Principi attivi alpini biodisponibili, biomimesi cellulare ed eccellenza clinica certificata B-Corp.
-    </p>
-    <div class="pt-2 flex items-center gap-3 text-[10px] uppercase tracking-wider text-[#5C6B56] font-semibold">
-     <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">B-Corp Certified</span>
-     <span>&bull;</span>
-     <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">100% Bio-compatibile</span>
-    </div>
-    <div class="text-xs text-[#1A1A1A] space-y-1 pt-1">
-     <p class="font-medium">📍 <strong>Istituto MILE &amp; Flagship Verona</strong></p>
-     <p class="text-[#7A7265]">{{ section.settings.address | default: 'Corso Cavour 18, 37121 Verona (VR)' }}</p>
-     <p class="text-[#7A7265]">Tel: <a href="tel:{{ section.settings.phone | default: '+39 045 800 1234' | replace: ' ', '' }}" class="hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">{{ section.settings.phone | default: '+39 045 800 1234' }}</a></p>
-    </div>
-   </div>
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-[#E5E0D8]">
+      
+      <!-- Col 1: Maison & Mission -->
+      <div class="space-y-4">
+        <a href="{{ routes.root_url }}" class="inline-block group">
+          <span class="font-serif text-2xl tracking-[0.28em] text-[#1A1A1A] font-medium block">SPLENDOR</span>
+          <span class="text-[8px] uppercase tracking-[0.38em] text-[#7A7265] block -mt-1 font-light">Botanical Haute Couture &bull; Verona</span>
+        </a>
+        <p class="text-xs text-[#7A7265] font-light leading-relaxed">
+          Dermocosmesi botanica di precisione formulata in sinergia con Team Dr Joseph. Principi attivi alpini biodisponibili, biomimesi cellulare ed eccellenza clinica certificata B-Corp.
+        </p>
+        <div class="pt-2 flex items-center gap-3 text-[10px] uppercase tracking-wider text-[#5C6B56] font-semibold">
+          <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">B-Corp Certified</span>
+          <span>&bull;</span>
+          <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">100% Bio-compatibile</span>
+        </div>
+        <div class="text-xs text-[#1A1A1A] space-y-1 pt-1">
+          <p class="font-medium">📍 <strong>Istituto Splendor &amp; Flagship Verona</strong></p>
+          <p class="text-[#7A7265]">{{ section.settings.address | default: 'Corso Cavour 18, 37121 Verona (VR)' }}</p>
+          <p class="text-[#7A7265]">Tel: <a href="tel:{{ section.settings.phone | default: '+39 045 800 1234' | replace: ' ', '' }}" class="hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">{{ section.settings.phone | default: '+39 045 800 1234' }}</a></p>
+        </div>
+      </div>
 
-   <!-- Col 2: Collezioni MILE -->
-   <div>
-    <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Collezioni</h4>
-    <ul class="space-y-2.5 text-xs text-[#7A7265]">
-     <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Tutte le Formule Botaniche</a></li>
-     <li><a href="/collections" class="hover:text-[#C8A878] transition-colors block">Linee &amp; Cofanetti Regalo</a></li>
-     <li><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors block font-medium text-[#1A1A1A]">Golden Glow Body Oil ★</a></li>
-     <li><a href="#skin-quiz" onclick="if(window.openSkinQuiz) openSkinQuiz();" class="hover:text-[#5C6B56] transition-colors block text-[#5C6B56] font-semibold">&star; Skin Routine Finder Quiz</a></li>
-     <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">I Bestseller Viso &amp; Corpo</a></li>
-     <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Sieri &amp; Concentrati Dalton</a></li>
-    </ul>
-   </div>
+      <!-- Col 2: Collezioni Splendor -->
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Collezioni</h4>
+        <ul class="space-y-2.5 text-xs text-[#7A7265]">
+          <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Tutte le Formule Botaniche</a></li>
+          <li><a href="/collections" class="hover:text-[#C8A878] transition-colors block">Linee &amp; Cofanetti Regalo</a></li>
+          <li><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors block font-medium text-[#1A1A1A]">Golden Glow Body Oil ★</a></li>
+          <li><a href="#skin-quiz" onclick="if(window.openSkinQuiz) openSkinQuiz();" class="hover:text-[#5C6B56] transition-colors block text-[#5C6B56] font-semibold">&star; Skin Routine Finder Quiz</a></li>
+          <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">I Bestseller Viso &amp; Corpo</a></li>
+          <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Sieri &amp; Concentrati Dalton</a></li>
+        </ul>
+      </div>
 
-   <!-- Col 3: Istituto & Concierge Verona -->
-   <div>
-    <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Istituto &amp; Concierge</h4>
-    <div class="space-y-2 text-xs text-[#7A7265] font-light">
-     <p><strong class="text-[#1A1A1A] font-medium">Boutique Corso Cavour 18</strong>, 37121 Verona</p>
-     <p>Tel Concierge: <a href="tel:+390458001234" class="text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors">+39 045 800 1234</a></p>
-     <p>Orari: Lun &ndash; Sab: 09:30 &ndash; 19:30</p>
-     <div class="pt-2 space-y-1.5 border-t border-[#E5E0D8]/60">
-      <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">I 5 Trattamenti Cabina &rarr;</a>
-      <a href="#filosofia" class="block hover:text-[#C8A878] transition-colors">Milena Tacchella &amp; Filosofia</a>
-      <a href="/pages/contatti" class="block hover:text-[#C8A878] transition-colors">Contatti &amp; WhatsApp Diretto</a>
-      <a href="/pages/faq" class="block hover:text-[#C8A878] transition-colors">Domande Frequenti &amp; FAQ</a>
-      <a href="/account" class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
-      <a href="/pages/ritiro-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#5C6B56] transition-colors text-[#5C6B56] font-medium">Ritiro Pronto in 2 Ore a Verona</a>
-     </div>
+      <!-- Col 3: Istituto & Concierge Verona -->
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Istituto &amp; Concierge</h4>
+        <div class="space-y-2 text-xs text-[#7A7265] font-light">
+          <p><strong class="text-[#1A1A1A] font-medium">Boutique Corso Cavour 18</strong>, 37121 Verona</p>
+          <p>Tel Concierge: <a href="tel:+390458001234" class="text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors">+39 045 800 1234</a></p>
+          <p>Orari: Lun &ndash; Sab: 09:30 &ndash; 19:30</p>
+          <div class="pt-2 space-y-1.5 border-t border-[#E5E0D8]/60">
+            <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">I 5 Trattamenti Cabina &rarr;</a>
+            <a href="#filosofia" class="block hover:text-[#C8A878] transition-colors">Milena Tacchella &amp; Filosofia</a>
+            <a href="/pages/contatti" class="block hover:text-[#C8A878] transition-colors">Contatti &amp; WhatsApp Diretto</a>
+            <a href="/pages/faq" class="block hover:text-[#C8A878] transition-colors">Domande Frequenti &amp; FAQ</a>
+            <a href="/account" class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
+            <a href="/pages/ritiro-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#5C6B56] transition-colors text-[#5C6B56] font-medium">Ritiro Pronto in 2 Ore a Verona</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 4: Privilege Club Newsletter & Payments -->
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Privilege Club</h4>
+        <p class="text-xs text-[#7A7265] mb-3 font-light leading-relaxed">
+          {{ section.settings.newsletter_desc | default: "Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il 15% di benvenuto con codice SPLENDOR15." }}
+        </p>
+        {% form 'customer', class: 'space-y-2' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="flex gap-2">
+            <input type="email" name="contact[email]" required placeholder="La tua migliore email..." class="bg-white border border-[#E5E0D8] px-3.5 py-2.5 text-xs flex-1 text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none focus:border-[#1A1A1A]">
+            <button type="submit" class="bg-[#1A1A1A] text-white px-4 py-2.5 text-xs uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors flex-shrink-0 cursor-pointer">
+              Iscriviti
+            </button>
+          </div>
+          <span class="text-[10px] text-[#7A7265]/80 block">Trattamento riservato &bull; Disiscrizione con un click</span>
+        {% endform %}
+
+        <div class="pt-5 mt-4 border-t border-[#E5E0D8]/60 space-y-2">
+          <span class="text-[10px] uppercase tracking-wider text-[#7A7265] font-medium block">Pagamenti Sicuri &amp; Certificati:</span>
+          <div class="flex items-center gap-2 text-[#7A7265] flex-wrap">
+            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">SSL 256</span>
+            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">VISA</span>
+            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">MC</span>
+            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">APPLE PAY</span>
+            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">KLARNA</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-   </div>
 
-   <!-- Col 4: Privilege Club Newsletter & Payments -->
-   <div>
-    <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Privilege Club</h4>
-    <p class="text-xs text-[#7A7265] mb-3 font-light leading-relaxed">
-     {{ section.settings.newsletter_desc | default: "Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il 15% di benvenuto con codice MILE15." }}
-    </p>
-    {% form 'customer', class: 'space-y-2' %}
-     <input type="hidden" name="contact[tags]" value="newsletter">
-     <div class="flex gap-2">
-      <input type="email" name="contact[email]" required placeholder="La tua migliore email..." class="bg-white border border-[#E5E0D8] px-3.5 py-2.5 text-xs flex-1 text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none focus:border-[#1A1A1A]">
-      <button type="submit" class="bg-[#1A1A1A] text-white px-4 py-2.5 text-xs uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors flex-shrink-0 cursor-pointer">
-       Iscriviti
-      </button>
-     </div>
-     <span class="text-[10px] text-[#7A7265]/80 block">Trattamento riservato &bull; Disiscrizione con un click</span>
-    {% endform %}
-
-    <div class="pt-5 mt-4 border-t border-[#E5E0D8]/60 space-y-2">
-     <span class="text-[10px] uppercase tracking-wider text-[#7A7265] font-medium block">Pagamenti Sicuri &amp; Certificati:</span>
-     <div class="flex items-center gap-2 text-[#7A7265] flex-wrap">
-      <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">SSL 256</span>
-      <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">VISA</span>
-      <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">MC</span>
-      <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">APPLE PAY</span>
-      <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">KLARNA</span>
-     </div>
+    <!-- Bottom Copyright & Legal Circular Links -->
+    <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-[#7A7265] font-light gap-4">
+      <p>&copy; {{ 'now' | date: '%Y' }} SPLENDOR &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
+      <div class="flex flex-wrap gap-5 text-xs">
+        <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
+        <a href="/collections/all" class="hover:text-[#1A1A1A] transition-colors">Catalogo</a>
+        <a href="/pages/privacy-policy" class="hover:text-[#1A1A1A] transition-colors">Privacy</a>
+        <a href="/pages/termini-e-condizioni" class="hover:text-[#1A1A1A] transition-colors">Termini</a>
+        <a href="/pages/spedizioni" class="hover:text-[#1A1A1A] transition-colors">Spedizioni</a>
+        <a href="/pages/cookie-policy" class="hover:text-[#1A1A1A] transition-colors">Cookie</a>
+      </div>
     </div>
-   </div>
 
   </div>
-
-  <!-- Bottom Copyright & Legal Circular Links -->
-  <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-[#7A7265] font-light gap-4">
-   <p>&copy; {{ 'now' | date: '%Y' }} MILE &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
-   <div class="flex flex-wrap gap-5 text-xs">
-    <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
-    <a href="/collections/all" class="hover:text-[#1A1A1A] transition-colors">Catalogo</a>
-    <a href="/pages/privacy-policy" class="hover:text-[#1A1A1A] transition-colors">Privacy</a>
-    <a href="/pages/termini-e-condizioni" class="hover:text-[#1A1A1A] transition-colors">Termini</a>
-    <a href="/pages/spedizioni" class="hover:text-[#1A1A1A] transition-colors">Spedizioni</a>
-    <a href="/pages/cookie-policy" class="hover:text-[#1A1A1A] transition-colors">Cookie</a>
-   </div>
-  </div>
-
- </div>
 </footer>
 
 {% schema %}
 {
- "name": "Footer MILE Elite",
- "settings": [
-  {
-   "type": "text",
-   "id": "newsletter_title",
-   "label": "Titolo Newsletter",
-   "default": "Unisciti al Club MILE"
-  },
-  {
-   "type": "textarea",
-   "id": "newsletter_desc",
-   "label": "Descrizione Newsletter",
-   "default": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice MILE15, anteprime botaniche e inviti per l'Istituto a Verona."
-  },
-  {
-   "type": "text",
-   "id": "address",
-   "label": "Indirizzo Boutique Verona",
-   "default": "Corso Cavour 18, 37121 Verona (VR)"
-  },
-  {
-   "type": "text",
-   "id": "phone",
-   "label": "Telefono Assistenza",
-   "default": "+39 045 800 1234"
-  }
- ]
+  "name": "Footer Splendor Elite",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Titolo Newsletter",
+      "default": "Unisciti al Club Splendor"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_desc",
+      "label": "Descrizione Newsletter",
+      "default": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice SPLENDOR15, anteprime botaniche e inviti per l'Istituto a Verona."
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Indirizzo Boutique Verona",
+      "default": "Corso Cavour 18, 37121 Verona (VR)"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefono Assistenza",
+      "default": "+39 045 800 1234"
+    }
+  ]
 }
 {% endschema %}

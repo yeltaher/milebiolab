@@ -1,259 +1,259 @@
 <article class="py-12 sm:py-16 lg:py-20 bg-[#F5F2EB] text-[#1A1A1A]">
- <div class="max-w-4xl mx-auto px-4 sm:px-8">
-  
-  <!-- Breadcrumbs -->
-  <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
-   <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
-   <span class="text-[#DDD7CE]">/</span>
-   <a href="{{ blog.url }}" class="hover:text-[#1A1A1A] transition-colors">{{ blog.title }}</a>
-   <span class="text-[#DDD7CE]">/</span>
-   <span class="text-[#1A1A1A] font-semibold truncate">{{ article.title }}</span>
-  </nav>
+  <div class="max-w-4xl mx-auto px-4 sm:px-8">
+    
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
+      <span class="text-[#DDD7CE]">/</span>
+      <a href="{{ blog.url }}" class="hover:text-[#1A1A1A] transition-colors">{{ blog.title }}</a>
+      <span class="text-[#DDD7CE]">/</span>
+      <span class="text-[#1A1A1A] font-semibold truncate">{{ article.title }}</span>
+    </nav>
 
-  <!-- Article Header -->
-  <header class="text-center mb-10 sm:mb-12">
-   {% if article.tags.first %}
-    <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
-     {{ article.tags.first }}
-    </span>
-   {% endif %}
+    <!-- Article Header -->
+    <header class="text-center mb-10 sm:mb-12">
+      {% if article.tags.first %}
+        <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
+          {{ article.tags.first }}
+        </span>
+      {% endif %}
 
-   <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#1A1A1A] tracking-tight leading-tight">
-    {{ article.title }}
-   </h1>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#1A1A1A] tracking-tight leading-tight">
+        {{ article.title }}
+      </h1>
 
-   <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs font-mono uppercase tracking-wider text-[#7A7265]">
-    {% if section.settings.show_date %}
-     <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-      {{ article.published_at | date: '%d %B %Y' }}
-     </time>
-    {% endif %}
-
-    {% if section.settings.show_author and section.settings.show_date %}
-     <span class="text-[#DDD7CE]">&bull;</span>
-    {% endif %}
-
-    {% if section.settings.show_author %}
-     <span>Di {{ article.author }}</span>
-    {% endif %}
-
-    <span class="text-[#DDD7CE]">&bull;</span>
-    <span>
-     {% assign words = article.content | strip_html | split: ' ' | size %}
-     {% assign reading_time = words | divided_by: 200 %}
-     {% if reading_time < 1 %}{% assign reading_time = 1 %}{% endif %}
-     {{ reading_time }} min lettura
-    </span>
-   </div>
-
-   <div class="w-16 h-0.5 bg-[#C8A878] mx-auto mt-6"></div>
-  </header>
-
-  <!-- Featured Image -->
-  {% if section.settings.show_featured_image and article.image %}
-   <div class="mb-10 sm:mb-12 overflow-hidden bg-white border border-[#DDD7CE] shadow-xs" style="border: 3px double #EDE5DB;">
-    <img
-     src="{{ article.image | image_url: width: 1200 }}"
-     alt="{{ article.image.alt | default: article.title | escape }}"
-     class="w-full aspect-[16/9] object-cover"
-    >
-   </div>
-  {% endif %}
-
-  <!-- Article Content Card -->
-  <div class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
-   <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
-    {{ article.content }}
-   </div>
-
-   <!-- Article Tags -->
-   {% if article.tags.size > 0 %}
-    <div class="mt-12 pt-6 border-t border-[#F5F2EB] flex flex-wrap items-center gap-2">
-     <span class="text-[11px] font-mono uppercase tracking-wider text-[#7A7265]">Argomenti:</span>
-     {% for tag in article.tags %}
-      <a
-       href="{{ blog.url }}/tagged/{{ tag | handle }}"
-       class="px-3 py-1 bg-[#FAF8F5] border border-[#DDD7CE] text-[11px] font-mono uppercase tracking-wider text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-colors"
-      >
-       {{ tag }}
-      </a>
-     {% endfor %}
-    </div>
-   {% endif %}
-
-   <!-- Share Buttons -->
-   {% if section.settings.show_share_buttons %}
-    <div class="mt-8 pt-6 border-t border-[#F5F2EB] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-     <span class="font-serif text-base text-[#1A1A1A]">Condividi questo protocollo di bellezza</span>
-     <div class="flex items-center gap-3">
-      <a
-       href="https://api.whatsapp.com/send?text={{ article.title | url_encode }}%20{{ shop.url }}{{ article.url }}"
-       target="_blank"
-       rel="noopener"
-       class="px-3 py-1.5 border border-[#DDD7CE] hover:border-[#25D366] hover:text-[#25D366] text-[#7A7265] transition-colors"
-       title="Condividi su WhatsApp"
-      >
-       WhatsApp
-      </a>
-      <a
-       href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}"
-       target="_blank"
-       rel="noopener"
-       class="px-3 py-1.5 border border-[#DDD7CE] hover:border-[#1877F2] hover:text-[#1877F2] text-[#7A7265] transition-colors"
-       title="Condividi su Facebook"
-      >
-       Facebook
-      </a>
-      <a
-       href="https://twitter.com/intent/tweet?text={{ article.title | url_encode }}&url={{ shop.url }}{{ article.url }}"
-       target="_blank"
-       rel="noopener"
-       class="px-3 py-1.5 border border-[#DDD7CE] hover:border-[#1DA1F2] hover:text-[#1DA1F2] text-[#7A7265] transition-colors"
-       title="Condividi su X"
-      >
-       X / Twitter
-      </a>
-     </div>
-    </div>
-   {% endif %}
-  </div>
-
-  <!-- Author & Flagship Institute Note -->
-  {% if section.settings.show_author_card %}
-   <div class="mt-10 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
-    <div class="w-16 h-16 rounded-full bg-[#E5E0D8] border border-[#DDD7CE] flex items-center justify-center font-serif text-2xl text-[#1A1A1A] shrink-0">
-     🌿
-    </div>
-    <div class="text-center sm:text-left">
-     <h3 class="font-serif text-lg text-[#1A1A1A]">Redazione Scientifica MileBioLab</h3>
-     <p class="text-xs text-[#7A7265] mt-1 leading-relaxed font-light">
-      I contenuti del Giornale Botanico sono redatti in collaborazione con le nostre dermo-consulenti e gli specialisti Team Dr Joseph a Verona, per divulgare i benefici della cosmetica biomimetica certificata.
-     </p>
-    </div>
-   </div>
-  {% endif %}
-
-  <!-- Comments Section (If enabled in Shopify) -->
-  {% if blog.comments_enabled? %}
-   <div id="comments" class="mt-14 bg-white border border-[#DDD7CE] p-8 sm:p-12" style="border: 3px double #EDE5DB;">
-    <h3 class="font-serif text-2xl text-[#1A1A1A] mb-6">Commenti ({{ article.comments_count }})</h3>
-
-    {% paginate article.comments by 5 %}
-     {% if article.comments_count > 0 %}
-      <div class="space-y-6 mb-10">
-       {% for comment in article.comments %}
-        <div class="border-b border-[#F5F2EB] pb-4">
-         <div class="flex items-center justify-between text-xs text-[#7A7265] mb-2 font-mono">
-          <span class="font-semibold text-[#1A1A1A]">{{ comment.author }}</span>
-          <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%d/%m/%Y' }}</time>
-         </div>
-         <div class="text-xs sm:text-sm text-[#1A1A1A] font-light leading-relaxed">
-          {{ comment.content }}
-         </div>
-        </div>
-       {% endfor %}
-      </div>
-     {% endif %}
-
-     <!-- Comment Form -->
-     {% form 'new_comment', article %}
-      <h4 class="font-serif text-lg text-[#1A1A1A] mb-4">Lascia una riflessione</h4>
-
-      {% if form.posted_successfully? %}
-       <div class="p-3 bg-green-50 border border-green-200 text-green-800 text-xs mb-4">
-        {% if blog.moderated? %}
-         Il tuo commento è stato inviato con successo e verrà approvato a breve.
-        {% else %}
-         Grazie! Il tuo commento è stato pubblicato.
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs font-mono uppercase tracking-wider text-[#7A7265]">
+        {% if section.settings.show_date %}
+          <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+            {{ article.published_at | date: '%d %B %Y' }}
+          </time>
         {% endif %}
-       </div>
-      {% endif %}
 
-      {% if form.errors %}
-       <div class="p-3 bg-red-50 border border-red-200 text-red-700 text-xs mb-4">
-        {{ form.errors | default_errors }}
-       </div>
-      {% endif %}
+        {% if section.settings.show_author and section.settings.show_date %}
+          <span class="text-[#DDD7CE]">&bull;</span>
+        {% endif %}
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-       <input
-        type="text"
-        name="comment[author]"
-        placeholder="Il tuo nome"
-        value="{{ form.author }}"
-        required
-        class="px-4 py-2.5 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878]"
-       >
-       <input
-        type="email"
-        name="comment[email]"
-        placeholder="La tua email (non verrà pubblicata)"
-        value="{{ form.email }}"
-        required
-        class="px-4 py-2.5 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878]"
-       >
+        {% if section.settings.show_author %}
+          <span>Di {{ article.author }}</span>
+        {% endif %}
+
+        <span class="text-[#DDD7CE]">&bull;</span>
+        <span>
+          {% assign words = article.content | strip_html | split: ' ' | size %}
+          {% assign reading_time = words | divided_by: 200 %}
+          {% if reading_time < 1 %}{% assign reading_time = 1 %}{% endif %}
+          {{ reading_time }} min lettura
+        </span>
       </div>
 
-      <textarea
-       name="comment[body]"
-       rows="4"
-       placeholder="Il tuo commento..."
-       required
-       class="w-full px-4 py-2.5 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878] mb-4"
-      >{{ form.body }}</textarea>
+      <div class="w-16 h-0.5 bg-[#C8A878] mx-auto mt-6"></div>
+    </header>
 
-      <button type="submit" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors">
-       Pubblica Commento
-      </button>
-     {% endform %}
-    {% endpaginate %}
-   </div>
-  {% endif %}
+    <!-- Featured Image -->
+    {% if section.settings.show_featured_image and article.image %}
+      <div class="mb-10 sm:mb-12 overflow-hidden bg-white border border-[#DDD7CE] shadow-xs" style="border: 3px double #EDE5DB;">
+        <img
+          src="{{ article.image | image_url: width: 1200 }}"
+          alt="{{ article.image.alt | default: article.title | escape }}"
+          class="w-full aspect-[16/9] object-cover"
+        >
+      </div>
+    {% endif %}
 
-  <!-- Back to Blog Button -->
-  <div class="mt-12 text-center">
-   <a href="{{ blog.url }}" class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#1A1A1A] hover:text-[#C8A878] transition-colors border-b border-[#1A1A1A] pb-1">
-    &larr; Torna a {{ blog.title }}
-   </a>
+    <!-- Article Content Card -->
+    <div class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
+      <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
+        {{ article.content }}
+      </div>
+
+      <!-- Article Tags -->
+      {% if article.tags.size > 0 %}
+        <div class="mt-12 pt-6 border-t border-[#F5F2EB] flex flex-wrap items-center gap-2">
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#7A7265]">Argomenti:</span>
+          {% for tag in article.tags %}
+            <a
+              href="{{ blog.url }}/tagged/{{ tag | handle }}"
+              class="px-3 py-1 bg-[#FAF8F5] border border-[#DDD7CE] text-[11px] font-mono uppercase tracking-wider text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-colors"
+            >
+              {{ tag }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Share Buttons -->
+      {% if section.settings.show_share_buttons %}
+        <div class="mt-8 pt-6 border-t border-[#F5F2EB] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+          <span class="font-serif text-base text-[#1A1A1A]">Condividi questo protocollo di bellezza</span>
+          <div class="flex items-center gap-3">
+            <a
+              href="https://api.whatsapp.com/send?text={{ article.title | url_encode }}%20{{ shop.url }}{{ article.url }}"
+              target="_blank"
+              rel="noopener"
+              class="px-3 py-1.5 border border-[#DDD7CE] hover:border-[#25D366] hover:text-[#25D366] text-[#7A7265] transition-colors"
+              title="Condividi su WhatsApp"
+            >
+              WhatsApp
+            </a>
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}"
+              target="_blank"
+              rel="noopener"
+              class="px-3 py-1.5 border border-[#DDD7CE] hover:border-[#1877F2] hover:text-[#1877F2] text-[#7A7265] transition-colors"
+              title="Condividi su Facebook"
+            >
+              Facebook
+            </a>
+            <a
+              href="https://twitter.com/intent/tweet?text={{ article.title | url_encode }}&url={{ shop.url }}{{ article.url }}"
+              target="_blank"
+              rel="noopener"
+              class="px-3 py-1.5 border border-[#DDD7CE] hover:border-[#1DA1F2] hover:text-[#1DA1F2] text-[#7A7265] transition-colors"
+              title="Condividi su X"
+            >
+              X / Twitter
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Author & Flagship Institute Note -->
+    {% if section.settings.show_author_card %}
+      <div class="mt-10 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+        <div class="w-16 h-16 rounded-full bg-[#E5E0D8] border border-[#DDD7CE] flex items-center justify-center font-serif text-2xl text-[#1A1A1A] shrink-0">
+          🌿
+        </div>
+        <div class="text-center sm:text-left">
+          <h3 class="font-serif text-lg text-[#1A1A1A]">Redazione Scientifica MileBioLab</h3>
+          <p class="text-xs text-[#7A7265] mt-1 leading-relaxed font-light">
+            I contenuti del Giornale Botanico sono redatti in collaborazione con le nostre dermo-consulenti e gli specialisti Team Dr Joseph a Verona, per divulgare i benefici della cosmetica biomimetica certificata.
+          </p>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Comments Section (If enabled in Shopify) -->
+    {% if blog.comments_enabled? %}
+      <div id="comments" class="mt-14 bg-white border border-[#DDD7CE] p-8 sm:p-12" style="border: 3px double #EDE5DB;">
+        <h3 class="font-serif text-2xl text-[#1A1A1A] mb-6">Commenti ({{ article.comments_count }})</h3>
+
+        {% paginate article.comments by 5 %}
+          {% if article.comments_count > 0 %}
+            <div class="space-y-6 mb-10">
+              {% for comment in article.comments %}
+                <div class="border-b border-[#F5F2EB] pb-4">
+                  <div class="flex items-center justify-between text-xs text-[#7A7265] mb-2 font-mono">
+                    <span class="font-semibold text-[#1A1A1A]">{{ comment.author }}</span>
+                    <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%d/%m/%Y' }}</time>
+                  </div>
+                  <div class="text-xs sm:text-sm text-[#1A1A1A] font-light leading-relaxed">
+                    {{ comment.content }}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <!-- Comment Form -->
+          {% form 'new_comment', article %}
+            <h4 class="font-serif text-lg text-[#1A1A1A] mb-4">Lascia una riflessione</h4>
+
+            {% if form.posted_successfully? %}
+              <div class="p-3 bg-green-50 border border-green-200 text-green-800 text-xs mb-4">
+                {% if blog.moderated? %}
+                  Il tuo commento è stato inviato con successo e verrà approvato a breve.
+                {% else %}
+                  Grazie! Il tuo commento è stato pubblicato.
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if form.errors %}
+              <div class="p-3 bg-red-50 border border-red-200 text-red-700 text-xs mb-4">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                name="comment[author]"
+                placeholder="Il tuo nome"
+                value="{{ form.author }}"
+                required
+                class="px-4 py-2.5 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878]"
+              >
+              <input
+                type="email"
+                name="comment[email]"
+                placeholder="La tua email (non verrà pubblicata)"
+                value="{{ form.email }}"
+                required
+                class="px-4 py-2.5 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878]"
+              >
+            </div>
+
+            <textarea
+              name="comment[body]"
+              rows="4"
+              placeholder="Il tuo commento..."
+              required
+              class="w-full px-4 py-2.5 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878] mb-4"
+            >{{ form.body }}</textarea>
+
+            <button type="submit" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors">
+              Pubblica Commento
+            </button>
+          {% endform %}
+        {% endpaginate %}
+      </div>
+    {% endif %}
+
+    <!-- Back to Blog Button -->
+    <div class="mt-12 text-center">
+      <a href="{{ blog.url }}" class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#1A1A1A] hover:text-[#C8A878] transition-colors border-b border-[#1A1A1A] pb-1">
+        &larr; Torna a {{ blog.title }}
+      </a>
+    </div>
+
   </div>
-
- </div>
 </article>
 
 {% schema %}
 {
- "name": "Main Article MILE",
- "settings": [
-  {
-   "type": "checkbox",
-   "id": "show_featured_image",
-   "label": "Mostra immagine in evidenza",
-   "default": true
-  },
-  {
-   "type": "checkbox",
-   "id": "show_date",
-   "label": "Mostra data pubblicazione",
-   "default": true
-  },
-  {
-   "type": "checkbox",
-   "id": "show_author",
-   "label": "Mostra autore",
-   "default": true
-  },
-  {
-   "type": "checkbox",
-   "id": "show_share_buttons",
-   "label": "Mostra pulsanti condivisione",
-   "default": true
-  },
-  {
-   "type": "checkbox",
-   "id": "show_author_card",
-   "label": "Mostra box redazione / istituto",
-   "default": true
-  }
- ]
+  "name": "Main Article Splendor",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_featured_image",
+      "label": "Mostra immagine in evidenza",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Mostra data pubblicazione",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Mostra autore",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Mostra pulsanti condivisione",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author_card",
+      "label": "Mostra box redazione / istituto",
+      "default": true
+    }
+  ]
 }
 {% endschema %}

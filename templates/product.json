@@ -1,16 +1,16 @@
 {
- "sections": {
-  "main-product": {
-   "type": "main-product",
-   "settings": {}
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "local-pickup": {
+      "type": "local-pickup-verona",
+      "settings": {}
+    }
   },
-  "local-pickup": {
-   "type": "local-pickup-verona",
-   "settings": {}
-  }
- },
- "order": [
-  "main-product",
-  "local-pickup"
- ]
+  "order": [
+    "main-product",
+    "local-pickup"
+  ]
 }

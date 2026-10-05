@@ -12,7 +12,7 @@
     "color_bg_primary": "#F7F5F0",
     "color_bg_alt": "#FAF8F5",
     "color_text_primary": "#1A1A1A",
-    "color_border_MILE": "#EDE5DB",
+    "color_border_splendor": "#EDE5DB",
     "color_accent_olive": "#6B7565",
     "color_accent_olive_dark": "#4A5340",
     "color_accent_gold": "#C8A878",
@@ -25,7 +25,7 @@
         "type": "header",
         "settings": {
           "menu": "",
-          "announcement_text": "Ottieni il 15% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50",
+          "announcement_text": "Ottieni il 15% di sconto sul tuo primo ordine con codice SPLENDOR15 • Spedizione gratuita sopra € 50",
           "brand_name": "MILE",
           "brand_payoff": "HAUTE COSMÉTIQUE • VERONA",
           "verona_pickup": "Verona, Corso Cavour 18"
@@ -34,8 +34,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "newsletter_title": "Unisciti al Club MILE",
-          "newsletter_desc": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice MILE15, anteprime botaniche e inviti per l'Istituto a Verona.",
+          "newsletter_title": "Unisciti al Club Splendor",
+          "newsletter_desc": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice SPLENDOR15, anteprime botaniche e inviti per l'Istituto a Verona.",
           "address": "Corso Cavour 18, 37121 Verona (VR)",
           "phone": "+39 045 800 1234"
         }
@@ -48,7 +48,7 @@
       "color_bg_primary": "#F7F5F0",
       "color_bg_alt": "#FAF8F5",
       "color_text_primary": "#1A1A1A",
-      "color_border_MILE": "#EDE5DB",
+      "color_border_splendor": "#EDE5DB",
       "color_accent_olive": "#6B7565",
       "color_accent_olive_dark": "#4A5340",
       "color_accent_gold": "#C8A878",

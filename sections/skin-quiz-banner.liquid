@@ -1,69 +1,73 @@
 <!-- SEZIONE BANNER QUIZ DELLA PELLE & DIAGNOSI DIGITALE -->
 <section class="skin-quiz-banner-section py-20 lg:py-24 bg-white border-b border-[#E5E0D8]" id="skin-quiz">
- <div class="max-w-7xl mx-auto px-6 lg:px-12">
-  
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-[#F5F2EB] border border-[#E5E0D8] p-8 sm:p-12 shadow-sm">
-   <div class="lg:col-span-7">
-    <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">{{ section.settings.tag | default: 'DIAGNOSI CUTANEA DIGITALE SARTORIALE' }}</span>
-    {%- assign quiz_title = section.settings.title | default: 'Trova il Tuo Rituale Su Misura in 2 Minuti' | replace: '2 Minuti', '<em>2 Minuti</em>' -%}
-    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] leading-tight mb-4">
-     {{ quiz_title }}
-    </h2>
-    <p class="text-sm text-[#7A7265] leading-relaxed mb-6 font-light max-w-xl">
-     {{ section.settings.subtitle | default: "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine." }}
-    </p>
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
     
-    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-     <button type="button" class="bg-[#1A1A1A] text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer whitespace-nowrap" onclick="if(window.openSkinQuiz) openSkinQuiz();">
-      ✦ Inizia il Quiz della Pelle &rarr;
-     </button>
-     <span class="text-xs font-mono text-[#5C6B56] font-semibold">
-      🎁 Coupon Sconto 15% con codice MILE15
-     </span>
-    </div>
-   </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-[#F5F2EB] border border-[#E5E0D8] p-8 sm:p-12 shadow-sm">
+      <div class="lg:col-span-7">
+        <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">{{ section.settings.tag | default: 'DIAGNOSI CUTANEA DIGITALE SARTORIALE' }}</span>
+        {%- assign quiz_title = section.settings.title | default: 'Trova il Tuo Rituale Su Misura in 2 Minuti' | replace: '2 Minuti', '<em>2 Minuti</em>' -%}
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] leading-tight mb-4">
+          {{ quiz_title }}
+        </h2>
+        <p class="text-sm text-[#7A7265] leading-relaxed mb-6 font-light max-w-xl">
+          {{ section.settings.subtitle | default: "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine." }}
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+          <button type="button" class="bg-[#1A1A1A] text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer whitespace-nowrap" onclick="if(window.openSkinQuiz) openSkinQuiz();">
+            ✦ Inizia il Quiz della Pelle &rarr;
+          </button>
+          <span class="text-xs font-mono text-[#5C6B56] font-semibold">
+            🎁 Coupon Sconto 15% con codice SPLENDOR15
+          </span>
+        </div>
+      </div>
 
-   <div class="lg:col-span-5 relative">
-    <div class="aspect-[4/3] overflow-hidden border border-[#E5E0D8] bg-white">
-     {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+      <div class="lg:col-span-5 relative">
+        <div class="aspect-[4/3] overflow-hidden border border-[#E5E0D8] bg-white">
+          <img 
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
+            alt="Consulenza e Diagnosi Pelle Visia Milebiolab" 
+            class="w-full h-full object-cover" 
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-3.5 border border-[#E5E0D8] text-[11px] text-[#1A1A1A] shadow-md">
+          <strong>Algoritmo Dermocosmetico Milebiolab</strong> &bull; Basato sui protocolli clinici dell'Istituto di Verona
+        </div>
+      </div>
     </div>
-    <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-3.5 border border-[#E5E0D8] text-[11px] text-[#1A1A1A] shadow-md">
-     <strong>Algoritmo Dermocosmetico Milebiolab</strong> &bull; Basato sui protocolli clinici dell'Istituto di Verona
-    </div>
-   </div>
+
   </div>
-
- </div>
 </section>
 
 {% schema %}
 {
- "name": "Skin Quiz Banner",
- "settings": [
-  {
-   "type": "text",
-   "id": "tag",
-   "label": "Tag",
-   "default": "DIAGNOSI CUTANEA DIGITALE SARTORIALE"
-  },
-  {
-   "type": "text",
-   "id": "title",
-   "label": "Titolo",
-   "default": "Trova il Tuo Rituale Su Misura in 2 Minuti"
-  },
-  {
-   "type": "textarea",
-   "id": "subtitle",
-   "label": "Sottotitolo",
-   "default": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
-  }
- ],
- "presets": [
-  {
-   "name": "Skin Quiz Banner",
-   "category": "Interactive"
-  }
- ]
+  "name": "Skin Quiz Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "DIAGNOSI CUTANEA DIGITALE SARTORIALE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Trova il Tuo Rituale Su Misura in 2 Minuti"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Skin Quiz Banner",
+      "category": "Interactive"
+    }
+  ]
 }
 {% endschema %}

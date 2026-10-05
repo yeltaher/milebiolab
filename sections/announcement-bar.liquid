@@ -1,100 +1,100 @@
 {% if section.settings.show_announcement %}
-<!-- MILE TOP ROTATING ANNOUNCEMENT BAR -->
+<!-- SPLENDOR TOP ROTATING ANNOUNCEMENT BAR -->
 <div class="announcement-carousel-bar" role="region" aria-label="Annunci del negozio">
- <button type="button" class="announcement-arrow-btn" onclick="prevAnnouncement()" aria-label="Messaggio precedente">&#8249;</button>
- 
- <div class="announcement-carousel-inner" id="announcement-carousel-container">
-  <div class="announcement-slide active">
-   <span class="magnetic-glow-pulse-badge">PROMOZIONE</span>
-   <span>{{ section.settings.message_1 }}</span>
+  <button type="button" class="announcement-arrow-btn" onclick="prevAnnouncement()" aria-label="Messaggio precedente">&#8249;</button>
+  
+  <div class="announcement-carousel-inner" id="announcement-carousel-container">
+    <div class="announcement-slide active">
+      <span class="magnetic-glow-pulse-badge">PROMOZIONE</span>
+      <span>{{ section.settings.message_1 }}</span>
+    </div>
+    <div class="announcement-slide">
+      <span class="magnetic-glow-pulse-badge">FLAGSHIP VERONA</span>
+      <span>{{ section.settings.message_2 }}</span>
+    </div>
+    <div class="announcement-slide">
+      <span class="magnetic-glow-pulse-badge">CERTIFICAZIONE</span>
+      <span>{{ section.settings.message_3 }}</span>
+    </div>
   </div>
-  <div class="announcement-slide">
-   <span class="magnetic-glow-pulse-badge">FLAGSHIP VERONA</span>
-   <span>{{ section.settings.message_2 }}</span>
-  </div>
-  <div class="announcement-slide">
-   <span class="magnetic-glow-pulse-badge">CERTIFICAZIONE</span>
-   <span>{{ section.settings.message_3 }}</span>
-  </div>
- </div>
 
- <button type="button" class="announcement-arrow-btn" onclick="nextAnnouncement()" aria-label="Messaggio successivo">&#8250;</button>
+  <button type="button" class="announcement-arrow-btn" onclick="nextAnnouncement()" aria-label="Messaggio successivo">&#8250;</button>
 </div>
 
-<!-- MILE UTILITY SUPPORT BAR -->
+<!-- SPLENDOR UTILITY SUPPORT BAR -->
 <div class="splendor-utility-bar">
- <div class="splendor-utility-inner">
-  <div class="utility-info-group">
-   <span class="utility-item">
-    <span>📍</span>
-    <span>Istituto Verona: <strong>{{ section.settings.boutique_address }}</strong></span>
-   </span>
-   <span class="utility-item">
-    <span>🕒</span>
-    <span>{{ section.settings.boutique_hours }}</span>
-   </span>
-   <span class="utility-item">
-    <span>📞</span>
-    <a href="tel:{{ section.settings.boutique_phone | replace: ' ', '' }}"><strong>{{ section.settings.boutique_phone }}</strong></a>
-   </span>
-  </div>
+  <div class="splendor-utility-inner">
+    <div class="utility-info-group">
+      <span class="utility-item">
+        <span>📍</span>
+        <span>Istituto Verona: <strong>{{ section.settings.boutique_address }}</strong></span>
+      </span>
+      <span class="utility-item">
+        <span>🕒</span>
+        <span>{{ section.settings.boutique_hours }}</span>
+      </span>
+      <span class="utility-item">
+        <span>📞</span>
+        <a href="tel:{{ section.settings.boutique_phone | replace: ' ', '' }}"><strong>{{ section.settings.boutique_phone }}</strong></a>
+      </span>
+    </div>
 
-  <div class="utility-actions-group">
-   <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" style="color: var(--color-accent-olive); font-weight: 600;">Prenota Trattamento Cabina &rarr;</a>
-   <div class="currency-lang-switcher">
-    <span>🌐 EUR (€) / IT</span>
-   </div>
+    <div class="utility-actions-group">
+      <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" style="color: var(--color-accent-olive); font-weight: 600;">Prenota Trattamento Cabina &rarr;</a>
+      <div class="currency-lang-switcher">
+        <span>🌐 EUR (€) / IT</span>
+      </div>
+    </div>
   </div>
- </div>
 </div>
 {% endif %}
 
 {% schema %}
 {
- "name": "Announcement Bar",
- "settings": [
-  {
-   "type": "checkbox",
-   "id": "show_announcement",
-   "label": "Mostra Barra Annunci a Carosello",
-   "default": true
-  },
-  {
-   "type": "text",
-   "id": "message_1",
-   "label": "Messaggio 1",
-   "default": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA • 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE"
-  },
-  {
-   "type": "text",
-   "id": "message_2",
-   "label": "Messaggio 2",
-   "default": "📍 RITIRO GRATUITO ALL'ISTITUTO DI VERONA IN 2 ORE CON CHECK-UP PELLE VISIA"
-  },
-  {
-   "type": "text",
-   "id": "message_3",
-   "label": "Messaggio 3",
-   "default": "🌿 100% ALTA COSMECEUTICA BOTANICA BIOCERTIFICATA TEAM DR JOSEPH & BIOTECNOLOGIA ALPINA"
-  },
-  {
-   "type": "text",
-   "id": "boutique_address",
-   "label": "Indirizzo Flagship",
-   "default": "Corso Cavour 18, 37121 Verona"
-  },
-  {
-   "type": "text",
-   "id": "boutique_hours",
-   "label": "Orari Real-Time",
-   "default": "Aperto oggi 09:30 - 19:30"
-  },
-  {
-   "type": "text",
-   "id": "boutique_phone",
-   "label": "Telefono",
-   "default": "+39 045 800 1234"
-  }
- ]
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Mostra Barra Annunci a Carosello",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "message_1",
+      "label": "Messaggio 1",
+      "default": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA • 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE"
+    },
+    {
+      "type": "text",
+      "id": "message_2",
+      "label": "Messaggio 2",
+      "default": "📍 RITIRO GRATUITO ALL'ISTITUTO DI VERONA IN 2 ORE CON CHECK-UP PELLE VISIA"
+    },
+    {
+      "type": "text",
+      "id": "message_3",
+      "label": "Messaggio 3",
+      "default": "🌿 100% ALTA COSMECEUTICA BOTANICA BIOCERTIFICATA TEAM DR JOSEPH & BIOTECNOLOGIA ALPINA"
+    },
+    {
+      "type": "text",
+      "id": "boutique_address",
+      "label": "Indirizzo Flagship",
+      "default": "Corso Cavour 18, 37121 Verona"
+    },
+    {
+      "type": "text",
+      "id": "boutique_hours",
+      "label": "Orari Real-Time",
+      "default": "Aperto oggi 09:30 - 19:30"
+    },
+    {
+      "type": "text",
+      "id": "boutique_phone",
+      "label": "Telefono",
+      "default": "+39 045 800 1234"
+    }
+  ]
 }
 {% endschema %}
