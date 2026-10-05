@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero-splendor": {
@@ -8,11 +17,14 @@
         "subtitle": "Ispirato alla clinica. Approvato dagli artisti.",
         "description": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.",
         "btn_1_text": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE",
+        "btn_1_url": "",
         "btn_2_text": "TROVA LA TUA ROUTINE",
+        "btn_2_url": "",
         "card_brand": "MILE",
         "card_title": "Pro-Artistry Cleansing Balm",
         "card_subtitle": "Melt-Wash • 100ml e 3.4 FL. OZ.",
-        "card_btn_text": "SCOPRI IL PRODOTTO"
+        "card_btn_text": "SCOPRI IL PRODOTTO",
+        "card_btn_url": ""
       }
     },
     "trust-icon-bar": {
@@ -31,10 +43,12 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
+        "collection": "",
         "tag": "I NOSTRI BESTSELLER",
         "title": "Di tendenza",
         "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
-        "link_text": "Scopri Tutti"
+        "link_text": "Scopri Tutti",
+        "link_url": ""
       }
     },
     "routine-steps": {
@@ -67,7 +81,7 @@
       "settings": {
         "tag": "ESPLORA LE COLLEZIONI",
         "title": "L'Architettura della Bellezza",
-        "subtitle": "Cinque universi sartoriali dedicati al benessere integrale del derma."
+        "subtitle": "Cinque universi dedicati al benessere integrale del derma."
       }
     },
     "editorial-quote-press": {
@@ -89,6 +103,7 @@
     },
     "skin-quiz-banner": {
       "type": "skin-quiz-banner",
+      "disabled": true,
       "settings": {
         "tag": "DIAGNOSI CUTANEA DIGITALE SARTORIALE",
         "title": "Trova il Tuo Rituale Su Misura in 2 Minuti",
