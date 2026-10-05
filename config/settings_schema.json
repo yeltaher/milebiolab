@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "MILE Editorial Boutique (Bespoke by Red Plug)",
+    "theme_author": "Milebiolab Verona",
+    "theme_version": "2.0.0",
+    "theme_documentation_url": "https://milebiolab.com",
+    "theme_support_email": "support@milebiolab.com"
+  },
+  {
+    "name": "Colori & Palette Team Dr Joseph",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_bg_primary",
+        "label": "Sfondo Primario (Carta FSC Team Dr Joseph)",
+        "default": "#F7F5F0"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_alt",
+        "label": "Sfondo Alternato (Pure Alabaster)",
+        "default": "#FAF8F5"
+      },
+      {
+        "type": "color",
+        "id": "color_text_primary",
+        "label": "Inchiostro Carbone Tipografia",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "color_border_MILE",
+        "label": "Bordo Luxury MILE (3px double)",
+        "default": "#EDE5DB"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_olive",
+        "label": "Verde Oliva Alpino",
+        "default": "#6B7565"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_olive_dark",
+        "label": "Verde Oliva Bottiglia ATC",
+        "default": "#4A5340"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_gold",
+        "label": "Accento Dorato Novità / Protocolli",
+        "default": "#C8A878"
+      }
+    ]
+  },
+  {
+    "name": "Ritiro in Sede Verona",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_verona_pickup",
+        "label": "Abilita Ritiro Rapido in Istituto a Verona",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "verona_address",
+        "label": "Indirizzo Flagship",
+        "default": "Corso Cavour, 18, 37121 Verona (VR)"
+      },
+      {
+        "type": "text",
+        "id": "pickup_hours",
+        "label": "Orari Ritiro",
+        "default": "Lunedì - Sabato 09:30 - 19:30"
+      },
+      {
+        "type": "text",
+        "id": "pickup_phone",
+        "label": "Telefono Flagship",
+        "default": "+39 045 800 1234"
+      }
+    ]
+  }
+]

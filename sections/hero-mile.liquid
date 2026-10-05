@@ -1,0 +1,267 @@
+<section class="relative min-h-[85vh] bg-white border-b border-borderLinen flex flex-col lg:flex-row items-stretch MILE-hero" id="MILE-hero-{{ section.id }}">
+ 
+ <!-- Left Column: Copy & Official Buttons & Badges -->
+ <div class="w-full lg:w-1/2 p-6 sm:p-14 lg:p-20 flex flex-col justify-center">
+  
+  <div class="inline-flex items-center gap-2 mb-4 sm:mb-6">
+   <span class="w-2 h-2 rounded-full bg-amber"></span>
+   <span class="text-xs uppercase tracking-[0.25em] text-sage font-medium">
+    {{ section.settings.tagline | default: 'ALTA DERMOCOSMESI BIOMIMETICA' }}
+   </span>
+  </div>
+
+  <h1 class="font-serif text-3xl sm:text-5xl lg:text-7xl font-normal leading-[1.1] text-ink mb-3 sm:mb-4">
+   {{ section.settings.title | default: 'Pelle, Elevata.' }}
+  </h1>
+
+  <p class="font-serif italic text-lg sm:text-2xl text-ash font-light mb-4 sm:mb-6">
+   {{ section.settings.subtitle | default: 'Ispirato alla clinica. Approvato dagli artisti.' }}
+  </p>
+
+  <p class="text-ash text-xs sm:text-sm lg:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg font-light">
+   {{ section.settings.description | default: "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi." }}
+  </p>
+
+  <!-- 2 Square Elegant Buttons -->
+  <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
+   {% assign btn1_text = section.settings.btn_1_text | default: 'ACQUISTA PRODOTTI PER LA CURA DELLA PELLE' %}
+   {% if btn1_text != blank %}
+    <a href="{{ section.settings.btn_1_url | default: '/collections/all' }}" class="bg-ink text-white px-6 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-sage transition-all text-center luxury-interactive">
+     {{ btn1_text }}
+    </a>
+   {% endif %}
+   {% assign btn2_text = section.settings.btn_2_text | default: 'TROVA LA TUA ROUTINE' %}
+   {% if btn2_text != blank %}
+    <a href="{{ section.settings.btn_2_url | default: '#routine-steps' }}" class="border border-ink text-ink px-6 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-linen transition-all text-center luxury-interactive">
+     {{ btn2_text }}
+    </a>
+   {% endif %}
+  </div>
+
+  <!-- 6 Badges Ufficiali Luxury Line-Art (Cruelty free, Alcohol free, Paraben free, Vegan, Organic, No additives) -->
+  <div class="grid grid-cols-3 sm:grid-cols-6 gap-2.5 sm:gap-2 pt-6 sm:pt-8 border-t border-borderLinen text-center">
+   
+   <!-- 1. Cruelty free -->
+   <div class="flex flex-col items-center group">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300  shadow-xs">
+     <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 23C16.8 18 13.5 9 16.5 6.5C19.5 4 22.5 12 22.5 19.5" />
+      <path d="M17.8 11.5C17.2 9.5 18 8 19.5 7.5" stroke-width="1.1" />
+      <path d="M29 23C31.2 18 34.5 9 31.5 6.5C28.5 4 25.5 12 25.5 19.5" />
+      <path d="M30.2 11.5C30.8 9.5 30 8 28.5 7.5" stroke-width="1.1" />
+      <path d="M15 22.5C12 26 12 33 16.5 37.5C21 42 27 42 31.5 37.5C36 33 36 26 33 22.5" />
+      <circle cx="18.5" cy="27" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="29.5" cy="27" r="1.2" fill="currentColor" stroke="none" />
+      <path d="M22.5 30.5C23.3 29.8 24.7 29.8 25.5 30.5L24 32.2Z" fill="currentColor" />
+      <path d="M24 32.2V34C24 35.2 22 36 20.8 35.2" />
+      <path d="M24 34C24 35.2 26 36 27.2 35.2" />
+      <line x1="10.5" y1="29.5" x2="15.5" y2="30.5" stroke-width="1.1" />
+      <line x1="10.5" y1="33" x2="15" y2="33" stroke-width="1.1" />
+      <line x1="37.5" y1="29.5" x2="32.5" y2="30.5" stroke-width="1.1" />
+      <line x1="37.5" y1="33" x2="33" y2="33" stroke-width="1.1" />
+     </svg>
+    </div>
+    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Cruelty free</span>
+   </div>
+
+   <!-- 2. Alcohol free -->
+   <div class="flex flex-col items-center group">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300  shadow-xs">
+     <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="rotate(-38 24 24)">
+       <rect x="21.5" y="6.5" width="5" height="4" rx="0.8" />
+       <path d="M22 10.5V15L17.5 19.5V36.5C17.5 38 18.5 39 20 39H28C29.5 39 30.5 38 30.5 36.5V19.5L26 15V10.5" />
+       <line x1="17.5" y1="28" x2="30.5" y2="28" stroke-width="1.1" />
+       <line x1="17.5" y1="34" x2="30.5" y2="34" stroke-width="1.1" />
+      </g>
+      <line x1="10" y1="38" x2="38" y2="10" stroke-width="1.3" />
+     </svg>
+    </div>
+    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Alcohol free</span>
+   </div>
+
+   <!-- 3. Paraben free -->
+   <div class="flex flex-col items-center group">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300  shadow-xs">
+     <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 15.5L31.5 19.8V28.2L24 32.5L16.5 28.2V19.8Z" />
+      <path d="M24 19A5 5 0 0 1 27 27" stroke-width="1" />
+      <path d="M16.5 19.8L11.5 16.5V11" />
+      <path d="M16.5 24H11" />
+      <path d="M24 15.5V10" />
+      <path d="M31.5 28.2L37 32" />
+      <line x1="10" y1="38" x2="38" y2="10" stroke-width="1.3" />
+     </svg>
+    </div>
+    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Paraben free</span>
+   </div>
+
+   <!-- 4. Vegan -->
+   <div class="flex flex-col items-center group">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300  shadow-xs">
+     <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 39C22 32 23 23 24 14" />
+      <path d="M22 31C18 28 15 19 18 11.5C21.5 15.5 23 22 23 27" />
+      <path d="M23.5 24C26.5 21 35.5 15.5 36.5 11C37.5 17.5 32 27 24 28" />
+      <path d="M25 22C28.5 18.5 33 15 35.5 12" stroke-width="1.1" />
+     </svg>
+    </div>
+    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Vegan</span>
+   </div>
+
+   <!-- 5. Organic -->
+   <div class="flex flex-col items-center group">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300  shadow-xs">
+     <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M23 38C23 38 13.5 31.5 12.5 18.5C17 15 26.5 19.5 27.5 31.5" />
+      <path d="M12.5 18.5C18 23 22.5 28.5 24.5 36" stroke-width="1.1" />
+      <path d="M15.5 21.5L19 24.5" stroke-width="0.9" />
+      <path d="M19 26.5L22.5 29.5" stroke-width="0.9" />
+      <path d="M25 32.5C27.5 28 34 26 37 19.5C35 28.5 30.5 33 25 35" />
+      <path d="M37 19.5C33.5 23 30 27.5 26 32.5" stroke-width="1.1" />
+      <path d="M32.5 23L30 26" stroke-width="0.9" />
+     </svg>
+    </div>
+    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Organic</span>
+   </div>
+
+   <!-- 6. No additives -->
+   <div class="flex flex-col items-center group">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300  shadow-xs">
+     <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19.5 11.5H28.5" />
+      <path d="M21.5 11.5V16.5L13 33.5C12 35.5 13 37 15.5 37H32.5C35 37 36 35.5 35 33.5L26.5 16.5V11.5" />
+      <path d="M17 27.5H31" stroke-dasharray="2 1.5" stroke-width="1" />
+      <circle cx="23.5" cy="32.5" r="1.3" fill="none" stroke-width="1.1" />
+      <line x1="10" y1="38" x2="38" y2="10" stroke-width="1.3" />
+     </svg>
+    </div>
+    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">No additives</span>
+   </div>
+
+  </div>
+
+ </div>
+
+ <!-- Right Column: Proportional Height Photo & Compact Editorial Card -->
+ <div class="w-full lg:w-1/2 relative h-[380px] sm:h-[500px] lg:h-auto lg:min-h-[750px] bg-linen overflow-hidden">
+  {% if section.settings.image != blank %}
+   <img src="{{ section.settings.image | img_url: '1600x' }}" 
+      
+      alt="{{ section.settings.title | default: 'MILE Pro-Artistry' | escape }}" 
+      class="w-full h-full object-cover object-center">
+  {% else %}
+   {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover object-center' }}
+  {% endif %}
+  
+  <div class="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent pointer-events-none"></div>
+  
+  <!-- Overlay Badge Prodotto in Vetro Satinato (Frame 00:01-00:03) -->
+  <div class="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-12 sm:right-12 bg-white/95 backdrop-blur-md border border-borderLinen p-3.5 sm:p-5 shadow-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+   <div>
+    <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-ash font-medium block">{{ section.settings.card_brand | default: 'MILE' }}</span>
+    <h3 class="font-serif text-lg sm:text-2xl text-ink font-normal leading-tight mt-0.5">{{ section.settings.card_title | default: 'Pro-Artistry Cleansing Balm' }}</h3>
+    <p class="text-[11px] sm:text-xs text-ash mt-0.5 font-light">{{ section.settings.card_subtitle | default: 'Melt-Wash • 100ml e 3.4 FL. OZ.' }}</p>
+   </div>
+   <a href="{{ section.settings.card_btn_url | default: '/collections/all' }}" class="inline-flex items-center gap-2 bg-ink text-white px-4 py-2.5 sm:px-5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-semibold hover:bg-sage transition-all whitespace-nowrap luxury-interactive">
+    <span>{{ section.settings.card_btn_text | default: 'SCOPRI IL PRODOTTO' }}</span>
+    <span>&rarr;</span>
+   </a>
+  </div>
+ </div>
+
+</section>
+
+{% schema %}
+{
+ "name": "MILE Hero 50/50",
+ "settings": [
+  {
+   "type": "text",
+   "id": "tagline",
+   "label": "Tagline Superiore",
+   "default": "ALTA DERMOCOSMESI BIOMIMETICA"
+  },
+  {
+   "type": "text",
+   "id": "title",
+   "label": "Titolo Principale",
+   "default": "Pelle, Elevata."
+  },
+  {
+   "type": "text",
+   "id": "subtitle",
+   "label": "Sottotitolo Editoriale",
+   "default": "Ispirato alla clinica. Approvato dagli artisti."
+  },
+  {
+   "type": "textarea",
+   "id": "description",
+   "label": "Descrizione Dettagliata",
+   "default": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi."
+  },
+  {
+   "type": "text",
+   "id": "btn_1_text",
+   "label": "Testo Pulsante 1",
+   "default": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE"
+  },
+  {
+   "type": "url",
+   "id": "btn_1_url",
+   "label": "Link Pulsante 1"
+  },
+  {
+   "type": "text",
+   "id": "btn_2_text",
+   "label": "Testo Pulsante 2",
+   "default": "TROVA LA TUA ROUTINE"
+  },
+  {
+   "type": "url",
+   "id": "btn_2_url",
+   "label": "Link Pulsante 2"
+  },
+  {
+   "type": "image_picker",
+   "id": "image",
+   "label": "Immagine Hero (Mani con vasetto)"
+  },
+  {
+   "type": "text",
+   "id": "card_brand",
+   "label": "Etichetta Scheda Overlay",
+   "default": "MILE"
+  },
+  {
+   "type": "text",
+   "id": "card_title",
+   "label": "Titolo Scheda Overlay",
+   "default": "Pro-Artistry Cleansing Balm"
+  },
+  {
+   "type": "text",
+   "id": "card_subtitle",
+   "label": "Sottotitolo Scheda Overlay",
+   "default": "Melt-Wash • 100ml e 3.4 FL. OZ."
+  },
+  {
+   "type": "text",
+   "id": "card_btn_text",
+   "label": "Testo CTA Scheda Overlay",
+   "default": "SCOPRI IL PRODOTTO"
+  },
+  {
+   "type": "url",
+   "id": "card_btn_url",
+   "label": "Link CTA Scheda Overlay"
+  }
+ ],
+ "presets": [
+  {
+   "name": "MILE Hero 50/50",
+   "category": "Hero & Banner"
+  }
+ ]
+}
+{% endschema %}

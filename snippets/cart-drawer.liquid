@@ -1,175 +1,160 @@
-<!-- SPLENDOR LUXURY CART DRAWER SLIDE-OVER -->
+<!-- MILE LUXURY CART DRAWER SLIDE-OVER -->
 <div id="cart-drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
 
 <aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrello dei Rituali Milebiolab" aria-hidden="true">
+ 
+ <!-- Header -->
+ <div class="cart-drawer-header">
+  <h3 class="cart-drawer-title">Il Tuo Rituale di <em>Bellezza</em></h3>
+  <button type="button" class="btn-drawer-close" onclick="closeCartDrawer()" aria-label="Chiudi carrello">&times;</button>
+ </div>
+ 
+ <!-- Free Shipping & 3 Samples Progress Bar (Threshold: €120) -->
+ <div class="shipping-bar-container">
+  <div id="cart-progress-text" style="line-height: 1.4;">
+   🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e i 3 Campioncini Omaggio!
+  </div>
+  <div class="shipping-progress-track">
+   <div class="shipping-progress-fill" id="cart-progress-fill" style="width: 70%;"></div>
+  </div>
+ </div>
+
+ <!-- Delivery Method Switcher: Verona 2h vs Express Shipping -->
+ <div style="padding: 0.75rem 1.75rem; background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border); display: flex; gap: 8px;">
+  <label id="pickup-label-box" style="flex: 1; border: 1px solid var(--color-accent-olive); background: #FFFFFF; padding: 7px 10px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+   <input type="radio" name="delivery_choice" id="delivery-choice-pickup" checked onclick="setDeliveryChoice('pickup')">
+   <span>📍 Ritiro Verona (2h)</span>
+  </label>
+  <label id="shipping-label-box" style="flex: 1; border: 1px solid var(--color-border); background: #FFFFFF; padding: 7px 10px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+   <input type="radio" name="delivery_choice" id="delivery-choice-shipping" onclick="setDeliveryChoice('shipping')">
+   <span>📦 Spedizione Espressa</span>
+  </label>
+ </div>
+
+ <!-- Verona Institute Pickup Notice -->
+ <div id="cart-verona-notice" style="padding: 0.75rem 1.75rem; background: #FAF8F5; border-bottom: 1px solid var(--color-border); display: flex; gap: 10px; align-items: center; font-size: 0.75rem;">
+  <span style="font-size: 1.2rem;">🏛️</span>
+  <div>
+   <strong>Istituto Milebiolab: Corso Cavour 18, Verona</strong>
+   <div style="color: var(--color-text-secondary);">Pronto entro 2 ore con 2 campioncini deluxe e check-up pelle gratuito.</div>
+  </div>
+ </div>
+
+ <!-- Cart Dynamic Items List -->
+ <div class="cart-drawer-items" id="cart-drawer-items-list">
+  <!-- Populated dynamically via MilebiolabState.cart in theme.js -->
+ </div>
+
+ <!-- FEATURE 12 (PART 1): ACCORDION OPZIONI REGALO & NOTE PER L'ISTITUTO -->
+ <div class="cart-options-accordion-wrapper">
   
-  <!-- Header -->
-  <div class="cart-drawer-header">
-    <h3 class="cart-drawer-title">Il Tuo Rituale di <em>Bellezza</em></h3>
-    <button type="button" class="btn-drawer-close" onclick="closeCartDrawer()" aria-label="Chiudi carrello">&times;</button>
-  </div>
-  
-  <!-- Free Shipping & 3 Samples Progress Bar (Threshold: €120) -->
-  <div class="shipping-bar-container">
-    <div id="cart-progress-text" style="line-height: 1.4;">
-      🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e i 3 Campioncini Omaggio!
+  <!-- Option 1: Dedica Regalo su Cartoncino Goffrato -->
+  <details class="cart-option-item">
+   <summary class="cart-option-summary">
+    <span class="option-icon">🎁</span>
+    <span class="option-label">Dedica Regalo su Cartoncino Goffrato d'Amalfi</span>
+    <span class="option-toggle-arrow">+</span>
+   </summary>
+   <div class="cart-option-body">
+    <p class="option-desc">Includeremo una busta sigillata a mano con ceralacca botanica e la tua dedica scritta a mano.</p>
+    <textarea id="cart-gift-dedication" rows="2" class="cart-input-textarea" placeholder="Inserisci il testo della dedica per la persona cara..."></textarea>
+   </div>
+  </details>
+
+  <!-- Option 2: Istruzioni per il Ritiro a Verona -->
+  <details class="cart-option-item">
+   <summary class="cart-option-summary">
+    <span class="option-icon">📍</span>
+    <span class="option-label">Istruzioni Ritiro Verona con Orario Preferito</span>
+    <span class="option-toggle-arrow">+</span>
+   </summary>
+   <div class="cart-option-body">
+    <p class="option-desc">Seleziona la fascia oraria preferita per il ritiro in boutique a Corso Cavour 18:</p>
+    <select id="cart-pickup-timeslot" class="cart-input-select">
+     <option value="10-12">Mattina: 10:00 &ndash; 12:30 (Consulente Sara)</option>
+     <option value="14-16">Primo pomeriggio: 14:00 &ndash; 16:30 (Consulente Elena)</option>
+     <option value="16-19" selected>Tardo pomeriggio: 16:30 &ndash; 19:30 (Check-up pelle Visia)</option>
+    </select>
+    <input type="text" id="cart-pickup-notes" class="cart-input-text" placeholder="Nome delegato al ritiro o note aggiuntive...">
+   </div>
+  </details>
+
+  <!-- Option 3: Selezione 3 Campioncini Omaggio -->
+  <details class="cart-option-item">
+   <summary class="cart-option-summary">
+    <span class="option-icon">🌿</span>
+    <span class="option-label">3 Campioncini Deluxe Omaggio a Scelta</span>
+    <span class="option-toggle-arrow">+</span>
+   </summary>
+   <div class="cart-option-body">
+    <p class="option-desc">Seleziona fino a 3 campioncini da 3ml inclusi nel tuo pacchetto:</p>
+    <div class="cart-samples-grid">
+     <label class="sample-checkbox-label">
+      <input type="checkbox" name="cart_samples" value="hyaluron-serum" checked>
+      <span>Siero Hyaluron 5 Pesi</span>
+     </label>
+     <label class="sample-checkbox-label">
+      <input type="checkbox" name="cart_samples" value="supreme-cream" checked>
+      <span>Crema Rigenerante Supreme</span>
+     </label>
+     <label class="sample-checkbox-label">
+      <input type="checkbox" name="cart_samples" value="enzyme-peel" checked>
+      <span>Peeling Enzimatico Viso</span>
+     </label>
+     <label class="sample-checkbox-label">
+      <input type="checkbox" name="cart_samples" value="calming-elixir">
+      <span>Elisir Calmante Barriera</span>
+     </label>
     </div>
-    <div class="shipping-progress-track">
-      <div class="shipping-progress-fill" id="cart-progress-fill" style="width: 70%;"></div>
+   </div>
+  </details>
+
+ </div>
+
+ 
+    <button type="button" class="btn-drawer-upsell-add" onclick="addInDrawerUpsell('Travel Gentle Cleanser 50ml', 18.00, '', '50 ml', this)">
+     + Aggiungi
+    </button>
+   </div>
+
+   <!-- Upsell 2: Botanical Lip Balm -->
+   <div class="drawer-upsell-item">
+    {{ 'product-1' | placeholder_svg_tag: 'drawer-upsell-thumb' }}
+    <div class="drawer-upsell-info">
+     <span class="upsell-badge">BEST COMPANION</span>
+     <div class="upsell-name">Botanical Lip Balm</div>
+     <div class="upsell-price">€ 14,00 <span class="upsell-vol">(10 ml)</span></div>
     </div>
+    <button type="button" class="btn-drawer-upsell-add" onclick="addInDrawerUpsell('Botanical Lip Balm 10ml', 14.00, '', '10 ml', this)">
+     + Aggiungi
+    </button>
+   </div>
   </div>
+ </div>
 
-  <!-- Delivery Method Switcher: Verona 2h vs Express Shipping -->
-  <div style="padding: 0.75rem 1.75rem; background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border); display: flex; gap: 8px;">
-    <label id="pickup-label-box" style="flex: 1; border: 1px solid var(--color-accent-olive); background: #FFFFFF; padding: 7px 10px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-      <input type="radio" name="delivery_choice" id="delivery-choice-pickup" checked onclick="setDeliveryChoice('pickup')">
-      <span>📍 Ritiro Verona (2h)</span>
-    </label>
-    <label id="shipping-label-box" style="flex: 1; border: 1px solid var(--color-border); background: #FFFFFF; padding: 7px 10px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-      <input type="radio" name="delivery_choice" id="delivery-choice-shipping" onclick="setDeliveryChoice('shipping')">
-      <span>📦 Spedizione Espressa</span>
-    </label>
+ <!-- Footer with Subtotal & Checkout Button -->
+ <div class="cart-drawer-footer">
+  <div class="cart-subtotal-row">
+   <span>Subtotale</span>
+   <span class="subtotal-val" id="cart-subtotal-val">€ 170,00</span>
   </div>
+  <p style="font-size: 0.74rem; color: var(--color-text-secondary); margin-bottom: 0.85rem;">
+   IVA inclusa. Spedizione gratuita o ritiro rapido oggi a Verona in 2 ore.
+  </p>
 
-  <!-- Verona Institute Pickup Notice -->
-  <div id="cart-verona-notice" style="padding: 0.75rem 1.75rem; background: #FAF8F5; border-bottom: 1px solid var(--color-border); display: flex; gap: 10px; align-items: center; font-size: 0.75rem;">
-    <span style="font-size: 1.2rem;">🏛️</span>
-    <div>
-      <strong>Istituto Milebiolab: Corso Cavour 18, Verona</strong>
-      <div style="color: var(--color-text-secondary);">Pronto entro 2 ore con 2 campioncini deluxe e check-up pelle gratuito.</div>
-    </div>
+  <a href="{{ routes.cart_url }}/checkout" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem;">
+   <span>Procedi al Checkout Sicuro</span>
+   <span>&bull;</span>
+   <span id="cart-checkout-price">€ 170,00</span>
+  </a>
+
+  <div style="display: flex; justify-content: center; gap: 14px; margin-top: 0.75rem; font-size: 0.72rem; color: #8C867D;">
+   <span>🔒 Checkout 256-bit</span>
+   <span>•</span>
+   <span>🌿 100% Imballo Riciclabile</span>
+   <span>•</span>
+   <span>⏱️ Reso Gratuito 30gg</span>
   </div>
-
-  <!-- Cart Dynamic Items List -->
-  <div class="cart-drawer-items" id="cart-drawer-items-list">
-    <!-- Populated dynamically via MilebiolabState.cart in theme.js -->
-  </div>
-
-  <!-- FEATURE 12 (PART 1): ACCORDION OPZIONI REGALO & NOTE PER L'ISTITUTO -->
-  <div class="cart-options-accordion-wrapper">
-    
-    <!-- Option 1: Dedica Regalo su Cartoncino Goffrato -->
-    <details class="cart-option-item">
-      <summary class="cart-option-summary">
-        <span class="option-icon">🎁</span>
-        <span class="option-label">Dedica Regalo su Cartoncino Goffrato d'Amalfi</span>
-        <span class="option-toggle-arrow">+</span>
-      </summary>
-      <div class="cart-option-body">
-        <p class="option-desc">Includeremo una busta sigillata a mano con ceralacca botanica e la tua dedica scritta a mano.</p>
-        <textarea id="cart-gift-dedication" rows="2" class="cart-input-textarea" placeholder="Inserisci il testo della dedica per la persona cara..."></textarea>
-      </div>
-    </details>
-
-    <!-- Option 2: Istruzioni per il Ritiro a Verona -->
-    <details class="cart-option-item">
-      <summary class="cart-option-summary">
-        <span class="option-icon">📍</span>
-        <span class="option-label">Istruzioni Ritiro Verona con Orario Preferito</span>
-        <span class="option-toggle-arrow">+</span>
-      </summary>
-      <div class="cart-option-body">
-        <p class="option-desc">Seleziona la fascia oraria preferita per il ritiro in boutique a Corso Cavour 18:</p>
-        <select id="cart-pickup-timeslot" class="cart-input-select">
-          <option value="10-12">Mattina: 10:00 &ndash; 12:30 (Consulente Sara)</option>
-          <option value="14-16">Primo pomeriggio: 14:00 &ndash; 16:30 (Consulente Elena)</option>
-          <option value="16-19" selected>Tardo pomeriggio: 16:30 &ndash; 19:30 (Check-up pelle Visia)</option>
-        </select>
-        <input type="text" id="cart-pickup-notes" class="cart-input-text" placeholder="Nome delegato al ritiro o note aggiuntive...">
-      </div>
-    </details>
-
-    <!-- Option 3: Selezione 3 Campioncini Omaggio -->
-    <details class="cart-option-item">
-      <summary class="cart-option-summary">
-        <span class="option-icon">🌿</span>
-        <span class="option-label">3 Campioncini Deluxe Omaggio a Scelta</span>
-        <span class="option-toggle-arrow">+</span>
-      </summary>
-      <div class="cart-option-body">
-        <p class="option-desc">Seleziona fino a 3 campioncini da 3ml inclusi nel tuo pacchetto:</p>
-        <div class="cart-samples-grid">
-          <label class="sample-checkbox-label">
-            <input type="checkbox" name="cart_samples" value="hyaluron-serum" checked>
-            <span>Siero Hyaluron 5 Pesi</span>
-          </label>
-          <label class="sample-checkbox-label">
-            <input type="checkbox" name="cart_samples" value="supreme-cream" checked>
-            <span>Crema Rigenerante Supreme</span>
-          </label>
-          <label class="sample-checkbox-label">
-            <input type="checkbox" name="cart_samples" value="enzyme-peel" checked>
-            <span>Peeling Enzimatico Viso</span>
-          </label>
-          <label class="sample-checkbox-label">
-            <input type="checkbox" name="cart_samples" value="calming-elixir">
-            <span>Elisir Calmante Barriera</span>
-          </label>
-        </div>
-      </div>
-    </details>
-
-  </div>
-
-  <!-- FEATURE 12 (PART 2): IN-DRAWER UPSELLS CAROUSEL "POTREBBE PIACERTI ANCHE" -->
-  <div class="cart-drawer-upsells-section">
-    <div class="drawer-upsells-header">
-      <span class="upsells-tag">POTREBBE PIACERTI ANCHE</span>
-      <h5 class="upsells-title">Completa con i Travel-Size Esclusivi:</h5>
-    </div>
-    
-    <div class="drawer-upsells-carousel">
-      <!-- Upsell 1: Travel Size Cleanser -->
-      <div class="drawer-upsell-item">
-        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=120&q=80" alt="Travel Cleanser 50ml" class="drawer-upsell-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
-        <div class="drawer-upsell-info">
-          <span class="upsell-badge">TRAVEL SIZE</span>
-          <div class="upsell-name">Travel Gentle Cleanser</div>
-          <div class="upsell-price">€ 18,00 <span class="upsell-vol">(50 ml)</span></div>
-        </div>
-        <button type="button" class="btn-drawer-upsell-add" onclick="addInDrawerUpsell('Travel Gentle Cleanser 50ml', 18.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=120&q=80', '50 ml', this)">
-          + Aggiungi
-        </button>
-      </div>
-
-      <!-- Upsell 2: Botanical Lip Balm -->
-      <div class="drawer-upsell-item">
-        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=120&q=80" alt="Botanical Lip Balm" class="drawer-upsell-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
-        <div class="drawer-upsell-info">
-          <span class="upsell-badge">BEST COMPANION</span>
-          <div class="upsell-name">Botanical Lip Balm</div>
-          <div class="upsell-price">€ 14,00 <span class="upsell-vol">(10 ml)</span></div>
-        </div>
-        <button type="button" class="btn-drawer-upsell-add" onclick="addInDrawerUpsell('Botanical Lip Balm 10ml', 14.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=120&q=80', '10 ml', this)">
-          + Aggiungi
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer with Subtotal & Checkout Button -->
-  <div class="cart-drawer-footer">
-    <div class="cart-subtotal-row">
-      <span>Subtotale</span>
-      <span class="subtotal-val" id="cart-subtotal-val">€ 170,00</span>
-    </div>
-    <p style="font-size: 0.74rem; color: var(--color-text-secondary); margin-bottom: 0.85rem;">
-      IVA inclusa. Spedizione gratuita o ritiro rapido oggi a Verona in 2 ore.
-    </p>
-
-    <a href="{{ routes.cart_url }}/checkout" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem;">
-      <span>Procedi al Checkout Sicuro</span>
-      <span>&bull;</span>
-      <span id="cart-checkout-price">€ 170,00</span>
-    </a>
-
-    <div style="display: flex; justify-content: center; gap: 14px; margin-top: 0.75rem; font-size: 0.72rem; color: #8C867D;">
-      <span>🔒 Checkout 256-bit</span>
-      <span>•</span>
-      <span>🌿 100% Imballo Riciclabile</span>
-      <span>•</span>
-      <span>⏱️ Reso Gratuito 30gg</span>
-    </div>
-  </div>
+ </div>
 
 </aside>

@@ -1,137 +1,128 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "general": {
-    "accessibility": {
-      "skip_to_content": "Skip to content",
-      "close": "Close",
-      "unit_price_separator": "per"
-    },
-    "meta": {
-      "tags": "Tagged \"{{ tags }}\"",
-      "page": "Page {{ page }}"
-    },
-    "breadcrumbs": {
-      "home": "Home"
-    },
-    "404": {
-      "title": "Page not found",
-      "subtext": "The page you were looking for does not exist.",
-      "link": "Back to Home"
-    },
-    "password_page": {
-      "login_form_heading": "Enter store using password",
-      "login_password_button": "Enter using password",
-      "login_form_password_label": "Password",
-      "login_form_password_placeholder": "Your password",
-      "login_form_submit": "Enter",
-      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"text-link\">Log in here</a>"
-    },
-    "search": {
-      "search": "Search",
-      "title": "Search results",
-      "no_results": "No results found for \"{{ terms }}\".",
-      "submit": "Search",
-      "placeholder": "Search treatments, botanical actives..."
-    },
-    "continue_shopping": "Continue shopping",
-    "share": "Share"
+ "general": {
+  "accessibility": {
+   "skip_to_content": "Skip to content",
+   "close": "Close",
+   "unit_price_separator": "per"
   },
-  "products": {
-    "product": {
-      "add_to_cart": "Add to cart",
-      "sold_out": "Sold out",
-      "unavailable": "Unavailable",
-      "quantity": "Quantity",
-      "price": "Price",
-      "regular_price": "Regular price",
-      "sale_price": "Sale price",
-      "unit_price": "Unit price",
-      "include_taxes": "Tax included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
-      "vendor": "Brand",
-      "view_details": "View details"
-    }
+  "meta": {
+   "tags": "Tagged \"{{ tags }}\"",
+   "page": "Page {{ page }}"
   },
-  "cart": {
-    "general": {
-      "title": "Your cart",
-      "empty": "Your cart is empty",
-      "continue_shopping": "Continue shopping",
-      "checkout": "Check out",
-      "subtotal": "Subtotal",
-      "taxes_and_shipping_policy_at_checkout_html": "Taxes and shipping calculated at checkout.",
-      "note": "Special instructions for order",
-      "savings": "You are saving",
-      "update": "Update cart"
-    }
+  "breadcrumbs": {
+   "home": "Home"
   },
-  "collections": {
-    "general": {
-      "title": "Collections",
-      "items_with_count": {
-        "one": "{{ count }} product",
-        "other": "{{ count }} products"
-      },
-      "no_matches": "No products found matching the criteria.",
-      "sort_by": "Sort by",
-      "filter_by": "Filter by"
-    }
+  "404": {
+   "title": "Page not found",
+   "subtext": "The page you were looking for does not exist.",
+   "link": "Back to Home"
   },
-  "templates": {
-    "404": {
-      "title": "404 - Page not found",
-      "subtext": "Sorry, the page you were looking for does not exist.",
-      "link": "Continue shopping"
-    },
-    "contact": {
-      "form": {
-        "name": "Name",
-        "email": "Email",
-        "phone": "Phone",
-        "comment": "Message",
-        "send": "Send message",
-        "post_success": "Thanks for contacting us. We'll get back to you as soon as possible."
-      }
-    }
+  "password_page": {
+   "login_form_heading": "Enter store using password",
+   "login_password_button": "Enter using password",
+   "login_form_password_label": "Password",
+   "login_form_password_placeholder": "Your password",
+   "login_form_submit": "Enter",
+   "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"text-link\">Log in here</a>"
   },
-  "customer": {
-    "account": {
-      "title": "My Account",
-      "details": "Account Details",
-      "view_addresses": "View addresses",
-      "return": "Return to Account"
-    },
-    "orders": {
-      "title": "Order History",
-      "order_number": "Order",
-      "date": "Date",
-      "payment_status": "Payment status",
-      "fulfillment_status": "Fulfillment status",
-      "total": "Total",
-      "none": "You haven't placed any orders yet."
-    },
-    "login_page": {
-      "title": "Login to your account",
-      "email": "Email Address",
-      "password": "Password",
-      "sign_in": "Sign In",
-      "forgot_password": "Forgot password?"
-    },
-    "register": {
-      "title": "Create an account",
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "email": "Email Address",
-      "password": "Password",
-      "submit": "Register"
-    }
+  "search": {
+   "search": "Search",
+   "title": "Search results",
+   "no_results": "No results found for \"{{ terms }}\".",
+   "submit": "Search",
+   "placeholder": "Search treatments, botanical actives..."
+  },
+  "continue_shopping": "Continue shopping",
+  "share": "Share"
+ },
+ "products": {
+  "product": {
+   "add_to_cart": "Add to cart",
+   "sold_out": "Sold out",
+   "unavailable": "Unavailable",
+   "quantity": "Quantity",
+   "price": "Price",
+   "regular_price": "Regular price",
+   "sale_price": "Sale price",
+   "unit_price": "Unit price",
+   "include_taxes": "Tax included.",
+   "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+   "vendor": "Brand",
+   "view_details": "View details"
   }
+ },
+ "cart": {
+  "general": {
+   "title": "Your cart",
+   "empty": "Your cart is empty",
+   "continue_shopping": "Continue shopping",
+   "checkout": "Check out",
+   "subtotal": "Subtotal",
+   "taxes_and_shipping_policy_at_checkout_html": "Taxes and shipping calculated at checkout.",
+   "note": "Special instructions for order",
+   "savings": "You are saving",
+   "update": "Update cart"
+  }
+ },
+ "collections": {
+  "general": {
+   "title": "Collections",
+   "items_with_count": {
+    "one": "{{ count }} product",
+    "other": "{{ count }} products"
+   },
+   "no_matches": "No products found matching the criteria.",
+   "sort_by": "Sort by",
+   "filter_by": "Filter by"
+  }
+ },
+ "templates": {
+  "404": {
+   "title": "404 - Page not found",
+   "subtext": "Sorry, the page you were looking for does not exist.",
+   "link": "Continue shopping"
+  },
+  "contact": {
+   "form": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "comment": "Message",
+    "send": "Send message",
+    "post_success": "Thanks for contacting us. We'll get back to you as soon as possible."
+   }
+  }
+ },
+ "customer": {
+  "account": {
+   "title": "My Account",
+   "details": "Account Details",
+   "view_addresses": "View addresses",
+   "return": "Return to Account"
+  },
+  "orders": {
+   "title": "Order History",
+   "order_number": "Order",
+   "date": "Date",
+   "payment_status": "Payment status",
+   "fulfillment_status": "Fulfillment status",
+   "total": "Total",
+   "none": "You haven't placed any orders yet."
+  },
+  "login_page": {
+   "title": "Login to your account",
+   "email": "Email Address",
+   "password": "Password",
+   "sign_in": "Sign In",
+   "forgot_password": "Forgot password?"
+  },
+  "register": {
+   "title": "Create an account",
+   "first_name": "First Name",
+   "last_name": "Last Name",
+   "email": "Email Address",
+   "password": "Password",
+   "submit": "Register"
+  }
+ }
 }

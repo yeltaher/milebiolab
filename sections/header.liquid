@@ -1,189 +1,181 @@
 <!-- Top Announcement Bar -->
 <div class="bg-[#1A1A1A] text-white text-center py-2.5 px-4 text-xs tracking-wider uppercase flex items-center justify-center gap-2">
-  <span>{{ section.settings.announcement_text }}</span>
-  <span class="opacity-40">•</span>
-  <a href="/collections/all" class="underline underline-offset-4 hover:text-[#C8A878] transition-colors font-medium">Acquista Ora</a>
+ <span>{{ section.settings.announcement_text }}</span>
+ <span class="opacity-40">•</span>
+ <a href="/collections/all" class="underline underline-offset-4 hover:text-[#C8A878] transition-colors font-medium">Acquista Ora</a>
 </div>
 
 <!-- Services Bar -->
 <div class="hidden md:flex justify-between items-center px-8 lg:px-16 py-2 border-b border-[#E5E0D8] text-xs tracking-widest uppercase text-[#7A7265] bg-white/70 backdrop-blur-sm">
-  <div class="flex gap-6 items-center">
-    <a href="/pages/traccia-ordine" class="hover:text-[#1A1A1A] transition-colors flex items-center gap-1.5">
-      <span class="text-[#5C6B56]">●</span> Traccia ordine
-    </a>
-    <span class="text-[#DDD7CE]">|</span>
-    <a href="/pages/community" class="hover:text-[#1A1A1A] transition-colors">Community</a>
-    <span class="text-[#DDD7CE]">|</span>
-    <span class="text-[#1A1A1A] font-medium flex items-center gap-1 cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
-      <svg class="w-3.5 h-3.5 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-      Ritiro in sede Verona — Corso Cavour 18 (Pronto in 2h)
-    </span>
-  </div>
-  <div class="flex gap-6 items-center">
-    <button type="button" onclick="if(window.openWishlistDrawer) openWishlistDrawer();" class="hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer text-xs uppercase tracking-widest text-[#7A7265]">Lista Desideri</button>
-    <span class="text-[#DDD7CE]">|</span>
-    <a href="/account" class="hover:text-[#1A1A1A] transition-colors">Accedi</a>
-    <span class="text-[#DDD7CE]">|</span>
-    <button type="button" onclick="if(window.openCartDrawer) openCartDrawer();" class="hover:text-[#1A1A1A] font-semibold flex items-center gap-1.5 text-[#1A1A1A] bg-transparent border-0 cursor-pointer text-xs tracking-widest uppercase">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-      <span>Carrello [ <span class="cart-count-badge">{{ cart.item_count }}</span> ]</span>
-    </button>
-  </div>
+ <div class="flex gap-6 items-center">
+  <a href="/pages/traccia-ordine" class="hover:text-[#1A1A1A] transition-colors flex items-center gap-1.5">
+   <span class="text-[#5C6B56]">●</span> Traccia ordine
+  </a>
+  <span class="text-[#DDD7CE]">|</span>
+  <a href="/pages/community" class="hover:text-[#1A1A1A] transition-colors">Community</a>
+  <span class="text-[#DDD7CE]">|</span>
+  <span class="text-[#1A1A1A] font-medium flex items-center gap-1 cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
+   <svg class="w-3.5 h-3.5 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+   Ritiro in sede Verona — Corso Cavour 18 (Pronto in 2h)
+  </span>
+ </div>
+ <div class="flex gap-6 items-center">
+  <button type="button" onclick="if(window.openWishlistDrawer) openWishlistDrawer();" class="hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer text-xs uppercase tracking-widest text-[#7A7265]">Lista Desideri</button>
+  <span class="text-[#DDD7CE]">|</span>
+  <a href="/account" class="hover:text-[#1A1A1A] transition-colors">Accedi</a>
+  <span class="text-[#DDD7CE]">|</span>
+  <button type="button" onclick="if(window.openCartDrawer) openCartDrawer();" class="hover:text-[#1A1A1A] font-semibold flex items-center gap-1.5 text-[#1A1A1A] bg-transparent border-0 cursor-pointer text-xs tracking-widest uppercase">
+   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+   <span>Carrello [ <span class="cart-count-badge">{{ cart.item_count }}</span> ]</span>
+  </button>
+ </div>
 </div>
 
 <!-- Header Sticky with 5-Column Mega Menu -->
 <header class="sticky top-0 z-50 bg-[#F5F2EB]/95 backdrop-blur-md border-b border-[#E5E0D8]" id="site-header-{{ section.id }}">
-  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 lg:px-12 py-4">
+ <div class="max-w-7xl mx-auto flex justify-between items-center px-6 lg:px-12 py-4">
+  
+  <!-- Left Navigation Menu -->
+  <nav class="flex-1 hidden lg:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">
+   
+   <!-- Mega Menu Trigger -->
+   <div class="group-nav py-2 relative">
+    <a href="/collections/all" class="flex items-center gap-1.5 hover:text-[#C8A878] transition-colors text-[#1A1A1A]">
+     <span>Acquista</span>
+     <span class="text-[10px] transform group-hover:rotate-180 transition-transform">▼</span>
+    </a>
     
-    <!-- Left Navigation Menu -->
-    <nav class="flex-1 hidden lg:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">
+    <!-- 5-Column Mega Menu Dropdown -->
+    <div class="mega-menu-panel absolute top-full left-0 w-[860px] xl:w-[980px] bg-white border border-[#E5E0D8] shadow-2xl p-8 transition-all duration-300 -translate-x-12 z-50 hidden group-hover:block">
+     <div class="grid grid-cols-5 gap-6">
       
-      <!-- Mega Menu Trigger -->
-      <div class="group-nav py-2 relative">
-        <a href="/collections/all" class="flex items-center gap-1.5 hover:text-[#C8A878] transition-colors text-[#1A1A1A]">
-          <span>Acquista</span>
-          <span class="text-[10px] transform group-hover:rotate-180 transition-transform">▼</span>
+      <!-- Col 1 -->
+      <a href="/collections/cura-della-pelle" class="group/item block text-left">
+       <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover ' }}
+       </div>
+       <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Cura della pelle</h4>
+       <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Detersione, sieri attivi e balsami</p>
+      </a>
+
+      <!-- Col 2 -->
+      <a href="/collections/trucco-glow" class="group/item block text-left">
+       <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover ' }}
+       </div>
+       <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Trucco &amp; Glow</h4>
+       <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Illuminanti e finish radioso</p>
+      </a>
+
+      <!-- Col 3 -->
+      <a href="/collections/cura-dei-capelli" class="group/item block text-left">
+       <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover ' }}
+       </div>
+       <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Cura dei capelli</h4>
+       <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Elisir botanici alpini</p>
+      </a>
+
+      <!-- Col 4 -->
+      <a href="/collections/cura-del-corpo" class="group/item block text-left">
+       <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover ' }}
+       </div>
+       <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Cura del corpo</h4>
+       <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Golden Glow Oil e burri fondenti</p>
+      </a>
+
+      <!-- Col 5: Highlight Bestseller Card -->
+      <div class="bg-[#F5F2EB] p-4 flex flex-col justify-between border border-[#E5E0D8]">
+       <div>
+        <span class="text-[9px] tracking-widest uppercase font-semibold text-[#5C6B56]">In Evidenza</span>
+        <h4 class="font-serif text-lg text-[#1A1A1A] mt-1 mb-1 leading-tight">Golden Glow Body Oil</h4>
+        <p class="text-[11px] text-[#7A7265] normal-case leading-snug">Il trattamento corpo cult premiato da Vogue Beauty.</p>
+       </div>
+       <div class="mt-4">
+        <span class="block text-xs font-semibold text-[#1A1A1A] mb-2">€ 76,00</span>
+        <a href="/products/golden-glow-body-oil" class="inline-block bg-[#1A1A1A] text-white px-3 py-2 text-[9px] uppercase tracking-widest hover:bg-[#C8A878] transition-colors w-full text-center">
+         Vedi Scheda
         </a>
-        
-        <!-- 5-Column Mega Menu Dropdown -->
-        <div class="mega-menu-panel absolute top-full left-0 w-[860px] xl:w-[980px] bg-white border border-[#E5E0D8] shadow-2xl p-8 transition-all duration-300 -translate-x-12 z-50 hidden group-hover:block">
-          <div class="grid grid-cols-5 gap-6">
-            
-            <!-- Col 1 -->
-            <a href="/collections/cura-della-pelle" class="group/item block text-left">
-              <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
-                <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" 
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                     class="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500" alt="Cura della pelle">
-              </div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Cura della pelle</h4>
-              <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Detersione, sieri attivi e balsami</p>
-            </a>
-
-            <!-- Col 2 -->
-            <a href="/collections/trucco-glow" class="group/item block text-left">
-              <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
-                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" 
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                     class="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500" alt="Trucco &amp; Glow">
-              </div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Trucco &amp; Glow</h4>
-              <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Illuminanti e finish radioso</p>
-            </a>
-
-            <!-- Col 3 -->
-            <a href="/collections/cura-dei-capelli" class="group/item block text-left">
-              <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
-                <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80" 
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                     class="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500" alt="Cura dei capelli">
-              </div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Cura dei capelli</h4>
-              <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Elisir botanici alpini</p>
-            </a>
-
-            <!-- Col 4 -->
-            <a href="/collections/cura-del-corpo" class="group/item block text-left">
-              <div class="overflow-hidden bg-[#F5F2EB] aspect-[3/4] mb-3">
-                <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" 
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                     class="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500" alt="Cura del corpo">
-              </div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A] group-hover/item:text-[#C8A878] transition-colors">Cura del corpo</h4>
-              <p class="text-[10px] text-[#7A7265] normal-case tracking-normal mt-0.5">Golden Glow Oil e burri fondenti</p>
-            </a>
-
-            <!-- Col 5: Highlight Bestseller Card -->
-            <div class="bg-[#F5F2EB] p-4 flex flex-col justify-between border border-[#E5E0D8]">
-              <div>
-                <span class="text-[9px] tracking-widest uppercase font-semibold text-[#5C6B56]">In Evidenza</span>
-                <h4 class="font-serif text-lg text-[#1A1A1A] mt-1 mb-1 leading-tight">Golden Glow Body Oil</h4>
-                <p class="text-[11px] text-[#7A7265] normal-case leading-snug">Il trattamento corpo cult premiato da Vogue Beauty.</p>
-              </div>
-              <div class="mt-4">
-                <span class="block text-xs font-semibold text-[#1A1A1A] mb-2">€ 76,00</span>
-                <a href="/products/golden-glow-body-oil" class="inline-block bg-[#1A1A1A] text-white px-3 py-2 text-[9px] uppercase tracking-widest hover:bg-[#C8A878] transition-colors w-full text-center">
-                  Vedi Scheda
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
+       </div>
       </div>
 
-      <!-- Links from Shopify linklist with fallback -->
-      {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
-      {% assign nav_menu = linklists[menu_handle] %}
-      {% if nav_menu.links.size > 0 %}
-        {% for link in nav_menu.links %}
-          <a href="{{ link.url }}" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">{{ link.title }}</a>
-        {% endfor %}
-      {% else %}
-        <a href="/pages/about" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">Il Brand</a>
-        <a href="/blogs/journal" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">Journal Clinico</a>
-        <a href="/collections/all" class="hover:text-[#C8A878] transition-colors text-[#5C6B56] font-semibold">Bestseller</a>
-      {% endif %}
-    </nav>
-
-    <!-- Logo Center -->
-    <div class="text-center">
-      <a href="{{ routes.root_url }}" class="font-serif text-3xl md:text-4xl tracking-[0.25em] uppercase text-[#1A1A1A] font-semibold">
-        {{ section.settings.brand_name }}
-      </a>
-      <span class="block text-[9px] uppercase tracking-[0.35em] text-[#7A7265] mt-0.5">{{ section.settings.brand_payoff }}</span>
+     </div>
     </div>
+   </div>
 
-    <!-- Right Actions -->
-    <div class="flex-1 flex justify-end items-center gap-6">
-      <a href="{{ routes.search_url }}" onclick="if(window.openSearchModal){openSearchModal(); return false;}" aria-label="Cerca nel catalogo" class="text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </a>
-      <div class="hidden lg:block text-right border-l border-[#E5E0D8] pl-5 cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
-        <div class="text-[11px] font-semibold text-[#1A1A1A] uppercase tracking-wider flex items-center gap-1 justify-end">
-          <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block animate-pulse"></span>
-          Ritiro in sede 2h
-        </div>
-        <div class="text-[10px] text-[#7A7265] tracking-wide">{{ section.settings.verona_pickup }}</div>
-      </div>
-    </div>
+   <!-- Links from Shopify linklist with fallback -->
+   {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
+   {% assign nav_menu = linklists[menu_handle] %}
+   {% if nav_menu.links.size > 0 %}
+    {% for link in nav_menu.links %}
+     <a href="{{ link.url }}" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">{{ link.title }}</a>
+    {% endfor %}
+   {% else %}
+    <a href="/pages/about" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">Il Brand</a>
+    <a href="/blogs/journal" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">Journal Clinico</a>
+    <a href="/collections/all" class="hover:text-[#C8A878] transition-colors text-[#5C6B56] font-semibold">Bestseller</a>
+   {% endif %}
+  </nav>
 
+  <!-- Logo Center -->
+  <div class="text-center">
+   <a href="{{ routes.root_url }}" class="font-serif text-3xl md:text-4xl tracking-[0.25em] uppercase text-[#1A1A1A] font-semibold">
+    {{ section.settings.brand_name }}
+   </a>
+   <span class="block text-[9px] uppercase tracking-[0.35em] text-[#7A7265] mt-0.5">{{ section.settings.brand_payoff }}</span>
   </div>
+
+  <!-- Right Actions -->
+  <div class="flex-1 flex justify-end items-center gap-6">
+   <a href="{{ routes.search_url }}" onclick="if(window.openSearchModal){openSearchModal(); return false;}" aria-label="Cerca nel catalogo" class="text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+   </a>
+   <div class="hidden lg:block text-right border-l border-[#E5E0D8] pl-5 cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
+    <div class="text-[11px] font-semibold text-[#1A1A1A] uppercase tracking-wider flex items-center gap-1 justify-end">
+     <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block animate-pulse"></span>
+     Ritiro in sede 2h
+    </div>
+    <div class="text-[10px] text-[#7A7265] tracking-wide">{{ section.settings.verona_pickup }}</div>
+   </div>
+  </div>
+
+ </div>
 </header>
 
 {% schema %}
 {
-  "name": "Header Splendor Mega Menu",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu di Navigazione"
-    },
-    {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Testo Barra Annunci",
-      "default": "Ottieni il 15% di sconto sul tuo primo ordine con codice SPLENDOR15 • Spedizione gratuita sopra € 50"
-    },
-    {
-      "type": "text",
-      "id": "brand_name",
-      "label": "Nome Brand",
-      "default": "SPLENDOR"
-    },
-    {
-      "type": "text",
-      "id": "brand_payoff",
-      "label": "Payoff Brand",
-      "default": "HAUTE COSMÉTIQUE • VERONA"
-    },
-    {
-      "type": "text",
-      "id": "verona_pickup",
-      "label": "Didascalia Ritiro Verona",
-      "default": "Verona, Corso Cavour 18"
-    }
-  ]
+ "name": "Header MILE Mega Menu",
+ "settings": [
+  {
+   "type": "link_list",
+   "id": "menu",
+   "label": "Menu di Navigazione"
+  },
+  {
+   "type": "text",
+   "id": "announcement_text",
+   "label": "Testo Barra Annunci",
+   "default": "Ottieni il 15% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50"
+  },
+  {
+   "type": "text",
+   "id": "brand_name",
+   "label": "Nome Brand",
+   "default": "MILE"
+  },
+  {
+   "type": "text",
+   "id": "brand_payoff",
+   "label": "Payoff Brand",
+   "default": "HAUTE COSMÉTIQUE • VERONA"
+  },
+  {
+   "type": "text",
+   "id": "verona_pickup",
+   "label": "Didascalia Ritiro Verona",
+   "default": "Verona, Corso Cavour 18"
+  }
+ ]
 }
 {% endschema %}

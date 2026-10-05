@@ -1,122 +1,122 @@
 {
-  "sections": {
-    "hero-splendor": {
-      "type": "hero-splendor",
-      "settings": {
-        "tagline": "ALTA DERMOCOSMESI BIOMIMETICA",
-        "title": "Pelle, Elevata.",
-        "subtitle": "Ispirato alla clinica. Approvato dagli artisti.",
-        "description": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.",
-        "btn_1_text": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE",
-        "btn_2_text": "TROVA LA TUA ROUTINE",
-        "card_brand": "SPLENDOR",
-        "card_title": "Pro-Artistry Cleansing Balm",
-        "card_subtitle": "Melt-Wash • 100ml e 3.4 FL. OZ.",
-        "card_btn_text": "SCOPRI IL PRODOTTO"
-      }
-    },
-    "trust-icon-bar": {
-      "type": "trust-icon-bar",
-      "settings": {
-        "item_1_title": "Difesa Cellulare Biomimetica",
-        "item_1_sub": "Formule ad alta penetrazione epidermica",
-        "item_2_title": "Idratazione 72h a Lunga Durata",
-        "item_2_sub": "Test clinici strumentali comprovati",
-        "item_3_title": "100% Attivi Alpini Puri",
-        "item_3_sub": "Estratti da coltura biologica certificata",
-        "item_4_title": "Zero Siliconi & Microplastiche",
-        "item_4_sub": "Packaging in vetro Miron riciclabile"
-      }
-    },
-    "featured-products": {
-      "type": "featured-products",
-      "settings": {
-        "tag": "I NOSTRI BESTSELLER",
-        "title": "Di tendenza",
-        "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
-        "link_text": "Scopri Tutti"
-      }
-    },
-    "routine-steps": {
-      "type": "routine-steps",
-      "settings": {
-        "tag": "IL PROTOCOLLO ESSENZIALE",
-        "title": "La tua routine, semplificata",
-        "subtitle": "Tre gesti essenziali in perfetta sequenza biomimetica (01 Pulisci, 02 Tratta, 03 Idrata). Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
-      }
-    },
-    "ugc-gallery": {
-      "type": "ugc-gallery",
-      "settings": {
-        "tag": "COMMUNITY & RISULTATI REALI",
-        "title": "Pelle reale. Risultati reali. Amato da migliaia.",
-        "hashtags": "#MySkinRoutine • #GlowDaily • Verona & International"
-      }
-    },
-    "before-after": {
-      "type": "before-after",
-      "settings": {
-        "tag": "EFFICACIA CLINICAMENTE TESTATA",
-        "title": "Risultati Visibili",
-        "subtitle": "Miglioramento visibile in soli 14 giorni* con protocollo attivo rigenerante e Golden Glow Body Oil.",
-        "badge_text": "+48% compattezza, barriera riparata in 14 giorni"
-      }
-    },
-    "collections-list": {
-      "type": "collections-list",
-      "settings": {
-        "tag": "ESPLORA LE COLLEZIONI",
-        "title": "L'Architettura della Bellezza",
-        "subtitle": "Cinque universi sartoriali dedicati al benessere integrale del derma."
-      }
-    },
-    "editorial-quote-press": {
-      "type": "editorial-quote-press",
-      "settings": {
-        "tag": "IL NOSTRO MANIFESTO",
-        "title": "Dove la scienza botanica incontra la fisiologia cutanea",
-        "quote": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.",
-        "author": "Milena Tacchella",
-        "author_role": "Fondatrice & Dermo-Specialista • Milebiolab Verona"
-      }
-    },
-    "local-pickup-verona": {
-      "type": "local-pickup-verona",
-      "settings": {
-        "title": "L'Esperienza Esclusiva del Ritiro a Verona",
-        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico in Corso Cavour 18 nel cuore di Verona."
-      }
-    },
-    "skin-quiz-banner": {
-      "type": "skin-quiz-banner",
-      "settings": {
-        "tag": "DIAGNOSI CUTANEA DIGITALE SARTORIALE",
-        "title": "Trova il Tuo Rituale Su Misura in 2 Minuti",
-        "subtitle": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
-      }
-    },
-    "ticker-marquee": {
-      "type": "ticker-marquee",
-      "settings": {
-        "item_1": "✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE",
-        "item_2": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA",
-        "item_3": "✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE",
-        "item_4": "✦ CONSULENZA PERSONALIZZATA IN CABINA",
-        "item_5": "✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI"
-      }
-    }
+ "sections": {
+  "hero-MILE": {
+   "type": "hero-mile",
+   "settings": {
+    "tagline": "ALTA DERMOCOSMESI BIOMIMETICA",
+    "title": "Pelle, Elevata.",
+    "subtitle": "Ispirato alla clinica. Approvato dagli artisti.",
+    "description": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.",
+    "btn_1_text": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE",
+    "btn_2_text": "TROVA LA TUA ROUTINE",
+    "card_brand": "MILE",
+    "card_title": "Pro-Artistry Cleansing Balm",
+    "card_subtitle": "Melt-Wash • 100ml e 3.4 FL. OZ.",
+    "card_btn_text": "SCOPRI IL PRODOTTO"
+   }
   },
-  "order": [
-    "hero-splendor",
-    "trust-icon-bar",
-    "featured-products",
-    "routine-steps",
-    "ugc-gallery",
-    "before-after",
-    "collections-list",
-    "editorial-quote-press",
-    "local-pickup-verona",
-    "skin-quiz-banner",
-    "ticker-marquee"
-  ]
+  "trust-icon-bar": {
+   "type": "trust-icon-bar",
+   "settings": {
+    "item_1_title": "Difesa Cellulare Biomimetica",
+    "item_1_sub": "Formule ad alta penetrazione epidermica",
+    "item_2_title": "Idratazione 72h a Lunga Durata",
+    "item_2_sub": "Test clinici strumentali comprovati",
+    "item_3_title": "100% Attivi Alpini Puri",
+    "item_3_sub": "Estratti da coltura biologica certificata",
+    "item_4_title": "Zero Siliconi & Microplastiche",
+    "item_4_sub": "Packaging in vetro Miron riciclabile"
+   }
+  },
+  "featured-products": {
+   "type": "featured-products",
+   "settings": {
+    "tag": "I NOSTRI BESTSELLER",
+    "title": "Di tendenza",
+    "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
+    "link_text": "Scopri Tutti"
+   }
+  },
+  "routine-steps": {
+   "type": "routine-steps",
+   "settings": {
+    "tag": "IL PROTOCOLLO ESSENZIALE",
+    "title": "La tua routine, semplificata",
+    "subtitle": "Tre gesti essenziali in perfetta sequenza biomimetica (01 Pulisci, 02 Tratta, 03 Idrata). Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
+   }
+  },
+  "ugc-gallery": {
+   "type": "ugc-gallery",
+   "settings": {
+    "tag": "COMMUNITY & RISULTATI REALI",
+    "title": "Pelle reale. Risultati reali. Amato da migliaia.",
+    "hashtags": "#MySkinRoutine • #GlowDaily • Verona & International"
+   }
+  },
+  "before-after": {
+   "type": "before-after",
+   "settings": {
+    "tag": "EFFICACIA CLINICAMENTE TESTATA",
+    "title": "Risultati Visibili",
+    "subtitle": "Miglioramento visibile in soli 14 giorni* con protocollo attivo rigenerante e Golden Glow Body Oil.",
+    "badge_text": "+48% compattezza, barriera riparata in 14 giorni"
+   }
+  },
+  "collections-list": {
+   "type": "collections-list",
+   "settings": {
+    "tag": "ESPLORA LE COLLEZIONI",
+    "title": "L'Architettura della Bellezza",
+    "subtitle": "Cinque universi sartoriali dedicati al benessere integrale del derma."
+   }
+  },
+  "editorial-quote-press": {
+   "type": "editorial-quote-press",
+   "settings": {
+    "tag": "IL NOSTRO MANIFESTO",
+    "title": "Dove la scienza botanica incontra la fisiologia cutanea",
+    "quote": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.",
+    "author": "Milena Tacchella",
+    "author_role": "Fondatrice & Dermo-Specialista • Milebiolab Verona"
+   }
+  },
+  "local-pickup-verona": {
+   "type": "local-pickup-verona",
+   "settings": {
+    "title": "L'Esperienza Esclusiva del Ritiro a Verona",
+    "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico in Corso Cavour 18 nel cuore di Verona."
+   }
+  },
+  "skin-quiz-banner": {
+   "type": "skin-quiz-banner",
+   "settings": {
+    "tag": "DIAGNOSI CUTANEA DIGITALE SARTORIALE",
+    "title": "Trova il Tuo Rituale Su Misura in 2 Minuti",
+    "subtitle": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
+   }
+  },
+  "ticker-marquee": {
+   "type": "ticker-marquee",
+   "settings": {
+    "item_1": "✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE",
+    "item_2": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA",
+    "item_3": "✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE",
+    "item_4": "✦ CONSULENZA PERSONALIZZATA IN CABINA",
+    "item_5": "✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI"
+   }
+  }
+ },
+ "order": [
+  "hero-MILE",
+  "trust-icon-bar",
+  "featured-products",
+  "routine-steps",
+  "ugc-gallery",
+  "before-after",
+  "collections-list",
+  "editorial-quote-press",
+  "local-pickup-verona",
+  "skin-quiz-banner",
+  "ticker-marquee"
+ ]
 }
