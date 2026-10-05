@@ -113,7 +113,8 @@
       </div>
 
       <!-- Links from Shopify linklist with fallback -->
-      {% assign nav_menu = linklists[section.settings.menu] %}
+      {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
+      {% assign nav_menu = linklists[menu_handle] %}
       {% if nav_menu.links.size > 0 %}
         {% for link in nav_menu.links %}
           <a href="{{ link.url }}" class="hover:text-[#C8A878] transition-colors text-[#1A1A1A]">{{ link.title }}</a>
@@ -157,8 +158,7 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Menu di Navigazione",
-      "default": "main-menu"
+      "label": "Menu di Navigazione"
     },
     {
       "type": "text",

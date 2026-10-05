@@ -122,6 +122,12 @@
 
     <!-- Titolo Centrale in Sovrimpressione Fluttuante -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center pointer-events-none px-4 py-3 sm:px-8 sm:py-5 bg-[#1A1A1A]/55 backdrop-blur-md border border-white/20 text-white shadow-2xl rounded-sm max-w-[90vw]">
+      {% assign current_badge = section.settings.badge_text | default: section.settings.tag %}
+      {% if current_badge != blank %}
+        <span class="inline-block text-[9px] sm:text-[10px] uppercase tracking-widest text-[#C8A878] font-semibold mb-2">
+          {{ current_badge }}
+        </span>
+      {% endif %}
       <h2 class="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal text-white tracking-wider drop-shadow-md">
         {{ section.settings.title | default: 'Risultati Visibili' }}
       </h2>
@@ -234,6 +240,12 @@
       "id": "subtitle",
       "label": "Descrizione Clinica",
       "default": "Miglioramento visibile in soli 14 giorni* con protocollo attivo rigenerante e Golden Glow Body Oil."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Clinico",
+      "default": "+48% compattezza, barriera riparata in 14 giorni"
     },
     {
       "type": "image_picker",
