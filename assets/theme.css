@@ -39,6 +39,28 @@
   --shadow-card: 0 6px 24px rgba(26, 26, 26, 0.04);
 }
 
+/* Accessibility */
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  word-wrap: normal !important;
+}
+.visually-hidden:focus-within,
+.visually-hidden:focus {
+  position: static !important;
+  overflow: visible;
+  width: auto;
+  height: auto;
+  margin: 0;
+  clip: auto;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
