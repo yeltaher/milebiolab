@@ -1,4 +1,4 @@
-<!-- SPLENDOR HAUTE BOTANIQUE FOOTER - PALETTE AVORIO / LINO #F5F2EB -->
+<!-- MILE HAUTE BOTANIQUE FOOTER - PALETTE AVORIO / LINO #F5F2EB -->
 <footer class="bg-[#F5F2EB] text-[#1A1A1A] border-t border-[#E5E0D8] pt-16 pb-8 px-4 sm:px-8 lg:px-16 mt-0 site-footer" id="site-footer-{{ section.id }}">
   <div class="max-w-7xl mx-auto">
     
@@ -7,7 +7,7 @@
       <!-- Col 1: Maison & Mission -->
       <div class="space-y-4">
         <a href="{{ routes.root_url }}" class="inline-block group">
-          <span class="font-serif text-2xl tracking-[0.28em] text-[#1A1A1A] font-medium block">SPLENDOR</span>
+          <span class="font-serif text-2xl tracking-[0.28em] text-[#1A1A1A] font-medium block">MILE</span>
           <span class="text-[8px] uppercase tracking-[0.38em] text-[#7A7265] block -mt-1 font-light">Botanical Haute Couture &bull; Verona</span>
         </a>
         <p class="text-xs text-[#7A7265] font-light leading-relaxed">
@@ -19,13 +19,13 @@
           <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">100% Bio-compatibile</span>
         </div>
         <div class="text-xs text-[#1A1A1A] space-y-1 pt-1">
-          <p class="font-medium">📍 <strong>Istituto Splendor &amp; Flagship Verona</strong></p>
+          <p class="font-medium">📍 <strong>Istituto Mile &amp; Flagship Verona</strong></p>
           <p class="text-[#7A7265]">{{ section.settings.address | default: 'Corso Cavour 18, 37121 Verona (VR)' }}</p>
           <p class="text-[#7A7265]">Tel: <a href="tel:{{ section.settings.phone | default: '+39 045 800 1234' | replace: ' ', '' }}" class="hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">{{ section.settings.phone | default: '+39 045 800 1234' }}</a></p>
         </div>
       </div>
 
-      <!-- Col 2: Collezioni Splendor -->
+      <!-- Col 2: Collezioni Mile -->
       <div>
         <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Collezioni</h4>
         <ul class="space-y-2.5 text-xs text-[#7A7265]">
@@ -60,7 +60,7 @@
       <div>
         <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Privilege Club</h4>
         <p class="text-xs text-[#7A7265] mb-3 font-light leading-relaxed">
-          {{ section.settings.newsletter_desc | default: "Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il 15% di benvenuto con codice SPLENDOR15." }}
+          {{ section.settings.newsletter_desc | default: "Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il 15% di benvenuto con codice MILE15." }}
         </p>
         {% form 'customer', class: 'space-y-2' %}
           <input type="hidden" name="contact[tags]" value="newsletter">
@@ -89,7 +89,7 @@
 
     <!-- Bottom Copyright & Legal Circular Links -->
     <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-[#7A7265] font-light gap-4">
-      <p>&copy; {{ 'now' | date: '%Y' }} SPLENDOR &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
+      <p>&copy; {{ 'now' | date: '%Y' }} MILE &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
       <div class="flex flex-wrap gap-5 text-xs">
         <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
         <a href="/collections/all" class="hover:text-[#1A1A1A] transition-colors">Catalogo</a>
@@ -105,19 +105,19 @@
 
 {% schema %}
 {
-  "name": "Footer Splendor Elite",
+  "name": "Footer Mile Elite",
   "settings": [
     {
       "type": "text",
       "id": "newsletter_title",
       "label": "Titolo Newsletter",
-      "default": "Unisciti al Club Splendor"
+      "default": "Unisciti al Club Mile"
     },
     {
       "type": "textarea",
       "id": "newsletter_desc",
       "label": "Descrizione Newsletter",
-      "default": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice SPLENDOR15, anteprime botaniche e inviti per l'Istituto a Verona."
+      "default": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice MILE15, anteprime botaniche e inviti per l'Istituto a Verona."
     },
     {
       "type": "text",
