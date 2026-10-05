@@ -121,12 +121,12 @@
   <div class="w-full lg:w-1/2 min-h-[50vh] lg:min-h-[85vh] relative bg-[#F5F2EB] overflow-hidden">
     {% if section.settings.image %}
       <img src="{{ section.settings.image | img_url: 'master' }}" 
-           onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+           onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80\'"
            alt="{{ section.settings.title }}" 
            class="w-full h-full object-cover object-center absolute inset-0">
     {% else %}
       <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1200&q=80" 
-           onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+           onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80\'"
            alt="Splendor Haute Skincare Composition" 
            class="w-full h-full object-cover object-center absolute inset-0">
     {% endif %}

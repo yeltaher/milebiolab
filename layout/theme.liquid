@@ -8,7 +8,32 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS with Bespoke Splendor & Dr Joseph Palette -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              linen: '#F5F2EB',
+              ink: '#1A1A1A',
+              sand: '#DDD7CE',
+              borderLinen: '#E5E0D8',
+              ash: '#7A7265',
+              sage: '#5C6B56',
+              amber: '#C8A878',
+              slatePrice: '#555E6B'
+            },
+            fontFamily: {
+              serif: ['"Cormorant Garamond"', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
     
     <title>
       {{ page_title }}
@@ -21,12 +46,60 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
+    <!-- Global Shopify Routing Config -->
+    <script>
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        search_url: '{{ routes.search_url }}'
+      };
+    </script>
+
+    <style>
+      :root {
+        --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+        --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      body {
+        background-color: #F5F2EB;
+        color: #1A1A1A;
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .luxury-interactive {
+        transition: transform 0.3s var(--ease-luxury), opacity 0.3s var(--ease-luxury), background-color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
+      }
+      .luxury-interactive:active {
+        transform: scale(0.97);
+      }
+      .accordion-grid {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.35s var(--ease-luxury);
+      }
+      .accordion-grid.open {
+        grid-template-rows: 1fr;
+      }
+      .accordion-grid-inner {
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .accordion-grid.open .accordion-grid-inner {
+        opacity: 1;
+      }
+      .slider-no-scrollbar::-webkit-scrollbar { display: none; }
+      .slider-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+
     <!-- Shopify OS 2.0 Theme Assets -->
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     {{ content_for_header }}
   </head>
 
-  <body class="template-{{ template.name | handle }} theme-splendor-bespoke">
+  <body class="template-{{ template.name | handle }} theme-splendor-bespoke bg-linen text-ink font-sans antialiased">
     <a class="skip-to-content-link visually-hidden" href="#MainContent">
       Vai al contenuto principale
     </a>

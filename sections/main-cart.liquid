@@ -1,0 +1,92 @@
+{% schema %}
+{
+  "name": "Main Cart Page Splendor",
+  "settings": []
+}
+{% endschema %}
+
+<div class="bg-[#F5F2EB] text-[#1A1A1A] min-h-screen py-16">
+  <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    <div class="text-center mb-10">
+      <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">MILEBIOLAB HAUTE COSMÉTIQUE</span>
+      <h1 class="font-serif text-4xl sm:text-5xl text-[#1A1A1A]">Il Tuo Rituale di Bellezza</h1>
+    </div>
+
+    <!-- Free Shipping & Samples Progress Bar -->
+    <div class="bg-white border border-[#E5E0D8] p-5 mb-8 shadow-xs">
+      <div id="cart-progress-text" class="text-xs text-[#1A1A1A] font-medium mb-2.5">
+        🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e il Cofanetto 3 Campioncini Deluxe Omaggio!
+      </div>
+      <div class="w-full bg-[#E5E0D8] h-2 rounded-full overflow-hidden">
+        <div class="bg-[#5C6B56] h-full transition-all duration-500 rounded-full" id="cart-progress-fill" style="width: 70%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Layout Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      
+      <!-- Items List -->
+      <div class="lg:col-span-7 bg-white border border-[#E5E0D8] p-6 shadow-xs">
+        <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">Formule Selezionate</h3>
+        
+        <div class="space-y-6" id="cart-page-items-list">
+          {% if cart.items.size > 0 %}
+            {% for item in cart.items %}
+              <div class="flex gap-4 items-center pb-5 border-b border-[#E5E0D8]">
+                <img src="{{ item.featured_image | image_url: width: 160 }}" alt="{{ item.title | escape }}" class="w-20 h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8]">
+                <div class="flex-1">
+                  <h4 class="font-serif text-base font-medium text-[#1A1A1A]">{{ item.product.title }}</h4>
+                  <div class="text-xs text-[#7A7265]">{{ item.variant.title }} &bull; Milebiolab Haute Couture</div>
+                  <div class="text-xs font-semibold text-[#1A1A1A] mt-1">{{ item.price | money }}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-[#1A1A1A]">Qtà: <strong>{{ item.quantity }}</strong></div>
+                  <button type="button" onclick="if(window.changeShopifyCartQty) changeShopifyCartQty('{{ item.key }}', 0);" class="text-[10px] text-[#7A7265] underline mt-1 cursor-pointer">Rimuovi</button>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <!-- Fallback Client-side items from MilebiolabState -->
+            <div class="py-8 text-center text-[#7A7265]">
+              <span class="text-3xl block mb-2">🌿</span>
+              <p class="text-sm">Il tuo carrello dei rituali contiene i trattamenti selezionati.</p>
+              <button type="button" onclick="openCartDrawer()" class="mt-4 px-6 py-2.5 bg-[#1A1A1A] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#5C6B56] transition-colors">
+                Apri Carrello Laterale
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Summary & Checkout Box -->
+      <div class="lg:col-span-5 bg-white border border-[#E5E0D8] p-6 shadow-xs sticky top-28">
+        <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">Riepilogo Ordine</h3>
+        
+        <div class="space-y-3 text-xs mb-6">
+          <div class="flex justify-between">
+            <span class="text-[#7A7265]">Subtotale</span>
+            <span class="font-semibold text-[#1A1A1A]" id="cart-summary-subtotal">{{ cart.total_price | money | default: '€ 170,00' }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[#7A7265]">Spedizione espressa / Ritiro Verona</span>
+            <span class="text-[#5C6B56] font-semibold">Gratuita</span>
+          </div>
+          <div class="flex justify-between border-t border-[#E5E0D8] pt-3 text-sm font-semibold">
+            <span>Totale (IVA inclusa)</span>
+            <span class="text-[#1A1A1A]" id="cart-summary-total">{{ cart.total_price | money | default: '€ 170,00' }}</span>
+          </div>
+        </div>
+
+        <a href="{{ routes.cart_url }}/checkout" class="w-full bg-[#1A1A1A] text-white py-4 px-6 text-xs uppercase tracking-[0.22em] font-semibold hover:bg-[#5C6B56] transition-all text-center flex items-center justify-center luxury-interactive shadow-md mb-4">
+          Procedi al Checkout Sicuro
+        </a>
+
+        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-3 text-[11px] text-[#7A7265] space-y-1">
+          <div>📍 <strong>Ritiro gratuito disponibile:</strong> Corso Cavour 18, Verona (pronto in 2 ore).</div>
+          <div>🌿 <strong>Omaggi inclusi:</strong> 3 campioncini deluxe e packaging regalo riciclabile.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

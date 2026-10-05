@@ -231,8 +231,121 @@ function initBeforeAfterSlider() {
 }
 
 /* ==========================================================================
-   4. REACTIVE CART DRAWER ENGINE
+   4. REACTIVE CART DRAWER ENGINE (SHOPIFY OS 2.0 AJAX SYNC + LOCAL FALLBACK)
    ========================================================================== */
+const CART_STORAGE_KEY = 'splendor_cart_state';
+
+// Fetch real Shopify Cart
+async function fetchShopifyCart() {
+  const cartUrl = (window.routes && window.routes.cart_url) ? window.routes.cart_url : '/cart.js';
+  try {
+    const res = await fetch(cartUrl, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) throw new Error('Shopify cart endpoint error');
+    const data = await res.json();
+    if (data && Array.isArray(data.items)) {
+      if (data.items.length > 0) {
+        MilebiolabState.cart = data.items.map(item => ({
+          id: item.id || item.variant_id,
+          key: item.key,
+          title: item.product_title || item.title,
+          step: (item.properties && item.properties['step']) || 'RITUALE BOTANICO',
+          price: (item.price / 100),
+          volume: item.variant_title || 'Formato Originale',
+          qty: item.quantity,
+          image: item.featured_image ? (item.featured_image.url || item.featured_image) : (item.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80')
+        }));
+      } else {
+        MilebiolabState.cart = [];
+      }
+      try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+      } catch (e) {}
+    }
+  } catch (err) {
+    try {
+      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      if (stored) {
+        MilebiolabState.cart = JSON.parse(stored);
+      }
+    } catch (e) {}
+  }
+  renderCartDrawer();
+}
+
+async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
+  const addUrl = (window.routes && window.routes.cart_add_url) ? window.routes.cart_add_url : '/cart/add.js';
+  try {
+    const payload = {
+      id: variantId,
+      quantity: qty
+    };
+    if (itemData && itemData.properties) {
+      payload.properties = itemData.properties;
+    }
+    const res = await fetch(addUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('Add to cart API returned ' + res.status);
+    await fetchShopifyCart();
+    openCartDrawer();
+    return true;
+  } catch (err) {
+    addToCart(itemData && itemData.title ? itemData : {
+      id: variantId,
+      title: (itemData && itemData.title) || 'Golden Glow Body Oil',
+      price: (itemData && itemData.price) || 76.00,
+      volume: (itemData && itemData.volume) || '100 ml',
+      qty: qty,
+      image: (itemData && itemData.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'
+    });
+    return false;
+  }
+}
+
+async function changeShopifyCartQty(itemKeyOrId, newQty) {
+  const changeUrl = (window.routes && window.routes.cart_change_url) ? window.routes.cart_change_url : '/cart/change.js';
+  try {
+    const res = await fetch(changeUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: itemKeyOrId,
+        quantity: newQty
+      })
+    });
+    if (!res.ok) throw new Error('Change cart API returned ' + res.status);
+    await fetchShopifyCart();
+    return true;
+  } catch (err) {
+    const item = MilebiolabState.cart.find(i => i.id == itemKeyOrId || i.key == itemKeyOrId);
+    if (item) {
+      item.qty = newQty;
+      if (item.qty <= 0) {
+        MilebiolabState.cart = MilebiolabState.cart.filter(i => i !== item);
+      }
+      try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+      } catch (e) {}
+      renderCartDrawer();
+    }
+    return false;
+  }
+}
+
+window.fetchShopifyCart = fetchShopifyCart;
+window.addShopifyCartItem = addShopifyCartItem;
+window.changeShopifyCartQty = changeShopifyCartQty;
+
 function renderCartDrawer() {
   const container = document.getElementById('cart-drawer-items-list');
   const counterBadges = document.querySelectorAll('.cart-count-badge');
@@ -273,10 +386,10 @@ function renderCartDrawer() {
           <div class="cart-item-price">€ ${item.price.toFixed(2).replace('.', ',')}</div>
           <div class="cart-item-meta">${item.volume} • Milebiolab Haute Couture</div>
           <div class="cart-item-qty">
-            <button class="qty-btn" type="button" onclick="updateCartItemQty('${item.id}', -1)" aria-label="Riduci">-</button>
+            <button class="qty-btn" type="button" onclick="updateCartItemQty('${item.key || item.id}', -1)" aria-label="Riduci">-</button>
             <span class="qty-val">${item.qty}</span>
-            <button class="qty-btn" type="button" onclick="updateCartItemQty('${item.id}', 1)" aria-label="Aumenta">+</button>
-            <button class="qty-remove-btn" type="button" onclick="removeCartItem('${item.id}')" title="Rimuovi" style="margin-left: auto; font-size: 0.75rem; color: #9E9382; text-decoration: underline; background: none; border: none; cursor: pointer;">Rimuovi</button>
+            <button class="qty-btn" type="button" onclick="updateCartItemQty('${item.key || item.id}', 1)" aria-label="Aumenta">+</button>
+            <button class="qty-remove-btn" type="button" onclick="removeCartItem('${item.key || item.id}')" title="Rimuovi" style="margin-left: auto; font-size: 0.75rem; color: #9E9382; text-decoration: underline; background: none; border: none; cursor: pointer;">Rimuovi</button>
           </div>
         </div>
       `;
@@ -336,6 +449,11 @@ function closeCartDrawer() {
 }
 
 function addToCart(item) {
+  if (item && item.id && (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
+    addShopifyCartItem(item.id, item.qty || 1, item);
+    return;
+  }
+
   const existing = MilebiolabState.cart.find(i => i.id === item.id);
   if (existing) {
     existing.qty += (item.qty || 1);
@@ -350,23 +468,44 @@ function addToCart(item) {
       image: item.image
     });
   }
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+  } catch (e) {}
   openCartDrawer();
 }
 
 function updateCartItemQty(id, delta) {
-  const item = MilebiolabState.cart.find(i => i.id === id);
+  const item = MilebiolabState.cart.find(i => i.id == id || i.key == id);
   if (!item) return;
 
-  item.qty += delta;
-  if (item.qty <= 0) {
-    MilebiolabState.cart = MilebiolabState.cart.filter(i => i.id !== id);
+  const newQty = item.qty + delta;
+  if (item.key || typeof item.id === 'number' || (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
+    changeShopifyCartQty(item.key || item.id, newQty);
+  } else {
+    item.qty = newQty;
+    if (item.qty <= 0) {
+      MilebiolabState.cart = MilebiolabState.cart.filter(i => i.id !== id && i.key !== id);
+    }
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+    } catch (e) {}
+    renderCartDrawer();
   }
-  renderCartDrawer();
 }
 
 function removeCartItem(id) {
-  MilebiolabState.cart = MilebiolabState.cart.filter(i => i.id !== id);
-  renderCartDrawer();
+  const item = MilebiolabState.cart.find(i => i.id == id || i.key == id);
+  if (!item) return;
+
+  if (item.key || typeof item.id === 'number' || (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
+    changeShopifyCartQty(item.key || item.id, 0);
+  } else {
+    MilebiolabState.cart = MilebiolabState.cart.filter(i => i.id !== id && i.key !== id);
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+    } catch (e) {}
+    renderCartDrawer();
+  }
 }
 
 function setDeliveryChoice(choice) {
@@ -821,8 +960,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Init Before/After slider
   initBeforeAfterSlider();
 
-  // 3. Render Cart Drawer initial state
-  renderCartDrawer();
+  // 3. Render Cart Drawer initial state & Sync with Shopify AJAX Cart API
+  fetchShopifyCart();
 
   // 4. Cart drawer toggle buttons
   const openCartBtn = document.getElementById('open-cart-btn');
