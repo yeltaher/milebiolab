@@ -1,20 +1,3 @@
-{% schema %}
-{
-  "name": "Main Collection Splendor",
-  "settings": [
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "label": "Prodotti per pagina",
-      "min": 4,
-      "max": 24,
-      "step": 4,
-      "default": 12
-    }
-  ]
-}
-{% endschema %}
-
 <div class="bg-[#F5F2EB] text-[#1A1A1A] min-h-screen py-10">
   <!-- Hero Category Header -->
   <header class="max-w-7xl mx-auto px-4 sm:px-8 pb-8 pt-4">
@@ -29,7 +12,7 @@
           {{ collection.title | default: 'Formule di Precisione Botanica' }}
         </h1>
         <p class="text-xs sm:text-sm text-[#7A7265] mt-2 max-w-xl font-light">
-          {{ collection.description | default: 'Trattamenti cosmeceutici d'eccellenza formulati per rigenerare la barriera cutanea e donare un finish radioso.' }}
+          {{ collection.description | default: "Trattamenti cosmeceutici d'eccellenza formulati per rigenerare la barriera cutanea e donare un finish radioso." }}
         </p>
       </div>
       <div class="text-xs text-[#7A7265]">
@@ -180,3 +163,20 @@
     {% endpaginate %}
   </main>
 </div>
+
+{% schema %}
+{
+  "name": "Main Collection Splendor",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Prodotti per pagina",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 12
+    }
+  ]
+}
+{% endschema %}

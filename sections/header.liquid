@@ -1,41 +1,3 @@
-{% schema %}
-{
-  "name": "Header Splendor Mega Menu",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu di Navigazione",
-      "default": "main-menu"
-    },
-    {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Testo Barra Annunci",
-      "default": "Ottieni il 15% di sconto sul tuo primo ordine con codice SPLENDOR15 • Spedizione gratuita sopra € 50"
-    },
-    {
-      "type": "text",
-      "id": "brand_name",
-      "label": "Nome Brand",
-      "default": "SPLENDOR"
-    },
-    {
-      "type": "text",
-      "id": "brand_payoff",
-      "label": "Payoff Brand",
-      "default": "HAUTE COSMÉTIQUE • VERONA"
-    },
-    {
-      "type": "text",
-      "id": "verona_pickup",
-      "label": "Didascalia Ritiro Verona",
-      "default": "Verona, Corso Cavour 18"
-    }
-  ]
-}
-{% endschema %}
-
 <!-- Top Announcement Bar -->
 <div class="bg-[#1A1A1A] text-white text-center py-2.5 px-4 text-xs tracking-wider uppercase flex items-center justify-center gap-2">
   <span>{{ section.settings.announcement_text }}</span>
@@ -187,3 +149,41 @@
 
   </div>
 </header>
+
+{% schema %}
+{
+  "name": "Header Splendor Mega Menu",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu di Navigazione",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Testo Barra Annunci",
+      "default": "Ottieni il 15% di sconto sul tuo primo ordine con codice SPLENDOR15 • Spedizione gratuita sopra € 50"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Nome Brand",
+      "default": "SPLENDOR"
+    },
+    {
+      "type": "text",
+      "id": "brand_payoff",
+      "label": "Payoff Brand",
+      "default": "HAUTE COSMÉTIQUE • VERONA"
+    },
+    {
+      "type": "text",
+      "id": "verona_pickup",
+      "label": "Didascalia Ritiro Verona",
+      "default": "Verona, Corso Cavour 18"
+    }
+  ]
+}
+{% endschema %}

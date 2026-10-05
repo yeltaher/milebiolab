@@ -1,35 +1,3 @@
-{% schema %}
-{
-  "name": "UGC Gallery Splendor",
-  "settings": [
-    {
-      "type": "text",
-      "id": "tag",
-      "label": "Tag Sezione",
-      "default": "COMMUNITY & RISULTATI REALI"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titolo",
-      "default": "Pelle reale. Risultati reali. Amato da migliaia."
-    },
-    {
-      "type": "text",
-      "id": "hashtags",
-      "label": "Hashtags Ufficiali",
-      "default": "#MySkinRoutine • #GlowDaily • Verona & International"
-    }
-  ],
-  "presets": [
-    {
-      "name": "UGC Gallery Splendor",
-      "category": "Social Proof"
-    }
-  ]
-}
-{% endschema %}
-
 <section class="py-20 bg-white border-b border-[#DDD7CE]/50 ugc-splendor-section" id="ugc-gallery-{{ section.id }}">
   <div class="max-w-7xl mx-auto px-6 lg:px-12">
     
@@ -112,3 +80,35 @@
 
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "UGC Gallery Splendor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag Sezione",
+      "default": "COMMUNITY & RISULTATI REALI"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Pelle reale. Risultati reali. Amato da migliaia."
+    },
+    {
+      "type": "text",
+      "id": "hashtags",
+      "label": "Hashtags Ufficiali",
+      "default": "#MySkinRoutine • #GlowDaily • Verona & International"
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC Gallery Splendor",
+      "category": "Social Proof"
+    }
+  ]
+}
+{% endschema %}

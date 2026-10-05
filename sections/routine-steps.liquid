@@ -1,29 +1,3 @@
-{% schema %}
-{
-  "name": "Your Routine Simplified",
-  "settings": [
-    {
-      "type": "text",
-      "id": "tag",
-      "label": "Tag",
-      "default": "IL PROTOCOLLO ESSENZIALE"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titolo",
-      "default": "Your Routine, <em>Simplified</em>"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Sottotitolo",
-      "default": "Tre gesti essenziali in perfetta sequenza biomimetica. Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
-    }
-  ]
-}
-{% endschema %}
-
 <section class="routine-steps-section" id="routine-steps">
   <div class="section-container">
     
@@ -148,3 +122,35 @@
 
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Your Routine Simplified",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "IL PROTOCOLLO ESSENZIALE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Your Routine, <em>Simplified</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Tre gesti essenziali in perfetta sequenza biomimetica. Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Your Routine Simplified",
+      "category": "Routine"
+    }
+  ]
+}
+{% endschema %}

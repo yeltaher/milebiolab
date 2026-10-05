@@ -1,52 +1,3 @@
-{% schema %}
-{
-  "name": "Featured Products Splendor",
-  "settings": [
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collezione in Evidenza"
-    },
-    {
-      "type": "text",
-      "id": "tag",
-      "label": "Tagline Superiore",
-      "default": "I NOSTRI BESTSELLER"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titolo Sezione",
-      "default": "Di tendenza"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Copy Editoriale",
-      "default": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda."
-    },
-    {
-      "type": "text",
-      "id": "link_text",
-      "label": "Testo Link",
-      "default": "Scopri Tutti"
-    },
-    {
-      "type": "url",
-      "id": "link_url",
-      "label": "URL Link",
-      "default": "/collections/all"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Featured Products Splendor",
-      "category": "Products"
-    }
-  ]
-}
-{% endschema %}
-
 <section class="py-24 px-6 lg:px-16 bg-[#F5F2EB] border-b border-[#DDD7CE]/50 featured-products-section" id="featured-products-{{ section.id }}">
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16">
     
@@ -226,3 +177,52 @@
 
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Featured Products Splendor",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collezione in Evidenza"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tagline Superiore",
+      "default": "I NOSTRI BESTSELLER"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Sezione",
+      "default": "Di tendenza"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Copy Editoriale",
+      "default": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda."
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Testo Link",
+      "default": "Scopri Tutti"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "URL Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products Splendor",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

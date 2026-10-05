@@ -1,3 +1,31 @@
+<!-- CONTINUOUS LUXURY TICKER MARQUEE -->
+<section class="ticker-marquee-section bg-[#1A1A1A] text-white py-3.5 border-y border-[#DDD7CE]/20 overflow-hidden" aria-label="Informazioni e vantaggi esclusivi">
+  <div class="ticker-marquee-track flex whitespace-nowrap gap-12 font-mono text-[11px] tracking-[0.2em] uppercase font-medium">
+    <div class="ticker-item flex items-center gap-10">
+      <span>{{ section.settings.item_1 | default: '✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_2 | default: '✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_3 | default: '✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_4 | default: '✦ CONSULENZA PERSONALIZZATA IN CABINA' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_5 | default: '✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI' }}</span>
+    </div>
+    <div class="ticker-item flex items-center gap-10" aria-hidden="true">
+      <span>{{ section.settings.item_1 | default: '✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_2 | default: '✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_3 | default: '✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_4 | default: '✦ CONSULENZA PERSONALIZZATA IN CABINA' }}</span>
+      <span class="text-[#C8A878]">•</span>
+      <span>{{ section.settings.item_5 | default: '✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI' }}</span>
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Pre-Footer Ticker Marquee",
@@ -32,25 +60,12 @@
       "label": "Elemento 5",
       "default": "✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI"
     }
+  ],
+  "presets": [
+    {
+      "name": "Pre-Footer Ticker Marquee",
+      "category": "Marquee"
+    }
   ]
 }
 {% endschema %}
-
-<section class="ticker-marquee-section" aria-label="Informazioni e vantaggi esclusivi">
-  <div class="ticker-marquee-track">
-    <div class="ticker-item">
-      <span>{{ section.settings.item_1 }}</span>
-      <span>{{ section.settings.item_2 }}</span>
-      <span>{{ section.settings.item_3 }}</span>
-      <span>{{ section.settings.item_4 }}</span>
-      <span>{{ section.settings.item_5 }}</span>
-    </div>
-    <div class="ticker-item" aria-hidden="true">
-      <span>{{ section.settings.item_1 }}</span>
-      <span>{{ section.settings.item_2 }}</span>
-      <span>{{ section.settings.item_3 }}</span>
-      <span>{{ section.settings.item_4 }}</span>
-      <span>{{ section.settings.item_5 }}</span>
-    </div>
-  </div>
-</section>

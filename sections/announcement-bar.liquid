@@ -1,3 +1,54 @@
+{% if section.settings.show_announcement %}
+<!-- SPLENDOR TOP ROTATING ANNOUNCEMENT BAR -->
+<div class="announcement-carousel-bar" role="region" aria-label="Annunci del negozio">
+  <button type="button" class="announcement-arrow-btn" onclick="prevAnnouncement()" aria-label="Messaggio precedente">&#8249;</button>
+  
+  <div class="announcement-carousel-inner" id="announcement-carousel-container">
+    <div class="announcement-slide active">
+      <span class="magnetic-glow-pulse-badge">PROMOZIONE</span>
+      <span>{{ section.settings.message_1 }}</span>
+    </div>
+    <div class="announcement-slide">
+      <span class="magnetic-glow-pulse-badge">FLAGSHIP VERONA</span>
+      <span>{{ section.settings.message_2 }}</span>
+    </div>
+    <div class="announcement-slide">
+      <span class="magnetic-glow-pulse-badge">CERTIFICAZIONE</span>
+      <span>{{ section.settings.message_3 }}</span>
+    </div>
+  </div>
+
+  <button type="button" class="announcement-arrow-btn" onclick="nextAnnouncement()" aria-label="Messaggio successivo">&#8250;</button>
+</div>
+
+<!-- SPLENDOR UTILITY SUPPORT BAR -->
+<div class="splendor-utility-bar">
+  <div class="splendor-utility-inner">
+    <div class="utility-info-group">
+      <span class="utility-item">
+        <span>📍</span>
+        <span>Istituto Verona: <strong>{{ section.settings.boutique_address }}</strong></span>
+      </span>
+      <span class="utility-item">
+        <span>🕒</span>
+        <span>{{ section.settings.boutique_hours }}</span>
+      </span>
+      <span class="utility-item">
+        <span>📞</span>
+        <a href="tel:{{ section.settings.boutique_phone | replace: ' ', '' }}"><strong>{{ section.settings.boutique_phone }}</strong></a>
+      </span>
+    </div>
+
+    <div class="utility-actions-group">
+      <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" style="color: var(--color-accent-olive); font-weight: 600;">Prenota Trattamento Cabina &rarr;</a>
+      <div class="currency-lang-switcher">
+        <span>🌐 EUR (€) / IT</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 {% schema %}
 {
   "name": "Announcement & Utility Bar",
@@ -47,54 +98,3 @@
   ]
 }
 {% endschema %}
-
-{% if section.settings.show_announcement %}
-<!-- SPLENDOR TOP ROTATING ANNOUNCEMENT BAR -->
-<div class="announcement-carousel-bar" role="region" aria-label="Annunci del negozio">
-  <button type="button" class="announcement-arrow-btn" onclick="prevAnnouncement()" aria-label="Messaggio precedente">&#8249;</button>
-  
-  <div class="announcement-carousel-inner" id="announcement-carousel-container">
-    <div class="announcement-slide active">
-      <span class="magnetic-glow-pulse-badge">PROMOZIONE</span>
-      <span>{{ section.settings.message_1 }}</span>
-    </div>
-    <div class="announcement-slide">
-      <span class="magnetic-glow-pulse-badge">FLAGSHIP VERONA</span>
-      <span>{{ section.settings.message_2 }}</span>
-    </div>
-    <div class="announcement-slide">
-      <span class="magnetic-glow-pulse-badge">CERTIFICAZIONE</span>
-      <span>{{ section.settings.message_3 }}</span>
-    </div>
-  </div>
-
-  <button type="button" class="announcement-arrow-btn" onclick="nextAnnouncement()" aria-label="Messaggio successivo">&#8250;</button>
-</div>
-
-<!-- SPLENDOR UTILITY SUPPORT BAR -->
-<div class="splendor-utility-bar">
-  <div class="splendor-utility-inner">
-    <div class="utility-info-group">
-      <span class="utility-item">
-        <span>📍</span>
-        <span>Istituto Verona: <strong>{{ section.settings.boutique_address }}</strong></span>
-      </span>
-      <span class="utility-item">
-        <span>🕒</span>
-        <span>{{ section.settings.boutique_hours }}</span>
-      </span>
-      <span class="utility-item">
-        <span>📞</span>
-        <a href="tel:{{ section.settings.boutique_phone | replace: ' ', '' }}"><strong>{{ section.settings.boutique_phone }}</strong></a>
-      </span>
-    </div>
-
-    <div class="utility-actions-group">
-      <a href="#istituto-verona" onclick="openVeronaModal()" style="color: var(--color-accent-olive); font-weight: 600;">Prenota Trattamento Cabina &rarr;</a>
-      <div class="currency-lang-switcher">
-        <span>🌐 EUR (€) / IT</span>
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}

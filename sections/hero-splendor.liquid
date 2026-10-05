@@ -1,100 +1,3 @@
-{% schema %}
-{
-  "name": "Splendor Hero 50/50",
-  "settings": [
-    {
-      "type": "text",
-      "id": "tagline",
-      "label": "Tagline Superiore",
-      "default": "ALTA DERMOCOSMESI BIOMIMETICA"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titolo Principale",
-      "default": "Pelle, Elevata."
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Sottotitolo Editoriale",
-      "default": "Ispirato alla clinica. Approvato dagli artisti."
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Descrizione Dettagliata",
-      "default": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi."
-    },
-    {
-      "type": "text",
-      "id": "btn_1_text",
-      "label": "Testo Pulsante 1",
-      "default": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE"
-    },
-    {
-      "type": "url",
-      "id": "btn_1_url",
-      "label": "Link Pulsante 1",
-      "default": "/collections/all"
-    },
-    {
-      "type": "text",
-      "id": "btn_2_text",
-      "label": "Testo Pulsante 2",
-      "default": "TROVA LA TUA ROUTINE"
-    },
-    {
-      "type": "url",
-      "id": "btn_2_url",
-      "label": "Link Pulsante 2",
-      "default": "#routine"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Immagine Hero (Mani con vasetto)"
-    },
-    {
-      "type": "text",
-      "id": "card_brand",
-      "label": "Etichetta Scheda Overlay",
-      "default": "SPLENDOR"
-    },
-    {
-      "type": "text",
-      "id": "card_title",
-      "label": "Titolo Scheda Overlay",
-      "default": "Pro-Artistry Cleansing Balm"
-    },
-    {
-      "type": "text",
-      "id": "card_subtitle",
-      "label": "Sottotitolo Scheda Overlay",
-      "default": "Melt-Wash • 100ml e 3.4 FL. OZ."
-    },
-    {
-      "type": "text",
-      "id": "card_btn_text",
-      "label": "Testo CTA Scheda Overlay",
-      "default": "SCOPRI IL PRODOTTO"
-    },
-    {
-      "type": "url",
-      "id": "card_btn_url",
-      "label": "Link CTA Scheda Overlay",
-      "default": "/collections/all"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Splendor Hero 50/50",
-      "category": "Hero & Banner"
-    }
-  ]
-}
-{% endschema %}
-
 <section class="relative min-h-[85vh] bg-white border-b border-borderLinen flex flex-col lg:flex-row items-stretch splendor-hero" id="splendor-hero-{{ section.id }}">
   
   <!-- Left Column: Copy & Official Buttons & Badges -->
@@ -129,7 +32,7 @@
       {% endif %}
       {% assign btn2_text = section.settings.btn_2_text | default: 'TROVA LA TUA ROUTINE' %}
       {% if btn2_text != blank %}
-        <a href="{{ section.settings.btn_2_url | default: '#routine' }}" class="border border-ink text-ink px-6 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-linen transition-all text-center luxury-interactive">
+        <a href="{{ section.settings.btn_2_url | default: '#routine-steps' }}" class="border border-ink text-ink px-6 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-linen transition-all text-center luxury-interactive">
           {{ btn2_text }}
         </a>
       {% endif %}
@@ -271,3 +174,100 @@
   </div>
 
 </section>
+
+{% schema %}
+{
+  "name": "Splendor Hero 50/50",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline Superiore",
+      "default": "ALTA DERMOCOSMESI BIOMIMETICA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Principale",
+      "default": "Pelle, Elevata."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sottotitolo Editoriale",
+      "default": "Ispirato alla clinica. Approvato dagli artisti."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrizione Dettagliata",
+      "default": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi."
+    },
+    {
+      "type": "text",
+      "id": "btn_1_text",
+      "label": "Testo Pulsante 1",
+      "default": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE"
+    },
+    {
+      "type": "url",
+      "id": "btn_1_url",
+      "label": "Link Pulsante 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "btn_2_text",
+      "label": "Testo Pulsante 2",
+      "default": "TROVA LA TUA ROUTINE"
+    },
+    {
+      "type": "url",
+      "id": "btn_2_url",
+      "label": "Link Pulsante 2",
+      "default": "#routine-steps"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Immagine Hero (Mani con vasetto)"
+    },
+    {
+      "type": "text",
+      "id": "card_brand",
+      "label": "Etichetta Scheda Overlay",
+      "default": "SPLENDOR"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Titolo Scheda Overlay",
+      "default": "Pro-Artistry Cleansing Balm"
+    },
+    {
+      "type": "text",
+      "id": "card_subtitle",
+      "label": "Sottotitolo Scheda Overlay",
+      "default": "Melt-Wash • 100ml e 3.4 FL. OZ."
+    },
+    {
+      "type": "text",
+      "id": "card_btn_text",
+      "label": "Testo CTA Scheda Overlay",
+      "default": "SCOPRI IL PRODOTTO"
+    },
+    {
+      "type": "url",
+      "id": "card_btn_url",
+      "label": "Link CTA Scheda Overlay",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Splendor Hero 50/50",
+      "category": "Hero & Banner"
+    }
+  ]
+}
+{% endschema %}

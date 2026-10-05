@@ -1,45 +1,126 @@
+<!-- SEZIONE STORYTELLING MILENA TACCHELLA & PRESS LOGOS -->
+<section id="filosofia" class="py-20 lg:py-28 bg-white border-b border-[#E5E0D8]">
+  <div class="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    
+    <!-- Foto Fondatrice Milena Tacchella a sinistra -->
+    <div class="lg:col-span-6 relative">
+      <div class="relative z-10 border border-[#E5E0D8] shadow-2xl overflow-hidden bg-[#F5F2EB] aspect-[4/3] sm:aspect-[16/11]">
+        {% if section.settings.image %}
+          <img src="{{ section.settings.image | img_url: '1200x' }}" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'"
+               alt="{{ section.settings.author | default: 'Milena Tacchella' }} - Fondatrice & Dermo-Specialista" 
+               class="w-full h-full object-cover object-[center_20%]">
+        {% else %}
+          <img src="{{ 'milena-tacchella.jpg' | asset_url }}" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'"
+               alt="Milena Tacchella - Fondatrice & Dermo-Specialista • Milebiolab Verona" 
+               class="w-full h-full object-cover object-[center_20%]">
+        {% endif %}
+      </div>
+      <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-[#DDD7CE]/30 -z-0 hidden sm:block"></div>
+      <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm p-3 sm:p-4 border border-[#E5E0D8] text-[10px] sm:text-xs tracking-wider uppercase text-[#1A1A1A] z-20 shadow-md">
+        Istituto Dermo-Specialistico &bull; Verona
+      </div>
+    </div>
+
+    <!-- Manifesto del Brand a destra con cornice sartoriale -->
+    <div class="lg:col-span-6">
+      <div class="p-8 sm:p-12 bg-[#F5F2EB] border border-[#E5E0D8] shadow-xs relative">
+        <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-3">{{ section.settings.tag | default: 'IL NOSTRO MANIFESTO' }}</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] leading-tight mb-4">
+          {{ section.settings.title | default: 'Dove la scienza botanica incontra la fisiologia cutanea' }}
+        </h2>
+        
+        <blockquote class="font-serif italic text-base sm:text-lg text-[#1A1A1A] leading-snug mb-5 border-l-2 border-[#C8A878] pl-4">
+          &ldquo;{{ section.settings.quote | default: "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata." }}&rdquo;
+        </blockquote>
+
+        <p class="text-[#7A7265] text-xs sm:text-sm leading-relaxed mb-4 font-light">
+          Non crediamo nelle scorciatoie della chimica aggressiva né nell'approssimazione dell'erboristeria empirica. Il nostro metodo nasce dalla ricerca pionieristica di bio-compatibilità: ogni fitocomplesso viene estratto a freddo nel pieno rispetto della matrice vegetale viva.
+        </p>
+
+        <p class="text-[#7A7265] text-xs sm:text-sm leading-relaxed mb-6 font-light">
+          Nella nostra boutique e istituto di Verona in Corso Cavour 18, accogliamo ogni persona per creare un percorso dermocosmetico sartoriale, supportato da verifiche strumentali e risultati clinicamente tangibili.
+        </p>
+
+        <div class="pt-6 border-t border-[#E5E0D8] flex items-center justify-between">
+          <div>
+            <span class="font-serif italic text-lg text-[#1A1A1A] block">{{ section.settings.author | default: 'Milena Tacchella' }}</span>
+            <span class="text-[10px] uppercase tracking-widest text-[#7A7265]">{{ section.settings.author_role | default: 'Fondatrice & Dermo-Specialista • Milebiolab Verona' }}</span>
+          </div>
+          <a href="/pages/chi-siamo" class="inline-block border-b-2 border-[#1A1A1A] pb-1 text-xs uppercase tracking-widest font-semibold hover:text-[#C8A878] hover:border-[#C8A878] transition-colors">
+            LA NOSTRA STORIA &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Press & Recognition Logos Marquee -->
+  <div class="mt-16 pt-10 border-t border-[#E5E0D8] max-w-7xl mx-auto px-6">
+    <div class="text-center mb-6">
+      <span class="text-[10px] uppercase tracking-[0.3em] text-[#7A7265] font-semibold">RACCONTATO &amp; ACCLAMATO DA</span>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-xs uppercase tracking-[0.28em] text-[#7A7265] font-serif">
+      <span class="hover:text-[#1A1A1A] transition-colors">VOGUE <em class="text-[10px] font-sans lowercase">Beauty</em></span>
+      <span class="text-[#DDD7CE]">•</span>
+      <span class="hover:text-[#1A1A1A] transition-colors font-semibold">ELLE</span>
+      <span class="text-[#DDD7CE]">•</span>
+      <span class="hover:text-[#1A1A1A] transition-colors">MARIE CLAIRE</span>
+      <span class="text-[#DDD7CE]">•</span>
+      <span class="hover:text-[#1A1A1A] transition-colors">VANITY FAIR</span>
+      <span class="text-[#DDD7CE]">•</span>
+      <span class="hover:text-[#1A1A1A] transition-colors">HARPER'S BAZAAR</span>
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Editorial Quote & Press",
   "settings": [
     {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "IL NOSTRO MANIFESTO"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Dove la scienza botanica incontra la fisiologia cutanea"
+    },
+    {
       "type": "textarea",
       "id": "quote",
       "label": "Citazione Filosofica",
-      "default": "Dove la scienza biomimetica incontra l'intelligenza delle piante alpine."
+      "default": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata."
     },
     {
       "type": "text",
       "id": "author",
-      "label": "Autore / Filosofia",
-      "default": "— Milena Tacchella & Milebiolab Verona, Fondatrice & Dermo-Specialista"
+      "label": "Autore",
+      "default": "Milena Tacchella"
+    },
+    {
+      "type": "text",
+      "id": "author_role",
+      "label": "Ruolo Autore",
+      "default": "Fondatrice & Dermo-Specialista • Milebiolab Verona"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Ritratto Milena Tacchella"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Quote & Press",
+      "category": "Storytelling"
     }
   ]
 }
 {% endschema %}
-
-<section class="editorial-quote-section">
-  <div class="section-container">
-    
-    <!-- Giant Serif Author Quote Marks -->
-    <span class="big-quote-glyph">&ldquo;</span>
-
-    <blockquote class="quote-statement">
-      {{ section.settings.quote }}
-    </blockquote>
-
-    <div class="quote-author">
-      {{ section.settings.author }}
-    </div>
-
-    <!-- Press Logos Row / Carousel -->
-    <div class="press-marquee-row">
-      <span class="press-logo-text">VOGUE <em>Beauty</em></span>
-      <span class="press-logo-text">ELLE</span>
-      <span class="press-logo-text">MARIE CLAIRE</span>
-      <span class="press-logo-text">VANITY FAIR</span>
-      <span class="press-logo-text">HARPER'S BAZAAR</span>
-    </div>
-
-  </div>
-</section>

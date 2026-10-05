@@ -1,29 +1,3 @@
-{% schema %}
-{
-  "name": "Build Your Own Hotspots",
-  "settings": [
-    {
-      "type": "text",
-      "id": "tag",
-      "label": "Tag Sezione",
-      "default": "ESPERIENZA INTERATTIVA"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titolo",
-      "default": "Costruisci il Tuo Rituale: <em>Hotspot in Cabina</em>"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Sottotitolo",
-      "default": "Tocca i punti interattivi del trattamento per scoprire i cosmetici biomimetici applicati durante il protocollo in cabina a Verona."
-    }
-  ]
-}
-{% endschema %}
-
 <section class="hotspots-splendor-section" id="hotspots">
   <div class="section-container">
     
@@ -120,3 +94,35 @@
 
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Build Your Own Hotspots",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag Sezione",
+      "default": "ESPERIENZA INTERATTIVA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Costruisci il Tuo Rituale: <em>Hotspot in Cabina</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Tocca i punti interattivi del trattamento per scoprire i cosmetici biomimetici applicati durante il protocollo in cabina a Verona."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Build Your Own Hotspots",
+      "category": "Interactive"
+    }
+  ]
+}
+{% endschema %}
