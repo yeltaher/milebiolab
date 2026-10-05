@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * MILEBIOLAB SHOPIFY OS 2.0 THEME ENGINE — SPLENDOR BESPOKE SUITE
+ * MILEBIOLAB SHOPIFY OS 2.0 THEME ENGINE — MILE BESPOKE SUITE
  * Complete Client-Side Interactivity Suite:
  * 1. Announcement Bar Multi-Message Carousel
  * 2. Hotspots Interactive Popovers
@@ -1018,14 +1018,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 9. Initialize Splendor Advanced Extensions
+  // 9. Initialize Mile Advanced Extensions
   initCountdownTimer();
   initWishlist();
 });
 
 /**
  * ============================================================================
- * SPLENDOR EXTENSION FUNCTIONS (12 FEATURES)
+ * MILE EXTENSION FUNCTIONS (12 FEATURES)
  * ============================================================================
  */
 

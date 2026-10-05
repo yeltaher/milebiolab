@@ -1,9 +1,10 @@
+{%- assign routine_title = section.settings.title | replace: 'semplificata', '<em>semplificata</em>' | replace: 'Simplified', '<em>Simplified</em>' -%}
+
 <section class="routine-steps-section" id="routine-steps">
   <div class="section-container">
     
     <div style="text-align: center; max-width: 780px; margin: 0 auto;">
       <span class="protocol-tag">{{ section.settings.tag }}</span>
-      {%- assign routine_title = section.settings.title | replace: 'semplificata', '<em>semplificata</em>' | replace: 'Simplified', '<em>Simplified</em>' -%}
       <h2 style="font-size: 2.6rem; margin-top: 0.5rem;">{{ routine_title }}</h2>
       <p style="font-size: 1rem; color: var(--color-text-secondary); margin-top: 0.75rem;">
         {{ section.settings.subtitle }}
@@ -12,91 +13,146 @@
 
     <!-- 3-Column Routine Steps Grid -->
     <div class="routine-grid-3">
-      
-      <!-- Step 01: RESET -->
-      <div class="routine-step-card">
-        <span class="giant-step-number">01</span>
-        <div>
-          <span class="protocol-tag">FASE 1 • PURIFICAZIONE</span>
-          <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">RESET</h3>
-          <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
-            Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.
-          </p>
-        </div>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign product = block.settings.product -%}
+          <div class="routine-step-card" {{ block.shopify_attributes }}>
+            <span class="giant-step-number">0{{ forloop.index }}</span>
+            <div>
+              <span class="protocol-tag">{{ block.settings.tag }}</span>
+              <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">{{ block.settings.title }}</h3>
+              <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+                {{ block.settings.description }}
+              </p>
+            </div>
 
-        <img 
-          src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" 
-          alt="Daily Cleansing Milk" 
-          class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+            {%- if product != blank and product.available -%}
+              <img 
+                src="{{ product.featured_image | img_url: '600x' }}" 
+                alt="{{ product.title | escape }}" 
+                class="routine-card-photo" loading="lazy">
+              
+              <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{{ product.title }}</h4>
+                <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
+                  {{ product.metafields.custom.subtitle | default: 'Essenza Botanica' }}
+                </span>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ product.price | money }}</strong>
+                  <form method="post" action="/cart/add">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <button type="submit" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;">
+                      + Carrello
+                    </button>
+                  </form>
+                </div>
+              </div>
+            {%- else -%}
+              <!-- Fallback per prodotto non selezionato o assente -->
+              <img 
+                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
+                alt="Mockup Prodotto" 
+                class="routine-card-photo">
+              
+              <div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Prodotto di Esempio</h4>
+                <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Senza Prodotto Selezionato</span>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ --,--</strong>
+                  <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;">
+                    + Carrello
+                  </button>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- HARDCODED FALLBACK ORIGINALE -->
+        <!-- Step 01: RESET -->
+        <div class="routine-step-card">
+          <span class="giant-step-number">01</span>
+          <div>
+            <span class="protocol-tag">FASE 1 • PURIFICAZIONE</span>
+            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">RESET</h3>
+            <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+              Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.
+            </p>
+          </div>
 
-        <div>
-          <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Daily Cleansing Milk (200ml)</h4>
-          <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Camomilla Bio & Fieno Greco</span>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 38,00</strong>
-            <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Daily Cleansing Milk', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', '01 RESET')">
-              + Carrello
-            </button>
+          <img 
+            src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" 
+            alt="Daily Cleansing Milk" 
+            class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+
+          <div>
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Daily Cleansing Milk (200ml)</h4>
+            <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Camomilla Bio & Fieno Greco</span>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 38,00</strong>
+              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Daily Cleansing Milk', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', '01 RESET')">
+                + Carrello
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Step 02: CONCENTRATE -->
-      <div class="routine-step-card">
-        <span class="giant-step-number">02</span>
-        <div>
-          <span class="protocol-tag">FASE 2 • NUTRIZIONE PROFONDA</span>
-          <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">CONCENTRATE</h3>
-          <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
-            Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.
-          </p>
-        </div>
+        <!-- Step 02: CONCENTRATE -->
+        <div class="routine-step-card">
+          <span class="giant-step-number">02</span>
+          <div>
+            <span class="protocol-tag">FASE 2 • NUTRIZIONE PROFONDA</span>
+            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">CONCENTRATE</h3>
+            <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+              Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.
+            </p>
+          </div>
 
-        <img 
-          src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" 
-          alt="Intense Hyaluronic Serum" 
-          class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+          <img 
+            src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" 
+            alt="Intense Hyaluronic Serum" 
+            class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
 
-        <div>
-          <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Intense Hyaluronic Serum (30ml)</h4>
-          <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">5 Pesi Molecolari & Mirtillo Biofermentato</span>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 86,00</strong>
-            <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Intense Hyaluronic Serum', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', '02 CONCENTRATE')">
-              + Carrello
-            </button>
+          <div>
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Intense Hyaluronic Serum (30ml)</h4>
+            <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">5 Pesi Molecolari & Mirtillo Biofermentato</span>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 86,00</strong>
+              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Intense Hyaluronic Serum', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', '02 CONCENTRATE')">
+                + Carrello
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Step 03: HYDRATE -->
-      <div class="routine-step-card">
-        <span class="giant-step-number">03</span>
-        <div>
-          <span class="protocol-tag">FASE 3 • SCUDO PROTETTIVO</span>
-          <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">HYDRATE</h3>
-          <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
-            Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.
-          </p>
-        </div>
+        <!-- Step 03: HYDRATE -->
+        <div class="routine-step-card">
+          <span class="giant-step-number">03</span>
+          <div>
+            <span class="protocol-tag">FASE 3 • SCUDO PROTETTIVO</span>
+            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">HYDRATE</h3>
+            <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+              Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.
+            </p>
+          </div>
 
-        <img 
-          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
-          alt="Supreme Moisture Cream" 
-          class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+          <img 
+            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
+            alt="Supreme Moisture Cream" 
+            class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
 
-        <div>
-          <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Supreme Moisture Cream (50ml)</h4>
-          <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Staminali Stella Alpina & Jojoba Bio</span>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 84,00</strong>
-            <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Supreme Moisture Cream', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', '03 HYDRATE')">
-              + Carrello
-            </button>
+          <div>
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Supreme Moisture Cream (50ml)</h4>
+            <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Staminali Stella Alpina & Jojoba Bio</span>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 84,00</strong>
+              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Supreme Moisture Cream', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', '03 HYDRATE')">
+                + Carrello
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-
+      {%- endif -%}
     </div>
 
     <!-- Bundle Offer Bar with -15% Discount -->
@@ -147,10 +203,47 @@
       "default": "Tre gesti essenziali in perfetta sequenza biomimetica. Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
     }
   ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Routine Step",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag Fase",
+          "default": "FASE 1 • PURIFICAZIONE"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo",
+          "default": "RESET"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrizione",
+          "default": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Prodotto Selezionato"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Your Routine Simplified",
-      "category": "Routine"
+      "category": "Routine",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
     }
   ]
 }

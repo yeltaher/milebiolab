@@ -774,7 +774,7 @@ button {
   font-family: var(--font-heading);
   font-size: 4rem;
   line-height: 1;
-  color: var(--color-splendor-border);
+  color: #D2C8B8;
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;

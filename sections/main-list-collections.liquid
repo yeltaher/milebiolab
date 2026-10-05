@@ -35,14 +35,14 @@
                     src="{{ collection.featured_image | image_url: width: 800 }}"
                     alt="{{ collection.featured_image.alt | default: collection.title | escape }}"
                     loading="lazy"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    class="w-full h-full object-cover transition-transform duration-700 ease-out"
                   >
                 {%- elsif collection.products.first.featured_image -%}
                   <img
                     src="{{ collection.products.first.featured_image | image_url: width: 800 }}"
                     alt="{{ collection.title | escape }}"
                     loading="lazy"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    class="w-full h-full object-cover transition-transform duration-700 ease-out"
                   >
                 {%- else -%}
                   <div class="w-full h-full flex items-center justify-center bg-[#FAF8F5] text-[#DDD7CE] font-serif text-3xl">
