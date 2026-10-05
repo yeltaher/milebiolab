@@ -1,0 +1,56 @@
+{% schema %}
+{
+  "name": "Pre-Footer Ticker Marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "item_1",
+      "label": "Elemento 1",
+      "default": "✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE"
+    },
+    {
+      "type": "text",
+      "id": "item_2",
+      "label": "Elemento 2",
+      "default": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA"
+    },
+    {
+      "type": "text",
+      "id": "item_3",
+      "label": "Elemento 3",
+      "default": "✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE"
+    },
+    {
+      "type": "text",
+      "id": "item_4",
+      "label": "Elemento 4",
+      "default": "✦ CONSULENZA PERSONALIZZATA IN CABINA"
+    },
+    {
+      "type": "text",
+      "id": "item_5",
+      "label": "Elemento 5",
+      "default": "✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="ticker-marquee-section" aria-label="Informazioni e vantaggi esclusivi">
+  <div class="ticker-marquee-track">
+    <div class="ticker-item">
+      <span>{{ section.settings.item_1 }}</span>
+      <span>{{ section.settings.item_2 }}</span>
+      <span>{{ section.settings.item_3 }}</span>
+      <span>{{ section.settings.item_4 }}</span>
+      <span>{{ section.settings.item_5 }}</span>
+    </div>
+    <div class="ticker-item" aria-hidden="true">
+      <span>{{ section.settings.item_1 }}</span>
+      <span>{{ section.settings.item_2 }}</span>
+      <span>{{ section.settings.item_3 }}</span>
+      <span>{{ section.settings.item_4 }}</span>
+      <span>{{ section.settings.item_5 }}</span>
+    </div>
+  </div>
+</section>

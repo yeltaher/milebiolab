@@ -1,0 +1,159 @@
+{% schema %}
+{
+  "name": "Before & After Splendor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tagline Superiore",
+      "default": "Efficacia Clinica Certificata"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Sezione",
+      "default": "Risultati Visibili in 14 Giorni"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Descrizione Clinica",
+      "default": "Trattamento quotidiano con Golden Glow Body Oil e Siero Notturno. Barriera cutanea ricostituita e idratazione cellulare profonda."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Risultato Clinico",
+      "default": "+48% compattezza, barriera riparata in 14 giorni"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Foto Prima (Giorno 0)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "Foto Dopo (Giorno 14)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before & After Splendor",
+      "category": "Social Proof"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="py-24 bg-[#F5F2EB] border-b border-[#DDD7CE]/50 before-after-section" id="before-after-{{ section.id }}">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    
+    {% if section.settings.tag != blank %}
+    <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-medium block mb-2">{{ section.settings.tag }}</span>
+    {% endif %}
+    
+    <h2 class="font-serif text-4xl lg:text-5xl text-[#1A1A1A] mb-4">{{ section.settings.title }}</h2>
+    
+    {% if section.settings.subtitle != blank %}
+    <p class="text-[#7A7265] text-sm leading-relaxed max-w-xl mx-auto mb-10 font-light">
+      {{ section.settings.subtitle }}
+    </p>
+    {% endif %}
+
+    <!-- Slider Widescreen Container -->
+    <div class="ba-slider-box relative w-full max-w-[980px] mx-auto overflow-hidden rounded-sm shadow-xl border border-[#DDD7CE] bg-[#1A1A1A] select-none" id="ba-slider-{{ section.id }}">
+      
+      <!-- Immagine Before (sotto) -->
+      {% if section.settings.image_before %}
+        <img src="{{ section.settings.image_before | img_url: 'master' }}" 
+             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+             class="w-full h-[500px] object-cover block filter brightness-95" alt="Prima del Trattamento">
+      {% else %}
+        <img src="https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?auto=format&fit=crop&w=1200&q=80" 
+             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+             class="w-full h-[500px] object-cover block filter brightness-95" alt="Prima del Trattamento">
+      {% endif %}
+      
+      <span class="absolute bottom-5 right-5 z-10 bg-black/70 backdrop-blur-md text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold">
+        PRIMA (Giorno 0)
+      </span>
+
+      <!-- Immagine After (sopra tagliata) -->
+      <div class="ba-after-container absolute top-0 left-0 w-1/2 h-full overflow-hidden border-r-2 border-white" id="ba-after-{{ section.id }}">
+        {% if section.settings.image_after %}
+          <img src="{{ section.settings.image_after | img_url: 'master' }}" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+               class="ba-after-img absolute top-0 left-0 w-[980px] max-w-none h-[500px] object-cover" id="ba-after-img-{{ section.id }}" alt="Dopo 14 Giorni">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1200&q=80" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+               class="ba-after-img absolute top-0 left-0 w-[980px] max-w-none h-[500px] object-cover" id="ba-after-img-{{ section.id }}" alt="Dopo 14 Giorni">
+        {% endif %}
+        
+        <span class="absolute bottom-5 left-5 z-10 bg-white/90 backdrop-blur-md text-[#1A1A1A] text-[10px] uppercase tracking-widest px-3 py-1 font-semibold">
+          DOPO 14 GIORNI
+        </span>
+      </div>
+
+      <!-- Handle ◀ ▶ -->
+      <div class="ba-handle-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 bg-white text-[#1A1A1A] rounded-full flex items-center justify-center cursor-ew-resize z-20 shadow-xl font-bold text-xs" id="ba-handle-{{ section.id }}">
+        <span>◀ ▶</span>
+      </div>
+
+    </div>
+
+    <!-- Badge Clinico -->
+    {% if section.settings.badge_text != blank %}
+    <div class="inline-flex items-center gap-4 mt-8 bg-white border border-[#DDD7CE] px-6 py-3 shadow-sm rounded-full">
+      <span class="text-[#5C6B56] font-bold text-base">✓</span>
+      <span class="text-xs uppercase tracking-wider text-[#1A1A1A] font-medium">
+        <strong>{{ section.settings.badge_text }}</strong>
+      </span>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<script>
+  (function(){
+    const slider = document.getElementById('ba-slider-{{ section.id }}');
+    const afterCont = document.getElementById('ba-after-{{ section.id }}');
+    const afterImg = document.getElementById('ba-after-img-{{ section.id }}');
+    const handle = document.getElementById('ba-handle-{{ section.id }}');
+    if (!slider || !afterCont || !handle || !afterImg) return;
+
+    let isDragging = false;
+
+    function syncWidth() {
+      const rect = slider.getBoundingClientRect();
+      afterImg.style.width = rect.width + 'px';
+    }
+
+    window.addEventListener('resize', syncWidth);
+    window.addEventListener('DOMContentLoaded', syncWidth);
+    setTimeout(syncWidth, 100);
+
+    const onStart = (e) => { isDragging = true; e.preventDefault(); };
+    const onEnd = () => { isDragging = false; };
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const rect = slider.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : null);
+      if (clientX === null) return;
+      let pos = clientX - rect.left;
+      let pct = (pos / rect.width) * 100;
+      pct = Math.max(0, Math.min(pct, 100));
+      afterCont.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    };
+
+    handle.addEventListener('mousedown', onStart);
+    handle.addEventListener('touchstart', onStart, { passive: false });
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchend', onEnd);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: false });
+  })();
+</script>

@@ -1,0 +1,45 @@
+{% schema %}
+{
+  "name": "Editorial Quote & Press",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Citazione Filosofica",
+      "default": "Dove la scienza biomimetica incontra l'intelligenza delle piante alpine."
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Autore / Filosofia",
+      "default": "— Milena Tacchella & Milebiolab Verona, Fondatrice & Dermo-Specialista"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="editorial-quote-section">
+  <div class="section-container">
+    
+    <!-- Giant Serif Author Quote Marks -->
+    <span class="big-quote-glyph">&ldquo;</span>
+
+    <blockquote class="quote-statement">
+      {{ section.settings.quote }}
+    </blockquote>
+
+    <div class="quote-author">
+      {{ section.settings.author }}
+    </div>
+
+    <!-- Press Logos Row / Carousel -->
+    <div class="press-marquee-row">
+      <span class="press-logo-text">VOGUE <em>Beauty</em></span>
+      <span class="press-logo-text">ELLE</span>
+      <span class="press-logo-text">MARIE CLAIRE</span>
+      <span class="press-logo-text">VANITY FAIR</span>
+      <span class="press-logo-text">HARPER'S BAZAAR</span>
+    </div>
+
+  </div>
+</section>

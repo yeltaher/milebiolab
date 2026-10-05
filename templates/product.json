@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "local-pickup": {
+      "type": "local-pickup-verona",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-product",
+    "local-pickup"
+  ]
+}

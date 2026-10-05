@@ -1,0 +1,76 @@
+<!-- INTERACTIVE PRODUCT MEDIA GALLERY & MACRO TEXTURE SWATCH PIN (SPLENDOR) -->
+<div class="product-gallery-interactive" id="pdp-gallery">
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+    <span class="protocol-tag">PROTOCOLLO FOTOGRAFICO HD</span>
+    <span class="magnetic-glow-pulse-badge">VISTA MACRO ATTIVA</span>
+  </div>
+
+  <!-- Main Viewport with Zoom Badge -->
+  <div style="position: relative; overflow: hidden; border: 1px solid var(--color-border); background: #FFFFFF; height: 500px;">
+    <img 
+      id="gallery-main-image" 
+      src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=85" 
+      alt="Supreme Moisture & Cellular Repair Cream Packaging Flacon"
+      style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.25s ease;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+    <div style="position: absolute; bottom: 16px; right: 16px; background: rgba(26,26,26,0.85); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.72rem; padding: 4px 10px; backdrop-filter: blur(4px);">
+      🔍 Zoom Ottico Macro &bull; Risoluzione 4K
+    </div>
+  </div>
+
+  <!-- Texture Swatch Pins Selector (Bottle, Texture, On-Skin) -->
+  <div style="margin-top: 1.25rem;">
+    <span style="font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--color-text-secondary); display: block; margin-bottom: 0.6rem; letter-spacing: 0.08em;">
+      Seleziona Prospettiva o Macro-Texture della Crema:
+    </span>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+      <button 
+        type="button" 
+        class="swatch-btn active" 
+        data-image="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=85"
+        onclick="switchGalleryImage(this)"
+        style="display: flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid var(--color-border); padding: 8px; cursor: pointer; text-align: left;"
+      >
+        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=120&q=80" alt="Confezione Vaso" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <div>
+          <strong style="display: block; font-size: 0.78rem;">01. Vaso Miron</strong>
+          <span style="font-size: 0.68rem; color: var(--color-accent-olive);">Vetro Violetto</span>
+        </div>
+      </button>
+
+      <button 
+        type="button" 
+        class="swatch-btn" 
+        data-image="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=85"
+        onclick="switchGalleryImage(this)"
+        style="display: flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid var(--color-border); padding: 8px; cursor: pointer; text-align: left;"
+      >
+        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=120&q=80" alt="Macro Texture Swatch Crema" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <div>
+          <strong style="display: block; font-size: 0.78rem;">02. Macro Texture</strong>
+          <span style="font-size: 0.68rem; color: var(--color-accent-olive);">Crema Velluto</span>
+        </div>
+      </button>
+
+      <button 
+        type="button" 
+        class="swatch-btn" 
+        data-image="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85"
+        onclick="switchGalleryImage(this)"
+        style="display: flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid var(--color-border); padding: 8px; cursor: pointer; text-align: left;"
+      >
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=120&q=80" alt="Applicazione su Pelle" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <div>
+          <strong style="display: block; font-size: 0.78rem;">03. Su Pelle</strong>
+          <span style="font-size: 0.68rem; color: var(--color-accent-olive);">Assorbimento</span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--color-bg-alt); border: 1px solid var(--color-border); font-size: 0.76rem; color: var(--color-text-secondary); display: flex; align-items: center; gap: 8px;">
+    <span>🌿</span>
+    <span><strong>Eco-Packaging Sartoriale:</strong> Flacone in Vetro Violetto Miron 100% protettivo contro i raggi fotosensibili e ricaricabile.</span>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+{% schema %}
+{
+  "name": "Hero Splendor Asymmetric",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Superiore",
+      "default": "HAUTE COSMÉTIQUE BOTANIQUE • VERONA FLAGSHIP"
+    },
+    {
+      "type": "text",
+      "id": "title_part1",
+      "label": "Titolo Parte 1",
+      "default": "The Art of"
+    },
+    {
+      "type": "text",
+      "id": "title_italic",
+      "label": "Parola Chiave Italic",
+      "default": "Skin Longevity"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo Editoriale",
+      "default": "Formulazioni cosmeceutiche pure nate dall'incontro tra la scienza biomimetica più rigorosa e l'intelligenza delle piante alpine. Un rituale di trasformazione cellulare creato nel nostro laboratorio di Verona."
+    },
+    {
+      "type": "text",
+      "id": "btn_primary_text",
+      "label": "Testo CTA Primaria",
+      "default": "Esplora i Rituali Viso"
+    },
+    {
+      "type": "text",
+      "id": "btn_secondary_text",
+      "label": "Testo CTA Secondaria",
+      "default": "📍 Ritiro Gratuito a Verona in 2h"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="hero-splendor-section">
+  <div class="section-container">
+    <div class="hero-editorial-asymmetric">
+      
+      <!-- Asymmetric Text Column with Splendor Double Border Frame -->
+      <div class="hero-text-framed-box">
+        <span class="protocol-tag">{{ section.settings.badge }}</span>
+        
+        <h1 class="hero-heading-serif">
+          {{ section.settings.title_part1 }} <em>{{ section.settings.title_italic }}</em> & Alpine Purity
+        </h1>
+        
+        <p class="hero-subtitle-sans">
+          {{ section.settings.subtitle }}
+        </p>
+
+        <div class="hero-buttons-row">
+          <a href="#prodotti" class="btn-primary">
+            {{ section.settings.btn_primary_text }} &rarr;
+          </a>
+          <button type="button" class="btn-secondary" onclick="openVeronaModal()">
+            {{ section.settings.btn_secondary_text }}
+          </button>
+        </div>
+
+        <!-- Floating Micro Trust Pills -->
+        <div class="hero-trust-pills-row">
+          <span>✦ Testato Dermatologicamente</span>
+          <span>•</span>
+          <span>✦ 100% Attivi Naturali & Biotech</span>
+          <span>•</span>
+          <span>✦ Made in Verona</span>
+        </div>
+      </div>
+
+      <!-- Asymmetric Editorial Portrait Column -->
+      <div class="hero-portrait-wrapper">
+        <img 
+          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=85" 
+          alt="Trattamento Viso Cosmeceutico Milebiolab Verona" 
+          class="hero-portrait-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+
+        <!-- Floating Institute Badge -->
+        <div class="hero-floating-verona-badge">
+          <span style="font-size: 1.8rem;">🌿</span>
+          <div>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-accent-olive); font-weight: 700; text-transform: uppercase;">FLAGSHIP BOUTIQUE</span>
+            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600;">Istituto Corso Cavour 18, Verona</div>
+            <span style="font-size: 0.74rem; color: var(--color-text-secondary);">Ritiro in sede in 2 ore con check-up pelle omaggio</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

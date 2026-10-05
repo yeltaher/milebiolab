@@ -1,0 +1,89 @@
+{% schema %}
+{
+  "name": "Collections List Splendor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "LE FAMIGLIE OLFATTIVE E BOTANICHE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Esplora per <em>Categoria & Rituale</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Dalle erbe alpine spontanee ai protocolli dermocosmetici di precisione per ogni esigenza della barriera cutanea."
+    }
+  ]
+}
+{% endschema %}
+
+<section class="collections-circles-section" id="collezioni">
+  <div class="section-container">
+    
+    <div style="text-align: center; max-width: 780px; margin: 0 auto;">
+      <span class="protocol-tag">{{ section.settings.tag }}</span>
+      <h2 style="font-size: 2.6rem; margin-top: 0.5rem;">{{ section.settings.title }}</h2>
+      <p style="font-size: 1rem; color: var(--color-text-secondary); margin-top: 0.75rem;">
+        {{ section.settings.subtitle }}
+      </p>
+    </div>
+
+    <!-- Circles Row with Splendor Double Border -->
+    <div class="collections-circles-grid">
+      
+      <!-- Category 1: Viso -->
+      <a href="#prodotti" class="collection-circle-card">
+        <div class="circle-media-frame">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80" alt="Detersione & Tonici Viso" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <h4 class="circle-cat-title">Detersione & Viso</h4>
+        <span class="circle-cat-count">8 Trattamenti &bull; Step 1</span>
+      </a>
+
+      <!-- Category 2: Sieri -->
+      <a href="#prodotti" class="collection-circle-card">
+        <div class="circle-media-frame">
+          <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80" alt="Sieri Concentrati Dalton" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <h4 class="circle-cat-title">Sieri Concentrati</h4>
+        <span class="circle-cat-count">6 Formule Dalton &bull; Step 2</span>
+      </a>
+
+      <!-- Category 3: Creme -->
+      <a href="#pdp-featured" class="collection-circle-card">
+        <div class="circle-media-frame">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" alt="Creme Barriera H24" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <h4 class="circle-cat-title">Creme Barriera</h4>
+        <span class="circle-cat-count">7 Emulsioni Pure &bull; Step 3</span>
+      </a>
+
+      <!-- Category 4: Istituto Verona Cabina -->
+      <a href="#istituto-verona" onclick="openVeronaModal()" class="collection-circle-card">
+        <div class="circle-media-frame">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=300&q=80" alt="Rituali Cabina Istituto Verona" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <h4 class="circle-cat-title">Rituali Istituto Verona</h4>
+        <span class="circle-cat-count">5 Protocolli Professionali</span>
+      </a>
+
+      <!-- Category 5: Novità & Cofanetti -->
+      <a href="#routine-steps" class="collection-circle-card">
+        <div class="circle-media-frame">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80" alt="Cofanetti Regalo & Routine" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <h4 class="circle-cat-title">Cofanetti Routine</h4>
+        <span class="circle-cat-count">Set Scontati -15%</span>
+      </a>
+
+    </div>
+
+  </div>
+</section>

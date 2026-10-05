@@ -1,0 +1,77 @@
+{% schema %}
+{
+  "name": "Local Pickup Verona",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Sezione",
+      "default": "L'Esperienza Esclusiva del Ritiro a Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrizione",
+      "default": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona."
+    }
+  ]
+}
+{% endschema %}
+
+<section class="section-verona-pickup" id="istituto-verona">
+  <div class="section-container">
+    <div class="verona-pickup-card-grid">
+      
+      <div class="verona-text-side">
+        <span class="tag-protocol">ISTITUTO MILEBIOLAB • VERONA FLAGSHIP</span>
+        <h2 class="verona-sec-title">{{ section.settings.title }}</h2>
+        <p class="verona-sec-desc">{{ section.settings.description }}</p>
+
+        <div class="verona-features-vertical">
+          <div class="v-feat-item">
+            <div class="v-feat-num">01</div>
+            <div>
+              <h4>Pronto in 2 Ore Lavorative</h4>
+              <p>Acquista online e ricevi l'SMS di conferma appena il tuo cofanetto è sigillato e pronto.</p>
+            </div>
+          </div>
+
+          <div class="v-feat-item">
+            <div class="v-feat-num">02</div>
+            <div>
+              <h4>Consulenza Dermocosmetica Omaggio</h4>
+              <p>Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle per 15 minuti senza alcun costo.</p>
+            </div>
+          </div>
+
+          <div class="v-feat-item">
+            <div class="v-feat-num">03</div>
+            <div>
+              <h4>Set Campioncini Deluxe Personalizzati</h4>
+              <p>Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="verona-cta-row">
+          <button type="button" class="btn-primary" onclick="openVeronaModal()">
+            Verifica Disponibilità Ritiro a Verona
+          </button>
+        </div>
+      </div>
+
+      <div class="verona-location-side">
+        <div class="institute-card">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Istituto Milebiolab Verona" class="institute-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+          <div class="institute-info-box">
+            <h3 class="inst-name">Istituto di Bellezza & Cosmeceutica</h3>
+            <p class="inst-addr">📍 Via Cappello, 18 • 37121 Verona (VR)</p>
+            <p class="inst-hours">🕒 Lunedì - Sabato: 09:30 - 19:30 (Orario continuato)</p>
+            <p class="inst-phone">📞 Tel: +39 045 800 1234</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+{% schema %}
+{
+  "name": "Skin Quiz Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "DIAGNOSI CUTANEA DIGITALE SARTORIALE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Trova il Tuo Rituale Su Misura in <em>2 Minuti</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
+    }
+  ]
+}
+{% endschema %}
+
+<section class="skin-quiz-banner-section" id="skin-quiz">
+  <div class="section-container">
+    
+    <div class="skin-quiz-banner-box">
+      <div>
+        <span class="protocol-tag">{{ section.settings.tag }}</span>
+        <h2 style="font-size: 2.5rem; margin: 0.5rem 0 1rem 0; line-height: 1.2;">
+          {{ section.settings.title }}
+        </h2>
+        <p style="font-size: 1.05rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+          {{ section.settings.subtitle }}
+        </p>
+        
+        <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+          <button type="button" class="btn-primary" style="padding: 1.1rem 2.2rem;" onclick="openSkinQuiz()">
+            ✦ Inizia il Quiz della Pelle &rarr;
+          </button>
+          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--color-accent-olive); font-weight: 600;">
+            🎁 Coupon Sconto 15% Generato Istantaneamente
+          </span>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <img 
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
+          alt="Consulenza e Diagnosi Pelle Visia Milebiolab" 
+          style="width: 100%; height: 340px; object-fit: cover; border: 1px solid var(--color-border);" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        <div style="position: absolute; bottom: 16px; left: 16px; right: 16px; background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); padding: 12px 16px; border: 1px solid var(--color-border); font-size: 0.78rem;">
+          <strong>Algoritmo Dermocosmetico Milebiolab</strong> &bull; Basato sui protocolli clinici dell'Istituto di Verona
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

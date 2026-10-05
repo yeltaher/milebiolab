@@ -1,0 +1,36 @@
+<!-- SPLENDOR PREDICTIVE SEARCH OVERLAY MODAL -->
+<div id="search-overlay" class="modal-overlay" aria-hidden="true" onclick="closeSearchModal()"></div>
+
+<div id="search-modal" class="modal-overlay" style="display: none; z-index: 1070; align-items: flex-start; padding-top: 5rem;" role="dialog" aria-modal="true" aria-label="Ricerca trattamenti botanici">
+  <div style="background: #FFFFFF; border: var(--border-splendor); max-width: 720px; width: 92%; padding: 2rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
+    
+    <button type="button" class="modal-close-btn" onclick="closeSearchModal()" aria-label="Chiudi ricerca">&times;</button>
+    
+    <span class="protocol-tag">RICERCA PREDITTIVA DI PRECISIONE</span>
+    <h3 style="font-size: 1.45rem; margin: 0.3rem 0 1rem 0;">Cerca tra le Formulazioni Milebiolab</h3>
+    
+    <div style="position: relative; margin-bottom: 1.5rem;">
+      <input 
+        type="search" 
+        id="search-predictive-input" 
+        placeholder="Es. Acido Ialuronico, Crema Barriera, Detersione, Stella Alpina..."
+        style="width: 100%; padding: 14px 18px; border: 1px solid var(--color-border); font-family: var(--font-body); font-size: 0.95rem; outline: none; border-radius: 0;"
+      >
+    </div>
+
+    <!-- Suggested Quick Filters -->
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; font-size: 0.76rem;">
+      <span style="color: var(--color-text-secondary); font-weight: 600;">Ricerche frequenti:</span>
+      <button type="button" style="border: 1px solid var(--color-border); padding: 2px 8px; background: var(--color-bg-alt);" onclick="document.getElementById('search-predictive-input').value='Crema'; filterSearch('Crema');">Crema Barriera</button>
+      <button type="button" style="border: 1px solid var(--color-border); padding: 2px 8px; background: var(--color-bg-alt);" onclick="document.getElementById('search-predictive-input').value='Siero'; filterSearch('Siero');">Siero Ialuronico</button>
+      <button type="button" style="border: 1px solid var(--color-border); padding: 2px 8px; background: var(--color-bg-alt);" onclick="document.getElementById('search-predictive-input').value='Stella Alpina'; filterSearch('Stella Alpina');">Stella Alpina</button>
+      <button type="button" style="border: 1px solid var(--color-border); padding: 2px 8px; background: var(--color-bg-alt);" onclick="document.getElementById('search-predictive-input').value='Verona'; filterSearch('Verona');">Ritiro Verona</button>
+    </div>
+
+    <!-- Live Filter Results List -->
+    <div id="search-results-list" style="max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+      <!-- Populated dynamically via theme.js filterSearch() -->
+    </div>
+
+  </div>
+</div>

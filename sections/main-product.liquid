@@ -1,0 +1,282 @@
+{% schema %}
+{
+  "name": "Main Product PDP Splendor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "step_badge",
+      "label": "Badge Step Trattamento",
+      "default": "CURA DEL CORPO • BALM-TO-OIL"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Titolo Prodotto",
+      "default": "GOLDEN GLOW BODY OIL"
+    },
+    {
+      "type": "text",
+      "id": "product_subtitle",
+      "label": "Sottotitolo Formulazione",
+      "default": "Balsamo nutriente trasformativo con attivi alpini e rosa canina"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Prezzo Base (100ml)",
+      "default": "76,00"
+    },
+    {
+      "type": "text",
+      "id": "unit_price",
+      "label": "Prezzo unitario",
+      "default": "€ 76,00 / 100 ml"
+    },
+    {
+      "type": "text",
+      "id": "verona_pickup",
+      "label": "Ritiro Verona",
+      "default": "Corso Cavour 18, Centro Storico Verona (Pronto in 2h)"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="product-page-main bg-[#F5F2EB] text-[#1A1A1A]">
+  
+  <!-- Breadcrumbs -->
+  <nav class="max-w-7xl mx-auto px-6 lg:px-12 py-4 text-[11px] uppercase tracking-[0.18em] text-[#7A7265] flex items-center gap-2">
+    <a href="/" class="hover:text-[#1A1A1A] transition-colors">HOME</a>
+    <span class="text-[#DDD7CE]">/</span>
+    <a href="/collections/all" class="hover:text-[#1A1A1A] transition-colors">CURA DEL CORPO</a>
+    <span class="text-[#DDD7CE]">/</span>
+    <span class="text-[#1A1A1A] font-medium">{{ section.settings.product_title }}</span>
+  </nav>
+
+  <!-- Product Above-the-Fold -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-12 pb-20 pt-2 grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14">
+    
+    <!-- Left: Gallery Column (Col 7) -->
+    <div class="lg:col-span-7 flex flex-col-reverse md:flex-row gap-5 relative">
+      
+      <!-- 4 Thumbnails -->
+      <div class="w-full md:w-20 flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto slider-no-scrollbar flex-shrink-0">
+        <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80', this)" 
+                class="thumb-btn w-16 md:w-full aspect-square border-2 border-[#1A1A1A] bg-white overflow-hidden p-0.5 transition-all">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+               class="w-full h-full object-cover" alt="Vasetto Ambrato su Pietra">
+        </button>
+        <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80', this)" 
+                class="thumb-btn w-16 md:w-full aspect-square border-2 border-[#E5E0D8] opacity-70 hover:opacity-100 bg-white overflow-hidden p-0.5 transition-all">
+          <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=200&q=80" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+               class="w-full h-full object-cover" alt="Texture Balsamo Aperto">
+        </button>
+        <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=80', this)" 
+                class="thumb-btn w-16 md:w-full aspect-square border-2 border-[#E5E0D8] opacity-70 hover:opacity-100 bg-white overflow-hidden p-0.5 transition-all">
+          <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=200&q=80" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+               class="w-full h-full object-cover" alt="Pipetta Estrazione Botanica">
+        </button>
+        <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=80', this)" 
+                class="thumb-btn w-16 md:w-full aspect-square border-2 border-[#E5E0D8] opacity-70 hover:opacity-100 bg-white overflow-hidden p-0.5 transition-all">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80" 
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+               class="w-full h-full object-cover" alt="Packaging Cosmetico">
+        </button>
+      </div>
+
+      <!-- Main Image Container -->
+      <div class="flex-1 relative bg-white border border-[#E5E0D8] min-h-[460px] md:min-h-[640px] xl:min-h-[720px] overflow-hidden flex items-center justify-center p-4 shadow-sm">
+        
+        <!-- 4 Seals Top Right -->
+        <div class="absolute top-4 right-4 z-20 flex flex-col gap-2">
+          <div class="bg-white/95 backdrop-blur-md border border-[#E5E0D8] px-2.5 py-1.5 text-center shadow-sm">
+            <span class="block text-[8px] font-bold uppercase tracking-widest text-[#1A1A1A]">B-CORP</span>
+            <span class="block text-[7px] text-[#7A7265] tracking-tight">CERTIFIED</span>
+          </div>
+          <div class="bg-white/95 backdrop-blur-md border border-[#E5E0D8] px-2.5 py-1.5 text-center shadow-sm">
+            <span class="block text-[8px] font-bold uppercase tracking-widest text-[#5C6B56]">COSMOS</span>
+            <span class="block text-[7px] text-[#7A7265] tracking-tight">ORGANIC</span>
+          </div>
+          <div class="bg-white/95 backdrop-blur-md border border-[#E5E0D8] px-2.5 py-1.5 text-center shadow-sm">
+            <span class="block text-[8px] font-bold uppercase tracking-widest text-[#1A1A1A]">100% VEGAN</span>
+            <span class="block text-[7px] text-[#7A7265] tracking-tight">VEGANOK</span>
+          </div>
+          <div class="bg-white/95 backdrop-blur-md border border-[#E5E0D8] px-2.5 py-1.5 text-center shadow-sm">
+            <span class="block text-[8px] font-bold uppercase tracking-widest text-[#1A1A1A]">CRUELTY</span>
+            <span class="block text-[7px] text-[#7A7265] tracking-tight">FREE</span>
+          </div>
+        </div>
+
+        <img id="mainProductImage" 
+             src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80" 
+             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+             class="w-full h-full object-cover transition-all duration-500 max-h-[720px]" 
+             alt="{{ section.settings.product_title }}">
+
+        <!-- Callout 1 -->
+        <div class="callout-point top-[24%] left-[28%] hidden sm:block absolute z-20">
+          <div class="w-3.5 h-3.5 bg-white border-2 border-[#1A1A1A] rounded-full shadow-md cursor-pointer" title="Dettaglio Tappo"></div>
+          <div class="bg-white/95 backdrop-blur-md border border-[#DDD7CE] px-3 py-1.5 shadow-md text-[11px] text-[#1A1A1A] absolute -top-10 -left-6 whitespace-nowrap">
+            <span class="font-semibold text-[#5C6B56] block text-[10px] uppercase">Tappo Ermetico</span>
+            Tappo protettivo ermetico in alluminio riciclabile
+          </div>
+        </div>
+
+        <!-- Callout 2 -->
+        <div class="callout-point top-[62%] right-[24%] hidden sm:block absolute z-20">
+          <div class="w-3.5 h-3.5 bg-white border-2 border-[#1A1A1A] rounded-full shadow-md cursor-pointer" title="Dettaglio Formula"></div>
+          <div class="bg-white/95 backdrop-blur-md border border-[#DDD7CE] px-3 py-1.5 shadow-md text-[11px] text-[#1A1A1A] absolute -bottom-10 -right-6 whitespace-nowrap">
+            <span class="font-semibold text-[#C8A878] block text-[10px] uppercase">Formula Biomimetica</span>
+            Formula biomimetica Balm-to-Oil ad assorbimento profondo
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Right: Sticky Details Column (Col 5) -->
+    <div class="lg:col-span-5 flex flex-col justify-start lg:sticky lg:top-28 h-max">
+      
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-[#C8A878] text-sm tracking-widest">★★★★★</span>
+        <span class="text-xs font-semibold text-[#1A1A1A]">4.91 / 5</span>
+        <span class="text-[#7A7265] text-xs tracking-wide">(142 recensioni verificate)</span>
+      </div>
+
+      <h1 class="font-serif text-3xl sm:text-4xl xl:text-5xl uppercase tracking-tight text-[#1A1A1A] font-semibold mb-2 leading-none">
+        {{ section.settings.product_title }}
+      </h1>
+      
+      <p class="font-serif italic text-lg sm:text-xl text-[#7A7265] mb-5 font-light leading-snug">
+        {{ section.settings.product_subtitle }}
+      </p>
+
+      <div class="flex items-baseline gap-3 mb-6 pb-5 border-b border-[#E5E0D8]">
+        <span id="priceValue" class="text-3xl font-semibold text-[#1A1A1A]">€ {{ section.settings.price }}</span>
+        <span id="unitPriceValue" class="text-xs text-[#7A7265] tracking-wide">({{ section.settings.unit_price }})</span>
+        <span class="ml-auto text-[10px] uppercase tracking-wider text-[#5C6B56] font-semibold bg-[#5C6B56]/10 px-2 py-0.5">IVA Inclusa</span>
+      </div>
+
+      <!-- 4 Benefits with ✓ -->
+      <ul class="space-y-2.5 mb-7 text-xs sm:text-sm text-[#1A1A1A]">
+        <li class="flex items-center gap-2.5"><span class="text-[#5C6B56] font-bold">✓</span> Profonda rigenerazione cellulare epidermica</li>
+        <li class="flex items-center gap-2.5"><span class="text-[#5C6B56] font-bold">✓</span> Idratazione continua 72 ore comprovata</li>
+        <li class="flex items-center gap-2.5"><span class="text-[#5C6B56] font-bold">✓</span> Effetto glow radioso istantaneo senza ungere</li>
+        <li class="flex items-center gap-2.5"><span class="text-[#5C6B56] font-bold">✓</span> 100% ingredienti biologici e vegan certificati</li>
+      </ul>
+
+      <!-- Format Selector -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2.5">
+          <span class="text-xs uppercase tracking-widest text-[#7A7265] font-medium">Seleziona Formato</span>
+          <span class="text-[11px] text-[#5C6B56] font-semibold">Spedizione gratuita attiva</span>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <button type="button" onclick="selectFormat('30ml', 34, 113.33, '11,33', this)" 
+                  class="format-btn border border-[#E5E0D8] bg-white py-3 px-2 text-center hover:border-[#1A1A1A] transition-all">
+            <span class="block text-xs font-semibold text-[#1A1A1A] uppercase tracking-wider">30 ml</span>
+            <span class="block text-xs text-[#7A7265] mt-0.5 font-medium">€ 34,00</span>
+          </button>
+          <button type="button" onclick="selectFormat('100ml', 76, 76.00, '25,33', this)" 
+                  class="format-btn border-2 border-[#1A1A1A] bg-[#1A1A1A] text-white py-3 px-2 text-center transition-all shadow-sm">
+            <span class="block text-xs font-semibold uppercase tracking-wider text-white">100 ml</span>
+            <span class="block text-xs opacity-90 mt-0.5 font-medium text-white">€ 76,00</span>
+          </button>
+          <button type="button" onclick="selectFormat('200ml', 128, 64.00, '42,66', this)" 
+                  class="format-btn border border-[#E5E0D8] bg-white py-3 px-2 text-center hover:border-[#1A1A1A] transition-all">
+            <span class="block text-xs font-semibold text-[#1A1A1A] uppercase tracking-wider">200 ml</span>
+            <span class="block text-xs text-[#7A7265] mt-0.5 font-medium">€ 128,00</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Add to Cart -->
+      <button type="button" id="mainAddToCartBtn" onclick="handleAddToCart()" 
+              class="w-full bg-[#1A1A1A] text-white py-4 px-6 text-xs uppercase tracking-[0.25em] font-semibold hover:bg-[#5C6B56] transition-all shadow-md mb-4 flex items-center justify-center gap-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <span id="atcBtnText">ADD TO CART / AGGIUNGI AL CARRELLO</span>
+      </button>
+
+      <!-- Klarna -->
+      <div class="bg-white border border-[#E5E0D8] p-3.5 text-center text-xs text-[#1A1A1A] mb-6 flex items-center justify-center gap-2">
+        <span>Oppure 3 rate da <strong id="klarnaRate">€ 25,33</strong> senza interessi con</span>
+        <span class="font-bold text-[#1A1A1A] uppercase tracking-wider bg-pink-100 px-1.5 py-0.5 rounded text-[11px]">Klarna</span>
+      </div>
+
+      <!-- 2 Boxes: Spedizione e Ritiro Verona -->
+      <div class="space-y-3 pt-2">
+        <div class="bg-white border border-[#E5E0D8] p-3.5 flex items-start gap-3 shadow-xs">
+          <span class="text-xl">🚚</span>
+          <div class="text-xs">
+            <div class="font-semibold text-[#1A1A1A] uppercase tracking-wider">Spedizione Rapida Gratuita</div>
+            <div class="text-[#7A7265] mt-0.5">Consegna assicurata in 24/48h per tutti gli ordini superiori a € 50.</div>
+          </div>
+        </div>
+        <div class="bg-white border border-[#E5E0D8] p-3.5 flex items-start gap-3 shadow-xs">
+          <span class="text-xl">🏛️</span>
+          <div class="text-xs">
+            <div class="font-semibold text-[#1A1A1A] uppercase tracking-wider">Ritiro Gratuito in Istituto a Verona</div>
+            <div class="text-[#7A7265] mt-0.5">{{ section.settings.verona_pickup }}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+  function changeMainImage(url, btn) {
+    const mainImg = document.getElementById('mainProductImage');
+    if (mainImg) {
+      mainImg.style.opacity = '0.4';
+      setTimeout(() => {
+        mainImg.src = url;
+        mainImg.style.opacity = '1';
+      }, 150);
+    }
+    document.querySelectorAll('.thumb-btn').forEach(el => {
+      el.classList.remove('border-[#1A1A1A]');
+      el.classList.add('border-[#E5E0D8]', 'opacity-70');
+    });
+    btn.classList.add('border-[#1A1A1A]');
+    btn.classList.remove('border-[#E5E0D8]', 'opacity-70');
+  }
+
+  function selectFormat(format, price, unitPrice, klarnaVal, btn) {
+    document.getElementById('priceValue').innerText = `€ ${price.toFixed(2).replace('.', ',')}`;
+    document.getElementById('unitPriceValue').innerText = `(€ ${unitPrice.toFixed(2).replace('.', ',')} / 100 ml)`;
+    document.getElementById('klarnaRate').innerText = `€ ${klarnaVal}`;
+
+    const buttons = document.querySelectorAll('.format-btn');
+    buttons.forEach(b => {
+      b.className = 'format-btn border border-[#E5E0D8] bg-white py-3 px-2 text-center hover:border-[#1A1A1A] transition-all';
+      b.querySelector('span:first-child').className = 'block text-xs font-semibold text-[#1A1A1A] uppercase tracking-wider';
+      b.querySelector('span:last-child').className = 'block text-xs text-[#7A7265] mt-0.5 font-medium';
+    });
+
+    btn.className = 'format-btn border-2 border-[#1A1A1A] bg-[#1A1A1A] text-white py-3 px-2 text-center transition-all shadow-sm';
+    btn.querySelector('span:first-child').className = 'block text-xs font-semibold uppercase tracking-wider text-white';
+    btn.querySelector('span:last-child').className = 'block text-xs opacity-90 mt-0.5 font-medium text-white';
+  }
+
+  function handleAddToCart() {
+    const btn = document.getElementById('mainAddToCartBtn');
+    const atcText = document.getElementById('atcBtnText');
+    atcText.innerText = 'AGGIUNTO AL CARRELLO ✓';
+    btn.classList.remove('bg-[#1A1A1A]');
+    btn.classList.add('bg-[#5C6B56]');
+    setTimeout(() => {
+      atcText.innerText = 'ADD TO CART / AGGIUNGI AL CARRELLO';
+      btn.classList.remove('bg-[#5C6B56]');
+      btn.classList.add('bg-[#1A1A1A]');
+    }, 2500);
+    alert('Golden Glow Body Oil aggiunto al carrello! Ritiro disponibile a Verona in 2 ore.');
+  }
+</script>

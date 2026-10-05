@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPLENDOR | Botanical Haute Couture &mdash; Haute Cosm&eacute;tique &amp; Botanique Verona</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        linen: '#F5F2EB',
+                        ink: '#1A1A1A',
+                        sand: '#DDD7CE',
+                        borderLinen: '#E5E0D8',
+                        ash: '#7A7265',
+                        sage: '#5C6B56',
+                        amber: '#C8A878',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        body { background-color: #F5F2EB; color: #1A1A1A; }
+        
+        /* Smooth 60fps Marquee with Organic Hover Deceleration */
+        .marquee { overflow: hidden; white-space: nowrap; }
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 28s linear infinite;
+            will-change: transform;
+            transition: filter 0.4s var(--ease-luxury);
+        }
+        .marquee:hover .marquee-content {
+            animation-play-state: paused;
+        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        .slider-no-scrollbar::-webkit-scrollbar { display: none; }
+        .slider-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Tactile Luxury Micro-interactions */
+        .luxury-interactive {
+            transition: transform 0.35s var(--ease-luxury), box-shadow 0.35s var(--ease-luxury), background-color 0.35s var(--ease-luxury), border-color 0.35s var(--ease-luxury), color 0.35s var(--ease-luxury);
+        }
+        .luxury-interactive:active {
+            transform: scale(0.97);
+        }
+
+        .pill-card {
+            transition: transform 0.45s var(--ease-luxury), box-shadow 0.45s var(--ease-luxury), border-color 0.35s var(--ease-luxury);
+        }
+        .pill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .pill-card:active {
+            transform: translateY(-3px) scale(0.98);
+        }
+
+        /* Mega menu full width elegance */
+        .group-nav { position: static; }
+        .mega-menu-panel { display: none; }
+        .group-nav:hover > .mega-menu-panel { display: block; }
+        .mega-menu-panel::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 0;
+            right: 0;
+            height: 16px;
+        }
+
+        /* Swatches */
+        .swatch-dot {
+            transition: transform 0.3s var(--ease-luxury), border-color 0.3s var(--ease-luxury), box-shadow 0.3s var(--ease-luxury);
+        }
+        .swatch-dot:hover {
+            transform: scale(1.22);
+        }
+        .swatch-dot:active {
+            transform: scale(0.94);
+        }
+        
+        /* Full Bleed Before/After Slider with Luxury Physics */
+        .ba-full-container {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            user-select: none;
+            cursor: ew-resize;
+            touch-action: none;
+        }
+        @media (min-width: 640px) {
+            .ba-full-container {
+                height: 520px;
+            }
+        }
+        @media (min-width: 768px) {
+            .ba-full-container {
+                height: 600px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .ba-full-container {
+                height: 72vh;
+                min-height: 580px;
+            }
+        }
+        .ba-full-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            user-select: none;
+            pointer-events: none;
+        }
+        .ba-overlay-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            border-right: 2px solid #FFFFFF;
+            user-select: none;
+            pointer-events: none;
+            will-change: width;
+        }
+        .ba-overlay-full-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            max-width: none;
+            user-select: none;
+            pointer-events: none;
+            will-change: width;
+        }
+        @keyframes subtle-float {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 8px 30px rgba(0,0,0,0.32);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.06);
+                box-shadow: 0 14px 40px rgba(0,0,0,0.44);
+            }
+        }
+        .ba-handle-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: #FFFFFF;
+            color: #1A1A1A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: ew-resize;
+            z-index: 30;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.32);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border: 1px solid rgba(0,0,0,0.08);
+            animation: subtle-float 3.6s ease-in-out infinite;
+            transition: transform 0.28s var(--ease-luxury), box-shadow 0.28s var(--ease-luxury);
+            touch-action: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ba-handle-circle:hover, .ba-handle-circle:active, .ba-handle-circle.is-dragging {
+            animation-play-state: paused;
+            transform: translate(-50%, -50%) scale(1.14);
+            box-shadow: 0 16px 45px rgba(0,0,0,0.48);
+        }
+
+        /* Modern CSS Grid Accordion for Zero-Lag Opening */
+        .accordion-grid {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .accordion-grid.open {
+            grid-template-rows: 1fr;
+        }
+        .accordion-grid-inner {
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .accordion-grid.open .accordion-grid-inner {
+            opacity: 1;
+        }
+        .accordion-chevron {
+            display: inline-block;
+            transition: transform 0.4s var(--ease-luxury);
+        }
+        .accordion-grid.open + button .accordion-chevron,
+        .accordion-btn.active .accordion-chevron {
+            transform: rotate(45deg);
+        }
+
+        /* Mobile Drawer Easing */
+        .drawer-backdrop {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s var(--ease-luxury);
+        }
+        .drawer-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .drawer-panel {
+            transform: translateX(-100%);
+            transition: transform 0.45s var(--ease-luxury);
+        }
+        .drawer-panel.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-ink bg-linen selection:bg-amber selection:text-white">
+
+    <!-- 1. Top Announcement Bar -->
+    <div class="bg-ink text-white text-center py-2.5 px-4 text-xs tracking-wider uppercase flex items-center justify-center gap-2">
+        <span>Ottieni il 15% di sconto sul tuo primo ordine con codice <strong class="text-amber">SPLENDOR15</strong></span>
+        <span class="opacity-40">&bull;</span>
+        <span class="hidden sm:inline text-white/80">Spedizione gratuita sopra &euro; 50</span>
+        <span class="opacity-40 hidden sm:inline">&bull;</span>
+        <a href="collection.html" class="underline underline-offset-4 hover:text-amber transition-colors font-medium">Acquista Ora</a>
+    </div>
+
+    <!-- 2. Services Bar (Desktop) -->
+    <div class="hidden md:flex justify-between items-center px-8 lg:px-16 py-2 border-b border-borderLinen text-xs tracking-widest uppercase text-ash bg-white/70 backdrop-blur-sm">
+        <div class="flex gap-6 items-center">
+            <a href="account.html" class="hover:text-ink transition-colors flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-sage inline-block"></span> Traccia ordine
+            </a>
+            <span class="text-sand">|</span>
+            <a href="about.html" class="hover:text-ink transition-colors">Community &amp; Risultati</a>
+            <span class="text-sand">|</span>
+            <a href="institute-verona.html" class="text-ink font-medium flex items-center gap-1.5 hover:text-amber transition-colors">
+                <svg class="w-3.5 h-3.5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Ritiro in sede Verona &mdash; Corso Cavour 18 (Pronto in 2h)
+            </a>
+        </div>
+        <div class="flex gap-6 items-center">
+            <a href="account.html#wishlist" class="hover:text-ink transition-colors">Lista Desideri (0)</a>
+            <span class="text-sand">|</span>
+            <a href="account.html" class="hover:text-ink transition-colors">Accedi</a>
+            <span class="text-sand">|</span>
+            <button type="button" onclick="toggleCartDrawer(true); return false;" class="hover:text-amber font-semibold flex items-center gap-1.5 text-ink transition-colors cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <span>Carrello [ <span class="global-cart-count">1</span> ]</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Menu Overlay & Panel (< lg) -->
+    <div id="mobile-drawer-backdrop" class="drawer-backdrop fixed inset-0 bg-ink/50 backdrop-blur-sm z-50 lg:hidden" onclick="toggleMobileDrawer(false)"></div>
+    <div id="mobile-drawer" class="drawer-panel fixed top-0 bottom-0 left-0 w-[88vw] max-w-[390px] bg-[#F5F2EB] border-r border-borderLinen shadow-2xl z-50 lg:hidden flex flex-col justify-between overflow-y-auto">
+        <!-- Drawer Header -->
+        <div class="p-5 border-b border-borderLinen flex items-center justify-between bg-white/70">
+            <div>
+                <span class="font-serif text-xl tracking-[0.25em] text-ink font-medium block">SPLENDOR</span>
+                <span class="text-[8px] uppercase tracking-[0.32em] text-ash block">Botanical Haute Couture &bull; Verona</span>
+            </div>
+            <button type="button" onclick="toggleMobileDrawer(false)" class="w-9 h-9 rounded-full border border-borderLinen flex items-center justify-center text-ink hover:bg-white transition-colors luxury-interactive" aria-label="Chiudi menu">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Drawer Content & Accordions -->
+        <div class="p-5 flex-1 space-y-5 overflow-y-auto">
+            <!-- Search Bar -->
+            <form action="search.html" method="GET" class="relative">
+                <input type="text" name="q" placeholder="Cerca trattamenti, attivi..." class="w-full bg-white border border-borderLinen px-4 py-2.5 pl-10 text-xs text-ink placeholder-ash/70 focus:outline-none focus:border-ink">
+                <button type="submit" class="w-4 h-4 text-ash absolute left-3 top-3 hover:text-ink cursor-pointer" aria-label="Cerca">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Collezioni Mobile Navigation with Accordions -->
+            <div class="space-y-1">
+                <span class="text-[10px] uppercase tracking-[0.25em] text-sage font-semibold block mb-2 px-1">Collezioni Splendor</span>
+
+                <!-- 1. Cura della Pelle -->
+                <div class="border-b border-borderLinen/60 py-1">
+                    <button type="button" onclick="toggleMobileAccordion('skincare')" class="w-full flex items-center justify-between py-2 text-left text-xs uppercase tracking-widest font-semibold text-ink group">
+                        <span>Cura della Pelle</span>
+                        <span id="drawer-chevron-skincare" class="accordion-chevron text-base text-ash font-light transition-transform">+</span>
+                    </button>
+                    <div id="drawer-accordion-skincare" class="accordion-grid">
+                        <div class="accordion-grid-inner pl-3 pb-3 space-y-2 text-xs text-ash">
+                            <a href="collection.html?category=purificante" class="block hover:text-amber transition-colors">Balsami &amp; Detergenti</a>
+                            <a href="collection.html?category=anti-aging" class="block hover:text-amber transition-colors">Sieri Botanici Attivi</a>
+                            <a href="collection.html?category=idratazione" class="block hover:text-amber transition-colors">Creme Idratanti 48h</a>
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Tutte le Formule Viso</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Trucco -->
+                <div class="border-b border-borderLinen/60 py-1">
+                    <button type="button" onclick="toggleMobileAccordion('makeup')" class="w-full flex items-center justify-between py-2 text-left text-xs uppercase tracking-widest font-semibold text-ink group">
+                        <span>Trucco</span>
+                        <span id="drawer-chevron-makeup" class="accordion-chevron text-base text-ash font-light transition-transform">+</span>
+                    </button>
+                    <div id="drawer-accordion-makeup" class="accordion-grid">
+                        <div class="accordion-grid-inner pl-3 pb-3 space-y-2 text-xs text-ash">
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Primer Idratante Seta</a>
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Siero Fondotinta Glow</a>
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Correttore Rigenerante</a>
+                            <a href="collections-list.html" class="block hover:text-amber transition-colors">Catalogo Linee &amp; Trucco</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Cura dei Capelli -->
+                <div class="border-b border-borderLinen/60 py-1">
+                    <button type="button" onclick="toggleMobileAccordion('hair')" class="w-full flex items-center justify-between py-2 text-left text-xs uppercase tracking-widest font-semibold text-ink group">
+                        <span>Cura dei Capelli</span>
+                        <span id="drawer-chevron-hair" class="accordion-chevron text-base text-ash font-light transition-transform">+</span>
+                    </button>
+                    <div id="drawer-accordion-hair" class="accordion-grid">
+                        <div class="accordion-grid-inner pl-3 pb-3 space-y-2 text-xs text-ash">
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Scrub Cuoio Capelluto</a>
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Shampoo Nutriente Seta</a>
+                            <a href="collection.html" class="block hover:text-amber transition-colors">Elisir Botanico Termo-Protettivo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Cura del Corpo -->
+                <div class="border-b border-borderLinen/60 py-1">
+                    <button type="button" onclick="toggleMobileAccordion('body')" class="w-full flex items-center justify-between py-2 text-left text-xs uppercase tracking-widest font-semibold text-ink group">
+                        <span>Cura del Corpo</span>
+                        <span id="drawer-chevron-body" class="accordion-chevron text-base text-ash font-light transition-transform">+</span>
+                    </button>
+                    <div id="drawer-accordion-body" class="accordion-grid">
+                        <div class="accordion-grid-inner pl-3 pb-3 space-y-2 text-xs text-ash">
+                            <a href="product.html" class="block hover:text-amber transition-colors font-medium text-ink">Golden Glow Body Oil ★</a>
+                            <a href="collection.html?category=idratazione" class="block hover:text-amber transition-colors">Scrub Salino Alpino</a>
+                            <a href="collection.html?category=idratazione" class="block hover:text-amber transition-colors">Balsamo Corpo Trasformativo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Novità & Bestseller -->
+                <div class="border-b border-borderLinen/60 py-1">
+                    <a href="collection.html" class="w-full flex items-center justify-between py-2.5 text-left text-xs uppercase tracking-widest font-semibold text-ink hover:text-amber transition-colors">
+                        <span>Catalogo Completo (12 Formule)</span>
+                        <span class="text-xs">&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- 6. Skin Quiz Finder -->
+                <div class="border-b border-borderLinen/60 py-1">
+                    <a href="skin-quiz.html" class="w-full flex items-center justify-between py-2.5 text-left text-xs uppercase tracking-widest font-semibold text-sage hover:text-ink transition-colors">
+                        <span>Skin Routine Finder Quiz (-15%)</span>
+                        <span class="text-xs">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Service Links -->
+            <div class="pt-3 border-t border-borderLinen space-y-2.5 text-xs">
+                <a href="institute-verona.html" class="flex items-center gap-2.5 text-ink hover:text-amber transition-colors font-medium">
+                    <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span>Boutique Verona (Corso Cavour 18 - 2h)</span>
+                </a>
+                <a href="account.html" class="flex items-center gap-2.5 text-ash hover:text-ink transition-colors">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sage inline-block"></span>
+                    <span>Traccia ordine</span>
+                </a>
+                <a href="account.html#wishlist" class="flex items-center gap-2.5 text-ash hover:text-ink transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <span>Lista Desideri (0)</span>
+                </a>
+                <a href="account.html" class="flex items-center gap-2.5 text-ash hover:text-ink transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span>Accedi / Registrati</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Drawer Footer: Cart Action -->
+        <div class="p-5 border-t border-borderLinen bg-white/50 space-y-2">
+            <button type="button" onclick="toggleMobileDrawer(false); toggleCartDrawer(true);" class="w-full bg-ink text-white py-3 px-4 text-xs uppercase tracking-widest font-semibold flex items-center justify-center gap-2 hover:bg-sage transition-all luxury-interactive cursor-pointer">
+                <svg class="w-4 h-4 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <span>Apri Carrello [ <span class="global-cart-count">1</span> ]</span>
+            </button>
+            <div class="text-center text-[10px] uppercase tracking-widest text-ash">
+                <span>Verona &bull; EUR (&euro;) &bull; B-Corp</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Header Sticky with 5 Complete Splendor Mega Menus -->
+    <header class="sticky top-0 z-40 bg-[#F5F2EB]/95 backdrop-blur-md border-b border-borderLinen">
+        <!-- Main Sticky Row -->
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-12 py-3.5 border-b border-borderLinen/50">
+            <!-- Left: Mobile Hamburger (< lg) & Verona Info (>= lg) -->
+            <div class="flex-1 flex items-center">
+                <button type="button" onclick="toggleMobileDrawer(true)" class="lg:hidden p-2 -ml-2 text-ink hover:text-amber transition-colors flex items-center justify-center luxury-interactive cursor-pointer" aria-label="Apri menu principale">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <a href="institute-verona.html" class="hidden lg:flex items-center gap-2 group">
+                    <span class="w-2 h-2 rounded-full bg-sage animate-pulse"></span>
+                    <span class="text-[10px] uppercase tracking-widest text-ash font-medium group-hover:text-ink transition-colors">Boutique Verona &bull; Corso Cavour 18</span>
+                </a>
+            </div>
+
+            <!-- Central Brand Logo -->
+            <div class="flex-1 text-center">
+                <a href="preview.html" class="inline-block group">
+                    <span class="font-serif text-2xl lg:text-3xl font-medium tracking-[0.28em] text-ink block transition-transform group-hover:scale-[1.01]">
+                        SPLENDOR
+                    </span>
+                    <span class="text-[9px] uppercase tracking-[0.38em] text-ash block -mt-1 font-light">
+                        Botanical Haute Couture &bull; Verona
+                    </span>
+                </a>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex-1 flex justify-end items-center gap-4 sm:gap-5 text-ink">
+                <a href="search.html" class="flex items-center gap-1.5 text-xs tracking-wider uppercase text-ash hover:text-ink transition-colors luxury-interactive" aria-label="Cerca">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span class="hidden md:inline">Cerca</span>
+                </a>
+                
+                <a href="institute-verona.html" class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-borderLinen rounded-full text-[10px] uppercase tracking-wider text-sage font-medium shadow-sm hover:border-ink transition-all">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sage"></span>
+                    <span>Ritiro in 2h</span>
+                </a>
+
+                <button type="button" onclick="toggleCartDrawer(true)" class="relative hover:text-amber transition-colors luxury-interactive cursor-pointer p-1" aria-label="Apri Carrello">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span class="global-cart-count absolute -top-1 -right-1 bg-ink text-white rounded-full text-[9px] w-4 h-4 flex items-center justify-center font-bold">1</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation Row with 5 Mega Menus -->
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-12">
+            <nav class="hidden lg:flex items-center justify-center gap-10 py-3 text-xs uppercase tracking-widest font-medium text-ink">
+                
+                <!-- 1. CURA DELLA PELLE -->
+                <div class="group-nav py-1">
+                    <a href="collection.html" class="hover:text-amber transition-colors flex items-center gap-1.5 font-medium">
+                        <span>Cura della Pelle</span>
+                        <svg class="w-2.5 h-2.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+
+                    <div class="mega-menu-panel absolute top-full left-1/2 -translate-x-1/2 w-[980px] max-w-[96vw] bg-white border border-borderLinen shadow-2xl p-8 z-50">
+                        <div class="grid grid-cols-12 gap-8 items-stretch">
+                            <!-- Left Editorial Card -->
+                            <div class="col-span-4 bg-[#F5F2EB] p-5 border border-borderLinen flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-widest text-sage font-semibold block mb-2">Protocollo Viso</span>
+                                    <div class="aspect-[4/3] bg-white mb-3 overflow-hidden border border-borderLinen">
+                                        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80" 
+                                             onerror="this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                             alt="Rituale Viso Splendor" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="font-serif text-lg text-ink font-normal leading-snug">Rigenerazione Cellulare Profonda</h4>
+                                    <p class="text-[11px] text-ash mt-1 font-light">Fitocomplessi alpini biologici per ristabilire la barriera idrolipidica.</p>
+                                </div>
+                                <a href="collection.html" class="mt-4 block text-center bg-ink text-white py-2.5 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors">
+                                    Tutte le Formule Viso &rarr;
+                                </a>
+                            </div>
+
+                            <!-- Right 3 Columns -->
+                            <div class="col-span-8 grid grid-cols-3 gap-6">
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Tipologia</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Balsami &amp; Detergenti</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Sieri Botanici Attivi</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Creme Idratanti 48h</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Maschere Rigeneranti</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Contorno Occhi &amp; Labbra</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Esigenza</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Pelle Secca &amp; Disidratata</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Barriera Compromessa</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Luminosit&agrave; &amp; Discromie</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Rigenerazione Anti-Et&agrave;</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Sensibilit&agrave; &amp; Rossori</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Diagnosi &amp; Metodo</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="skin-quiz.html" class="text-sage font-semibold hover:text-amber transition-colors block">&star; Skin Routine Quiz 4-Step</a></li>
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Diagnosi Bioscanner 3D</a></li>
+                                        <li><a href="about.html" class="hover:text-amber transition-colors block">I 4 Pilastri Clinici</a></li>
+                                        <li><a href="collections-list.html" class="hover:text-amber transition-colors block">Linee &amp; Discovery Sets</a></li>
+                                        <li><a href="product.html" class="hover:text-amber transition-colors block">Golden Glow Body Oil ★</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. TRUCCO -->
+                <div class="group-nav py-1">
+                    <a href="collection.html" class="hover:text-amber transition-colors flex items-center gap-1.5 font-medium">
+                        <span>Trucco</span>
+                        <svg class="w-2.5 h-2.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+
+                    <div class="mega-menu-panel absolute top-full left-1/2 -translate-x-1/2 w-[980px] max-w-[96vw] bg-white border border-borderLinen shadow-2xl p-8 z-50">
+                        <div class="grid grid-cols-12 gap-8 items-stretch">
+                            <div class="col-span-4 bg-[#F5F2EB] p-5 border border-borderLinen flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-widest text-amber font-semibold block mb-2">Haute Teint</span>
+                                    <div class="aspect-[4/3] bg-white mb-3 overflow-hidden border border-borderLinen">
+                                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" 
+                                             onerror="this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                             alt="Base Impeccabile" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="font-serif text-lg text-ink font-normal leading-snug">Base Impeccabile Minerale</h4>
+                                    <p class="text-[11px] text-ash mt-1 font-light">Pigmenti puri biomimetici che si fondono con la carnagione esaltando la luce naturale.</p>
+                                </div>
+                                <a href="collection.html" class="mt-4 block text-center bg-ink text-white py-2.5 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors">
+                                    Collezione Haute Teint &rarr;
+                                </a>
+                            </div>
+
+                            <div class="col-span-8 grid grid-cols-3 gap-6">
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Formule Viso</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Primer Idratante Seta</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Siero Fondotinta Glow</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Correttore Rigenerante</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Polvere Minerale Trasparente</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Balsamo Labbra Nutriente</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Finish &amp; Benefici</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Effetto Glow Rugiada</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Finitura Satinata Naturale</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Zero Effetto Maschera</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Tenuta Traspirante 16h</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Protezione Barriera Cutanea</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Servizi Cabina</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Trucco Sartoriale per Eventi</a></li>
+                                        <li><a href="contact.html" class="hover:text-amber transition-colors block">Consulenza Tonalit&agrave; Gratuita</a></li>
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Boutique Verona Corso Cavour</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Set Pennelli in Setole Vegane</a></li>
+                                        <li><a href="product.html" class="hover:text-amber transition-colors block">Glow Oil Multi-Uso Viso &bull; Corpo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. CURA DEI CAPELLI -->
+                <div class="group-nav py-1">
+                    <a href="collection.html" class="hover:text-amber transition-colors flex items-center gap-1.5 font-medium">
+                        <span>Cura dei Capelli</span>
+                        <svg class="w-2.5 h-2.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+
+                    <div class="mega-menu-panel absolute top-full left-1/2 -translate-x-1/2 w-[980px] max-w-[96vw] bg-white border border-borderLinen shadow-2xl p-8 z-50">
+                        <div class="grid grid-cols-12 gap-8 items-stretch">
+                            <div class="col-span-4 bg-[#F5F2EB] p-5 border border-borderLinen flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-widest text-sage font-semibold block mb-2">Hair Spa Botanica</span>
+                                    <div class="aspect-[4/3] bg-white mb-3 overflow-hidden border border-borderLinen">
+                                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" 
+                                             onerror="this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                             alt="Volume e Lucentezza" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="font-serif text-lg text-ink font-normal leading-snug">Salute della Cute &amp; Stelo</h4>
+                                    <p class="text-[11px] text-ash mt-1 font-light">Fitoterapici alpini per riossigenare i follicoli e donare lucentezza serica.</p>
+                                </div>
+                                <a href="collection.html" class="mt-4 block text-center bg-ink text-white py-2.5 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors">
+                                    Esplora Formule Capelli &rarr;
+                                </a>
+                            </div>
+
+                            <div class="col-span-8 grid grid-cols-3 gap-6">
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Tipologia</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Scrub Cuoio Capelluto</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Shampoo Nutriente Seta</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Balsamo Idratante Cristallo</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Maschera Rinforzante Stelo</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Elisir Termo-Protettivo</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Trattamento</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Volume &amp; Pienezza Radici</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Cute Sensibile &amp; Prurito</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Capelli Fragili &amp; Spenti</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Riparazione Doppie Punte</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Protezione Inquinamento &amp; Calore</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Esperienze &amp; Cabina</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Hair Spa Detox a Verona</a></li>
+                                        <li><a href="about.html" class="hover:text-amber transition-colors block">Fitocomplessi di Stella Alpina</a></li>
+                                        <li><a href="faq.html" class="hover:text-amber transition-colors block">Guida al Lavaggio Corretto</a></li>
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Ritiro Pronto in 2 Ore</a></li>
+                                        <li><a href="account.html" class="hover:text-amber transition-colors block">Routine Capelli nel Profilo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. CURA DEL CORPO -->
+                <div class="group-nav py-1">
+                    <a href="collection.html" class="hover:text-amber transition-colors flex items-center gap-1.5 font-medium">
+                        <span>Cura del Corpo</span>
+                        <svg class="w-2.5 h-2.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+
+                    <div class="mega-menu-panel absolute top-full left-1/2 -translate-x-1/2 w-[980px] max-w-[96vw] bg-white border border-borderLinen shadow-2xl p-8 z-50">
+                        <div class="grid grid-cols-12 gap-8 items-stretch">
+                            <div class="col-span-4 bg-[#F5F2EB] p-5 border border-borderLinen flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-widest text-amber font-semibold block mb-2">Bestseller Iconico</span>
+                                    <div class="aspect-[4/3] bg-white mb-3 overflow-hidden border border-borderLinen">
+                                        <img src="https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=600&q=80" 
+                                             onerror="this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                             alt="Golden Glow Body Oil" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="font-serif text-lg text-ink font-normal leading-snug">Golden Glow Body Oil</h4>
+                                    <p class="text-[11px] text-ash mt-1 font-light">Il celebre olio sublime per una pelle vellutata dal profumo inebriante.</p>
+                                </div>
+                                <a href="product.html" class="mt-4 block text-center bg-ink text-white py-2.5 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors">
+                                    Scheda Prodotto &bull; &euro; 76,00 &rarr;
+                                </a>
+                            </div>
+
+                            <div class="col-span-8 grid grid-cols-3 gap-6">
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Formule Esclusive</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="product.html" class="font-semibold text-ink hover:text-amber transition-colors block">Golden Glow Body Oil ★</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Scrub ai Cristalli Salini</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Balsamo Seta Vellutante</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Emulsione Rimodellante Attiva</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Crema Mani &amp; Cuticole Miron</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Benessere Alpino</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Pelle Secca &amp; Desquamata</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Gambe Pesanti &amp; Microcircolo</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Elasticit&agrave; &amp; Tono Cutaneo</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Idratazione Subito Assorbita</a></li>
+                                        <li><a href="collection.html" class="hover:text-amber transition-colors block">Nutrimento da Bagno Notturno</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Trattamento Cabina</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Massaggio Rigenerante Balm-to-Oil</a></li>
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Prenota Trattamento Corso Cavour</a></li>
+                                        <li><a href="about.html" class="hover:text-amber transition-colors block">Filosofia 100% Biocompatibile</a></li>
+                                        <li><a href="contact.html" class="hover:text-amber transition-colors block">Richiedi Cofanetto Regalo</a></li>
+                                        <li><a href="checkout-mockup.html" class="hover:text-amber transition-colors block">Ritiro Rapido 2h a Verona</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. ESPERIENZA & NOVITÀ -->
+                <div class="group-nav py-1">
+                    <a href="institute-verona.html" class="hover:text-amber transition-colors flex items-center gap-1.5 font-semibold text-ink">
+                        <span>Esperienza &amp; Novit&agrave;</span>
+                        <svg class="w-2.5 h-2.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+
+                    <div class="mega-menu-panel absolute top-full left-1/2 -translate-x-1/2 w-[980px] max-w-[96vw] bg-white border border-borderLinen shadow-2xl p-8 z-50">
+                        <div class="grid grid-cols-12 gap-8 items-stretch">
+                            <div class="col-span-4 bg-[#F5F2EB] p-5 border border-borderLinen flex flex-col justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-widest text-sage font-semibold block mb-2">Boutique &bull; Istituto</span>
+                                    <div class="aspect-[4/3] bg-white mb-3 overflow-hidden border border-borderLinen">
+                                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
+                                             onerror="this.src='https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80'"
+                                             alt="Istituto Verona Corso Cavour" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="font-serif text-lg text-ink font-normal leading-snug">Flagship Corso Cavour 18, Verona</h4>
+                                    <p class="text-[11px] text-ash mt-1 font-light">Cabine private, diagnostica computerizzata 3D e ritiro gratuito in 2 ore.</p>
+                                </div>
+                                <a href="institute-verona.html" class="mt-4 block text-center bg-ink text-white py-2.5 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors">
+                                    Visita l'Istituto Verona &rarr;
+                                </a>
+                            </div>
+
+                            <div class="col-span-8 grid grid-cols-3 gap-6">
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Maison Milebiolab</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="about.html" class="hover:text-amber transition-colors block font-medium">Milena Tacchella &bull; Visione</a></li>
+                                        <li><a href="about.html" class="hover:text-amber transition-colors block">Certificazione B-Corp &amp; Cosmos</a></li>
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Menu dei 5 Trattamenti Cabina</a></li>
+                                        <li><a href="skin-quiz.html" class="text-sage font-semibold hover:text-amber transition-colors block">&star; Skin Routine Quiz</a></li>
+                                        <li><a href="contact.html" class="hover:text-amber transition-colors block">Concierge &amp; WhatsApp Diretto</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Servizi Esclusivi</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="institute-verona.html" class="hover:text-amber transition-colors block">Ritiro Verona Pronto in 2 Ore</a></li>
+                                        <li><a href="legal-policies.html#shipping" class="hover:text-amber transition-colors block">Spedizione Climatizzata Gratuita</a></li>
+                                        <li><a href="faq.html" class="hover:text-amber transition-colors block">Domande Frequenti &amp; Garanzia</a></li>
+                                        <li><a href="collections-list.html" class="hover:text-amber transition-colors block">Cofanetti Regalo in Ceralacca</a></li>
+                                        <li><a href="preview-portal.html" class="hover:text-amber transition-colors block">Mappa dei 17 Template Suite</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-semibold tracking-wider text-ink uppercase block mb-3 border-b border-borderLinen pb-1">Il Tuo Account</span>
+                                    <ul class="space-y-2 text-xs text-ash">
+                                        <li><a href="account.html" class="hover:text-amber transition-colors block">Dashboard Cliente Privilege</a></li>
+                                        <li><a href="account.html" class="hover:text-amber transition-colors block">I Miei Ordini &amp; QR Code Ritiro</a></li>
+                                        <li><a href="account.html#wishlist" class="hover:text-amber transition-colors block">Lista Desideri Personale</a></li>
+                                        <li><a href="cart-drawer-mockup.html" class="hover:text-amber transition-colors block">Rituale Carrello Slide-over</a></li>
+                                        <li><a href="checkout-mockup.html" class="hover:text-amber transition-colors block">Cassa Protetta SSL 256-bit</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    <!-- 4. Hero Section 50/50 Elite (Video Frame 00:01-00:03 Reference) -->
+    <section class="relative min-h-[85vh] bg-white border-b border-borderLinen flex flex-col lg:flex-row items-stretch">
+        
+        <!-- Left Column: Copy & Official Buttons & Badges -->
+        <div class="w-full lg:w-1/2 p-6 sm:p-14 lg:p-20 flex flex-col justify-center">
+            
+            <div class="inline-flex items-center gap-2 mb-4 sm:mb-6">
+                <span class="w-2 h-2 rounded-full bg-amber"></span>
+                <span class="text-xs uppercase tracking-[0.25em] text-sage font-medium">ALTA DERMOCOSMESI BIOMIMETICA</span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl lg:text-7xl font-normal leading-[1.1] text-ink mb-3 sm:mb-4">
+                Pelle, Elevata.
+            </h1>
+
+            <p class="font-serif italic text-lg sm:text-2xl text-ash font-light mb-4 sm:mb-6">
+                Ispirato alla clinica. Approvato dagli artisti.
+            </p>
+
+            <p class="text-ash text-xs sm:text-sm lg:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg font-light">
+                Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.
+            </p>
+
+            <!-- 2 Square Elegant Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
+                <a href="collection.html" class="bg-ink text-white px-6 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-sage transition-all text-center luxury-interactive">
+                    ACQUISTA PRODOTTI PER LA CURA DELLA PELLE
+                </a>
+                <a href="#routine" class="border border-ink text-ink px-6 sm:px-8 py-3.5 sm:py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-linen transition-all text-center luxury-interactive">
+                    TROVA LA TUA ROUTINE
+                </a>
+            </div>
+
+            <!-- 6 Badges Ufficiali Luxury Line-Art (Screenshot 2 Ufficiale) -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2.5 sm:gap-2 pt-6 sm:pt-8 border-t border-borderLinen text-center">
+                
+                <!-- 1. Cruelty free -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 23C16.8 18 13.5 9 16.5 6.5C19.5 4 22.5 12 22.5 19.5" />
+                            <path d="M17.8 11.5C17.2 9.5 18 8 19.5 7.5" stroke-width="1.1" />
+                            <path d="M29 23C31.2 18 34.5 9 31.5 6.5C28.5 4 25.5 12 25.5 19.5" />
+                            <path d="M30.2 11.5C30.8 9.5 30 8 28.5 7.5" stroke-width="1.1" />
+                            <path d="M15 22.5C12 26 12 33 16.5 37.5C21 42 27 42 31.5 37.5C36 33 36 26 33 22.5" />
+                            <circle cx="18.5" cy="27" r="1.2" fill="currentColor" stroke="none" />
+                            <circle cx="29.5" cy="27" r="1.2" fill="currentColor" stroke="none" />
+                            <path d="M22.5 30.5C23.3 29.8 24.7 29.8 25.5 30.5L24 32.2Z" fill="currentColor" />
+                            <path d="M24 32.2V34C24 35.2 22 36 20.8 35.2" />
+                            <path d="M24 34C24 35.2 26 36 27.2 35.2" />
+                            <line x1="10.5" y1="29.5" x2="15.5" y2="30.5" stroke-width="1.1" />
+                            <line x1="10.5" y1="33" x2="15" y2="33" stroke-width="1.1" />
+                            <line x1="37.5" y1="29.5" x2="32.5" y2="30.5" stroke-width="1.1" />
+                            <line x1="37.5" y1="33" x2="33" y2="33" stroke-width="1.1" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Cruelty free</span>
+                </div>
+
+                <!-- 2. Alcohol free -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <g transform="rotate(-38 24 24)">
+                                <rect x="21.5" y="6.5" width="5" height="4" rx="0.8" />
+                                <path d="M22 10.5V15L17.5 19.5V36.5C17.5 38 18.5 39 20 39H28C29.5 39 30.5 38 30.5 36.5V19.5L26 15V10.5" />
+                                <line x1="17.5" y1="28" x2="30.5" y2="28" stroke-width="1.1" />
+                                <line x1="17.5" y1="34" x2="30.5" y2="34" stroke-width="1.1" />
+                            </g>
+                            <line x1="10" y1="38" x2="38" y2="10" stroke-width="1.3" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Alcohol free</span>
+                </div>
+
+                <!-- 3. Paraben free -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M24 15.5L31.5 19.8V28.2L24 32.5L16.5 28.2V19.8Z" />
+                            <path d="M24 19A5 5 0 0 1 27 27" stroke-width="1" />
+                            <path d="M16.5 19.8L11.5 16.5V11" />
+                            <path d="M16.5 24H11" />
+                            <path d="M24 15.5V10" />
+                            <path d="M31.5 28.2L37 32" />
+                            <line x1="10" y1="38" x2="38" y2="10" stroke-width="1.3" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Paraben free</span>
+                </div>
+
+                <!-- 4. Vegan -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 39C22 32 23 23 24 14" />
+                            <path d="M22 31C18 28 15 19 18 11.5C21.5 15.5 23 22 23 27" />
+                            <path d="M23.5 24C26.5 21 35.5 15.5 36.5 11C37.5 17.5 32 27 24 28" />
+                            <path d="M25 22C28.5 18.5 33 15 35.5 12" stroke-width="1.1" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Vegan</span>
+                </div>
+
+                <!-- 5. Organic -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 38C23 38 13.5 31.5 12.5 18.5C17 15 26.5 19.5 27.5 31.5" />
+                            <path d="M12.5 18.5C18 23 22.5 28.5 24.5 36" stroke-width="1.1" />
+                            <path d="M15.5 21.5L19 24.5" stroke-width="0.9" />
+                            <path d="M19 26.5L22.5 29.5" stroke-width="0.9" />
+                            <path d="M25 32.5C27.5 28 34 26 37 19.5C35 28.5 30.5 33 25 35" />
+                            <path d="M37 19.5C33.5 23 30 27.5 26 32.5" stroke-width="1.1" />
+                            <path d="M32.5 23L30 26" stroke-width="0.9" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">Organic</span>
+                </div>
+
+                <!-- 6. No additives -->
+                <div class="flex flex-col items-center group">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center mx-auto mb-1.5 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-9 lg:h-9 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19.5 11.5H28.5" />
+                            <path d="M21.5 11.5V16.5L13 33.5C12 35.5 13 37 15.5 37H32.5C35 37 36 35.5 35 33.5L26.5 16.5V11.5" />
+                            <path d="M17 27.5H31" stroke-dasharray="2 1.5" stroke-width="1" />
+                            <circle cx="23.5" cy="32.5" r="1.3" fill="none" stroke-width="1.1" />
+                            <line x1="10" y1="38" x2="38" y2="10" stroke-width="1.3" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-[#1A1A1A] font-normal tracking-tight">No additives</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Column: Proportional Height Photo & Compact Editorial Card -->
+        <div class="w-full lg:w-1/2 relative h-[380px] sm:h-[500px] lg:h-auto lg:min-h-[750px] bg-linen overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=1200&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Due mani eleganti con vasetto Splendor Pro-Artistry Cleansing Balm" 
+                 class="w-full h-full object-cover object-center">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent pointer-events-none"></div>
+            
+            <!-- Overlay Badge Prodotto in Vetro Satinato (Frame 00:01-00:03) -->
+            <div class="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-12 sm:right-12 bg-white/95 backdrop-blur-md border border-borderLinen p-3.5 sm:p-5 shadow-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                <div>
+                    <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-ash font-medium block">SPLENDOR</span>
+                    <h3 class="font-serif text-lg sm:text-2xl text-ink font-normal leading-tight mt-0.5">Pro-Artistry Cleansing Balm</h3>
+                    <p class="text-[11px] sm:text-xs text-ash mt-0.5 font-light">Melt-Wash &bull; 100ml e 3.4 FL. OZ.</p>
+                </div>
+                <a href="product.html" class="inline-flex items-center gap-2 bg-ink text-white px-4 py-2.5 sm:px-5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-semibold hover:bg-sage transition-all whitespace-nowrap luxury-interactive">
+                    <span>SCOPRI IL PRODOTTO</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 5. Sezione "Di tendenza" (Con Swatches Colore/Formato e Frecce) -->
+    <section class="py-24 px-6 lg:px-16 bg-linen border-b border-borderLinen">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Sticky Left Column -->
+            <div class="lg:col-span-4 lg:sticky lg:top-36">
+                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">CURA PERSONALE BIOMIMETICA</span>
+                <h2 class="font-serif text-4xl lg:text-5xl font-normal text-ink leading-tight mb-2">
+                    Di tendenza
+                </h2>
+                <p class="font-serif italic text-xl text-ash font-light mb-4">
+                    Le formule di cui tutti parlano.
+                </p>
+                <p class="text-ash text-sm leading-relaxed mb-6 font-light">
+                    Formulazioni pluripremiate che fondono l'essenza botanica pura con vettori di assorbimento transdermico di ultima generazione.
+                </p>
+                
+                <a href="collection.html" class="text-xs uppercase tracking-widest font-semibold text-ink hover:text-amber border-b border-ink/40 pb-1 inline-block mb-8 transition-colors">
+                    SCOPRI TUTTO &rarr;
+                </a>
+
+                <div class="flex gap-2">
+                    <button onclick="document.getElementById('trending-slider').scrollBy({left: -320, behavior: 'smooth'})" class="w-10 h-10 border border-ink flex items-center justify-center hover:bg-ink hover:text-white transition-colors" aria-label="Precedente">
+                        &larr;
+                    </button>
+                    <button onclick="document.getElementById('trending-slider').scrollBy({left: 320, behavior: 'smooth'})" class="w-10 h-10 border border-ink flex items-center justify-center hover:bg-ink hover:text-white transition-colors" aria-label="Successivo">
+                        &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horizontal Products Slider (4 Prodotti Iconici) -->
+            <div class="lg:col-span-8">
+                <div id="trending-slider" class="flex gap-4 sm:gap-6 overflow-x-auto slider-no-scrollbar pb-4 scroll-smooth snap-x snap-mandatory" style="touch-action: pan-x; -webkit-overflow-scrolling: touch;">
+                    
+                    <!-- Product 1: Pro-Artistry Cleansing Balm -->
+                    <div class="w-[75vw] sm:w-[300px] md:w-[320px] flex-shrink-0 snap-start bg-white border border-borderLinen p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl transition-all group luxury-interactive">
+                        <div>
+                            <div class="relative aspect-square bg-linen mb-4 overflow-hidden border border-borderLinen/60">
+                                <span class="absolute top-3 left-3 bg-ink text-white text-[9px] uppercase tracking-widest px-2.5 py-1 z-10 font-medium">Bestseller</span>
+                                <a href="product.html">
+                                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
+                                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                         alt="Pro-Artistry Cleansing Balm" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </a>
+                            </div>
+                            <div class="flex items-center gap-1 text-amber text-xs mb-1">
+                                &starf;&starf;&starf;&starf;&starf; <span class="text-ash text-[10px] ml-1">(142)</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-semibold text-ink">
+                                <a href="product.html" class="hover:text-amber transition-colors">Pro-Artistry Cleansing Balm</a>
+                            </h3>
+                            <p class="text-xs text-ash mt-1">100 ml &bull; Melt-Wash formulazione trasformativa</p>
+                            
+                            <!-- Swatches Formato / Tonalità -->
+                            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-borderLinen/60">
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#C8A878] border border-ink/40 shadow-sm inline-block cursor-pointer" title="100ml &bull; Ambra Alpina"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#5C6B56] border border-transparent hover:border-ink inline-block cursor-pointer" title="30ml &bull; Salvia"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#DDD7CE] border border-transparent hover:border-ink inline-block cursor-pointer" title="200ml &bull; Sabbia"></span>
+                                <span class="text-[10px] text-ash tracking-wider ml-1">3 Formati</span>
+                            </div>
+                        </div>
+                        <div class="mt-5 pt-3 border-t border-borderLinen flex items-center justify-between">
+                            <span class="text-sm font-semibold text-ink">&euro; 76,00</span>
+                            <a href="product.html" class="bg-ink text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive">
+                                Acquista Ora
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Crema Riparatrice Biomimetica -->
+                    <div class="w-[75vw] sm:w-[300px] md:w-[320px] flex-shrink-0 snap-start bg-white border border-borderLinen p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl transition-all group luxury-interactive">
+                        <div>
+                            <div class="relative aspect-square bg-linen mb-4 overflow-hidden border border-borderLinen/60">
+                                <span class="absolute top-3 left-3 bg-sage text-white text-[9px] uppercase tracking-widest px-2.5 py-1 z-10 font-medium">Formula Clinica</span>
+                                <a href="product.html">
+                                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" 
+                                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                         alt="Crema Riparatrice Biomimetica" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </a>
+                            </div>
+                            <div class="flex items-center gap-1 text-amber text-xs mb-1">
+                                &starf;&starf;&starf;&starf;&starf; <span class="text-ash text-[10px] ml-1">(98)</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-semibold text-ink">
+                                <a href="product.html" class="hover:text-amber transition-colors">Crema Riparatrice Biomimetica</a>
+                            </h3>
+                            <p class="text-xs text-ash mt-1">50 ml &bull; Ripristino barriera idrolipidica 48h</p>
+
+                            <!-- Swatches Formato / Tonalità -->
+                            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-borderLinen/60">
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#E5E0D8] border border-ink/40 shadow-sm inline-block cursor-pointer" title="50ml &bull; Texture Velluto"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#DDD7CE] border border-transparent hover:border-ink inline-block cursor-pointer" title="30ml &bull; Travel"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#C8A878] border border-transparent hover:border-ink inline-block cursor-pointer" title="100ml &bull; Riche"></span>
+                                <span class="text-[10px] text-ash tracking-wider ml-1">3 Formati</span>
+                            </div>
+                        </div>
+                        <div class="mt-5 pt-3 border-t border-borderLinen flex items-center justify-between">
+                            <span class="text-sm font-semibold text-ink">&euro; 88,00</span>
+                            <a href="product.html" class="bg-ink text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive">
+                                Acquista Ora
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Siero Attivo Botanico Notte -->
+                    <div class="w-[75vw] sm:w-[300px] md:w-[320px] flex-shrink-0 snap-start bg-white border border-borderLinen p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl transition-all group luxury-interactive">
+                        <div>
+                            <div class="relative aspect-square bg-linen mb-4 overflow-hidden border border-borderLinen/60">
+                                <span class="absolute top-3 left-3 bg-ink text-white text-[9px] uppercase tracking-widest px-2.5 py-1 z-10 font-medium">Bestseller</span>
+                                <a href="product.html">
+                                    <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80" 
+                                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                         alt="Siero Attivo Botanico Notte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </a>
+                            </div>
+                            <div class="flex items-center gap-1 text-amber text-xs mb-1">
+                                &starf;&starf;&starf;&starf;&starf; <span class="text-ash text-[10px] ml-1">(115)</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-semibold text-ink">
+                                <a href="product.html" class="hover:text-amber transition-colors">Siero Attivo Botanico Notte</a>
+                            </h3>
+                            <p class="text-xs text-ash mt-1">30 ml &bull; Rigenerazione cellulare al risveglio</p>
+
+                            <!-- Swatches Formato / Tonalità -->
+                            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-borderLinen/60">
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#5C6B56] border border-ink/40 shadow-sm inline-block cursor-pointer" title="30ml &bull; Gocce Pure"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#C8A878] border border-transparent hover:border-ink inline-block cursor-pointer" title="50ml &bull; Deluxe"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#DDD7CE] border border-transparent hover:border-ink inline-block cursor-pointer" title="15ml &bull; Starter"></span>
+                                <span class="text-[10px] text-ash tracking-wider ml-1">3 Formati</span>
+                            </div>
+                        </div>
+                        <div class="mt-5 pt-3 border-t border-borderLinen flex items-center justify-between">
+                            <span class="text-sm font-semibold text-ink">&euro; 94,00</span>
+                            <a href="product.html" class="bg-ink text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive">
+                                Acquista Ora
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Balsamo Nutriente Notturno -->
+                    <div class="w-[75vw] sm:w-[300px] md:w-[320px] flex-shrink-0 snap-start bg-white border border-borderLinen p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl transition-all group luxury-interactive">
+                        <div>
+                            <div class="relative aspect-square bg-linen mb-4 overflow-hidden border border-borderLinen/60">
+                                <span class="absolute top-3 left-3 bg-amber text-ink text-[9px] uppercase tracking-widest px-2.5 py-1 z-10 font-semibold">Edizione Limitata</span>
+                                <a href="product.html">
+                                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" 
+                                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                         alt="Balsamo Nutriente Notturno" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </a>
+                            </div>
+                            <div class="flex items-center gap-1 text-amber text-xs mb-1">
+                                &starf;&starf;&starf;&starf;&starf; <span class="text-ash text-[10px] ml-1">(74)</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-semibold text-ink">
+                                <a href="product.html" class="hover:text-amber transition-colors">Balsamo Nutriente Notturno</a>
+                            </h3>
+                            <p class="text-xs text-ash mt-1">60 ml &bull; Concentrato botanico lenitivo</p>
+
+                            <!-- Swatches Formato / Tonalità -->
+                            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-borderLinen/60">
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#C8A878] border border-ink/40 shadow-sm inline-block cursor-pointer" title="60ml &bull; Vasetto"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#5C6B56] border border-transparent hover:border-ink inline-block cursor-pointer" title="30ml &bull; Petite"></span>
+                                <span class="swatch-dot w-4 h-4 rounded-full bg-[#DDD7CE] border border-transparent hover:border-ink inline-block cursor-pointer" title="100ml &bull; Grand"></span>
+                                <span class="text-[10px] text-ash tracking-wider ml-1">3 Formati</span>
+                            </div>
+                        </div>
+                        <div class="mt-5 pt-3 border-t border-borderLinen flex items-center justify-between">
+                            <span class="text-sm font-semibold text-ink">&euro; 82,00</span>
+                            <a href="product.html" class="bg-ink text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive">
+                                Acquista Ora
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Mobile Pagination Dots -->
+                <div class="flex lg:hidden justify-center items-center gap-1.5 mt-3" id="trending-dots">
+                    <button type="button" onclick="scrollTrendingTo(0)" class="trending-dot w-6 h-1 rounded-full bg-ink transition-all" aria-label="Prodotto 1"></button>
+                    <button type="button" onclick="scrollTrendingTo(1)" class="trending-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Prodotto 2"></button>
+                    <button type="button" onclick="scrollTrendingTo(2)" class="trending-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Prodotto 3"></button>
+                    <button type="button" onclick="scrollTrendingTo(3)" class="trending-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Prodotto 4"></button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. Sezione Before & After ("Risultati Visibili") — FULL BLEED A TUTTO SCHERMO (Frame 00:17-00:18) -->
+    <section class="relative w-full overflow-hidden border-b border-borderLinen bg-linen">
+        
+        <!-- Contenitore Slider a Tutta Larghezza (100vw, w-full, h-[420px] sm:h-[600px] lg:h-[72vh]) -->
+        <div class="ba-full-container" id="baSlider">
+            
+            <!-- Immagine Before (Sotto) -->
+            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1920&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Prima del trattamento dermatologico - Giorno 0" 
+                 class="ba-full-img">
+            
+            <!-- Badge Before (Destra) -->
+            <div class="absolute top-4 sm:top-8 right-4 sm:right-8 bg-ink/85 text-white text-[9px] sm:text-[10px] uppercase tracking-widest px-3 py-1.5 sm:px-4 sm:py-2 backdrop-blur-md pointer-events-none z-10 font-medium">
+                Giorno 0 &bull; Prima
+            </div>
+
+            <!-- Immagine After (Sopra con width clipping al 50%) -->
+            <div class="ba-overlay-box" id="baOverlay">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1920&q=80" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                     alt="Dopo 14 giorni - Risultati Visibili" 
+                     class="ba-overlay-full-img" 
+                     id="baOverlayImg">
+                
+                <!-- Badge After (Sinistra) -->
+                <div class="absolute top-4 sm:top-8 left-4 sm:left-8 bg-amber text-ink font-semibold text-[9px] sm:text-[10px] uppercase tracking-widest px-3 py-1.5 sm:px-4 sm:py-2 backdrop-blur-md pointer-events-none z-10 shadow-lg">
+                    Giorno 14 &bull; Dopo
+                </div>
+            </div>
+
+            <!-- Titolo Centrale in Sovrimpressione Fluttuante (Esatto Video Frame 00:17-00:18) -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center pointer-events-none px-4 py-3 sm:px-8 sm:py-5 bg-ink/55 backdrop-blur-md border border-white/20 text-white shadow-2xl rounded-sm max-w-[90vw]">
+                <h2 class="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal text-white tracking-wider drop-shadow-md">
+                    Risultati Visibili
+                </h2>
+                <p class="font-serif italic text-white/90 text-xs sm:text-base mt-1 tracking-wide">
+                    Miglioramento visibile in soli 14 giorni*
+                </p>
+            </div>
+
+            <!-- Maniglia Bianca Circolare con Frecce ◀ ▶ Trascinabile a Mano e Mouse -->
+            <div class="ba-handle-circle" id="baHandle">
+                <span>&#9664; &#9654;</span>
+            </div>
+
+        </div>
+
+        <!-- 3 Clinical Metrics Box -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 bg-white border border-borderLinen p-4 sm:p-6 text-center shadow-sm">
+                <div>
+                    <span class="font-serif text-2xl sm:text-3xl text-ink font-medium">+98%</span>
+                    <p class="text-[10px] sm:text-xs uppercase tracking-wider text-ash mt-1">Idratazione Tissutale 48h</p>
+                </div>
+                <div class="border-y sm:border-y-0 sm:border-x border-borderLinen py-3 sm:py-0">
+                    <span class="font-serif text-2xl sm:text-3xl text-ink font-medium">+94%</span>
+                    <p class="text-[10px] sm:text-xs uppercase tracking-wider text-ash mt-1">Luminosit&agrave; &amp; Elasticit&agrave;</p>
+                </div>
+                <div>
+                    <span class="font-serif text-2xl sm:text-3xl text-ink font-medium">100%</span>
+                    <p class="text-[10px] sm:text-xs uppercase tracking-wider text-ash mt-1">Tolleranza Pelli Sensibili</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 7. Sezione 5 Card Categorie ad Arco/Pillola (Esatte del Video Frame 00:19) -->
+    <section class="py-16 sm:py-24 bg-white border-b border-borderLinen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+            
+            <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+                <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold block mb-2">ESPLORA LE COLLEZIONI</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-ink">L'Architettura della Bellezza</h2>
+                <p class="text-ash text-xs sm:text-sm mt-2 sm:mt-3 font-light">Cinque universi sartoriali dedicati al benessere integrale del derma.</p>
+            </div>
+
+            <!-- 5 Pill Cards Sagomate ad Arco in Cima (rounded-t-full) con Sfondo #EFECE6 -->
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-6">
+                
+                <!-- Pill 1: Cura della pelle -->
+                <a href="collection.html?category=anti-aging" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-borderLinen rounded-t-full p-3.5 sm:p-5 text-center hover:border-ink hover:shadow-xl transition-all luxury-interactive">
+                    <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Cura della pelle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-full">
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-base sm:text-lg font-semibold text-ink group-hover:text-amber transition-colors mb-1">Cura della pelle</h3>
+                        <p class="text-[11px] sm:text-xs text-ash leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Formule avanzate per nutrire, proteggere e rivitalizzare il derma.</p>
+                        <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-ink border-b border-ink/30 group-hover:border-ink group-hover:text-amber transition-all">Scopri &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Pill 2: Trucco -->
+                <a href="collection.html" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-borderLinen rounded-t-full p-3.5 sm:p-5 text-center hover:border-ink hover:shadow-xl transition-all luxury-interactive">
+                    <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Trucco" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-full">
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-base sm:text-lg font-semibold text-ink group-hover:text-amber transition-colors mb-1">Trucco</h3>
+                        <p class="text-[11px] sm:text-xs text-ash leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Texture biomimetiche per esaltare la bellezza naturale con finish seta.</p>
+                        <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-ink border-b border-ink/30 group-hover:border-ink group-hover:text-amber transition-all">Scopri &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Pill 3: Cura dei capelli -->
+                <a href="collection.html" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-borderLinen rounded-t-full p-3.5 sm:p-5 text-center hover:border-ink hover:shadow-xl transition-all luxury-interactive">
+                    <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+                        <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Cura dei capelli" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-full">
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-base sm:text-lg font-semibold text-ink group-hover:text-amber transition-colors mb-1">Cura dei capelli</h3>
+                        <p class="text-[11px] sm:text-xs text-ash leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Trattamenti botanici mirati per la cute e per donare corpo e luminosit&agrave;.</p>
+                        <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-ink border-b border-ink/30 group-hover:border-ink group-hover:text-amber transition-all">Scopri &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Pill 4: Cura del corpo -->
+                <a href="collection.html?category=idratazione" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-borderLinen rounded-t-full p-3.5 sm:p-5 text-center hover:border-ink hover:shadow-xl transition-all luxury-interactive">
+                    <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+                        <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Cura del corpo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-full">
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-base sm:text-lg font-semibold text-ink group-hover:text-amber transition-colors mb-1">Cura del corpo</h3>
+                        <p class="text-[11px] sm:text-xs text-ash leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Balsami e oli trasformativi per una sensorialit&agrave; da spa quotidiana.</p>
+                        <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-ink border-b border-ink/30 group-hover:border-ink group-hover:text-amber transition-all">Scopri &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Pill 5: Strumenti (Spans gracefully across 2 cols on mobile) -->
+                <a href="collection.html" class="pill-card group col-span-2 sm:col-span-1 lg:col-span-1 max-w-[240px] sm:max-w-none mx-auto w-full flex flex-col justify-between bg-[#EFECE6] border border-borderLinen rounded-t-full p-3.5 sm:p-5 text-center hover:border-ink hover:shadow-xl transition-all luxury-interactive">
+                    <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+                        <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Strumenti" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-t-full">
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-base sm:text-lg font-semibold text-ink group-hover:text-amber transition-colors mb-1">Strumenti</h3>
+                        <p class="text-[11px] sm:text-xs text-ash leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Accessori di precisione per massaggio facciale e applicazione professionale.</p>
+                        <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-ink border-b border-ink/30 group-hover:border-ink group-hover:text-amber transition-all">Scopri &rarr;</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 8. Sezione "La tua routine, semplificata" & UGC Strip -->
+    <section id="routine" class="py-16 sm:py-24 bg-linen border-b border-borderLinen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+                <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold block mb-2">IL RITUALE DEI TRE GESTI</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-ink">La tua routine, semplificata</h2>
+                <p class="text-ash text-xs sm:text-sm mt-2 sm:mt-3 font-light">Pochi gesti essenziali calibrati per potenziare la rigenerazione naturale della pelle senza sovraccaricarla.</p>
+            </div>
+
+            <!-- 3 Steps with Connected Line Flow -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 mb-16 sm:mb-20">
+                
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-borderLinen mb-4 sm:mb-6 p-1.5 sm:p-2 bg-white shadow-sm group">
+                        <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=500&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Passo 01 Pulisci - Detergente con erogatore" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold mb-1">Passo 01</span>
+                    <h3 class="font-serif text-xl sm:text-2xl font-normal text-ink mb-1.5 sm:mb-2">Pulisci &amp; Purifica</h3>
+                    <p class="text-xs text-ash leading-relaxed max-w-xs font-light">
+                        Detersione lipofila ad affinit&agrave; che rimuove impurit&agrave; e particelle senza intaccare il film idrolipidico naturale.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-borderLinen mb-4 sm:mb-6 p-1.5 sm:p-2 bg-white shadow-sm group">
+                        <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Passo 02 Trattare" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold mb-1">Passo 02</span>
+                    <h3 class="font-serif text-xl sm:text-2xl font-normal text-ink mb-1.5 sm:mb-2">Trattare &amp; Nutrire</h3>
+                    <p class="text-xs text-ash leading-relaxed max-w-xs font-light">
+                        Micro-dosi di estratti botanici alpini concentrati che penetrano in profondit&agrave; stimolando la coesione tissutale.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-borderLinen mb-4 sm:mb-6 p-1.5 sm:p-2 bg-white shadow-sm group">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                             alt="Passo 03 Idratare" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold mb-1">Passo 03</span>
+                    <h3 class="font-serif text-xl sm:text-2xl font-normal text-ink mb-1.5 sm:mb-2">Idratare &amp; Sigillare</h3>
+                    <p class="text-xs text-ash leading-relaxed max-w-xs font-light">
+                        Golden Glow Body Oil come sigillo serico protettivo che conferisce un bagliore dorato irresistibile e continuo.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Routine Quiz CTA Button -->
+            <div class="text-center mt-10 sm:mt-12 mb-8">
+                <a href="skin-quiz.html" class="inline-flex items-center gap-2 bg-ink text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-sage transition-all luxury-interactive shadow-sm">
+                    <span>CREA LA TUA ROUTINE</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
+
+            <!-- UGC Strip Editoriale con 5 Ritratti (Horizontal Snap on Mobile) -->
+            <div class="pt-12 sm:pt-16 border-t border-borderLinen">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 sm:mb-8 gap-3 sm:gap-4">
+                    <div>
+                        <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold">LE VOCI DELLA NOSTRA COMMUNITY</span>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-normal text-ink mt-1">Radiosit&agrave; autentica testimoniata</h3>
+                    </div>
+                    <span class="text-xs text-ash">Oltre 2.400 clienti a Verona e in tutta Europa</span>
+                </div>
+
+                <div class="flex md:grid md:grid-cols-5 gap-3.5 sm:gap-4 overflow-x-auto slider-no-scrollbar snap-x snap-mandatory pb-4" style="touch-action: pan-x; -webkit-overflow-scrolling: touch;">
+                    
+                    <!-- Portrait 1 -->
+                    <div class="w-[70vw] sm:w-[220px] md:w-auto flex-shrink-0 snap-start bg-white p-3.5 sm:p-4 border border-borderLinen flex flex-col justify-between shadow-xs luxury-interactive">
+                        <div>
+                            <div class="aspect-square mb-3 overflow-hidden bg-linen">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                     alt="Elena V., Verona" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-amber text-[10px] mb-1">&starf;&starf;&starf;&starf;&starf;</div>
+                            <p class="text-[11px] text-ink font-serif italic">&ldquo;La consistenza dell'olio &egrave; sublime. Pelle luminosa e mai unta.&rdquo;</p>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-ash block mt-3 pt-2 border-t border-borderLinen/60">Elena V. &bull; Verona</span>
+                    </div>
+
+                    <!-- Portrait 2 -->
+                    <div class="w-[70vw] sm:w-[220px] md:w-auto flex-shrink-0 snap-start bg-white p-3.5 sm:p-4 border border-borderLinen flex flex-col justify-between shadow-xs luxury-interactive">
+                        <div>
+                            <div class="aspect-square mb-3 overflow-hidden bg-linen">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                     alt="Beatrice M., Milano" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-amber text-[10px] mb-1">&starf;&starf;&starf;&starf;&starf;</div>
+                            <p class="text-[11px] text-ink font-serif italic">&ldquo;Il profumo botanico &egrave; un viaggio olfattivo tra i boschi.&rdquo;</p>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-ash block mt-3 pt-2 border-t border-borderLinen/60">Beatrice M. &bull; Milano</span>
+                    </div>
+
+                    <!-- Portrait 3 -->
+                    <div class="w-[70vw] sm:w-[220px] md:w-auto flex-shrink-0 snap-start bg-white p-3.5 sm:p-4 border border-borderLinen flex flex-col justify-between shadow-xs luxury-interactive">
+                        <div>
+                            <div class="aspect-square mb-3 overflow-hidden bg-linen">
+                                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                     alt="Giulia C., Bolzano" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-amber text-[10px] mb-1">&starf;&starf;&starf;&starf;&starf;</div>
+                            <p class="text-[11px] text-ink font-serif italic">&ldquo;Ritiro in boutique a Verona comodissimo in appena 2 ore.&rdquo;</p>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-ash block mt-3 pt-2 border-t border-borderLinen/60">Giulia C. &bull; Bolzano</span>
+                    </div>
+
+                    <!-- Portrait 4 -->
+                    <div class="w-[70vw] sm:w-[220px] md:w-auto flex-shrink-0 snap-start bg-white p-3.5 sm:p-4 border border-borderLinen flex flex-col justify-between shadow-xs luxury-interactive">
+                        <div>
+                            <div class="aspect-square mb-3 overflow-hidden bg-linen">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                     alt="Chiara S., Venezia" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-amber text-[10px] mb-1">&starf;&starf;&starf;&starf;&starf;</div>
+                            <p class="text-[11px] text-ink font-serif italic">&ldquo;Trattamento favoloso. Barriera cutanea visibilmente riparata.&rdquo;</p>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-ash block mt-3 pt-2 border-t border-borderLinen/60">Chiara S. &bull; Venezia</span>
+                    </div>
+
+                    <!-- Portrait 5 -->
+                    <div class="w-[70vw] sm:w-[220px] md:w-auto flex-shrink-0 snap-start bg-white p-3.5 sm:p-4 border border-borderLinen flex flex-col justify-between shadow-xs luxury-interactive">
+                        <div>
+                            <div class="aspect-square mb-3 overflow-hidden bg-linen">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                                     alt="Martina T., Firenze" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-amber text-[10px] mb-1">&starf;&starf;&starf;&starf;&starf;</div>
+                            <p class="text-[11px] text-ink font-serif italic">&ldquo;Non acquisto pi&ugrave; altri oli corpo. Questo &egrave; alta profumeria.&rdquo;</p>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-ash block mt-3 pt-2 border-t border-borderLinen/60">Martina T. &bull; Firenze</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 9. Sezione Storytelling "Dove la scienza incontra la pelle" - Milena Tacchella -->
+    <section id="filosofia" class="py-24 bg-white border-b border-borderLinen">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Foto Fondatrice Milena Tacchella a sinistra -->
+            <div class="lg:col-span-6 relative">
+                <div class="relative z-10 border border-borderLinen shadow-2xl overflow-hidden bg-linen aspect-[4/3] sm:aspect-[16/11]">
+                    <img src="assets/milena-tacchella.jpg" 
+                         onerror="this.onerror=null; this.src='C:/Users/y.el.taher/.gemini/antigravity/brain/588cd51e-5f07-461e-9758-21f8f0898215/.user_uploaded/media_1790749817907.jpg'"
+                         alt="Milena Tacchella - Fondatrice & Dermo-Specialista • Milebiolab Verona" 
+                         class="w-full h-full object-cover object-[center_20%]">
+                </div>
+                <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-sand/30 -z-0 hidden sm:block"></div>
+                <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm p-4 border border-borderLinen text-xs tracking-wider uppercase text-ink z-20 shadow-md">
+                    Istituto Dermo-Specialistico &bull; Verona
+                </div>
+            </div>
+
+            <!-- Manifesto del Brand a destra con doppia cornice -->
+            <div class="lg:col-span-6">
+                <div class="p-8 sm:p-12 bg-linen border border-borderLinen shadow-sm relative">
+                    <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold block mb-3">IL NOSTRO MANIFESTO</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl text-ink leading-tight mb-4">
+                        Dove la scienza botanica incontra la fisiologia cutanea
+                    </h2>
+                    
+                    <blockquote class="font-serif italic text-base sm:text-lg text-ink leading-snug mb-5 border-l-2 border-amber pl-4">
+                        &ldquo;La nostra missione a Verona &egrave; unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.&rdquo;
+                    </blockquote>
+
+                    <p class="text-ash text-sm leading-relaxed mb-4 font-light">
+                        Non crediamo nelle scorciatoie della chimica aggressiva n&eacute; nell'approssimazione dell'erboristeria empirica. Il nostro metodo nasce dalla ricerca pionieristica di bio-compatibilit&agrave;: ogni fitocomplesso viene estratto a freddo nel pieno rispetto della matrice vegetale viva.
+                    </p>
+
+                    <p class="text-ash text-sm leading-relaxed mb-6 font-light">
+                        Nella nostra boutique e istituto di Verona in Corso Cavour 18, accogliamo ogni persona per creare un percorso dermocosmetico sartoriale, supportato da verifiche strumentali e risultati clinicamente tangibili.
+                    </p>
+
+                    <div class="pt-6 border-t border-borderLinen flex items-center justify-between">
+                        <div>
+                            <span class="font-serif italic text-lg text-ink block">Milena Tacchella</span>
+                            <span class="text-[10px] uppercase tracking-widest text-ash">Fondatrice &amp; Dermo-Specialista &bull; Milebiolab Verona</span>
+                        </div>
+                        <a href="about.html" class="inline-block border-b-2 border-ink pb-1 text-xs uppercase tracking-widest font-semibold hover:text-amber transition-colors">
+                            LA NOSTRA STORIA &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 10. Marquee Loghi Partner con pausa all'hover -->
+    <div class="py-12 bg-linen border-b border-borderLinen overflow-hidden marquee">
+        <div class="marquee-content flex items-center gap-16 text-xs uppercase tracking-[0.3em] text-ash font-medium">
+            <span>SEPHORA HAUTE PARFUMERIE</span>
+            <span class="text-sand">&bull;</span>
+            <span>ULTA BEAUTY PRESTIGE</span>
+            <span class="text-sand">&bull;</span>
+            <span>BLUEMERCURY APOTHECARY</span>
+            <span class="text-sand">&bull;</span>
+            <span>DOUGLAS LUXURY COLLECTION</span>
+            <span class="text-sand">&bull;</span>
+            <span>NOCIB&Eacute; EXCLUSIVES</span>
+            <span class="text-sand">&bull;</span>
+            <span>HARRODS APOTHECARY LONDON</span>
+            <span class="text-sand">&bull;</span>
+            <span>SEPHORA HAUTE PARFUMERIE</span>
+            <span class="text-sand">&bull;</span>
+            <span>ULTA BEAUTY PRESTIGE</span>
+            <span class="text-sand">&bull;</span>
+            <span>BLUEMERCURY APOTHECARY</span>
+            <span class="text-sand">&bull;</span>
+            <span>DOUGLAS LUXURY COLLECTION</span>
+            <span class="text-sand">&bull;</span>
+            <span>NOCIB&Eacute; EXCLUSIVES</span>
+            <span class="text-sand">&bull;</span>
+            <span>HARRODS APOTHECARY LONDON</span>
+        </div>
+    </div>
+
+    <!-- 11. Banner Newsletter 15% (Esatto del Video Frame 00:22-00:23) -->
+    <section class="py-24 bg-white border-b border-borderLinen">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-linen border border-borderLinen p-8 sm:p-12 shadow-xl">
+            
+            <!-- Sinistra: Foto Elegante Packaging Cosmetico di Lusso -->
+            <div class="lg:col-span-4 aspect-[3/4] bg-white overflow-hidden border border-borderLinen hidden lg:block shadow-sm">
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                     alt="Packaging Cosmetico Splendor di Lusso" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Centro: Titolo, Sottotitolo e Form Newsletter -->
+            <div class="lg:col-span-5">
+                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">PRIVILEGIO ESCLUSIVO</span>
+                <h3 class="font-serif text-3xl font-normal text-ink mb-2 leading-tight">15% di sconto sulla tua prima routine</h3>
+                <p class="text-xs text-ash leading-relaxed mb-6 font-light">Iscriviti e ricevi l'accesso esclusivo ai lanci e ai consigli dei nostri esperti.</p>
+                <form onsubmit="event.preventDefault(); alert('Grazie per l\'iscrizione. Il tuo codice SPLENDOR15 &egrave; attivo per il tuo ordine.');" class="flex flex-col sm:flex-row gap-2">
+                    <input type="email" placeholder="Indirizzo email" required class="flex-1 bg-white border border-borderLinen px-4 py-3 text-xs focus:outline-none focus:border-ink">
+                    <button type="submit" class="bg-ink text-white px-6 py-3 text-xs uppercase tracking-widest font-semibold hover:bg-sage transition-colors whitespace-nowrap">
+                        ISCRIVITI
+                    </button>
+                </form>
+            </div>
+
+            <!-- Destra: I 3 Box Verticali con Cerchi Line-Art Screenshot 2 (Vegan, Cruelty free, Organic) -->
+            <div class="lg:col-span-3 space-y-4 pt-6 lg:pt-0 border-t lg:border-t-0 lg:border-l border-borderLinen lg:pl-8 text-xs">
+                
+                <!-- Box 1: Vegan -->
+                <div class="flex items-start gap-3.5 bg-white p-3.5 border border-borderLinen/80 shadow-xs">
+                    <div class="w-11 h-11 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 39C22 32 23 23 24 14" />
+                            <path d="M22 31C18 28 15 19 18 11.5C21.5 15.5 23 22 23 27" />
+                            <path d="M23.5 24C26.5 21 35.5 15.5 36.5 11C37.5 17.5 32 27 24 28" />
+                            <path d="M25 22C28.5 18.5 33 15 35.5 12" stroke-width="1.1" />
+                        </svg>
+                    </div>
+                    <div>
+                        <strong class="text-ink font-semibold block text-xs tracking-wide">Vegan</strong>
+                        <span class="text-[11px] text-ash leading-tight block mt-0.5">100% formule vegetali senza ingredienti animali.</span>
+                    </div>
+                </div>
+
+                <!-- Box 2: Cruelty free -->
+                <div class="flex items-start gap-3.5 bg-white p-3.5 border border-borderLinen/80 shadow-xs">
+                    <div class="w-11 h-11 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 23C16.8 18 13.5 9 16.5 6.5C19.5 4 22.5 12 22.5 19.5" />
+                            <path d="M29 23C31.2 18 34.5 9 31.5 6.5C28.5 4 25.5 12 25.5 19.5" />
+                            <path d="M15 22.5C12 26 12 33 16.5 37.5C21 42 27 42 31.5 37.5C36 33 36 26 33 22.5" />
+                            <circle cx="18.5" cy="27" r="1.2" fill="currentColor" stroke="none" />
+                            <circle cx="29.5" cy="27" r="1.2" fill="currentColor" stroke="none" />
+                            <path d="M22.5 30.5C23.3 29.8 24.7 29.8 25.5 30.5L24 32.2Z" fill="currentColor" />
+                            <line x1="11" y1="30" x2="15" y2="30.5" stroke-width="1.1" />
+                            <line x1="11" y1="33" x2="15" y2="33" stroke-width="1.1" />
+                            <line x1="37" y1="30" x2="33" y2="30.5" stroke-width="1.1" />
+                            <line x1="37" y1="33" x2="33" y2="33" stroke-width="1.1" />
+                        </svg>
+                    </div>
+                    <div>
+                        <strong class="text-ink font-semibold block text-xs tracking-wide">Cruelty free</strong>
+                        <span class="text-[11px] text-ash leading-tight block mt-0.5">Cruelty-Free certificato, mai testato su animali.</span>
+                    </div>
+                </div>
+
+                <!-- Box 3: Organic -->
+                <div class="flex items-start gap-3.5 bg-white p-3.5 border border-borderLinen/80 shadow-xs">
+                    <div class="w-11 h-11 rounded-full border border-[#7A7265]/40 bg-[#F5F2EB] flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-[#1A1A1A]" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 38C23 38 13.5 31.5 12.5 18.5C17 15 26.5 19.5 27.5 31.5" />
+                            <path d="M12.5 18.5C18 23 22.5 28.5 24.5 36" stroke-width="1.1" />
+                            <path d="M15.5 21.5L19 24.5" stroke-width="0.9" />
+                            <path d="M25 32.5C27.5 28 34 26 37 19.5C35 28.5 30.5 33 25 35" />
+                            <path d="M37 19.5C33.5 23 30 27.5 26 32.5" stroke-width="1.1" />
+                        </svg>
+                    </div>
+                    <div>
+                        <strong class="text-ink font-semibold block text-xs tracking-wide">Organic</strong>
+                        <span class="text-[11px] text-ash leading-tight block mt-0.5">Coltivazione botanica biologica certificata.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Standard Splendor 4-Column Luxury Footer -->
+    <footer class="bg-[#F5F2EB] border-t border-borderLinen pt-16 pb-8 px-4 sm:px-8 lg:px-16 mt-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-borderLinen">
+            
+            <!-- Col 1: Maison & Mission -->
+            <div class="space-y-4">
+                <a href="preview.html" class="inline-block group">
+                    <span class="font-serif text-2xl tracking-[0.28em] text-ink font-medium block">SPLENDOR</span>
+                    <span class="text-[8px] uppercase tracking-[0.38em] text-ash block -mt-1 font-light">Botanical Haute Couture &bull; Verona</span>
+                </a>
+                <p class="text-xs text-ash font-light leading-relaxed">
+                    Dermocosmesi botanica di precisione formulata in sinergia con Team Dr Joseph. Principi attivi alpini biodisponibili, biomimesi cellulare ed eccellenza clinica certificata B-Corp.
+                </p>
+                <div class="pt-2 flex items-center gap-3 text-[10px] uppercase tracking-wider text-sage font-semibold">
+                    <span class="px-2 py-0.5 bg-sage/10 rounded">B-Corp Certified</span>
+                    <span>&bull;</span>
+                    <span class="px-2 py-0.5 bg-sage/10 rounded">100% Bio-compatibile</span>
+                </div>
+            </div>
+
+            <!-- Col 2: Collezioni Splendor -->
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-ink mb-4 border-b border-borderLinen pb-1">Collezioni</h4>
+                <ul class="space-y-2.5 text-xs text-ash">
+                    <li><a href="collection.html" class="hover:text-amber transition-colors block">Tutte le Formule Botaniche</a></li>
+                    <li><a href="collections-list.html" class="hover:text-amber transition-colors block">Linee &amp; Cofanetti Regalo</a></li>
+                    <li><a href="product.html" class="hover:text-amber transition-colors block font-medium text-ink">Golden Glow Body Oil ★</a></li>
+                    <li><a href="skin-quiz.html" class="hover:text-sage transition-colors block text-sage font-semibold">&star; Skin Routine Finder Quiz</a></li>
+                    <li><a href="collection.html" class="hover:text-amber transition-colors block">I Bestseller Viso &amp; Corpo</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Istituto & Concierge Verona -->
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-ink mb-4 border-b border-borderLinen pb-1">Istituto &amp; Concierge</h4>
+                <div class="space-y-2 text-xs text-ash font-light">
+                    <p><strong class="text-ink font-medium">Boutique Corso Cavour 18</strong>, 37121 Verona</p>
+                    <p>Tel Concierge: <a href="tel:+390458001234" class="text-ink font-medium hover:text-amber transition-colors">+39 045 800 1234</a></p>
+                    <p>Orari: Lun &ndash; Sab: 09:30 &ndash; 19:30</p>
+                    <div class="pt-2 space-y-1.5 border-t border-borderLinen/60">
+                        <a href="institute-verona.html" class="block hover:text-amber transition-colors">I 5 Trattamenti Cabina &rarr;</a>
+                        <a href="about.html" class="block hover:text-amber transition-colors">Milena Tacchella &amp; Filosofia</a>
+                        <a href="contact.html" class="block hover:text-amber transition-colors">Contatti &amp; WhatsApp Diretto</a>
+                        <a href="faq.html" class="block hover:text-amber transition-colors">Domande Frequenti &amp; FAQ</a>
+                        <a href="account.html" class="block hover:text-amber transition-colors">Area Riservata &amp; Ordini</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Col 4: Privilege Club Newsletter & Payments -->
+            <div>
+                <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-ink mb-4 border-b border-borderLinen pb-1">Privilege Club</h4>
+                <p class="text-xs text-ash mb-3 font-light leading-relaxed">
+                    Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il <strong class="text-ink font-medium">15% di benvenuto</strong> con codice SPLENDOR15.
+                </p>
+                <form onsubmit="handleNewsletterSubmit(event)" class="space-y-2">
+                    <div class="flex gap-2">
+                        <input type="email" required placeholder="La tua migliore email..." class="bg-white border border-borderLinen px-3.5 py-2.5 text-xs flex-1 text-ink placeholder-ash/60 focus:outline-none focus:border-ink">
+                        <button type="submit" class="bg-ink text-white px-4 py-2.5 text-xs uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive flex-shrink-0 cursor-pointer">
+                            Iscriviti
+                        </button>
+                    </div>
+                    <span class="text-[10px] text-ash/80 block">Trattamento riservato &bull; Disiscrizione con un click</span>
+                </form>
+
+                <div class="pt-5 mt-4 border-t border-borderLinen/60 space-y-2">
+                    <span class="text-[10px] uppercase tracking-wider text-ash font-medium block">Pagamenti Sicuri &amp; Certificati:</span>
+                    <div class="flex items-center gap-3 text-ash">
+                        <span class="text-xs font-semibold px-2 py-1 bg-white border border-borderLinen">SSL 256</span>
+                        <span class="text-xs font-semibold px-2 py-1 bg-white border border-borderLinen">VISA</span>
+                        <span class="text-xs font-semibold px-2 py-1 bg-white border border-borderLinen">MC</span>
+                        <span class="text-xs font-semibold px-2 py-1 bg-white border border-borderLinen">APPLE PAY</span>
+                        <span class="text-xs font-semibold px-2 py-1 bg-white border border-borderLinen">KLARNA</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright & Legal Circular Links -->
+        <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-ash font-light gap-4">
+            <p>&copy; 2026 SPLENDOR &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
+            <div class="flex flex-wrap gap-5 text-xs">
+                <a href="preview.html" class="hover:text-ink transition-colors">Home</a>
+                <a href="collection.html" class="hover:text-ink transition-colors">Catalogo</a>
+                <a href="preview-portal.html" class="hover:text-ink transition-colors font-medium text-ink underline underline-offset-4">Mappa 17 Template</a>
+                <a href="legal-policies.html#privacy" class="hover:text-ink transition-colors">Privacy</a>
+                <a href="legal-policies.html#terms" class="hover:text-ink transition-colors">Termini</a>
+                <a href="legal-policies.html#shipping" class="hover:text-ink transition-colors">Spedizioni</a>
+                <a href="legal-policies.html#cookies" class="hover:text-ink transition-colors">Cookie</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-over Cart Drawer Backdrop -->
+    <div id="cart-backdrop" onclick="toggleCartDrawer(false)" class="drawer-backdrop fixed inset-0 bg-ink/50 backdrop-blur-sm z-50 opacity-0 pointer-events-none"></div>
+
+    <!-- Luxury Cart Drawer Slide Panel -->
+    <aside id="cart-drawer" class="drawer-slide fixed top-0 right-0 bottom-0 w-full sm:w-[490px] max-w-[100vw] bg-[#F5F2EB] border-l border-borderLinen shadow-2xl z-50 flex flex-col justify-between translate-x-full">
+        
+        <!-- 1. Drawer Header -->
+        <div class="p-5 sm:p-6 border-b border-borderLinen bg-white/80 backdrop-blur-md flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-sage animate-pulse"></span>
+                <div>
+                    <h2 class="font-serif text-xl tracking-wider text-ink font-medium">Il Tuo Rituale di Bellezza</h2>
+                    <span class="text-[10px] uppercase tracking-widest text-ash block">Boutique &bull; Corso Cavour 18, Verona</span>
+                </div>
+            </div>
+            <button type="button" onclick="toggleCartDrawer(false)" class="w-9 h-9 rounded-full border border-borderLinen flex items-center justify-center text-ink hover:bg-linen transition-colors luxury-interactive cursor-pointer" aria-label="Chiudi carrello">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- 2. Free Gift Progress Bar (€120 threshold) -->
+        <div class="bg-white/60 border-b border-borderLinen px-6 py-3.5">
+            <div class="flex items-center justify-between text-xs mb-2">
+                <span id="gift-message" class="text-ash font-light text-[11px] sm:text-xs">
+                    Aggiungi ancora <strong id="gift-remainder" class="text-ink font-semibold">&euro; 44,00</strong> per il <span class="text-sage font-medium">Travel Size Serum omaggio</span> e spedizione gratuita
+                </span>
+                <span id="gift-percent-label" class="text-[10px] uppercase tracking-wider text-sage font-bold">63%</span>
+            </div>
+            <div class="w-full bg-[#E5E0D8] h-1.5 rounded-full overflow-hidden">
+                <div id="gift-progress-fill" class="bg-sage h-full transition-all duration-500 ease-out" style="width: 63%;"></div>
+            </div>
+        </div>
+
+        <!-- 3. Drawer Scrollable Body -->
+        <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 no-scrollbar">
+            
+            <!-- Items Container -->
+            <div id="cart-items-list" class="space-y-4">
+                <!-- Dynamically rendered by JS -->
+            </div>
+
+            <!-- Empty Cart Notice -->
+            <div id="cart-empty-message" class="hidden text-center py-10 bg-white border border-borderLinen p-6">
+                <svg class="w-12 h-12 text-sand mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <h4 class="font-serif text-lg text-ink font-medium">Il tuo carrello &egrave; vuoto</h4>
+                <p class="text-xs text-ash mt-1 mb-4">Esplora le nostre formule dermo-botaniche per iniziare la tua routine.</p>
+                <a href="collection.html" onclick="toggleCartDrawer(false)" class="inline-block bg-ink text-white px-6 py-2.5 text-xs uppercase tracking-widest font-semibold hover:bg-sage transition-colors">Esplora Formule</a>
+            </div>
+
+            <!-- 4. Delivery Method Toggle -->
+            <div class="bg-white p-4 border border-borderLinen space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs uppercase tracking-wider text-ink font-semibold flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Modalit&agrave; Consegna
+                    </span>
+                    <span class="text-[10px] text-sage font-medium uppercase tracking-wider">Verona &bull; Corso Cavour</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <button type="button" id="btn-pickup" onclick="selectDelivery('pickup')" class="p-3 text-left border-2 border-ink bg-linen text-ink transition-all relative cursor-pointer">
+                        <strong class="block font-medium">Ritiro in Boutique</strong>
+                        <span class="text-[10px] text-ash block mt-0.5">Pronto in 2 ore &bull; Gratuito</span>
+                        <span class="text-[9px] uppercase tracking-wider text-sage font-bold block mt-1">Consigliato</span>
+                    </button>
+                    <button type="button" id="btn-shipping" onclick="selectDelivery('shipping')" class="p-3 text-left border border-borderLinen bg-white text-ash hover:border-ink transition-all relative cursor-pointer">
+                        <strong class="block font-medium">Corriere Espresso</strong>
+                        <span class="text-[10px] text-ash block mt-0.5">24/48h &bull; Climatizzato</span>
+                        <span class="text-[9px] text-ash block mt-1">Gratis sopra &euro; 50</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 5. Luxury Gift Packaging Accordion -->
+            <div class="bg-white border border-borderLinen">
+                <button type="button" onclick="toggleGiftAccordion()" class="w-full p-4 flex justify-between items-center text-left text-xs uppercase tracking-wider text-ink font-semibold hover:bg-linen/40 transition-colors cursor-pointer">
+                    <span class="flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v13m0-13V4a2 2 0 112 2h-2zm0 0V4a2 2 0 10-2 2h2m-7 4h14v11H5V10z"></path></svg>
+                        Confezione Regalo &amp; Messaggio Personalizzato
+                    </span>
+                    <span id="gift-chevron" class="text-sm font-light text-ash">+</span>
+                </button>
+                <div id="gift-accordion-content" class="accordion-grid">
+                    <div class="accordion-grid-inner p-4 pt-0 space-y-3 text-xs border-t border-borderLinen/60">
+                        <label class="flex items-start gap-2.5 cursor-pointer pt-2">
+                            <input type="checkbox" id="gift-wrap-toggle" onchange="toggleGiftWrap(this.checked)" class="mt-0.5 accent-ink">
+                            <div>
+                                <span class="font-medium text-ink block">Scatola Splendor Couture con nastro in seta (+&euro; 5,00)</span>
+                                <span class="text-[11px] text-ash block">Include sigillo in ceralacca numerato a mano dal nostro laboratorio.</span>
+                            </div>
+                        </label>
+                        <div>
+                            <label class="text-[10px] uppercase tracking-wider text-ash font-medium block mb-1">Dedica su carta cotone vergata (Gratuita):</label>
+                            <textarea id="gift-note-input" oninput="saveGiftNote(this.value)" rows="2" placeholder="Scrivi qui il tuo messaggio per la persona speciale..." class="w-full p-2.5 bg-linen border border-borderLinen text-xs text-ink placeholder-ash/60 focus:outline-none focus:border-ink"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Botanical Mini Upsells -->
+            <div class="space-y-3">
+                <span class="text-[10px] uppercase tracking-[0.2em] text-ash font-bold block">Completa il Rituale in Formato Travel</span>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white p-3 border border-borderLinen flex flex-col justify-between">
+                        <div>
+                            <div class="aspect-square bg-linen mb-2 flex items-center justify-center overflow-hidden p-2">
+                                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=250&q=80" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=250&q=80'"
+                                     alt="Balancing Cleanser Mini" class="h-full object-contain">
+                            </div>
+                            <h4 class="font-serif text-xs text-ink font-medium leading-tight">Balancing Cleanser</h4>
+                            <span class="text-[10px] text-ash block mt-0.5">Travel 50ml</span>
+                            <span class="font-serif text-xs font-semibold text-ink block mt-1">&euro; 24,00</span>
+                        </div>
+                        <button type="button" onclick="addUpsell(101, 'Balancing Cleanser', 24, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=250&q=80')" class="mt-2.5 w-full bg-ink text-white py-1.5 text-[9px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive flex items-center justify-center gap-1 cursor-pointer">
+                            <span>+ Aggiungi</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-3 border border-borderLinen flex flex-col justify-between">
+                        <div>
+                            <div class="aspect-square bg-linen mb-2 flex items-center justify-center overflow-hidden p-2">
+                                <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=250&q=80" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=250&q=80'"
+                                     alt="Alpine Hydration Mist" class="h-full object-contain">
+                            </div>
+                            <h4 class="font-serif text-xs text-ink font-medium leading-tight">Alpine Hydration Mist</h4>
+                            <span class="text-[10px] text-ash block mt-0.5">Travel 50ml</span>
+                            <span class="font-serif text-xs font-semibold text-ink block mt-1">&euro; 28,00</span>
+                        </div>
+                        <button type="button" onclick="addUpsell(102, 'Alpine Hydration Mist', 28, 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=250&q=80')" class="mt-2.5 w-full bg-ink text-white py-1.5 text-[9px] uppercase tracking-widest font-semibold hover:bg-sage transition-colors luxury-interactive flex items-center justify-center gap-1 cursor-pointer">
+                            <span>+ Aggiungi</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 7. Footer & Checkout CTA -->
+        <div class="p-5 sm:p-6 bg-white border-t border-borderLinen space-y-4">
+            <!-- Price Summary -->
+            <div class="space-y-1.5 text-xs">
+                <div class="flex justify-between text-ash">
+                    <span>Subtotale Formule</span>
+                    <span id="cart-subtotal" class="text-ink font-medium">&euro; 76,00</span>
+                </div>
+                <div class="flex justify-between text-ash">
+                    <span>Consegna</span>
+                    <span id="cart-shipping-line" class="text-sage font-medium">Gratuita (Ritiro a Verona)</span>
+                </div>
+                <div class="flex justify-between text-ink text-sm font-semibold pt-2 border-t border-borderLinen/70">
+                    <span class="font-serif text-base">Totale Stimato</span>
+                    <span id="cart-total" class="font-serif text-lg font-bold text-ink">&euro; 76,00</span>
+                </div>
+                <p class="text-[10px] text-ash text-right font-light">Imposte incluse &bull; Spedizione calcolata al checkout</p>
+            </div>
+
+            <!-- Primary Checkout Button -->
+            <a href="checkout-mockup.html" class="w-full bg-ink text-white py-4 px-6 min-h-[50px] rounded-none text-xs uppercase tracking-[0.22em] font-semibold hover:bg-sage transition-all text-center flex items-center justify-center gap-3 luxury-interactive shadow-lg">
+                <span>PROCEDI AL CHECKOUT</span>
+                <span class="text-base font-light">&rarr;</span>
+            </a>
+
+            <!-- Trust Badges -->
+            <div class="pt-1 flex items-center justify-center gap-4 text-[10px] uppercase tracking-wider text-ash">
+                <span class="flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    Pagamenti SSL
+                </span>
+                <span>&bull;</span>
+                <span>Vetro Miron Protettivo</span>
+                <span>&bull;</span>
+                <span class="text-sage font-medium">B-Corp Certified</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- Scripts: Mobile Drawer, Trending Slider Dots Sync, and Luxury Before/After Slider Physics -->
+    <script>
+        // 1. Mobile Drawer Controller
+        function toggleMobileDrawer(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const backdrop = document.getElementById('mobile-drawer-backdrop');
+            if (!drawer || !backdrop) return;
+
+            if (open) {
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+                backdrop.classList.add('opacity-100');
+                drawer.classList.remove('-translate-x-full');
+                drawer.classList.add('translate-x-0');
+                document.body.style.overflow = 'hidden';
+            } else {
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('-translate-x-full');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 2. Mobile Accordion Controller (CSS Grid Smooth Transitions)
+        function toggleMobileAccordion(id) {
+            const accordion = document.getElementById('drawer-accordion-' + id);
+            const chevron = document.getElementById('drawer-chevron-' + id);
+            if (!accordion) return;
+
+            const isOpen = accordion.classList.contains('open');
+            if (isOpen) {
+                accordion.classList.remove('open');
+                if (chevron) {
+                    chevron.textContent = '+';
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            } else {
+                accordion.classList.add('open');
+                if (chevron) {
+                    chevron.textContent = '−';
+                    chevron.style.transform = 'rotate(180deg)';
+                }
+            }
+        }
+
+        // 3. Trending Slider Mobile Dots Sync
+        function scrollTrendingTo(index) {
+            const slider = document.getElementById('trending-slider');
+            if (!slider) return;
+            const cards = slider.children;
+            if (cards && cards[index]) {
+                cards[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+            }
+        }
+
+        (function initTrendingDots() {
+            const slider = document.getElementById('trending-slider');
+            const dots = document.querySelectorAll('.trending-dot');
+            if (!slider || !dots.length) return;
+
+            let ticking = false;
+            slider.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const cards = Array.from(slider.children);
+                        const sliderLeft = slider.getBoundingClientRect().left;
+                        let activeIdx = 0;
+                        let minDiff = Infinity;
+
+                        cards.forEach((card, idx) => {
+                            const diff = Math.abs(card.getBoundingClientRect().left - sliderLeft);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                activeIdx = idx;
+                            }
+                        });
+
+                        dots.forEach((dot, idx) => {
+                            if (idx === activeIdx) {
+                                dot.classList.remove('w-2', 'bg-borderLinen');
+                                dot.classList.add('w-6', 'bg-ink');
+                            } else {
+                                dot.classList.remove('w-6', 'bg-ink');
+                                dot.classList.add('w-2', 'bg-borderLinen');
+                            }
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        })();
+
+        // 4. Before & After Slider (Buttery 60fps/120fps requestAnimationFrame Touch & Pointer Physics)
+        (function initBeforeAfterSlider() {
+            const container = document.getElementById('baSlider');
+            const overlay = document.getElementById('baOverlay');
+            const overlayImg = document.getElementById('baOverlayImg');
+            const handle = document.getElementById('baHandle');
+            if (!container || !overlay || !overlayImg || !handle) return;
+
+            let isDragging = false;
+            let currentX = 0;
+            let animationFrameId = null;
+
+            function syncImageWidth() {
+                if (container && overlayImg) {
+                    overlayImg.style.width = container.offsetWidth + 'px';
+                }
+            }
+
+            window.addEventListener('resize', syncImageWidth);
+            window.addEventListener('load', syncImageWidth);
+            syncImageWidth();
+
+            function updateSliderDOM() {
+                const rect = container.getBoundingClientRect();
+                let pos = currentX - rect.left;
+                if (pos < 0) pos = 0;
+                if (pos > rect.width) pos = rect.width;
+                const percent = (pos / rect.width) * 100;
+                
+                overlay.style.width = percent + '%';
+                handle.style.left = percent + '%';
+                animationFrameId = null;
+            }
+
+            function requestSliderUpdate(x) {
+                currentX = x;
+                if (!animationFrameId) {
+                    animationFrameId = window.requestAnimationFrame(updateSliderDOM);
+                }
+            }
+
+            function onPointerDown(e) {
+                isDragging = true;
+                handle.classList.add('is-dragging');
+                requestSliderUpdate(e.clientX);
+                if (container.setPointerCapture) {
+                    try { container.setPointerCapture(e.pointerId); } catch (_) {}
+                }
+            }
+
+            function onPointerMove(e) {
+                if (!isDragging) return;
+                requestSliderUpdate(e.clientX);
+            }
+
+            function onPointerUp(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                handle.classList.remove('is-dragging');
+                if (container.releasePointerCapture) {
+                    try { container.releasePointerCapture(e.pointerId); } catch (_) {}
+                }
+            }
+
+            if (window.PointerEvent) {
+                container.addEventListener('pointerdown', onPointerDown, { passive: false });
+                container.addEventListener('pointermove', onPointerMove, { passive: true });
+                container.addEventListener('pointerup', onPointerUp, { passive: true });
+                container.addEventListener('pointercancel', onPointerUp, { passive: true });
+            } else {
+                // Fallback for older browsers
+                container.addEventListener('mousedown', function(e) {
+                    isDragging = true;
+                    handle.classList.add('is-dragging');
+                    requestSliderUpdate(e.clientX);
+                });
+                window.addEventListener('mousemove', function(e) {
+                    if (isDragging) requestSliderUpdate(e.clientX);
+                });
+                window.addEventListener('mouseup', function() {
+                    isDragging = false;
+                    handle.classList.remove('is-dragging');
+                });
+
+                container.addEventListener('touchstart', function(e) {
+                    isDragging = true;
+                    handle.classList.add('is-dragging');
+                    if (e.touches && e.touches[0]) requestSliderUpdate(e.touches[0].clientX);
+                }, { passive: true });
+                window.addEventListener('touchmove', function(e) {
+                    if (isDragging && e.touches && e.touches[0]) requestSliderUpdate(e.touches[0].clientX);
+                }, { passive: true });
+                window.addEventListener('touchend', function() {
+                    isDragging = false;
+                    handle.classList.remove('is-dragging');
+                });
+            }
+        })();
+
+        // 5. Slide-Over Cart Drawer Controller & State Management
+        const CART_STORAGE_KEY = 'splendor_cart_state';
+
+        const defaultCart = {
+            items: [
+                {
+                    id: 1,
+                    name: 'Golden Glow Body Oil',
+                    format: '100 ml • Vetro Miron con pipetta',
+                    price: 76.00,
+                    qty: 1,
+                    img: 'https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80'
+                }
+            ],
+            delivery: 'pickup',
+            giftWrap: false,
+            giftNote: ''
+        };
+
+        let cartState = (function initCart() {
+            try {
+                const stored = localStorage.getItem(CART_STORAGE_KEY);
+                if (stored) return JSON.parse(stored);
+            } catch (e) {
+                console.warn('LocalStorage error, using default cart', e);
+            }
+            return JSON.parse(JSON.stringify(defaultCart));
+        })();
+
+        function saveCartState() {
+            try {
+                localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartState));
+            } catch (e) {
+                console.warn('LocalStorage save error', e);
+            }
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            if (!drawer || !backdrop) return;
+
+            if (open) {
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+                backdrop.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+                drawer.classList.add('translate-x-0');
+                document.body.style.overflow = 'hidden';
+            } else {
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function addToCart(id, name, price, img, format) {
+            id = id || 1;
+            name = name || 'Golden Glow Body Oil';
+            price = parseFloat(price) || 76;
+            img = img || 'https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80';
+            format = format || '100 ml • Vetro Miron';
+
+            const existing = cartState.items.find(i => i.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cartState.items.push({ id, name, format, price, qty: 1, img });
+            }
+            saveCartState();
+            renderCart();
+            toggleCartDrawer(true);
+            showToast(`Aggiunto al carrello: ${name}`);
+        }
+
+        function updateQty(id, delta) {
+            const item = cartState.items.find(i => i.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                removeItem(id);
+                return;
+            }
+            saveCartState();
+            renderCart();
+        }
+
+        function removeItem(id) {
+            cartState.items = cartState.items.filter(i => i.id !== id);
+            saveCartState();
+            renderCart();
+            showToast('Articolo rimosso dal carrello.');
+        }
+
+        function addUpsell(id, name, price, img) {
+            const existing = cartState.items.find(i => i.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cartState.items.push({ id, name, format: '50 ml Travel Size', price, qty: 1, img });
+            }
+            saveCartState();
+            renderCart();
+            showToast(`Aggiunto travel format: ${name}`);
+        }
+
+        function selectDelivery(mode) {
+            cartState.delivery = mode;
+            saveCartState();
+            renderDeliveryButtons();
+            renderCart();
+        }
+
+        function renderDeliveryButtons() {
+            const btnPickup = document.getElementById('btn-pickup');
+            const btnShipping = document.getElementById('btn-shipping');
+            if (!btnPickup || !btnShipping) return;
+
+            if (cartState.delivery === 'pickup') {
+                btnPickup.className = 'p-3 text-left border-2 border-ink bg-linen text-ink transition-all relative cursor-pointer';
+                btnShipping.className = 'p-3 text-left border border-borderLinen bg-white text-ash hover:border-ink transition-all relative cursor-pointer';
+            } else {
+                btnShipping.className = 'p-3 text-left border-2 border-ink bg-linen text-ink transition-all relative cursor-pointer';
+                btnPickup.className = 'p-3 text-left border border-borderLinen bg-white text-ash hover:border-ink transition-all relative cursor-pointer';
+            }
+        }
+
+        function toggleGiftAccordion() {
+            const content = document.getElementById('gift-accordion-content');
+            const chevron = document.getElementById('gift-chevron');
+            if (!content || !chevron) return;
+            const isOpen = content.classList.contains('open');
+            if (isOpen) {
+                content.classList.remove('open');
+                chevron.textContent = '+';
+            } else {
+                content.classList.add('open');
+                chevron.textContent = '−';
+            }
+        }
+
+        function toggleGiftWrap(checked) {
+            cartState.giftWrap = checked;
+            saveCartState();
+            renderCart();
+        }
+
+        function saveGiftNote(val) {
+            cartState.giftNote = val;
+            saveCartState();
+        }
+
+        function renderCart() {
+            const listEl = document.getElementById('cart-items-list');
+            const emptyEl = document.getElementById('cart-empty-message');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+            const shippingLineEl = document.getElementById('cart-shipping-line');
+            const countBadges = document.querySelectorAll('.global-cart-count');
+
+            if (!listEl) return;
+
+            const totalCount = cartState.items.reduce((acc, item) => acc + item.qty, 0);
+            countBadges.forEach(b => b.textContent = totalCount);
+
+            if (cartState.items.length === 0) {
+                listEl.innerHTML = '';
+                if (emptyEl) emptyEl.classList.remove('hidden');
+                if (subtotalEl) subtotalEl.textContent = '€ 0,00';
+                if (totalEl) totalEl.textContent = '€ 0,00';
+                return;
+            }
+
+            if (emptyEl) emptyEl.classList.add('hidden');
+
+            let subtotal = 0;
+            listEl.innerHTML = cartState.items.map(item => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+                return `
+                    <div class="bg-white border border-borderLinen p-4 flex gap-4 items-center">
+                        <div class="w-16 h-16 bg-linen border border-borderLinen flex-shrink-0 p-1 flex items-center justify-center overflow-hidden">
+                            <img src="${item.img}" alt="${item.name}" class="h-full object-contain">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-serif text-sm font-semibold text-ink leading-tight truncate">${item.name}</h4>
+                                <button type="button" onclick="removeItem(${item.id})" class="text-ash hover:text-ink text-xs ml-2 cursor-pointer" title="Rimuovi">&times;</button>
+                            </div>
+                            <span class="text-[11px] text-ash block mt-0.5 truncate">${item.format}</span>
+                            <div class="flex justify-between items-center mt-2.5">
+                                <div class="flex items-center border border-borderLinen bg-linen">
+                                    <button type="button" onclick="updateQty(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center text-xs text-ink hover:bg-white transition-colors cursor-pointer">&minus;</button>
+                                    <span class="w-8 text-center text-xs font-semibold text-ink">${item.qty}</span>
+                                    <button type="button" onclick="updateQty(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center text-xs text-ink hover:bg-white transition-colors cursor-pointer">&plus;</button>
+                                </div>
+                                <span class="font-serif text-sm font-semibold text-ink">&euro; ${itemTotal.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const giftPrice = cartState.giftWrap ? 5.00 : 0.00;
+            const finalTotal = subtotal + giftPrice;
+
+            if (subtotalEl) subtotalEl.textContent = `€ ${subtotal.toFixed(2).replace('.', ',')}`;
+            if (totalEl) totalEl.textContent = `€ ${finalTotal.toFixed(2).replace('.', ',')}`;
+
+            if (shippingLineEl) {
+                if (cartState.delivery === 'pickup') {
+                    shippingLineEl.textContent = 'Gratuita (Ritiro a Verona)';
+                    shippingLineEl.className = 'text-sage font-medium';
+                } else {
+                    if (subtotal >= 50) {
+                        shippingLineEl.textContent = 'Gratuita (Spedizione espressa)';
+                        shippingLineEl.className = 'text-sage font-medium';
+                    } else {
+                        shippingLineEl.textContent = '€ 6,50 (Spedizione espressa)';
+                        shippingLineEl.className = 'text-ink font-medium';
+                    }
+                }
+            }
+
+            // Gift bar progress (€120 threshold)
+            const threshold = 120;
+            const remainder = Math.max(0, threshold - subtotal);
+            const progressPercent = Math.min(100, Math.round((subtotal / threshold) * 100));
+
+            const fillEl = document.getElementById('gift-progress-fill');
+            const percentLabelEl = document.getElementById('gift-percent-label');
+            const msgEl = document.getElementById('gift-message');
+
+            if (fillEl) fillEl.style.width = `${progressPercent}%`;
+            if (percentLabelEl) percentLabelEl.textContent = `${progressPercent}%`;
+
+            if (msgEl) {
+                if (remainder > 0) {
+                    msgEl.innerHTML = `Aggiungi ancora <strong class="text-ink font-semibold">&euro; ${remainder.toFixed(2).replace('.', ',')}</strong> per il <span class="text-sage font-medium">Travel Size Serum omaggio</span> e spedizione gratuita`;
+                    if (fillEl) {
+                        fillEl.classList.remove('bg-amber');
+                        fillEl.classList.add('bg-sage');
+                    }
+                } else {
+                    msgEl.innerHTML = `<span class="text-sage font-semibold">&check; Complimenti!</span> Hai sbloccato il <strong class="text-ink">Travel Size Serum omaggio</strong> e la Spedizione Gratuita!`;
+                    if (fillEl) {
+                        fillEl.classList.remove('bg-sage');
+                        fillEl.classList.add('bg-amber');
+                    }
+                }
+            }
+
+            renderDeliveryButtons();
+        }
+
+        function showToast(message) {
+            let toast = document.getElementById('toast-notification');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast-notification';
+                toast.className = 'fixed bottom-24 right-6 bg-ink text-white px-5 py-3 rounded-none text-xs uppercase tracking-widest font-semibold shadow-2xl z-50 transition-all duration-300 opacity-0 translate-y-2 pointer-events-none border-l-2 border-amber';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Initialize state on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+
+        // Sync cart state if changed in another tab or drawer
+        window.addEventListener('storage', (e) => {
+            if (e.key === CART_STORAGE_KEY) {
+                try {
+                    cartState = JSON.parse(e.newValue || '{}');
+                    renderCart();
+                } catch (_) {}
+            }
+        });
+    </script>
+
+</body>
+</html>

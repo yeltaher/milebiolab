@@ -1,0 +1,49 @@
+<!-- SPLENDOR QUICK VIEW MODAL COMPONENT -->
+<div id="quick-view-overlay" class="modal-overlay" aria-hidden="true" onclick="closeQuickView()"></div>
+
+<div id="quick-view-modal" class="modal-overlay" style="display: none; z-index: 1050;" role="dialog" aria-modal="true" aria-labelledby="qv-product-title">
+  <div class="quick-view-card" style="background: #FFFFFF; border: var(--border-splendor); max-width: 780px; width: 92%; padding: 2rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.18); display: grid; grid-template-columns: 1fr 1.15fr; gap: 2rem; align-items: center;" onclick="event.stopPropagation()">
+    
+    <button type="button" class="modal-close-btn" onclick="closeQuickView()" aria-label="Chiudi finestra modale">&times;</button>
+    
+    <!-- Image -->
+    <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); height: 340px; overflow: hidden;">
+      <img id="qv-product-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+    </div>
+
+    <!-- Product Info & Actions -->
+    <div>
+      <span id="qv-product-step" class="protocol-tag">STEP 01 • DETERSIONE</span>
+      <h3 id="qv-product-title" style="font-size: 1.6rem; line-height: 1.25; margin: 0.3rem 0 0.5rem 0;">Nome Prodotto</h3>
+      <div id="qv-product-rating" style="color: var(--color-accent-gold); font-size: 0.85rem; margin-bottom: 0.75rem;">★★★★★</div>
+      
+      <p id="qv-product-actives" style="font-size: 0.84rem; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
+        Attivi botanici di precisione.
+      </p>
+
+      <div style="margin-bottom: 1.25rem;">
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-primary); display: block; margin-bottom: 0.4rem;">
+          Seleziona Formato / Volume:
+        </span>
+        <div id="qv-volume-buttons" style="display: flex; gap: 8px;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 1.25rem;">
+        <span id="qv-product-price" style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; color: var(--color-text-primary);">€ 0,00</span>
+        <span style="font-size: 0.75rem; color: var(--color-accent-olive); font-weight: 600;">📍 Ritiro Verona in 2h</span>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button type="button" class="btn-primary btn-atc-olive" style="flex: 1; padding: 0.85rem 1.2rem;" onclick="addQuickViewToCart()">
+          Aggiungi al Carrello
+        </button>
+        <a href="#pdp-featured" class="btn-secondary" style="padding: 0.85rem 1.2rem; font-size: 0.75rem;" onclick="closeQuickView()">
+          Scheda Completa &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

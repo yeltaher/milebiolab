@@ -1,0 +1,141 @@
+{% schema %}
+{
+  "name": "Splendor Hero 50/50",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline Superiore",
+      "default": "Team Dr Joseph • Haute Cosmétique"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Principale",
+      "default": "Pelle, Elevata."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sottotitolo Editoriale",
+      "default": "Ispirato alla clinica. Approvato dagli artisti."
+    },
+    {
+      "type": "text",
+      "id": "btn_1_text",
+      "label": "Testo Pulsante 1",
+      "default": "Esplora la collezione"
+    },
+    {
+      "type": "url",
+      "id": "btn_1_url",
+      "label": "Link Pulsante 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "btn_2_text",
+      "label": "Testo Pulsante 2",
+      "default": "I nostri bestseller"
+    },
+    {
+      "type": "url",
+      "id": "btn_2_url",
+      "label": "Link Pulsante 2",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Immagine Hero Editoriale"
+    },
+    {
+      "type": "text",
+      "id": "badge_note",
+      "label": "Nota Didascalia Immagine",
+      "default": "Formulazioni Alpine • Alto Adige & Verona"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Splendor Hero 50/50",
+      "category": "Hero & Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="relative min-h-[85vh] bg-white border-b border-sand/40 flex flex-col lg:flex-row items-stretch splendor-hero" id="splendor-hero-{{ section.id }}">
+  
+  <!-- Left Column: Copy & Badges -->
+  <div class="w-full lg:w-1/2 p-8 sm:p-12 lg:p-20 xl:p-24 flex flex-col justify-center z-10">
+    {% if section.settings.tagline != blank %}
+    <div class="inline-flex items-center gap-2 mb-6">
+      <span class="h-px w-8 bg-[#5C6B56]"></span>
+      <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-medium">{{ section.settings.tagline }}</span>
+    </div>
+    {% endif %}
+    
+    <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] text-[#1A1A1A] mb-6 tracking-tight">
+      {{ section.settings.title }}
+    </h1>
+    
+    <p class="font-serif italic text-2xl sm:text-3xl text-[#7A7265] mb-10 leading-relaxed font-light">
+      {{ section.settings.subtitle }}
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 mb-14">
+      {% if section.settings.btn_1_text != blank %}
+      <a href="{{ section.settings.btn_1_url | default: '#' }}" class="bg-[#1A1A1A] text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-medium hover:bg-[#5C6B56] transition-all text-center border border-[#1A1A1A] shadow-sm">
+        {{ section.settings.btn_1_text }}
+      </a>
+      {% endif %}
+      {% if section.settings.btn_2_text != blank %}
+      <a href="{{ section.settings.btn_2_url | default: '#' }}" class="bg-white text-[#1A1A1A] border border-[#1A1A1A] px-8 py-4 text-xs uppercase tracking-[0.2em] font-medium hover:bg-[#F5F2EB] transition-all text-center">
+        {{ section.settings.btn_2_text }}
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- 3 Badges SVG Clinici -->
+    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-[#DDD7CE]/50">
+      <div class="flex flex-col items-center text-center">
+        <div class="w-10 h-10 rounded-full bg-[#F5F2EB] flex items-center justify-center text-lg mb-2 text-[#5C6B56]">🌱</div>
+        <span class="text-[11px] uppercase tracking-wider text-[#1A1A1A] font-semibold">Vegano Sicuro</span>
+        <span class="text-[10px] text-[#7A7265] mt-0.5">Certificato Cosmos</span>
+      </div>
+      <div class="flex flex-col items-center text-center">
+        <div class="w-10 h-10 rounded-full bg-[#F5F2EB] flex items-center justify-center text-lg mb-2 text-[#5C6B56]">🐰</div>
+        <span class="text-[11px] uppercase tracking-wider text-[#1A1A1A] font-semibold">Senza Crudeltà</span>
+        <span class="text-[10px] text-[#7A7265] mt-0.5">Leaping Bunny</span>
+      </div>
+      <div class="flex flex-col items-center text-center">
+        <div class="w-10 h-10 rounded-full bg-[#F5F2EB] flex items-center justify-center text-lg mb-2 text-[#5C6B56]">✨</div>
+        <span class="text-[11px] uppercase tracking-wider text-[#1A1A1A] font-semibold">Non Comedogenico</span>
+        <span class="text-[10px] text-[#7A7265] mt-0.5">Testato dermatologicamente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column: Full-Height Editorial Photo -->
+  <div class="w-full lg:w-1/2 min-h-[50vh] lg:min-h-[85vh] relative bg-[#F5F2EB] overflow-hidden">
+    {% if section.settings.image %}
+      <img src="{{ section.settings.image | img_url: 'master' }}" 
+           onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+           alt="{{ section.settings.title }}" 
+           class="w-full h-full object-cover object-center absolute inset-0">
+    {% else %}
+      <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1200&q=80" 
+           onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+           alt="Splendor Haute Skincare Composition" 
+           class="w-full h-full object-cover object-center absolute inset-0">
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
+    {% if section.settings.badge_note != blank %}
+    <div class="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 text-[10px] uppercase tracking-widest text-[#1A1A1A] font-medium border border-white/50">
+      {{ section.settings.badge_note }}
+    </div>
+    {% endif %}
+  </div>
+
+</section>

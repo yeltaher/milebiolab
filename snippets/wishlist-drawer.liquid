@@ -1,0 +1,34 @@
+<!-- SPLENDOR LUXURY WISHLIST DRAWER -->
+<div id="wishlist-drawer-overlay" class="drawer-overlay" aria-hidden="true" onclick="closeWishlistDrawer()"></div>
+
+<aside id="wishlist-drawer" class="wishlist-drawer" role="dialog" aria-modal="true" aria-label="I Tuoi Preferiti Milebiolab" aria-hidden="true">
+  <!-- Header -->
+  <div class="wishlist-drawer-header">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <svg class="heart-icon-filled" viewBox="0 0 24 24" width="20" height="20" fill="var(--color-accent-gold)" stroke="none">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <h3 class="wishlist-drawer-title">I Tuoi <em>Preferiti</em> <span id="wishlist-title-count">(0)</span></h3>
+    </div>
+    <button type="button" class="btn-drawer-close" onclick="closeWishlistDrawer()" aria-label="Chiudi wishlist">&times;</button>
+  </div>
+
+  <div class="wishlist-banner-notice">
+    <span>🌿 I tuoi prodotti salvati sono memorizzati sul tuo dispositivo per il prossimo acquisto o consultazione all'Istituto di Verona.</span>
+  </div>
+
+  <!-- Dynamic Items Container -->
+  <div class="wishlist-drawer-items" id="wishlist-drawer-items-list">
+    <!-- Populated dynamically via MilebiolabState.wishlist in theme.js -->
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="wishlist-drawer-footer">
+    <button type="button" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.9rem;" onclick="addAllWishlistToCart()">
+      Aggiungi Tutti i Preferiti al Carrello &rarr;
+    </button>
+    <button type="button" class="btn-secondary" style="width: 100%; text-align: center; margin-top: 0.5rem; font-size: 0.74rem; padding: 0.6rem;" onclick="clearWishlist()">
+      Svuota la Lista dei Preferiti
+    </button>
+  </div>
+</aside>
