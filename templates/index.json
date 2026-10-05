@@ -1,14 +1,21 @@
 {
   "sections": {
     "hero": {
-      "type": "hero-luxury",
+      "type": "hero-splendor",
       "settings": {
-        "badge": "HAUTE COSMÉTIQUE BOTANIQUE • VERONA FLAGSHIP",
-        "title_part1": "The Art of",
-        "title_italic": "Skin Longevity",
-        "subtitle": "Formulazioni cosmeceutiche pure nate dall'incontro tra la scienza biomimetica più rigorosa e l'intelligenza delle piante alpine. Un rituale di trasformazione cellulare creato nel nostro laboratorio di Verona.",
-        "btn_primary_text": "Esplora i Rituali Viso",
-        "btn_secondary_text": "📍 Ritiro Gratuito a Verona in 2h"
+        "tagline": "ALTA DERMOCOSMESI BIOMIMETICA",
+        "title": "Pelle, Elevata.",
+        "subtitle": "Ispirato alla clinica. Approvato dagli artisti.",
+        "description": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.",
+        "btn_1_text": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE",
+        "btn_1_url": "/collections/all",
+        "btn_2_text": "TROVA LA TUA ROUTINE",
+        "btn_2_url": "#routine",
+        "card_brand": "SPLENDOR",
+        "card_title": "Pro-Artistry Cleansing Balm",
+        "card_subtitle": "Melt-Wash • 100ml e 3.4 FL. OZ.",
+        "card_btn_text": "SCOPRI IL PRODOTTO",
+        "card_btn_url": "/collections/all"
       }
     },
     "section_icons_wYP6c3": {

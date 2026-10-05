@@ -3213,3 +3213,18 @@ button {
   }
 }
 
+/* Fallback Utility Classes for Theme Palette & Fonts */
+.bg-linen { background-color: #F5F2EB; }
+.text-ink { color: #1A1A1A; }
+.bg-ink { background-color: #1A1A1A; }
+.bg-sand { background-color: #DDD7CE; }
+.border-sand { border-color: #DDD7CE; }
+.border-borderLinen { border-color: #E5E0D8; }
+.text-ash { color: #7A7265; }
+.text-sage { color: #5C6B56; }
+.bg-sage { background-color: #5C6B56; }
+.text-amber { color: #C8A878; }
+.bg-amber { background-color: #C8A878; }
+.font-serif { font-family: 'Cormorant Garamond', 'DM Serif Display', Georgia, serif; }
+.font-sans { font-family: 'Inter', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+

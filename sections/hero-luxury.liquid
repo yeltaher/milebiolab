@@ -38,6 +38,12 @@
       "label": "Testo CTA Secondaria",
       "default": "📍 Ritiro Gratuito a Verona in 2h"
     }
+  ],
+  "presets": [
+    {
+      "name": "Hero Splendor Asymmetric",
+      "category": "Hero & Banner"
+    }
   ]
 }
 {% endschema %}
@@ -48,22 +54,22 @@
       
       <!-- Asymmetric Text Column with Splendor Double Border Frame -->
       <div class="hero-text-framed-box">
-        <span class="protocol-tag">{{ section.settings.badge }}</span>
+        <span class="protocol-tag">{{ section.settings.badge | default: 'HAUTE COSMÉTIQUE BOTANIQUE • VERONA FLAGSHIP' }}</span>
         
         <h1 class="hero-heading-serif">
-          {{ section.settings.title_part1 }} <em>{{ section.settings.title_italic }}</em> & Alpine Purity
+          {{ section.settings.title_part1 | default: 'The Art of' }} <em>{{ section.settings.title_italic | default: 'Skin Longevity' }}</em> & Alpine Purity
         </h1>
         
         <p class="hero-subtitle-sans">
-          {{ section.settings.subtitle }}
+          {{ section.settings.subtitle | default: "Formulazioni cosmeceutiche pure nate dall'incontro tra la scienza biomimetica più rigorosa e l'intelligenza delle piante alpine. Un rituale di trasformazione cellulare creato nel nostro laboratorio di Verona." }}
         </p>
 
         <div class="hero-buttons-row">
           <a href="#prodotti" class="btn-primary">
-            {{ section.settings.btn_primary_text }} &rarr;
+            {{ section.settings.btn_primary_text | default: 'Esplora i Rituali Viso' }} &rarr;
           </a>
           <button type="button" class="btn-secondary" onclick="openVeronaModal()">
-            {{ section.settings.btn_secondary_text }}
+            {{ section.settings.btn_secondary_text | default: '📍 Ritiro Gratuito a Verona in 2h' }}
           </button>
         </div>
 

@@ -1,0 +1,128 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Vai al contenuto principale",
+      "close": "Chiudi",
+      "unit_price_separator": "per"
+    },
+    "meta": {
+      "tags": "Taggato \"{{ tags }}\"",
+      "page": "Pagina {{ page }}"
+    },
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "404": {
+      "title": "Pagina non trovata",
+      "subtext": "La pagina che stai cercando non esiste o è stata spostata.",
+      "link": "Torna alla Home"
+    },
+    "password_page": {
+      "login_form_heading": "Accedi al negozio con password",
+      "login_password_button": "Entra con password",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "La tua password",
+      "login_form_submit": "Entra",
+      "admin_link_html": "Sei il proprietario del negozio? <a href=\"/admin\" class=\"text-link\">Accedi qui</a>"
+    },
+    "search": {
+      "search": "Cerca",
+      "title": "Risultati di ricerca",
+      "no_results": "Nessun risultato trovato per \"{{ terms }}\".",
+      "submit": "Cerca",
+      "placeholder": "Cerca trattamenti, attivi botanici..."
+    },
+    "continue_shopping": "Continua lo shopping",
+    "share": "Condividi"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Aggiungi al carrello",
+      "sold_out": "Esaurito",
+      "unavailable": "Non disponibile",
+      "quantity": "Quantità",
+      "price": "Prezzo",
+      "regular_price": "Prezzo normale",
+      "sale_price": "Prezzo in offerta",
+      "unit_price": "Prezzo unitario",
+      "include_taxes": "Tasse incluse.",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Spese di spedizione</a> calcolate al momento del checkout.",
+      "vendor": "Marchio",
+      "view_details": "Visualizza dettagli"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Il tuo carrello",
+      "empty": "Il tuo carrello è vuoto",
+      "continue_shopping": "Continua lo shopping",
+      "checkout": "Procedi al checkout",
+      "subtotal": "Subtotale",
+      "taxes_and_shipping_policy_at_checkout_html": "Tasse e spese di spedizione calcolate al momento del checkout.",
+      "note": "Istruzioni speciali per l'ordine",
+      "savings": "Stai risparmiando",
+      "update": "Aggiorna carrello"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Collezioni",
+      "items_with_count": {
+        "one": "{{ count }} prodotto",
+        "other": "{{ count }} prodotti"
+      },
+      "no_matches": "Nessun prodotto corrisponde ai criteri selezionati.",
+      "sort_by": "Ordina per",
+      "filter_by": "Filtra per"
+    }
+  },
+  "templates": {
+    "404": {
+      "title": "404 - Pagina non trovata",
+      "subtext": "Siamo spiacenti, la pagina richiesta non esiste.",
+      "link": "Continua lo shopping"
+    },
+    "contact": {
+      "form": {
+        "name": "Nome",
+        "email": "Email",
+        "phone": "Telefono",
+        "comment": "Messaggio",
+        "send": "Invia messaggio",
+        "post_success": "Grazie per averci contattato. Ti risponderemo il prima possibile."
+      }
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Il mio Account",
+      "details": "Dettagli Account",
+      "view_addresses": "Visualizza indirizzi",
+      "return": "Ritorna all'account"
+    },
+    "orders": {
+      "title": "Cronologia ordini",
+      "order_number": "Numero ordine",
+      "date": "Data",
+      "payment_status": "Stato pagamento",
+      "fulfillment_status": "Stato evasione",
+      "total": "Totale",
+      "none": "Non hai ancora effettuato ordini."
+    },
+    "login_page": {
+      "title": "Accedi al tuo account",
+      "email": "Indirizzo Email",
+      "password": "Password",
+      "sign_in": "Accedi",
+      "forgot_password": "Password dimenticata?"
+    },
+    "register": {
+      "title": "Crea un nuovo account",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "email": "Indirizzo Email",
+      "password": "Password",
+      "submit": "Registrati"
+    }
+  }
+}
