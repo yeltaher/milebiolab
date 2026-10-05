@@ -3,7 +3,8 @@
     
     <div class="hotspots-header">
       <span class="protocol-tag">{{ section.settings.tag }}</span>
-      <h2>{{ section.settings.title }}</h2>
+      {%- assign hotspots_title = section.settings.title | replace: 'Hotspot in Cabina', '<em>Hotspot in Cabina</em>' -%}
+      <h2>{{ hotspots_title }}</h2>
       <p style="color: var(--color-text-secondary); font-size: 1rem; margin-top: 0.5rem;">
         {{ section.settings.subtitle }}
       </p>
@@ -109,7 +110,7 @@
       "type": "text",
       "id": "title",
       "label": "Titolo",
-      "default": "Costruisci il Tuo Rituale: <em>Hotspot in Cabina</em>"
+      "default": "Costruisci il Tuo Rituale: Hotspot in Cabina"
     },
     {
       "type": "textarea",
