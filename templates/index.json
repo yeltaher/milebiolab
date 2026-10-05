@@ -8,14 +8,11 @@
         "subtitle": "Ispirato alla clinica. Approvato dagli artisti.",
         "description": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.",
         "btn_1_text": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE",
-        "btn_1_url": "/collections/all",
         "btn_2_text": "TROVA LA TUA ROUTINE",
-        "btn_2_url": "",
         "card_brand": "SPLENDOR",
         "card_title": "Pro-Artistry Cleansing Balm",
         "card_subtitle": "Melt-Wash • 100ml e 3.4 FL. OZ.",
-        "card_btn_text": "SCOPRI IL PRODOTTO",
-        "card_btn_url": "/collections/all"
+        "card_btn_text": "SCOPRI IL PRODOTTO"
       }
     },
     "trust-icon-bar": {
@@ -37,8 +34,7 @@
         "tag": "I NOSTRI BESTSELLER",
         "title": "Di tendenza",
         "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
-        "link_text": "Scopri Tutti",
-        "link_url": "/collections/all"
+        "link_text": "Scopri Tutti"
       }
     },
     "routine-steps": {
