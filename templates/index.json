@@ -43,7 +43,7 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "collection": "",
+        "collection": "corpo-pure-performance",
         "tag": "I NOSTRI BESTSELLER",
         "title": "Di tendenza",
         "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
@@ -61,6 +61,7 @@
     },
     "ugc-gallery": {
       "type": "ugc-gallery",
+      "disabled": true,
       "settings": {
         "tag": "COMMUNITY & RISULTATI REALI",
         "title": "Pelle reale. Risultati reali. Amato da migliaia.",
