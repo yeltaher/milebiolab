@@ -1425,3 +1425,136 @@ function addInDrawerUpsell(title, price, image, vol, button) {
 
   showToast(`Aggiunto travel-size: ${title}!`);
 }
+
+/* Product Description Accordion Parser */
+function renderAccordionDescription(container) {
+    if (!container) return;
+    const raw = container.querySelector('.raw-description');
+    const rendered = container.querySelector('.rendered-description');
+    if (!raw || !rendered || raw.dataset.parsed) return;
+    
+    // Mark as parsed immediately
+    raw.dataset.parsed = 'true';
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(raw.innerHTML, 'text/html');
+    const body = doc.body;
+
+    let htmlOut = '';
+    let currentAccordion = null;
+
+    function isStrongHeading(node) {
+        if (!node || !['STRONG', 'B', 'H2', 'H3', 'H4', 'H5'].includes(node.nodeName)) return false;
+        if (['H2', 'H3', 'H4', 'H5'].includes(node.nodeName)) return true;
+        
+        let prev = node.previousSibling;
+        while (prev && prev.nodeType === 3 && prev.textContent.trim() === '') {
+            prev = prev.previousSibling;
+        }
+        const isAtStart = !prev || prev.nodeName === 'BR';
+
+        let next = node.nextSibling;
+        while (next && next.nodeType === 3 && next.textContent.trim() === '') {
+            next = next.nextSibling;
+        }
+        const isAtEnd = !next || next.nodeName === 'BR';
+
+        return isAtStart && isAtEnd;
+    }
+
+    Array.from(body.childNodes).forEach(node => {
+        if (node.nodeName === 'P') {
+            const innerNodes = Array.from(node.childNodes);
+            let pOut = '';
+            let pHasContent = false;
+            
+            innerNodes.forEach(inner => {
+                if (isStrongHeading(inner)) {
+                    if (pHasContent && currentAccordion !== null) {
+                        currentAccordion += pOut; pOut = ''; pHasContent = false;
+                    } else if (pHasContent && currentAccordion === null) {
+                        htmlOut += '<p>' + pOut + '</p>'; pOut = ''; pHasContent = false;
+                    }
+                    
+                    if (currentAccordion !== null) {
+                        htmlOut += currentAccordion + '</div></details>';
+                    }
+                    const headingText = inner.textContent.trim();
+                    currentAccordion = '';
+                    htmlOut += `
+                    <details class="group border-b border-[#E5E0D8]">
+                        <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
+                            ${headingText}
+                            <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
+                        </summary>
+                        <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
+                    `;
+                } else {
+                    if (inner.nodeName === 'BR') {
+                        if (currentAccordion === '' && !pHasContent) return; 
+                    }
+                    let textHtml = inner.nodeType === 3 ? inner.textContent : inner.outerHTML;
+                    if (textHtml && (textHtml.trim() !== '' || inner.nodeName === 'BR')) {
+                        pOut += textHtml;
+                        pHasContent = true;
+                    }
+                }
+            });
+            if (pHasContent) {
+                let textHtml = '<p>' + pOut + '</p>';
+                if (currentAccordion !== null) currentAccordion += textHtml;
+                else htmlOut += textHtml;
+            }
+        } else if (isStrongHeading(node)) {
+            if (currentAccordion !== null) {
+                htmlOut += currentAccordion + '</div></details>';
+            }
+            const headingText = node.textContent.trim();
+            currentAccordion = '';
+            htmlOut += `
+            <details class="group border-b border-[#E5E0D8]">
+                <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
+                    ${headingText}
+                    <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
+                </summary>
+                <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
+            `;
+        } else {
+            let textHtml = node.nodeType === 3 ? node.textContent : node.outerHTML;
+            if (textHtml) {
+                if (currentAccordion !== null) currentAccordion += textHtml;
+                else htmlOut += textHtml;
+            }
+        }
+    });
+
+    if (currentAccordion !== null) {
+        htmlOut += currentAccordion + '</div></details>';
+    }
+
+    if (htmlOut.trim() !== '') {
+        rendered.innerHTML = htmlOut;
+        raw.style.display = 'none'; // Only hide raw if we successfully parsed accordions!
+    }
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
+});
+
+// Shopify Theme Editor hot-reload events
+document.addEventListener('shopify:section:load', (e) => {
+    if (e.target.querySelectorAll) {
+        e.target.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
+    }
+});
+document.addEventListener('shopify:block:select', (e) => {
+    if (e.target.classList && e.target.classList.contains('product-description-container')) {
+        renderAccordionDescription(e.target);
+    } else if (e.target.querySelectorAll) {
+        e.target.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
+    }
+});
+// Fallback for immediate execution in case it's loaded asynchronously
+document.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
