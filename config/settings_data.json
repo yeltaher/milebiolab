@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_bg_primary": "#F7F5F0",
@@ -10,7 +19,29 @@
     "enable_verona_pickup": true,
     "verona_address": "Corso Cavour, 18, 37121 Verona (VR)",
     "pickup_hours": "Lunedì - Sabato 09:30 - 19:30",
-    "pickup_phone": "+39 045 800 1234"
+    "pickup_phone": "+39 045 800 1234",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "announcement_text": "Ottieni il 15% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50",
+          "brand_name": "MILE",
+          "brand_payoff": "HAUTE COSMÉTIQUE • VERONA",
+          "verona_pickup": "Verona, Corso Cavour 18"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "newsletter_title": "Unisciti al Club Mile",
+          "newsletter_desc": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice MILE15, anteprime botaniche e inviti per l'Istituto a Verona.",
+          "address": "Corso Cavour 18, 37121 Verona (VR)",
+          "phone": "+39 045 800 1234"
+        }
+      }
+    },
+    "content_for_index": []
   },
   "presets": {
     "Default": {
