@@ -11,11 +11,95 @@
   "sections": {
     "main-product": {
       "type": "main-product",
+      "blocks": {
+        "title_HFhjc7": {
+          "type": "title",
+          "settings": {}
+        },
+        "bullet_list_4RYLbY": {
+          "type": "bullet_list",
+          "settings": {
+            "point_1": "Formula Biomimetica",
+            "point_2": "Assorbimento Rapido",
+            "point_3": "",
+            "point_4": ""
+          }
+        },
+        "subtitle_xHjxQ6": {
+          "type": "subtitle",
+          "settings": {
+            "text": "Balsamo-Olio Rigenerante"
+          }
+        },
+        "description_XzghRk": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "price_YQjBcF": {
+          "type": "price",
+          "settings": {}
+        },
+        "loyalty_points_MpXdLD": {
+          "type": "loyalty_points",
+          "settings": {
+            "text": "+380 Punti Fedeltà"
+          }
+        },
+        "buy_buttons_RpQVMq": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "accordion_kUKLPP": {
+          "type": "accordion",
+          "settings": {
+            "title": "Titolo Accordion",
+            "content": "Contenuto accordion."
+          }
+        },
+        "accordion_eNFaJi": {
+          "type": "accordion",
+          "settings": {
+            "title": "Titolo Accordion",
+            "content": "Contenuto accordion."
+          }
+        },
+        "accordion_j9VLKP": {
+          "type": "accordion",
+          "settings": {
+            "title": "Titolo Accordion",
+            "content": "Contenuto accordion."
+          }
+        },
+        "accordion_7X6jTN": {
+          "type": "accordion",
+          "settings": {
+            "title": "Titolo Accordion",
+            "content": "Contenuto accordion."
+          }
+        }
+      },
+      "block_order": [
+        "title_HFhjc7",
+        "bullet_list_4RYLbY",
+        "subtitle_xHjxQ6",
+        "description_XzghRk",
+        "price_YQjBcF",
+        "loyalty_points_MpXdLD",
+        "buy_buttons_RpQVMq",
+        "accordion_kUKLPP",
+        "accordion_eNFaJi",
+        "accordion_j9VLKP",
+        "accordion_7X6jTN"
+      ],
       "settings": {}
     },
     "local-pickup": {
       "type": "local-pickup-verona",
-      "settings": {}
+      "settings": {
+        "title": "L'Esperienza Esclusiva del Ritiro a Verona",
+        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona in Corso Cavour 18."
+      }
     }
   },
   "order": [
