@@ -1436,116 +1436,69 @@ function renderAccordionDescription(container) {
     // Mark as parsed immediately
     raw.dataset.parsed = 'true';
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(raw.innerHTML, 'text/html');
-    const body = doc.body;
+    let html = raw.innerHTML;
+    // Replace <p> and <div> with <br> to normalize all block boundaries to <br>
+    html = html.replace(/<\/?(p|div)[^>]*>/gi, '<br>');
+    
+    // Split by <br> (and variants)
+    const lines = html.split(/<br\s*\/?>/gi);
 
     let htmlOut = '';
     let currentAccordion = null;
 
-    function extractStrongHeadingText(node) {
-        if (!node) return null;
-        if (['H2', 'H3', 'H4', 'H5'].includes(node.nodeName)) return node.textContent.trim();
+    lines.forEach(line => {
+        let trimmed = line.trim();
+        if (!trimmed) return;
+
+        let temp = document.createElement('div');
+        temp.innerHTML = trimmed;
         
-        let strongNode = null;
-        if (['STRONG', 'B'].includes(node.nodeName)) {
-            strongNode = node;
+        // Skip empty lines unless they contain an image or iframe
+        if (temp.textContent.trim() === '' && !temp.querySelector('img, iframe, video')) return;
+
+        let isHeading = false;
+        let headingText = '';
+
+        // Check if the line is purely a heading (H2-H5)
+        const headings = temp.querySelectorAll('h2, h3, h4, h5');
+        if (headings.length === 1 && headings[0].textContent.replace(/\s+/g, '') === temp.textContent.replace(/\s+/g, '')) {
+            isHeading = true;
+            headingText = temp.textContent.trim();
         } else {
-            const strongs = node.querySelectorAll ? node.querySelectorAll('strong, b') : [];
-            if (strongs.length === 1) {
-                if (strongs[0].textContent.trim() === node.textContent.trim()) {
-                    strongNode = strongs[0];
+            // Check if the line is purely bold text
+            const strongs = temp.querySelectorAll('strong, b');
+            if (strongs.length > 0) {
+                let strongText = Array.from(strongs).map(s => s.textContent).join('').replace(/\s+/g, '');
+                let allText = temp.textContent.replace(/\s+/g, '');
+                
+                // If bold text covers the entire line (ignoring spaces/spans) and is > 3 chars
+                if (strongText === allText && allText.length > 3) {
+                    isHeading = true;
+                    headingText = temp.textContent.trim();
                 }
             }
         }
-        
-        if (!strongNode) return null;
 
-        let highestInline = strongNode;
-        while (highestInline.parentNode && ['SPAN', 'STRONG', 'B', 'A', 'EM', 'I'].includes(highestInline.parentNode.nodeName)) {
-            highestInline = highestInline.parentNode;
-        }
-
-        let prev = highestInline.previousSibling;
-        while (prev && prev.nodeType === 3 && prev.textContent.trim() === '') {
-            prev = prev.previousSibling;
-        }
-        const isAtStart = !prev || prev.nodeName === 'BR';
-
-        let next = highestInline.nextSibling;
-        while (next && next.nodeType === 3 && next.textContent.trim() === '') {
-            next = next.nextSibling;
-        }
-        const isAtEnd = !next || next.nodeName === 'BR';
-
-        if (isAtStart && isAtEnd) return strongNode.textContent.trim();
-        return null;
-    }
-
-    Array.from(body.childNodes).forEach(node => {
-        if (node.nodeName === 'P') {
-            const innerNodes = Array.from(node.childNodes);
-            let pOut = '';
-            let pHasContent = false;
-            
-            innerNodes.forEach(inner => {
-                let headingText = extractStrongHeadingText(inner);
-                if (headingText) {
-                    if (pHasContent && currentAccordion !== null) {
-                        currentAccordion += pOut; pOut = ''; pHasContent = false;
-                    } else if (pHasContent && currentAccordion === null) {
-                        htmlOut += '<p>' + pOut + '</p>'; pOut = ''; pHasContent = false;
-                    }
-                    
-                    if (currentAccordion !== null) {
-                        htmlOut += currentAccordion + '</div></details>';
-                    }
-                    currentAccordion = '';
-                    htmlOut += `
-                    <details class="group border-b border-[#E5E0D8]">
-                        <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
-                            ${headingText}
-                            <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
-                        </summary>
-                        <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
-                    `;
-                } else {
-                    if (inner.nodeName === 'BR') {
-                        if (currentAccordion === '' && !pHasContent) return; 
-                    }
-                    let textHtml = inner.nodeType === 3 ? inner.textContent : inner.outerHTML;
-                    if (textHtml && (textHtml.trim() !== '' || inner.nodeName === 'BR')) {
-                        pOut += textHtml;
-                        pHasContent = true;
-                    }
-                }
-            });
-            if (pHasContent) {
-                let textHtml = '<p>' + pOut + '</p>';
-                if (currentAccordion !== null) currentAccordion += textHtml;
-                else htmlOut += textHtml;
+        if (isHeading) {
+            if (currentAccordion !== null) {
+                htmlOut += currentAccordion + '</div></details>';
             }
+            currentAccordion = '';
+            htmlOut += `
+            <details class="group border-b border-[#E5E0D8]">
+                <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
+                    ${headingText}
+                    <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
+                </summary>
+                <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
+            `;
         } else {
-            let headingText = extractStrongHeadingText(node);
-            if (headingText) {
-                if (currentAccordion !== null) {
-                    htmlOut += currentAccordion + '</div></details>';
-                }
-                currentAccordion = '';
-                htmlOut += `
-                <details class="group border-b border-[#E5E0D8]">
-                    <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
-                        ${headingText}
-                        <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
-                    </summary>
-                    <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
-                `;
+            // Add margin-bottom to emulate paragraphs
+            let textHtml = '<div class="mb-2">' + trimmed + '</div>';
+            if (currentAccordion !== null) {
+                currentAccordion += textHtml;
             } else {
-                let textHtml = node.nodeType === 3 ? node.textContent : node.outerHTML;
-                if (textHtml) {
-                    if (currentAccordion !== null) currentAccordion += textHtml;
-                    else htmlOut += textHtml;
-                }
+                htmlOut += textHtml;
             }
         }
     });
@@ -1556,7 +1509,7 @@ function renderAccordionDescription(container) {
 
     if (htmlOut.trim() !== '') {
         rendered.innerHTML = htmlOut;
-        raw.style.display = 'none'; // Only hide raw if we successfully parsed accordions!
+        raw.style.display = 'none';
     }
 }
 
