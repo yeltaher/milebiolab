@@ -1,9 +1,11 @@
+{% if section.settings.show_announcement %}
 <!-- Top Announcement Bar -->
 <div class="bg-[#1A1A1A] text-white text-center py-2.5 px-4 text-xs tracking-wider uppercase flex items-center justify-center gap-2">
   <span>{{ section.settings.announcement_text }}</span>
   <span class="opacity-40">•</span>
   <a href="/collections/all" class="underline underline-offset-4 hover:text-[#C8A878] transition-colors font-medium">Acquista Ora</a>
 </div>
+{% endif %}
 
 <!-- Services Bar -->
 <div class="hidden md:flex justify-between items-center px-8 lg:px-16 py-2 border-b border-[#E5E0D8] text-xs tracking-widest uppercase text-[#7A7265] bg-white/70 backdrop-blur-sm">
@@ -142,6 +144,12 @@
 {
   "name": "Header Mile Mega Menu",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Mostra barra annunci",
+      "default": true
+    },
     {
       "type": "link_list",
       "id": "menu",
