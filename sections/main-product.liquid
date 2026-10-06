@@ -90,25 +90,18 @@
                     <!-- Dedicated PDP Callouts Overlay (Belongs exclusively to Slide 1 - Jar/Bottle) -->
                     <div id="pdp-callouts" class="absolute inset-0 pointer-events-none transition-all duration-300 ease-out opacity-100 visible z-20">
                         
-                        <!-- Callout 1: Tappo in faggio sostenibile FSC -->
-                        <div class="callout-wrapper absolute top-[28%] sm:top-[32%] left-[2%] sm:left-[6%] md:left-[10%] flex items-center gap-1.5 sm:gap-3 pointer-events-auto transition-transform duration-300">
-                            <div class="bg-white/95 backdrop-blur-md border border-borderLinen py-1 px-2 sm:py-1.5 sm:px-3 shadow-xs rounded-xs max-w-[125px] sm:max-w-none">
-                                <span class="text-[8px] sm:text-[10px] uppercase tracking-wider font-semibold text-ink block leading-tight">Tappo in faggio FSC&reg;</span>
-                                <span class="text-[7.5px] sm:text-[9px] text-ash block leading-tight mt-0.5">Legno a impatto zero</span>
-                            </div>
-                            <div class="w-4 sm:w-8 h-px bg-ink/60"></div>
-                            <div class="callout-dot -ml-1" title="Tappo in faggio sostenibile FSC"></div>
-                        </div>
-
-                        <!-- Callout 2: Vetro ambrato con filtro UV biomimetico -->
-                        <div class="callout-wrapper absolute bottom-[28%] sm:bottom-[32%] right-[2%] sm:right-[6%] md:right-[10%] flex items-center gap-1.5 sm:gap-3 pointer-events-auto transition-transform duration-300">
-                            <div class="callout-dot -mr-1" title="Vetro ambrato con filtro UV"></div>
-                            <div class="w-4 sm:w-8 h-px bg-ink/60"></div>
-                            <div class="bg-white/95 backdrop-blur-md border border-borderLinen py-1 px-2 sm:py-1.5 sm:px-3 shadow-md rounded-xs max-w-[125px] sm:max-w-none">
-                                <span class="text-[8px] sm:text-[10px] uppercase tracking-wider font-semibold text-ink block leading-tight">Vetro ambrato con UV</span>
-                                <span class="text-[7.5px] sm:text-[9px] text-ash block leading-tight mt-0.5">Protegge i fitocomplessi</span>
-                            </div>
-                        </div>
+                        {% for block in section.blocks %}
+                            {% if block.type == 'hotspot' %}
+                                <div class="callout-wrapper absolute flex items-center gap-1.5 sm:gap-3 pointer-events-auto transition-transform duration-300" style="top: {{ block.settings.top_position }}%; left: {{ block.settings.left_position }}%;">
+                                    <div class="bg-white/95 backdrop-blur-md border border-borderLinen py-1 px-2 sm:py-1.5 sm:px-3 shadow-xs rounded-xs max-w-[125px] sm:max-w-none">
+                                        <span class="text-[8px] sm:text-[10px] uppercase tracking-wider font-semibold text-ink block leading-tight">{{ block.settings.title }}</span>
+                                        <span class="text-[7.5px] sm:text-[9px] text-ash block leading-tight mt-0.5">{{ block.settings.subtitle }}</span>
+                                    </div>
+                                    <div class="w-4 sm:w-8 h-px bg-ink/60"></div>
+                                    <div class="callout-dot -ml-1" title="{{ block.settings.title | escape }}"></div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
 
                     </div>
 
@@ -229,7 +222,31 @@
 
                     {%- when 'description' -%}
                         <div class="space-y-2 py-1 text-xs text-[#1A1A1A] mb-4" {{ block.shopify_attributes }}>
-                            {{ product.description }}
+                            {%- if product.description contains '<h2>' or product.description contains '<h2' -%}
+                                {%- assign description_parts = product.description | split: '<h2' -%}
+                                {%- for part in description_parts -%}
+                                    {%- if forloop.first -%}
+                                        {{ part }}
+                                    {%- else -%}
+                                        {%- assign part_with_h2 = '<h2' | append: part -%}
+                                        {%- assign heading_end = part_with_h2 | split: '</h2>' -%}
+                                        {%- assign heading_content_with_tags = heading_end[0] | append: '</h2>' -%}
+                                        {%- assign heading_text = heading_content_with_tags | strip_html -%}
+                                        {%- assign accordion_content = heading_end[1] -%}
+                                        <details class="group border-b border-[#E5E0D8]">
+                                            <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
+                                                {{ heading_text }}
+                                                <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
+                                            </summary>
+                                            <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed">
+                                                {{ accordion_content }}
+                                            </div>
+                                        </details>
+                                    {%- endif -%}
+                                {%- endfor -%}
+                            {%- else -%}
+                                {{ product.description }}
+                            {%- endif -%}
                         </div>
 
                     {%- when 'loyalty_points' -%}
@@ -291,21 +308,6 @@
                             </div>
                         </div>
 
-                    {%- when 'accordion' -%}
-                        <div class="border-b border-borderLinen/60 py-2.5" {{ block.shopify_attributes }}>
-                            <button type="button" onclick="toggleBuyboxAccordion('{{ block.id }}')" class="w-full flex items-center justify-between text-left group">
-                                <div class="flex items-center gap-2 font-medium tracking-wide text-xs group-hover:text-amber transition-colors">
-                                    <span id="buybox-arrow-{{ block.id }}" class="font-mono text-xs transition-transform duration-300 inline-block">&gt;</span>
-                                    <span class="uppercase">{{ block.settings.title }}</span>
-                                    <span class="text-[11px] text-ash lowercase font-serif italic">ⓘ</span>
-                                </div>
-                            </button>
-                            <div id="buybox-content-{{ block.id }}" class="accordion-grid">
-                                <div class="accordion-grid-inner pt-2 pl-4 pr-2 text-[11px] text-[#7A7265] leading-relaxed">
-                                    {{ block.settings.content }}
-                                </div>
-                            </div>
-                        </div>
                 {%- endcase -%}
             {%- endfor -%}
             {%- endform -%}
@@ -438,105 +440,6 @@
         </div>
     </section>
 
-    <!-- 6. Sezione Formula 50/50: BALM-TO-OIL FORMULA FOR AN IRRESISTIBLE GLOW -->
-    <section class="py-24 bg-linen border-b border-borderLinen">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <!-- Left: Title & 4 Accordions -->
-            <div class="lg:col-span-6 space-y-6">
-                <div>
-                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">INNOVAZIONE FITO-BIOTECNOLOGICA</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-ink leading-tight">
-                        BALM-TO-OIL FORMULA FOR AN IRRESISTIBLE GLOW
-                    </h2>
-                    <p class="text-ash text-sm leading-relaxed mt-3 font-light">
-                        Una metamorfosi sensoriale senza precedenti: a contatto con la temperatura cutanea, la preziosa emulsione compatta si fonde in un olio serico ultra-penetrante.
-                    </p>
-                </div>
-
-                <!-- 4 Accordions -->
-                <div class="border-t border-borderLinen divide-y divide-borderLinen">
-                    
-                    <!-- Accordion 1: Texture & Sensazione -->
-                    <div class="py-4">
-                        <button onclick="toggleAccordion(1)" class="accordion-btn w-full flex justify-between items-center text-left py-2 focus:outline-none luxury-interactive">
-                            <span class="font-serif text-lg text-ink font-medium">Texture &amp; Sensazione al Tatto</span>
-                            <span id="accordion-icon-1" class="accordion-icon text-lg transition-transform duration-300 font-light">&plus;</span>
-                        </button>
-                        <div id="accordion-content-1" class="accordion-grid">
-                            <div class="accordion-grid-inner">
-                                <p class="text-xs text-ash leading-relaxed pt-2 pb-3 font-light">
-                                    La consistenza balsamo-olio offre il comfort avvolgente di una ricca crema vellutata e l'immediata biodisponibilit&agrave; di un olio vegetale purissimo, sigillando l'idratazione senza occludere i pori.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Accordion 2: Principi Attivi Chiave -->
-                    <div class="py-4">
-                        <button onclick="toggleAccordion(2)" class="accordion-btn w-full flex justify-between items-center text-left py-2 focus:outline-none luxury-interactive">
-                            <span class="font-serif text-lg text-ink font-medium">Principi Botanici Attivi &amp; Fitocomplessi</span>
-                            <span id="accordion-icon-2" class="accordion-icon text-lg transition-transform duration-300 font-light">&plus;</span>
-                        </button>
-                        <div id="accordion-content-2" class="accordion-grid">
-                            <div class="accordion-grid-inner">
-                                <ul class="text-xs text-ash space-y-2 pt-2 pb-3 font-light list-disc list-inside">
-                                    <li><strong class="text-ink">Olio di Fico d'India Selvatico:</strong> potente antiossidante naturale ricco di Vitamina E e acidi grassi essenziali.</li>
-                                    <li><strong class="text-ink">Olivello Spinoso Alpino:</strong> stimola la sintesi del collagene e restituisce elasticit&agrave; immediata.</li>
-                                    <li><strong class="text-ink">Rosa Canina Montana:</strong> attenua discromie cutanee e ravviva la luminosit&agrave; della barriera.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Accordion 3: Rituale di Applicazione -->
-                    <div class="py-4">
-                        <button onclick="toggleAccordion(3)" class="accordion-btn w-full flex justify-between items-center text-left py-2 focus:outline-none luxury-interactive">
-                            <span class="font-serif text-lg text-ink font-medium">Rituale d'Applicazione &amp; Massaggio</span>
-                            <span id="accordion-icon-3" class="accordion-icon text-lg transition-transform duration-300 font-light">&plus;</span>
-                        </button>
-                        <div id="accordion-content-3" class="accordion-grid">
-                            <div class="accordion-grid-inner">
-                                <p class="text-xs text-ash leading-relaxed pt-2 pb-3 font-light">
-                                    Prelevare una noce di prodotto con la spatola in legno. Riscaldare tra i palmi delle mani per attivare i fitocomplessi e massaggiare delicatamente su pelle umida con movimenti ascendenti dal basso verso l'alto.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Accordion 4: Packaging & Sostenibilità -->
-                    <div class="py-4">
-                        <button onclick="toggleAccordion(4)" class="accordion-btn w-full flex justify-between items-center text-left py-2 focus:outline-none luxury-interactive">
-                            <span class="font-serif text-lg text-ink font-medium">Packaging &amp; Sostenibilit&agrave; FSC&reg;</span>
-                            <span id="accordion-icon-4" class="accordion-icon text-lg transition-transform duration-300 font-light">&plus;</span>
-                        </button>
-                        <div id="accordion-content-4" class="accordion-grid">
-                            <div class="accordion-grid-inner">
-                                <p class="text-xs text-ash leading-relaxed pt-2 pb-3 font-light">
-                                    Flacone in nobile vetro ambrato riciclabile all'infinito con filtro UV per preservare le propriet&agrave; fotosensibili. Tappo ricavato da legni di faggio certificati FSC&reg; provenienti da riforestazione europea sostenibile.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Right: Open Jar on Travertine Editorial Photo -->
-            <div class="lg:col-span-6">
-                <div class="relative aspect-square bg-white border border-borderLinen shadow-2xl overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Texture cremosa aperta vasetto Golden Glow" 
-                         class="w-full h-full object-cover transition-transform duration-700">
-                    <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md py-2 px-4 border border-borderLinen text-xs uppercase tracking-wider text-ink shadow-sm">
-                        Texture Originale &bull; Balm-to-Oil
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
 
     <!-- 7. Fascia Stampa Editoriale -->
     <div class="py-12 bg-white border-b border-borderLinen">
@@ -1062,20 +965,38 @@
       "limit": 1
     },
     {
-      "type": "accordion",
-      "name": "Accordion Info",
+      "type": "hotspot",
+      "name": "Hotspot",
       "settings": [
         {
           "type": "text",
           "id": "title",
           "label": "Titolo",
-          "default": "Titolo Accordion"
+          "default": "Nuovo Hotspot"
         },
         {
-          "type": "html",
-          "id": "content",
-          "label": "Contenuto",
-          "default": "Contenuto accordion."
+          "type": "text",
+          "id": "subtitle",
+          "label": "Sottotitolo",
+          "default": "Dettaglio"
+        },
+        {
+          "type": "range",
+          "id": "top_position",
+          "label": "Posizione Top (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "left_position",
+          "label": "Posizione Sinistra (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
         }
       ]
     }
@@ -1091,35 +1012,7 @@
         { "type": "description" },
         { "type": "loyalty_points" },
         { "type": "pickup" },
-        { "type": "buy_buttons" },
-        {
-          "type": "accordion",
-          "settings": {
-            "title": "100% HAPPINESS GARANTIE",
-            "content": "Garanzia Soddisfatti o Rimborsati al 100%: se il prodotto non soddisfa appieno le tue aspettative, puoi restituirlo entro 30 giorni dalla consegna per un rimborso completo o una sostituzione gratuita senza spese aggiuntive."
-          }
-        },
-        {
-          "type": "accordion",
-          "settings": {
-            "title": "SPEDIZIONE GRATUITA E RITIRO A VERONA IN 2 ORE",
-            "content": "Spedizione express gratuita sopra i 50€ con corriere climatizzato (consegna 24/48h). Ritiro immediato gratuito in 2 ore presso la nostra Maison di <a href=\"#istituto-verona\" class=\"underline text-ink hover:text-amber transition-colors\">Corso Cavour 18 a Verona</a>."
-          }
-        },
-        {
-          "type": "accordion",
-          "settings": {
-            "title": "COSMESI NATURALE CERTIFICATA SECONDO STANDARD COSMOS / ICEA",
-            "content": "Certificazione biologica di altissimo grado COSMOS ORGANIC rilasciata da ICEA. 100% ingredienti da coltivazione organica controllata, privo di oli minerali, siliconi, parabeni e profumi sintetici."
-          }
-        },
-        {
-          "type": "accordion",
-          "settings": {
-            "title": "PRODOTTO OMAGGIO PER OGNI ORDINE A PARTIRE DA 120€",
-            "content": "Aggiungi al carrello almeno 120 € di trattamenti per ricevere automaticamente in omaggio un rituale travel deluxe esclusivo Milebiolab Haute Couture dal valore di 32 €."
-          }
-        }
+        { "type": "buy_buttons" }
       ]
     }
   ]

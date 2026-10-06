@@ -94,6 +94,9 @@
       ],
       "settings": {}
     },
+    "product-features": {
+      "type": "product-features"
+    },
     "local-pickup": {
       "type": "local-pickup-verona",
       "settings": {
@@ -104,6 +107,7 @@
   },
   "order": [
     "main-product",
+    "product-features",
     "local-pickup"
   ]
 }

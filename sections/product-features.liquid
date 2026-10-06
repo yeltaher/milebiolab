@@ -1,0 +1,145 @@
+<!-- Sezione Formula 50/50: BALM-TO-OIL FORMULA FOR AN IRRESISTIBLE GLOW -->
+<section class="py-24 bg-linen border-b border-borderLinen">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left: Title & Accordions -->
+        <div class="lg:col-span-6 space-y-6">
+            <div>
+                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.subtitle }}</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-ink leading-tight">
+                    {{ section.settings.title }}
+                </h2>
+                <p class="text-ash text-sm leading-relaxed mt-3 font-light">
+                    {{ section.settings.description }}
+                </p>
+            </div>
+
+            <!-- Accordions -->
+            <div class="border-t border-borderLinen divide-y divide-borderLinen">
+                
+                {% for block in section.blocks %}
+                    {% if block.type == 'feature_accordion' %}
+                        <details class="group border-b border-[#E5E0D8] py-4" {{ block.shopify_attributes }}>
+                            <summary class="w-full flex justify-between items-center text-left py-2 focus:outline-none cursor-pointer list-none [&::-webkit-details-marker]:hidden luxury-interactive">
+                                <span class="font-serif text-lg text-ink font-medium">{{ block.settings.title }}</span>
+                                <span class="text-lg transition-transform duration-300 font-light group-open:rotate-45">&plus;</span>
+                            </summary>
+                            <div class="pt-2 pb-3">
+                                <div class="text-xs text-ash leading-relaxed font-light">
+                                    {{ block.settings.content }}
+                                </div>
+                            </div>
+                        </details>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <!-- Right: Editorial Photo -->
+        <div class="lg:col-span-6">
+            <div class="relative aspect-square bg-white border border-borderLinen shadow-2xl overflow-hidden group">
+                <img src="{{ section.settings.image | image_url: width: 1200 }}" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80'" 
+                     alt="{{ section.settings.image.alt | escape }}" 
+                     class="w-full h-full object-cover transition-transform duration-700">
+                <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md py-2 px-4 border border-borderLinen text-xs uppercase tracking-wider text-ink shadow-sm">
+                    {{ section.settings.image_caption }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "INNOVAZIONE FITO-BIOTECNOLOGICA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "BALM-TO-OIL FORMULA FOR AN IRRESISTIBLE GLOW"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrizione",
+      "default": "Una metamorfosi sensoriale senza precedenti: a contatto con la temperatura cutanea, la preziosa emulsione compatta si fonde in un olio serico ultra-penetrante."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Immagine Editoriale"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Didascalia Immagine",
+      "default": "Texture Originale • Balm-to-Oil"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_accordion",
+      "name": "Accordion Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo",
+          "default": "Nuova Feature"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "Contenuto HTML",
+          "default": "<p>Descrizione della feature...</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Features",
+      "blocks": [
+        {
+          "type": "feature_accordion",
+          "settings": {
+            "title": "Texture & Sensazione al Tatto",
+            "content": "<p>La consistenza balsamo-olio offre il comfort avvolgente di una ricca crema vellutata e l'immediata biodisponibilità di un olio vegetale purissimo, sigillando l'idratazione senza occludere i pori.</p>"
+          }
+        },
+        {
+          "type": "feature_accordion",
+          "settings": {
+            "title": "Principi Botanici Attivi & Fitocomplessi",
+            "content": "<ul class=\"list-disc list-inside\"><li><strong class=\"text-ink\">Olio di Fico d'India Selvatico:</strong> potente antiossidante naturale ricco di Vitamina E e acidi grassi essenziali.</li><li><strong class=\"text-ink\">Olivello Spinoso Alpino:</strong> stimola la sintesi del collagene e restituisce elasticità immediata.</li><li><strong class=\"text-ink\">Rosa Canina Montana:</strong> attenua discromie cutanee e ravviva la luminosità della barriera.</li></ul>"
+          }
+        },
+        {
+          "type": "feature_accordion",
+          "settings": {
+            "title": "Rituale d'Applicazione & Massaggio",
+            "content": "<p>Prelevare una noce di prodotto con la spatola in legno. Riscaldare tra i palmi delle mani per attivare i fitocomplessi e massaggiare delicatamente su pelle umida con movimenti ascendenti dal basso verso l'alto.</p>"
+          }
+        },
+        {
+          "type": "feature_accordion",
+          "settings": {
+            "title": "Packaging & Sostenibilità FSC®",
+            "content": "<p>Flacone in nobile vetro ambrato riciclabile all'infinito con filtro UV per preservare le proprietà fotosensibili. Tappo ricavato da legni di faggio certificati FSC® provenienti da riforestazione europea sostenibile.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
