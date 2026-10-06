@@ -1443,23 +1443,43 @@ function renderAccordionDescription(container) {
     let htmlOut = '';
     let currentAccordion = null;
 
-    function isStrongHeading(node) {
-        if (!node || !['STRONG', 'B', 'H2', 'H3', 'H4', 'H5'].includes(node.nodeName)) return false;
-        if (['H2', 'H3', 'H4', 'H5'].includes(node.nodeName)) return true;
+    function extractStrongHeadingText(node) {
+        if (!node) return null;
+        if (['H2', 'H3', 'H4', 'H5'].includes(node.nodeName)) return node.textContent.trim();
         
-        let prev = node.previousSibling;
+        let strongNode = null;
+        if (['STRONG', 'B'].includes(node.nodeName)) {
+            strongNode = node;
+        } else {
+            const strongs = node.querySelectorAll ? node.querySelectorAll('strong, b') : [];
+            if (strongs.length === 1) {
+                if (strongs[0].textContent.trim() === node.textContent.trim()) {
+                    strongNode = strongs[0];
+                }
+            }
+        }
+        
+        if (!strongNode) return null;
+
+        let highestInline = strongNode;
+        while (highestInline.parentNode && ['SPAN', 'STRONG', 'B', 'A', 'EM', 'I'].includes(highestInline.parentNode.nodeName)) {
+            highestInline = highestInline.parentNode;
+        }
+
+        let prev = highestInline.previousSibling;
         while (prev && prev.nodeType === 3 && prev.textContent.trim() === '') {
             prev = prev.previousSibling;
         }
         const isAtStart = !prev || prev.nodeName === 'BR';
 
-        let next = node.nextSibling;
+        let next = highestInline.nextSibling;
         while (next && next.nodeType === 3 && next.textContent.trim() === '') {
             next = next.nextSibling;
         }
         const isAtEnd = !next || next.nodeName === 'BR';
 
-        return isAtStart && isAtEnd;
+        if (isAtStart && isAtEnd) return strongNode.textContent.trim();
+        return null;
     }
 
     Array.from(body.childNodes).forEach(node => {
@@ -1469,7 +1489,8 @@ function renderAccordionDescription(container) {
             let pHasContent = false;
             
             innerNodes.forEach(inner => {
-                if (isStrongHeading(inner)) {
+                let headingText = extractStrongHeadingText(inner);
+                if (headingText) {
                     if (pHasContent && currentAccordion !== null) {
                         currentAccordion += pOut; pOut = ''; pHasContent = false;
                     } else if (pHasContent && currentAccordion === null) {
@@ -1479,7 +1500,6 @@ function renderAccordionDescription(container) {
                     if (currentAccordion !== null) {
                         htmlOut += currentAccordion + '</div></details>';
                     }
-                    const headingText = inner.textContent.trim();
                     currentAccordion = '';
                     htmlOut += `
                     <details class="group border-b border-[#E5E0D8]">
@@ -1505,25 +1525,27 @@ function renderAccordionDescription(container) {
                 if (currentAccordion !== null) currentAccordion += textHtml;
                 else htmlOut += textHtml;
             }
-        } else if (isStrongHeading(node)) {
-            if (currentAccordion !== null) {
-                htmlOut += currentAccordion + '</div></details>';
-            }
-            const headingText = node.textContent.trim();
-            currentAccordion = '';
-            htmlOut += `
-            <details class="group border-b border-[#E5E0D8]">
-                <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
-                    ${headingText}
-                    <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
-                </summary>
-                <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
-            `;
         } else {
-            let textHtml = node.nodeType === 3 ? node.textContent : node.outerHTML;
-            if (textHtml) {
-                if (currentAccordion !== null) currentAccordion += textHtml;
-                else htmlOut += textHtml;
+            let headingText = extractStrongHeadingText(node);
+            if (headingText) {
+                if (currentAccordion !== null) {
+                    htmlOut += currentAccordion + '</div></details>';
+                }
+                currentAccordion = '';
+                htmlOut += `
+                <details class="group border-b border-[#E5E0D8]">
+                    <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
+                        ${headingText}
+                        <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
+                    </summary>
+                    <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
+                `;
+            } else {
+                let textHtml = node.nodeType === 3 ? node.textContent : node.outerHTML;
+                if (textHtml) {
+                    if (currentAccordion !== null) currentAccordion += textHtml;
+                    else htmlOut += textHtml;
+                }
             }
         }
     });
