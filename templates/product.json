@@ -12,6 +12,33 @@
     "main-product": {
       "type": "main-product",
       "blocks": {
+        "hotspot_xL3m3x": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Peptide Eye Longevity",
+            "subtitle": "",
+            "top_position": 44,
+            "left_position": 55
+          }
+        },
+        "hotspot_r7ggrU": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Peptide serum infusion longevity",
+            "subtitle": "",
+            "top_position": 41,
+            "left_position": 0
+          }
+        },
+        "hotspot_VH4mrb": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Peptide total cream longevity",
+            "subtitle": "",
+            "top_position": 24,
+            "left_position": 21
+          }
+        },
         "title_HFhjc7": {
           "type": "title",
           "settings": {}
@@ -51,6 +78,9 @@
         }
       },
       "block_order": [
+        "hotspot_xL3m3x",
+        "hotspot_r7ggrU",
+        "hotspot_VH4mrb",
         "title_HFhjc7",
         "bullet_list_4RYLbY",
         "subtitle_xHjxQ6",
