@@ -1,0 +1,32 @@
+<div class="bg-[#F5F2EB] border-b border-[#E5E0D8] py-2 px-6 lg:px-12 flex justify-center items-center gap-6 overflow-x-auto whitespace-nowrap text-xs uppercase tracking-widest text-[#1A1A1A]">
+  {% assign sub_menu = linklists[section.settings.sub_menu] %}
+  {% if sub_menu.links.size > 0 %}
+    {% for link in sub_menu.links %}
+      <a href="{{ link.url }}" class="hover:text-[#C8A878] transition-colors">{{ link.title }}</a>
+    {% endfor %}
+  {% else %}
+    <a href="/collections/cura-della-pelle" class="hover:text-[#C8A878] transition-colors">Cura della Pelle</a>
+    <a href="/collections/trucco-glow" class="hover:text-[#C8A878] transition-colors">Trucco & Glow</a>
+    <a href="/collections/cura-dei-capelli" class="hover:text-[#C8A878] transition-colors">Cura dei Capelli</a>
+    <a href="/collections/cura-del-corpo" class="hover:text-[#C8A878] transition-colors">Cura del Corpo</a>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Sub-Header Categorie",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "sub_menu",
+      "label": "Menu Categorie",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub-Header Categorie"
+    }
+  ]
+}
+{% endschema %}

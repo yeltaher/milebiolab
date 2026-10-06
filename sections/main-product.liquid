@@ -15,52 +15,13 @@
             
             <!-- 5 Vertical Thumbnails (Gallery on Desktop, Horizontal Scroll on Mobile) -->
             <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible w-full md:w-20 flex-shrink-0 slider-no-scrollbar py-1">
-                
-                <!-- Thumb 1: Main Jar / Amber Bottle (Slide 1 with Callouts) -->
-                <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1200&q=80', this, 0)" 
-                        class="thumb-btn thumb-active aspect-square w-14 sm:w-16 md:w-20 border-2 border-ink overflow-hidden bg-white p-1 transition-all flex-shrink-0 luxury-interactive"
-                        aria-label="Flacone e vasetto ambrato Golden Glow">
-                    <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=400&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Flacone e vasetto ambrato Golden Glow" class="w-full h-full object-cover">
-                </button>
-
-                <!-- Thumb 2: Open Jar Texture -->
-                <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80', this, 1)" 
-                        class="thumb-btn aspect-square w-14 sm:w-16 md:w-20 border border-borderLinen opacity-70 hover:opacity-100 overflow-hidden bg-white p-1 transition-all flex-shrink-0 luxury-interactive"
-                        aria-label="Texture balsamo velluto su pietra">
-                    <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Texture balsamo velluto su pietra" class="w-full h-full object-cover">
-                </button>
-
-                <!-- Thumb 3: Model Treatment Application (Face Mask Ritual) -->
-                <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80', this, 2)" 
-                        class="thumb-btn aspect-square w-14 sm:w-16 md:w-20 border border-borderLinen opacity-70 hover:opacity-100 overflow-hidden bg-white p-1 transition-all flex-shrink-0 luxury-interactive"
-                        aria-label="Applicazione rituale viso e maschera nutriente">
-                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Applicazione rituale viso con pennello" class="w-full h-full object-cover">
-                </button>
-
-                <!-- Thumb 4: Dropper Extraction -->
-                <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=80', this, 3)" 
-                        class="thumb-btn aspect-square w-14 sm:w-16 md:w-20 border border-borderLinen opacity-70 hover:opacity-100 overflow-hidden bg-white p-1 transition-all flex-shrink-0 luxury-interactive"
-                        aria-label="Estrazione botanica con contagocce">
-                    <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Estrazione botanica con contagocce" class="w-full h-full object-cover">
-                </button>
-
-                <!-- Thumb 5: Cosmetic Bottles -->
-                <button type="button" onclick="changeMainImage('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=80', this, 4)" 
-                        class="thumb-btn aspect-square w-14 sm:w-16 md:w-20 border border-borderLinen opacity-70 hover:opacity-100 overflow-hidden bg-white p-1 transition-all flex-shrink-0 luxury-interactive"
-                        aria-label="Flaconi cosmetici su travertino">
-                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Flaconi cosmetici su travertino" class="w-full h-full object-cover">
-                </button>
-
+                {% for media in product.media %}
+                    <button type="button" onclick="changeMainImage('{{ media | image_url: width: 1200 }}', this, {{ forloop.index0 }})" 
+                            class="thumb-btn {% if forloop.first %}thumb-active border-2 border-ink{% else %}border border-borderLinen opacity-70 hover:opacity-100{% endif %} aspect-square w-14 sm:w-16 md:w-20 overflow-hidden bg-white p-1 transition-all flex-shrink-0 luxury-interactive"
+                            aria-label="{{ media.alt | escape }}">
+                        {{ media | image_url: width: 400 | image_tag: class: 'w-full h-full object-cover', alt: media.alt }}
+                    </button>
+                {% endfor %}
             </div>
 
             <!-- Main Big Image Container with Callouts & Badges -->
@@ -122,9 +83,8 @@
 
                     <!-- Main Image -->
                     <img id="main-product-img" 
-                         src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1200&q=80" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'" 
-                         alt="Golden Glow Body Oil Flacone e Vasetto Ambrato di Lusso" 
+                         src="{{ product.featured_media | image_url: width: 1200 }}" 
+                         alt="{{ product.featured_media.alt | escape }}" 
                          class="w-full h-full object-cover">
 
                     <!-- Dedicated PDP Callouts Overlay (Belongs exclusively to Slide 1 - Jar/Bottle) -->
@@ -156,11 +116,9 @@
 
                 <!-- Mobile Gallery Pagination Dots -->
                 <div class="flex md:hidden justify-center items-center gap-1.5 mt-3" id="pdp-dots">
-                    <button type="button" onclick="selectSlideByIndex(0)" class="pdp-dot w-6 h-1 rounded-full bg-ink transition-all" aria-label="Immagine 1"></button>
-                    <button type="button" onclick="selectSlideByIndex(1)" class="pdp-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Immagine 2"></button>
-                    <button type="button" onclick="selectSlideByIndex(2)" class="pdp-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Immagine 3"></button>
-                    <button type="button" onclick="selectSlideByIndex(3)" class="pdp-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Immagine 4"></button>
-                    <button type="button" onclick="selectSlideByIndex(4)" class="pdp-dot w-2 h-1 rounded-full bg-borderLinen transition-all" aria-label="Immagine 5"></button>
+                    {% for media in product.media %}
+                        <button type="button" onclick="selectSlideByIndex({{ forloop.index0 }})" class="pdp-dot {% if forloop.first %}w-6 bg-ink{% else %}w-2 bg-borderLinen{% endif %} h-1 rounded-full transition-all" aria-label="Immagine {{ forloop.index }}"></button>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -196,24 +154,9 @@
                 </p>
             </div>
 
-            <!-- 4. The Iconic Milebiolab Benefit Strips with White Highlights -->
-            <div class="space-y-2 py-1">
-                <div class="flex items-center">
-                    <span class="text-ink text-xs font-medium flex-shrink-0 mr-2 select-none">✓</span>
-                    <span class="bg-white/95 px-2.5 py-0.5 text-xs text-[#1A1A1A] inline-block rounded-xs shadow-2xs font-normal">Aiuta a proteggere le cellule cutanee dallo stress ossidativo</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-ink text-xs font-medium flex-shrink-0 mr-2 select-none">✓</span>
-                    <span class="bg-white/95 px-2.5 py-0.5 text-xs text-[#1A1A1A] inline-block rounded-xs shadow-2xs font-normal">Favorisce un incarnato uniforme, compatto e luminoso</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-ink text-xs font-medium flex-shrink-0 mr-2 select-none">✓</span>
-                    <span class="bg-white/95 px-2.5 py-0.5 text-xs text-[#1A1A1A] inline-block rounded-xs shadow-2xs font-normal">Rafforza la barriera cutanea e dona idratazione profonda</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-ink text-xs font-medium flex-shrink-0 mr-2 select-none">✓</span>
-                    <span class="bg-white/95 px-2.5 py-0.5 text-xs text-[#1A1A1A] inline-block rounded-xs shadow-2xs font-normal">Attenua la visibilit&agrave; di linee sottili e pelle stanca</span>
-                </div>
+            <!-- 4. Product Description -->
+            <div class="space-y-2 py-1 text-xs text-[#1A1A1A]">
+                {{ product.description }}
             </div>
 
             <!-- Shopify Native Product Form with Variants & Dynamic Price -->
@@ -338,70 +281,28 @@
                 </div>
             </div>
 
-            <!-- 10. The 4 Info Links with chevron '>' (Expandable CSS Grid Accordions) -->
+            <!-- 10. Dynamic Accordions from Blocks -->
             <div class="border-t border-borderLinen/80 pt-1 space-y-0.5 text-xs text-ink">
-                
-                <!-- Item 1: Happiness Garantie -->
-                <div class="border-b border-borderLinen/60 py-2.5">
-                    <button type="button" onclick="toggleBuyboxAccordion('guarantee')" class="w-full flex items-center justify-between text-left group">
-                        <div class="flex items-center gap-2 font-medium tracking-wide text-xs group-hover:text-amber transition-colors">
-                            <span id="buybox-arrow-guarantee" class="font-mono text-xs transition-transform duration-300 inline-block">&gt;</span>
-                            <span class="uppercase">100% HAPPINESS GARANTIE</span>
-                            <span class="text-[11px] text-ash lowercase font-serif italic">ⓘ</span>
-                        </div>
-                    </button>
-                    <div id="buybox-content-guarantee" class="accordion-grid">
-                        <div class="accordion-grid-inner pt-2 pl-4 pr-2 text-[11px] text-[#7A7265] leading-relaxed">
-                            Garanzia Soddisfatti o Rimborsati al 100%: se il prodotto non soddisfa appieno le tue aspettative, puoi restituirlo entro 30 giorni dalla consegna per un rimborso completo o una sostituzione gratuita senza spese aggiuntive.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 2: Free Shipping & Verona Pickup -->
-                <div class="border-b border-borderLinen/60 py-2.5">
-                    <button type="button" onclick="toggleBuyboxAccordion('shipping')" class="w-full flex items-center justify-between text-left group">
-                        <div class="flex items-center gap-2 font-medium tracking-wide text-xs group-hover:text-amber transition-colors">
-                            <span id="buybox-arrow-shipping" class="font-mono text-xs transition-transform duration-300 inline-block">&gt;</span>
-                            <span class="uppercase">SPEDIZIONE GRATUITA &amp; RITIRO A VERONA IN 2 ORE</span>
-                        </div>
-                    </button>
-                    <div id="buybox-content-shipping" class="accordion-grid">
-                        <div class="accordion-grid-inner pt-2 pl-4 pr-2 text-[11px] text-[#7A7265] leading-relaxed">
-                            Spedizione express gratuita sopra i 50€ con corriere climatizzato (consegna 24/48h). Ritiro immediato gratuito in 2 ore presso la nostra Maison di <a href="#istituto-verona" class="underline text-ink hover:text-amber transition-colors">Corso Cavour 18 a Verona</a>.
+                {% for block in section.blocks %}
+                    {% if block.type == 'accordion' %}
+                    <div class="border-b border-borderLinen/60 py-2.5" {{ block.shopify_attributes }}>
+                        <button type="button" onclick="toggleBuyboxAccordion('{{ block.id }}')" class="w-full flex items-center justify-between text-left group">
+                            <div class="flex items-center gap-2 font-medium tracking-wide text-xs group-hover:text-amber transition-colors">
+                                <span id="buybox-arrow-{{ block.id }}" class="font-mono text-xs transition-transform duration-300 inline-block">&gt;</span>
+                                <span class="uppercase">{{ block.settings.title }}</span>
+                                {% if forloop.first %}
+                                <span class="text-[11px] text-ash lowercase font-serif italic">ⓘ</span>
+                                {% endif %}
+                            </div>
+                        </button>
+                        <div id="buybox-content-{{ block.id }}" class="accordion-grid">
+                            <div class="accordion-grid-inner pt-2 pl-4 pr-2 text-[11px] text-[#7A7265] leading-relaxed">
+                                {{ block.settings.content }}
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Item 3: Certified Natural Cosmetics -->
-                <div class="border-b border-borderLinen/60 py-2.5">
-                    <button type="button" onclick="toggleBuyboxAccordion('cert')" class="w-full flex items-center justify-between text-left group">
-                        <div class="flex items-center gap-2 font-medium tracking-wide text-xs group-hover:text-amber transition-colors">
-                            <span id="buybox-arrow-cert" class="font-mono text-xs transition-transform duration-300 inline-block">&gt;</span>
-                            <span class="uppercase">COSMESI NATURALE CERTIFICATA SECONDO STANDARD COSMOS / ICEA</span>
-                        </div>
-                    </button>
-                    <div id="buybox-content-cert" class="accordion-grid">
-                        <div class="accordion-grid-inner pt-2 pl-4 pr-2 text-[11px] text-[#7A7265] leading-relaxed">
-                            Certificazione biologica di altissimo grado COSMOS ORGANIC rilasciata da ICEA. 100% ingredienti da coltivazione organica controllata, privo di oli minerali, siliconi, parabeni e profumi sintetici.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 4: Free Gift above 120 € -->
-                <div class="border-b border-borderLinen/60 py-2.5">
-                    <button type="button" onclick="toggleBuyboxAccordion('gift')" class="w-full flex items-center justify-between text-left group">
-                        <div class="flex items-center gap-2 font-medium tracking-wide text-xs group-hover:text-amber transition-colors">
-                            <span id="buybox-arrow-gift" class="font-mono text-xs transition-transform duration-300 inline-block">&gt;</span>
-                            <span class="uppercase">PRODOTTO OMAGGIO PER OGNI ORDINE A PARTIRE DA 120&euro;</span>
-                        </div>
-                    </button>
-                    <div id="buybox-content-gift" class="accordion-grid">
-                        <div class="accordion-grid-inner pt-2 pl-4 pr-2 text-[11px] text-[#7A7265] leading-relaxed">
-                            Aggiungi al carrello almeno 120 € di trattamenti per ricevere automaticamente in omaggio un rituale travel deluxe esclusivo Milebiolab Haute Couture dal valore di 32 €.
-                        </div>
-                    </div>
-                </div>
-
+                    {% endif %}
+                {% endfor %}
             </div>
 
         </div>
@@ -873,11 +774,9 @@
 <script>
   // PDP Gallery Data & Controls
   const galleryImages = [
-    'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=80'
+    {% for media in product.media %}
+      "{{ media | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
   ];
   let currentSlideIndex = 0;
 
@@ -1049,7 +948,7 @@
             price: currentPrice,
             volume: currentFormatLabel,
             qty: 1,
-            image: 'https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80'
+            image: '{{ product.featured_media | image_url: width: 300 }}'
           });
         }
 
@@ -1105,9 +1004,59 @@
       "default": "Corso Cavour 18, Centro Storico Verona (Pronto in 2h)"
     }
   ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo",
+          "default": "Titolo Accordion"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "Contenuto",
+          "default": "Contenuto accordion."
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Main Product PDP Mile"
+      "name": "Main Product PDP Mile",
+      "blocks": [
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "100% HAPPINESS GARANTIE",
+            "content": "Garanzia Soddisfatti o Rimborsati al 100%: se il prodotto non soddisfa appieno le tue aspettative, puoi restituirlo entro 30 giorni dalla consegna per un rimborso completo o una sostituzione gratuita senza spese aggiuntive."
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "SPEDIZIONE GRATUITA E RITIRO A VERONA IN 2 ORE",
+            "content": "Spedizione express gratuita sopra i 50€ con corriere climatizzato (consegna 24/48h). Ritiro immediato gratuito in 2 ore presso la nostra Maison di <a href=\"#istituto-verona\" class=\"underline text-ink hover:text-amber transition-colors\">Corso Cavour 18 a Verona</a>."
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "COSMESI NATURALE CERTIFICATA SECONDO STANDARD COSMOS / ICEA",
+            "content": "Certificazione biologica di altissimo grado COSMOS ORGANIC rilasciata da ICEA. 100% ingredienti da coltivazione organica controllata, privo di oli minerali, siliconi, parabeni e profumi sintetici."
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "PRODOTTO OMAGGIO PER OGNI ORDINE A PARTIRE DA 120€",
+            "content": "Aggiungi al carrello almeno 120 € di trattamenti per ricevere automaticamente in omaggio un rituale travel deluxe esclusivo Milebiolab Haute Couture dal valore di 32 €."
+          }
+        }
+      ]
     }
   ]
 }
