@@ -222,17 +222,30 @@
 
                     {%- when 'description' -%}
                         <div class="space-y-2 py-1 text-xs text-[#1A1A1A] mb-4" {{ block.shopify_attributes }}>
-                            {%- if product.description contains '<h2>' or product.description contains '<h2' -%}
-                                {%- assign description_parts = product.description | split: '<h2' -%}
+                            {%- assign raw_desc = product.description -%}
+                            {%- assign raw_desc = raw_desc | replace: '<p><strong>', '|||SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '</strong></p>', '|||END_SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '<br><strong>', '</p>|||SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '</strong><br>', '|||END_SPLIT|||<p>' -%}
+                            {%- assign raw_desc = raw_desc | replace: '<p><b>', '|||SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '</b></p>', '|||END_SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '<br><b>', '</p>|||SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '</b><br>', '|||END_SPLIT|||<p>' -%}
+                            {%- assign raw_desc = raw_desc | replace: '<h2>', '|||SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '</h2>', '|||END_SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '<h3>', '|||SPLIT|||' -%}
+                            {%- assign raw_desc = raw_desc | replace: '</h3>', '|||END_SPLIT|||' -%}
+                            
+                            {%- if raw_desc contains '|||SPLIT|||' -%}
+                                {%- assign description_parts = raw_desc | split: '|||SPLIT|||' -%}
                                 {%- for part in description_parts -%}
                                     {%- if forloop.first -%}
                                         {{ part }}
                                     {%- else -%}
-                                        {%- assign part_with_h2 = '<h2' | append: part -%}
-                                        {%- assign heading_end = part_with_h2 | split: '</h2>' -%}
-                                        {%- assign heading_content_with_tags = heading_end[0] | append: '</h2>' -%}
-                                        {%- assign heading_text = heading_content_with_tags | strip_html -%}
-                                        {%- assign accordion_content = heading_end[1] -%}
+                                        {%- assign accordion_parts = part | split: '|||END_SPLIT|||' -%}
+                                        {%- assign heading_text = accordion_parts[0] | strip_html | strip -%}
+                                        {%- assign accordion_content = accordion_parts[1] -%}
+                                        {%- if heading_text != blank -%}
                                         <details class="group border-b border-[#E5E0D8]">
                                             <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
                                                 {{ heading_text }}
@@ -242,6 +255,7 @@
                                                 {{ accordion_content }}
                                             </div>
                                         </details>
+                                        {%- endif -%}
                                     {%- endif -%}
                                 {%- endfor -%}
                             {%- else -%}
