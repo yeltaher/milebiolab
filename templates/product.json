@@ -63,74 +63,7 @@
     },
     "product-reviews": {
       "type": "product-reviews",
-      "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "author": "Laura B. • Verona",
-            "date": "12 Maggio 2026",
-            "rating": 5,
-            "title": "Una consistenza divina senza eguali",
-            "text": "Si assorbe istantaneamente sulla pelle ancora tiepida dopo la doccia. Non lascia alcuna traccia sui vestiti di seta. L'aroma botanico naturale è un sogno."
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "author": "Sophie D. • Parigi",
-            "date": "28 Aprile 2026",
-            "rating": 5,
-            "title": "Pelle trasformata in 3 settimane",
-            "text": "Avevo la pelle disidratata e opaca. Questo olio ha rigenerato completamente la texture. Il packaging in vetro ambrato e tappo di faggio è pura arte sulla toeletta."
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "author": "Camilla V. • Bologna",
-            "date": "15 Aprile 2026",
-            "rating": 5,
-            "title": "Servizio boutique impeccabile",
-            "text": "Ordinato online e ritirato dopo sole 2 ore nella boutique di Corso Cavour a Verona. Personale squisito e campioncini personalizzati inclusi nel pacco regalo."
-          }
-        },
-        "review_4": {
-          "type": "review",
-          "settings": {
-            "author": "Giulia M. • Milano",
-            "date": "10 Aprile 2026",
-            "rating": 5,
-            "title": "Un must-have per la mia routine",
-            "text": "Non posso più farne a meno. Idratazione profonda che dura tutto il giorno."
-          }
-        },
-        "review_5": {
-          "type": "review",
-          "settings": {
-            "author": "Elena F. • Roma",
-            "date": "2 Aprile 2026",
-            "rating": 5,
-            "title": "Semplicemente perfetto",
-            "text": "L'olio perfetto, lascia la pelle morbida e setosa come nessun altro prodotto prima."
-          }
-        }
-      },
-      "block_order": [
-        "review_1",
-        "review_2",
-        "review_3",
-        "review_4",
-        "review_5"
-      ],
-      "settings": {
-        "overall_score": "4.91",
-        "total_reviews": "142",
-        "pct_5": 92,
-        "pct_4": 6,
-        "pct_3": 2,
-        "pct_2": 0,
-        "pct_1": 0
-      }
+      "settings": {}
     },
     "local-pickup": {
       "type": "local-pickup-verona",
