@@ -4,11 +4,15 @@
   <div class="section-container">
     
     <div style="text-align: center; max-width: 780px; margin: 0 auto;">
-      <span class="protocol-tag">{{ section.settings.tag }}</span>
+      {%- if section.settings.tag != blank -%}
+        <span class="protocol-tag">{{ section.settings.tag }}</span>
+      {%- endif -%}
       <h2 style="font-size: 2.6rem; margin-top: 0.5rem;">{{ routine_title }}</h2>
-      <p style="font-size: 1rem; color: var(--color-text-secondary); margin-top: 0.75rem;">
-        {{ section.settings.subtitle }}
-      </p>
+      {%- if section.settings.subtitle != blank -%}
+        <p style="font-size: 1rem; color: var(--color-text-secondary); margin-top: 0.75rem;">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
     </div>
 
     <!-- 3-Column Routine Steps Grid -->
@@ -19,47 +23,113 @@
           <div class="routine-step-card" {{ block.shopify_attributes }}>
             <span class="giant-step-number">0{{ forloop.index }}</span>
             <div>
-              <span class="protocol-tag">{{ block.settings.tag }}</span>
+              {%- if block.settings.tag != blank -%}
+                <span class="protocol-tag">{{ block.settings.tag }}</span>
+              {%- endif -%}
               <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">{{ block.settings.title }}</h3>
-              <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
-                {{ block.settings.description }}
-              </p>
+              {%- if block.settings.description != blank -%}
+                <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+                  {{ block.settings.description }}
+                </p>
+              {%- endif -%}
             </div>
 
-            {%- if product != blank and product.available -%}
+            {%- if product != blank -%}
+              {%- assign card_photo = block.settings.custom_image | default: product.featured_image -%}
+              {%- assign card_subtitle = block.settings.product_subtitle | default: product.metafields.custom.subtitle | default: 'Trattamento Biomimetico' -%}
+              
+              {%- if card_photo != blank -%}
+                {%- assign card_photo_url = card_photo | image_url: width: 600 -%}
+                {%- assign cart_item_img = card_photo | image_url: width: 300 -%}
+              {%- else -%}
+                {%- assign card_photo_url = 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80' -%}
+                {%- assign cart_item_img = card_photo_url -%}
+              {%- endif -%}
+
               <img 
-                src="{{ product.featured_image | img_url: '600x' }}" 
+                src="{{ card_photo_url }}" 
                 alt="{{ product.title | escape }}" 
                 class="routine-card-photo" loading="lazy">
-              
+
               <div>
                 <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{{ product.title }}</h4>
                 <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
-                  {{ product.metafields.custom.subtitle | default: 'Essenza Botanica' }}
+                  {{ card_subtitle }}
                 </span>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                   <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ product.price | money }}</strong>
-                  <form method="post" action="/cart/add">
-                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                    <button type="submit" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;">
+                  {%- if product.available -%}
+                    <button 
+                      type="button" 
+                      class="btn-primary" 
+                      style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
+                      onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ product.selected_or_first_available_variant.id }}', 1, {id: '{{ product.selected_or_first_available_variant.id }}', title: '{{ product.title | escape }}', price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});} else if(window.addToCart){addToCart({id: '{{ product.selected_or_first_available_variant.id }}', title: '{{ product.title | escape }}', price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});}">
                       + Carrello
                     </button>
-                  </form>
+                  {%- else -%}
+                    <button 
+                      type="button" 
+                      class="btn-primary" 
+                      disabled
+                      style="padding: 0.55rem 0.9rem; font-size: 0.72rem; opacity: 0.5; cursor: not-allowed;">
+                      Esaurito
+                    </button>
+                  {%- endif -%}
                 </div>
               </div>
             {%- else -%}
-              <!-- Fallback per prodotto non selezionato o assente -->
+              {%- case forloop.index -%}
+                {%- when 1 -%}
+                  {%- assign fallback_title = "Daily Cleansing Milk (200ml)" -%}
+                  {%- assign fallback_sub = "Camomilla Bio & Fieno Greco" -%}
+                  {%- assign fallback_price = "€ 38,00" -%}
+                  {%- assign fallback_price_num = 38.00 -%}
+                  {%- assign fallback_vol = "200 ml" -%}
+                  {%- assign fallback_img = "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" -%}
+                {%- when 2 -%}
+                  {%- assign fallback_title = "Intense Hyaluronic Serum (30ml)" -%}
+                  {%- assign fallback_sub = "5 Pesi Molecolari & Mirtillo Biofermentato" -%}
+                  {%- assign fallback_price = "€ 86,00" -%}
+                  {%- assign fallback_price_num = 86.00 -%}
+                  {%- assign fallback_vol = "30 ml" -%}
+                  {%- assign fallback_img = "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" -%}
+                {%- else -%}
+                  {%- assign fallback_title = "Supreme Moisture Cream (50ml)" -%}
+                  {%- assign fallback_sub = "Staminali Stella Alpina & Jojoba Bio" -%}
+                  {%- assign fallback_price = "€ 84,00" -%}
+                  {%- assign fallback_price_num = 84.00 -%}
+                  {%- assign fallback_vol = "50 ml" -%}
+                  {%- assign fallback_img = "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" -%}
+              {%- endcase -%}
+
+              {%- assign card_subtitle = block.settings.product_subtitle | default: fallback_sub | default: 'Trattamento Biomimetico' -%}
+
+              {%- if block.settings.custom_image != blank -%}
+                {%- assign current_card_img = block.settings.custom_image | image_url: width: 600 -%}
+                {%- assign mock_cart_img = block.settings.custom_image | image_url: width: 300 -%}
+              {%- else -%}
+                {%- assign current_card_img = fallback_img -%}
+                {%- assign mock_cart_img = fallback_img -%}
+              {%- endif -%}
+
               <img 
-                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
-                alt="Mockup Prodotto" 
-                class="routine-card-photo">
-              
+                src="{{ current_card_img }}" 
+                alt="{{ block.settings.title | default: fallback_title | escape }}" 
+                class="routine-card-photo" loading="lazy"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+
               <div>
-                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Prodotto di Esempio</h4>
-                <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Senza Prodotto Selezionato</span>
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{{ fallback_title }}</h4>
+                <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
+                  {{ card_subtitle }}
+                </span>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ --,--</strong>
-                  <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;">
+                  <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ fallback_price }}</strong>
+                  <button 
+                    type="button" 
+                    class="btn-primary" 
+                    style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
+                    onclick="addToCartMock('{{ fallback_title }}', {{ fallback_price_num }}, '{{ mock_cart_img }}', '{{ fallback_vol }}', '0{{ forloop.index }} {{ block.settings.title | escape }}')">
                     + Carrello
                   </button>
                 </div>
@@ -155,94 +225,186 @@
       {%- endif -%}
     </div>
 
-    <!-- Bundle Offer Bar with -15% Discount -->
-    <div class="routine-bundle-cta-box">
-      <div>
-        <span class="magnetic-glow-pulse-badge">OFFERTA SET ESCLUSIVO</span>
-        <h3 style="font-size: 1.45rem; margin: 0.5rem 0 0.25rem 0;">Acquista i 3 Step Insieme &bull; <em>Sconto 15% Immediato</em></h3>
-        <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
-          Include Cofanetto Regalo Milebiolab FSC, 3 Campioncini Omaggio e Check-up della pelle gratuito in Istituto a Verona.
-        </p>
-      </div>
-
-      <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
-        <div style="text-align: right;">
-          <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #9E9382; text-decoration: line-through;">€ 208,00</div>
-          <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 700; color: var(--color-text-primary);">€ 176,80</div>
+    <!-- Bundle Offer Bar with Discount -->
+    {%- if section.settings.show_bundle -%}
+      {%- assign bundle_formatted_title = section.settings.bundle_title | replace: 'Sconto 15% Immediato', '<em>Sconto 15% Immediato</em>' | replace: '•', '&bull;' -%}
+      <div class="routine-bundle-cta-box">
+        <div>
+          {%- if section.settings.bundle_badge != blank -%}
+            <span class="magnetic-glow-pulse-badge">{{ section.settings.bundle_badge }}</span>
+          {%- endif -%}
+          <h3 style="font-size: 1.45rem; margin: 0.5rem 0 0.25rem 0;">{{ bundle_formatted_title }}</h3>
+          {%- if section.settings.bundle_desc != blank -%}
+            <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+              {{ section.settings.bundle_desc }}
+            </p>
+          {%- endif -%}
         </div>
 
-        <button type="button" class="btn-primary btn-atc-olive" style="padding: 1.1rem 2rem;" onclick="addRoutineBundleToCart()">
-          Aggiungi la Routine Completa al Carrello (-15%) &rarr;
-        </button>
+        <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+          <div style="text-align: right;">
+            {%- if section.settings.bundle_compare_price != blank -%}
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #9E9382; text-decoration: line-through;">{{ section.settings.bundle_compare_price }}</div>
+            {%- endif -%}
+            {%- if section.settings.bundle_price != blank -%}
+              <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 700; color: var(--color-text-primary);">{{ section.settings.bundle_price }}</div>
+            {%- endif -%}
+          </div>
+
+          <button type="button" class="btn-primary btn-atc-olive" style="padding: 1.1rem 2rem;" onclick="addRoutineBundleToCart()">
+            {{ section.settings.bundle_btn_text | default: 'Aggiungi la Routine Completa al Carrello (-15%) &rarr;' }}
+          </button>
+        </div>
       </div>
-    </div>
+    {%- endif -%}
 
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Your Routine Simplified",
+  "name": "Routine Semplificata",
   "settings": [
     {
       "type": "text",
       "id": "tag",
-      "label": "Tag",
+      "label": "Etichetta Sezione",
       "default": "IL PROTOCOLLO ESSENZIALE"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Titolo",
-      "default": "Your Routine, Simplified"
+      "label": "Titolo Sezione",
+      "default": "La tua routine, semplificata"
     },
     {
       "type": "textarea",
       "id": "subtitle",
-      "label": "Sottotitolo",
+      "label": "Sottotitolo Sezione",
       "default": "Tre gesti essenziali in perfetta sequenza biomimetica. Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
+    },
+    {
+      "type": "header",
+      "content": "Offerta Bundle Completo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bundle",
+      "label": "Mostra Box Offerta Set Completo",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bundle_badge",
+      "label": "Badge Bundle",
+      "default": "OFFERTA SET ESCLUSIVO"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Titolo Bundle",
+      "default": "Acquista i 3 Step Insieme • Sconto 15% Immediato"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_desc",
+      "label": "Descrizione Bundle",
+      "default": "Include Cofanetto Regalo Milebiolab FSC, 3 Campioncini Omaggio e Check-up della pelle gratuito in Istituto a Verona."
+    },
+    {
+      "type": "text",
+      "id": "bundle_compare_price",
+      "label": "Prezzo Originale Barrato",
+      "default": "€ 208,00"
+    },
+    {
+      "type": "text",
+      "id": "bundle_price",
+      "label": "Prezzo Scontato Bundle",
+      "default": "€ 176,80"
+    },
+    {
+      "type": "text",
+      "id": "bundle_btn_text",
+      "label": "Testo Pulsante Bundle",
+      "default": "Aggiungi la Routine Completa al Carrello (-15%) →"
     }
   ],
   "blocks": [
     {
       "type": "step",
-      "name": "Routine Step",
+      "name": "Step Routine",
       "limit": 3,
       "settings": [
         {
+          "type": "product",
+          "id": "product",
+          "label": "Seleziona Prodotto Shopify"
+        },
+        {
           "type": "text",
           "id": "tag",
-          "label": "Tag Fase",
+          "label": "Etichetta Fase (es. FASE 1 • PURIFICAZIONE)",
           "default": "FASE 1 • PURIFICAZIONE"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Titolo",
+          "label": "Titolo Fase (es. RESET)",
           "default": "RESET"
         },
         {
           "type": "textarea",
           "id": "description",
-          "label": "Descrizione",
+          "label": "Descrizione Benefici",
           "default": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi."
         },
         {
-          "type": "product",
-          "id": "product",
-          "label": "Prodotto Selezionato"
+          "type": "text",
+          "id": "product_subtitle",
+          "label": "Sottotitolo / Ingredienti Prodotto",
+          "default": "Camomilla Bio & Fieno Greco"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Immagine Alternativa (Opzionale, altrimenti usa foto prodotto)"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Your Routine Simplified",
+      "name": "La tua routine, semplificata",
       "category": "Routine",
       "blocks": [
-        { "type": "step" },
-        { "type": "step" },
-        { "type": "step" }
+        {
+          "type": "step",
+          "settings": {
+            "tag": "FASE 1 • PURIFICAZIONE",
+            "title": "RESET",
+            "description": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.",
+            "product_subtitle": "Camomilla Bio & Fieno Greco"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tag": "FASE 2 • NUTRIZIONE PROFONDA",
+            "title": "CONCENTRATE",
+            "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
+            "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tag": "FASE 3 • SCUDO PROTETTIVO",
+            "title": "HYDRATE",
+            "description": "Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.",
+            "product_subtitle": "Staminali Stella Alpina & Jojoba Bio"
+          }
+        }
       ]
     }
   ]
