@@ -46,6 +46,42 @@
       },
       "sub-header": {
         "type": "sub-header",
+        "blocks": {
+          "sub_header_category_1": {
+            "type": "category_link",
+            "settings": {
+              "title": "CORPO / PURE PERFORMANCE",
+              "url": "/collections/all"
+            }
+          },
+          "sub_header_category_2": {
+            "type": "category_link",
+            "settings": {
+              "title": "PRESERVAGE",
+              "url": "/collections/all"
+            }
+          },
+          "sub_header_category_3": {
+            "type": "category_link",
+            "settings": {
+              "title": "PROTEZIONE SOLARE",
+              "url": "/collections/all"
+            }
+          },
+          "sub_header_category_4": {
+            "type": "category_link",
+            "settings": {
+              "title": "UNICHO 21",
+              "url": "/collections/all"
+            }
+          }
+        },
+        "block_order": [
+          "sub_header_category_1",
+          "sub_header_category_2",
+          "sub_header_category_3",
+          "sub_header_category_4"
+        ],
         "settings": {
           "sub_menu": "main-menu"
         }
