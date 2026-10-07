@@ -1,0 +1,166 @@
+<section class="py-24 bg-white border-b border-borderLinen" id="product-faq-{{ section.id }}">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <div class="text-center mb-16">
+      <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold block mb-2">
+        {{ section.settings.tag | default: 'CHIAREZZA E TRASPARENZA' }}
+      </span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-normal text-ink">
+        {{ section.settings.title | default: 'Domande Frequenti' }}
+      </h2>
+      <p class="text-ash text-xs mt-2 font-light">
+        {{ section.settings.subtitle | default: 'Tutto quello che desideri sapere sul prodotto.' }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 text-xs leading-relaxed">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="border-b border-borderLinen pb-6" {{ block.shopify_attributes }}>
+            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.question }}</h4>
+            <p class="text-ash font-light leading-relaxed">{{ block.settings.answer }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback 6 Domande / Risposte Originali -->
+        <div class="border-b border-borderLinen pb-6">
+          <h4 class="font-serif text-base font-semibold text-ink mb-2">Questo olio lascia la pelle unta o macchia i vestiti?</h4>
+          <p class="text-ash font-light leading-relaxed">
+            Assolutamente no. La formula balm-to-oil sfrutta vettori lipidici biomimetici a rapidissimo assorbimento cutaneo che penetrano all'istante lasciando un finish asciutto, satinato e setoso.
+          </p>
+        </div>
+
+        <div class="border-b border-borderLinen pb-6">
+          <h4 class="font-serif text-base font-semibold text-ink mb-2">&Egrave; adatto durante la gravidanza o l'allattamento?</h4>
+          <p class="text-ash font-light leading-relaxed">
+            S&igrave;, la formula &egrave; 100% organica certificata Cosmos, priva di oli essenziali fotosensibilizzanti o composti controindicati, ideale per elasticizzare la pelle e prevenire smagliature.
+          </p>
+        </div>
+
+        <div class="border-b border-borderLinen pb-6">
+          <h4 class="font-serif text-base font-semibold text-ink mb-2">Come funziona il ritiro in 2 ore a Verona?</h4>
+          <p class="text-ash font-light leading-relaxed">
+            Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Corso Cavour 18 preparer&agrave; la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email.
+          </p>
+        </div>
+
+        <div class="border-b border-borderLinen pb-6">
+          <h4 class="font-serif text-base font-semibold text-ink mb-2">Qual &egrave; la durata del vasetto da 100 ml con uso quotidiano?</h4>
+          <p class="text-ash font-light leading-relaxed">
+            Con un'applicazione quotidiana su tutto il corpo, il formato standard da 100 ml dura in media tra le 6 e le 8 settimane grazie all'elevatissima resa concentrata del balsamo.
+          </p>
+        </div>
+
+        <div class="border-b border-borderLinen pb-6">
+          <h4 class="font-serif text-base font-semibold text-ink mb-2">Posso utilizzarlo anche sulla pelle del viso o sulle punte dei capelli?</h4>
+          <p class="text-ash font-light leading-relaxed">
+            Certamente. La formula non comedogenica &egrave; ideale per illuminare gli zigomi o nutrire le punte secche dei capelli dopo la piega con pochissime gocce scaldate tra le dita.
+          </p>
+        </div>
+
+        <div class="border-b border-borderLinen pb-6">
+          <h4 class="font-serif text-base font-semibold text-ink mb-2">Come si conserva al meglio il prodotto?</h4>
+          <p class="text-ash font-light leading-relaxed">
+            Consigliamo di conservare il flacone a temperatura ambiente (15-25&deg;C) al riparo dalla luce solare diretta. Il vetro ambrato schermante assicura la perfetta integrit&agrave; dei principi attivi.
+          </p>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Prodotto",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "CHIAREZZA E TRASPARENZA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Domande Frequenti"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Tutto quello che desideri sapere sul prodotto."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Domanda / Risposta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Domanda",
+          "default": "Domanda..."
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Risposta",
+          "default": "Risposta..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Prodotto",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Questo olio lascia la pelle unta o macchia i vestiti?",
+            "answer": "Assolutamente no. La formula balm-to-oil sfrutta vettori lipidici biomimetici a rapidissimo assorbimento cutaneo che penetrano all'istante lasciando un finish asciutto, satinato e setoso."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "È adatto durante la gravidanza o l'allattamento?",
+            "answer": "Sì, la formula è 100% organica certificata Cosmos, priva di oli essenziali fotosensibilizzanti o composti controindicati, ideale per elasticizzare la pelle e prevenire smagliature."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Come funziona il ritiro in 2 ore a Verona?",
+            "answer": "Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Corso Cavour 18 preparerà la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Qual è la durata del vasetto da 100 ml con uso quotidiano?",
+            "answer": "Con un'applicazione quotidiana su tutto il corpo, il formato standard da 100 ml dura in media tra le 6 e le 8 settimane grazie all'elevatissima resa concentrata del balsamo."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Posso utilizzarlo anche sulla pelle del viso o sulle punte dei capelli?",
+            "answer": "Certamente. La formula non comedogenica è ideale per illuminare gli zigomi o nutrire le punte secche dei capelli dopo la piega con pochissime gocce scaldate tra le dita."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Come si conserva al meglio il prodotto?",
+            "answer": "Consigliamo di conservare il flacone a temperatura ambiente (15-25°C) al riparo dalla luce solare diretta. Il vetro ambrato schermante assicura la perfetta integrità dei principi attivi."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
