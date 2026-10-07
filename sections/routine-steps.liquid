@@ -227,6 +227,44 @@
 
     <!-- Bundle Offer Bar with Discount -->
     {%- if section.settings.show_bundle -%}
+      {%- assign bundle_prod = section.settings.bundle_product -%}
+      {%- assign has_bundle_prod = false -%}
+      {%- if bundle_prod != blank and bundle_prod.selected_or_first_available_variant -%}
+        {%- assign has_bundle_prod = true -%}
+      {%- endif -%}
+
+      {%- assign display_compare_price = section.settings.bundle_compare_price -%}
+      {%- if display_compare_price == blank and has_bundle_prod and bundle_prod.compare_at_price > bundle_prod.price -%}
+        {%- assign display_compare_price = bundle_prod.compare_at_price | money -%}
+      {%- endif -%}
+
+      {%- assign display_price = section.settings.bundle_price -%}
+      {%- if display_price == blank and has_bundle_prod -%}
+        {%- assign display_price = bundle_prod.price | money -%}
+      {%- endif -%}
+
+      {%- assign step_variants_json = '' -%}
+      {%- assign step_items_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.product != blank and block.settings.product.selected_or_first_available_variant -%}
+          {%- assign p = block.settings.product -%}
+          {%- assign v = p.selected_or_first_available_variant -%}
+          {%- assign p_img = block.settings.custom_image | default: p.featured_image -%}
+          {%- if p_img != blank -%}
+            {%- assign p_img_url = p_img | image_url: width: 300 -%}
+          {%- else -%}
+            {%- assign p_img_url = 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80' -%}
+          {%- endif -%}
+          {%- capture item_json -%}{"id":"{{ v.id }}","title":{{ p.title | json }},"price":{{ p.price | divided_by: 100.0 }},"volume":{{ block.settings.product_subtitle | default: 'Trattamento Biomimetico' | json }},"qty":1,"image":"{{ p_img_url }}","step":"0{{ forloop.index }} {{ block.settings.title | escape }}"}{%- endcapture -%}
+          {%- if step_variants_json == '' -%}
+            {%- assign step_variants_json = item_json -%}
+          {%- else -%}
+            {%- assign step_variants_json = step_variants_json | append: ',' | append: item_json -%}
+          {%- endif -%}
+          {%- assign step_items_count = step_items_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+
       {%- assign bundle_formatted_title = section.settings.bundle_title | replace: 'Sconto 15% Immediato', '<em>Sconto 15% Immediato</em>' | replace: '•', '&bull;' -%}
       <div class="routine-bundle-cta-box">
         <div>
@@ -243,17 +281,88 @@
 
         <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
           <div style="text-align: right;">
-            {%- if section.settings.bundle_compare_price != blank -%}
-              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #9E9382; text-decoration: line-through;">{{ section.settings.bundle_compare_price }}</div>
+            {%- if display_compare_price != blank -%}
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #9E9382; text-decoration: line-through;">{{ display_compare_price }}</div>
             {%- endif -%}
-            {%- if section.settings.bundle_price != blank -%}
-              <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 700; color: var(--color-text-primary);">{{ section.settings.bundle_price }}</div>
+            {%- if display_price != blank -%}
+              <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 700; color: var(--color-text-primary);">{{ display_price }}</div>
             {%- endif -%}
           </div>
 
-          <button type="button" class="btn-primary btn-atc-olive" style="padding: 1.1rem 2rem;" onclick="addRoutineBundleToCart()">
-            {{ section.settings.bundle_btn_text | default: 'Aggiungi la Routine Completa al Carrello (-15%) &rarr;' }}
-          </button>
+          {%- if has_bundle_prod -%}
+            {%- assign bundle_variant = bundle_prod.selected_or_first_available_variant -%}
+            {%- assign bundle_img = bundle_prod.featured_image | image_url: width: 300 -%}
+            <button 
+              type="button" 
+              class="btn-primary btn-atc-olive" 
+              style="padding: 1.1rem 2rem;"
+              {%- if bundle_variant.available == false -%}
+                disabled style="padding: 1.1rem 2rem; opacity: 0.5; cursor: not-allowed;"
+              {%- endif -%}
+              onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ bundle_variant.id }}', 1, {id: '{{ bundle_variant.id }}', title: {{ bundle_prod.title | json }}, price: {{ bundle_prod.price | divided_by: 100.0 }}, volume: 'Set Routine', qty: 1, image: '{{ bundle_img }}'});} else if(window.addToCart){addToCart({id: '{{ bundle_variant.id }}', title: {{ bundle_prod.title | json }}, price: {{ bundle_prod.price | divided_by: 100.0 }}, volume: 'Set Routine', qty: 1, image: '{{ bundle_img }}'});} else if(window.addRoutineBundleToCart){addRoutineBundleToCart();}">
+              {%- if bundle_variant.available == false -%}
+                Esaurito
+              {%- else -%}
+                {{ section.settings.bundle_btn_text | default: 'Aggiungi la Routine Completa al Carrello (-15%) &rarr;' }}
+              {%- endif -%}
+            </button>
+          {%- elsif step_items_count > 0 -%}
+            <button 
+              type="button" 
+              class="btn-primary btn-atc-olive" 
+              style="padding: 1.1rem 2rem;" 
+              onclick="addRoutineStepsToCart_{{ section.id | replace: '-', '_' }}()">
+              {{ section.settings.bundle_btn_text | default: 'Aggiungi la Routine Completa al Carrello (-15%) &rarr;' }}
+            </button>
+            <script>
+              async function addRoutineStepsToCart_{{ section.id | replace: '-', '_' }}() {
+                var items = [{{ step_variants_json }}];
+                if (!items || items.length === 0) {
+                  if (typeof addRoutineBundleToCart === 'function') addRoutineBundleToCart();
+                  return;
+                }
+                var addUrl = (window.routes && window.routes.cart_add_url) ? window.routes.cart_add_url : '/cart/add.js';
+                try {
+                  var payload = {
+                    items: items.map(function(item) {
+                      return { id: item.id, quantity: 1 };
+                    })
+                  };
+                  var res = await fetch(addUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                  });
+                  if (!res.ok) throw new Error('Cart API ' + res.status);
+                  if (typeof fetchShopifyCart === 'function') {
+                    await fetchShopifyCart();
+                  }
+                  if (typeof openCartDrawer === 'function') {
+                    openCartDrawer();
+                  }
+                } catch (e) {
+                  if (typeof addToCart === 'function') {
+                    items.forEach(function(item) {
+                      addToCart(item);
+                    });
+                  } else if (typeof addRoutineBundleToCart === 'function') {
+                    addRoutineBundleToCart();
+                  }
+                }
+              }
+            </script>
+          {%- else -%}
+            <button 
+              type="button" 
+              class="btn-primary btn-atc-olive" 
+              style="padding: 1.1rem 2rem;" 
+              onclick="addRoutineBundleToCart()">
+              {{ section.settings.bundle_btn_text | default: 'Aggiungi la Routine Completa al Carrello (-15%) &rarr;' }}
+            </button>
+          {%- endif -%}
         </div>
       </div>
     {%- endif -%}
@@ -294,39 +403,44 @@
       "default": true
     },
     {
+      "type": "product",
+      "id": "bundle_product",
+      "label": "Prodotto Bundle Shopify (Opzionale: seleziona il prodotto set/cofanetto)"
+    },
+    {
       "type": "text",
       "id": "bundle_badge",
-      "label": "Badge Bundle",
+      "label": "Badge Superiore",
       "default": "OFFERTA SET ESCLUSIVO"
     },
     {
       "type": "text",
       "id": "bundle_title",
-      "label": "Titolo Bundle",
+      "label": "Titolo Offerta",
       "default": "Acquista i 3 Step Insieme • Sconto 15% Immediato"
     },
     {
       "type": "textarea",
       "id": "bundle_desc",
-      "label": "Descrizione Bundle",
+      "label": "Descrizione e Omaggi",
       "default": "Include Cofanetto Regalo Milebiolab FSC, 3 Campioncini Omaggio e Check-up della pelle gratuito in Istituto a Verona."
     },
     {
       "type": "text",
       "id": "bundle_compare_price",
-      "label": "Prezzo Originale Barrato",
+      "label": "Prezzo di Listino Barrato",
       "default": "€ 208,00"
     },
     {
       "type": "text",
       "id": "bundle_price",
-      "label": "Prezzo Scontato Bundle",
+      "label": "Prezzo Finale Scontato",
       "default": "€ 176,80"
     },
     {
       "type": "text",
       "id": "bundle_btn_text",
-      "label": "Testo Pulsante Bundle",
+      "label": "Testo Pulsante Carrello",
       "default": "Aggiungi la Routine Completa al Carrello (-15%) →"
     }
   ],
