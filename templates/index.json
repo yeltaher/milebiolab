@@ -17,7 +17,7 @@
         "subtitle": "Ispirato alla clinica. Approvato dagli artisti.",
         "description": "Una formula esclusiva a base di botanica alpina viva e fitocomplessi bio-compatibili. Trattamenti formulati secondo rigorosi standard dermatologici a Verona, unendo l'efficacia clinica e la purezza sensoriale dell'alta cosmesi.",
         "btn_1_text": "ACQUISTA PRODOTTI PER LA CURA DELLA PELLE",
-        "btn_1_url": "",
+        "btn_1_url": "shopify://collections",
         "btn_2_text": "TROVA LA TUA ROUTINE",
         "btn_2_url": "",
         "card_brand": "MILE",
@@ -72,6 +72,7 @@
     },
     "before-after": {
       "type": "before-after",
+      "disabled": true,
       "settings": {
         "tag": "EFFICACIA CLINICAMENTE TESTATA",
         "title": "Risultati Visibili",
