@@ -24,6 +24,7 @@
       "header": {
         "type": "header",
         "settings": {
+          "show_announcement": false,
           "menu": "",
           "announcement_text": "Ottieni il 15% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50",
           "brand_name": "MILE",
@@ -37,7 +38,10 @@
           "newsletter_title": "Unisciti al Club Mile",
           "newsletter_desc": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice MILE15, anteprime botaniche e inviti per l'Istituto a Verona.",
           "address": "Corso Cavour 18, 37121 Verona (VR)",
-          "phone": "+39 045 800 1234"
+          "phone": "+39 045 800 1234",
+          "menu_1": "",
+          "menu_2": "",
+          "menu_bottom": ""
         }
       },
       "sub-header": {
