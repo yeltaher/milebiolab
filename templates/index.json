@@ -82,6 +82,55 @@
     },
     "collections-list": {
       "type": "collections-list",
+      "blocks": {
+        "collection_card_1": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cura della pelle",
+            "description": "Formule avanzate per nutrire, proteggere e rivitalizzare il derma.",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_2": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Trucco",
+            "description": "Texture biomimetiche per esaltare la bellezza naturale con finish seta.",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_3": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cura dei capelli",
+            "description": "Trattamenti botanici mirati per la cute e per donare corpo e luminosità.",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_4": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cura del corpo",
+            "description": "Balsami e oli trasformativi per una sensorialità da spa quotidiana.",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_5": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Strumenti",
+            "description": "Accessori di precisione per massaggio facciale e applicazione professionale.",
+            "button_text": "Scopri"
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_1",
+        "collection_card_2",
+        "collection_card_3",
+        "collection_card_4",
+        "collection_card_5"
+      ],
       "settings": {
         "tag": "ESPLORA LE COLLEZIONI",
         "title": "L'Architettura della Bellezza",

@@ -10,77 +10,150 @@
 
     <!-- 5 Pill Cards Sagomate ad Arco in Cima (rounded-t-full) con Sfondo #EFECE6 -->
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-6">
-      
-      <!-- Pill 1: Cura della pelle -->
-      <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
-        <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
-          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" 
-               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-               alt="Cura della pelle" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
-        </div>
-        <div>
-          <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Cura della pelle</h3>
-          <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Formule avanzate per nutrire, proteggere e rivitalizzare il derma.</p>
-          <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
-        </div>
-      </a>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign col = collections[block.settings.collection] -%}
 
-      <!-- Pill 2: Trucco -->
-      <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
-        <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
-          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" 
-               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-               alt="Trucco" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
-        </div>
-        <div>
-          <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Trucco</h3>
-          <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Texture biomimetiche per esaltare la bellezza naturale con finish seta.</p>
-          <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
-        </div>
-      </a>
+          {%- assign card_url = block.settings.url -%}
+          {%- if card_url == blank and col != blank and col.url != blank -%}
+            {%- assign card_url = col.url -%}
+          {%- endif -%}
+          {%- if card_url == blank -%}
+            {%- assign card_url = '/collections/all' -%}
+          {%- endif -%}
 
-      <!-- Pill 3: Cura dei capelli -->
-      <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
-        <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
-          <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80" 
-               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-               alt="Cura dei capelli" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
-        </div>
-        <div>
-          <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Cura dei capelli</h3>
-          <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Trattamenti botanici mirati per la cute e per donare corpo e luminosità.</p>
-          <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
-        </div>
-      </a>
+          {%- assign card_title = block.settings.title -%}
+          {%- if card_title == blank and col != blank and col.title != blank -%}
+            {%- assign card_title = col.title -%}
+          {%- endif -%}
+          {%- if card_title == blank -%}
+            {%- assign card_title = 'Nome Collezione' -%}
+          {%- endif -%}
 
-      <!-- Pill 4: Cura del corpo -->
-      <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
-        <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
-          <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" 
-               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-               alt="Cura del corpo" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
-        </div>
-        <div>
-          <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Cura del corpo</h3>
-          <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Balsami e oli trasformativi per una sensorialità da spa quotidiana.</p>
-          <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
-        </div>
-      </a>
+          {%- assign card_desc = block.settings.description -%}
+          {%- if card_desc == blank and col != blank and col.description != blank -%}
+            {%- assign card_desc = col.description | strip_html | truncate: 120 -%}
+          {%- endif -%}
+          {%- if card_desc == blank -%}
+            {%- assign card_desc = 'Descrizione...' -%}
+          {%- endif -%}
 
-      <!-- Pill 5: Strumenti & Cabina -->
-      <a href="/collections/all" class="pill-card group col-span-2 sm:col-span-1 lg:col-span-1 max-w-[240px] sm:max-w-none mx-auto w-full flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
-        <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
-          <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=400&q=80" 
-               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-               alt="Strumenti" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
-        </div>
-        <div>
-          <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Strumenti</h3>
-          <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Accessori di precisione per massaggio facciale e applicazione professionale.</p>
-          <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
-        </div>
-      </a>
+          {%- assign card_btn = block.settings.button_text | default: 'Scopri' -%}
 
+          {%- assign card_image = '' -%}
+          {%- if block.settings.image != blank -%}
+            {%- assign card_image = block.settings.image | image_url: width: 600 -%}
+          {%- elsif col != blank and col.featured_image != blank -%}
+            {%- assign card_image = col.featured_image | image_url: width: 600 -%}
+          {%- elsif col != blank and col.image != blank -%}
+            {%- assign card_image = col.image | image_url: width: 600 -%}
+          {%- else -%}
+            {%- case forloop.index -%}
+              {%- when 1 -%}
+                {%- assign card_image = 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80' -%}
+              {%- when 2 -%}
+                {%- assign card_image = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80' -%}
+              {%- when 3 -%}
+                {%- assign card_image = 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80' -%}
+              {%- when 4 -%}
+                {%- assign card_image = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80' -%}
+              {%- when 5 -%}
+                {%- assign card_image = 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=400&q=80' -%}
+              {%- else -%}
+                {%- assign card_image = 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80' -%}
+            {%- endcase -%}
+          {%- endif -%}
+
+          {%- assign is_odd_last = forloop.index | modulo: 2 -%}
+          <a href="{{ card_url }}" 
+             class="pill-card group {% if forloop.last and is_odd_last == 1 %}col-span-2 sm:col-span-1 lg:col-span-1 max-w-[240px] sm:max-w-none mx-auto w-full {% endif %}flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all"
+             {{ block.shopify_attributes }}>
+            <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+              <img src="{{ card_image }}" 
+                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                   alt="{{ card_title | escape }}" 
+                   class="w-full h-full object-cover transition-transform duration-500 rounded-t-full"
+                   loading="lazy">
+            </div>
+            <div>
+              <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">{{ card_title }}</h3>
+              <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">{{ card_desc }}</p>
+              <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">{{ card_btn }} &rarr;</span>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- HARDCODED FALLBACK ORIGINALE -->
+        <!-- Pill 1: Cura della pelle -->
+        <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
+          <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Cura della pelle" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
+          </div>
+          <div>
+            <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Cura della pelle</h3>
+            <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Formule avanzate per nutrire, proteggere e rivitalizzare il derma.</p>
+            <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Pill 2: Trucco -->
+        <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
+          <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Trucco" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
+          </div>
+          <div>
+            <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Trucco</h3>
+            <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Texture biomimetiche per esaltare la bellezza naturale con finish seta.</p>
+            <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Pill 3: Cura dei capelli -->
+        <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
+          <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+            <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Cura dei capelli" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
+          </div>
+          <div>
+            <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Cura dei capelli</h3>
+            <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Trattamenti botanici mirati per la cute e per donare corpo e luminosità.</p>
+            <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Pill 4: Cura del corpo -->
+        <a href="/collections/all" class="pill-card group flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
+          <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+            <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Cura del corpo" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
+          </div>
+          <div>
+            <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Cura del corpo</h3>
+            <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Balsami e oli trasformativi per una sensorialità da spa quotidiana.</p>
+            <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Pill 5: Strumenti & Cabina -->
+        <a href="/collections/all" class="pill-card group col-span-2 sm:col-span-1 lg:col-span-1 max-w-[240px] sm:max-w-none mx-auto w-full flex flex-col justify-between bg-[#EFECE6] border border-[#E5E0D8] rounded-t-full p-3.5 sm:p-5 text-center hover:border-[#1A1A1A] hover:shadow-xl transition-all">
+          <div class="aspect-[3/4] w-full flex items-center justify-center p-2.5 sm:p-3 mb-3 sm:mb-4 overflow-hidden rounded-t-full bg-[#E5E0D8]/40">
+            <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=400&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                 alt="Strumenti" class="w-full h-full object-cover transition-transform duration-500 rounded-t-full">
+          </div>
+          <div>
+            <h3 class="font-serif text-base sm:text-lg font-semibold text-[#1A1A1A] group-hover:text-[#C8A878] transition-colors mb-1">Strumenti</h3>
+            <p class="text-[11px] sm:text-xs text-[#7A7265] leading-relaxed font-light line-clamp-2 sm:line-clamp-none">Accessori di precisione per massaggio facciale e applicazione professionale.</p>
+            <span class="inline-block mt-2 sm:mt-3 text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-[#1A1A1A] border-b border-[#1A1A1A]/30 group-hover:border-[#1A1A1A] group-hover:text-[#C8A878] transition-all">Scopri &rarr;</span>
+          </div>
+        </a>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -108,10 +181,94 @@
       "default": "Cinque universi sartoriali dedicati al benessere integrale del derma."
     }
   ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Scheda Collezione",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collezione Shopify (Opzionale)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Immagine Personalizzata"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Personalizzato",
+          "info": "Lascia vuoto per usare il titolo della collezione"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrizione",
+          "info": "Lascia vuoto per usare la descrizione della collezione"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link Personalizzato",
+          "info": "Sovrascrive il link della collezione"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Testo Link",
+          "default": "Scopri"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Collections List Mile",
-      "category": "Collections"
+      "category": "Collections",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cura della pelle",
+            "description": "Formule avanzate per nutrire, proteggere e rivitalizzare il derma.",
+            "button_text": "Scopri"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Trucco",
+            "description": "Texture biomimetiche per esaltare la bellezza naturale con finish seta.",
+            "button_text": "Scopri"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cura dei capelli",
+            "description": "Trattamenti botanici mirati per la cute e per donare corpo e luminosità.",
+            "button_text": "Scopri"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cura del corpo",
+            "description": "Balsami e oli trasformativi per una sensorialità da spa quotidiana.",
+            "button_text": "Scopri"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Strumenti",
+            "description": "Accessori di precisione per massaggio facciale e applicazione professionale.",
+            "button_text": "Scopri"
+          }
+        }
+      ]
     }
   ]
 }
