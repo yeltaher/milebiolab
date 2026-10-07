@@ -27,31 +27,43 @@
 
       <!-- Col 2: Collezioni Mile -->
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Collezioni</h4>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">{{ linklists[section.settings.menu_1].title | default: 'Collezioni' }}</h4>
         <ul class="space-y-2.5 text-xs text-[#7A7265]">
-          <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Tutte le Formule Botaniche</a></li>
-          <li><a href="/collections" class="hover:text-[#C8A878] transition-colors block">Linee &amp; Cofanetti Regalo</a></li>
-          <li><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors block font-medium text-[#1A1A1A]">Golden Glow Body Oil ★</a></li>
-          <li><a href="#skin-quiz" onclick="if(window.openSkinQuiz) openSkinQuiz();" class="hover:text-[#5C6B56] transition-colors block text-[#5C6B56] font-semibold">&star; Skin Routine Finder Quiz</a></li>
-          <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">I Bestseller Viso &amp; Corpo</a></li>
-          <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Sieri &amp; Concentrati Dalton</a></li>
+          {% if section.settings.menu_1 != blank %}
+            {% for link in linklists[section.settings.menu_1].links %}
+              <li><a href="{{ link.url }}" class="hover:text-[#C8A878] transition-colors block">{{ link.title }}</a></li>
+            {% endfor %}
+          {% else %}
+            <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Tutte le Formule Botaniche</a></li>
+            <li><a href="/collections" class="hover:text-[#C8A878] transition-colors block">Linee &amp; Cofanetti Regalo</a></li>
+            <li><a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors block font-medium text-[#1A1A1A]">Golden Glow Body Oil ★</a></li>
+            <li><a href="#skin-quiz" onclick="if(window.openSkinQuiz) openSkinQuiz();" class="hover:text-[#5C6B56] transition-colors block text-[#5C6B56] font-semibold">&star; Skin Routine Finder Quiz</a></li>
+            <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">I Bestseller Viso &amp; Corpo</a></li>
+            <li><a href="/collections/all" class="hover:text-[#C8A878] transition-colors block">Sieri &amp; Concentrati Dalton</a></li>
+          {% endif %}
         </ul>
       </div>
 
       <!-- Col 3: Istituto & Concierge Verona -->
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Istituto &amp; Concierge</h4>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">{{ linklists[section.settings.menu_2].title | default: 'Istituto &amp; Concierge' }}</h4>
         <div class="space-y-2 text-xs text-[#7A7265] font-light">
           <p><strong class="text-[#1A1A1A] font-medium">Boutique Corso Cavour 18</strong>, 37121 Verona</p>
           <p>Tel Concierge: <a href="tel:+390458001234" class="text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors">+39 045 800 1234</a></p>
           <p>Orari: Lun &ndash; Sab: 09:30 &ndash; 19:30</p>
           <div class="pt-2 space-y-1.5 border-t border-[#E5E0D8]/60">
-            <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">I 5 Trattamenti Cabina &rarr;</a>
-            <a href="#filosofia" class="block hover:text-[#C8A878] transition-colors">Milena Tacchella &amp; Filosofia</a>
-            <a href="/pages/contatti" class="block hover:text-[#C8A878] transition-colors">Contatti &amp; WhatsApp Diretto</a>
-            <a href="/pages/faq" class="block hover:text-[#C8A878] transition-colors">Domande Frequenti &amp; FAQ</a>
-            <a href="/account" class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
-            <a href="/pages/ritiro-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#5C6B56] transition-colors text-[#5C6B56] font-medium">Ritiro Pronto in 2 Ore a Verona</a>
+            {% if section.settings.menu_2 != blank %}
+              {% for link in linklists[section.settings.menu_2].links %}
+                <a href="{{ link.url }}" class="block hover:text-[#C8A878] transition-colors">{{ link.title }}</a>
+              {% endfor %}
+            {% else %}
+              <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">I 5 Trattamenti Cabina &rarr;</a>
+              <a href="#filosofia" class="block hover:text-[#C8A878] transition-colors">Milena Tacchella &amp; Filosofia</a>
+              <a href="/pages/contatti" class="block hover:text-[#C8A878] transition-colors">Contatti &amp; WhatsApp Diretto</a>
+              <a href="/pages/faq" class="block hover:text-[#C8A878] transition-colors">Domande Frequenti &amp; FAQ</a>
+              <a href="/account" class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
+              <a href="/pages/ritiro-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#5C6B56] transition-colors text-[#5C6B56] font-medium">Ritiro Pronto in 2 Ore a Verona</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -91,12 +103,18 @@
     <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-[#7A7265] font-light gap-4">
       <p>&copy; {{ 'now' | date: '%Y' }} MILE &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
       <div class="flex flex-wrap gap-5 text-xs">
-        <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
-        <a href="/collections/all" class="hover:text-[#1A1A1A] transition-colors">Catalogo</a>
-        <a href="/pages/privacy-policy" class="hover:text-[#1A1A1A] transition-colors">Privacy</a>
-        <a href="/pages/termini-e-condizioni" class="hover:text-[#1A1A1A] transition-colors">Termini</a>
-        <a href="/pages/spedizioni" class="hover:text-[#1A1A1A] transition-colors">Spedizioni</a>
-        <a href="/pages/cookie-policy" class="hover:text-[#1A1A1A] transition-colors">Cookie</a>
+        {% if section.settings.menu_bottom != blank %}
+          {% for link in linklists[section.settings.menu_bottom].links %}
+            <a href="{{ link.url }}" class="hover:text-[#1A1A1A] transition-colors">{{ link.title }}</a>
+          {% endfor %}
+        {% else %}
+          <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
+          <a href="/collections/all" class="hover:text-[#1A1A1A] transition-colors">Catalogo</a>
+          <a href="/pages/privacy-policy" class="hover:text-[#1A1A1A] transition-colors">Privacy</a>
+          <a href="/pages/termini-e-condizioni" class="hover:text-[#1A1A1A] transition-colors">Termini</a>
+          <a href="/pages/spedizioni" class="hover:text-[#1A1A1A] transition-colors">Spedizioni</a>
+          <a href="/pages/cookie-policy" class="hover:text-[#1A1A1A] transition-colors">Cookie</a>
+        {% endif %}
       </div>
     </div>
 
@@ -130,6 +148,21 @@
       "id": "phone",
       "label": "Telefono Assistenza",
       "default": "+39 045 800 1234"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu Colonna 2 (Collezioni)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu Colonna 3 (Istituto)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_bottom",
+      "label": "Menu Bottom (Legale)"
     }
   ]
 }

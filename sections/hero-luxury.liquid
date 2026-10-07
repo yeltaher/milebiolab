@@ -36,7 +36,7 @@
       <!-- Asymmetric Editorial Portrait Column -->
       <div class="hero-portrait-wrapper">
         <img 
-          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=85" 
+          src="{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1000 }}{% else %}https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=85{% endif %}" 
           alt="Trattamento Viso Cosmeceutico Milebiolab Verona" 
           class="hero-portrait-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
 
@@ -94,6 +94,11 @@
       "id": "btn_secondary_text",
       "label": "Testo CTA Secondaria",
       "default": "📍 Ritiro Gratuito a Verona in 2h"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Immagine Ritratto"
     }
   ],
   "presets": [

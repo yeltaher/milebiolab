@@ -26,7 +26,7 @@
       <div class="lg:col-span-5 relative">
         <div class="aspect-[4/3] overflow-hidden border border-[#E5E0D8] bg-white">
           <img 
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
+            src="{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | image_url: width: 800 }}{% else %}https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80{% endif %}" 
             alt="Consulenza e Diagnosi Pelle Visia Milebiolab" 
             class="w-full h-full object-cover" 
             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
@@ -61,6 +61,11 @@
       "id": "subtitle",
       "label": "Sottotitolo",
       "default": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Immagine di Sfondo"
     }
   ],
   "presets": [
