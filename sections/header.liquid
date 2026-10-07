@@ -9,28 +9,14 @@
 
 <!-- Services Bar -->
 <div class="hidden md:flex justify-between items-center px-8 lg:px-16 py-2 border-b border-[#E5E0D8] text-xs tracking-widest uppercase text-[#7A7265] bg-white/70 backdrop-blur-sm">
-  <div class="flex gap-6 items-center">
-    <a href="/pages/traccia-ordine" class="hover:text-[#1A1A1A] transition-colors flex items-center gap-1.5">
-      <span class="text-[#5C6B56]">●</span> Traccia ordine
-    </a>
-    <span class="text-[#DDD7CE]">|</span>
-    <a href="/pages/community" class="hover:text-[#1A1A1A] transition-colors">Community</a>
-    <span class="text-[#DDD7CE]">|</span>
+  <div class="flex items-center">
     <span class="text-[#1A1A1A] font-medium flex items-center gap-1 cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
       <svg class="w-3.5 h-3.5 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-      Ritiro in sede Verona — Corso Cavour 18 (Pronto in 2h)
+      Ritiro in sede Verona
     </span>
   </div>
-  <div class="flex gap-6 items-center">
+  <div class="flex items-center">
     <button type="button" onclick="if(window.openWishlistDrawer) openWishlistDrawer();" class="hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer text-xs uppercase tracking-widest text-[#7A7265]">Lista Desideri</button>
-    <span class="text-[#DDD7CE]">|</span>
-    <a href="/account" class="hover:text-[#1A1A1A] transition-colors">Accedi</a>
-    <span class="text-[#DDD7CE]">|</span>
-    <button type="button" onclick="if(window.openCartDrawer) openCartDrawer();" class="flex items-center gap-1.5 hover:text-[#1A1A1A] font-semibold text-[#1A1A1A] bg-transparent border-0 cursor-pointer text-xs tracking-widest uppercase">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-      <span>Carrello</span>
-      <span class="cart-count-badge bg-[#1A1A1A] text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full">{{ cart.item_count }}</span>
-    </button>
   </div>
 </div>
 
