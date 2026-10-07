@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "ticker-marquee": {
+      "type": "ticker-marquee",
+      "settings": {
+        "item_1": "✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE",
+        "item_2": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA",
+        "item_3": "✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE",
+        "item_4": "✦ CONSULENZA PERSONALIZZATA IN CABINA",
+        "item_5": "✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI"
+      }
+    },
     "hero-splendor": {
       "type": "hero-splendor",
       "settings": {
@@ -82,6 +92,34 @@
     },
     "collections-list": {
       "type": "collections-list",
+      "blocks": {
+        "collection_card_6b8WLW": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "box-ritual",
+            "image": "shopify://shop_images/Hyaluronic_moisture_Infusion_duo_Longevity_Face_Mile_02.jpg",
+            "title": "Idee Regalo",
+            "description": "Regala questo box a chi ami di più",
+            "url": "shopify://collections/box-ritual",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_FjjDNT": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/1790438526030.png",
+            "title": "Cura del Viso",
+            "description": "Scopri i prodotti per la cura del viso",
+            "url": "shopify://collections/frontpage",
+            "button_text": "Scopri"
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_6b8WLW",
+        "collection_card_FjjDNT"
+      ],
       "settings": {
         "tag": "ESPLORA LE COLLEZIONI",
         "title": "L'Architettura della Bellezza",
@@ -112,16 +150,6 @@
         "tag": "DIAGNOSI CUTANEA DIGITALE SARTORIALE",
         "title": "Trova il Tuo Rituale Su Misura in 2 Minuti",
         "subtitle": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
-      }
-    },
-    "ticker-marquee": {
-      "type": "ticker-marquee",
-      "settings": {
-        "item_1": "✦ RITIRO IN ISTITUTO A VERONA IN 2 ORE",
-        "item_2": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA",
-        "item_3": "✦ 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE",
-        "item_4": "✦ CONSULENZA PERSONALIZZATA IN CABINA",
-        "item_5": "✦ 100% INGREDIENTI BIOLOGICI BIO-CERTIFICATI"
       }
     }
   },
