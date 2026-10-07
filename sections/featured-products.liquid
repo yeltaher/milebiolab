@@ -20,39 +20,61 @@
 
     <!-- Products Slider / Grid -->
     <div class="w-full lg:w-2/3">
+      {%- liquid
+        assign aspect_ratio_class = 'aspect-[4/5]'
+        if section.settings.card_aspect_ratio == '1/1'
+          assign aspect_ratio_class = 'aspect-square'
+        elsif section.settings.card_aspect_ratio == '3/4'
+          assign aspect_ratio_class = 'aspect-[3/4]'
+        endif
+
+        assign image_fit_class = 'object-contain'
+        assign image_padding_class = 'p-2'
+        if section.settings.image_fit == 'cover'
+          assign image_fit_class = 'object-cover'
+          assign image_padding_class = ''
+        endif
+      -%}
+
       <div class="flex gap-6 overflow-x-auto slider-no-scrollbar pb-6 pt-1">
         
         {% assign feat_collection = collections[section.settings.collection] %}
         {% if feat_collection != blank and feat_collection.products.size > 0 %}
           {% for product in feat_collection.products limit: 4 %}
-            <div class="min-w-[280px] w-[280px] flex-shrink-0 group bg-white p-4 border border-[#DDD7CE] hover:shadow-lg transition-all">
-              <a href="{{ product.url }}" class="block relative aspect-[3/4] mb-4 overflow-hidden bg-[#F5F2EB]">
-                {% if forloop.first %}
-                  <span class="absolute top-2 left-2 z-10 bg-[#1A1A1A] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">Iconico</span>
-                {% else %}
-                  <span class="absolute top-2 left-2 z-10 bg-[#5C6B56] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">Bestseller</span>
-                {% endif %}
-                <img src="{{ product.featured_image | image_url: width: 800 }}" 
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                     class="w-full h-full object-cover transition-transform duration-700" alt="{{ product.title | escape }}">
-                <div class="absolute bottom-0 left-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity flex justify-center">
-                  <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ product.selected_or_first_available_variant.id }}', 1);} else if(window.addToCart){addToCart({id: '{{ product.id }}', title: '{{ product.title | escape }}', price: {{ product.price | divided_by: 100.0 }}, volume: '100 ml', qty: 1, image: '{{ product.featured_image | image_url: width: 400 }}'});}" class="text-[10px] uppercase tracking-widest bg-white text-[#1A1A1A] px-4 py-2 font-medium hover:bg-[#C8A878] hover:text-white transition-colors w-full text-center">
-                    Acquisto Rapido
-                  </button>
+            <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <a href="{{ product.url }}" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+                  {% if forloop.first %}
+                    <span class="absolute top-2.5 left-2.5 z-10 bg-[#1A1A1A] text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold shadow-sm">Iconico</span>
+                  {% else %}
+                    <span class="absolute top-2.5 left-2.5 z-10 bg-[#5C6B56] text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold shadow-sm">Bestseller</span>
+                  {% endif %}
+                  <img src="{{ product.featured_image | image_url: width: 800 }}" 
+                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                       class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105" 
+                       alt="{{ product.title | escape }}"
+                       loading="lazy">
+                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
+                    <button type="button" 
+                            onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('{{ product.selected_or_first_available_variant.id }}', 1);} else if(window.addToCart){addToCart({id: '{{ product.id }}', title: '{{ product.title | escape }}', price: {{ product.price | divided_by: 100.0 }}, volume: '100 ml', qty: 1, image: '{{ product.featured_image | image_url: width: 400 }}'});}" 
+                            class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
+                      Acquisto Rapido
+                    </button>
+                  </div>
+                </a>
+                <div class="flex justify-between items-start mb-1 gap-2">
+                  <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
+                    <a href="{{ product.url }}" class="hover:text-[#C8A878] transition-colors line-clamp-2">{{ product.title }}</a>
+                  </h3>
+                  <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">{{ product.price | money }}</span>
                 </div>
-              </a>
-              <div class="flex justify-between items-start mb-1">
-                <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
-                  <a href="{{ product.url }}" class="hover:text-[#C8A878] transition-colors">{{ product.title }}</a>
-                </h3>
-                <span class="text-sm font-semibold text-[#1A1A1A]">{{ product.price | money }}</span>
+                <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type | default: 'Trattamento Biomimetico' }}</p>
+                <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
+                  <span>★★★★★</span>
+                  <span class="text-[#7A7265] font-sans text-[11px]">4.92 ({{ forloop.index | times: 28 | plus: 65 }})</span>
+                </div>
               </div>
-              <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type | default: 'Trattamento Biomimetico' }}</p>
-              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-                <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">4.92 ({{ forloop.index | times: 28 | plus: 65 }})</span>
-              </div>
-              <div class="flex items-center justify-between pt-2 border-t border-[#F5F2EB]">
+              <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
                 <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">Formula Clinica</span>
                 <div class="w-3.5 h-3.5 rounded-full bg-[#C8A878] border border-[#DDD7CE]"></div>
               </div>
@@ -60,112 +82,144 @@
           {% endfor %}
         {% else %}
           <!-- Product 1: Golden Glow Body Oil -->
-          <div class="min-w-[280px] w-[280px] flex-shrink-0 group bg-white p-4 border border-[#DDD7CE] hover:shadow-lg transition-all">
-            <a href="/products/golden-glow-body-oil" class="block relative aspect-[3/4] mb-4 overflow-hidden bg-[#F5F2EB]">
-              <span class="absolute top-2 left-2 z-10 bg-[#1A1A1A] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">Iconico PDP</span>
-              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80" 
-                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                   class="w-full h-full object-cover transition-transform duration-700" alt="Golden Glow Body Oil">
-              <div class="absolute bottom-0 left-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity flex justify-center">
-                <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('1', 1);} else if(window.addToCart){addToCart({id: 1, title: 'Golden Glow Body Oil', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80'});}" class="text-[10px] uppercase tracking-widest bg-white text-[#1A1A1A] px-4 py-2 font-medium hover:bg-[#C8A878] hover:text-white transition-colors w-full text-center">Acquisto Rapido</button>
+          <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+                <span class="absolute top-2.5 left-2.5 z-10 bg-[#1A1A1A] text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold shadow-sm">Iconico PDP</span>
+                <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                     class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105" 
+                     alt="Golden Glow Body Oil"
+                     loading="lazy">
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
+                  <button type="button" 
+                          onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('1', 1);} else if(window.addToCart){addToCart({id: 1, title: 'Golden Glow Body Oil', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80'});}" 
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
+                    Acquisto Rapido
+                  </button>
+                </div>
+              </a>
+              <div class="flex justify-between items-start mb-1 gap-2">
+                <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
+                  <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Golden Glow Body Oil</a>
+                </h3>
+                <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 76,00</span>
               </div>
-            </a>
-            <div class="flex justify-between items-start mb-1">
-              <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
-                <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Golden Glow Body Oil</a>
-              </h3>
-              <span class="text-sm font-semibold text-[#1A1A1A]">€ 76,00</span>
+              <p class="text-xs text-[#7A7265] mb-2 italic">Balsamo trasformante per il corpo</p>
+              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
+                <span>★★★★★</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">4.91 (142)</span>
+              </div>
             </div>
-            <p class="text-xs text-[#7A7265] mb-2 italic">Balsamo trasformante per il corpo</p>
-            <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-              <span>★★★★★</span>
-              <span class="text-[#7A7265] font-sans text-[11px]">4.91 (142)</span>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-[#F5F2EB]">
+            <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">100 ml / Clinico</span>
               <div class="w-3.5 h-3.5 rounded-full bg-[#C8A878] border border-[#DDD7CE]" title="Oro Ambrato"></div>
             </div>
           </div>
 
           <!-- Product 2: Crema Rigenerante -->
-          <div class="min-w-[280px] w-[280px] flex-shrink-0 group bg-white p-4 border border-[#DDD7CE] hover:shadow-lg transition-all">
-            <a href="/products/golden-glow-body-oil" class="block relative aspect-[3/4] mb-4 overflow-hidden bg-[#F5F2EB]">
-              <span class="absolute top-2 left-2 z-10 bg-[#5C6B56] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">Best-seller Viso</span>
-              <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80" 
-                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                   class="w-full h-full object-cover transition-transform duration-700" alt="Crema Rigenerante Cellulare">
-              <div class="absolute bottom-0 left-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity flex justify-center">
-                <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('2', 1);} else if(window.addToCart){addToCart({id: 2, title: 'Crema Rigenerante Supreme', price: 84.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80'});}" class="text-[10px] uppercase tracking-widest bg-white text-[#1A1A1A] px-4 py-2 font-medium hover:bg-[#C8A878] hover:text-white transition-colors w-full text-center">Acquisto Rapido</button>
+          <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+                <span class="absolute top-2.5 left-2.5 z-10 bg-[#5C6B56] text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold shadow-sm">Best-seller Viso</span>
+                <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                     class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105" 
+                     alt="Crema Rigenerante Cellulare"
+                     loading="lazy">
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
+                  <button type="button" 
+                          onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('2', 1);} else if(window.addToCart){addToCart({id: 2, title: 'Crema Rigenerante Supreme', price: 84.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80'});}" 
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
+                    Acquisto Rapido
+                  </button>
+                </div>
+              </a>
+              <div class="flex justify-between items-start mb-1 gap-2">
+                <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
+                  <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Crema Rigenerante</a>
+                </h3>
+                <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 84,00</span>
               </div>
-            </a>
-            <div class="flex justify-between items-start mb-1">
-              <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
-                <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Crema Rigenerante</a>
-              </h3>
-              <span class="text-sm font-semibold text-[#1A1A1A]">€ 84,00</span>
+              <p class="text-xs text-[#7A7265] mb-2 italic">Emulsione idratante biomimetica</p>
+              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
+                <span>★★★★★</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">4.95 (98)</span>
+              </div>
             </div>
-            <p class="text-xs text-[#7A7265] mb-2 italic">Emulsione idratante biomimetica</p>
-            <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-              <span>★★★★★</span>
-              <span class="text-[#7A7265] font-sans text-[11px]">4.95 (98)</span>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-[#F5F2EB]">
+            <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">50 ml / Rigenerante</span>
               <div class="w-3.5 h-3.5 rounded-full bg-[#F3EDE4] border border-[#DDD7CE]" title="Crema Seta"></div>
             </div>
           </div>
 
           <!-- Product 3: Siero Botanico Notte -->
-          <div class="min-w-[280px] w-[280px] flex-shrink-0 group bg-white p-4 border border-[#DDD7CE] hover:shadow-lg transition-all">
-            <a href="/products/golden-glow-body-oil" class="block relative aspect-[3/4] mb-4 overflow-hidden bg-[#F5F2EB]">
-              <span class="absolute top-2 left-2 z-10 bg-[#C8A878] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">Concentrato</span>
-              <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=80" 
-                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                   class="w-full h-full object-cover transition-transform duration-700" alt="Siero Botanico Notte">
-              <div class="absolute bottom-0 left-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity flex justify-center">
-                <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('3', 1);} else if(window.addToCart){addToCart({id: 3, title: 'Siero Botanico Notte', price: 110.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80'});}" class="text-[10px] uppercase tracking-widest bg-white text-[#1A1A1A] px-4 py-2 font-medium hover:bg-[#C8A878] hover:text-white transition-colors w-full text-center">Acquisto Rapido</button>
+          <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+                <span class="absolute top-2.5 left-2.5 z-10 bg-[#C8A878] text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold shadow-sm">Concentrato</span>
+                <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=80" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                     class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105" 
+                     alt="Siero Botanico Notte"
+                     loading="lazy">
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
+                  <button type="button" 
+                          onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('3', 1);} else if(window.addToCart){addToCart({id: 3, title: 'Siero Botanico Notte', price: 110.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80'});}" 
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
+                    Acquisto Rapido
+                  </button>
+                </div>
+              </a>
+              <div class="flex justify-between items-start mb-1 gap-2">
+                <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
+                  <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Siero Botanico Notte</a>
+                </h3>
+                <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 110,00</span>
               </div>
-            </a>
-            <div class="flex justify-between items-start mb-1">
-              <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
-                <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Siero Botanico Notte</a>
-              </h3>
-              <span class="text-sm font-semibold text-[#1A1A1A]">€ 110,00</span>
+              <p class="text-xs text-[#7A7265] mb-2 italic">Elisir intensivo antiossidante</p>
+              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
+                <span>★★★★★</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">5.00 (65)</span>
+              </div>
             </div>
-            <p class="text-xs text-[#7A7265] mb-2 italic">Elisir intensivo antiossidante</p>
-            <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-              <span>★★★★★</span>
-              <span class="text-[#7A7265] font-sans text-[11px]">5.00 (65)</span>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-[#F5F2EB]">
+            <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">30 ml / Notturno</span>
               <div class="w-3.5 h-3.5 rounded-full bg-[#4A3B32] border border-[#DDD7CE]" title="Ambra Scura"></div>
             </div>
           </div>
 
           <!-- Product 4: Detergente Delicato -->
-          <div class="min-w-[280px] w-[280px] flex-shrink-0 group bg-white p-4 border border-[#DDD7CE] hover:shadow-lg transition-all">
-            <a href="/products/golden-glow-body-oil" class="block relative aspect-[3/4] mb-4 overflow-hidden bg-[#F5F2EB]">
-              <span class="absolute top-2 left-2 z-10 bg-[#1A1A1A] text-white text-[9px] uppercase tracking-widest px-2.5 py-1">Fase 1</span>
-              <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80" 
-                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                   class="w-full h-full object-cover transition-transform duration-700" alt="Detergente Delicato">
-              <div class="absolute bottom-0 left-0 w-full p-3 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity flex justify-center">
-                <button type="button" onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('4', 1);} else if(window.addToCart){addToCart({id: 4, title: 'Detergente Delicato', price: 38.00, volume: '200 ml', qty: 1, image: 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80'});}" class="text-[10px] uppercase tracking-widest bg-white text-[#1A1A1A] px-4 py-2 font-medium hover:bg-[#C8A878] hover:text-white transition-colors w-full text-center">Acquisto Rapido</button>
+          <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+                <span class="absolute top-2.5 left-2.5 z-10 bg-[#1A1A1A] text-white text-[9px] uppercase tracking-widest px-2.5 py-1 font-semibold shadow-sm">Fase 1</span>
+                <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
+                     class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105" 
+                     alt="Detergente Delicato"
+                     loading="lazy">
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
+                  <button type="button" 
+                          onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('4', 1);} else if(window.addToCart){addToCart({id: 4, title: 'Detergente Delicato', price: 38.00, volume: '200 ml', qty: 1, image: 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80'});}" 
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
+                    Acquisto Rapido
+                  </button>
+                </div>
+              </a>
+              <div class="flex justify-between items-start mb-1 gap-2">
+                <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
+                  <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Detergente Delicato</a>
+                </h3>
+                <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 38,00</span>
               </div>
-            </a>
-            <div class="flex justify-between items-start mb-1">
-              <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
-                <a href="/products/golden-glow-body-oil" class="hover:text-[#C8A878] transition-colors">Detergente Delicato</a>
-              </h3>
-              <span class="text-sm font-semibold text-[#1A1A1A]">€ 38,00</span>
+              <p class="text-xs text-[#7A7265] mb-2 italic">Gel purificante con idrolato di rosa</p>
+              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
+                <span>★★★★★</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">4.88 (112)</span>
+              </div>
             </div>
-            <p class="text-xs text-[#7A7265] mb-2 italic">Gel purificante con idrolato di rosa</p>
-            <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-              <span>★★★★★</span>
-              <span class="text-[#7A7265] font-sans text-[11px]">4.88 (112)</span>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-[#F5F2EB]">
+            <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">200 ml / Quotidiano</span>
               <div class="w-3.5 h-3.5 rounded-full bg-[#EAE6DF] border border-[#DDD7CE]" title="Trasparente Limpido"></div>
             </div>
@@ -215,6 +269,46 @@
       "type": "url",
       "id": "link_url",
       "label": "URL Link"
+    },
+    {
+      "type": "header",
+      "content": "Stile Card Prodotto"
+    },
+    {
+      "type": "select",
+      "id": "card_aspect_ratio",
+      "label": "Proporzioni Box Immagine",
+      "options": [
+        {
+          "value": "4/5",
+          "label": "4:5 (Armonioso - Consigliato)"
+        },
+        {
+          "value": "1/1",
+          "label": "1:1 (Quadrato)"
+        },
+        {
+          "value": "3/4",
+          "label": "3:4 (Verticale classico)"
+        }
+      ],
+      "default": "4/5"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Adattamento Immagine",
+      "options": [
+        {
+          "value": "contain",
+          "label": "Contain (Intera senza tagli / No distorsione)"
+        },
+        {
+          "value": "cover",
+          "label": "Cover (Riempimento completo)"
+        }
+      ],
+      "default": "contain"
     }
   ],
   "presets": [
