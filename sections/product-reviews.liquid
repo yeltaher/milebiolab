@@ -1,0 +1,254 @@
+    <section id="reviews" class="py-20 bg-white border-y border-borderLinen">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            {% if section.blocks.size >= 5 %}
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16 pb-12 border-b border-borderLinen">
+                
+                <!-- Overall Rating Score Box -->
+                <div class="lg:col-span-4 text-center lg:text-left lg:border-r border-borderLinen lg:pr-12">
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">VALUTAZIONI CLIENTELA ELITE</span>
+                    <div class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ section.settings.overall_score }}</div>
+                    <div class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
+                    <p class="text-xs text-ash">Basato su {{ section.settings.total_reviews }} recensioni certificate da acquirenti reali</p>
+                    <div class="mt-4 inline-block bg-linen px-3 py-1.5 text-xs text-sage font-medium border border-borderLinen">
+                        98% delle clienti riacquista entro 60 giorni
+                    </div>
+                </div>
+
+                <!-- Star Distribution Bars -->
+                <div class="lg:col-span-8 space-y-2 text-xs">
+                    
+                    <div class="flex items-center gap-4">
+                        <span class="w-16 text-ash">5 Stelle</span>
+                        <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                            <div class="bg-ink h-full rounded-full" style="width: {{ section.settings.pct_5 }}%;"></div>
+                        </div>
+                        <span class="w-12 text-right font-medium text-ink">{{ section.settings.pct_5 }}%</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span class="w-16 text-ash">4 Stelle</span>
+                        <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                            <div class="bg-ink/60 h-full rounded-full" style="width: {{ section.settings.pct_4 }}%;"></div>
+                        </div>
+                        <span class="w-12 text-right font-medium text-ink">{{ section.settings.pct_4 }}%</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span class="w-16 text-ash">3 Stelle</span>
+                        <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                            <div class="bg-ink/40 h-full rounded-full" style="width: {{ section.settings.pct_3 }}%;"></div>
+                        </div>
+                        <span class="w-12 text-right font-medium text-ink">{{ section.settings.pct_3 }}%</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span class="w-16 text-ash">2 Stelle</span>
+                        <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                            <div class="bg-ink/20 h-full rounded-full" style="width: {{ section.settings.pct_2 }}%;"></div>
+                        </div>
+                        <span class="w-12 text-right font-medium text-ink">{{ section.settings.pct_2 }}%</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span class="w-16 text-ash">1 Stella</span>
+                        <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                            <div class="bg-ink/20 h-full rounded-full" style="width: {{ section.settings.pct_1 }}%;"></div>
+                        </div>
+                        <span class="w-12 text-right font-medium text-ink">{{ section.settings.pct_1 }}%</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Dynamic Reviews -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for block in section.blocks %}
+                <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between" {{ block.shopify_attributes }}>
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="text-amber text-xs">
+                                {% for i in (1..block.settings.rating) %}&starf;{% endfor %}
+                            </div>
+                            <span class="text-[10px] text-ash">{{ block.settings.date }}</span>
+                        </div>
+                        <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.title }}</h4>
+                        <p class="text-xs text-ash leading-relaxed font-light">
+                            &ldquo;{{ block.settings.text }}&rdquo;
+                        </p>
+                    </div>
+                    <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
+                        <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                        <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquirente Verificato</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Leave a Review Form -->
+            <div class="mt-16 pt-12 border-t border-borderLinen">
+                <div class="max-w-2xl mx-auto text-center">
+                    <span class="text-xs uppercase tracking-[0.25em] text-ink font-semibold block mb-4">Lascia una recensione</span>
+                    
+                    {% if customer %}
+                        {% form 'contact', id: 'ProductReviewForm', class: 'space-y-4 text-left' %}
+                            <input type="hidden" name="contact[type]" value="review">
+                            <input type="hidden" name="contact[product]" value="{{ product.title }}">
+                            <input type="hidden" name="contact[email]" value="{{ customer.email }}">
+                            <input type="hidden" name="contact[name]" value="{{ customer.name }}">
+                            {{ form.errors | default_errors }}
+                            
+                            {% if form.posted_successfully? %}
+                                <div class="bg-sage/10 text-sage p-4 text-xs text-center border border-sage/20 mb-4">
+                                    Grazie per la tua recensione! Sarà visibile dopo l'approvazione.
+                                </div>
+                            {% endif %}
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] uppercase tracking-wider text-ash mb-1">Titolo</label>
+                                    <input type="text" name="contact[title]" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] uppercase tracking-wider text-ash mb-1">Valutazione (1-5)</label>
+                                    <select name="contact[rating]" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
+                                        <option value="5">5 Stelle</option>
+                                        <option value="4">4 Stelle</option>
+                                        <option value="3">3 Stelle</option>
+                                        <option value="2">2 Stelle</option>
+                                        <option value="1">1 Stella</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] uppercase tracking-wider text-ash mb-1">Recensione</label>
+                                <textarea name="contact[body]" rows="4" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required></textarea>
+                            </div>
+                            <div class="text-center mt-6">
+                                <button type="submit" class="bg-black text-white px-8 py-3 text-[10px] uppercase tracking-[0.2em] hover:bg-[#222222] transition-colors luxury-interactive">Invia Recensione</button>
+                            </div>
+                        {% endform %}
+                    {% else %}
+                        <div class="bg-linen p-8 border border-borderLinen text-center">
+                            <p class="text-xs text-ash mb-4">Accedi per condividere la tua esperienza con le altre clienti.</p>
+                            <a href="{{ routes.account_login_url }}" class="inline-block border border-ink text-ink px-8 py-3 text-[10px] uppercase tracking-[0.2em] hover:bg-ink hover:text-white transition-colors luxury-interactive">Accedi o Registrati</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% schema %}
+{
+  "name": "Recensioni Clientela",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overall_score",
+      "label": "Punteggio Medio",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "total_reviews",
+      "label": "Numero Totale Recensioni",
+      "default": "142"
+    },
+    {
+      "type": "range",
+      "id": "pct_5",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Percentuale 5 Stelle",
+      "default": 92
+    },
+    {
+      "type": "range",
+      "id": "pct_4",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Percentuale 4 Stelle",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "pct_3",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Percentuale 3 Stelle",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "pct_2",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Percentuale 2 Stelle",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "pct_1",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Percentuale 1 Stella",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Recensione",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Autore",
+          "default": "Nome Cognome"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Data",
+          "default": "12 Maggio 2026"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Valutazione (Stelle)",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Recensione",
+          "default": "Ottimo prodotto"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testo Recensione",
+          "default": "Scrivi qui la recensione..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recensioni Prodotto"
+    }
+  ]
+}
+{% endschema %}
