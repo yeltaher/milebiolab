@@ -54,7 +54,7 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "collection": "corpo-pure-performance",
+        "collection": "frontpage",
         "tag": "I NOSTRI BESTSELLER",
         "title": "Di tendenza",
         "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
