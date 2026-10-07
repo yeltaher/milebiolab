@@ -66,7 +66,7 @@
     "routine-steps": {
       "type": "routine-steps",
       "blocks": {
-        "step_1": {
+        "step_WLHWGF": {
           "type": "step",
           "settings": {
             "product": "",
@@ -76,43 +76,36 @@
             "product_subtitle": "Camomilla Bio & Fieno Greco"
           }
         },
-        "step_2": {
+        "step_k6FJaL": {
           "type": "step",
           "settings": {
             "product": "",
-            "tag": "FASE 2 • NUTRIZIONE PROFONDA",
-            "title": "CONCENTRATE",
-            "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
-            "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato"
+            "tag": "FASE 1 • PURIFICAZIONE",
+            "title": "RESET",
+            "description": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.",
+            "product_subtitle": "Camomilla Bio & Fieno Greco"
           }
         },
-        "step_3": {
+        "step_cL8ALR": {
           "type": "step",
           "settings": {
             "product": "",
-            "tag": "FASE 3 • SCUDO PROTETTIVO",
-            "title": "HYDRATE",
-            "description": "Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.",
-            "product_subtitle": "Staminali Stella Alpina & Jojoba Bio"
+            "tag": "FASE 1 • PURIFICAZIONE",
+            "title": "RESET",
+            "description": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.",
+            "product_subtitle": "Camomilla Bio & Fieno Greco"
           }
         }
       },
       "block_order": [
-        "step_1",
-        "step_2",
-        "step_3"
+        "step_WLHWGF",
+        "step_k6FJaL",
+        "step_cL8ALR"
       ],
       "settings": {
         "tag": "IL PROTOCOLLO ESSENZIALE",
         "title": "La tua routine, semplificata",
-        "subtitle": "Tre gesti essenziali in perfetta sequenza biomimetica (01 Pulisci, 02 Tratta, 03 Idrata). Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea.",
-        "show_bundle": true,
-        "bundle_badge": "OFFERTA SET ESCLUSIVO",
-        "bundle_title": "Acquista i 3 Step Insieme • Sconto 15% Immediato",
-        "bundle_desc": "Include Cofanetto Regalo Milebiolab FSC, 3 Campioncini Omaggio e Check-up della pelle gratuito in Istituto a Verona.",
-        "bundle_compare_price": "€ 208,00",
-        "bundle_price": "€ 176,80",
-        "bundle_btn_text": "Aggiungi la Routine Completa al Carrello (-15%) →"
+        "subtitle": "Tre gesti essenziali in perfetta sequenza biomimetica (01 Pulisci, 02 Tratta, 03 Idrata). Attivi botanici puri calibrati per risvegliare, rimpolpare e sigillare la barriera cutanea."
       }
     },
     "ugc-gallery": {
