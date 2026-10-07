@@ -47,40 +47,64 @@
       "sub-header": {
         "type": "sub-header",
         "blocks": {
-          "sub_header_category_1": {
+          "category_link_EV477V": {
             "type": "category_link",
             "settings": {
-              "title": "CORPO / PURE PERFORMANCE",
-              "url": "/collections/all"
+              "title": "VISO",
+              "url": "shopify://collections/frontpage"
+            }
+          },
+          "category_link_Mnk3QG": {
+            "type": "category_link",
+            "settings": {
+              "title": "PROTEZIONE SOLARE",
+              "url": "shopify://collections/protezione-solare-pure-performance"
+            }
+          },
+          "category_link_HULFD9": {
+            "type": "category_link",
+            "settings": {
+              "title": "CAPELLI",
+              "url": "shopify://collections/cute-e-capelli-prodotti"
             }
           },
           "sub_header_category_2": {
             "type": "category_link",
             "settings": {
-              "title": "PRESERVAGE",
-              "url": "/collections/all"
+              "title": "UNICHO 21",
+              "url": "shopify://collections/unicho-21-prodotti"
             }
           },
-          "sub_header_category_3": {
+          "sub_header_category_1": {
             "type": "category_link",
             "settings": {
-              "title": "PROTEZIONE SOLARE",
-              "url": "/collections/all"
+              "title": "CORPO",
+              "url": "shopify://collections/corpo-pure-performance"
             }
           },
           "sub_header_category_4": {
             "type": "category_link",
             "settings": {
-              "title": "UNICHO 21",
-              "url": "/collections/all"
+              "title": "TRUCCO",
+              "url": "shopify://collections/preservage-prodotti"
+            }
+          },
+          "sub_header_category_3": {
+            "type": "category_link",
+            "settings": {
+              "title": "BOX RITUALI",
+              "url": "shopify://collections/box-ritual"
             }
           }
         },
         "block_order": [
-          "sub_header_category_1",
+          "category_link_EV477V",
+          "category_link_Mnk3QG",
+          "category_link_HULFD9",
           "sub_header_category_2",
-          "sub_header_category_3",
-          "sub_header_category_4"
+          "sub_header_category_1",
+          "sub_header_category_4",
+          "sub_header_category_3"
         ],
         "settings": {
           "sub_menu": "main-menu"
