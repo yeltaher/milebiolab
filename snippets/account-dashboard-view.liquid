@@ -253,7 +253,7 @@
                           {%- endif -%}
                         </p>
                       </div>
-                      <a href="{% if block.settings.product != blank %}{{ block.settings.product.url }}{% else %}{{ block.settings.link }}{% endif %}" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
+                      <a href="{% if block.settings.product != blank %}{{ block.settings.product.url }}{% else %}{{ block.settings.link | default: "/collections/all" }}{% endif %}" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
                     </div>
                   {%- endif -%}
                 {%- endfor -%}
@@ -302,7 +302,7 @@
                     <p class="text-xs text-[#7A7265] max-w-lg leading-relaxed">{{ block.settings.description }}</p>
                   </div>
                   <a
-                    href="{{ block.settings.cta_url }}"
+                    href="{{ block.settings.cta_url | default: "https://wa.me/390458001234" }}"
                     target="_blank"
                     class="px-5 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0 text-center"
                   >
