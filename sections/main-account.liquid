@@ -1,274 +1,388 @@
-﻿{% comment %}
-  MILEBIOLAB - TEMPLATE CUSTOMER ACCOUNT DASHBOARD
-  Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
+{% comment %}
+  MILEBIOLAB - TEMPLATE SEZIONE ACCOUNT CUSTOMER OS 2.0
+  Usa lo snippet riutilizzabile account-dashboard-view.liquid con schema completo OS 2.0
 {% endcomment %}
 
-<div class="customer-account-wrapper min-h-[75vh] py-10 md:py-14 px-4 sm:px-6 lg:px-8 bg-linen">
-  <div class="max-w-6xl mx-auto">
-    
-    <!-- Breadcrumb & Top Bar -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-      <nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-ash">
-        <a href="{{ routes.root_url }}" class="hover:text-ink transition-colors">Home</a>
-        <span class="text-sand">/</span>
-        <span class="text-ink font-semibold">Club Mile &bull; Dashboard</span>
-      </nav>
-
-      <a
-        href="{{ routes.account_logout_url }}"
-        class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-ash hover:text-ink transition-colors font-medium self-start sm:self-auto"
-      >
-        <svg class="w-4 h-4 text-ash" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-        <span>Disconnetti</span>
-      </a>
-    </div>
-
-    <!-- MEMBER HERO PROFILE CARD -->
-    <div class="bg-white border border-borderLinen p-6 sm:p-8 lg:p-10 mb-10 shadow-sm relative overflow-hidden">
-      <div class="absolute -right-16 -top-16 w-60 h-60 bg-amber/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        
-        <!-- Left: Initials Avatar & Member Details -->
-        <div class="flex items-center gap-5">
-          <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#FAF8F5] border border-amber/50 flex items-center justify-center text-xl sm:text-2xl font-serif text-amber font-semibold shadow-inner shrink-0">
-            {% assign initial_first = customer.first_name | slice: 0 | default: 'M' | upcase %}
-            {% assign initial_last = customer.last_name | slice: 0 | default: 'L' | upcase %}
-            {{ initial_first }}{{ initial_last }}
-          </div>
-          
-          <div>
-            <div class="flex flex-wrap items-center gap-3">
-              <h1 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-ink font-normal">
-                Bentornato, {{ customer.first_name | default: customer.name }}
-              </h1>
-              <span class="inline-block px-2.5 py-0.5 text-[10px] uppercase font-bold tracking-widest bg-amber/15 text-ink border border-amber/30">
-                Membro Club Privilège
-              </span>
-            </div>
-            
-            <p class="text-xs text-ash mt-1.5 flex flex-wrap items-center gap-2">
-              <span>{{ customer.email }}</span>
-              <span class="text-sand hidden sm:inline">&bull;</span>
-              <span class="flex items-center gap-1 text-sage font-medium">
-                <span class="w-1.5 h-1.5 rounded-full bg-sage inline-block"></span>
-                Sede Privilegiata: Corso Cavour 18, Verona
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <!-- Right: Privilege Club Highlights -->
-        <div class="flex items-center gap-4 bg-[#FAF8F5] border border-borderLinen p-4 shrink-0">
-          <div>
-            <div class="text-[10px] uppercase tracking-wider text-ash font-medium">Vantaggi Attivi</div>
-            <div class="text-lg sm:text-xl font-serif font-semibold text-ink">
-              Ritiro Verona <span class="text-xs font-sans text-sage font-normal">2 Ore</span>
-            </div>
-            <div class="text-[11px] text-amber font-medium">10% Sconto Benvenuto &bull; Codice MILE10</div>
-          </div>
-          <div class="w-px h-10 bg-borderLinen"></div>
-          <a
-            href="{{ routes.all_products_collection_url | default: '/collections/all' }}"
-            class="px-3.5 py-2.5 bg-ink text-white hover:bg-sage text-[10px] uppercase tracking-widest font-semibold transition-colors shrink-0"
-          >
-            Esplora Formule
-          </a>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- MAIN DASHBOARD CONTENT: 2 COLUMNS (ORDERS HISTORY & ACCOUNT DETAILS) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      
-      <!-- LEFT SECTION (8 COLS): Storico Ordini Recenti -->
-      <div class="lg:col-span-8 space-y-6">
-        
-        <div class="bg-white border border-borderLinen p-6 sm:p-8 shadow-sm">
-          <div class="flex items-center justify-between pb-5 border-b border-borderLinen mb-6">
-            <div>
-              <h2 class="font-serif text-2xl text-ink font-normal">I Miei Ordini</h2>
-              <p class="text-xs text-ash mt-0.5">Storico degli acquisti e stato delle spedizioni.</p>
-            </div>
-            <span class="text-xs font-mono px-2.5 py-1 bg-[#FAF8F5] border border-borderLinen text-ash">
-              {{ customer.orders.size }} Ordini Totali
-            </span>
-          </div>
-
-          {% paginate customer.orders by 10 %}
-            {% if customer.orders.size != 0 %}
-              
-              <!-- Orders Table (Desktop) / Cards (Mobile) -->
-              <div class="space-y-4">
-                {% for order in customer.orders %}
-                  <div class="border border-borderLinen hover:border-amber transition-colors p-5 bg-[#FAF8F5]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    
-                    <div class="space-y-1">
-                      <div class="flex items-center gap-3">
-                        <a href="{{ order.customer_url }}" class="font-mono text-sm font-bold text-ink hover:text-amber underline underline-offset-4">
-                          {{ order.name }}
-                        </a>
-                        <!-- Financial Status Badge -->
-                        {% case order.financial_status %}
-                          {% when 'paid' %}
-                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#E8F0E5] text-[#2D5A27] border border-[#C5DDC0]">Pagato</span>
-                          {% when 'pending' %}
-                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#FFF4E5] text-[#A66200] border border-[#F6D8AE]">In Attesa</span>
-                          {% else %}
-                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-linen text-ash border border-borderLinen">{{ order.financial_status_label }}</span>
-                        {% endcase %}
-
-                        <!-- Fulfillment Status Badge -->
-                        {% case order.fulfillment_status %}
-                          {% when 'fulfilled' %}
-                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#E8F0E5] text-[#2D5A27] border border-[#C5DDC0]">Spedito / Consegnato</span>
-                          {% else %}
-                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-linen text-ash border border-borderLinen">{{ order.fulfillment_status_label }}</span>
-                        {% endcase %}
-                      </div>
-
-                      <div class="text-xs text-ash flex items-center gap-2">
-                        <span>Effettuato il {{ order.created_at | date: "%d/%m/%Y" }}</span>
-                        <span>&bull;</span>
-                        <span>{{ order.line_items.size }} {% if order.line_items.size == 1 %}articolo{% else %}articoli{% endif %}</span>
-                      </div>
-                    </div>
-
-                    <div class="flex items-center justify-between sm:justify-end gap-5 pt-3 sm:pt-0 border-t sm:border-t-0 border-borderLinen">
-                      <div class="text-right">
-                        <span class="text-[10px] uppercase tracking-wider text-ash block">Totale</span>
-                        <span class="font-mono text-base font-bold text-ink">{{ order.total_price | money }}</span>
-                      </div>
-
-                      <a
-                        href="{{ order.customer_url }}"
-                        class="px-4 py-2 border border-ink text-ink hover:bg-ink hover:text-white text-xs uppercase tracking-widest font-semibold transition-colors"
-                      >
-                        Dettaglio &rarr;
-                      </a>
-                    </div>
-
-                  </div>
-                {% endfor %}
-              </div>
-
-              <!-- Pagination -->
-              {% if paginate.pages > 1 %}
-                <div class="mt-8 pt-6 border-t border-borderLinen flex items-center justify-center gap-2 text-xs">
-                  {% if paginate.previous %}
-                    <a href="{{ paginate.previous.url }}" class="px-3 py-1.5 border border-borderLinen text-ink hover:bg-linen">&larr; Precedente</a>
-                  {% endif %}
-                  <span class="px-3 py-1.5 text-ash">Pagina {{ paginate.current_page }} di {{ paginate.pages }}</span>
-                  {% if paginate.next %}
-                    <a href="{{ paginate.next.url }}" class="px-3 py-1.5 border border-borderLinen text-ink hover:bg-linen">Successiva &rarr;</a>
-                  {% endif %}
-                </div>
-              {% endif %}
-
-            {% else %}
-              
-              <!-- Luxury Empty State -->
-              <div class="text-center py-12 px-4 border border-dashed border-borderLinen bg-[#FAF8F5]">
-                <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-linen border border-borderLinen flex items-center justify-center text-sage">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                </div>
-                <h3 class="font-serif text-xl text-ink mb-2">Nessun Ordine Effettuato</h3>
-                <p class="text-xs sm:text-sm text-ash max-w-md mx-auto mb-6 leading-relaxed">
-                  Non hai ancora completato alcun ordine con questo profilo. Esplora le formulazioni Team Dr Joseph e Splendor per iniziare la tua routine botanica su misura.
-                </p>
-                <a
-                  href="{{ routes.all_products_collection_url | default: '/collections/all' }}"
-                  class="inline-block bg-ink hover:bg-sage text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold transition-colors"
-                >
-                  Inizia lo Shopping Botanico &rarr;
-                </a>
-              </div>
-
-            {% endif %}
-          {% endpaginate %}
-
-        </div>
-
-      </div>
-
-      <!-- RIGHT SECTION (4 COLS): Account Details, Default Address & Verona Services -->
-      <div class="lg:col-span-4 space-y-6">
-        
-        <!-- Primary Address Box -->
-        <div class="bg-white border border-borderLinen p-6 sm:p-8 shadow-sm">
-          <div class="flex items-center justify-between pb-4 border-b border-borderLinen mb-4">
-            <h3 class="font-serif text-xl text-ink font-normal">Indirizzo Predefinito</h3>
-            <span class="text-sage text-xs font-semibold">📍 Spedizione</span>
-          </div>
-
-          {% if customer.default_address %}
-            <div class="text-xs sm:text-sm text-ash leading-relaxed mb-6 space-y-1">
-              <p class="font-semibold text-ink text-sm">
-                {{ customer.default_address.first_name }} {{ customer.default_address.last_name }}
-              </p>
-              {% if customer.default_address.company != blank %}
-                <p>{{ customer.default_address.company }}</p>
-              {% endif %}
-              <p>{{ customer.default_address.address1 }}</p>
-              {% if customer.default_address.address2 != blank %}
-                <p>{{ customer.default_address.address2 }}</p>
-              {% endif %}
-              <p>{{ customer.default_address.city }}, {{ customer.default_address.zip }}</p>
-              <p>{{ customer.default_address.country }}</p>
-              {% if customer.default_address.phone != blank %}
-                <p class="pt-1 text-ink font-mono">{{ customer.default_address.phone }}</p>
-              {% endif %}
-            </div>
-          {% else %}
-            <p class="text-xs text-ash mb-6 leading-relaxed">
-              Non hai ancora salvato un indirizzo di spedizione predefinito nel tuo profilo.
-            </p>
-          {% endif %}
-
-          <a
-            href="{{ routes.account_addresses_url }}"
-            class="block w-full text-center py-3 border border-ink text-ink hover:bg-ink hover:text-white text-xs uppercase tracking-widest font-semibold transition-colors"
-          >
-            Gestisci Rubrica ({{ customer.addresses_count }}) &rarr;
-          </a>
-        </div>
-
-        <!-- Exclusive Verona Flagship Box -->
-        <div class="bg-[#FAF8F5] border border-borderLinen p-6 shadow-sm">
-          <span class="text-[10px] font-mono tracking-widest uppercase text-sage block mb-2">Istituto &bull; Flagship Verona</span>
-          <h4 class="font-serif text-lg text-ink mb-2">Ritiro Esclusivo in Sede</h4>
-          <p class="text-xs text-ash leading-relaxed mb-4">
-            Puoi selezionare il ritiro gratuito in sede a Verona al momento del checkout. Il tuo ordine sarà preparato con cura entro 2 ore con campioncini deluxe omaggio.
-          </p>
-
-          <div class="space-y-2 text-xs border-t border-borderLinen pt-4 text-ink">
-            <div class="flex items-center gap-2">
-              <span class="text-sage">📍</span>
-              <span>Corso Cavour, 18 &bull; 37121 Verona</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-amber">🕒</span>
-              <span>Lun &ndash; Sab: 09:30 &ndash; 19:30</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-sage">💬</span>
-              <span>Concierge WhatsApp: +39 045 800 1234</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
+{% render 'account-dashboard-view' %}
 
 {% schema %}
 {
   "name": "Account Cliente",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "✨ Hero Card & Impostazioni Generali"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Testo Badge Hero",
+      "default": "Club Mile Privilège"
+    },
+    {
+      "type": "text",
+      "id": "hero_tagline",
+      "label": "Sottotitolo Sede",
+      "default": "Sede Privilegiata: Corso Cavour 18, Verona"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_coupon_box",
+      "label": "Mostra Box Coupon Riservato",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Codice Sconto",
+      "default": "MILE10"
+    },
+    {
+      "type": "text",
+      "id": "coupon_label",
+      "label": "Etichetta Coupon",
+      "default": "Codice Riservato 10%"
+    },
+    {
+      "type": "text",
+      "id": "coupon_cta_text",
+      "label": "Testo Pulsante CTA Coupon",
+      "default": "Esplora Formule"
+    },
+    {
+      "type": "url",
+      "id": "coupon_cta_url",
+      "label": "Link Pulsante CTA Coupon",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "🌿 Passaporto Botanico & Livello Fedeltà (VIP Tier)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_loyalty_passport",
+      "label": "Mostra Passaporto Botanico",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "loyalty_tier_name",
+      "label": "Nome Livello Fedeltà",
+      "default": "Livello: Oro Botanico"
+    },
+    {
+      "type": "text",
+      "id": "loyalty_points",
+      "label": "Testo Punti Fedeltà",
+      "default": "270 Punti Fedeltà Attivi"
+    },
+    {
+      "type": "range",
+      "id": "loyalty_progress_percent",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Percentuale Avanzamento VIP",
+      "default": 75
+    },
+    {
+      "type": "textarea",
+      "id": "loyalty_next_reward",
+      "label": "Testo Prossimo Premio / Traguardo",
+      "default": "A soli 30 punti dal Trattamento Cutaneo Visia Omaggio in Cabina a Verona"
+    },
+    {
+      "type": "header",
+      "content": "📦 Sezione I Miei Ordini"
+    },
+    {
+      "type": "text",
+      "id": "orders_title",
+      "label": "Titolo Sezione Ordini",
+      "default": "I Miei Ordini Recenti"
+    },
+    {
+      "type": "text",
+      "id": "orders_subtitle",
+      "label": "Sottotitolo Sezione Ordini",
+      "default": "Storico degli acquisti e stato delle spedizioni botaniche."
+    },
+    {
+      "type": "text",
+      "id": "empty_orders_title",
+      "label": "Titolo Stato Vuoto Ordini",
+      "default": "Nessun ordine effettuato"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_orders_desc",
+      "label": "Descrizione Stato Vuoto Ordini",
+      "default": "Il tuo percorso di bellezza botanica non ha ancora registrato ordini. Inizia oggi con i nostri protocolli raccomandati."
+    },
+    {
+      "type": "text",
+      "id": "empty_orders_cta",
+      "label": "Testo Pulsante Stato Vuoto",
+      "default": "Inizia lo Shopping Botanico →"
+    },
+    {
+      "type": "header",
+      "content": "🔬 Sezione Protocolli & Consulenza Personalizzata"
+    },
+    {
+      "type": "text",
+      "id": "protocols_badge",
+      "label": "Badge Protocolli",
+      "default": "Consulenza Personalizzata"
+    },
+    {
+      "type": "text",
+      "id": "protocols_title",
+      "label": "Titolo Protocolli",
+      "default": "I Tuoi Protocolli Consigliati"
+    },
+    {
+      "type": "header",
+      "content": "🏛️ Sezione Boutique & Flagship Verona"
+    },
+    {
+      "type": "text",
+      "id": "flagship_title",
+      "label": "Titolo Flagship",
+      "default": "Flagship & Istituto Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "flagship_desc",
+      "label": "Descrizione Flagship",
+      "default": "Vieni a trovarci nel nostro Istituto Botanico in Corso Cavour 18 a Verona per una consulenza cutanea con lampada Wood e ritiro immediato degli ordini in 2 ore."
+    },
+    {
+      "type": "text",
+      "id": "flagship_address",
+      "label": "Indirizzo Flagship",
+      "default": "Corso Cavour 18 • 37121 Verona"
+    },
+    {
+      "type": "text",
+      "id": "flagship_hours",
+      "label": "Orari Flagship",
+      "default": "Lun – Sab: 09:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "flagship_whatsapp_number",
+      "label": "Numero WhatsApp visibile",
+      "default": "+39 045 800 1234"
+    },
+    {
+      "type": "url",
+      "id": "flagship_whatsapp_link",
+      "label": "Link Chat WhatsApp Concierge",
+      "default": "https://wa.me/390458001234"
+    },
+    {
+      "type": "header",
+      "content": "✨ Sezione Privilegi Fedeltà"
+    },
+    {
+      "type": "text",
+      "id": "privileges_title",
+      "label": "Titolo Privilegi",
+      "default": "I Tuoi Privilegi Attivi"
+    },
+    {
+      "type": "header",
+      "content": "👤 Schermata Guest (Utente Non Autenticato)"
+    },
+    {
+      "type": "text",
+      "id": "guest_badge",
+      "label": "Badge Guest",
+      "default": "Area Riservata Club Mile"
+    },
+    {
+      "type": "text",
+      "id": "guest_title",
+      "label": "Titolo Guest",
+      "default": "Benvenuto nel Club"
+    },
+    {
+      "type": "textarea",
+      "id": "guest_desc",
+      "label": "Descrizione Guest",
+      "default": "Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privilège."
+    },
+    {
+      "type": "text",
+      "id": "guest_login_btn",
+      "label": "Testo Pulsante Login",
+      "default": "Accedi al Tuo Profilo"
+    },
+    {
+      "type": "text",
+      "id": "guest_register_btn",
+      "label": "Testo Pulsante Registrazione",
+      "default": "Registrati con il 10% di Sconto"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "protocol_card",
+      "name": "Blocco Protocollo Routine",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_tag",
+          "label": "Tag Step",
+          "default": "Step 01 • Detersione"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Nome Protocollo / Prodotto",
+          "default": "Daily Cleansing Milk & Tonic"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrizione",
+          "default": "Latte detergente lenitivo con fieno greco e camomilla bio."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Prodotto Collegato (Opzionale)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link di Approfondimento",
+          "default": "/collections/all"
+        }
+      ]
+    },
+    {
+      "type": "privilege_item",
+      "name": "Blocco Privilegio Fedeltà",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Emoji / Icona",
+          "default": "✨"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testo Privilegio",
+          "default": "10% di sconto continuativo su tutte le formule"
+        }
+      ]
+    },
+    {
+      "type": "experience_card",
+      "name": "Blocco Esperienza in Cabina",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge Esperienza",
+          "default": "Esperienza in Cabina"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Esperienza",
+          "default": "Check-up Cutaneo Digitale Visia"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrizione",
+          "default": "Analisi multispettrale della barriera cutanea riservata ai membri del Club."
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Testo CTA",
+          "default": "Prenota con Concierge"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "URL CTA",
+          "default": "https://wa.me/390458001234"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Cliente",
+      "blocks": [
+        {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 01 • Detersione",
+            "title": "Daily Cleansing Milk",
+            "description": "Latte detergente lenitivo con fieno greco e camomilla bio.",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 02 • Siero",
+            "title": "Intense Hyaluronic Serum",
+            "description": "Siero con 5 pesi molecolari di acido ialuronico puro.",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 03 • Crema",
+            "title": "Supreme Moisture Cream",
+            "description": "Crema cellulare con staminali di stella alpina.",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "✨",
+            "text": "10% di sconto continuativo su tutte le formule"
+          }
+        },
+        {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🌿",
+            "text": "Campioni omaggio deluxe in ogni ordine"
+          }
+        },
+        {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🏛️",
+            "text": "Invito prioritario alle giornate di cabina"
+          }
+        },
+        {
+          "type": "experience_card",
+          "settings": {
+            "badge": "Esperienza in Cabina",
+            "title": "Check-up Cutaneo Digitale Visia",
+            "description": "Analisi multispettrale della barriera cutanea riservata ai membri del Club.",
+            "cta_text": "Prenota con Concierge",
+            "cta_url": "https://wa.me/390458001234"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

@@ -1,8 +1,109 @@
-﻿{
+{
   "sections": {
     "main": {
       "type": "main-account",
-      "settings": {}
+      "settings": {
+        "hero_badge": "Club Mile Privilège",
+        "hero_tagline": "Sede Privilegiata: Corso Cavour 18, Verona",
+        "show_coupon_box": true,
+        "coupon_code": "MILE10",
+        "coupon_label": "Codice Riservato 10%",
+        "coupon_cta_text": "Esplora Formule",
+        "coupon_cta_url": "/collections/all",
+        "show_loyalty_passport": true,
+        "loyalty_tier_name": "Livello: Oro Botanico",
+        "loyalty_points": "270 Punti Fedeltà Attivi",
+        "loyalty_progress_percent": 75,
+        "loyalty_next_reward": "A soli 30 punti dal Trattamento Cutaneo Visia Omaggio in Cabina a Verona",
+        "orders_title": "I Miei Ordini Recenti",
+        "orders_subtitle": "Storico degli acquisti e stato delle spedizioni botaniche.",
+        "empty_orders_title": "Nessun ordine effettuato",
+        "empty_orders_desc": "Il tuo percorso di bellezza botanica non ha ancora registrato ordini. Inizia oggi con i nostri protocolli raccomandati.",
+        "empty_orders_cta": "Inizia lo Shopping Botanico →",
+        "protocols_badge": "Consulenza Personalizzata",
+        "protocols_title": "I Tuoi Protocolli Consigliati",
+        "flagship_title": "Flagship & Istituto Verona",
+        "flagship_desc": "Vieni a trovarci nel nostro Istituto Botanico in Corso Cavour 18 a Verona per una consulenza cutanea con lampada Wood e ritiro immediato degli ordini in 2 ore.",
+        "flagship_address": "Corso Cavour 18 • 37121 Verona",
+        "flagship_hours": "Lun – Sab: 09:30 – 19:30",
+        "flagship_whatsapp_number": "+39 045 800 1234",
+        "flagship_whatsapp_link": "https://wa.me/390458001234",
+        "privileges_title": "I Tuoi Privilegi Attivi",
+        "guest_badge": "Area Riservata Club Mile",
+        "guest_title": "Benvenuto nel Club",
+        "guest_desc": "Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privilège.",
+        "guest_login_btn": "Accedi al Tuo Profilo",
+        "guest_register_btn": "Registrati con il 10% di Sconto"
+      },
+      "blocks": {
+        "protocol_1": {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 01 • Detersione",
+            "title": "Daily Cleansing Milk",
+            "description": "Latte detergente lenitivo con fieno greco e camomilla bio.",
+            "link": "/collections/all"
+          }
+        },
+        "protocol_2": {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 02 • Siero",
+            "title": "Intense Hyaluronic Serum",
+            "description": "Siero con 5 pesi molecolari di acido ialuronico puro.",
+            "link": "/collections/all"
+          }
+        },
+        "protocol_3": {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 03 • Crema",
+            "title": "Supreme Moisture Cream",
+            "description": "Crema cellulare con staminali di stella alpina.",
+            "link": "/collections/all"
+          }
+        },
+        "privilege_1": {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "✨",
+            "text": "10% di sconto continuativo su tutte le formule"
+          }
+        },
+        "privilege_2": {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🌿",
+            "text": "Campioni omaggio deluxe in ogni ordine"
+          }
+        },
+        "privilege_3": {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🏛️",
+            "text": "Invito prioritario alle giornate di cabina"
+          }
+        },
+        "experience_1": {
+          "type": "experience_card",
+          "settings": {
+            "badge": "Esperienza in Cabina",
+            "title": "Check-up Cutaneo Digitale Visia",
+            "description": "Analisi multispettrale della barriera cutanea riservata ai membri del Club.",
+            "cta_text": "Prenota con Concierge",
+            "cta_url": "https://wa.me/390458001234"
+          }
+        }
+      },
+      "block_order": [
+        "protocol_1",
+        "protocol_2",
+        "protocol_3",
+        "privilege_1",
+        "privilege_2",
+        "privilege_3",
+        "experience_1"
+      ]
     }
   },
   "order": [
