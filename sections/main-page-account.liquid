@@ -1,6 +1,6 @@
 {% comment %}
   MILEBIOLAB - TEMPLATE SEZIONE PAGINA ACCOUNT OS 2.0
-  Usa lo snippet riutilizzabile account-dashboard-view.liquid
+  Usa lo snippet riutilizzabile account-dashboard-view.liquid con schema completo OS 2.0
 {% endcomment %}
 
 {% render 'account-dashboard-view' %}
@@ -11,7 +11,377 @@
   "settings": [
     {
       "type": "header",
-      "content": "Impostazioni Dashboard Account OS 2.0"
+      "content": "✨ Hero Card & Impostazioni Generali"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Testo Badge Hero",
+      "default": "Club Mile Privilège"
+    },
+    {
+      "type": "text",
+      "id": "hero_tagline",
+      "label": "Sottotitolo Sede",
+      "default": "Sede Privilegiata: Corso Cavour 18, Verona"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_coupon_box",
+      "label": "Mostra Box Coupon Riservato",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Codice Sconto",
+      "default": "MILE10"
+    },
+    {
+      "type": "text",
+      "id": "coupon_label",
+      "label": "Etichetta Coupon",
+      "default": "Codice Riservato 10%"
+    },
+    {
+      "type": "text",
+      "id": "coupon_cta_text",
+      "label": "Testo Pulsante CTA Coupon",
+      "default": "Esplora Formule"
+    },
+    {
+      "type": "url",
+      "id": "coupon_cta_url",
+      "label": "Link Pulsante CTA Coupon",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "🌿 Passaporto Botanico & Livello Fedeltà (VIP Tier)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_loyalty_passport",
+      "label": "Mostra Passaporto Botanico",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "loyalty_tier_name",
+      "label": "Nome Livello Fedeltà",
+      "default": "Livello: Oro Botanico"
+    },
+    {
+      "type": "text",
+      "id": "loyalty_points",
+      "label": "Testo Punti Fedeltà",
+      "default": "270 Punti Fedeltà Attivi"
+    },
+    {
+      "type": "range",
+      "id": "loyalty_progress_percent",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Percentuale Avanzamento VIP",
+      "default": 75
+    },
+    {
+      "type": "textarea",
+      "id": "loyalty_next_reward",
+      "label": "Testo Prossimo Premio / Traguardo",
+      "default": "A soli 30 punti dal Trattamento Cutaneo Visia Omaggio in Cabina a Verona"
+    },
+    {
+      "type": "header",
+      "content": "📦 Sezione I Miei Ordini"
+    },
+    {
+      "type": "text",
+      "id": "orders_title",
+      "label": "Titolo Sezione Ordini",
+      "default": "I Miei Ordini Recenti"
+    },
+    {
+      "type": "text",
+      "id": "orders_subtitle",
+      "label": "Sottotitolo Sezione Ordini",
+      "default": "Storico degli acquisti e stato delle spedizioni botaniche."
+    },
+    {
+      "type": "text",
+      "id": "empty_orders_title",
+      "label": "Titolo Stato Vuoto Ordini",
+      "default": "Nessun ordine effettuato"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_orders_desc",
+      "label": "Descrizione Stato Vuoto Ordini",
+      "default": "Il tuo percorso di bellezza botanica non ha ancora registrato ordini. Inizia oggi con i nostri protocolli raccomandati."
+    },
+    {
+      "type": "text",
+      "id": "empty_orders_cta",
+      "label": "Testo Pulsante Stato Vuoto",
+      "default": "Inizia lo Shopping Botanico →"
+    },
+    {
+      "type": "header",
+      "content": "🔬 Sezione Protocolli & Consulenza Personalizzata"
+    },
+    {
+      "type": "text",
+      "id": "protocols_badge",
+      "label": "Badge Protocolli",
+      "default": "Consulenza Personalizzata"
+    },
+    {
+      "type": "text",
+      "id": "protocols_title",
+      "label": "Titolo Protocolli",
+      "default": "I Tuoi Protocolli Consigliati"
+    },
+    {
+      "type": "header",
+      "content": "🏛️ Sezione Boutique & Flagship Verona"
+    },
+    {
+      "type": "text",
+      "id": "flagship_title",
+      "label": "Titolo Flagship",
+      "default": "Flagship & Istituto Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "flagship_desc",
+      "label": "Descrizione Flagship",
+      "default": "Vieni a trovarci nel nostro Istituto Botanico in Corso Cavour 18 a Verona per una consulenza cutanea con lampada Wood e ritiro immediato degli ordini in 2 ore."
+    },
+    {
+      "type": "text",
+      "id": "flagship_address",
+      "label": "Indirizzo Flagship",
+      "default": "Corso Cavour 18 • 37121 Verona"
+    },
+    {
+      "type": "text",
+      "id": "flagship_hours",
+      "label": "Orari Flagship",
+      "default": "Lun – Sab: 09:30 – 19:30"
+    },
+    {
+      "type": "text",
+      "id": "flagship_whatsapp_number",
+      "label": "Numero WhatsApp visibile",
+      "default": "+39 045 800 1234"
+    },
+    {
+      "type": "url",
+      "id": "flagship_whatsapp_link",
+      "label": "Link Chat WhatsApp Concierge",
+      "default": "https://wa.me/390458001234"
+    },
+    {
+      "type": "header",
+      "content": "✨ Sezione Privilegi Fedeltà"
+    },
+    {
+      "type": "text",
+      "id": "privileges_title",
+      "label": "Titolo Privilegi",
+      "default": "I Tuoi Privilegi Attivi"
+    },
+    {
+      "type": "header",
+      "content": "👤 Schermata Guest (Utente Non Autenticato)"
+    },
+    {
+      "type": "text",
+      "id": "guest_badge",
+      "label": "Badge Guest",
+      "default": "Area Riservata Club Mile"
+    },
+    {
+      "type": "text",
+      "id": "guest_title",
+      "label": "Titolo Guest",
+      "default": "Benvenuto nel Club"
+    },
+    {
+      "type": "textarea",
+      "id": "guest_desc",
+      "label": "Descrizione Guest",
+      "default": "Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privilège."
+    },
+    {
+      "type": "text",
+      "id": "guest_login_btn",
+      "label": "Testo Pulsante Login",
+      "default": "Accedi al Tuo Profilo"
+    },
+    {
+      "type": "text",
+      "id": "guest_register_btn",
+      "label": "Testo Pulsante Registrazione",
+      "default": "Registrati con il 10% di Sconto"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "protocol_card",
+      "name": "Blocco Protocollo Routine",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_tag",
+          "label": "Tag Step",
+          "default": "Step 01 • Detersione"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Nome Protocollo / Prodotto",
+          "default": "Daily Cleansing Milk & Tonic"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrizione",
+          "default": "Latte detergente lenitivo con fieno greco e camomilla bio."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Prodotto Collegato (Opzionale)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link di Approfondimento",
+          "default": "/collections/all"
+        }
+      ]
+    },
+    {
+      "type": "privilege_item",
+      "name": "Blocco Privilegio Fedeltà",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Emoji / Icona",
+          "default": "✨"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testo Privilegio",
+          "default": "10% di sconto continuativo su tutte le formule"
+        }
+      ]
+    },
+    {
+      "type": "experience_card",
+      "name": "Blocco Esperienza in Cabina",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge Esperienza",
+          "default": "Esperienza in Cabina"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Esperienza",
+          "default": "Check-up Cutaneo Digitale Visia"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrizione",
+          "default": "Analisi multispettrale della barriera cutanea riservata ai membri del Club."
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Testo CTA",
+          "default": "Prenota con Concierge"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "URL CTA",
+          "default": "https://wa.me/390458001234"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Page Account",
+      "blocks": [
+        {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 01 • Detersione",
+            "title": "Daily Cleansing Milk",
+            "description": "Latte detergente lenitivo con fieno greco e camomilla bio.",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 02 • Siero",
+            "title": "Intense Hyaluronic Serum",
+            "description": "Siero con 5 pesi molecolari di acido ialuronico puro.",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 03 • Crema",
+            "title": "Supreme Moisture Cream",
+            "description": "Crema cellulare con staminali di stella alpina.",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "✨",
+            "text": "10% di sconto continuativo su tutte le formule"
+          }
+        },
+        {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🌿",
+            "text": "Campioni omaggio deluxe in ogni ordine"
+          }
+        },
+        {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🏛️",
+            "text": "Invito prioritario alle giornate di cabina"
+          }
+        },
+        {
+          "type": "experience_card",
+          "settings": {
+            "badge": "Esperienza in Cabina",
+            "title": "Check-up Cutaneo Digitale Visia",
+            "description": "Analisi multispettrale della barriera cutanea riservata ai membri del Club.",
+            "cta_text": "Prenota con Concierge",
+            "cta_url": "https://wa.me/390458001234"
+          }
+        }
+      ]
     }
   ]
 }

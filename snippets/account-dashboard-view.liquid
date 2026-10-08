@@ -1,7 +1,49 @@
 {% comment %}
   MILEBIOLAB - SNIPPET ACCOUNT DASHBOARD VIEW (ON-SITE 100%)
   Centralizza l'intera dashboard account bespoke per main-page-account e main-404.liquid
+  Completamente personalizzabile tramite section.settings e section.blocks OS 2.0 (con fallback intelligenti).
 {% endcomment %}
+
+{%- liquid
+  # Fallback settings if rendered outside of section context (e.g. 404 interception)
+  assign hero_badge = section.settings.hero_badge | default: "Club Mile Privilège"
+  assign hero_tagline = section.settings.hero_tagline | default: "Sede Privilegiata: Corso Cavour 18, Verona"
+  assign show_coupon_box = section.settings.show_coupon_box | default: true
+  assign coupon_code = section.settings.coupon_code | default: "MILE10"
+  assign coupon_label = section.settings.coupon_label | default: "Codice Riservato 10%"
+  assign coupon_cta_text = section.settings.coupon_cta_text | default: "Esplora Formule"
+  assign coupon_cta_url = section.settings.coupon_cta_url | default: "/collections/all"
+
+  assign show_loyalty_passport = section.settings.show_loyalty_passport | default: true
+  assign loyalty_tier_name = section.settings.loyalty_tier_name | default: "Livello: Oro Botanico"
+  assign loyalty_points = section.settings.loyalty_points | default: "270 Punti Fedeltà Attivi"
+  assign loyalty_progress_percent = section.settings.loyalty_progress_percent | default: 75
+  assign loyalty_next_reward = section.settings.loyalty_next_reward | default: "A soli 30 punti dal Trattamento Cutaneo Visia Omaggio in Cabina a Verona"
+
+  assign orders_title = section.settings.orders_title | default: "I Miei Ordini Recenti"
+  assign orders_subtitle = section.settings.orders_subtitle | default: "Storico degli acquisti e stato delle spedizioni botaniche."
+  assign empty_orders_title = section.settings.empty_orders_title | default: "Nessun ordine effettuato"
+  assign empty_orders_desc = section.settings.empty_orders_desc | default: "Il tuo percorso di bellezza botanica non ha ancora registrato ordini. Inizia oggi con i nostri protocolli raccomandati."
+  assign empty_orders_cta = section.settings.empty_orders_cta | default: "Inizia lo Shopping Botanico →"
+
+  assign protocols_badge = section.settings.protocols_badge | default: "Consulenza Personalizzata"
+  assign protocols_title = section.settings.protocols_title | default: "I Tuoi Protocolli Consigliati"
+
+  assign flagship_title = section.settings.flagship_title | default: "Flagship & Istituto Verona"
+  assign flagship_desc = section.settings.flagship_desc | default: "Vieni a trovarci nel nostro Istituto Botanico in Corso Cavour 18 a Verona per una consulenza cutanea con lampada Wood e ritiro immediato degli ordini in 2 ore."
+  assign flagship_address = section.settings.flagship_address | default: "Corso Cavour 18 • 37121 Verona"
+  assign flagship_hours = section.settings.flagship_hours | default: "Lun – Sab: 09:30 – 19:30"
+  assign flagship_whatsapp_number = section.settings.flagship_whatsapp_number | default: "+39 045 800 1234"
+  assign flagship_whatsapp_link = section.settings.flagship_whatsapp_link | default: "https://wa.me/390458001234"
+
+  assign privileges_title = section.settings.privileges_title | default: "I Tuoi Privilegi Attivi"
+
+  assign guest_badge = section.settings.guest_badge | default: "Area Riservata Club Mile"
+  assign guest_title = section.settings.guest_title | default: "Benvenuto nel Club"
+  assign guest_desc = section.settings.guest_desc | default: "Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privilège."
+  assign guest_login_btn = section.settings.guest_login_btn | default: "Accedi al Tuo Profilo"
+  assign guest_register_btn = section.settings.guest_register_btn | default: "Registrati con il 10% di Sconto"
+-%}
 
 <div class="min-h-[75vh] py-10 md:py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F2EB]" id="page-account-container">
   <div class="max-w-6xl mx-auto">
@@ -47,7 +89,7 @@
                   Bentornato, <span class="italic text-[#5C6B56]" id="PageAccountGreetingName">{% if customer %}{{ customer.first_name | default: 'Membro Club' }}{% else %}Membro Club{% endif %}</span>
                 </h1>
                 <span class="inline-block px-2.5 py-0.5 text-[10px] uppercase font-bold tracking-widest bg-[#C8A878]/15 text-[#1A1A1A] border border-[#C8A878]/30">
-                  Membro Club Privil&egrave;ge
+                  {{ hero_badge }}
                 </span>
               </div>
 
@@ -56,32 +98,74 @@
                 <span class="text-[#E5E0D8] hidden sm:inline">&bull;</span>
                 <span class="flex items-center gap-1 text-[#5C6B56] font-medium">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56] inline-block"></span>
-                  Sede Privilegiata: Corso Cavour 18, Verona
+                  {{ hero_tagline }}
                 </span>
               </p>
             </div>
           </div>
 
           <!-- Box Coupon & CTA -->
-          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-[#FAF8F5] border border-[#E5E0D8] p-4 shrink-0">
-            <div>
-              <div class="text-[10px] uppercase tracking-wider text-[#7A7265] font-medium">Codice Riservato</div>
-              <div class="flex items-center gap-2 mt-1">
-                <span id="PageAccountCouponCode" class="font-mono text-sm font-bold tracking-widest text-[#1A1A1A] bg-white px-3 py-1 border border-[#E5E0D8]">MILE10</span>
-                <button type="button" onclick="copyDiscountCode('PageAccountCouponCode', this)" class="text-[10px] uppercase tracking-wider bg-[#1A1A1A] hover:bg-[#5C6B56] text-white px-2.5 py-1 font-semibold transition-colors">Copia</button>
+          {% if show_coupon_box %}
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-[#FAF8F5] border border-[#E5E0D8] p-4 shrink-0">
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-[#7A7265] font-medium">{{ coupon_label }}</div>
+                <div class="flex items-center gap-2 mt-1">
+                  <span id="PageAccountCouponCode" class="font-mono text-sm font-bold tracking-widest text-[#1A1A1A] bg-white px-3 py-1 border border-[#E5E0D8]">{{ coupon_code }}</span>
+                  <button type="button" onclick="copyDiscountCode('PageAccountCouponCode', this)" class="text-[10px] uppercase tracking-wider bg-[#1A1A1A] hover:bg-[#5C6B56] text-white px-2.5 py-1 font-semibold transition-colors">Copia</button>
+                </div>
               </div>
+              <div class="w-full sm:w-px sm:h-10 bg-[#E5E0D8]"></div>
+              <a
+                href="{{ coupon_cta_url }}"
+                class="w-full sm:w-auto px-4 py-3 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] text-xs uppercase tracking-widest font-semibold transition-colors text-center"
+              >
+                {{ coupon_cta_text }}
+              </a>
             </div>
-            <div class="w-full sm:w-px sm:h-10 bg-[#E5E0D8]"></div>
-            <a
-              href="{{ routes.all_products_collection_url | default: '/collections/all' }}"
-              class="w-full sm:w-auto px-4 py-3 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] text-xs uppercase tracking-widest font-semibold transition-colors text-center"
-            >
-              Esplora Formule
-            </a>
-          </div>
+          {% endif %}
 
         </div>
       </div>
+
+      <!-- ======================================================== -->
+      <!-- PASSAPORTO BOTANICO & LIVELLO FEDELTA' (VIP Tier)        -->
+      <!-- ======================================================== -->
+      {% if show_loyalty_passport %}
+        <div class="bg-gradient-to-r from-[#FAF8F5] via-white to-[#FAF8F5] border border-[#C8A878]/40 p-6 sm:p-8 shadow-sm relative overflow-hidden">
+          <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
+            <svg class="w-64 h-64 text-[#C8A878]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+          </div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="space-y-2 max-w-xl">
+              <div class="flex items-center gap-2">
+                <span class="inline-block px-2 py-0.5 text-[9px] uppercase font-mono tracking-widest bg-[#C8A878] text-white font-semibold">
+                  Passaporto Botanico VIP
+                </span>
+                <span class="text-xs font-serif text-[#1A1A1A] font-medium">&bull; {{ loyalty_tier_name }}</span>
+              </div>
+              <h3 class="font-serif text-xl sm:text-2xl text-[#1A1A1A] font-normal">
+                {{ loyalty_points }}
+              </h3>
+              <p class="text-xs text-[#7A7265] italic">
+                {{ loyalty_next_reward }}
+              </p>
+            </div>
+
+            <!-- Progress Bar Barocca / Haute Couture -->
+            <div class="w-full lg:w-80 space-y-2 bg-white/80 p-4 border border-[#E5E0D8]">
+              <div class="flex justify-between text-[11px] font-mono text-[#7A7265]">
+                <span>Progresso Livello</span>
+                <span class="text-[#C8A878] font-bold">{{ loyalty_progress_percent }}%</span>
+              </div>
+              <div class="w-full h-2 bg-[#E5E0D8] overflow-hidden rounded-full">
+                <div class="h-full bg-gradient-to-r from-[#C8A878] to-[#9A7B4C] transition-all duration-1000" style="width: {{ loyalty_progress_percent }}%;"></div>
+              </div>
+              <div class="text-[10px] text-[#7A7265] text-right">Prossimo traguardo: Diamante Botanico</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
 
       <!-- Grid a 2 Colonne -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -93,8 +177,8 @@
           <div class="bg-white border border-[#E5E0D8] p-6 sm:p-8 shadow-sm">
             <div class="flex items-center justify-between pb-5 border-b border-[#E5E0D8] mb-6">
               <div>
-                <h2 class="font-serif text-2xl text-[#1A1A1A] font-normal">I Miei Ordini Recenti</h2>
-                <p class="text-xs text-[#7A7265] mt-0.5">Storico degli acquisti e stato delle spedizioni botaniche.</p>
+                <h2 class="font-serif text-2xl text-[#1A1A1A] font-normal">{{ orders_title }}</h2>
+                <p class="text-xs text-[#7A7265] mt-0.5">{{ orders_subtitle }}</p>
               </div>
               <span class="text-xs font-mono px-2.5 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[#7A7265]">
                 {% if customer %}{{ customer.orders.size }} Ordini{% else %}0 Ordini{% endif %}
@@ -116,6 +200,7 @@
                       </div>
                       <p class="text-xs text-[#7A7265]">Data: {{ order.created_at | date: "%d/%m/%Y" }} &bull; Totale: <strong class="font-mono text-[#1A1A1A]">{{ order.total_price | money }}</strong></p>
                     </div>
+                    <a href="{{ order.customer_url }}" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Dettagli &rarr;</a>
                   </div>
                 {% endfor %}
               </div>
@@ -123,61 +208,114 @@
               <!-- Stato Vuoto di Lusso -->
               <div class="text-center py-12 px-4 bg-[#FAF8F5] border border-[#E5E0D8]">
                 <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-white border border-[#C8A878]/40 flex items-center justify-center text-xl text-[#C8A878]">🌿</div>
-                <h3 class="font-serif text-xl text-[#1A1A1A] mb-2 font-normal">Nessun ordine effettuato</h3>
+                <h3 class="font-serif text-xl text-[#1A1A1A] mb-2 font-normal">{{ empty_orders_title }}</h3>
                 <p class="text-xs text-[#7A7265] max-w-md mx-auto mb-6 leading-relaxed">
-                  Il tuo percorso di bellezza botanica non ha ancora registrato ordini. Inizia oggi con i nostri protocolli raccomandati.
+                  {{ empty_orders_desc }}
                 </p>
                 <a
                   href="/collections/all"
                   class="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
                 >
-                  Inizia lo Shopping Botanico &rarr;
+                  {{ empty_orders_cta }}
                 </a>
               </div>
             {% endif %}
           </div>
 
-          <!-- I Tuoi Protocolli Consigliati -->
+          <!-- I Tuoi Protocolli Consigliati (Dynamic Blocks or Fallback) -->
           <div class="bg-white border border-[#E5E0D8] p-6 sm:p-8 shadow-sm">
             <div class="pb-4 border-b border-[#E5E0D8] mb-6">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] block">Consulenza Personalizzata</span>
-              <h2 class="font-serif text-2xl text-[#1A1A1A] font-normal">I Tuoi Protocolli Consigliati</h2>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] block">{{ protocols_badge }}</span>
+              <h2 class="font-serif text-2xl text-[#1A1A1A] font-normal">{{ protocols_title }}</h2>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <!-- Card 1 -->
-              <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
-                <div>
-                  <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">Step 01 &bull; Detersione</span>
-                  <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Daily Cleansing Milk</h4>
-                  <p class="text-[11px] text-[#7A7265] mb-4">Latte detergente lenitivo con fieno greco e camomilla bio.</p>
+              {%- assign has_protocol_blocks = false -%}
+              {%- if section.blocks != blank -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'protocol_card' -%}
+                    {%- assign has_protocol_blocks = true -%}
+                    <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between" {{ block.shopify_attributes }}>
+                      <div>
+                        <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">{{ block.settings.step_tag }}</span>
+                        <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">
+                          {%- if block.settings.product != blank -%}
+                            {{ block.settings.product.title }}
+                          {%- else -%}
+                            {{ block.settings.title }}
+                          {%- endif -%}
+                        </h4>
+                        <p class="text-[11px] text-[#7A7265] mb-4">
+                          {%- if block.settings.product != blank -%}
+                            {{ block.settings.product.description | strip_html | truncate: 70 }}
+                          {%- else -%}
+                            {{ block.settings.description }}
+                          {%- endif -%}
+                        </p>
+                      </div>
+                      <a href="{% if block.settings.product != blank %}{{ block.settings.product.url }}{% else %}{{ block.settings.link }}{% endif %}" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
+              {%- unless has_protocol_blocks -%}
+                <!-- Fallback Static Protocol Cards if no blocks added -->
+                <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
+                  <div>
+                    <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">Step 01 • Detersione</span>
+                    <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Daily Cleansing Milk</h4>
+                    <p class="text-[11px] text-[#7A7265] mb-4">Latte detergente lenitivo con fieno greco e camomilla bio.</p>
+                  </div>
+                  <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
                 </div>
-                <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
-              </div>
-              <!-- Card 2 -->
-              <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
-                <div>
-                  <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">Step 02 &bull; Booster</span>
-                  <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Intense Hyaluronic Serum</h4>
-                  <p class="text-[11px] text-[#7A7265] mb-4">Siero con 5 pesi molecolari di acido ialuronico puro.</p>
+                <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
+                  <div>
+                    <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">Step 02 • Booster</span>
+                    <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Intense Hyaluronic Serum</h4>
+                    <p class="text-[11px] text-[#7A7265] mb-4">Siero con 5 pesi molecolari di acido ialuronico puro.</p>
+                  </div>
+                  <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
                 </div>
-                <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
-              </div>
-              <!-- Card 3 -->
-              <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
-                <div>
-                  <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">Step 03 &bull; Barriera</span>
-                  <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Supreme Moisture Cream</h4>
-                  <p class="text-[11px] text-[#7A7265] mb-4">Crema cellulare con staminali di stella alpina.</p>
+                <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
+                  <div>
+                    <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">Step 03 • Barriera</span>
+                    <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Supreme Moisture Cream</h4>
+                    <p class="text-[11px] text-[#7A7265] mb-4">Crema cellulare con staminali di stella alpina.</p>
+                  </div>
+                  <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
                 </div>
-                <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
-              </div>
+              {%- endunless -%}
             </div>
           </div>
 
+          <!-- Dynamic Experience Cards (Blocchi Esperienza in Cabina) -->
+          {%- if section.blocks != blank -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'experience_card' -%}
+                <div class="bg-gradient-to-r from-white to-[#FAF8F5] border border-[#C8A878]/40 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" {{ block.shopify_attributes }}>
+                  <div class="space-y-1.5">
+                    <span class="inline-block px-2.5 py-0.5 text-[9px] uppercase tracking-widest font-mono bg-[#C8A878]/15 text-[#1A1A1A] font-semibold border border-[#C8A878]/30">
+                      {{ block.settings.badge }}
+                    </span>
+                    <h3 class="font-serif text-xl text-[#1A1A1A] font-normal">{{ block.settings.title }}</h3>
+                    <p class="text-xs text-[#7A7265] max-w-lg leading-relaxed">{{ block.settings.description }}</p>
+                  </div>
+                  <a
+                    href="{{ block.settings.cta_url }}"
+                    target="_blank"
+                    class="px-5 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0 text-center"
+                  >
+                    {{ block.settings.cta_text }}
+                  </a>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
         </div>
 
-        <!-- Colonna Destra (4 cols) - Indirizzi & Flagship Verona -->
+        <!-- Colonna Destra (4 cols) - Indirizzi, Flagship Verona & Privilegi -->
         <div class="lg:col-span-4 space-y-8">
           
           <!-- Indirizzo Predefinito -->
@@ -189,36 +327,53 @@
               <p>37121 Verona (VR), Italia</p>
               <span class="inline-block mt-2 px-2 py-0.5 bg-[#E8F0E5] text-[#2D5A27] font-semibold text-[10px]">Ritiro in Sede Verona Disponibile</span>
             </div>
+            <a href="/account/addresses" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold block">Gestisci Indirizzi &rarr;</a>
           </div>
 
           <!-- Flagship Verona -->
           <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-6 shadow-sm space-y-4">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-[#5C6B56]"></span>
-              <h3 class="font-serif text-xl text-[#1A1A1A] font-normal">Flagship Verona</h3>
+              <h3 class="font-serif text-xl text-[#1A1A1A] font-normal">{{ flagship_title }}</h3>
             </div>
             <p class="text-xs text-[#7A7265] leading-relaxed">
-              Vieni a trovarci nel nostro Istituto Botanico in Corso Cavour 18 a Verona per una consulenza cutanea con lampada Wood e ritiro immediato degli ordini in 2 ore.
+              {{ flagship_desc }}
             </p>
             <div class="pt-2 border-t border-[#E5E0D8] text-xs space-y-1 text-[#1A1A1A]">
-              <p><strong>Orari:</strong> Lun &ndash; Sab (09:30 &ndash; 19:30)</p>
-              <p><strong>Concierge WhatsApp:</strong> <a href="https://wa.me/390458001234" target="_blank" class="text-[#5C6B56] hover:underline">+39 045 800 1234</a></p>
+              <p><strong>Indirizzo:</strong> {{ flagship_address }}</p>
+              <p><strong>Orari:</strong> {{ flagship_hours }}</p>
+              <p><strong>Concierge WhatsApp:</strong> <a href="{{ flagship_whatsapp_link }}" target="_blank" class="text-[#5C6B56] hover:underline">{{ flagship_whatsapp_number }}</a></p>
             </div>
           </div>
 
-          <!-- Privilegi Fedeltà -->
+          <!-- Privilegi Fedeltà (Dynamic Blocks or Fallback) -->
           <div class="bg-white border border-[#E5E0D8] p-6 shadow-sm space-y-3">
-            <h3 class="font-serif text-xl text-[#1A1A1A] font-normal pb-3 border-b border-[#E5E0D8]">Privilegi Attivi</h3>
-            <ul class="space-y-2 text-xs text-[#7A7265]">
-              <li class="flex items-center gap-2">
-                <span class="text-[#C8A878]">&checkmark;</span> 10% di sconto su tutti i rituali
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#C8A878]">&checkmark;</span> Campioni omaggio deluxe in ogni ordine
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#C8A878]">&checkmark;</span> Invito prioritario alle giornate di cabina
-              </li>
+            <h3 class="font-serif text-xl text-[#1A1A1A] font-normal pb-3 border-b border-[#E5E0D8]">{{ privileges_title }}</h3>
+            <ul class="space-y-2.5 text-xs text-[#7A7265]">
+              {%- assign has_privilege_blocks = false -%}
+              {%- if section.blocks != blank -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'privilege_item' -%}
+                    {%- assign has_privilege_blocks = true -%}
+                    <li class="flex items-center gap-2.5" {{ block.shopify_attributes }}>
+                      <span class="text-sm shrink-0">{{ block.settings.icon_emoji }}</span>
+                      <span>{{ block.settings.text }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
+              {%- unless has_privilege_blocks -%}
+                <li class="flex items-center gap-2">
+                  <span class="text-[#C8A878]">&checkmark;</span> 10% di sconto su tutti i rituali
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-[#C8A878]">&checkmark;</span> Campioni omaggio deluxe in ogni ordine
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-[#C8A878]">&checkmark;</span> Invito prioritario alle giornate di cabina
+                </li>
+              {%- endunless -%}
             </ul>
           </div>
 
@@ -233,10 +388,10 @@
     <!-- ======================================================== -->
     <div id="PageAccountGuestView" class="{% if customer %}hidden{% else %}block{% endif %} max-w-xl mx-auto py-12 px-6 bg-white border border-[#E5E0D8] text-center shadow-sm">
       <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-[#FAF8F5] border border-[#C8A878]/50 flex items-center justify-center text-2xl text-[#C8A878] font-serif">&starf;</div>
-      <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block mb-1">Area Riservata Club Mile</span>
-      <h2 class="font-serif text-3xl text-[#1A1A1A] mb-3 font-normal">Benvenuto nel Club</h2>
+      <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block mb-1">{{ guest_badge }}</span>
+      <h2 class="font-serif text-3xl text-[#1A1A1A] mb-3 font-normal">{{ guest_title }}</h2>
       <p class="text-xs text-[#7A7265] mb-8 leading-relaxed max-w-md mx-auto">
-        Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privil&egrave;ge.
+        {{ guest_desc }}
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -245,14 +400,14 @@
           onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); } else { window.location.href='/pages/accedi'; }"
           class="px-8 py-3.5 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer"
         >
-          Accedi al Tuo Profilo
+          {{ guest_login_btn }}
         </button>
         <button
           type="button"
           onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('register'); } else { window.location.href='/pages/accedi'; }"
           class="px-8 py-3.5 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer"
         >
-          Registrati con il 10% di Sconto
+          {{ guest_register_btn }}
         </button>
       </div>
     </div>
