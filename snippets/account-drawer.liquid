@@ -66,12 +66,17 @@
         </div>
       </div>
 
+      <!-- Link alla pagina account completa OS 2.0 -->
+      <a href="/pages/account" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm mb-2">
+        Apri Pagina Account Completa &rarr;
+      </a>
+
       <!-- Link al portale Shopify New Accounts -->
       <div class="space-y-2.5">
-        <a href="{{ shop_account_url }}" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+        <a href="{{ shop_account_url }}" class="block w-full py-3 px-4 bg-[#FAF8F5] border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
           Accedi al Portale Profilo Shopify &rarr;
         </a>
-        <a href="{{ routes.account_addresses_url | default: shop_account_url }}" class="block w-full py-2.5 px-4 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+        <a href="{{ routes.account_addresses_url | default: shop_account_url }}" class="block w-full py-2.5 px-4 border border-[#E5E0D8] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors">
           Gestisci Indirizzi di Consegna
         </a>
       </div>

@@ -1589,6 +1589,27 @@ function renderCustomerAuthState() {
       const initials = (customer.first_name.charAt(0) + (customer.last_name ? customer.last_name.charAt(0) : '')).toUpperCase();
       avatarEl.innerText = initials || 'MC';
     }
+
+    // 5. Update Full Page Account View (if on /pages/account or /account)
+    const pageLoggedInView = document.getElementById('PageAccountLoggedInView');
+    const pageGuestView = document.getElementById('PageAccountGuestView');
+    if (pageLoggedInView && pageGuestView) {
+      pageLoggedInView.classList.remove('hidden');
+      pageLoggedInView.classList.add('block');
+      pageGuestView.classList.remove('block');
+      pageGuestView.classList.add('hidden');
+    }
+
+    const pageGreetingName = document.getElementById('PageAccountGreetingName');
+    const pageEmail = document.getElementById('PageAccountEmail');
+    const pageAvatar = document.getElementById('PageAccountAvatar');
+
+    if (pageGreetingName) pageGreetingName.innerText = customer.first_name;
+    if (pageEmail) pageEmail.innerText = customer.email || 'member@milebiolab.it';
+    if (pageAvatar) {
+      const initials = (customer.first_name.charAt(0) + (customer.last_name ? customer.last_name.charAt(0) : '')).toUpperCase();
+      pageAvatar.innerText = initials || 'MC';
+    }
   } catch (err) {
     console.error('Error rendering customer auth state:', err);
   }
