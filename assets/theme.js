@@ -1314,6 +1314,33 @@ function closeWishlistDrawer() {
   }
 }
 
+function openAccountDrawer() {
+  const drawer = document.getElementById('account-drawer');
+  const overlay = document.getElementById('account-drawer-overlay');
+  if (drawer && overlay) {
+    drawer.classList.add('active');
+    overlay.classList.add('active');
+    drawer.setAttribute('aria-hidden', 'false');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeAccountDrawer() {
+  const drawer = document.getElementById('account-drawer');
+  const overlay = document.getElementById('account-drawer-overlay');
+  if (drawer && overlay) {
+    drawer.classList.remove('active');
+    overlay.classList.remove('active');
+    drawer.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+}
+
+window.openAccountDrawer = openAccountDrawer;
+window.closeAccountDrawer = closeAccountDrawer;
+
 function renderWishlistDrawer() {
   const list = document.getElementById('wishlist-drawer-items-list');
   if (!list) return;

@@ -1,0 +1,578 @@
+{% comment %}
+  MILEBIOLAB - SEZIONE DEDICATA STANDALONE OS 2.0 AUTH (ACCEDI & REGISTRATI)
+  Pagina ad alta conversione per /pages/accedi o /pages/club-mile
+  Palette Splendor / Haute Couture: #F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A
+{% endcomment %}
+
+<div class="customer-auth-standalone min-h-[75vh] py-10 md:py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F2EB]" id="MileAuthSection-{{ section.id }}">
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Breadcrumbs / Top Navigation Indicator -->
+    <nav class="mb-8 flex items-center gap-2 text-xs uppercase tracking-widest text-[#7A7265]" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
+      <span class="text-[#DDD7CE]">/</span>
+      <span class="text-[#1A1A1A] font-semibold">Club Mile &bull; Spazio Riservato</span>
+    </nav>
+
+    <!-- Main 2-Column Luxury Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+      
+      <!-- ============================================================== -->
+      <!-- LEFT COLUMN: Brand Privilege Card & Club Mile Benefits (5 cols) -->
+      <!-- ============================================================== -->
+      <div class="lg:col-span-5 bg-[#FAF8F5] border border-[#E5E0D8] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-sm">
+        <!-- Subtle Glow Effects -->
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-[#C8A878]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-[#5C6B56]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56] mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+            {{ section.settings.card_badge | default: 'Club Mile Privilège' }}
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal leading-tight mb-4">
+            {{ section.settings.card_title | default: "L'Eccellenza Dermocosmetica <br><span class='italic text-[#5C6B56]'>Riservata a Te</span>" }}
+          </h2>
+
+          <p class="text-sm text-[#7A7265] leading-relaxed mb-8">
+            {{ section.settings.card_description | default: "Accedi al tuo spazio esclusivo MileBioLab per gestire i tuoi rituali di bellezza Team Dr Joseph, consultare lo storico dei tuoi trattamenti e sbloccare i privilegi della nostra community botanica." }}
+          </p>
+
+          <!-- Benefits List -->
+          <ul class="space-y-4 mb-8 text-xs sm:text-sm text-[#1A1A1A]/90">
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#C8A878]/20 text-[#C8A878] flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-[#1A1A1A]">{{ section.settings.benefit_1_title | default: '10% di Sconto sul 1° Ordine' }}</strong>
+                <span class="text-[#7A7265] text-xs">{{ section.settings.benefit_1_desc | default: 'Codice di benvenuto immediato per scoprire la tua routine viso o corpo.' }}</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#5C6B56]/20 text-[#5C6B56] flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-[#1A1A1A]">{{ section.settings.benefit_2_title | default: 'Ritiro Esclusivo a Verona in 2 Ore' }}</strong>
+                <span class="text-[#7A7265] text-xs">{{ section.settings.benefit_2_desc | default: 'Corso Cavour 18: pronto senza attese con check-up cutaneo e omaggi dedicati.' }}</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#C8A878]/20 text-[#C8A878] flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-[#1A1A1A]">{{ section.settings.benefit_3_title | default: 'Campioncini Deluxe Omaggio' }}</strong>
+                <span class="text-[#7A7265] text-xs">{{ section.settings.benefit_3_desc | default: 'Formule botaniche bio-tecnologiche selezionate incluse in ogni acquisto.' }}</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#5C6B56]/20 text-[#5C6B56] flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-[#1A1A1A]">{{ section.settings.benefit_4_title | default: 'Consulenza Personalizzata Visia' }}</strong>
+                <span class="text-[#7A7265] text-xs">{{ section.settings.benefit_4_desc | default: 'Supporto prioritario con i nostri esperti dell’Istituto di Bellezza.' }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Verona Flagship Reference -->
+        <div class="relative z-10 pt-6 border-t border-[#E5E0D8] flex items-center justify-between text-xs text-[#7A7265]">
+          <span class="flex items-center gap-1.5 font-medium text-[#1A1A1A]">
+            <svg class="w-4 h-4 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            Boutique &bull; Istituto Verona
+          </span>
+          <span class="font-mono text-[11px] text-[#C8A878] uppercase font-semibold">{{ section.settings.address_text | default: 'Corso Cavour 18' }}</span>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- RIGHT COLUMN: Interactive Switch Box (Accedi / Registrati) (7 cols) -->
+      <!-- ============================================================== -->
+      <div class="lg:col-span-7 bg-white border border-[#E5E0D8] p-6 sm:p-10 lg:p-12 shadow-sm flex flex-col justify-center">
+
+        {% if customer %}
+          <!-- ============================================ -->
+          <!-- LOGGED-IN CUSTOMER STATE                    -->
+          <!-- ============================================ -->
+          <div class="space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+              Autenticato &bull; Membro Club Mile
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">
+              Bentornato, <span class="italic text-[#5C6B56]">{{ customer.first_name | default: 'Gentile Cliente' }}</span>
+            </h1>
+
+            <p class="text-sm text-[#7A7265] leading-relaxed">
+              Hai effettuato l'accesso con l'indirizzo <strong>{{ customer.email }}</strong>. Da qui puoi accedere alla tua area personale, gestire i tuoi ordini o pianificare il tuo prossimo rituale.
+            </p>
+
+            <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-5 space-y-3 text-sm text-[#1A1A1A]">
+              <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
+                <span class="text-[#7A7265]">Storico Ordini:</span>
+                <span class="font-mono font-semibold">{{ customer.orders_count | default: 0 }} effettuati</span>
+              </div>
+              <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
+                <span class="text-[#7A7265]">Stato Iscrizione:</span>
+                <span class="text-[#5C6B56] font-semibold">Attivo &bull; Privilegi Club Mile</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-[#7A7265]">Boutique di Ritiro:</span>
+                <span class="font-medium">Corso Cavour 18, Verona</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <a href="{{ routes.account_url }}" class="bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                Dashboard Ordini &rarr;
+              </a>
+              <a href="{{ routes.account_addresses_url }}" class="border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] py-3.5 px-6 text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                I Miei Indirizzi
+              </a>
+            </div>
+
+            <div class="pt-6 border-t border-[#E5E0D8] text-center">
+              <a href="{{ routes.account_logout_url }}" class="text-xs uppercase tracking-widest text-[#7A7265] hover:text-[#9E2A2B] transition-colors underline underline-offset-4">
+                Esci dal profilo (Disconnetti)
+              </a>
+            </div>
+          </div>
+
+        {% else %}
+          <!-- ============================================ -->
+          <!-- GUEST INTERACTIVE TABS (ACCEDI / REGISTRATI) -->
+          <!-- ============================================ -->
+          
+          <!-- Tab Navigation Switch Buttons -->
+          <div class="flex border-b border-[#E5E0D8] mb-8" role="tablist">
+            <button
+              type="button"
+              id="auth-page-tab-btn-login"
+              role="tab"
+              aria-selected="true"
+              aria-controls="auth-page-pane-login"
+              class="flex-1 pb-3.5 text-xs sm:text-sm uppercase tracking-widest font-semibold transition-all border-b-2 border-[#1A1A1A] text-[#1A1A1A] cursor-pointer text-center"
+              onclick="switchAuthPageTab('login')"
+            >
+              Accedi al Profilo
+            </button>
+            <button
+              type="button"
+              id="auth-page-tab-btn-register"
+              role="tab"
+              aria-selected="false"
+              aria-controls="auth-page-pane-register"
+              class="flex-1 pb-3.5 text-xs sm:text-sm uppercase tracking-widest font-semibold transition-all border-b-2 border-transparent text-[#7A7265] hover:text-[#1A1A1A] cursor-pointer text-center"
+              onclick="switchAuthPageTab('register')"
+            >
+              Registrati <span class="text-[#C8A878] ml-1">(-10% Sconto)</span>
+            </button>
+          </div>
+
+          <!-- PANE 1: ACCEDI (LOGIN + RECOVER) -->
+          <div id="auth-page-pane-login" class="block" role="tabpanel">
+            
+            <!-- Standard Login View -->
+            <div id="PageLoginFormView">
+              <div class="mb-6">
+                <span class="text-[11px] font-mono tracking-widest uppercase text-[#7A7265] block mb-1">Bentornato nel tuo Spazio</span>
+                <h1 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Accedi al Profilo</h1>
+                <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
+                  Inserisci le tue credenziali per accedere allo storico ordini e ai tuoi rituali salvati.
+                </p>
+              </div>
+
+              <!-- Reset Success Message -->
+              <div id="PageResetSuccess" class="hidden mb-6 p-4 bg-[#FAF8F5] border border-[#5C6B56]/40 text-[#5C6B56] text-xs sm:text-sm">
+                <p class="font-semibold mb-0.5">Richiesta inviata con successo.</p>
+                <p>Ti abbiamo inviato un'email con il link sicuro per reimpostare la tua password.</p>
+              </div>
+
+              {% form 'customer_login', id: 'PageCustomerLoginForm', class: 'space-y-5', novalidate: 'novalidate' %}
+                {% if form.errors %}
+                  <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
+                    <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
+                    {{ form.errors | default_errors }}
+                  </div>
+                {% endif %}
+
+                <div>
+                  <label for="PageCustomerEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                    Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="customer[email]"
+                    id="PageCustomerEmail"
+                    autocomplete="email"
+                    required
+                    placeholder="es. maria.rossi@email.com"
+                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <label for="PageCustomerPassword" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A]">
+                      Password <span class="text-[#5C6B56]">*</span>
+                    </label>
+                    <button
+                      type="button"
+                      onclick="togglePageRecover(true)"
+                      class="text-xs text-[#7A7265] hover:text-[#C8A878] transition-colors underline underline-offset-4 cursor-pointer bg-transparent border-0 p-0"
+                    >
+                      Password dimenticata?
+                    </button>
+                  </div>
+                  <input
+                    type="password"
+                    name="customer[password]"
+                    id="PageCustomerPassword"
+                    autocomplete="current-password"
+                    required
+                    placeholder="••••••••••••"
+                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+
+                <div class="pt-2">
+                  <button
+                    type="submit"
+                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Accedi al Club Mile</span>
+                    <span class="text-[#C8A878]">&rarr;</span>
+                  </button>
+                </div>
+              {% endform %}
+
+              <!-- Switch to Register Link -->
+              <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center">
+                <p class="text-xs sm:text-sm text-[#7A7265] mb-3">
+                  Non possiedi ancora un account Club Mile?
+                </p>
+                <button
+                  type="button"
+                  onclick="switchAuthPageTab('register')"
+                  class="inline-block px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] transition-colors text-xs uppercase tracking-widest font-semibold cursor-pointer"
+                >
+                  Crea un Nuovo Account &bull; Ricevi il 10%
+                </button>
+              </div>
+            </div>
+
+            <!-- Page Recover Password View -->
+            <div id="PageRecoverFormView" class="hidden">
+              <div class="mb-6">
+                <span class="text-[11px] font-mono tracking-widest uppercase text-[#C8A878] block mb-1">Recupero Credenziali</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Reimposta Password</h2>
+                <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
+                  Inserisci l'indirizzo email associato al tuo profilo Club Mile. Ti invieremo un link sicuro per reimpostare la tua password.
+                </p>
+              </div>
+
+              {% form 'recover_customer_password', id: 'PageRecoverCustomerPasswordForm', class: 'space-y-5', novalidate: 'novalidate' %}
+                {% assign page_recover_success = form.posted_successfully? %}
+
+                <div>
+                  <label for="PageRecoverEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                    Il Tuo Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="PageRecoverEmail"
+                    required
+                    placeholder="es. maria.rossi@email.com"
+                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+
+                <div class="pt-2 space-y-3">
+                  <button
+                    type="submit"
+                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Invia Link di Reimpostazione</span>
+                    <span class="text-[#C8A878]">&rarr;</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onclick="togglePageRecover(false)"
+                    class="w-full py-3 text-xs uppercase tracking-widest text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer text-center bg-transparent border-0"
+                  >
+                    &larr; Torna alla Schermata di Accesso
+                  </button>
+                </div>
+              {% endform %}
+            </div>
+
+          </div>
+
+          <!-- PANE 2: REGISTRATI (UNISCITI AL CLUB MILE) -->
+          <div id="auth-page-pane-register" class="hidden" role="tabpanel">
+            <div class="mb-6">
+              <span class="text-[11px] font-mono tracking-widest uppercase text-[#C8A878] block mb-1">Iscrizione Riservata</span>
+              <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Crea il Tuo Account</h2>
+              <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
+                Entra nel Club Mile: ricevi immediatamente il <strong>10% di sconto</strong> e sblocca il servizio di ritiro rapido a Verona.
+              </p>
+            </div>
+
+            {% form 'create_customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
+              <input type="hidden" name="customer[tags]" value="club_mile, welcome_10">
+
+              {% if form.errors %}
+                <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
+                  <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
+                  {{ form.errors | default_errors }}
+                </div>
+              {% endif %}
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="PageRegisterFirstName" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                    Nome <span class="text-[#5C6B56]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="customer[first_name]"
+                    id="PageRegisterFirstName"
+                    required
+                    placeholder="Maria"
+                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+                <div>
+                  <label for="PageRegisterLastName" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                    Cognome <span class="text-[#5C6B56]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="customer[last_name]"
+                    id="PageRegisterLastName"
+                    required
+                    placeholder="Rossi"
+                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="PageRegisterEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                  Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="customer[email]"
+                  id="PageRegisterEmail"
+                  required
+                  placeholder="es. maria.rossi@email.com"
+                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                >
+              </div>
+
+              <div>
+                <label for="PageRegisterPassword" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                  Password <span class="text-[#5C6B56]">*</span>
+                </label>
+                <input
+                  type="password"
+                  name="customer[password]"
+                  id="PageRegisterPassword"
+                  required
+                  placeholder="Minimo 6 caratteri"
+                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                >
+                <p class="text-[11px] text-[#7A7265] mt-1">
+                  Minimo 6 caratteri. Suggeriamo una combinazione di lettere e numeri.
+                </p>
+              </div>
+
+              <div class="pt-1">
+                <label class="flex items-start gap-2.5 text-xs text-[#7A7265] cursor-pointer">
+                  <input type="checkbox" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
+                  <span>
+                    Accetto l'informativa sulla <a href="/pages/privacy-policy" class="underline text-[#1A1A1A] hover:text-[#C8A878]">Privacy Policy</a> e richiedo l'iscrizione al Club Mile con il 10% di sconto.
+                  </span>
+                </label>
+              </div>
+
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span>Crea Account Club Mile (-10%)</span>
+                  <span class="text-[#C8A878]">&rarr;</span>
+                </button>
+              </div>
+            {% endform %}
+
+            <!-- Switch to Login -->
+            <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center">
+              <p class="text-xs sm:text-sm text-[#7A7265] mb-3">
+                Possiedi già un profilo Club Mile attivo?
+              </p>
+              <button
+                type="button"
+                onclick="switchAuthPageTab('login')"
+                class="inline-block px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] transition-colors text-xs uppercase tracking-widest font-semibold cursor-pointer"
+              >
+                Accedi al Tuo Profilo &rarr;
+              </button>
+            </div>
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchAuthPageTab(tab) {
+    var loginBtn = document.getElementById('auth-page-tab-btn-login');
+    var registerBtn = document.getElementById('auth-page-tab-btn-register');
+    var loginPane = document.getElementById('auth-page-pane-login');
+    var registerPane = document.getElementById('auth-page-pane-register');
+
+    if (!loginBtn || !registerBtn || !loginPane || !registerPane) return;
+
+    if (tab === 'login') {
+      loginBtn.classList.add('border-[#1A1A1A]', 'text-[#1A1A1A]');
+      loginBtn.classList.remove('border-transparent', 'text-[#7A7265]');
+      loginBtn.setAttribute('aria-selected', 'true');
+
+      registerBtn.classList.remove('border-[#1A1A1A]', 'text-[#1A1A1A]');
+      registerBtn.classList.add('border-transparent', 'text-[#7A7265]');
+      registerBtn.setAttribute('aria-selected', 'false');
+
+      loginPane.classList.remove('hidden');
+      registerPane.classList.add('hidden');
+    } else {
+      registerBtn.classList.add('border-[#1A1A1A]', 'text-[#1A1A1A]');
+      registerBtn.classList.remove('border-transparent', 'text-[#7A7265]');
+      registerBtn.setAttribute('aria-selected', 'true');
+
+      loginBtn.classList.remove('border-[#1A1A1A]', 'text-[#1A1A1A]');
+      loginBtn.classList.add('border-transparent', 'text-[#7A7265]');
+      loginBtn.setAttribute('aria-selected', 'false');
+
+      registerPane.classList.remove('hidden');
+      loginPane.classList.add('hidden');
+    }
+  }
+
+  function togglePageRecover(showRecover) {
+    var loginView = document.getElementById('PageLoginFormView');
+    var recoverView = document.getElementById('PageRecoverFormView');
+    if (!loginView || !recoverView) return;
+
+    if (showRecover) {
+      loginView.classList.add('hidden');
+      recoverView.classList.remove('hidden');
+      var emailInput = document.getElementById('PageRecoverEmail');
+      if (emailInput) emailInput.focus();
+    } else {
+      recoverView.classList.add('hidden');
+      loginView.classList.remove('hidden');
+    }
+  }
+
+  // Handle URL hashes (#register, #signup, #recover)
+  document.addEventListener('DOMContentLoaded', function() {
+    var hash = window.location.hash.toLowerCase();
+    if (hash === '#register' || hash === '#signup' || hash === '#registrati') {
+      switchAuthPageTab('register');
+    } else if (hash === '#recover') {
+      switchAuthPageTab('login');
+      togglePageRecover(true);
+    }
+    {% if page_recover_success %}
+      var successEl = document.getElementById('PageResetSuccess');
+      if (successEl) successEl.classList.remove('hidden');
+    {% endif %}
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Pagina Auth Club Mile",
+  "settings": [
+    {
+      "type": "text",
+      "id": "card_badge",
+      "label": "Badge Carta Privilegi",
+      "default": "Club Mile Privilège"
+    },
+    {
+      "type": "html",
+      "id": "card_title",
+      "label": "Titolo Carta Privilegi",
+      "default": "L'Eccellenza Dermocosmetica <br><span class='italic text-[#5C6B56]'>Riservata a Te</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "card_description",
+      "label": "Descrizione Carta Privilegi",
+      "default": "Accedi al tuo spazio esclusivo MileBioLab per gestire i tuoi rituali di bellezza Team Dr Joseph, consultare lo storico dei tuoi trattamenti e sbloccare i privilegi della nostra community botanica."
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_title",
+      "label": "Vantaggio 1 - Titolo",
+      "default": "10% di Sconto sul 1° Ordine"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_desc",
+      "label": "Vantaggio 1 - Descrizione",
+      "default": "Codice di benvenuto immediato per scoprire la tua routine viso o corpo."
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_title",
+      "label": "Vantaggio 2 - Titolo",
+      "default": "Ritiro Esclusivo a Verona in 2 Ore"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_desc",
+      "label": "Vantaggio 2 - Descrizione",
+      "default": "Corso Cavour 18: pronto senza attese con check-up cutaneo e omaggi dedicati."
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_title",
+      "label": "Vantaggio 3 - Titolo",
+      "default": "Campioncini Deluxe Omaggio"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_desc",
+      "label": "Vantaggio 3 - Descrizione",
+      "default": "Formule botaniche bio-tecnologiche selezionate incluse in ogni acquisto."
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_title",
+      "label": "Vantaggio 4 - Titolo",
+      "default": "Consulenza Personalizzata Visia"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_desc",
+      "label": "Vantaggio 4 - Descrizione",
+      "default": "Supporto prioritario con i nostri esperti dell’Istituto di Bellezza."
+    },
+    {
+      "type": "text",
+      "id": "address_text",
+      "label": "Indirizzo Flagship",
+      "default": "Corso Cavour 18"
+    }
+  ]
+}
+{% endschema %}

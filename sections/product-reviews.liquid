@@ -133,7 +133,7 @@
                     {% else %}
                         <div class="bg-linen p-8 border border-borderLinen text-center">
                             <p class="text-xs text-ash mb-4">Accedi per condividere la tua esperienza con le altre clienti.</p>
-                            <a href="{{ routes.account_login_url }}" class="inline-block border border-ink text-ink px-8 py-3 text-[10px] uppercase tracking-[0.2em] hover:bg-ink hover:text-white transition-colors luxury-interactive">Accedi o Registrati</a>
+                            <a href="/pages/accedi" onclick="if(window.openAccountDrawer){openAccountDrawer(); return false;}" class="inline-block border border-ink text-ink px-8 py-3 text-[10px] uppercase tracking-[0.2em] hover:bg-ink hover:text-white transition-colors luxury-interactive">Accedi o Registrati</a>
                         </div>
                     {% endif %}
                 </div>

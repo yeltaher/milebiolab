@@ -61,7 +61,7 @@
               <a href="#filosofia" class="block hover:text-[#C8A878] transition-colors">Milena Tacchella &amp; Filosofia</a>
               <a href="/pages/contatti" class="block hover:text-[#C8A878] transition-colors">Contatti &amp; WhatsApp Diretto</a>
               <a href="/pages/faq" class="block hover:text-[#C8A878] transition-colors">Domande Frequenti &amp; FAQ</a>
-              <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
+              <a href="{% if customer %}{{ routes.account_url }}{% else %}/pages/accedi{% endif %}" {% unless customer %}onclick="if(window.openAccountDrawer){openAccountDrawer(); return false;}"{% endunless %} class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
               <a href="/pages/ritiro-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#5C6B56] transition-colors text-[#5C6B56] font-medium">Ritiro Pronto in 2 Ore a Verona</a>
             {% endif %}
           </div>
