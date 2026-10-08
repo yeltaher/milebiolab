@@ -1,3 +1,4 @@
+<div id="standard-404-view">
 <div class="py-20 lg:py-28 bg-[#F5F2EB] text-[#1A1A1A]">
   <main class="max-w-7xl mx-auto px-4 sm:px-8 text-center">
     <div class="max-w-2xl mx-auto">
@@ -106,6 +107,29 @@
     </div>
   </main>
 </div>
+</div>
+
+<div id="dynamic-account-404-view" class="hidden">
+  {% render 'account-dashboard-view' %}
+</div>
+
+<script>
+  (function() {
+    var path = window.location.pathname.toLowerCase();
+    if (path.indexOf('/pages/account') !== -1 || path.indexOf('/pages/profilo') !== -1 || path.indexOf('/pages/club-mile') !== -1 || path.indexOf('/pages/accedi') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var accView = document.getElementById('dynamic-account-404-view');
+      if (stdView && accView) {
+        stdView.style.display = 'none';
+        accView.classList.remove('hidden');
+        document.title = "Club Mile • Il Tuo Account | MileBioLab";
+        if (typeof window.renderCustomerAuthState === 'function') {
+          window.renderCustomerAuthState();
+        }
+      }
+    }
+  })();
+</script>
 
 {% schema %}
 {
