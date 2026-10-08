@@ -51,11 +51,13 @@
       {% if customer %}
         <button type="button" onclick="if(window.openAccountDrawer) openAccountDrawer();" class="flex items-center gap-2 text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer hidden sm:flex bg-transparent border-0 p-0" aria-label="Account di {{ customer.first_name }}">
           <span class="w-2 h-2 rounded-full bg-[#5C6B56]"></span>
-          <span class="text-xs uppercase tracking-wider font-semibold">Ciao, {{ customer.first_name | default: 'Membro' }}</span>
+          <span class="text-xs uppercase tracking-wider font-semibold">🟢 Ciao, {{ customer.first_name | default: 'Membro' }}</span>
           <svg class="w-5 h-5 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
         </button>
       {% else %}
-        <button type="button" onclick="if(window.openAccountDrawer){openAccountDrawer();}else{window.location.href='/pages/accedi';}" class="text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer hidden sm:block bg-transparent border-0 p-0" aria-label="Accedi o Registrati">
+        <button type="button" id="header-customer-btn" onclick="if(window.openAccountDrawer){openAccountDrawer();}else{window.location.href='https://shopify.com/{{ shop.id }}/account';}" class="flex items-center gap-2 text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer hidden sm:flex bg-transparent border-0 p-0" aria-label="Account Club Mile">
+          <span id="header-customer-indicator" class="w-2 h-2 rounded-full bg-[#5C6B56] hidden"></span>
+          <span id="header-customer-greeting" class="text-xs uppercase tracking-wider font-semibold">Accedi / Registrati</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
         </button>
       {% endif %}
@@ -95,17 +97,19 @@
       </nav>
       
       <div class="mt-10 pt-8 border-t border-[#E5E0D8] flex flex-col gap-4">
-        {% if customer %}
-          <button type="button" onclick="closeMobileNav(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#1A1A1A] text-sm uppercase tracking-widest font-semibold flex items-center gap-2 bg-transparent border-0 p-0 cursor-pointer">
-            <span class="w-2 h-2 rounded-full bg-[#5C6B56]"></span>
-            Ciao, {{ customer.first_name | default: 'Membro' }} (Profilo)
-          </button>
-        {% else %}
-          <button type="button" onclick="closeMobileNav(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#7A7265] text-sm uppercase tracking-widest font-semibold flex items-center gap-2 bg-transparent border-0 p-0 cursor-pointer">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-            Accedi / Registrati
-          </button>
-        {% endif %}
+        <div id="mobile-menu-auth-container">
+          {% if customer %}
+            <button type="button" onclick="closeMobileNav(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#1A1A1A] text-sm uppercase tracking-widest font-semibold flex items-center gap-2 bg-transparent border-0 p-0 cursor-pointer">
+              <span class="w-2 h-2 rounded-full bg-[#5C6B56]"></span>
+              🟢 Ciao, {{ customer.first_name | default: 'Membro' }} (Profilo)
+            </button>
+          {% else %}
+            <button type="button" id="mobile-menu-customer-btn" onclick="closeMobileNav(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#7A7265] text-sm uppercase tracking-widest font-semibold flex items-center gap-2 bg-transparent border-0 p-0 cursor-pointer">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <span id="mobile-menu-customer-greeting">Accedi / Registrati</span>
+            </button>
+          {% endif %}
+        </div>
         <a href="/pages/traccia-ordine" class="text-[#7A7265] text-sm uppercase tracking-widest font-semibold flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
           Traccia Ordine

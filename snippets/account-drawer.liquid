@@ -13,58 +13,80 @@
     <button type="button" class="btn-drawer-close text-2xl text-[#7A7265] hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer p-1 leading-none" onclick="closeAccountDrawer()" aria-label="Chiudi area account">&times;</button>
   </div>
 
-  {% if customer %}
-    <!-- STATE A: CUSTOMER ALREADY LOGGED IN -->
-    <div class="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col justify-between">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56] mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
-          Membro Attivo Club Mile
-        </div>
-        <h4 class="font-serif text-2xl text-[#1A1A1A] mb-1 font-normal">
-          Bentornato, <span class="italic text-[#5C6B56]">{{ customer.first_name | default: 'Membro Club' }}</span>
-        </h4>
-        <p class="text-xs text-[#7A7265] mb-6">{{ customer.email }}</p>
+  {% assign shop_account_url = 'https://shopify.com/' | append: shop.id | append: '/account' %}
 
-        <!-- Quick Info Box -->
-        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 mb-6 space-y-2 text-xs text-[#1A1A1A]">
-          <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
-            <span class="text-[#7A7265]">Ordini Effettuati:</span>
-            <strong class="font-mono text-sm">{{ customer.orders_count | default: 0 }}</strong>
-          </div>
-          <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
-            <span class="text-[#7A7265]">Privilegio Fedeltà:</span>
-            <span class="text-[#5C6B56] font-semibold">10% Riservato &bull; Campioni Deluxe</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-[#7A7265]">Sede di Ritiro:</span>
-            <span class="font-medium">Corso Cavour 18, Verona</span>
-          </div>
-        </div>
+  <!-- STATE A: CUSTOMER LOGGED IN (SERVER LIQUID OR CLIENT-SIDE mile_customer) -->
+  <div id="DrawerCustomerLoggedInView" class="flex-1 overflow-y-auto p-6 sm:p-8 flex-col justify-between {% if customer %}flex{% else %}hidden{% endif %}">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56] mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+        Membro Attivo Club Mile
+      </div>
 
-        <!-- Links to Full Account -->
-        <div class="space-y-2.5">
-          <a href="{{ routes.account_url }}" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
-            Accedi alla Dashboard Completa &rarr;
-          </a>
-          <a href="{{ routes.account_addresses_url }}" class="block w-full py-2.5 px-4 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors">
-            Gestisci Indirizzi di Consegna
-          </a>
-          <a href="/pages/ritiro-verona" onclick="if(window.openVeronaModal){openVeronaModal(); return false;}" class="block w-full py-2.5 px-4 border border-[#E5E0D8] text-[#5C6B56] hover:border-[#5C6B56] text-xs uppercase tracking-widest font-semibold text-center transition-colors">
-            Info Ritiro in Sede a Verona (2 Ore)
-          </a>
+      <!-- Avatar Monogramma con Iniziali -->
+      <div class="flex items-center gap-3.5 mb-5">
+        <div id="DrawerCustomerAvatar" class="w-12 h-12 rounded-full bg-[#1A1A1A] text-white font-serif flex items-center justify-center text-lg tracking-wider font-semibold">
+          {% if customer %}{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}{% else %}MC{% endif %}
+        </div>
+        <div>
+          <h4 class="font-serif text-2xl text-[#1A1A1A] mb-0.5 font-normal">
+            Bentornato, <span class="italic text-[#5C6B56]" id="DrawerCustomerGreetingName">{% if customer %}{{ customer.first_name | default: 'Membro Club' }}{% else %}Membro Club{% endif %}</span>
+          </h4>
+          <p class="text-xs text-[#7A7265]" id="DrawerCustomerEmail">{% if customer %}{{ customer.email }}{% else %}Club Mile Member{% endif %}</p>
         </div>
       </div>
 
-      <div class="pt-6 border-t border-[#E5E0D8] mt-8">
-        <a href="{{ routes.account_logout_url }}" class="block w-full py-2 text-center text-xs uppercase tracking-widest text-[#7A7265] hover:text-[#9E2A2B] transition-colors underline underline-offset-4">
-          Disconnettiti dal Profilo
+      <!-- Box con il codice sconto riservato 10% (MILE10) -->
+      <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2 mb-6">
+        <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Codice Sconto Riservato Club Mile:</span>
+        <div class="flex items-center justify-between gap-2">
+          <span id="DrawerProfileDiscountCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8] flex-1 text-center">
+            MILE10
+          </span>
+          <button
+            type="button"
+            onclick="copyDiscountCode('DrawerProfileDiscountCode', this)"
+            class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+          >
+            Copia
+          </button>
+        </div>
+        <p class="text-[10px] text-[#7A7265] text-center pt-1">Valido su tutti i rituali viso e trattamenti barriera.</p>
+      </div>
+
+      <!-- Quick Info Box -->
+      <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 mb-6 space-y-2 text-xs text-[#1A1A1A]">
+        <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
+          <span class="text-[#7A7265]">Privilegio Fedeltà:</span>
+          <span class="text-[#5C6B56] font-semibold">10% Riservato &bull; Campioni Deluxe</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[#7A7265]">Sede di Ritiro:</span>
+          <span class="font-medium">Corso Cavour 18, Verona</span>
+        </div>
+      </div>
+
+      <!-- Link al portale Shopify New Accounts -->
+      <div class="space-y-2.5">
+        <a href="{{ shop_account_url }}" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+          Accedi al Portale Profilo Shopify &rarr;
+        </a>
+        <a href="{{ routes.account_addresses_url | default: shop_account_url }}" class="block w-full py-2.5 px-4 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+          Gestisci Indirizzi di Consegna
         </a>
       </div>
     </div>
 
-  {% else %}
-    <!-- STATE B: GUEST - 2 TABS (ACCEDI / REGISTRATI) -->
+    <!-- Tasto prominente di DISCONNESSIONE / LOGOUT -->
+    <div class="pt-6 border-t border-[#E5E0D8] mt-8">
+      <button type="button" onclick="logoutCustomerSession()" class="block w-full py-3 text-center text-xs uppercase tracking-widest text-[#9E2A2B] hover:underline font-semibold bg-transparent border-0 cursor-pointer">
+        Disconnettiti dal Profilo
+      </button>
+    </div>
+  </div>
+
+  <!-- STATE B: GUEST - 2 TABS (ACCEDI / REGISTRATI) - NASCOSTO COMPLETAMENTE SE LOGGATO -->
+  <div id="DrawerCustomerGuestView" class="flex-1 flex-col {% if customer %}hidden{% else %}flex{% endif %}">
     
     <!-- Privilege Strip -->
     <div class="bg-[#FAF8F5] border-b border-[#E5E0D8] px-6 py-2.5 flex items-center justify-between text-[11px] text-[#7A7265]">
@@ -145,7 +167,7 @@
 
             <div class="pt-2">
               <a
-                href="{{ routes.account_login_url }}"
+                href="{{ shop_account_url }}"
                 id="DrawerLoginSubmitBtn"
                 class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2"
               >
@@ -230,7 +252,7 @@
               </div>
 
               <div class="pt-2 space-y-2.5">
-                <a href="{{ routes.account_login_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">
+                <a href="{{ shop_account_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">
                   Entra Subito nel Tuo Profilo &rarr;
                 </a>
                 <p class="text-[11px] text-[#7A7265] leading-relaxed">
@@ -350,7 +372,7 @@
               </div>
 
               <div class="pt-2 space-y-2.5">
-                <a href="{{ routes.account_login_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm">
+                <a href="{{ shop_account_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm">
                   Entra Subito nel Tuo Profilo &rarr;
                 </a>
                 <p class="text-[11px] text-[#7A7265] leading-relaxed">
@@ -494,7 +516,7 @@
 
   function toggleDrawerRecover(showRecover) {
     if (showRecover) {
-      window.location.href = '{{ routes.account_login_url }}';
+      window.location.href = '{{ shop_account_url }}';
     }
   }
 
@@ -505,7 +527,7 @@
       loginEmail.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
           e.preventDefault();
-          window.location.href = '{{ routes.account_login_url }}';
+          window.location.href = '{{ shop_account_url }}';
         }
       });
     }
@@ -514,11 +536,20 @@
     if (regForm) {
       regForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        var firstNameInput = document.getElementById('DrawerRegisterFirstName');
+        var lastNameInput = document.getElementById('DrawerRegisterLastName');
+        var emailInput = document.getElementById('DrawerRegisterEmail');
+        
+        var firstName = firstNameInput ? firstNameInput.value : 'Cliente';
+        var lastName = lastNameInput ? lastNameInput.value : '';
+        var email = emailInput ? emailInput.value : '';
+
         var submitBtn = document.getElementById('DrawerRegisterSubmitBtn');
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Iscrizione in corso...</span>';
         }
+
         var formData = new FormData(regForm);
         fetch(regForm.action, {
           method: 'POST',
@@ -527,6 +558,20 @@
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
           }
         }).then(function() {
+          // Save customer data in localStorage for seamless client-side authentication state
+          try {
+            localStorage.setItem('mile_customer', JSON.stringify({
+              first_name: firstName,
+              last_name: lastName,
+              email: email
+            }));
+          } catch(err) { console.error(err); }
+
+          // Immediately render customer auth state across header and drawer
+          if (typeof window.renderCustomerAuthState === 'function') {
+            window.renderCustomerAuthState();
+          }
+
           var fieldsEl = document.getElementById('DrawerRegisterFormFields');
           var jsSuccessEl = document.getElementById('DrawerRegisterJsSuccess');
           var promoCardEl = document.getElementById('DrawerRegisterPromoCard');
@@ -536,6 +581,13 @@
           if (switchEl) switchEl.classList.add('hidden');
           if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
         }).catch(function() {
+          try {
+            localStorage.setItem('mile_customer', JSON.stringify({
+              first_name: firstName,
+              last_name: lastName,
+              email: email
+            }));
+          } catch(err) {}
           regForm.submit();
         });
       });

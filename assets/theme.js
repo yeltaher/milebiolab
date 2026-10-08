@@ -1540,23 +1540,78 @@ function renderAccordionDescription(container) {
     }
 }
 
-// Initial load
+// ============================================================================
+// 11. SEAMLESS CUSTOMER AUTHENTICATION & ACCOUNT DRAWER STATE MANAGEMENT
+// ============================================================================
+
+function renderCustomerAuthState() {
+  try {
+    const rawCustomer = localStorage.getItem('mile_customer');
+    if (!rawCustomer) return;
+    const customer = JSON.parse(rawCustomer);
+    if (!customer || !customer.first_name) return;
+
+    // 1. Update Header Greeting
+    const headerGreeting = document.getElementById('header-customer-greeting');
+    const headerIndicator = document.getElementById('header-customer-indicator');
+    if (headerGreeting) {
+      headerGreeting.innerText = '🟢 Ciao, ' + customer.first_name;
+    }
+    if (headerIndicator) {
+      headerIndicator.classList.remove('hidden');
+    }
+
+    // 2. Update Mobile Menu Greeting
+    const mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
+    if (mobileGreeting) {
+      mobileGreeting.innerText = '🟢 Ciao, ' + customer.first_name + ' (Profilo)';
+    }
+
+    // 3. Update Account Drawer Views (Switch from Guest View to Logged In Profile View)
+    const loggedInView = document.getElementById('DrawerCustomerLoggedInView');
+    const guestView = document.getElementById('DrawerCustomerGuestView');
+    
+    if (loggedInView && guestView) {
+      loggedInView.classList.remove('hidden');
+      loggedInView.classList.add('flex');
+      guestView.classList.remove('flex');
+      guestView.classList.add('hidden');
+    }
+
+    // 4. Update Drawer Profile Details
+    const nameEl = document.getElementById('DrawerCustomerGreetingName');
+    const emailEl = document.getElementById('DrawerCustomerEmail');
+    const avatarEl = document.getElementById('DrawerCustomerAvatar');
+
+    if (nameEl) nameEl.innerText = customer.first_name;
+    if (emailEl) emailEl.innerText = customer.email || 'Club Mile Member';
+    if (avatarEl) {
+      const initials = (customer.first_name.charAt(0) + (customer.last_name ? customer.last_name.charAt(0) : '')).toUpperCase();
+      avatarEl.innerText = initials || 'MC';
+    }
+  } catch (err) {
+    console.error('Error rendering customer auth state:', err);
+  }
+}
+
+function logoutCustomerSession() {
+  try {
+    localStorage.removeItem('mile_customer');
+  } catch (err) {}
+  
+  // Redirect to Shopify logout or root
+  window.location.href = '/account/logout';
+}
+
+// Expose globally
+window.renderCustomerAuthState = renderCustomerAuthState;
+window.logoutCustomerSession = logoutCustomerSession;
+
+// Auto-run on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
+  renderCustomerAuthState();
 });
 
-// Shopify Theme Editor hot-reload events
-document.addEventListener('shopify:section:load', (e) => {
-    if (e.target.querySelectorAll) {
-        e.target.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
-    }
-});
-document.addEventListener('shopify:block:select', (e) => {
-    if (e.target.classList && e.target.classList.contains('product-description-container')) {
-        renderAccordionDescription(e.target);
-    } else if (e.target.querySelectorAll) {
-        e.target.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
-    }
-});
-// Fallback for immediate execution in case it's loaded asynchronously
-document.querySelectorAll('.product-description-container').forEach(renderAccordionDescription);
+// Also run immediately
+renderCustomerAuthState();
+
