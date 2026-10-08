@@ -167,82 +167,57 @@
             </button>
           </div>
 
-          <!-- PANE 1: ACCEDI (LOGIN + RECOVER) -->
+          <!-- PANE 1: ACCEDI (NEW CUSTOMER ACCOUNTS - PASSWORDLESS) -->
           <div id="auth-page-pane-login" class="block" role="tabpanel">
             
-            <!-- Standard Login View -->
             <div id="PageLoginFormView">
               <div class="mb-6">
                 <span class="text-[11px] font-mono tracking-widest uppercase text-[#7A7265] block mb-1">Bentornato nel tuo Spazio</span>
                 <h1 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Accedi al Profilo</h1>
                 <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
-                  Inserisci le tue credenziali per accedere allo storico ordini e ai tuoi rituali salvati.
+                  Gestisci il tuo profilo riservato, monitora i tuoi ordini e accedi ai tuoi trattamenti esclusivi.
                 </p>
               </div>
 
-              <!-- Reset Success Message -->
-              <div id="PageResetSuccess" class="hidden mb-6 p-4 bg-[#FAF8F5] border border-[#5C6B56]/40 text-[#5C6B56] text-xs sm:text-sm">
-                <p class="font-semibold mb-0.5">Richiesta inviata con successo.</p>
-                <p>Ti abbiamo inviato un'email con il link sicuro per reimpostare la tua password.</p>
+              <!-- Info Box Nuovi Account Senza Password -->
+              <div class="mb-6 p-5 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
+                <div class="flex items-center gap-2 text-[#5C6B56] font-semibold text-xs uppercase tracking-wider">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                  Accesso Sicuro Senza Password
+                </div>
+                <p class="text-xs sm:text-sm text-[#7A7265] leading-relaxed">
+                  Accesso sicuro senza password tramite codice di verifica via email, Shop Pay o Google.
+                </p>
               </div>
 
-              {% form 'customer_login', id: 'PageCustomerLoginForm', class: 'space-y-5', novalidate: 'novalidate' %}
-                {% if form.errors %}
-                  <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
-                    <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
-                    {{ form.errors | default_errors }}
-                  </div>
-                {% endif %}
-
+              <div class="space-y-5">
                 <div>
                   <label for="PageCustomerEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                    Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                    Indirizzo Email
                   </label>
                   <input
                     type="email"
-                    name="customer[email]"
                     id="PageCustomerEmail"
                     autocomplete="email"
-                    required
                     placeholder="es. maria.rossi@email.com"
                     class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                   >
-                </div>
-
-                <div>
-                  <div class="flex items-center justify-between mb-1.5">
-                    <label for="PageCustomerPassword" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A]">
-                      Password <span class="text-[#5C6B56]">*</span>
-                    </label>
-                    <button
-                      type="button"
-                      onclick="togglePageRecover(true)"
-                      class="text-xs text-[#7A7265] hover:text-[#C8A878] transition-colors underline underline-offset-4 cursor-pointer bg-transparent border-0 p-0"
-                    >
-                      Password dimenticata?
-                    </button>
-                  </div>
-                  <input
-                    type="password"
-                    name="customer[password]"
-                    id="PageCustomerPassword"
-                    autocomplete="current-password"
-                    required
-                    placeholder="••••••••••••"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                  >
+                  <p class="text-[11px] text-[#7A7265] mt-1.5 leading-relaxed">
+                    Nessuna password da ricordare: riceverai un codice istantaneo di verifica a 6 cifre via email, oppure accedi con 1-click tramite Shop Pay o Google.
+                  </p>
                 </div>
 
                 <div class="pt-2">
-                  <button
-                    type="submit"
-                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                  <a
+                    href="{{ routes.account_login_url }}"
+                    id="PageLoginSubmitBtn"
+                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
                   >
-                    <span>Accedi al Club Mile</span>
+                    <span>Accedi con Email o Shop Pay</span>
                     <span class="text-[#C8A878]">&rarr;</span>
-                  </button>
+                  </a>
                 </div>
-              {% endform %}
+              </div>
 
               <!-- Switch to Register Link -->
               <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center">
@@ -259,168 +234,201 @@
               </div>
             </div>
 
-            <!-- Page Recover Password View -->
-            <div id="PageRecoverFormView" class="hidden">
-              <div class="mb-6">
-                <span class="text-[11px] font-mono tracking-widest uppercase text-[#C8A878] block mb-1">Recupero Credenziali</span>
-                <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Reimposta Password</h2>
-                <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
-                  Inserisci l'indirizzo email associato al tuo profilo Club Mile. Ti invieremo un link sicuro per reimpostare la tua password.
-                </p>
-              </div>
-
-              {% form 'recover_customer_password', id: 'PageRecoverCustomerPasswordForm', class: 'space-y-5', novalidate: 'novalidate' %}
-                {% assign page_recover_success = form.posted_successfully? %}
-
-                <div>
-                  <label for="PageRecoverEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                    Il Tuo Indirizzo Email <span class="text-[#5C6B56]">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="PageRecoverEmail"
-                    required
-                    placeholder="es. maria.rossi@email.com"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                  >
-                </div>
-
-                <div class="pt-2 space-y-3">
-                  <button
-                    type="submit"
-                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    <span>Invia Link di Reimpostazione</span>
-                    <span class="text-[#C8A878]">&rarr;</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onclick="togglePageRecover(false)"
-                    class="w-full py-3 text-xs uppercase tracking-widest text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer text-center bg-transparent border-0"
-                  >
-                    &larr; Torna alla Schermata di Accesso
-                  </button>
-                </div>
-              {% endform %}
-            </div>
-
           </div>
 
           <!-- PANE 2: REGISTRATI (UNISCITI AL CLUB MILE) -->
           <div id="auth-page-pane-register" class="hidden" role="tabpanel">
-            <div class="mb-6">
-              <span class="text-[11px] font-mono tracking-widest uppercase text-[#C8A878] block mb-1">Iscrizione Riservata</span>
-              <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Crea il Tuo Account</h2>
-              <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
-                Entra nel Club Mile: ricevi immediatamente il <strong>10% di sconto</strong> e sblocca il servizio di ritiro rapido a Verona.
-              </p>
-            </div>
+            
+            {% form 'customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
+              <input type="hidden" name="contact[tags]" value="club_mile, welcome_10, cliente_registrato">
 
-            {% form 'create_customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
-              <input type="hidden" name="customer[tags]" value="club_mile, welcome_10">
+              {% if form.posted_successfully? %}
+                <!-- SCHERMATA TRIONFALE DI BENVENUTO NEL CLUB MILE (SERVER-SIDE) -->
+                <div id="PageRegisterSuccessState" class="py-8 text-center space-y-6">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#5C6B56]/30 text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+                    ISCRIZIONE COMPLETATA
+                  </div>
 
-              {% if form.errors %}
-                <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
-                  <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
-                  {{ form.errors | default_errors }}
+                  <div class="w-16 h-16 mx-auto rounded-full bg-[#5C6B56]/10 flex items-center justify-center text-[#5C6B56]">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+
+                  <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal leading-tight">
+                    Benvenuto nel Club Mile
+                  </h2>
+
+                  <p class="text-sm text-[#7A7265] max-w-md mx-auto leading-relaxed">
+                    Il tuo profilo è attivo. Riceverai un'email di benvenuto e il 10% di sconto sul tuo primo ordine.
+                  </p>
+
+                  <!-- Box con codice sconto MILE10 e pulsante copia -->
+                  <div class="p-6 bg-[#FAF8F5] border border-[#E5E0D8] max-w-md mx-auto space-y-3">
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Il tuo codice di benvenuto riservato:</span>
+                    <div class="flex items-center justify-center gap-3">
+                      <span id="PageDiscountCode" class="font-mono text-xl font-bold tracking-widest text-[#1A1A1A] bg-white px-6 py-2.5 border border-[#E5E0D8]">
+                        MILE10
+                      </span>
+                      <button
+                        type="button"
+                        onclick="copyDiscountCode('PageDiscountCode', this)"
+                        class="px-5 py-2.5 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+                      >
+                        Copia
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="pt-4 max-w-md mx-auto">
+                    <a href="{{ routes.all_products_collection_url }}" class="block w-full py-4 px-6 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                      Inizia a Esplorare i Prodotti &rarr;
+                    </a>
+                  </div>
+                </div>
+              {% else %}
+                <div id="PageRegisterIntro" class="mb-6">
+                  <span class="text-[11px] font-mono tracking-widest uppercase text-[#C8A878] block mb-1">Iscrizione Riservata</span>
+                  <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Crea il Tuo Account</h2>
+                  <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
+                    Entra nel Club Mile: ricevi immediatamente il <strong>10% di sconto</strong> e sblocca il servizio di ritiro rapido a Verona.
+                  </p>
+                </div>
+
+                {% if form.errors %}
+                  <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
+                    <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
+                    {{ form.errors | default_errors }}
+                  </div>
+                {% endif %}
+
+                <div id="PageRegisterFormFields" class="space-y-4 sm:space-y-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label for="PageRegisterFirstName" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                        Nome <span class="text-[#5C6B56]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="contact[first_name]"
+                        id="PageRegisterFirstName"
+                        required
+                        placeholder="Maria"
+                        class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                      >
+                    </div>
+                    <div>
+                      <label for="PageRegisterLastName" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                        Cognome <span class="text-[#5C6B56]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="contact[last_name]"
+                        id="PageRegisterLastName"
+                        required
+                        placeholder="Rossi"
+                        class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                      >
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="PageRegisterEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
+                      Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="contact[email]"
+                      id="PageRegisterEmail"
+                      required
+                      placeholder="es. maria.rossi@email.com"
+                      class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                    >
+                  </div>
+
+                  <div class="pt-1">
+                    <label class="flex items-start gap-2.5 text-xs text-[#7A7265] cursor-pointer">
+                      <input type="checkbox" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
+                      <span>
+                        Accetto l'informativa sulla <a href="/pages/privacy-policy" class="underline text-[#1A1A1A] hover:text-[#C8A878]">Privacy Policy</a> e richiedo l'iscrizione al Club Mile con il 10% di sconto.
+                      </span>
+                    </label>
+                  </div>
+
+                  <div class="pt-2">
+                    <button
+                      type="submit"
+                      id="PageRegisterSubmitBtn"
+                      class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <span>Crea Account Club Mile (-10%)</span>
+                      <span class="text-[#C8A878]">&rarr;</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- In-place JS dynamic success state container (if submitted via AJAX) -->
+                <div id="PageRegisterJsSuccess" class="hidden py-8 text-center space-y-6">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#5C6B56]/30 text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+                    ISCRIZIONE COMPLETATA
+                  </div>
+
+                  <div class="w-16 h-16 mx-auto rounded-full bg-[#5C6B56]/10 flex items-center justify-center text-[#5C6B56]">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+
+                  <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal leading-tight">
+                    Benvenuto nel Club Mile
+                  </h2>
+
+                  <p class="text-sm text-[#7A7265] max-w-md mx-auto leading-relaxed">
+                    Il tuo profilo è attivo. Riceverai un'email di benvenuto e il 10% di sconto sul tuo primo ordine.
+                  </p>
+
+                  <!-- Box con codice sconto MILE10 e pulsante copia -->
+                  <div class="p-6 bg-[#FAF8F5] border border-[#E5E0D8] max-w-md mx-auto space-y-3">
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Il tuo codice di benvenuto riservato:</span>
+                    <div class="flex items-center justify-center gap-3">
+                      <span id="PageDiscountCodeJs" class="font-mono text-xl font-bold tracking-widest text-[#1A1A1A] bg-white px-6 py-2.5 border border-[#E5E0D8]">
+                        MILE10
+                      </span>
+                      <button
+                        type="button"
+                        onclick="copyDiscountCode('PageDiscountCodeJs', this)"
+                        class="px-5 py-2.5 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+                      >
+                        Copia
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="pt-4 max-w-md mx-auto">
+                    <a href="{{ routes.all_products_collection_url }}" class="block w-full py-4 px-6 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                      Inizia a Esplorare i Prodotti &rarr;
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Switch to Login -->
+                <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center" id="PageRegisterLoginSwitch">
+                  <p class="text-xs sm:text-sm text-[#7A7265] mb-3">
+                    Possiedi già un profilo Club Mile attivo?
+                  </p>
+                  <button
+                    type="button"
+                    onclick="switchAuthPageTab('login')"
+                    class="inline-block px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] transition-colors text-xs uppercase tracking-widest font-semibold cursor-pointer"
+                  >
+                    Accedi al Tuo Profilo &rarr;
+                  </button>
                 </div>
               {% endif %}
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="PageRegisterFirstName" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                    Nome <span class="text-[#5C6B56]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="customer[first_name]"
-                    id="PageRegisterFirstName"
-                    required
-                    placeholder="Maria"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                  >
-                </div>
-                <div>
-                  <label for="PageRegisterLastName" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                    Cognome <span class="text-[#5C6B56]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="customer[last_name]"
-                    id="PageRegisterLastName"
-                    required
-                    placeholder="Rossi"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                  >
-                </div>
-              </div>
-
-              <div>
-                <label for="PageRegisterEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                  Indirizzo Email <span class="text-[#5C6B56]">*</span>
-                </label>
-                <input
-                  type="email"
-                  name="customer[email]"
-                  id="PageRegisterEmail"
-                  required
-                  placeholder="es. maria.rossi@email.com"
-                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                >
-              </div>
-
-              <div>
-                <label for="PageRegisterPassword" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                  Password <span class="text-[#5C6B56]">*</span>
-                </label>
-                <input
-                  type="password"
-                  name="customer[password]"
-                  id="PageRegisterPassword"
-                  required
-                  placeholder="Minimo 6 caratteri"
-                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                >
-                <p class="text-[11px] text-[#7A7265] mt-1">
-                  Minimo 6 caratteri. Suggeriamo una combinazione di lettere e numeri.
-                </p>
-              </div>
-
-              <div class="pt-1">
-                <label class="flex items-start gap-2.5 text-xs text-[#7A7265] cursor-pointer">
-                  <input type="checkbox" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
-                  <span>
-                    Accetto l'informativa sulla <a href="/pages/privacy-policy" class="underline text-[#1A1A1A] hover:text-[#C8A878]">Privacy Policy</a> e richiedo l'iscrizione al Club Mile con il 10% di sconto.
-                  </span>
-                </label>
-              </div>
-
-              <div class="pt-2">
-                <button
-                  type="submit"
-                  class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span>Crea Account Club Mile (-10%)</span>
-                  <span class="text-[#C8A878]">&rarr;</span>
-                </button>
-              </div>
             {% endform %}
 
-            <!-- Switch to Login -->
-            <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center">
-              <p class="text-xs sm:text-sm text-[#7A7265] mb-3">
-                Possiedi già un profilo Club Mile attivo?
-              </p>
-              <button
-                type="button"
-                onclick="switchAuthPageTab('login')"
-                class="inline-block px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] transition-colors text-xs uppercase tracking-widest font-semibold cursor-pointer"
-              >
-                Accedi al Tuo Profilo &rarr;
-              </button>
-            </div>
           </div>
 
         {% endif %}
@@ -465,36 +473,96 @@
     }
   }
 
-  function togglePageRecover(showRecover) {
-    var loginView = document.getElementById('PageLoginFormView');
-    var recoverView = document.getElementById('PageRecoverFormView');
-    if (!loginView || !recoverView) return;
-
-    if (showRecover) {
-      loginView.classList.add('hidden');
-      recoverView.classList.remove('hidden');
-      var emailInput = document.getElementById('PageRecoverEmail');
-      if (emailInput) emailInput.focus();
+  function copyDiscountCode(elementId, btn) {
+    var codeEl = document.getElementById(elementId);
+    var code = codeEl ? codeEl.innerText.trim() : 'MILE10';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(function() {
+        var oldText = btn.innerText;
+        btn.innerText = 'Copiato!';
+        btn.classList.add('bg-[#5C6B56]');
+        setTimeout(function() {
+          btn.innerText = oldText;
+          btn.classList.remove('bg-[#5C6B56]');
+        }, 2000);
+      });
     } else {
-      recoverView.classList.add('hidden');
-      loginView.classList.remove('hidden');
+      var temp = document.createElement('input');
+      temp.value = code;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      var oldText = btn.innerText;
+      btn.innerText = 'Copiato!';
+      setTimeout(function() {
+        btn.innerText = oldText;
+      }, 2000);
     }
   }
 
-  // Handle URL hashes (#register, #signup, #recover)
+  function togglePageRecover(showRecover) {
+    if (showRecover) {
+      window.location.href = '{{ routes.account_login_url }}';
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
+    // Handle Enter key on email field
+    var pageEmail = document.getElementById('PageCustomerEmail');
+    if (pageEmail) {
+      pageEmail.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          window.location.href = '{{ routes.account_login_url }}';
+        }
+      });
+    }
+
+    // AJAX registration form handling
+    var pageRegForm = document.getElementById('PageRegisterCustomerForm');
+    if (pageRegForm) {
+      pageRegForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var submitBtn = document.getElementById('PageRegisterSubmitBtn');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>Creazione account in corso...</span>';
+        }
+        var formData = new FormData(pageRegForm);
+        fetch(pageRegForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+          }
+        }).then(function() {
+          var fieldsEl = document.getElementById('PageRegisterFormFields');
+          var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
+          var switchEl = document.getElementById('PageRegisterLoginSwitch');
+          var introEl = document.getElementById('PageRegisterIntro');
+          if (fieldsEl) fieldsEl.classList.add('hidden');
+          if (switchEl) switchEl.classList.add('hidden');
+          if (introEl) introEl.classList.add('hidden');
+          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
+        }).catch(function() {
+          pageRegForm.submit();
+        });
+      });
+    }
+
+    // Handle URL hashes and query parameters
     var hash = window.location.hash.toLowerCase();
-    if (hash === '#register' || hash === '#signup' || hash === '#registrati') {
+    if (hash === '#register' || hash === '#signup' || hash === '#registrati' || hash === '#pageregistercustomerform' || hash === '#contact_form' || window.location.search.indexOf('customer_posted=true') !== -1) {
       switchAuthPageTab('register');
     } else if (hash === '#recover') {
-      switchAuthPageTab('login');
-      togglePageRecover(true);
+      window.location.href = '{{ routes.account_login_url }}';
     }
-    {% if page_recover_success %}
-      var successEl = document.getElementById('PageResetSuccess');
-      if (successEl) successEl.classList.remove('hidden');
-    {% endif %}
   });
+
+  window.switchAuthPageTab = switchAuthPageTab;
+  window.copyDiscountCode = copyDiscountCode;
+  window.togglePageRecover = togglePageRecover;
 </script>
 
 {% schema %}

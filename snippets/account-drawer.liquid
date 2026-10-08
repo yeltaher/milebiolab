@@ -103,7 +103,6 @@
       <!-- ============================================ -->
       <div id="account-drawer-pane-login" class="space-y-6">
         
-        <!-- Standard Login View -->
         <div id="DrawerLoginFormView">
           <div class="mb-5">
             <span class="text-[10px] font-mono tracking-widest uppercase text-[#7A7265] block mb-1">Bentornato nel Club</span>
@@ -111,66 +110,50 @@
               Accedi al Tuo Profilo
             </h4>
             <p class="text-xs text-[#7A7265] mt-1 leading-relaxed">
-              Inserisci email e password per gestire i tuoi ordini e rituali viso personalizzati.
+              Gestisci i tuoi ordini, rituali viso personalizzati e privilegi Club Mile.
             </p>
           </div>
 
-          {% form 'customer_login', id: 'DrawerCustomerLoginForm', class: 'space-y-4', novalidate: 'novalidate' %}
-            {% if form.errors %}
-              <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
-                {{ form.errors | default_errors }}
-              </div>
-            {% endif %}
+          <!-- Info Box Nuovi Account Senza Password -->
+          <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] space-y-2 mb-4">
+            <div class="flex items-center gap-2 text-[#5C6B56] font-semibold text-[11px] uppercase tracking-wider">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+              Accesso Sicuro Senza Password
+            </div>
+            <p class="text-[#7A7265] text-xs leading-relaxed">
+              Accesso sicuro senza password tramite codice di verifica via email, Shop Pay o Google.
+            </p>
+          </div>
 
+          <!-- Email Input & Luxury Login Button -->
+          <div class="space-y-4">
             <div>
               <label for="DrawerLoginEmail" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-                Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                Indirizzo Email
               </label>
               <input
                 type="email"
-                name="customer[email]"
                 id="DrawerLoginEmail"
                 autocomplete="email"
-                required
                 placeholder="es. maria.rossi@email.com"
                 class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
               >
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <label for="DrawerLoginPassword" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A]">
-                  Password <span class="text-[#5C6B56]">*</span>
-                </label>
-                <button
-                  type="button"
-                  onclick="toggleDrawerRecover(true)"
-                  class="text-[11px] text-[#7A7265] hover:text-[#C8A878] transition-colors underline underline-offset-2 cursor-pointer bg-transparent border-0 p-0"
-                >
-                  Password dimenticata?
-                </button>
-              </div>
-              <input
-                type="password"
-                name="customer[password]"
-                id="DrawerLoginPassword"
-                autocomplete="current-password"
-                required
-                placeholder="••••••••••••"
-                class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-              >
+              <p class="text-[11px] text-[#7A7265] mt-1.5 leading-relaxed">
+                Non serve ricordare alcuna password: con i nuovi account riceverai un codice istantaneo di verifica a 6 cifre via email.
+              </p>
             </div>
 
             <div class="pt-2">
-              <button
-                type="submit"
-                class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+              <a
+                href="{{ routes.account_login_url }}"
+                id="DrawerLoginSubmitBtn"
+                class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2"
               >
-                <span>Accedi al Club Mile</span>
+                <span>Accedi con Email o Shop Pay</span>
                 <span class="text-[#C8A878]">&rarr;</span>
-              </button>
+              </a>
             </div>
-          {% endform %}
+          </div>
 
           <div class="mt-6 pt-5 border-t border-[#E5E0D8] text-center">
             <p class="text-xs text-[#7A7265] mb-2.5">Non possiedi ancora un account Club Mile?</p>
@@ -184,53 +167,6 @@
           </div>
         </div>
 
-        <!-- In-Drawer Recover Password View -->
-        <div id="DrawerRecoverFormView" class="hidden">
-          <div class="mb-5">
-            <span class="text-[10px] font-mono tracking-widest uppercase text-[#C8A878] block mb-1">Recupero Credenziali</span>
-            <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-snug">
-              Reimposta Password
-            </h4>
-            <p class="text-xs text-[#7A7265] mt-1 leading-relaxed">
-              Inserisci la tua email. Ti invieremo un link sicuro per impostare una nuova password.
-            </p>
-          </div>
-
-          {% form 'recover_customer_password', id: 'DrawerRecoverCustomerPasswordForm', class: 'space-y-4', novalidate: 'novalidate' %}
-            <div>
-              <label for="DrawerRecoverEmail" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-                La Tua Email <span class="text-[#5C6B56]">*</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="DrawerRecoverEmail"
-                required
-                placeholder="es. maria.rossi@email.com"
-                class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-              >
-            </div>
-
-            <div class="pt-2 space-y-2.5">
-              <button
-                type="submit"
-                class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
-              >
-                <span>Invia Link di Reimpostazione</span>
-                <span class="text-[#C8A878]">&rarr;</span>
-              </button>
-
-              <button
-                type="button"
-                onclick="toggleDrawerRecover(false)"
-                class="w-full py-2 text-xs uppercase tracking-widest text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer text-center bg-transparent border-0"
-              >
-                &larr; Torna ad Accedi
-              </button>
-            </div>
-          {% endform %}
-        </div>
-
       </div>
 
       <!-- ============================================ -->
@@ -239,7 +175,7 @@
       <div id="account-drawer-pane-register" class="hidden space-y-5">
         
         <!-- Privilege Highlight Card -->
-        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 relative overflow-hidden">
+        <div id="DrawerRegisterPromoCard" class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 relative overflow-hidden">
           <div class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-white border border-[#E5E0D8] text-[10px] font-mono tracking-wider uppercase text-[#C8A878] mb-2 font-semibold">
             Privilegi Immediati Club Mile
           </div>
@@ -251,100 +187,181 @@
           </p>
         </div>
 
-        {% form 'create_customer', id: 'RegisterDrawerForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
-          <input type="hidden" name="customer[tags]" value="club_mile, welcome_10">
+        {% form 'customer', id: 'RegisterDrawerForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+          <input type="hidden" name="contact[tags]" value="club_mile, welcome_10, cliente_registrato">
 
-          {% if form.errors %}
-            <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
-              {{ form.errors | default_errors }}
+          {% if form.posted_successfully? %}
+            <!-- SCHERMATA TRIONFALE DI BENVENUTO NEL CLUB MILE (SERVER-SIDE) -->
+            <div id="DrawerRegisterSuccessState" class="py-4 text-center space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#5C6B56]/30 text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+                ISCRIZIONE COMPLETATA
+              </div>
+
+              <div class="w-12 h-12 mx-auto rounded-full bg-[#5C6B56]/10 flex items-center justify-center text-[#5C6B56]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+
+              <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-tight">
+                Benvenuto nel Club Mile
+              </h4>
+
+              <p class="text-xs text-[#7A7265] leading-relaxed">
+                Il tuo profilo è attivo. Riceverai un'email di benvenuto e il 10% di sconto sul tuo primo ordine.
+              </p>
+
+              <!-- Box con codice sconto MILE10 e pulsante copia -->
+              <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Il tuo codice riservato:</span>
+                <div class="flex items-center justify-center gap-2">
+                  <span id="DrawerDiscountCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8]">
+                    MILE10
+                  </span>
+                  <button
+                    type="button"
+                    onclick="copyDiscountCode('DrawerDiscountCode', this)"
+                    class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+                  >
+                    Copia
+                  </button>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <a href="{{ routes.all_products_collection_url }}" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                  Inizia a Esplorare i Prodotti &rarr;
+                </a>
+              </div>
+            </div>
+          {% else %}
+            {% if form.errors %}
+              <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <div id="DrawerRegisterFormFields" class="space-y-3.5">
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="DrawerRegisterFirstName" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
+                    Nome <span class="text-[#5C6B56]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="contact[first_name]"
+                    id="DrawerRegisterFirstName"
+                    required
+                    placeholder="Maria"
+                    class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+                <div>
+                  <label for="DrawerRegisterLastName" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
+                    Cognome <span class="text-[#5C6B56]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="contact[last_name]"
+                    id="DrawerRegisterLastName"
+                    required
+                    placeholder="Rossi"
+                    class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="DrawerRegisterEmail" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
+                  Email <span class="text-[#5C6B56]">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="contact[email]"
+                  id="DrawerRegisterEmail"
+                  required
+                  placeholder="es. maria.rossi@email.com"
+                  class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                >
+              </div>
+
+              <div class="pt-1">
+                <label class="flex items-start gap-2 text-[11px] text-[#7A7265] cursor-pointer">
+                  <input type="checkbox" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
+                  <span>Desidero iscrivermi al Club Mile, ricevere il 10% di sconto e acconsento al trattamento dei dati personali secondo la <a href="/pages/privacy-policy" class="underline text-[#1A1A1A]">Privacy Policy</a>.</span>
+                </label>
+              </div>
+
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  id="DrawerRegisterSubmitBtn"
+                  class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span>Unisciti al Club Mile (-10%)</span>
+                  <span class="text-[#C8A878]">&rarr;</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- In-place JS dynamic success state container (if submitted via AJAX) -->
+            <div id="DrawerRegisterJsSuccess" class="hidden py-4 text-center space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#5C6B56]/30 text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+                ISCRIZIONE COMPLETATA
+              </div>
+
+              <div class="w-12 h-12 mx-auto rounded-full bg-[#5C6B56]/10 flex items-center justify-center text-[#5C6B56]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+
+              <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-tight">
+                Benvenuto nel Club Mile
+              </h4>
+
+              <p class="text-xs text-[#7A7265] leading-relaxed">
+                Il tuo profilo è attivo. Riceverai un'email di benvenuto e il 10% di sconto sul tuo primo ordine.
+              </p>
+
+              <!-- Box con codice sconto MILE10 e pulsante copia -->
+              <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Il tuo codice riservato:</span>
+                <div class="flex items-center justify-center gap-2">
+                  <span id="DrawerDiscountCodeJs" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8]">
+                    MILE10
+                  </span>
+                  <button
+                    type="button"
+                    onclick="copyDiscountCode('DrawerDiscountCodeJs', this)"
+                    class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+                  >
+                    Copia
+                  </button>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <a href="{{ routes.all_products_collection_url }}" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                  Inizia a Esplorare i Prodotti &rarr;
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-[#E5E0D8] text-center" id="DrawerRegisterLoginSwitch">
+              <p class="text-xs text-[#7A7265] mb-2">Hai già un account attivo?</p>
+              <button
+                type="button"
+                onclick="switchAccountDrawerTab('login')"
+                class="text-xs uppercase tracking-widest font-semibold text-[#1A1A1A] hover:text-[#C8A878] transition-colors underline underline-offset-4 cursor-pointer bg-transparent border-0"
+              >
+                Accedi con le tue credenziali &rarr;
+              </button>
             </div>
           {% endif %}
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label for="DrawerRegisterFirstName" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-                Nome <span class="text-[#5C6B56]">*</span>
-              </label>
-              <input
-                type="text"
-                name="customer[first_name]"
-                id="DrawerRegisterFirstName"
-                required
-                placeholder="Maria"
-                class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-              >
-            </div>
-            <div>
-              <label for="DrawerRegisterLastName" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-                Cognome <span class="text-[#5C6B56]">*</span>
-              </label>
-              <input
-                type="text"
-                name="customer[last_name]"
-                id="DrawerRegisterLastName"
-                required
-                placeholder="Rossi"
-                class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-              >
-            </div>
-          </div>
-
-          <div>
-            <label for="DrawerRegisterEmail" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-              Email <span class="text-[#5C6B56]">*</span>
-            </label>
-            <input
-              type="email"
-              name="customer[email]"
-              id="DrawerRegisterEmail"
-              required
-              placeholder="es. maria.rossi@email.com"
-              class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-            >
-          </div>
-
-          <div>
-            <label for="DrawerRegisterPassword" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-              Password <span class="text-[#5C6B56]">*</span>
-            </label>
-            <input
-              type="password"
-              name="customer[password]"
-              id="DrawerRegisterPassword"
-              required
-              placeholder="Minimo 6 caratteri"
-              class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-            >
-          </div>
-
-          <div class="pt-1">
-            <label class="flex items-start gap-2 text-[11px] text-[#7A7265] cursor-pointer">
-              <input type="checkbox" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
-              <span>Desidero iscrivermi al Club Mile, ricevere il 10% di sconto e acconsento al trattamento dei dati personali secondo la <a href="/pages/privacy-policy" class="underline text-[#1A1A1A]">Privacy Policy</a>.</span>
-            </label>
-          </div>
-
-          <div class="pt-2">
-            <button
-              type="submit"
-              class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Unisciti al Club Mile (-10%)</span>
-              <span class="text-[#C8A878]">&rarr;</span>
-            </button>
-          </div>
         {% endform %}
-
-        <div class="mt-4 pt-4 border-t border-[#E5E0D8] text-center">
-          <p class="text-xs text-[#7A7265] mb-2">Hai già un account attivo?</p>
-          <button
-            type="button"
-            onclick="switchAccountDrawerTab('login')"
-            class="text-xs uppercase tracking-widest font-semibold text-[#1A1A1A] hover:text-[#C8A878] transition-colors underline underline-offset-4 cursor-pointer bg-transparent border-0"
-          >
-            Accedi con le tue credenziali &rarr;
-          </button>
-        </div>
 
       </div>
 
@@ -435,21 +452,89 @@
     }
   }
 
-  function toggleDrawerRecover(showRecover) {
-    const loginView = document.getElementById('DrawerLoginFormView');
-    const recoverView = document.getElementById('DrawerRecoverFormView');
-    if (loginView && recoverView) {
-      if (showRecover) {
-        loginView.classList.add('hidden');
-        recoverView.classList.remove('hidden');
-        const emailInput = document.getElementById('DrawerRecoverEmail');
-        if (emailInput) emailInput.focus();
-      } else {
-        recoverView.classList.add('hidden');
-        loginView.classList.remove('hidden');
-      }
+  function copyDiscountCode(elementId, btn) {
+    var codeEl = document.getElementById(elementId);
+    var code = codeEl ? codeEl.innerText.trim() : 'MILE10';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(function() {
+        var oldText = btn.innerText;
+        btn.innerText = 'Copiato!';
+        btn.classList.add('bg-[#5C6B56]');
+        setTimeout(function() {
+          btn.innerText = oldText;
+          btn.classList.remove('bg-[#5C6B56]');
+        }, 2000);
+      });
+    } else {
+      var temp = document.createElement('input');
+      temp.value = code;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      var oldText = btn.innerText;
+      btn.innerText = 'Copiato!';
+      setTimeout(function() {
+        btn.innerText = oldText;
+      }, 2000);
     }
   }
+
+  function toggleDrawerRecover(showRecover) {
+    if (showRecover) {
+      window.location.href = '{{ routes.account_login_url }}';
+    }
+  }
+
+  // Handle direct login input enter key and AJAX registration
+  document.addEventListener('DOMContentLoaded', function() {
+    var loginEmail = document.getElementById('DrawerLoginEmail');
+    if (loginEmail) {
+      loginEmail.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          window.location.href = '{{ routes.account_login_url }}';
+        }
+      });
+    }
+
+    var regForm = document.getElementById('RegisterDrawerForm');
+    if (regForm) {
+      regForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var submitBtn = document.getElementById('DrawerRegisterSubmitBtn');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>Iscrizione in corso...</span>';
+        }
+        var formData = new FormData(regForm);
+        fetch(regForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+          }
+        }).then(function() {
+          var fieldsEl = document.getElementById('DrawerRegisterFormFields');
+          var jsSuccessEl = document.getElementById('DrawerRegisterJsSuccess');
+          var promoCardEl = document.getElementById('DrawerRegisterPromoCard');
+          var switchEl = document.getElementById('DrawerRegisterLoginSwitch');
+          if (fieldsEl) fieldsEl.classList.add('hidden');
+          if (promoCardEl) promoCardEl.classList.add('hidden');
+          if (switchEl) switchEl.classList.add('hidden');
+          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
+        }).catch(function() {
+          regForm.submit();
+        });
+      });
+    }
+
+    // Auto-open drawer if form was posted successfully or redirected
+    if (window.location.search.indexOf('customer_posted=true') !== -1 || window.location.hash === '#RegisterDrawerForm' || window.location.hash === '#contact_form') {
+      openAccountDrawer();
+      switchAccountDrawerTab('register');
+    }
+  });
 
   // Keyboard accessibility
   document.addEventListener('keydown', function(e) {
@@ -465,5 +550,6 @@
   window.openAccountDrawer = openAccountDrawer;
   window.closeAccountDrawer = closeAccountDrawer;
   window.switchAccountDrawerTab = switchAccountDrawerTab;
+  window.copyDiscountCode = copyDiscountCode;
   window.toggleDrawerRecover = toggleDrawerRecover;
 </script>
