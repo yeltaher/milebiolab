@@ -1,0 +1,324 @@
+{% comment %}
+  MILEBIOLAB - SNIPPET NEWSLETTER & WELCOME DISCOUNT POPUP (10 SECONDS DELAY)
+  Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
+  Features:
+  - Opens automatically after 10,000ms (10 seconds)
+  - Remembers dismissal or submission via localStorage ('mile_welcome_popup_closed')
+  - Luxury 2-column layout (Editorial photo + Club Mile offer)
+  - 10% Off Coupon 'MILE10' with 1-click copy functionality
+{% endcomment %}
+
+<!-- Popup Backdrop Overlay -->
+<div
+  id="MileNewsletterPopupOverlay"
+  class="fixed inset-0 bg-[#1A1A1A]/60 backdrop-blur-sm z-[2000] hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="MilePopupTitle"
+>
+  <!-- Modal Card -->
+  <div
+    id="MileNewsletterPopupCard"
+    class="max-w-3xl w-full bg-white border border-[#E5E0D8] shadow-2xl relative overflow-hidden transition-all duration-300 transform scale-95"
+    onclick="event.stopPropagation()"
+  >
+    <!-- Close Button -->
+    <button
+      type="button"
+      id="MileNewsletterPopupClose"
+      onclick="closeMileNewsletterPopup()"
+      class="absolute top-3 right-3 z-20 w-9 h-9 bg-white/90 hover:bg-white text-ink hover:text-amber border border-borderLinen flex items-center justify-center text-xl font-light transition-colors cursor-pointer"
+      aria-label="Chiudi popup"
+    >
+      &times;
+    </button>
+
+    <!-- 2-Column Luxury Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 min-h-[440px]">
+      
+      <!-- LEFT COLUMN: Editorial Botanic Visual -->
+      <div class="md:col-span-5 relative bg-[#FAF8F5] hidden md:block overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80"
+          alt="MileBioLab &bull; Botanica Dermocosmetica Team Dr Joseph"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent"></div>
+        
+        <div class="absolute bottom-5 left-5 right-5 text-white">
+          <span class="inline-block px-2 py-0.5 bg-white/20 backdrop-blur-md text-[9px] font-mono tracking-widest uppercase mb-1">
+            Boutique &bull; Verona
+          </span>
+          <p class="font-serif text-sm italic opacity-90">
+            Formule botaniche avanzate per la longevità cutanea.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Offer Details & Form -->
+      <div class="md:col-span-7 p-6 sm:p-10 flex flex-col justify-center bg-white">
+        
+        <!-- ============================================== -->
+        <!-- INITIAL STATE: FORM OFFERS                     -->
+        <!-- ============================================== -->
+        <div id="MilePopupFormState">
+          <span class="text-[10px] font-mono tracking-widest uppercase text-amber font-semibold block mb-2">
+            BENVENUTO NEL CLUB MILE
+          </span>
+
+          <h2 id="MilePopupTitle" class="font-serif text-2xl sm:text-3xl text-ink font-normal leading-tight mb-2">
+            10% di Sconto <br class="hidden sm:inline"><span class="italic text-sage">sul tuo Primo Ordine</span>
+          </h2>
+
+          <p class="text-xs sm:text-sm text-ash leading-relaxed mb-6">
+            Iscriviti alla nostra cerchia riservata. Riceverai immediatamente il tuo codice coupon esclusivo e gli inviti agli eventi e check-up in boutique a Verona.
+          </p>
+
+          {% form 'customer', id: 'MileNewsletterCustomerForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+            <input type="hidden" name="contact[tags]" value="newsletter, club_mile, welcome_popup_10">
+
+            {% if form.errors %}
+              <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <div>
+              <label for="MilePopupEmail" class="sr-only">Indirizzo Email</label>
+              <input
+                type="email"
+                name="contact[email]"
+                id="MilePopupEmail"
+                required
+                placeholder="Inserisci il tuo indirizzo email"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-ink placeholder-ash/60 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+              >
+            </div>
+
+            <div class="pt-0.5">
+              <button
+                type="submit"
+                id="MilePopupSubmitBtn"
+                class="w-full bg-ink hover:bg-sage text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Ricevi il 10% di Sconto</span>
+                <span class="text-amber">&rarr;</span>
+              </button>
+            </div>
+
+            <p class="text-[10px] text-ash/80 text-center pt-1 leading-normal">
+              Nessuno spam. Rispettiamo la tua privacy. Disiscrizione in qualsiasi momento con 1 click.
+            </p>
+          {% endform %}
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SUCCESS STATE: COUPON MILE10 & COPY BUTTON     -->
+        <!-- ============================================== -->
+        <div id="MilePopupSuccessState" class="hidden text-center py-2">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-sage/10 text-sage flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          </div>
+
+          <span class="text-[10px] font-mono tracking-widest uppercase text-sage font-semibold block mb-1">
+            PRIVILEGIO ATTIVATO
+          </span>
+
+          <h3 class="font-serif text-2xl text-ink font-normal mb-2">
+            Benvenuto nel Club Mile
+          </h3>
+
+          <p class="text-xs text-ash mb-5 leading-relaxed">
+            Utilizza il seguente codice al checkout per ricevere il <strong>10% di sconto</strong> sul tuo primo ordine:
+          </p>
+
+          <!-- Coupon Box with Click to Copy -->
+          <div class="p-3 bg-[#FAF8F5] border border-[#E5E0D8] flex items-center justify-between gap-3 mb-5">
+            <span id="MileCouponCodeText" class="font-mono text-lg font-bold tracking-widest text-ink pl-2">
+              MILE10
+            </span>
+            <button
+              type="button"
+              id="MileCopyCouponBtn"
+              onclick="copyMileCouponCode()"
+              class="px-4 py-2 bg-ink hover:bg-sage text-white text-[11px] uppercase tracking-wider font-semibold transition-colors cursor-pointer shrink-0"
+            >
+              Copia Codice
+            </button>
+          </div>
+
+          <p id="MileCopyFeedback" class="text-xs text-sage font-medium h-4 mb-4 transition-opacity opacity-0">
+            Codice copiato negli appunti!
+          </p>
+
+          <button
+            type="button"
+            onclick="closeMileNewsletterPopup()"
+            class="inline-block w-full py-3 border border-ink text-ink hover:bg-ink hover:text-white text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer"
+          >
+            Inizia lo Shopping &bull; Applica Ora
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var POPUP_STORAGE_KEY = 'mile_welcome_popup_closed';
+    var POPUP_DELAY_MS = 10000; // 10 Seconds as requested
+
+    function openMileNewsletterPopup() {
+      var overlay = document.getElementById('MileNewsletterPopupOverlay');
+      var card = document.getElementById('MileNewsletterPopupCard');
+      if (!overlay || !card) return;
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      
+      // Trigger smooth opacity & scale transition
+      requestAnimationFrame(function() {
+        overlay.classList.remove('opacity-0');
+        overlay.classList.add('opacity-100');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+      });
+
+      // Accessibility: focus email input if visible
+      var emailInput = document.getElementById('MilePopupEmail');
+      if (emailInput && !emailInput.closest('.hidden')) {
+        setTimeout(function() { emailInput.focus(); }, 350);
+      }
+    }
+
+    window.closeMileNewsletterPopup = function() {
+      var overlay = document.getElementById('MileNewsletterPopupOverlay');
+      var card = document.getElementById('MileNewsletterPopupCard');
+      if (!overlay || !card) return;
+
+      overlay.classList.remove('opacity-100');
+      overlay.classList.add('opacity-0');
+      card.classList.remove('scale-100');
+      card.classList.add('scale-95');
+
+      setTimeout(function() {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }, 300);
+
+      // Save to localStorage so user is not prompted again
+      try {
+        localStorage.setItem(POPUP_STORAGE_KEY, 'true');
+      } catch (e) {
+        console.warn('localStorage not accessible', e);
+      }
+    };
+
+    window.copyMileCouponCode = function() {
+      var code = 'MILE10';
+      var copyBtn = document.getElementById('MileCopyCouponBtn');
+      var feedback = document.getElementById('MileCopyFeedback');
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(code).then(onCopied, onFallbackCopy);
+      } else {
+        onFallbackCopy();
+      }
+
+      function onCopied() {
+        if (copyBtn) copyBtn.textContent = 'Copiato!';
+        if (feedback) feedback.classList.remove('opacity-0');
+        setTimeout(function() {
+          if (copyBtn) copyBtn.textContent = 'Copia Codice';
+          if (feedback) feedback.classList.add('opacity-0');
+        }, 2500);
+      }
+
+      function onFallbackCopy() {
+        var tempInput = document.createElement('input');
+        tempInput.value = code;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          onCopied();
+        } catch (err) {
+          console.warn('Fallback copy error', err);
+        }
+        document.body.removeChild(tempInput);
+      }
+    };
+
+    // Close on backdrop click
+    document.addEventListener('DOMContentLoaded', function() {
+      var overlay = document.getElementById('MileNewsletterPopupOverlay');
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) {
+            window.closeMileNewsletterPopup();
+          }
+        });
+      }
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) {
+          window.closeMileNewsletterPopup();
+        }
+      });
+
+      // Handle Form Submit Event
+      var form = document.getElementById('MileNewsletterCustomerForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          var emailInput = document.getElementById('MilePopupEmail');
+          if (emailInput && emailInput.value.trim() !== '') {
+            // Save state so popup won't show again on subsequent pages
+            try {
+              localStorage.setItem(POPUP_STORAGE_KEY, 'true');
+            } catch (err) {}
+
+            // Switch to success view locally for immediate delight
+            var formState = document.getElementById('MilePopupFormState');
+            var successState = document.getElementById('MilePopupSuccessState');
+            if (formState && successState) {
+              formState.classList.add('hidden');
+              successState.classList.remove('hidden');
+            }
+          }
+        });
+      }
+
+      // Check if already closed or posted successfully
+      var isClosed = false;
+      try {
+        isClosed = localStorage.getItem(POPUP_STORAGE_KEY) === 'true';
+      } catch (e) {}
+
+      {% if form.posted_successfully? %}
+        // If Shopify reloaded page after successful submit
+        var formState = document.getElementById('MilePopupFormState');
+        var successState = document.getElementById('MilePopupSuccessState');
+        if (formState && successState) {
+          formState.classList.add('hidden');
+          successState.classList.remove('hidden');
+          openMileNewsletterPopup();
+        }
+      {% else %}
+        if (!isClosed) {
+          setTimeout(function() {
+            // Re-check in case user closed it in another tab/interaction
+            try {
+              if (localStorage.getItem(POPUP_STORAGE_KEY) === 'true') return;
+            } catch (e) {}
+            openMileNewsletterPopup();
+          }, POPUP_DELAY_MS);
+        }
+      {% endif %}
+    });
+  })();
+</script>

@@ -1,0 +1,212 @@
+{% comment %}
+  MILEBIOLAB - TEMPLATE CUSTOMER ORDER DETAILS
+  Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
+{% endcomment %}
+
+<div class="customer-order-wrapper min-h-[75vh] py-10 md:py-14 px-4 sm:px-6 lg:px-8 bg-linen">
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Top Breadcrumb & Back Link -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-ash">
+        <a href="{{ routes.root_url }}" class="hover:text-ink transition-colors">Home</a>
+        <span class="text-sand">/</span>
+        <a href="{{ routes.account_url }}" class="hover:text-ink transition-colors">Club Mile</a>
+        <span class="text-sand">/</span>
+        <span class="text-ink font-semibold">Ordine {{ order.name }}</span>
+      </nav>
+
+      <a
+        href="{{ routes.account_url }}"
+        class="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-ash hover:text-ink transition-colors font-semibold"
+      >
+        <span>&larr; Torna a Tutti gli Ordini</span>
+      </a>
+    </div>
+
+    <!-- Order Header Card -->
+    <div class="bg-white border border-borderLinen p-6 sm:p-8 mb-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-[11px] font-mono tracking-widest uppercase text-sage">Dettagli Ordine</span>
+          <span class="text-sand">&bull;</span>
+          <span class="font-mono text-xs text-ash">{{ order.created_at | date: "%d/%m/%Y alle %H:%M" }}</span>
+        </div>
+        <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">
+          Ordine {{ order.name }}
+        </h1>
+        
+        <div class="flex flex-wrap items-center gap-3 mt-3">
+          {% case order.financial_status %}
+            {% when 'paid' %}
+              <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-[#E8F0E5] text-[#2D5A27] border border-[#C5DDC0]">Pagamento Ricevuto</span>
+            {% when 'pending' %}
+              <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-[#FFF4E5] text-[#A66200] border border-[#F6D8AE]">Pagamento In Attesa</span>
+            {% else %}
+              <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-linen text-ash border border-borderLinen">{{ order.financial_status_label }}</span>
+          {% endcase %}
+
+          {% case order.fulfillment_status %}
+            {% when 'fulfilled' %}
+              <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-[#E8F0E5] text-[#2D5A27] border border-[#C5DDC0]">Spedito</span>
+            {% else %}
+              <span class="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-linen text-ash border border-borderLinen">{{ order.fulfillment_status_label }}</span>
+          {% endcase %}
+        </div>
+      </div>
+
+      <div class="text-left md:text-right border-t md:border-t-0 pt-4 md:pt-0 border-borderLinen">
+        <span class="text-[10px] uppercase tracking-wider text-ash block">Totale Ordine</span>
+        <span class="font-mono text-2xl font-bold text-ink">{{ order.total_price | money }}</span>
+      </div>
+    </div>
+
+    <!-- Main Grid: Items Table (8 cols) and Addresses / Summary (4 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LINE ITEMS SECTION (8 COLS) -->
+      <div class="lg:col-span-8 bg-white border border-borderLinen p-6 sm:p-8 shadow-sm">
+        <h2 class="font-serif text-2xl text-ink font-normal pb-4 border-b border-borderLinen mb-6">
+          Formule nel tuo Ordine ({{ order.line_items.size }})
+        </h2>
+
+        <div class="divide-y divide-borderLinen">
+          {% for line_item in order.line_items %}
+            <div class="py-5 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              
+              <div class="flex items-center gap-4">
+                {% if line_item.image %}
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#FAF8F5] border border-borderLinen shrink-0 overflow-hidden">
+                    <img src="{{ line_item.image | image_url: width: 160 }}" alt="{{ line_item.title | escape }}" class="w-full h-full object-cover">
+                  </div>
+                {% endif %}
+
+                <div>
+                  <h3 class="font-serif text-base sm:text-lg text-ink font-normal leading-snug">
+                    <a href="{{ line_item.url }}" class="hover:text-amber transition-colors">
+                      {{ line_item.product.title | default: line_item.title }}
+                    </a>
+                  </h3>
+                  
+                  {% if line_item.variant.title != 'Default Title' and line_item.variant.title != blank %}
+                    <p class="text-xs text-ash mt-0.5">Formato: {{ line_item.variant.title }}</p>
+                  {% endif %}
+
+                  {% if line_item.sku != blank %}
+                    <p class="text-[11px] font-mono text-ash mt-0.5">SKU: {{ line_item.sku }}</p>
+                  {% endif %}
+                  
+                  <p class="text-xs text-ash mt-1">Quantit&agrave;: {{ line_item.quantity }} &times; {{ line_item.original_price | money }}</p>
+                </div>
+              </div>
+
+              <div class="text-right shrink-0">
+                <span class="font-mono text-base font-bold text-ink">{{ line_item.final_line_price | money }}</span>
+              </div>
+
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Order Economic Totals -->
+        <div class="mt-8 pt-6 border-t border-borderLinen space-y-2 text-xs sm:text-sm">
+          <div class="flex justify-between text-ash">
+            <span>Subtotale Formule</span>
+            <span class="font-mono text-ink">{{ order.line_items_subtotal_price | money }}</span>
+          </div>
+
+          {% for discount_application in order.discount_applications %}
+            <div class="flex justify-between text-sage">
+              <span>Sconto Privilège ({{ discount_application.title }})</span>
+              <span class="font-mono">-{{ discount_application.total_allocated_amount | money }}</span>
+            </div>
+          {% endfor %}
+
+          {% for shipping_method in order.shipping_methods %}
+            <div class="flex justify-between text-ash">
+              <span>Spedizione ({{ shipping_method.title }})</span>
+              <span class="font-mono text-ink">{{ shipping_method.price | money }}</span>
+            </div>
+          {% endfor %}
+
+          {% for tax_line in order.tax_lines %}
+            <div class="flex justify-between text-ash">
+              <span>IVA ({{ tax_line.rate | times: 100 }}%)</span>
+              <span class="font-mono text-ink">{{ tax_line.price | money }}</span>
+            </div>
+          {% endfor %}
+
+          <div class="flex justify-between text-base font-semibold text-ink pt-3 border-t border-borderLinen">
+            <span>Totale Complessivo</span>
+            <span class="font-mono text-lg text-ink font-bold">{{ order.total_price | money }}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR (4 COLS): Shipping & Billing Addresses -->
+      <div class="lg:col-span-4 space-y-6">
+        
+        <!-- Shipping Address -->
+        <div class="bg-white border border-borderLinen p-6 shadow-sm">
+          <h3 class="font-serif text-lg text-ink pb-3 border-b border-borderLinen mb-4 flex items-center gap-2">
+            <span>📍 Indirizzo di Consegna</span>
+          </h3>
+          {% if order.shipping_address %}
+            <div class="text-xs sm:text-sm text-ash leading-relaxed space-y-1">
+              <p class="font-semibold text-ink">{{ order.shipping_address.name }}</p>
+              {% if order.shipping_address.company != blank %}
+                <p>{{ order.shipping_address.company }}</p>
+              {% endif %}
+              <p>{{ order.shipping_address.address1 }}</p>
+              {% if order.shipping_address.address2 != blank %}
+                <p>{{ order.shipping_address.address2 }}</p>
+              {% endif %}
+              <p>{{ order.shipping_address.city }}, {{ order.shipping_address.zip }}</p>
+              <p>{{ order.shipping_address.country }}</p>
+              {% if order.shipping_address.phone != blank %}
+                <p class="pt-1 text-ink font-mono">{{ order.shipping_address.phone }}</p>
+              {% endif %}
+            </div>
+          {% else %}
+            <p class="text-xs text-ash">Nessun indirizzo di spedizione specificato (Ritiro in sede o bene digitale).</p>
+          {% endif %}
+        </div>
+
+        <!-- Billing Address -->
+        <div class="bg-white border border-borderLinen p-6 shadow-sm">
+          <h3 class="font-serif text-lg text-ink pb-3 border-b border-borderLinen mb-4 flex items-center gap-2">
+            <span>🧾 Dati di Fatturazione</span>
+          </h3>
+          {% if order.billing_address %}
+            <div class="text-xs sm:text-sm text-ash leading-relaxed space-y-1">
+              <p class="font-semibold text-ink">{{ order.billing_address.name }}</p>
+              {% if order.billing_address.company != blank %}
+                <p>{{ order.billing_address.company }}</p>
+              {% endif %}
+              <p>{{ order.billing_address.address1 }}</p>
+              <p>{{ order.billing_address.city }}, {{ order.billing_address.zip }}</p>
+              <p>{{ order.billing_address.country }}</p>
+            </div>
+          {% else %}
+            <p class="text-xs text-ash">Uguale all'indirizzo di spedizione.</p>
+          {% endif %}
+        </div>
+
+        <!-- Verona Assistance / Concierge Card -->
+        <div class="bg-[#FAF8F5] border border-borderLinen p-6 shadow-sm text-xs text-ash leading-relaxed">
+          <h4 class="font-serif text-base text-ink mb-2">Assistenza Ordini Verona</h4>
+          <p class="mb-3">Hai domande sul tuo ordine o desideri supporto applicativo per i prodotti ricevuti?</p>
+          <div class="space-y-1 text-ink font-medium">
+            <p>📍 Corso Cavour 18, Verona</p>
+            <p>💬 WhatsApp Concierge: +39 045 800 1234</p>
+            <p>✉️ ordini@milebiolab.com</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,220 @@
+{% comment %}
+  MILEBIOLAB - TEMPLATE CUSTOMER REGISTRATION
+  Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
+{% endcomment %}
+
+<div class="customer-auth-wrapper min-h-[75vh] py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-linen">
+  <div class="max-w-6xl mx-auto">
+    <!-- Breadcrumb & Top Indicator -->
+    <nav class="mb-8 flex items-center gap-2 text-xs uppercase tracking-widest text-ash">
+      <a href="{{ routes.root_url }}" class="hover:text-ink transition-colors">Home</a>
+      <span class="text-sand">/</span>
+      <span class="text-ink font-semibold">Club Mile &bull; Registrazione</span>
+    </nav>
+
+    <!-- Main 2-Column Luxury Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+      
+      <!-- LEFT COLUMN: Brand Privilege Card & Club Mile Benefits -->
+      <div class="lg:col-span-5 bg-[#FAF8F5] border border-borderLinen p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-sm">
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-sage/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-borderLinen text-[11px] font-mono tracking-wider uppercase text-amber mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber"></span>
+            Nuova Iscrizione &bull; Club Mile
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl text-ink font-normal leading-tight mb-4">
+            Unisciti al Rituale Botanico <br><span class="italic text-sage">di Haute Couture</span>
+          </h2>
+
+          <p class="text-sm text-ash leading-relaxed mb-8">
+            Registrandoti al Club Mile ricevi immediatamente il tuo codice di benvenuto per un'esperienza dermocosmetica personalizzata, creata con le formule bio-tecnologiche Team Dr Joseph.
+          </p>
+
+          <!-- Benefits List -->
+          <ul class="space-y-4 mb-8 text-xs sm:text-sm text-ink/90">
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-amber/20 text-amber flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">10% di Sconto Immediato</strong>
+                <span class="text-ash text-xs">Valido su tutta la prima routine di trattamenti viso e corpo.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-sage/20 text-sage flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">Ritiro Esclusivo a Verona in 2 Ore</strong>
+                <span class="text-ash text-xs">Ritira senza attese presso la nostra sede di Corso Cavour 18 con consulenza e omaggi dedicati.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-amber/20 text-amber flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">Campioni Deluxe Su Misura</strong>
+                <span class="text-ash text-xs">Selezione di mini-size esclusive testate per il tuo specifico biotipo cutaneo.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-sage/20 text-sage flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">Anteprima Lanci &amp; Masterclass</strong>
+                <span class="text-ash text-xs">Accesso riservato alle nuove formulazioni e agli appuntamenti con i nostri biologi dermocosmetici.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Verona Flagship Reference -->
+        <div class="relative z-10 pt-6 border-t border-borderLinen flex items-center justify-between text-xs text-ash">
+          <span class="flex items-center gap-1.5 font-medium text-ink">
+            <svg class="w-4 h-4 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            Boutique &amp; Istituto &bull; Verona
+          </span>
+          <span class="font-mono text-[11px] text-amber uppercase font-semibold">Corso Cavour 18</span>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Customer Registration Form -->
+      <div class="lg:col-span-7 bg-white border border-borderLinen p-8 sm:p-12 shadow-sm flex flex-col justify-center">
+        <div class="w-full">
+          
+          <div class="mb-8">
+            <span class="text-[11px] font-mono tracking-widest uppercase text-ash block mb-1">Crea il Tuo Profilo Personale</span>
+            <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">Registrazione Club Mile</h1>
+            <p class="text-xs sm:text-sm text-ash mt-2">
+              Compila i campi sottostanti per creare il tuo account riservato ed entrare a far parte della nostra community.
+            </p>
+          </div>
+
+          {% form 'create_customer', class: 'space-y-5', novalidate: 'novalidate' %}
+            {% if form.errors %}
+              <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
+                <strong class="block font-medium mb-1">Si &egrave; verificato un errore durante la registrazione:</strong>
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <!-- First Name & Last Name Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="RegisterFirstName" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
+                  Nome <span class="text-sage">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="customer[first_name]"
+                  id="RegisterFirstName"
+                  autocomplete="given-name"
+                  required
+                  placeholder="Maria"
+                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                  {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
+                >
+              </div>
+
+              <div>
+                <label for="RegisterLastName" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
+                  Cognome <span class="text-sage">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="customer[last_name]"
+                  id="RegisterLastName"
+                  autocomplete="family-name"
+                  required
+                  placeholder="Rossi"
+                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                  {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
+                >
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div>
+              <label for="RegisterEmail" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
+                Indirizzo Email <span class="text-sage">*</span>
+              </label>
+              <input
+                type="email"
+                name="customer[email]"
+                id="RegisterEmail"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                required
+                placeholder="es. maria.rossi@email.com"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+                {% if form.email %}value="{{ form.email }}"{% endif %}
+              >
+            </div>
+
+            <!-- Password Field -->
+            <div>
+              <label for="RegisterPassword" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
+                Password <span class="text-sage">*</span>
+              </label>
+              <input
+                type="password"
+                name="customer[password]"
+                id="RegisterPassword"
+                autocomplete="new-password"
+                required
+                placeholder="Almeno 6 caratteri"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                {% if form.errors contains 'password' %}aria-invalid="true"{% endif %}
+              >
+              <p class="text-[11px] text-ash mt-1">
+                La password deve contenere almeno 6 caratteri. Ti consigliamo di combinare lettere e numeri.
+              </p>
+            </div>
+
+            <!-- Privacy & Terms Checkbox -->
+            <div class="pt-2">
+              <label class="flex items-start gap-2.5 text-xs text-ash cursor-pointer">
+                <input
+                  type="checkbox"
+                  required
+                  class="mt-0.5 accent-[#5C6B56] cursor-pointer"
+                  checked
+                >
+                <span>
+                  Accetto l'informativa sulla <a href="/pages/privacy-policy" class="underline text-ink hover:text-amber">Privacy Policy</a> e desidero ricevere vantaggi esclusivi, codici sconto e aggiornamenti sui rituali botanici MileBioLab.
+                </span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Crea Account Club Mile</span>
+                <span class="text-amber">&rarr;</span>
+              </button>
+            </div>
+          {% endform %}
+
+          <!-- Switch to Login Link -->
+          <div class="mt-8 pt-6 border-t border-borderLinen text-center">
+            <p class="text-xs sm:text-sm text-ash mb-3">
+              Possiedi già un profilo Club Mile attivo?
+            </p>
+            <a
+              href="{{ routes.account_login_url }}"
+              class="inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold"
+            >
+              Accedi al Tuo Profilo &rarr;
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

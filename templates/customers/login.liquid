@@ -1,0 +1,279 @@
+{% comment %}
+  MILEBIOLAB - TEMPLATE CUSTOMER LOGIN & RECOVER PASSWORD
+  Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
+{% endcomment %}
+
+<div class="customer-auth-wrapper min-h-[75vh] py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-linen">
+  <div class="max-w-6xl mx-auto">
+    <!-- Breadcrumb & Top Indicator -->
+    <nav class="mb-8 flex items-center gap-2 text-xs uppercase tracking-widest text-ash">
+      <a href="{{ routes.root_url }}" class="hover:text-ink transition-colors">Home</a>
+      <span class="text-sand">/</span>
+      <span class="text-ink font-semibold">Club Mile &bull; Accedi</span>
+    </nav>
+
+    <!-- Main 2-Column Luxury Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+      
+      <!-- LEFT COLUMN: Brand Privilege Card & Loyalty Benefits -->
+      <div class="lg:col-span-5 bg-[#FAF8F5] border border-borderLinen p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-sm">
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-sage/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-borderLinen text-[11px] font-mono tracking-wider uppercase text-sage mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-sage"></span>
+            Club Mile Privilège
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl text-ink font-normal leading-tight mb-4">
+            L'Eccellenza Dermocosmetica <br><span class="italic text-sage">Riservata a Te</span>
+          </h2>
+
+          <p class="text-sm text-ash leading-relaxed mb-8">
+            Accedi al tuo spazio esclusivo MileBioLab per gestire i tuoi rituali di bellezza Team Dr Joseph, consultare lo storico dei tuoi trattamenti e sbloccare i privilegi della nostra community.
+          </p>
+
+          <!-- Benefits List -->
+          <ul class="space-y-4 mb-8 text-xs sm:text-sm text-ink/90">
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-amber/20 text-amber flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">10-15% di Sconto sul Primo Ordine</strong>
+                <span class="text-ash text-xs">Accesso immediato a promozioni riservate e codici fedeltà esclusivi.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-sage/20 text-sage flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">Ritiro Esclusivo in Sede a Verona</strong>
+                <span class="text-ash text-xs">Corso Cavour 18: pronto in sole 2 ore con check-up cutaneo e campioni su misura.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-amber/20 text-amber flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">Consulenza Viso Dedicata</strong>
+                <span class="text-ash text-xs">Supporto concierge prioritario per l'analisi della barriera epidermica.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full bg-sage/20 text-sage flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
+              <div>
+                <strong class="font-semibold block text-ink">Campioncini Deluxe Omaggio</strong>
+                <span class="text-ash text-xs">Formule botaniche selezionate con cura inserite in ogni spedizione.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Verona Flagship Quote / Tag -->
+        <div class="relative z-10 pt-6 border-t border-borderLinen flex items-center justify-between text-xs text-ash">
+          <span class="flex items-center gap-1.5 font-medium text-ink">
+            <svg class="w-4 h-4 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            Boutique &amp; Istituto &bull; Verona
+          </span>
+          <span class="font-mono text-[11px] text-amber uppercase font-semibold">Corso Cavour 18</span>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Login Form & Password Recovery Form -->
+      <div class="lg:col-span-7 bg-white border border-borderLinen p-8 sm:p-12 shadow-sm flex flex-col justify-center">
+
+        <!-- ======================= -->
+        <!-- 1. LOGIN SECTION        -->
+        <!-- ======================= -->
+        <div id="CustomerLoginForm" class="w-full">
+          <div class="mb-8">
+            <span class="text-[11px] font-mono tracking-widest uppercase text-ash block mb-1">Bentornato nel tuo Spazio</span>
+            <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">Accedi al Tuo Profilo</h1>
+            <p class="text-xs sm:text-sm text-ash mt-2">
+              Inserisci le tue credenziali per accedere allo storico ordini e ai tuoi rituali salvati.
+            </p>
+          </div>
+
+          <!-- Password Reset Success Notification -->
+          <div id="ResetSuccess" class="hidden mb-6 p-4 bg-[#FAF8F5] border border-sage/40 text-sage text-xs sm:text-sm">
+            <p class="font-semibold mb-0.5">Richiesta inviata con successo.</p>
+            <p>Ti abbiamo inviato un'email con il link sicuro per reimpostare la tua password.</p>
+          </div>
+
+          {% form 'customer_login', class: 'space-y-5', novalidate: 'novalidate' %}
+            {% if form.errors %}
+              <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm rounded-none">
+                <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <!-- Email Field -->
+            <div>
+              <label for="CustomerEmail" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
+                Indirizzo Email <span class="text-sage">*</span>
+              </label>
+              <input
+                type="email"
+                name="customer[email]"
+                id="CustomerEmail"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                required
+                placeholder="es. maria.rossi@email.com"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                {% if form.errors contains 'form' %}aria-invalid="true"{% endif %}
+              >
+            </div>
+
+            <!-- Password Field -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="CustomerPassword" class="block text-xs uppercase tracking-wider font-semibold text-ink">
+                  Password <span class="text-sage">*</span>
+                </label>
+                <button
+                  type="button"
+                  id="RecoverPasswordLink"
+                  onclick="toggleRecoverForm(true)"
+                  class="text-xs text-ash hover:text-amber transition-colors underline underline-offset-4 cursor-pointer"
+                >
+                  Password dimenticata?
+                </button>
+              </div>
+              <input
+                type="password"
+                name="customer[password]"
+                id="CustomerPassword"
+                autocomplete="current-password"
+                required
+                placeholder="••••••••••••"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                {% if form.errors contains 'form' %}aria-invalid="true"{% endif %}
+              >
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Accedi al Club Mile</span>
+                <span class="text-amber">&rarr;</span>
+              </button>
+            </div>
+          {% endform %}
+
+          <!-- Switch to Registration Link -->
+          <div class="mt-8 pt-6 border-t border-borderLinen text-center">
+            <p class="text-xs sm:text-sm text-ash mb-3">
+              Non possiedi ancora un account Club Mile?
+            </p>
+            <a
+              href="{{ routes.account_register_url }}"
+              class="inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold"
+            >
+              Crea un Nuovo Account &bull; Ricevi il 10%
+            </a>
+          </div>
+        </div>
+
+        <!-- =================================== -->
+        <!-- 2. RECOVER PASSWORD SECTION         -->
+        <!-- =================================== -->
+        <div id="RecoverPasswordForm" class="hidden w-full">
+          <div class="mb-8">
+            <span class="text-[11px] font-mono tracking-widest uppercase text-amber block mb-1">Recupero Credenziali</span>
+            <h2 class="font-serif text-3xl sm:text-4xl text-ink font-normal">Reimposta Password</h2>
+            <p class="text-xs sm:text-sm text-ash mt-2">
+              Inserisci l'indirizzo email associato al tuo profilo Club Mile. Ti invieremo un link sicuro per impostare una nuova password.
+            </p>
+          </div>
+
+          {% form 'recover_customer_password', class: 'space-y-5', novalidate: 'novalidate' %}
+            {% assign recover_success = form.posted_successfully? %}
+
+            {% if form.errors %}
+              <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <!-- Email Field -->
+            <div>
+              <label for="RecoverEmail" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
+                Il Tuo Indirizzo Email <span class="text-sage">*</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="RecoverEmail"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                required
+                placeholder="es. maria.rossi@email.com"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                {% if form.errors %}aria-invalid="true"{% endif %}
+              >
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="pt-2 space-y-3">
+              <button
+                type="submit"
+                class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Invia Link di Reimpostazione</span>
+                <span class="text-amber">&rarr;</span>
+              </button>
+
+              <button
+                type="button"
+                onclick="toggleRecoverForm(false)"
+                class="w-full py-3 text-xs uppercase tracking-widest text-ash hover:text-ink transition-colors cursor-pointer text-center"
+              >
+                &larr; Torna alla Schermata di Accesso
+              </button>
+            </div>
+          {% endform %}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleRecoverForm(showRecover) {
+    var loginBox = document.getElementById('CustomerLoginForm');
+    var recoverBox = document.getElementById('RecoverPasswordForm');
+    if (!loginBox || !recoverBox) return;
+
+    if (showRecover) {
+      loginBox.classList.add('hidden');
+      recoverBox.classList.remove('hidden');
+      window.location.hash = '#recover';
+      var emailInput = document.getElementById('RecoverEmail');
+      if (emailInput) emailInput.focus();
+    } else {
+      recoverBox.classList.add('hidden');
+      loginBox.classList.remove('hidden');
+      if (window.location.hash === '#recover') {
+        history.replaceState(null, null, ' ');
+      }
+    }
+  }
+
+  // Handle URL hash check on page load & successful reset
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash === '#recover') {
+      toggleRecoverForm(true);
+    }
+    {% if recover_success %}
+      var successEl = document.getElementById('ResetSuccess');
+      if (successEl) successEl.classList.remove('hidden');
+    {% endif %}
+  });
+</script>
