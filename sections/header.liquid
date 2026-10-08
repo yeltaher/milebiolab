@@ -55,7 +55,7 @@
           <svg class="w-5 h-5 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
         </button>
       {% else %}
-        <button type="button" id="header-customer-btn" onclick="if(window.openAccountDrawer){openAccountDrawer();}else{window.location.href='https://shopify.com/{{ shop.id }}/account';}" class="flex items-center gap-2 text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer hidden sm:flex bg-transparent border-0 p-0" aria-label="Account Club Mile">
+        <button type="button" id="header-customer-btn" onclick="if(window.openAccountDrawer){openAccountDrawer();}else{window.location.href='/pages/account';}" class="flex items-center gap-2 text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer hidden sm:flex bg-transparent border-0 p-0" aria-label="Account Club Mile">
           <span id="header-customer-indicator" class="w-2 h-2 rounded-full bg-[#5C6B56] hidden"></span>
           <span id="header-customer-greeting" class="text-xs uppercase tracking-wider font-semibold">Accedi / Registrati</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>

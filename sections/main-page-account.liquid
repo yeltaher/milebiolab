@@ -1,7 +1,7 @@
 {% comment %}
-  MILEBIOLAB - TEMPLATE SEZIONE PAGINA ACCOUNT COMPLETA OS 2.0
-  Palette di lusso: #F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A, #9E2A2B
-  Supporta sia autenticazione server Liquid (`customer`) sia sessione client-side (`mile_customer`) da localStorage.
+  MILEBIOLAB - TEMPLATE SEZIONE PAGINA ACCOUNT COMPLETA OS 2.0 (ON-SITE 100%)
+  Gestisce sia autenticazione server Liquid (`customer`) sia sessione client-side (`mile_customer`) da localStorage.
+  Nessun link o redirect esterno.
 {% endcomment %}
 
 <div class="min-h-[75vh] py-10 md:py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F2EB]" id="page-account-container">
@@ -17,7 +17,7 @@
         <nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-[#7A7265]">
           <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
           <span class="text-[#E5E0D8]">/</span>
-          <span class="text-[#1A1A1A] font-semibold">Club Mile &bull; Dashboard Profilo</span>
+          <span class="text-[#1A1A1A] font-semibold">Club Mile &bull; Dashboard Profilo On-Site</span>
         </nav>
 
         <button
@@ -108,21 +108,15 @@
                   <div class="border border-[#E5E0D8] p-5 bg-[#FAF8F5]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div class="space-y-1">
                       <div class="flex items-center gap-3">
-                        <a href="{{ order.customer_url }}" class="font-mono text-sm font-bold text-[#1A1A1A] hover:text-[#C8A878] underline">
+                        <span class="font-mono text-sm font-bold text-[#1A1A1A]">
                           {{ order.name }}
-                        </a>
+                        </span>
                         <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#E8F0E5] text-[#2D5A27] border border-[#C5DDC0]">
                           {{ order.financial_status_label }}
-                        </span>
-                        <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#FAF8F5] text-[#7A7265] border border-[#E5E0D8]">
-                          {{ order.fulfillment_status_label }}
                         </span>
                       </div>
                       <p class="text-xs text-[#7A7265]">Data: {{ order.created_at | date: "%d/%m/%Y" }} &bull; Totale: <strong class="font-mono text-[#1A1A1A]">{{ order.total_price | money }}</strong></p>
                     </div>
-                    <a href="{{ order.customer_url }}" class="px-4 py-2 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white text-xs uppercase tracking-widest font-semibold transition-colors text-center">
-                      Dettagli &rarr;
-                    </a>
                   </div>
                 {% endfor %}
               </div>
@@ -159,7 +153,7 @@
                   <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Daily Cleansing Milk</h4>
                   <p class="text-[11px] text-[#7A7265] mb-4">Latte detergente lenitivo con fieno greco e camomilla bio.</p>
                 </div>
-                <a href="/products/daily-cleansing-milk" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
+                <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
               </div>
               <!-- Card 2 -->
               <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
@@ -168,7 +162,7 @@
                   <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Intense Hyaluronic Serum</h4>
                   <p class="text-[11px] text-[#7A7265] mb-4">Siero con 5 pesi molecolari di acido ialuronico puro.</p>
                 </div>
-                <a href="/products/intense-hyaluronic-serum" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
+                <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
               </div>
               <!-- Card 3 -->
               <div class="border border-[#E5E0D8] p-4 bg-[#FAF8F5] flex flex-col justify-between">
@@ -177,7 +171,7 @@
                   <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Supreme Moisture Cream</h4>
                   <p class="text-[11px] text-[#7A7265] mb-4">Crema cellulare con staminali di stella alpina.</p>
                 </div>
-                <a href="/products/supreme-moisture-cream" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
+                <a href="/collections/all" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Scopri &rarr;</a>
               </div>
             </div>
           </div>
@@ -189,28 +183,13 @@
           
           <!-- Indirizzo Predefinito -->
           <div class="bg-white border border-[#E5E0D8] p-6 shadow-sm">
-            <h3 class="font-serif text-xl text-[#1A1A1A] mb-3 pb-3 border-b border-[#E5E0D8] font-normal">Indirizzo di Spedizione</h3>
-            {% if customer and customer.default_address %}
-              <div class="text-xs text-[#7A7265] space-y-1 mb-4 leading-relaxed">
-                <p class="font-medium text-[#1A1A1A]">{{ customer.default_address.name }}</p>
-                <p>{{ customer.default_address.address1 }}</p>
-                {% if customer.default_address.address2 != blank %}<p>{{ customer.default_address.address2 }}</p>{% endif %}
-                <p>{{ customer.default_address.zip }} {{ customer.default_address.city }} ({{ customer.default_address.province }})</p>
-                <p>{{ customer.default_address.country }}</p>
-              </div>
-            {% else %}
-              <div class="text-xs text-[#7A7265] space-y-1 mb-4 leading-relaxed">
-                <p class="font-medium text-[#1A1A1A]">Membro Club Privilège</p>
-                <p>Corso Cavour 18</p>
-                <p>37121 Verona (VR), Italia</p>
-              </div>
-            {% endif %}
-            <a
-              href="{{ routes.account_addresses_url | default: 'https://shopify.com/' | append: shop.id | append: '/account' }}"
-              class="block w-full py-2.5 bg-[#FAF8F5] border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors"
-            >
-              Gestisci Indirizzi
-            </a>
+            <h3 class="font-serif text-xl text-[#1A1A1A] mb-3 pb-3 border-b border-[#E5E0D8] font-normal">Indirizzo di Spedizione &amp; Ritiro</h3>
+            <div class="text-xs text-[#7A7265] space-y-1 mb-4 leading-relaxed">
+              <p class="font-medium text-[#1A1A1A]">Membro Club Privilège</p>
+              <p>Corso Cavour 18</p>
+              <p>37121 Verona (VR), Italia</p>
+              <span class="inline-block mt-2 px-2 py-0.5 bg-[#E8F0E5] text-[#2D5A27] font-semibold text-[10px]">Ritiro in Sede Verona Disponibile</span>
+            </div>
           </div>
 
           <!-- Flagship Verona -->
