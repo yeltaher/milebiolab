@@ -24,9 +24,9 @@
       "header": {
         "type": "header",
         "settings": {
-          "show_announcement": false,
+          "show_announcement": true,
           "menu": "",
-          "announcement_text": "Ottieni il 15% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50",
+          "announcement_text": "Ottieni il 10% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50",
           "brand_name": "MILE",
           "brand_payoff": "DERMOCOSMESI • VERONA • PURE PERFORMANCE",
           "verona_pickup": "Verona, Via Torricelle,2c in Lebestetik Beauty & Spa"
