@@ -113,6 +113,10 @@
   {% render 'account-dashboard-view' %}
 </div>
 
+<div id="dynamic-chisono-404-view" class="hidden">
+  {% render 'chi-sono-view' %}
+</div>
+
 <script>
   (function() {
     var path = window.location.pathname.toLowerCase();
@@ -126,6 +130,14 @@
         if (typeof window.renderCustomerAuthState === 'function') {
           window.renderCustomerAuthState();
         }
+      }
+    } else if (path.indexOf('/pages/chi-sono') !== -1 || path.indexOf('/pages/chi-siamo') !== -1 || path.indexOf('/pages/mile') !== -1 || path.indexOf('/pages/about') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var chiView = document.getElementById('dynamic-chisono-404-view');
+      if (stdView && chiView) {
+        stdView.style.display = 'none';
+        chiView.classList.remove('hidden');
+        document.title = "Chi Sono • MileBioLab & Lebestetik Verona";
       }
     }
   })();
