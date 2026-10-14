@@ -23,12 +23,25 @@
       </header>
     {% endif %}
 
-    <!-- Page Content Area -->
-    <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
-      <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
-        {{ page.content }}
-      </div>
-    </article>
+    <!-- Page Content Area / Smart Chi-Sono Check -->
+    {%- liquid
+      assign handle_downcase = page.handle | downcase
+      assign title_downcase = page.title | downcase
+      assign is_chi_sono = false
+      if handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or handle_downcase contains 'mile' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
+        assign is_chi_sono = true
+      endif
+    -%}
+
+    {% if is_chi_sono %}
+      {% render 'chi-sono-view' %}
+    {% else %}
+      <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
+        <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
+          {{ page.content }}
+        </div>
+      </article>
+    {% endif %}
 
     <!-- Optional Verona Boutique Banner -->
     {% if section.settings.show_verona_banner %}

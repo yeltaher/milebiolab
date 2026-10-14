@@ -2,7 +2,31 @@
   "sections": {
     "main": {
       "type": "main-page-chi-sono",
-      "settings": {}
+      "settings": {
+        "eyebrow": "FONDATRICE & BEAUTY SPECIALIST • VERONA",
+        "title": "L'Amore per la Natura e la Passione per la Cura della Pelle",
+        "quote_text": "L'amore per la natura e prendermi cura del benessere delle persone che si affidano a me ogni giorno è una passione che arricchisce la vita, lo fa in modi profondi ed inaspettati... tutto questo non è solo un piacere personale, ma una forza motrice per gli altri.",
+        "quote_author": "Mile • Maestra d'Arte ed Estetista Fondatrice",
+        "portrait_url": "https://static.wixstatic.com/media/e3d7d4_f4f1817e09bd4ca688132f9832d1172f~mv2.jpg",
+        "path_title": "Il Percorso Professionale: 20 Anni di Eccellenza Beauty",
+        "path_subtitle": "Una vita dedicata alla dermocosmetica autentica, alla ricerca della purezza botanica e al benessere profondo.",
+        "stat1_num": "20+",
+        "stat1_label": "Anni di Esperienza Dermocosmetica",
+        "stat2_num": "1000s",
+        "stat2_label": "Trattamenti Rigeneranti Eseguiti",
+        "stat3_num": "2012",
+        "stat3_label": "Anno di Nascita di UNICHO21",
+        "stat4_num": "100%",
+        "stat4_label": "Purezza Botanica Primordiale",
+        "awareness_title": "La Consapevolezza Dermocosmetica: Perché Rischiare?",
+        "awareness_title_sub": "La storica intuizione nata 20 anni fa davanti al quesito fondamentale sulla chimica nei cosmetici.",
+        "unicho_title": "La Creazione Iconica: UNICHO21 (2012)",
+        "unicho_subtitle": "\"Il mio segreto diventa anche il tuo...\"",
+        "flagship_title": "Lebestetik Beauty & Spa • Flagship Verona",
+        "flagship_address": "Corso Cavour 18, 37121 Verona (VR)",
+        "flagship_hours": "Lunedì – Sabato: 09:30 – 19:30",
+        "flagship_whatsapp": "https://wa.me/390458001234"
+      }
     }
   },
   "order": [
