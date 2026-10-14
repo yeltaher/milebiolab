@@ -20,7 +20,7 @@ const MilebiolabState = {
   cart: [
     {
       id: 'pdp-cream',
-      title: 'Supreme Moisture & Cellular Repair Cream',
+      title: 'Crema Riparatrice Cellulare Suprema',
       step: 'STEP 03: TRATTAMENTO BARRIERA',
       price: 84.00,
       volume: '50 ml',
@@ -29,7 +29,7 @@ const MilebiolabState = {
     },
     {
       id: 'pdp-serum',
-      title: 'Intense Hyaluronic Power Serum',
+      title: "Siero Concentrato all'Acido Ialuronico Puro",
       step: 'STEP 02: BOOSTER ATTIVO',
       price: 86.00,
       volume: '30 ml',
@@ -53,7 +53,7 @@ const MilebiolabState = {
   catalog: [
     {
       id: 'daily-cleanser',
-      title: 'Daily Cleansing Milk & Soothing Tonic',
+      title: 'Latte Detergente & Tonico Quotidiano',
       category: 'Detersione',
       step: 'STEP 01',
       price: 38.00,
@@ -66,7 +66,7 @@ const MilebiolabState = {
     },
     {
       id: 'hyaluronic-serum',
-      title: 'Intense Hyaluronic Power Serum',
+      title: "Siero Concentrato all'Acido Ialuronico Puro",
       category: 'Sieri',
       step: 'STEP 02',
       price: 86.00,
@@ -79,7 +79,7 @@ const MilebiolabState = {
     },
     {
       id: 'supreme-cream',
-      title: 'Supreme Moisture & Cellular Repair Cream',
+      title: 'Crema Riparatrice Cellulare Suprema',
       category: 'Creme',
       step: 'STEP 03',
       price: 84.00,
@@ -92,7 +92,7 @@ const MilebiolabState = {
     },
     {
       id: 'eye-contour',
-      title: 'Cellular Youth Eye & Lip Contour',
+      title: 'Contorno Occhi & Labbra Giovinezza Cellulare',
       category: 'Contorno Occhi',
       step: 'STEP 04',
       price: 68.00,
@@ -299,7 +299,7 @@ async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
   } catch (err) {
     addToCart(itemData && itemData.title ? itemData : {
       id: variantId,
-      title: (itemData && itemData.title) || 'Golden Glow Body Oil',
+      title: (itemData && itemData.title) || 'Olio Corpo Botanico Elisir Dorato',
       price: (itemData && itemData.price) || 76.00,
       volume: (itemData && itemData.volume) || '100 ml',
       qty: qty,
@@ -546,8 +546,8 @@ function addRoutineBundleToCart() {
   // Adds 3 items with 15% discount
   addToCart({
     id: 'bundle-01-reset',
-    title: 'Daily Cleansing Milk & Soothing Tonic',
-    step: '01 RESET • ROUTINE COMPLETA (-15%)',
+    title: 'Latte Detergente & Tonico Quotidiano',
+    step: '01 PURIFICAZIONE • ROUTINE COMPLETA (-15%)',
     price: 32.30, // 38 - 15%
     volume: '200 ml',
     qty: 1,
@@ -555,8 +555,8 @@ function addRoutineBundleToCart() {
   });
   addToCart({
     id: 'bundle-02-concentrate',
-    title: 'Intense Hyaluronic Power Serum',
-    step: '02 CONCENTRATE • ROUTINE COMPLETA (-15%)',
+    title: "Siero Concentrato all'Acido Ialuronico Puro",
+    step: '02 CONCENTRATO • ROUTINE COMPLETA (-15%)',
     price: 73.10, // 86 - 15%
     volume: '30 ml',
     qty: 1,
@@ -564,8 +564,8 @@ function addRoutineBundleToCart() {
   });
   addToCart({
     id: 'bundle-03-hydrate',
-    title: 'Supreme Moisture & Cellular Repair Cream',
-    step: '03 HYDRATE • ROUTINE COMPLETA (-15%)',
+    title: 'Crema Riparatrice Cellulare Suprema',
+    step: '03 IDRATAZIONE • ROUTINE COMPLETA (-15%)',
     price: 71.40, // 84 - 15%
     volume: '50 ml',
     qty: 1,
@@ -577,7 +577,7 @@ function addPdpCrossSellBundle() {
   // Bundle Serum + Cream (-15%)
   addToCart({
     id: 'duo-serum-hyaluronic',
-    title: 'Intense Hyaluronic Power Serum (Duo Routine)',
+    title: "Siero Concentrato all'Acido Ialuronico Puro (Duo Routine)",
     step: 'FASE 2 • DUO SPECIALE (-15%)',
     price: 73.10,
     volume: '30 ml',
@@ -586,7 +586,7 @@ function addPdpCrossSellBundle() {
   });
   addToCart({
     id: 'duo-cream-supreme',
-    title: 'Supreme Moisture Cream (Duo Routine)',
+    title: 'Crema Riparatrice Cellulare Suprema (Duo Routine)',
     step: 'FASE 3 • DUO SPECIALE (-15%)',
     price: 71.40,
     volume: '50 ml',
@@ -894,7 +894,7 @@ function updatePdpQty(delta) {
 function addToCartPdp() {
   addToCart({
     id: `pdp-supreme-cream-${MilebiolabState.pdp.selectedVolume.replace(/\s+/g, '')}`,
-    title: 'Supreme Moisture & Cellular Repair Cream',
+    title: 'Crema Riparatrice Cellulare Suprema',
     step: 'STEP 03: TRATTAMENTO BARRIERA',
     price: MilebiolabState.pdp.basePrice,
     volume: MilebiolabState.pdp.selectedVolume,
@@ -1282,7 +1282,7 @@ function toggleWishlistItem(id, title, price, image, volume, btn) {
 function togglePdpWishlist(btn) {
   toggleWishlistItem(
     'supreme-cream-pdp',
-    'Supreme Moisture & Cellular Repair Cream',
+    'Crema Riparatrice Cellulare Suprema',
     84.00,
     'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80',
     MilebiolabState.pdp.selectedVolume || '50 ml',

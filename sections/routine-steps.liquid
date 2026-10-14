@@ -80,21 +80,21 @@
             {%- else -%}
               {%- case forloop.index -%}
                 {%- when 1 -%}
-                  {%- assign fallback_title = "Daily Cleansing Milk (200ml)" -%}
+                  {%- assign fallback_title = "Latte Detergente Delicato (200ml)" -%}
                   {%- assign fallback_sub = "Camomilla Bio & Fieno Greco" -%}
                   {%- assign fallback_price = "€ 38,00" -%}
                   {%- assign fallback_price_num = 38.00 -%}
                   {%- assign fallback_vol = "200 ml" -%}
                   {%- assign fallback_img = "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" -%}
                 {%- when 2 -%}
-                  {%- assign fallback_title = "Intense Hyaluronic Serum (30ml)" -%}
+                  {%- assign fallback_title = "Siero Concentrato all'Acido Ialuronico (30ml)" -%}
                   {%- assign fallback_sub = "5 Pesi Molecolari & Mirtillo Biofermentato" -%}
                   {%- assign fallback_price = "€ 86,00" -%}
                   {%- assign fallback_price_num = 86.00 -%}
                   {%- assign fallback_vol = "30 ml" -%}
                   {%- assign fallback_img = "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" -%}
                 {%- else -%}
-                  {%- assign fallback_title = "Supreme Moisture Cream (50ml)" -%}
+                  {%- assign fallback_title = "Crema Riparatrice Cellulare Suprema (50ml)" -%}
                   {%- assign fallback_sub = "Staminali Stella Alpina & Jojoba Bio" -%}
                   {%- assign fallback_price = "€ 84,00" -%}
                   {%- assign fallback_price_num = 84.00 -%}
@@ -129,7 +129,7 @@
                     type="button" 
                     class="btn-primary" 
                     style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
-                    onclick="addToCartMock('{{ fallback_title }}', {{ fallback_price_num }}, '{{ mock_cart_img }}', '{{ fallback_vol }}', '0{{ forloop.index }} {{ block.settings.title | escape }}')">
+                    onclick="addToCartMock('{{ fallback_title | replace: "'", "\'" }}', {{ fallback_price_num }}, '{{ mock_cart_img }}', '{{ fallback_vol }}', '0{{ forloop.index }} {{ block.settings.title | escape }}')">
                     + Carrello
                   </button>
                 </div>
@@ -144,7 +144,7 @@
           <span class="giant-step-number">01</span>
           <div>
             <span class="protocol-tag">FASE 1 • PURIFICAZIONE</span>
-            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">RESET</h3>
+            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">PURIFICAZIONE & RESET</h3>
             <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
               Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.
             </p>
@@ -152,15 +152,15 @@
 
           <img 
             src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" 
-            alt="Daily Cleansing Milk" 
+            alt="Latte Detergente Delicato (200ml)" 
             class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
 
           <div>
-            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Daily Cleansing Milk (200ml)</h4>
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Latte Detergente Delicato (200ml)</h4>
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Camomilla Bio & Fieno Greco</span>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 38,00</strong>
-              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Daily Cleansing Milk', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', '01 RESET')">
+              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Latte Detergente Delicato', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', '01 PURIFICAZIONE & RESET')">
                 + Carrello
               </button>
             </div>
@@ -172,7 +172,7 @@
           <span class="giant-step-number">02</span>
           <div>
             <span class="protocol-tag">FASE 2 • NUTRIZIONE PROFONDA</span>
-            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">CONCENTRATE</h3>
+            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">BOOSTER CONCENTRATO</h3>
             <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
               Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.
             </p>
@@ -180,15 +180,15 @@
 
           <img 
             src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" 
-            alt="Intense Hyaluronic Serum" 
+            alt="Siero Concentrato all'Acido Ialuronico (30ml)" 
             class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
 
           <div>
-            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Intense Hyaluronic Serum (30ml)</h4>
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Siero Concentrato all'Acido Ialuronico (30ml)</h4>
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">5 Pesi Molecolari & Mirtillo Biofermentato</span>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 86,00</strong>
-              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Intense Hyaluronic Serum', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', '02 CONCENTRATE')">
+              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Siero Concentrato all\'Acido Ialuronico', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', '02 BOOSTER CONCENTRATO')">
                 + Carrello
               </button>
             </div>
@@ -200,7 +200,7 @@
           <span class="giant-step-number">03</span>
           <div>
             <span class="protocol-tag">FASE 3 • SCUDO PROTETTIVO</span>
-            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">HYDRATE</h3>
+            <h3 style="font-size: 1.6rem; margin: 0.4rem 0;">IDRATAZIONE SUPREMA</h3>
             <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
               Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.
             </p>
@@ -208,15 +208,15 @@
 
           <img 
             src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" 
-            alt="Supreme Moisture Cream" 
+            alt="Crema Riparatrice Cellulare Suprema (50ml)" 
             class="routine-card-photo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
 
           <div>
-            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Supreme Moisture Cream (50ml)</h4>
+            <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Crema Riparatrice Cellulare Suprema (50ml)</h4>
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Staminali Stella Alpina & Jojoba Bio</span>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 84,00</strong>
-              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Supreme Moisture Cream', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', '03 HYDRATE')">
+              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Crema Riparatrice Cellulare Suprema', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', '03 IDRATAZIONE SUPREMA')">
                 + Carrello
               </button>
             </div>
@@ -464,8 +464,8 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Titolo Fase (es. RESET)",
-          "default": "RESET"
+          "label": "Titolo Fase (es. PURIFICAZIONE & RESET)",
+          "default": "PURIFICAZIONE & RESET"
         },
         {
           "type": "textarea",
@@ -496,7 +496,7 @@
           "type": "step",
           "settings": {
             "tag": "FASE 1 • PURIFICAZIONE",
-            "title": "RESET",
+            "title": "PURIFICAZIONE & RESET",
             "description": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.",
             "product_subtitle": "Camomilla Bio & Fieno Greco"
           }
@@ -505,7 +505,7 @@
           "type": "step",
           "settings": {
             "tag": "FASE 2 • NUTRIZIONE PROFONDA",
-            "title": "CONCENTRATE",
+            "title": "BOOSTER CONCENTRATO",
             "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
             "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato"
           }
@@ -514,7 +514,7 @@
           "type": "step",
           "settings": {
             "tag": "FASE 3 • SCUDO PROTETTIVO",
-            "title": "HYDRATE",
+            "title": "IDRATAZIONE SUPREMA",
             "description": "Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.",
             "product_subtitle": "Staminali Stella Alpina & Jojoba Bio"
           }

@@ -72,7 +72,7 @@
           "settings": {
             "product": "",
             "tag": "FASE 1 • PURIFICAZIONE",
-            "title": "RESET",
+            "title": "PURIFICAZIONE & RESET",
             "description": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.",
             "product_subtitle": "Camomilla Bio & Fieno Greco"
           }
@@ -82,7 +82,7 @@
           "settings": {
             "product": "",
             "tag": "FASE 2 • NUTRIZIONE PROFONDA",
-            "title": "CONCENTRATE",
+            "title": "BOOSTER CONCENTRATO",
             "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
             "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato"
           }
@@ -92,7 +92,7 @@
           "settings": {
             "product": "",
             "tag": "FASE 3 • SCUDO PROTETTIVO",
-            "title": "HYDRATE",
+            "title": "IDRATAZIONE SUPREMA",
             "description": "Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.",
             "product_subtitle": "Staminali Stella Alpina & Jojoba Bio"
           }
@@ -131,7 +131,7 @@
       "settings": {
         "tag": "EFFICACIA CLINICAMENTE TESTATA",
         "title": "Risultati Visibili",
-        "subtitle": "Miglioramento visibile in soli 14 giorni* con protocollo attivo rigenerante e Golden Glow Body Oil.",
+        "subtitle": "Miglioramento visibile in soli 14 giorni* con protocollo attivo rigenerante e Olio Corpo Elisir Dorato.",
         "badge_text": "+48% compattezza, barriera riparata in 14 giorni"
       }
     },
