@@ -85,7 +85,8 @@
             "tag": "FASE 2 • NUTRIZIONE PROFONDA",
             "title": "BOOSTER CONCENTRATO",
             "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
-            "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato"
+            "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato",
+            "custom_image": "shopify://shop_images/Multy-Weight_HYALURONIC_BOOST_GEL_4.jpg"
           }
         },
         "step_3": {
@@ -95,7 +96,8 @@
             "tag": "FASE 3 • SCUDO PROTETTIVO",
             "title": "IDRATAZIONE SUPREMA",
             "description": "Sigillatura vellutata della barriera lipidica. Le cellule staminali di Stella Alpina proteggono dai radicali liberi e mantengono l'idratazione 72h.",
-            "product_subtitle": "Staminali Stella Alpina & Jojoba Bio"
+            "product_subtitle": "Staminali Stella Alpina & Jojoba Bio",
+            "custom_image": "shopify://shop_images/1790524182627.jpg"
           }
         }
       },
