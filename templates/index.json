@@ -82,9 +82,9 @@
           "type": "step",
           "settings": {
             "product": "double-hydration-boost-gel-ha",
-            "tag": "FASE 2 • NUTRIZIONE PROFONDA",
-            "title": "BOOSTER CONCENTRATO",
-            "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
+            "tag": "FASE 2 • IDRATAZIONE",
+            "title": "DOPPIA IDRATAZIONE",
+            "description": "Gel cristallino privo di grassi, disseta istantaneamente la pelle restituendo un viso compatto, fresco rimpolpato grazie ad acido Jaluronico  due pesi molecolari.",
             "product_subtitle": "5 Pesi Molecolari & Mirtillo Biofermentato",
             "custom_image": "shopify://shop_images/Multy-Weight_HYALURONIC_BOOST_GEL_4.jpg"
           }
@@ -93,8 +93,8 @@
           "type": "step",
           "settings": {
             "product": "unicho-21-burro-primordiale-50ml",
-            "tag": "FASE 3 • NUTRIMENTO E PROTEZIONE",
-            "title": "ELISIR SUPREMO",
+            "tag": "FASE 3 • NUTRIMENTO",
+            "title": "ELISIR SUPREMO PROTEZIONE",
             "description": "Trattamento Dermocosmetico che si fonde con la pelle ripristinando la barriera idrolipidica e restituendo vitalità alle pelli sensibili, aride, secche o segnate dal tempo.",
             "product_subtitle": "100% Naturale - Derm. Testato per pelli Sensibili",
             "custom_image": "shopify://shop_images/1790524182627.jpg"
