@@ -81,7 +81,7 @@
         "step_2": {
           "type": "step",
           "settings": {
-            "product": "",
+            "product": "double-hydration-boost-gel-ha",
             "tag": "FASE 2 • NUTRIZIONE PROFONDA",
             "title": "BOOSTER CONCENTRATO",
             "description": "Infusione di acido ialuronico multi-molecolare e fitonutrienti alpini. Stimola la sintesi fibroblastica negli strati basali dell'epidermide.",
@@ -107,15 +107,15 @@
         "step_3"
       ],
       "settings": {
-        "tag": "IL PROTOCOLLO ESSENZIALE",
-        "title": "La tua routine, semplificata",
-        "subtitle": "La detersione delicata e calmante che lenisce, nutre e strucca.",
+        "tag": "Il tuo Protocollo giornaliero",
+        "title": "La tua routine, efficace, semplice",
+        "subtitle": "Tutto ciò che la tua pelle necessita per ritrovare il suo stato orgiginario",
         "show_bundle": true,
         "bundle_badge": "OFFERTA SET ESCLUSIVO",
         "bundle_title": "Acquista i 3 Step Insieme • Sconto 15% Immediato",
         "bundle_desc": "Include Cofanetto Regalo Milebiolab FSC, 3 Campioncini Omaggio e Check-up della pelle gratuito in Istituto a Verona.",
-        "bundle_compare_price": "€ 208,00",
-        "bundle_price": "€ 176,80",
+        "bundle_compare_price": "169,90",
+        "bundle_price": "144,42",
         "bundle_btn_text": "Aggiungi la Routine Completa al Carrello (-15%) →"
       }
     },
