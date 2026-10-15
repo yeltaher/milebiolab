@@ -54,7 +54,7 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "collection": "frontpage",
+        "collection": "bestseller-preferiti",
         "tag": "I NOSTRI BESTSELLER",
         "title": "Di tendenza",
         "subtitle": "Le formulazioni biomimetiche d'eccellenza più richieste per una luminosità immediata e una rigenerazione cutanea profonda.",
@@ -70,11 +70,12 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "product": "",
-            "tag": "FASE 1 • PURIFICAZIONE",
-            "title": "PURIFICAZIONE & RESET",
+            "product": "sensitive-skin-oil-to-milk-cleanser",
+            "tag": "FASE 1 • DETERSIONE",
+            "title": "PULIZIA PROFONDA",
             "description": "Detersione e riequilibrio del pH fisiologico. Rimuove tossine e residui atmosferici preparando la cute alla penetrazione dei sieri attivi.",
-            "product_subtitle": "Camomilla Bio & Fieno Greco"
+            "product_subtitle": "100& Natural - Derm. Testato",
+            "custom_image": "shopify://shop_images/1791915524583.jpg"
           }
         },
         "step_2": {
