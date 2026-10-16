@@ -13,7 +13,13 @@
 
 {%- assign translated = '' -%}
 
-{%- if title_lower contains 'radiance serum' -%}
+{%- if title_lower contains 'conditioner' or title_lower contains 'radiace' or title_lower contains 'radiance - sublimating' or title_lower contains 'sublimating conditioner' or title_lower contains 'hydrating and radiace' or title_lower contains 'hydrating and radiance' -%}
+  {%- assign translated = 'Balsamo Idratante Sublimatore di Luminosità' -%}
+{%- elsif title_lower contains 'shampoo' -%}
+  {%- assign translated = 'Shampoo Rivitalizzante Botanico' -%}
+{%- elsif title_lower contains 'hair mask' or title_lower contains 'maschera capelli' -%}
+  {%- assign translated = 'Maschera Nutriente Intensiva' -%}
+{%- elsif title_lower contains 'radiance serum' -%}
   {%- assign translated = 'Siero Perfezionatore Illuminante Longevity' -%}
 {%- elsif title_lower contains 'hyaluronic boost' or title_lower contains 'multi-weight' or title_lower contains 'multy-weight' -%}
   {%- assign translated = "Gel Idratante Booster all'Acido Ialuronico" -%}

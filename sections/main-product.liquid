@@ -171,7 +171,15 @@
                         {%- if product.metafields.custom.subtitle != blank -%}
                             {%- assign display_subtitle = product.metafields.custom.subtitle -%}
                         {%- elsif display_subtitle == 'Balsamo-Olio Rigenerante' or display_subtitle == blank -%}
-                            {%- if prod_title_lower contains 'serum' or prod_title_lower contains 'siero' or prod_type_lower contains 'serum' or prod_type_lower contains 'siero' -%}
+                            {%- if prod_title_lower contains 'conditioner' or prod_title_lower contains 'balsamo' or prod_title_lower contains 'radiace' or prod_type_lower contains 'conditioner' or prod_type_lower contains 'balsamo' -%}
+                                {%- assign display_subtitle = 'Balsamo Idratante & Sublimatore' -%}
+                            {%- elsif prod_title_lower contains 'shampoo' or prod_type_lower contains 'shampoo' -%}
+                                {%- assign display_subtitle = 'Shampoo Rivitalizzante Botanico' -%}
+                            {%- elsif prod_title_lower contains 'hair mask' or prod_title_lower contains 'maschera capelli' or prod_type_lower contains 'mask' -%}
+                                {%- assign display_subtitle = 'Maschera Nutriente Intensiva' -%}
+                            {%- elsif prod_title_lower contains 'hair' or prod_title_lower contains 'capelli' or prod_type_lower contains 'hair' -%}
+                                {%- assign display_subtitle = 'Trattamento Botanico Capelli' -%}
+                            {%- elsif prod_title_lower contains 'serum' or prod_title_lower contains 'siero' or prod_type_lower contains 'serum' or prod_type_lower contains 'siero' -%}
                                 {%- if product.type != blank and prod_type_lower != 'default' -%}
                                     {%- assign display_subtitle = product.type -%}
                                 {%- else -%}
@@ -205,10 +213,12 @@
                                 {%- if product.type != blank and prod_type_lower != 'default' -%}
                                     {%- assign display_subtitle = product.type -%}
                                 {%- else -%}
-                                    {%- assign display_subtitle = 'Balsamo-Olio Rigenerante' -%}
+                                    {%- assign display_subtitle = 'Olio Botanico Rigenerante' -%}
                                 {%- endif -%}
                             {%- elsif product.type != blank and prod_type_lower != 'default' -%}
                                 {%- assign display_subtitle = product.type -%}
+                            {%- else -%}
+                                {%- assign display_subtitle = 'Trattamento Botanico Rigenerante' -%}
                             {%- endif -%}
                         {%- endif -%}
                         {%- if display_subtitle != blank -%}
@@ -248,32 +258,47 @@
                         </div>
 
                     {%- when 'bullet_list' -%}
+                        {%- assign desc_check = product.description | downcase -%}
                         {%- assign natural_badge = '' -%}
-                        {%- if product.description contains '100%' -%}
-                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
-                                {%- assign natural_badge = '100% Naturale (Certificato ECOCERT COSMOS)' -%}
+                        {%- assign nat_pct = '' -%}
+                        {%- if desc_check contains '100%' or desc_check contains '100 %' -%}
+                            {%- assign nat_pct = '100%' -%}
+                        {%- elsif desc_check contains '99%' or desc_check contains '99 %' -%}
+                            {%- assign nat_pct = '99%' -%}
+                        {%- elsif desc_check contains '98%' or desc_check contains '98 %' -%}
+                            {%- assign nat_pct = '98%' -%}
+                        {%- elsif desc_check contains '97%' or desc_check contains '97 %' -%}
+                            {%- assign nat_pct = '97%' -%}
+                        {%- elsif desc_check contains '96%' or desc_check contains '96 %' -%}
+                            {%- assign nat_pct = '96%' -%}
+                        {%- elsif desc_check contains '95%' or desc_check contains '95 %' -%}
+                            {%- assign nat_pct = '95%' -%}
+                        {%- elsif desc_check contains '94%' or desc_check contains '94 %' -%}
+                            {%- assign nat_pct = '94%' -%}
+                        {%- elsif desc_check contains '93%' or desc_check contains '93 %' -%}
+                            {%- assign nat_pct = '93%' -%}
+                        {%- elsif desc_check contains '92%' or desc_check contains '92 %' -%}
+                            {%- assign nat_pct = '92%' -%}
+                        {%- elsif desc_check contains '91%' or desc_check contains '91 %' -%}
+                            {%- assign nat_pct = '91%' -%}
+                        {%- elsif desc_check contains '90%' or desc_check contains '90 %' -%}
+                            {%- assign nat_pct = '90%' -%}
+                        {%- elsif desc_check contains '85%' or desc_check contains '85 %' -%}
+                            {%- assign nat_pct = '85%' -%}
+                        {%- endif -%}
+
+                        {%- assign is_certified = false -%}
+                        {%- if desc_check contains 'ecocert' or desc_check contains 'cosmos' -%}
+                            {%- assign is_certified = true -%}
+                        {%- endif -%}
+
+                        {%- if nat_pct != blank -%}
+                            {%- if is_certified -%}
+                                {%- assign natural_badge = nat_pct | append: ' Naturale (Certificato ECOCERT COSMOS)' -%}
                             {%- else -%}
-                                {%- assign natural_badge = '100% d\'Origine Naturale Certificata' -%}
+                                {%- assign natural_badge = nat_pct | append: " d'Origine Naturale Certificata" -%}
                             {%- endif -%}
-                        {%- elsif product.description contains '99%' -%}
-                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
-                                {%- assign natural_badge = '99% Naturale (Certificato ECOCERT COSMOS)' -%}
-                            {%- else -%}
-                                {%- assign natural_badge = '99% d\'Origine Naturale Certificata' -%}
-                            {%- endif -%}
-                        {%- elsif product.description contains '98%' -%}
-                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
-                                {%- assign natural_badge = '98% Naturale (Certificato ECOCERT COSMOS)' -%}
-                            {%- else -%}
-                                {%- assign natural_badge = '98% d\'Origine Naturale Certificata' -%}
-                            {%- endif -%}
-                        {%- elsif product.description contains '95%' -%}
-                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
-                                {%- assign natural_badge = '95% Naturale (Certificato ECOCERT COSMOS)' -%}
-                            {%- else -%}
-                                {%- assign natural_badge = '95% d\'Origine Naturale Certificata' -%}
-                            {%- endif -%}
-                        {%- elsif product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
+                        {%- elsif is_certified -%}
                             {%- assign natural_badge = '100% Naturale (Certificato ECOCERT COSMOS)' -%}
                         {%- endif -%}
 

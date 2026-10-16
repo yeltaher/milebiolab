@@ -1468,6 +1468,15 @@ function translateProductTitleToItalian(title) {
   const trimmed = title.trim();
   const lower = trimmed.toLowerCase();
 
+  if (lower.includes('conditioner') || lower.includes('radiace') || lower.includes('radiance - sublimating') || lower.includes('sublimating conditioner') || lower.includes('hydrating and radiace') || lower.includes('hydrating and radiance')) {
+    return 'Balsamo Idratante Sublimatore di Luminosità';
+  }
+  if (lower.includes('shampoo')) {
+    return 'Shampoo Rivitalizzante Botanico';
+  }
+  if (lower.includes('hair mask') || lower.includes('maschera capelli')) {
+    return 'Maschera Nutriente Intensiva';
+  }
   if (lower.includes('radiance serum')) {
     return 'Siero Perfezionatore Illuminante Longevity';
   }
@@ -1505,48 +1514,119 @@ function renderAccordionDescription(container) {
 
   raw.dataset.parsed = 'true';
 
-  // 1. Automatic Percentage Extraction & Bullet Point Injection (Requirement 1c)
+  // 1. Automatic Percentage & Actives Extraction -> Injection in White Boxes (Bullet Points)
   try {
     const textAll = raw.textContent || '';
     const htmlAll = raw.innerHTML || '';
-    let badgeText = null;
+    let naturalBadgeText = null;
 
-    const percentMatch = textAll.match(/(\d{2,3})%\s*(?:naturale|d'origine naturale|organico|biologico|natural)?/i);
+    // Naturality & Certification percentage detection (with optional space before %)
     const hasEcocert = /ecocert|cosmos/i.test(textAll) || /ecocert|cosmos/i.test(htmlAll);
+    const percentMatch = textAll.match(/(?:ECOCERT|COSMOS[A-Z\s\-–]*?)?(\d{2,3})\s*%\s*(?:naturale|d'origine naturale|natural|organico|biologico)?/i)
+                      || textAll.match(/(\d{2,3})\s*%\s*(?:naturale|d'origine naturale|natural|organico|biologico)/i)
+                      || textAll.match(/(?:ecocert|cosmos)[\s\w\-–]*?(\d{2,3})\s*%/i)
+                      || textAll.match(/(\d{2,3})\s*%/);
 
     if (percentMatch && percentMatch[1]) {
-      const p = percentMatch[1] + '%';
+      const p = percentMatch[1].trim() + '%';
       if (hasEcocert) {
-        badgeText = `${p} Naturale (Certificato ECOCERT COSMOS)`;
+        naturalBadgeText = `${p} Naturale (Certificato ECOCERT COSMOS)`;
       } else {
-        badgeText = `${p} d'Origine Naturale Certificata`;
+        naturalBadgeText = `${p} d'Origine Naturale Certificata`;
       }
     } else if (hasEcocert) {
-      badgeText = '100% Naturale (Certificato ECOCERT COSMOS)';
+      naturalBadgeText = '100% Naturale (Certificato ECOCERT COSMOS)';
     }
 
-    if (badgeText) {
-      const bulletList = document.getElementById('pdp-bullet-list');
-      if (bulletList) {
-        let existingBadge = bulletList.querySelector('.pdp-auto-natural-badge');
-        if (!existingBadge) {
-          const badgeDiv = document.createElement('div');
-          badgeDiv.className = 'pdp-auto-natural-badge flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen';
-          badgeDiv.innerHTML = `<span class="text-sage font-bold">✓</span><span class="text-xs text-ink font-medium">${badgeText}</span>`;
-          bulletList.insertBefore(badgeDiv, bulletList.firstChild);
-        } else {
-          const span = existingBadge.querySelector('span:last-child');
-          if (span && !span.textContent.includes('%') && badgeText.includes('%')) {
-            span.textContent = badgeText;
-          }
+    // Active ingredient percentages detection (e.g., 2% Acido Ialuronico, 10% Niacinamide, 5% Vitamina C, etc.)
+    const ingredientBadges = [];
+    const activeRegex = /\b(\d{1,2}(?:[.,]\d+)?)\s*%\s+([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s\-–]{2,30})/gi;
+    let m;
+    while ((m = activeRegex.exec(textAll)) !== null) {
+      const val = m[1].replace(',', '.');
+      const pctStr = `${val}%`;
+      let rawName = m[2].trim();
+      rawName = rawName.replace(/\s+(?:e|ed|con|per|\+|&)\b.*$/i, '').trim();
+      rawName = rawName.split(/[.,;\n\r\(\)]/)[0].trim();
+      if (/^(?:naturale|d'origine|natural|biologico|organico|sconto|dei soggetti|dei consumatori|delle donne|efficacia)/i.test(rawName)) {
+        continue;
+      }
+      const words = rawName.split(/\s+/).slice(0, 3).join(' ');
+      if (words.length >= 3) {
+        const itemText = `${pctStr} ${words}`;
+        if (!ingredientBadges.some(b => b.toLowerCase() === itemText.toLowerCase())) {
+          ingredientBadges.push(itemText);
         }
       }
     }
+
+    const activeSuffixRegex = /\b([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s\-–]{2,25})\s*(?:\(|\:|\-)?\s*(\d{1,2}(?:[.,]\d+)?)\s*%\)?/gi;
+    while ((m = activeSuffixRegex.exec(textAll)) !== null) {
+      let rawName = m[1].trim();
+      const val = m[2].replace(',', '.');
+      const pctStr = `${val}%`;
+      rawName = rawName.replace(/^(?:contiene|arricchito\s+con|con|formula\s+con)\s+/i, '').trim();
+      rawName = rawName.split(/[.,;\n\r\(\)]/)[0].trim();
+      if (/ecocert|cosmos|naturale|natural|biologico|organico|sconto|risultati|test|donne|consumatori|soggetti/i.test(rawName)) {
+        continue;
+      }
+      const words = rawName.split(/\s+/).slice(-3).join(' ');
+      if (words.length >= 3 && !/^\d+$/.test(words)) {
+        const itemText = `${pctStr} ${words}`;
+        if (!ingredientBadges.some(b => b.toLowerCase().includes(words.toLowerCase()) || b.toLowerCase().includes(pctStr.toLowerCase()))) {
+          ingredientBadges.push(itemText);
+        }
+      }
+    }
+
+    const bulletList = document.getElementById('pdp-bullet-list') || document.querySelector('.pdp-bullet-list, [data-pdp-bullet-list]');
+    if (bulletList) {
+      // Naturality badge injection or update
+      if (naturalBadgeText) {
+        let existingBadge = bulletList.querySelector('.pdp-auto-natural-badge');
+        if (!existingBadge) {
+          const alreadyPresent = Array.from(bulletList.children).some(child => 
+            child.textContent.includes(naturalBadgeText.slice(0, 8))
+          );
+          if (!alreadyPresent) {
+            const badgeDiv = document.createElement('div');
+            badgeDiv.className = 'pdp-auto-natural-badge flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen';
+            badgeDiv.innerHTML = `<span class="text-sage font-bold">✓</span><span class="text-xs text-ink font-medium">${naturalBadgeText}</span>`;
+            bulletList.insertBefore(badgeDiv, bulletList.firstChild);
+          }
+        } else {
+          const span = existingBadge.querySelector('span:last-child');
+          if (span && (!span.textContent.includes('%') || (naturalBadgeText.includes('ECOCERT') && !span.textContent.includes('ECOCERT')))) {
+            span.textContent = naturalBadgeText;
+          }
+        }
+      }
+
+      // Active ingredient percentage badges injection
+      ingredientBadges.forEach(ingText => {
+        const alreadyPresent = Array.from(bulletList.children).some(child => 
+          child.textContent.toLowerCase().includes(ingText.toLowerCase())
+        );
+        if (!alreadyPresent) {
+          const badgeDiv = document.createElement('div');
+          badgeDiv.className = 'pdp-auto-active-badge flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen';
+          badgeDiv.innerHTML = `<span class="text-sage font-bold">✓</span><span class="text-xs text-ink font-medium">${ingText}</span>`;
+          const natBadge = bulletList.querySelector('.pdp-auto-natural-badge');
+          if (natBadge && natBadge.nextSibling) {
+            bulletList.insertBefore(badgeDiv, natBadge.nextSibling);
+          } else if (natBadge) {
+            bulletList.appendChild(badgeDiv);
+          } else {
+            bulletList.insertBefore(badgeDiv, bulletList.firstChild);
+          }
+        }
+      });
+    }
   } catch (err) {
-    console.warn('Natural badge extraction warning:', err);
+    console.warn('Percentage & natural badge extraction warning:', err);
   }
 
-  // 2. Subtitle / Benefit Italian Translation Priority (Requirement 3b)
+  // 2. Subtitle / Benefit Italian Translation Priority
   function translateHeading(str) {
     if (!str) return '';
     let h = str.trim().replace(/^[:\s\-–]+|[:\s\-–]+$/g, '').trim();
@@ -1567,7 +1647,11 @@ function renderAccordionDescription(container) {
       { en: /the science of/i, it: "La Scienza del" },
       { en: /how to use|application ritual/i, it: "Rituale di Applicazione" },
       { en: /ingredients|full inci/i, it: "Principi Attivi & INCI Completo" },
-      { en: /clinical results/i, it: "Risultati Clinici & Efficacia" }
+      { en: /clinical results/i, it: "Risultati Clinici & Efficacia" },
+      { en: /hydrating (?:and|&) radiac?e|sublimating conditioner/i, it: "Idratazione e Sublimazione di Luminosità" },
+      { en: /hair nourishment|deep repair/i, it: "Nutrizione e Riparazione Capillare" },
+      { en: /directions|how to apply/i, it: "Modalità d'Uso e Applicazione" },
+      { en: /benefits/i, it: "Benefici e Risultati" }
     ];
 
     for (let item of dict) {
@@ -1581,7 +1665,7 @@ function renderAccordionDescription(container) {
     return h;
   }
 
-  // 3. Robust HTML DOM parsing for Accordions & Overview (Requirements 1a & 1b)
+  // 3. Robust HTML DOM parsing for Accordions & Overview
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = rawHtml;
 
@@ -1650,16 +1734,39 @@ function renderAccordionDescription(container) {
 
     const headingCheck = isHeadingElement(node);
     if (headingCheck) {
-      let title = '';
+      let rawHeadingTitle = '';
       let inlineContent = '';
       if (typeof headingCheck === 'object') {
-        title = headingCheck.title;
+        rawHeadingTitle = headingCheck.title;
         inlineContent = headingCheck.inlineContent;
       } else {
-        title = headingCheck;
+        rawHeadingTitle = headingCheck;
       }
 
-      title = translateHeading(title);
+      // FILTER 1: CERTIFICATIONS & PERCENTAGES MUST NEVER CREATE ACCORDIONS
+      // (e.g., "ECOCERT COSMOS NATURAL - 98% NATURALE", "COSMOS NATURAL", "98% NATURALE")
+      const isCertOrPct = /ecocert|cosmos|\b\d{1,3}\s*%/i.test(rawHeadingTitle);
+      if (isCertOrPct) {
+        if (inlineContent && inlineContent.length > 5) {
+          introHtml += `<p class="mb-2 leading-relaxed text-[#1A1A1A]">${inlineContent}</p>`;
+        }
+        currentSection = null;
+        return;
+      }
+
+      // FILTER 2: VOLUME / FORMAT / SIZE HEADINGS MUST NEVER CREATE ACCORDIONS
+      // (e.g., "290ML (BALSAMO IDRATANTE E SUBLIMATORE DI LUMINOSITÀ)", "290 ML", "50ml", etc.)
+      const isVolumeOrFormat = /^\s*\d+\s*(?:ml|g|oz|fl\s*oz|l)\b/i.test(rawHeadingTitle)
+                            || /\(\s*\d+\s*(?:ml|g|oz)\s*\)$/i.test(rawHeadingTitle)
+                            || /^\s*(?:formato|volume)\s*:/i.test(rawHeadingTitle);
+      if (isVolumeOrFormat) {
+        const fullVolText = rawHeadingTitle + (inlineContent ? ` — ${inlineContent}` : '');
+        introHtml += `<p class="font-semibold text-ink uppercase tracking-wider text-[11px] mb-2 leading-relaxed">${fullVolText}</p>`;
+        currentSection = null;
+        return;
+      }
+
+      let title = translateHeading(rawHeadingTitle);
 
       currentSection = {
         title: title,
@@ -1667,7 +1774,14 @@ function renderAccordionDescription(container) {
       };
       sections.push(currentSection);
     } else {
+      const nodeText = (node.textContent || '').trim();
       const nodeHtml = node.outerHTML;
+
+      // Skip standalone certification or percentage paragraphs in body
+      if (/^(?:ecocert|cosmos)[\s\w\-–]*?\d{1,3}\s*%[\s\w]*$/i.test(nodeText) || /^\d{1,3}\s*%\s*(?:naturale|natural|biologico)?$/i.test(nodeText)) {
+        return;
+      }
+
       if (!currentSection) {
         introHtml += nodeHtml;
       } else {
@@ -1676,8 +1790,18 @@ function renderAccordionDescription(container) {
     }
   });
 
+  // Filter out any sections that match certifications, percentages, or volume formats
+  sections = sections.filter(sec => {
+    if (!sec || !sec.title) return false;
+    const t = sec.title.trim();
+    if (/ecocert|cosmos|\b\d{1,3}\s*%/i.test(t)) return false;
+    if (/^\s*\d+\s*(?:ml|g|oz)\b/i.test(t)) return false;
+    return true;
+  });
+
   if (sections.length === 0) {
-    rendered.innerHTML = `<div class="pdp-intro-overview text-xs text-[#1A1A1A] leading-relaxed mb-4 font-normal">${rawHtml}</div>`;
+    const finalContent = (introHtml.trim() ? introHtml : rawHtml);
+    rendered.innerHTML = `<div class="pdp-intro-overview text-xs text-[#1A1A1A] leading-relaxed mb-4 font-normal">${finalContent}</div>`;
     raw.style.display = 'none';
     return;
   }
