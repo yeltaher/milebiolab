@@ -26,6 +26,7 @@
   --font-heading: 'DM Serif Display', Georgia, serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-brand: 'Century Gothic', 'Century Gothic Local', 'Questrial', 'CenturyGothic', 'AppleGothic', sans-serif;
 
   --border-splendor: 3px double var(--color-splendor-border);
   --border-thin: 1px solid var(--color-border);
@@ -37,6 +38,11 @@
   --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   --shadow-luxury: 0 12px 36px rgba(26, 26, 26, 0.06);
   --shadow-card: 0 6px 24px rgba(26, 26, 26, 0.04);
+}
+
+/* Brand Typography (MILE Logo) */
+.font-brand, .brand-logo, .brand-logo-font {
+  font-family: 'Century Gothic', 'Century Gothic Local', 'Questrial', 'CenturyGothic', 'AppleGothic', sans-serif !important;
 }
 
 /* Accessibility */

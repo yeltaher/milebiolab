@@ -37,7 +37,7 @@
 
     <!-- Logo Center -->
     <div class="text-center flex-1 lg:flex-none">
-      <a href="{{ routes.root_url }}" class="font-serif text-3xl md:text-4xl tracking-[0.25em] uppercase text-[#1A1A1A] font-semibold block">
+      <a href="{{ routes.root_url }}" class="font-brand brand-logo text-3xl md:text-4xl tracking-[0.25em] uppercase text-[#1A1A1A] font-semibold block">
         {{ section.settings.brand_name }}
       </a>
       <span class="block text-[9px] uppercase tracking-[0.35em] text-[#7A7265] mt-0.5">{{ section.settings.brand_payoff }}</span>
@@ -76,7 +76,7 @@
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeMobileMenu()"></div>
   <div class="absolute top-0 left-0 bottom-0 w-[85%] max-w-sm bg-[#F5F2EB] shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300" id="mobile-menu-panel">
     <div class="flex items-center justify-between px-6 py-5 border-b border-[#E5E0D8]">
-      <span class="font-serif text-xl tracking-widest uppercase text-[#1A1A1A]">{{ section.settings.brand_name }}</span>
+      <span class="font-brand brand-logo text-xl tracking-widest uppercase text-[#1A1A1A]">{{ section.settings.brand_name }}</span>
       <button type="button" onclick="closeMobileMenu()" class="text-[#1A1A1A] p-2 -mr-2">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
