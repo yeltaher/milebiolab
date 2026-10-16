@@ -48,11 +48,11 @@
 
               <img 
                 src="{{ card_photo_url }}" 
-                alt="{{ product.title | escape }}" 
+                alt="{% render 'italian-product-title', title: product.title %}" 
                 class="routine-card-photo" loading="lazy">
 
               <div>
-                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{{ product.title }}</h4>
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{% render 'italian-product-title', title: product.title %}</h4>
                 <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
                   {{ card_subtitle }}
                 </span>
@@ -63,7 +63,7 @@
                       type="button" 
                       class="btn-primary" 
                       style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
-                      onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ product.selected_or_first_available_variant.id }}', 1, {id: '{{ product.selected_or_first_available_variant.id }}', title: '{{ product.title | escape }}', price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});} else if(window.addToCart){addToCart({id: '{{ product.selected_or_first_available_variant.id }}', title: '{{ product.title | escape }}', price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});}">
+                      onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ product.selected_or_first_available_variant.id }}', 1, {id: '{{ product.selected_or_first_available_variant.id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});} else if(window.addToCart){addToCart({id: '{{ product.selected_or_first_available_variant.id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});}">
                       + Carrello
                     </button>
                   {%- else -%}

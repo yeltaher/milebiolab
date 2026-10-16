@@ -249,7 +249,7 @@ async function fetchShopifyCart() {
         MilebiolabState.cart = data.items.map(item => ({
           id: item.id || item.variant_id,
           key: item.key,
-          title: item.product_title || item.title,
+          title: translateProductTitleToItalian(item.product_title || item.title),
           step: (item.properties && item.properties['step']) || 'RITUALE BOTANICO',
           price: (item.price / 100),
           volume: item.variant_title || 'Formato Originale',
@@ -382,7 +382,7 @@ function renderCartDrawer() {
         <img src="${item.image}" alt="${item.title}" class="cart-item-img">
         <div class="cart-item-details">
           <span class="cart-item-step">${item.step || 'RITUALE BOTANICO'}</span>
-          <h4 class="cart-item-title">${item.title}</h4>
+          <h4 class="cart-item-title">${translateProductTitleToItalian(item.title)}</h4>
           <div class="cart-item-price">€ ${item.price.toFixed(2).replace('.', ',')}</div>
           <div class="cart-item-meta">${item.volume} • Milebiolab Haute Couture</div>
           <div class="cart-item-qty">
@@ -452,6 +452,9 @@ window.openCartDrawer = openCartDrawer;
 window.closeCartDrawer = closeCartDrawer;
 
 function addToCart(item) {
+  if (item && item.title) {
+    item.title = translateProductTitleToItalian(item.title);
+  }
   if (item && item.id && (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
     addShopifyCartItem(item.id, item.qty || 1, item);
     return;
@@ -1456,92 +1459,256 @@ function addInDrawerUpsell(title, price, image, vol, button) {
   showToast(`Aggiunto travel-size: ${title}!`);
 }
 
-/* Product Description Accordion Parser */
-function renderAccordionDescription(container) {
-    if (!container) return;
-    const raw = container.querySelector('.raw-description');
-    const rendered = container.querySelector('.rendered-description');
-    if (!raw || !rendered || raw.dataset.parsed) return;
-    
-    // Mark as parsed immediately
-    raw.dataset.parsed = 'true';
+/* ============================================================================
+   10. PRODUCT DESCRIPTION ACCORDION & NATURAL PERCENTAGE PARSER
+   ============================================================================ */
 
-    let html = raw.innerHTML;
-    // Replace <p> and <div> with <br> to normalize all block boundaries to <br>
-    html = html.replace(/<\/?(p|div)[^>]*>/gi, '<br>');
-    
-    // Split by <br> (and variants)
-    const lines = html.split(/<br\s*\/?>/gi);
+function translateProductTitleToItalian(title) {
+  if (!title || typeof title !== 'string') return title;
+  const trimmed = title.trim();
+  const lower = trimmed.toLowerCase();
 
-    let htmlOut = '';
-    let currentAccordion = null;
+  if (lower.includes('radiance serum')) {
+    return 'Siero Perfezionatore Illuminante Longevity';
+  }
+  if (lower.includes('hyaluronic boost') || lower.includes('multy-weight') || lower.includes('multi-weight')) {
+    return "Gel Idratante Booster all'Acido Ialuronico";
+  }
+  if (lower.includes('daily cleansing milk') || lower.includes('cleansing milk')) {
+    return 'Latte Detergente & Tonico Quotidiano';
+  }
+  if (lower.includes('intense hyaluronic')) {
+    return "Siero Concentrato all'Acido Ialuronico Puro";
+  }
+  if (lower.includes('supreme moisture cream') || lower.includes('moisture cream')) {
+    return 'Crema Riparatrice Cellulare Suprema';
+  }
+  if (lower.includes('golden glow body oil') || lower.includes('golden glow')) {
+    return 'Olio Corpo Botanico Elisir Dorato';
+  }
+  if (lower.includes('cellular youth eye') || lower.includes('eye & lip contour') || lower.includes('eye and lip contour')) {
+    return 'Contorno Occhi & Labbra Giovinezza Cellulare';
+  }
 
-    lines.forEach(line => {
-        let trimmed = line.trim();
-        if (!trimmed) return;
-
-        let temp = document.createElement('div');
-        temp.innerHTML = trimmed;
-        
-        // Skip empty lines unless they contain an image or iframe
-        if (temp.textContent.trim() === '' && !temp.querySelector('img, iframe, video')) return;
-
-        let isHeading = false;
-        let headingText = '';
-
-        // Check if the line is purely a heading (H2-H5)
-        const headings = temp.querySelectorAll('h2, h3, h4, h5');
-        if (headings.length === 1 && headings[0].textContent.replace(/\s+/g, '') === temp.textContent.replace(/\s+/g, '')) {
-            isHeading = true;
-            headingText = temp.textContent.trim();
-        } else {
-            // Check if the line is purely bold text
-            const strongs = temp.querySelectorAll('strong, b');
-            if (strongs.length > 0) {
-                let strongText = Array.from(strongs).map(s => s.textContent).join('').replace(/\s+/g, '');
-                let allText = temp.textContent.replace(/\s+/g, '');
-                
-                // If bold text covers the entire line (ignoring spaces/spans) and is > 3 chars
-                if (strongText === allText && allText.length > 3) {
-                    isHeading = true;
-                    headingText = temp.textContent.trim();
-                }
-            }
-        }
-
-        if (isHeading) {
-            if (currentAccordion !== null) {
-                htmlOut += currentAccordion + '</div></details>';
-            }
-            currentAccordion = '';
-            htmlOut += `
-            <details class="group border-b border-[#E5E0D8]">
-                <summary class="flex justify-between items-center cursor-pointer py-3 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden">
-                    ${headingText}
-                    <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45">&plus;</span>
-                </summary>
-                <div class="pt-2 pb-3 text-[11px] text-[#7A7265] leading-relaxed space-y-2">
-            `;
-        } else {
-            // Add margin-bottom to emulate paragraphs
-            let textHtml = '<div class="mb-2">' + trimmed + '</div>';
-            if (currentAccordion !== null) {
-                currentAccordion += textHtml;
-            } else {
-                htmlOut += textHtml;
-            }
-        }
-    });
-
-    if (currentAccordion !== null) {
-        htmlOut += currentAccordion + '</div></details>';
-    }
-
-    if (htmlOut.trim() !== '') {
-        rendered.innerHTML = htmlOut;
-        raw.style.display = 'none';
-    }
+  return trimmed;
 }
+window.translateProductTitleToItalian = translateProductTitleToItalian;
+
+function renderAccordionDescription(container) {
+  if (!container) return;
+  const raw = container.querySelector('.raw-description');
+  const rendered = container.querySelector('.rendered-description');
+  if (!raw || !rendered || raw.dataset.parsed === 'true') return;
+
+  const rawHtml = raw.innerHTML.trim();
+  if (!rawHtml) return;
+
+  raw.dataset.parsed = 'true';
+
+  // 1. Automatic Percentage Extraction & Bullet Point Injection (Requirement 1c)
+  try {
+    const textAll = raw.textContent || '';
+    const htmlAll = raw.innerHTML || '';
+    let badgeText = null;
+
+    const percentMatch = textAll.match(/(\d{2,3})%\s*(?:naturale|d'origine naturale|organico|biologico|natural)?/i);
+    const hasEcocert = /ecocert|cosmos/i.test(textAll) || /ecocert|cosmos/i.test(htmlAll);
+
+    if (percentMatch && percentMatch[1]) {
+      const p = percentMatch[1] + '%';
+      if (hasEcocert) {
+        badgeText = `${p} Naturale (Certificato ECOCERT COSMOS)`;
+      } else {
+        badgeText = `${p} d'Origine Naturale Certificata`;
+      }
+    } else if (hasEcocert) {
+      badgeText = '100% Naturale (Certificato ECOCERT COSMOS)';
+    }
+
+    if (badgeText) {
+      const bulletList = document.getElementById('pdp-bullet-list');
+      if (bulletList) {
+        let existingBadge = bulletList.querySelector('.pdp-auto-natural-badge');
+        if (!existingBadge) {
+          const badgeDiv = document.createElement('div');
+          badgeDiv.className = 'pdp-auto-natural-badge flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen';
+          badgeDiv.innerHTML = `<span class="text-sage font-bold">✓</span><span class="text-xs text-ink font-medium">${badgeText}</span>`;
+          bulletList.insertBefore(badgeDiv, bulletList.firstChild);
+        } else {
+          const span = existingBadge.querySelector('span:last-child');
+          if (span && !span.textContent.includes('%') && badgeText.includes('%')) {
+            span.textContent = badgeText;
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Natural badge extraction warning:', err);
+  }
+
+  // 2. Subtitle / Benefit Italian Translation Priority (Requirement 3b)
+  function translateHeading(str) {
+    if (!str) return '';
+    let h = str.trim().replace(/^[:\s\-–]+|[:\s\-–]+$/g, '').trim();
+
+    const parenMatch = h.match(/^([^(]+)\(([^)]+)\)$/);
+    if (parenMatch) {
+      const enPart = parenMatch[1].trim();
+      const itPart = parenMatch[2].trim();
+      return `${itPart} (${enPart})`;
+    }
+
+    const dict = [
+      { en: /dark spot corrector/i, it: "Correttore Macchie Scure" },
+      { en: /bio-retinol renewal/i, it: "Rinnovamento al Bio-Retinolo" },
+      { en: /lifting (?:and|&) plumping effect/i, it: "Effetto Lifting e Rimpolpante" },
+      { en: /antioxidant shield (?:&|and) comfort/i, it: "Scudo Antiossidante & Comfort" },
+      { en: /texture (?:and|&) (?:sensazione|sensation)(?: sulla pelle)?/i, it: "Texture e Sensazione sulla Pelle" },
+      { en: /the science of/i, it: "La Scienza del" },
+      { en: /how to use|application ritual/i, it: "Rituale di Applicazione" },
+      { en: /ingredients|full inci/i, it: "Principi Attivi & INCI Completo" },
+      { en: /clinical results/i, it: "Risultati Clinici & Efficacia" }
+    ];
+
+    for (let item of dict) {
+      if (item.en.test(h)) {
+        if (h.toLowerCase() === item.en.source.toLowerCase().replace(/\\/g, '')) {
+          return item.it;
+        }
+        h = h.replace(item.en, item.it);
+      }
+    }
+    return h;
+  }
+
+  // 3. Robust HTML DOM parsing for Accordions & Overview (Requirements 1a & 1b)
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = rawHtml;
+
+  let introHtml = '';
+  let sections = [];
+  let currentSection = null;
+
+  function isHeadingElement(el) {
+    if (!el) return null;
+    const tag = el.tagName ? el.tagName.toUpperCase() : '';
+    if (['H2', 'H3', 'H4', 'H5', 'H6'].includes(tag)) {
+      return el.textContent.trim();
+    }
+    if (tag === 'P' || tag === 'DIV') {
+      const strongEl = el.querySelector('strong, b');
+      if (strongEl) {
+        const textBeforeStrong = el.childNodes[0] === strongEl ? '' : (el.childNodes[0].textContent || '').trim();
+        if (textBeforeStrong === '') {
+          const strongText = strongEl.textContent.trim();
+          const restText = el.textContent.replace(strongEl.textContent, '').trim();
+          if (strongText.length > 3) {
+            return {
+              title: strongText,
+              inlineContent: restText.replace(/^[:\s\-–]+/, '').trim()
+            };
+          }
+        }
+      }
+    }
+    if (tag === 'STRONG' || tag === 'B') {
+      const txt = el.textContent.trim();
+      if (txt.length > 3) return txt;
+    }
+    return null;
+  }
+
+  let childNodes = Array.from(tempDiv.childNodes);
+  const blockTags = tempDiv.querySelectorAll('p, div, h2, h3, h4, h5, ul');
+  if (blockTags.length === 0) {
+    const parts = rawHtml.split(/<br\s*\/?>/gi);
+    parts.forEach(part => {
+      let pTrimmed = part.trim();
+      if (!pTrimmed) return;
+      let d = document.createElement('p');
+      d.innerHTML = pTrimmed;
+      if (d.textContent.trim() || d.querySelector('img')) {
+        tempDiv.appendChild(d);
+      }
+    });
+    childNodes = Array.from(tempDiv.children);
+  }
+
+  childNodes.forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const txt = node.textContent.trim();
+      if (!txt) return;
+      if (!currentSection) {
+        introHtml += `<p class="mb-3 leading-relaxed text-[#1A1A1A]">${txt}</p>`;
+      } else {
+        currentSection.content += `<p class="mb-2 leading-relaxed">${txt}</p>`;
+      }
+      return;
+    }
+
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+    const headingCheck = isHeadingElement(node);
+    if (headingCheck) {
+      let title = '';
+      let inlineContent = '';
+      if (typeof headingCheck === 'object') {
+        title = headingCheck.title;
+        inlineContent = headingCheck.inlineContent;
+      } else {
+        title = headingCheck;
+      }
+
+      title = translateHeading(title);
+
+      currentSection = {
+        title: title,
+        content: inlineContent ? `<p class="mb-2 leading-relaxed">${inlineContent}</p>` : ''
+      };
+      sections.push(currentSection);
+    } else {
+      const nodeHtml = node.outerHTML;
+      if (!currentSection) {
+        introHtml += nodeHtml;
+      } else {
+        currentSection.content += nodeHtml;
+      }
+    }
+  });
+
+  if (sections.length === 0) {
+    rendered.innerHTML = `<div class="pdp-intro-overview text-xs text-[#1A1A1A] leading-relaxed mb-4 font-normal">${rawHtml}</div>`;
+    raw.style.display = 'none';
+    return;
+  }
+
+  let outHtml = '';
+  if (introHtml.trim()) {
+    outHtml += `<div class="pdp-intro-overview text-xs text-[#1A1A1A] leading-relaxed mb-5 font-normal space-y-2">${introHtml}</div>`;
+  }
+
+  outHtml += '<div class="pdp-accordions-group space-y-0 border-t border-[#E5E0D8]">';
+  sections.forEach((sec, idx) => {
+    if (!sec.title) return;
+    const isFirst = (idx === 0);
+    outHtml += `
+      <details class="group border-b border-[#E5E0D8]" ${isFirst ? 'open' : ''}>
+        <summary class="flex justify-between items-center cursor-pointer py-3.5 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden hover:text-sage transition-colors select-none">
+          <span class="acc-heading-title">${sec.title}</span>
+          <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45 ml-2">&plus;</span>
+        </summary>
+        <div class="pt-1 pb-4 text-xs text-[#7A7265] leading-relaxed space-y-2.5">
+          ${sec.content || '<p class="italic text-ash">Dettagli del trattamento in via di aggiornamento da parte dei nostri dermo-specialisti.</p>'}
+        </div>
+      </details>
+    `;
+  });
+  outHtml += '</div>';
+
+  rendered.innerHTML = outHtml;
+  raw.style.display = 'none';
+}
+window.renderAccordionDescription = renderAccordionDescription;
 
 // ============================================================================
 // 11. SEAMLESS CUSTOMER AUTHENTICATION & ACCOUNT DRAWER STATE MANAGEMENT
@@ -1636,8 +1803,12 @@ window.logoutCustomerSession = logoutCustomerSession;
 // Auto-run on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   renderCustomerAuthState();
+  document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
 });
 
 // Also run immediately
 renderCustomerAuthState();
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
+}
 

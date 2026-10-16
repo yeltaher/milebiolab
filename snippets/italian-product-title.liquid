@@ -1,0 +1,42 @@
+{%- comment -%}
+  MILEBIOLAB - Italian Product Title Translator
+  Translates English cosmetic product titles to Italian luxury naming.
+  Accepts:
+    - title: product.title or string
+    - product: product object (optional)
+    - default: fallback title string (optional)
+    - escape: boolean (optional, defaults to false)
+{%- endcomment -%}
+{%- assign raw_title = title | default: product.title | default: default | default: '' | strip -%}
+{%- assign title_clean = raw_title | remove_last: '04' | remove_last: '01' | remove_last: '02' | remove_last: '03' | remove_last: '05' | strip -%}
+{%- assign title_lower = title_clean | downcase -%}
+
+{%- assign translated = '' -%}
+
+{%- if title_lower contains 'radiance serum' -%}
+  {%- assign translated = 'Siero Perfezionatore Illuminante Longevity' -%}
+{%- elsif title_lower contains 'hyaluronic boost' or title_lower contains 'multi-weight' or title_lower contains 'multy-weight' -%}
+  {%- assign translated = "Gel Idratante Booster all'Acido Ialuronico" -%}
+{%- elsif title_lower contains 'daily cleansing milk' or title_lower contains 'cleansing milk' -%}
+  {%- assign translated = 'Latte Detergente & Tonico Quotidiano' -%}
+{%- elsif title_lower contains 'intense hyaluronic' -%}
+  {%- assign translated = "Siero Concentrato all'Acido Ialuronico Puro" -%}
+{%- elsif title_lower contains 'supreme moisture cream' or title_lower contains 'moisture cream' -%}
+  {%- assign translated = 'Crema Riparatrice Cellulare Suprema' -%}
+{%- elsif title_lower contains 'golden glow body oil' or title_lower contains 'golden glow' -%}
+  {%- assign translated = 'Olio Corpo Botanico Elisir Dorato' -%}
+{%- elsif title_lower contains 'cellular youth eye' or title_lower contains 'eye & lip contour' or title_lower contains 'eye and lip contour' -%}
+  {%- assign translated = 'Contorno Occhi & Labbra Giovinezza Cellulare' -%}
+{%- endif -%}
+
+{%- if translated != blank -%}
+  {%- assign final_title = translated -%}
+{%- else -%}
+  {%- assign final_title = raw_title -%}
+{%- endif -%}
+
+{%- if escape -%}
+  {{- final_title | escape -}}
+{%- else -%}
+  {{- final_title -}}
+{%- endif -%}

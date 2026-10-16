@@ -240,7 +240,7 @@
                         <span class="text-[9px] font-mono text-[#7A7265] uppercase block mb-1">{{ block.settings.step_tag }}</span>
                         <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">
                           {%- if block.settings.product != blank -%}
-                            {{ block.settings.product.title }}
+                            {% render 'italian-product-title', title: block.settings.product.title %}
                           {%- else -%}
                             {{ block.settings.title }}
                           {%- endif -%}

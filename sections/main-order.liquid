@@ -1,4 +1,4 @@
-﻿{% comment %}
+{% comment %}
   MILEBIOLAB - TEMPLATE CUSTOMER ORDER DETAILS
   Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
 {% endcomment %}
@@ -84,7 +84,7 @@
                 <div>
                   <h3 class="font-serif text-base sm:text-lg text-ink font-normal leading-snug">
                     <a href="{{ line_item.url }}" class="hover:text-amber transition-colors">
-                      {{ line_item.product.title | default: line_item.title }}
+                      {% render 'italian-product-title', title: line_item.product.title, default: line_item.title %}
                     </a>
                   </h3>
                   

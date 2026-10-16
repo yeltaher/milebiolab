@@ -4,7 +4,8 @@
         <span>/</span>
         <a href="/collections/all" class="hover:text-ink transition-colors">Trattamenti Corpo</a>
         <span>/</span>
-        <span class="text-ink font-medium">{{ product.title | default: section.settings.product_title }}</span>
+        {%- capture it_breadcrumb_title -%}{%- render 'italian-product-title', title: product.title -%}{%- endcapture -%}
+        <span class="text-ink font-medium">{{ it_breadcrumb_title | strip | default: section.settings.product_title }}</span>
     </div>
 
     <!-- 4. Above-the-Fold Product Section (100% Faithful to Reference) -->
@@ -143,15 +144,78 @@
                                     NOVITÀ
                                 </div>
                             </div>
+                            {%- capture translated_pdp_title -%}{%- render 'italian-product-title', title: product.title -%}{%- endcapture -%}
+                            {%- assign translated_pdp_title = translated_pdp_title | strip -%}
+                            {%- assign prod_sup_num = '04' -%}
+                            {%- if product.title contains '01' or translated_pdp_title contains '01' -%}
+                                {%- assign prod_sup_num = '01' -%}
+                            {%- elsif product.title contains '02' or translated_pdp_title contains '02' -%}
+                                {%- assign prod_sup_num = '02' -%}
+                            {%- elsif product.title contains '03' or translated_pdp_title contains '03' -%}
+                                {%- assign prod_sup_num = '03' -%}
+                            {%- elsif product.title contains '04' or translated_pdp_title contains '04' -%}
+                                {%- assign prod_sup_num = '04' -%}
+                            {%- elsif product.title contains '05' or translated_pdp_title contains '05' -%}
+                                {%- assign prod_sup_num = '05' -%}
+                            {%- endif -%}
+                            {%- assign clean_pdp_title = translated_pdp_title | remove_last: '04' | remove_last: '01' | remove_last: '02' | remove_last: '03' | remove_last: '05' | strip -%}
                             <h1 class="font-sans font-bold text-xl sm:text-2xl md:text-[28px] tracking-tight text-ink uppercase leading-none">
-                                {{ product.title }}<sup class="text-xs sm:text-sm font-semibold ml-0.5" style="top: -0.55em; position: relative;">04</sup>
+                                {{ clean_pdp_title }}<sup class="text-xs sm:text-sm font-semibold ml-0.5" style="top: -0.55em; position: relative;">{{ prod_sup_num }}</sup>
                             </h1>
                         </div>
 
                     {%- when 'subtitle' -%}
+                        {%- assign display_subtitle = block.settings.text -%}
+                        {%- assign prod_title_lower = product.title | downcase -%}
+                        {%- assign prod_type_lower = product.type | downcase -%}
+                        {%- if product.metafields.custom.subtitle != blank -%}
+                            {%- assign display_subtitle = product.metafields.custom.subtitle -%}
+                        {%- elsif display_subtitle == 'Balsamo-Olio Rigenerante' or display_subtitle == blank -%}
+                            {%- if prod_title_lower contains 'serum' or prod_title_lower contains 'siero' or prod_type_lower contains 'serum' or prod_type_lower contains 'siero' -%}
+                                {%- if product.type != blank and prod_type_lower != 'default' -%}
+                                    {%- assign display_subtitle = product.type -%}
+                                {%- else -%}
+                                    {%- assign display_subtitle = 'Siero Perfezionatore Concentrato' -%}
+                                {%- endif -%}
+                            {%- elsif prod_title_lower contains 'cleans' or prod_title_lower contains 'detergente' or prod_title_lower contains 'milk' or prod_title_lower contains 'latte' -%}
+                                {%- if product.type != blank and prod_type_lower != 'default' -%}
+                                    {%- assign display_subtitle = product.type -%}
+                                {%- else -%}
+                                    {%- assign display_subtitle = 'Detergente & Tonico Quotidiano' -%}
+                                {%- endif -%}
+                            {%- elsif prod_title_lower contains 'cream' or prod_title_lower contains 'crema' -%}
+                                {%- if product.type != blank and prod_type_lower != 'default' -%}
+                                    {%- assign display_subtitle = product.type -%}
+                                {%- else -%}
+                                    {%- assign display_subtitle = 'Crema Riparatrice Cellulare' -%}
+                                {%- endif -%}
+                            {%- elsif prod_title_lower contains 'gel' -%}
+                                {%- if product.type != blank and prod_type_lower != 'default' -%}
+                                    {%- assign display_subtitle = product.type -%}
+                                {%- else -%}
+                                    {%- assign display_subtitle = 'Gel Booster Idratante' -%}
+                                {%- endif -%}
+                            {%- elsif prod_title_lower contains 'eye' or prod_title_lower contains 'occhi' -%}
+                                {%- if product.type != blank and prod_type_lower != 'default' -%}
+                                    {%- assign display_subtitle = product.type -%}
+                                {%- else -%}
+                                    {%- assign display_subtitle = 'Contorno Occhi & Labbra' -%}
+                                {%- endif -%}
+                            {%- elsif prod_title_lower contains 'oil' or prod_title_lower contains 'olio' -%}
+                                {%- if product.type != blank and prod_type_lower != 'default' -%}
+                                    {%- assign display_subtitle = product.type -%}
+                                {%- else -%}
+                                    {%- assign display_subtitle = 'Balsamo-Olio Rigenerante' -%}
+                                {%- endif -%}
+                            {%- elsif product.type != blank and prod_type_lower != 'default' -%}
+                                {%- assign display_subtitle = product.type -%}
+                            {%- endif -%}
+                        {%- endif -%}
+                        {%- if display_subtitle != blank -%}
                         <p class="font-sans text-xs tracking-wider text-[#7A7265] mt-2 font-normal" {{ block.shopify_attributes }}>
-                            {{ block.settings.text }}
+                            {{ display_subtitle }}
                         </p>
+                        {%- endif -%}
 
                     {%- when 'price' -%}
                         <div class="flex items-center justify-between pt-2 mb-4" {{ block.shopify_attributes }}>
@@ -184,33 +248,75 @@
                         </div>
 
                     {%- when 'bullet_list' -%}
-                        <div class="space-y-2 mb-4" {{ block.shopify_attributes }}>
+                        {%- assign natural_badge = '' -%}
+                        {%- if product.description contains '100%' -%}
+                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
+                                {%- assign natural_badge = '100% Naturale (Certificato ECOCERT COSMOS)' -%}
+                            {%- else -%}
+                                {%- assign natural_badge = '100% d\'Origine Naturale Certificata' -%}
+                            {%- endif -%}
+                        {%- elsif product.description contains '99%' -%}
+                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
+                                {%- assign natural_badge = '99% Naturale (Certificato ECOCERT COSMOS)' -%}
+                            {%- else -%}
+                                {%- assign natural_badge = '99% d\'Origine Naturale Certificata' -%}
+                            {%- endif -%}
+                        {%- elsif product.description contains '98%' -%}
+                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
+                                {%- assign natural_badge = '98% Naturale (Certificato ECOCERT COSMOS)' -%}
+                            {%- else -%}
+                                {%- assign natural_badge = '98% d\'Origine Naturale Certificata' -%}
+                            {%- endif -%}
+                        {%- elsif product.description contains '95%' -%}
+                            {%- if product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
+                                {%- assign natural_badge = '95% Naturale (Certificato ECOCERT COSMOS)' -%}
+                            {%- else -%}
+                                {%- assign natural_badge = '95% d\'Origine Naturale Certificata' -%}
+                            {%- endif -%}
+                        {%- elsif product.description contains 'ECOCERT' or product.description contains 'COSMOS' -%}
+                            {%- assign natural_badge = '100% Naturale (Certificato ECOCERT COSMOS)' -%}
+                        {%- endif -%}
+
+                        <div id="pdp-bullet-list" class="space-y-2 mb-4" {{ block.shopify_attributes }}>
+                            {%- if natural_badge != blank -%}
+                            <div class="pdp-auto-natural-badge flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen">
+                                <span class="text-sage font-bold">✓</span><span class="text-xs text-ink font-medium">{{ natural_badge }}</span>
+                            </div>
+                            {%- endif -%}
                             {%- if block.settings.point_1 != blank -%}
                             <div class="flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen">
-                                <span class="text-sage">✓</span><span class="text-xs text-ink">{{ block.settings.point_1 }}</span>
+                                <span class="text-sage font-bold">✓</span><span class="text-xs text-ink">{{ block.settings.point_1 }}</span>
                             </div>
                             {%- endif -%}
                             {%- if block.settings.point_2 != blank -%}
                             <div class="flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen">
-                                <span class="text-sage">✓</span><span class="text-xs text-ink">{{ block.settings.point_2 }}</span>
+                                <span class="text-sage font-bold">✓</span><span class="text-xs text-ink">{{ block.settings.point_2 }}</span>
                             </div>
                             {%- endif -%}
                             {%- if block.settings.point_3 != blank -%}
                             <div class="flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen">
-                                <span class="text-sage">✓</span><span class="text-xs text-ink">{{ block.settings.point_3 }}</span>
+                                <span class="text-sage font-bold">✓</span><span class="text-xs text-ink">{{ block.settings.point_3 }}</span>
                             </div>
                             {%- endif -%}
                             {%- if block.settings.point_4 != blank -%}
                             <div class="flex items-center gap-2 bg-white/95 rounded-xs p-2 shadow-xs border border-borderLinen">
-                                <span class="text-sage">✓</span><span class="text-xs text-ink">{{ block.settings.point_4 }}</span>
+                                <span class="text-sage font-bold">✓</span><span class="text-xs text-ink">{{ block.settings.point_4 }}</span>
                             </div>
                             {%- endif -%}
                         </div>
 
                     {%- when 'description' -%}
                         <div id="product-desc-{{ block.id }}" class="product-description-container space-y-2 py-1 text-xs text-[#1A1A1A] mb-4" {{ block.shopify_attributes }}>
-                            <div class="raw-description">{{ product.description }}</div>
+                            <div class="raw-description hidden">{{ product.description }}</div>
                             <div class="rendered-description"></div>
+                            <script>
+                                (function() {
+                                    var c = document.getElementById('product-desc-{{ block.id }}');
+                                    if (c && typeof window.renderAccordionDescription === 'function') {
+                                        window.renderAccordionDescription(c);
+                                    }
+                                })();
+                            </script>
                         </div>
                     {%- when 'loyalty_points' -%}
                         <div class="flex items-center justify-between text-xs text-[#1A1A1A] pt-1 mb-2" {{ block.shopify_attributes }}>
@@ -583,7 +689,7 @@
         } else if (typeof addToCart === 'function') {
           addToCart({
             id: variantId,
-            title: '{{ product.title | default: section.settings.product_title | escape }}',
+            title: {{ clean_pdp_title | default: product.title | default: section.settings.product_title | json }},
             price: currentPrice,
             volume: currentFormatLabel,
             qty: 1,
