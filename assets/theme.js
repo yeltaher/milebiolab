@@ -448,6 +448,9 @@ function closeCartDrawer() {
   }
 }
 
+window.openCartDrawer = openCartDrawer;
+window.closeCartDrawer = closeCartDrawer;
+
 function addToCart(item) {
   if (item && item.id && (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
     addShopifyCartItem(item.id, item.qty || 1, item);
@@ -1625,6 +1628,8 @@ function logoutCustomerSession() {
 }
 
 // Expose globally
+window.openCartDrawer = openCartDrawer;
+window.closeCartDrawer = closeCartDrawer;
 window.renderCustomerAuthState = renderCustomerAuthState;
 window.logoutCustomerSession = logoutCustomerSession;
 

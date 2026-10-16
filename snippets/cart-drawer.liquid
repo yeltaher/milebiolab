@@ -1,5 +1,5 @@
 <!-- MILE LUXURY CART DRAWER SLIDE-OVER -->
-<div id="cart-drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
+<div id="cart-drawer-overlay" class="drawer-overlay" aria-hidden="true" onclick="closeCartDrawer()" style="cursor: pointer;"></div>
 
 <aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrello dei Rituali Milebiolab" aria-hidden="true">
   
@@ -38,11 +38,14 @@
       IVA inclusa. Spedizione gratuita o ritiro rapido oggi a Verona in 2 ore.
     </p>
 
-    <a href="{{ routes.cart_url }}/checkout" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem;">
+    <a href="{{ routes.cart_url }}/checkout" id="cart-drawer-checkout-btn" onclick="window.location.href='/checkout';" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem; cursor: pointer; position: relative; z-index: 10;">
       <span>Procedi al Checkout Sicuro</span>
       <span>&bull;</span>
-      <span id="cart-checkout-price">€ 170,00</span>
+      <span id="cart-checkout-price">€ 110,00</span>
     </a>
+    <button type="button" onclick="closeCartDrawer()" class="text-xs uppercase tracking-widest text-[#7A7265] hover:text-[#1A1A1A] transition-colors mt-3 text-center block w-full bg-transparent border-0 cursor-pointer font-medium py-1">
+      &larr; Continua lo Shopping
+    </button>
 
     <div style="display: flex; justify-content: center; gap: 14px; margin-top: 0.75rem; font-size: 0.72rem; color: #8C867D;">
       <span>🔒 Checkout 256-bit</span>
