@@ -141,6 +141,28 @@
     "collections-list": {
       "type": "collections-list",
       "blocks": {
+        "collection_card_FjjDNT": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/1790438526030.png",
+            "title": "Idratazione",
+            "description": "Prodotti che mantengono l'idratazione",
+            "url": "shopify://collections/frontpage",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_jEFQ8Q": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/1792228973295.jpg",
+            "title": "Pelle Sensibile",
+            "description": "Lenire, idratare, protegge la barriera cutanea",
+            "url": "",
+            "button_text": "Scopri"
+          }
+        },
         "collection_card_ctFfwF": {
           "type": "collection_card",
           "settings": {
@@ -148,17 +170,6 @@
             "image": "shopify://shop_images/image_e86360d3.jpg",
             "title": "Impurità",
             "description": "Purifica, opacizza e riduce le imperfezioni",
-            "url": "",
-            "button_text": "Scopri"
-          }
-        },
-        "collection_card_QKXc4a": {
-          "type": "collection_card",
-          "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/Gemini-Generated_Image_ftljduftljduftlj.png",
-            "title": "Macchie",
-            "description": "Trattamenti discromie e iperpigmentazione",
             "url": "",
             "button_text": "Scopri"
           }
@@ -174,35 +185,24 @@
             "button_text": "Scopri"
           }
         },
-        "collection_card_6b8WLW": {
+        "collection_card_QKXc4a": {
           "type": "collection_card",
           "settings": {
-            "collection": "box-ritual",
-            "image": "shopify://shop_images/Hyaluronic_moisture_Infusion_duo_Longevity_Face_Mile_02.jpg",
-            "title": "Idee Regalo",
-            "description": "Regala questo box a chi ami di più",
-            "url": "shopify://collections/box-ritual",
-            "button_text": "Scopri"
-          }
-        },
-        "collection_card_FjjDNT": {
-          "type": "collection_card",
-          "settings": {
-            "collection": "frontpage",
-            "image": "shopify://shop_images/1790438526030.png",
-            "title": "Idratazione",
-            "description": "Prodotti che mantengono l'idratazione",
-            "url": "shopify://collections/frontpage",
+            "collection": "",
+            "image": "shopify://shop_images/Gemini-Generated_Image_ftljduftljduftlj.png",
+            "title": "Macchie",
+            "description": "Trattamenti discromie e iperpigmentazione",
+            "url": "",
             "button_text": "Scopri"
           }
         }
       },
       "block_order": [
+        "collection_card_FjjDNT",
+        "collection_card_jEFQ8Q",
         "collection_card_ctFfwF",
-        "collection_card_QKXc4a",
         "collection_card_79c6F3",
-        "collection_card_6b8WLW",
-        "collection_card_FjjDNT"
+        "collection_card_QKXc4a"
       ],
       "settings": {
         "tag": "Il rituale per ogni esigenza",
