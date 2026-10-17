@@ -144,7 +144,7 @@
         "collection_card_FjjDNT": {
           "type": "collection_card",
           "settings": {
-            "collection": "frontpage",
+            "collection": "idratazione",
             "image": "shopify://shop_images/1790438526030.png",
             "title": "Idratazione",
             "description": "Prodotti che mantengono l'idratazione",
@@ -155,7 +155,7 @@
         "collection_card_jEFQ8Q": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "pelli-sensibilli-e-reattive",
             "image": "shopify://shop_images/1792228973295.jpg",
             "title": "Pelle Sensibile",
             "description": "Lenire, idratare, protegge la barriera cutanea",
@@ -166,7 +166,7 @@
         "collection_card_ctFfwF": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "impurita",
             "image": "shopify://shop_images/1792267872951.jpg",
             "title": "Impurità",
             "description": "Purifica, opacizza e riduce le imperfezioni",
@@ -177,7 +177,7 @@
         "collection_card_79c6F3": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "anti-age",
             "image": "shopify://shop_images/image_6e1abe84.jpg",
             "title": "Anti-Age",
             "description": "Contrasta i segni del tempo e rassoda la pelle",
@@ -188,7 +188,7 @@
         "collection_card_QKXc4a": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "macchie",
             "image": "shopify://shop_images/Gemini-Generated_Image_ftljduftljduftlj.png",
             "title": "Macchie",
             "description": "Trattamenti discromie e iperpigmentazione",
