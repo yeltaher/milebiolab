@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,7 +15,7 @@
         "eyebrow": "FONDATRICE & BEAUTY SPECIALIST • VERONA",
         "title": "L'Amore per la Natura e la Passione per la Cura della Pelle",
         "quote_text": "L'amore per la natura e prendermi cura del benessere delle persone che si affidano a me ogni giorno è una passione che arricchisce la vita, lo fa in modi profondi ed inaspettati... tutto questo non è solo un piacere personale, ma una forza motrice per gli altri.",
-        "quote_author": "Mile • Maestra d'Arte ed Estetista Fondatrice",
+        "quote_author": "Mile",
         "portrait_url": "https://static.wixstatic.com/media/e3d7d4_f4f1817e09bd4ca688132f9832d1172f~mv2.jpg",
         "path_title": "Il Percorso Professionale: 20 Anni di Eccellenza Beauty",
         "path_subtitle": "Una vita dedicata alla dermocosmetica autentica, alla ricerca della purezza botanica e al benessere profondo.",
