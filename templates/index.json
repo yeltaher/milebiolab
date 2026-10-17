@@ -59,7 +59,7 @@
         "title": "Di tendenza",
         "subtitle": "Le formulazioni più richieste del momento.",
         "link_text": "Scopri Tutti",
-        "link_url": "/collections/bestseller-preferiti",
+        "link_url": "shopify://collections",
         "card_aspect_ratio": "4/5",
         "image_fit": "contain"
       }
