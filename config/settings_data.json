@@ -47,18 +47,18 @@
       "sub-header": {
         "type": "sub-header",
         "blocks": {
+          "sub_header_category_2": {
+            "type": "category_link",
+            "settings": {
+              "title": "UNICHO 21 Burro Primordiale",
+              "url": "shopify://collections/unicho-21-prodotti"
+            }
+          },
           "category_link_EV477V": {
             "type": "category_link",
             "settings": {
               "title": "VISO",
               "url": "shopify://collections/frontpage"
-            }
-          },
-          "category_link_Mnk3QG": {
-            "type": "category_link",
-            "settings": {
-              "title": "SOLARI MINERALI",
-              "url": "shopify://collections/protezione-solare-pure-performance"
             }
           },
           "category_link_HULFD9": {
@@ -68,18 +68,18 @@
               "url": "shopify://collections/cute-e-capelli-prodotti"
             }
           },
-          "sub_header_category_2": {
-            "type": "category_link",
-            "settings": {
-              "title": "UNICHO 21 Burro Primordiale",
-              "url": "shopify://collections/unicho-21-prodotti"
-            }
-          },
           "sub_header_category_1": {
             "type": "category_link",
             "settings": {
               "title": "CORPO",
               "url": "shopify://collections/corpo-pure-performance"
+            }
+          },
+          "category_link_Mnk3QG": {
+            "type": "category_link",
+            "settings": {
+              "title": "SOLARI MINERALI",
+              "url": "shopify://collections/protezione-solare-pure-performance"
             }
           },
           "sub_header_category_4": {
@@ -98,11 +98,11 @@
           }
         },
         "block_order": [
-          "category_link_EV477V",
-          "category_link_Mnk3QG",
-          "category_link_HULFD9",
           "sub_header_category_2",
+          "category_link_EV477V",
+          "category_link_HULFD9",
           "sub_header_category_1",
+          "category_link_Mnk3QG",
           "sub_header_category_4",
           "sub_header_category_3"
         ],
