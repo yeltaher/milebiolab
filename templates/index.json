@@ -141,6 +141,39 @@
     "collections-list": {
       "type": "collections-list",
       "blocks": {
+        "collection_card_ctFfwF": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/image_e86360d3.jpg",
+            "title": "Impurità",
+            "description": "Purifica, opacizza e riduce le imperfezioni",
+            "url": "",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_QKXc4a": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/image_b720bfb0.jpg",
+            "title": "Macchie",
+            "description": "Trattamenti discromie e iperpigmentazione",
+            "url": "",
+            "button_text": "Scopri"
+          }
+        },
+        "collection_card_79c6F3": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/image_6e1abe84.jpg",
+            "title": "Anti-Age",
+            "description": "Contrasta i segni del tempo e rassoda la pelle",
+            "url": "",
+            "button_text": "Scopri"
+          }
+        },
         "collection_card_6b8WLW": {
           "type": "collection_card",
           "settings": {
@@ -157,14 +190,17 @@
           "settings": {
             "collection": "frontpage",
             "image": "shopify://shop_images/1790438526030.png",
-            "title": "Cura del Viso",
-            "description": "Scopri i prodotti per la cura del viso",
+            "title": "Idratazione",
+            "description": "Prodotti che mantengono l'idratazione",
             "url": "shopify://collections/frontpage",
             "button_text": "Scopri"
           }
         }
       },
       "block_order": [
+        "collection_card_ctFfwF",
+        "collection_card_QKXc4a",
+        "collection_card_79c6F3",
         "collection_card_6b8WLW",
         "collection_card_FjjDNT"
       ],
