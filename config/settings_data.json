@@ -57,7 +57,7 @@
           "category_link_Mnk3QG": {
             "type": "category_link",
             "settings": {
-              "title": "PROTEZIONE SOLARE",
+              "title": "SOLARI MINERALI",
               "url": "shopify://collections/protezione-solare-pure-performance"
             }
           },
@@ -71,7 +71,7 @@
           "sub_header_category_2": {
             "type": "category_link",
             "settings": {
-              "title": "UNICHO 21",
+              "title": "UNICHO 21 Burro Primordiale",
               "url": "shopify://collections/unicho-21-prodotti"
             }
           },
@@ -85,14 +85,14 @@
           "sub_header_category_4": {
             "type": "category_link",
             "settings": {
-              "title": "TRUCCO",
+              "title": "TRUCCO Naturale",
               "url": "shopify://collections/preservage-prodotti"
             }
           },
           "sub_header_category_3": {
             "type": "category_link",
             "settings": {
-              "title": "BOX RITUALI",
+              "title": "BOX RITUALI - Idee Regalo",
               "url": "shopify://collections/box-ritual"
             }
           }
@@ -108,6 +108,20 @@
         ],
         "settings": {
           "sub_menu": "main-menu"
+        }
+      },
+      "newsletter-popup": {
+        "type": "newsletter-popup",
+        "settings": {
+          "enable_popup": true,
+          "popup_delay": 10,
+          "location_badge": "Boutique • Verona",
+          "tagline": "BENVENUTO NEL CLUB MILE",
+          "heading": "10% di Sconto sul tuo Primo Ordine",
+          "description": "Iscriviti alla nostra cerchia riservata. Riceverai immediatamente il tuo codice coupon esclusivo e gli inviti agli eventi e check-up in boutique a Verona.",
+          "coupon_code": "MILE10",
+          "button_text": "Ricevi il 10% di Sconto",
+          "privacy_note": "Nessuno spam. Rispettiamo la tua privacy. Disiscrizione in qualsiasi momento con 1 click."
         }
       }
     },
