@@ -12,9 +12,9 @@
     "main": {
       "type": "main-list-collections",
       "settings": {
-        "eyebrow": "Compendio Botanico Team Dr Joseph",
-        "title": "Le Collezioni Dermocosmetiche",
-        "description": "Esplora i rituali di bellezza formulati con fitocomplessi puri e attivi clinici biomimetici per ogni specifica esigenza cutanea.",
+        "eyebrow": "Dalla Natura tutto ciò di cui hai bisogno",
+        "title": "Le Collezioni MILE",
+        "description": "Esplora le formule botaniche per ogni specifica esigenza cutanea.",
         "collections_per_page": 12
       }
     }
