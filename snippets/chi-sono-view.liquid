@@ -31,11 +31,17 @@
   
   assign unicho_title = section.settings.unicho_title | default: "La Creazione Iconica: UNICHO21 (2012)"
   assign unicho_subtitle = section.settings.unicho_subtitle | default: '«Il mio segreto diventa anche il tuo...»'
+  assign unicho_btn1_text = section.settings.unicho_btn1_text | default: "Scopri la Collezione UNICHO21 →"
+  assign unicho_btn1_link = section.settings.unicho_btn1_link | default: routes.all_products_collection_url | default: "/collections/all"
+  assign unicho_btn2_text = section.settings.unicho_btn2_text | default: "Fai il Check-up Cutaneo"
+  assign unicho_btn2_link = section.settings.unicho_btn2_link | default: "/pages/skin-quiz"
   
   assign flagship_title = section.settings.flagship_title | default: "Lebestetik Beauty & Spa • Flagship Verona"
   assign flagship_address = section.settings.flagship_address | default: "Corso Cavour 18, 37121 Verona (VR)"
   assign flagship_hours = section.settings.flagship_hours | default: "Lunedì – Sabato: 09:30 – 19:30"
   assign flagship_whatsapp = section.settings.flagship_whatsapp | default: "https://wa.me/390458001234"
+  assign flagship_btn_text = section.settings.flagship_btn_text | default: "Contatta il Concierge su WhatsApp"
+  assign flagship_btn_link = section.settings.flagship_btn_link | default: section.settings.flagship_whatsapp | default: "https://wa.me/390458001234"
 -%}
 
 <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F2EB] text-[#1A1A1A] font-sans" id="chi-sono-container">
@@ -227,14 +233,20 @@
           Nato nel 2012 durante la mia prima gravidanza, UNICHO21 è il frutto della necessità più pura: proteggere, elasticizzare e nutrire profondamente la cute con formule 100% naturali. Non trovando sul mercato un prodotto che rispecchiasse i miei rigorosi standard di sicurezza e naturalità... ho deciso di crearlo.
         </p>
 
-        <div class="pt-4 flex flex-wrap gap-4">
-          <a href="/collections/all" class="inline-flex items-center justify-center px-6 py-3.5 bg-[#1A1A1A] text-[#FAF8F5] text-xs uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors shadow-sm">
-            Scopri la Collezione UNICHO21 →
-          </a>
-          <a href="/pages/skin-quiz" class="inline-flex items-center justify-center px-6 py-3.5 bg-transparent text-[#1A1A1A] border border-[#1A1A1A] text-xs uppercase tracking-widest font-semibold hover:bg-[#FAF8F5] transition-colors">
-            Fai il Check-up Cutaneo
-          </a>
-        </div>
+        {%- if unicho_btn1_text != blank or unicho_btn2_text != blank -%}
+          <div class="pt-4 flex flex-wrap gap-4">
+            {%- if unicho_btn1_text != blank -%}
+              <a href="{{ unicho_btn1_link | default: routes.all_products_collection_url | default: '/collections/all' }}" class="inline-flex items-center justify-center px-6 py-3.5 bg-[#1A1A1A] text-[#FAF8F5] text-xs uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors shadow-sm">
+                {{ unicho_btn1_text }}
+              </a>
+            {%- endif -%}
+            {%- if unicho_btn2_text != blank -%}
+              <a href="{{ unicho_btn2_link | default: '/pages/skin-quiz' }}" class="inline-flex items-center justify-center px-6 py-3.5 bg-transparent text-[#1A1A1A] border border-[#1A1A1A] text-xs uppercase tracking-widest font-semibold hover:bg-[#FAF8F5] transition-colors">
+                {{ unicho_btn2_text }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
 
       <div class="lg:col-span-5 bg-[#FAF8F5] p-8 border border-[#C8A878]/30 text-center space-y-6">
@@ -275,12 +287,14 @@
           </div>
         </div>
 
-        <div class="pt-6">
-          <a href="{{ flagship_whatsapp }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-8 py-4 bg-[#C8A878] text-[#1A1A1A] text-xs uppercase tracking-widest font-bold hover:bg-[#b59567] transition-colors shadow-lg">
-            <span>Contatta il Concierge su WhatsApp</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </a>
-        </div>
+        {%- if flagship_btn_text != blank -%}
+          <div class="pt-6">
+            <a href="{{ flagship_btn_link | default: flagship_whatsapp | default: 'https://wa.me/390458001234' }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-8 py-4 bg-[#C8A878] text-[#1A1A1A] text-xs uppercase tracking-widest font-bold hover:bg-[#b59567] transition-colors shadow-lg">
+              <span>{{ flagship_btn_text }}</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+          </div>
+        {%- endif -%}
       </div>
     </section>
 

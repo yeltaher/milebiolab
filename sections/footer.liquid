@@ -7,29 +7,72 @@
       <!-- Col 1: Maison & Mission -->
       <div class="space-y-4">
         <a href="{{ routes.root_url }}" class="inline-block group">
-          <span class="font-brand brand-logo text-2xl tracking-[0.28em] text-[#1A1A1A] font-light block">MILE</span>
-          <span class="text-[8px] uppercase tracking-[0.38em] text-[#7A7265] block -mt-1 font-light">Botanical Haute Couture &bull; Verona</span>
+          <span class="font-brand brand-logo text-2xl tracking-[0.28em] text-[#1A1A1A] font-light block">
+            {{ section.settings.brand_name | default: 'MILE' }}
+          </span>
+          {% if section.settings.brand_tagline != blank %}
+            <span class="text-[8px] uppercase tracking-[0.38em] text-[#7A7265] block -mt-1 font-light">
+              {{ section.settings.brand_tagline }}
+            </span>
+          {% endif %}
         </a>
-        <p class="text-xs text-[#7A7265] font-light leading-relaxed">
-          Dermocosmesi botanica di precisione formulata in sinergia con Team Dr Joseph. Principi attivi alpini biodisponibili, biomimesi cellulare ed eccellenza clinica certificata B-Corp.
-        </p>
-        <div class="pt-2 flex items-center gap-3 text-[10px] uppercase tracking-wider text-[#5C6B56] font-semibold">
-          <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">B-Corp Certified</span>
-          <span>&bull;</span>
-          <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">100% Bio-compatibile</span>
-        </div>
+        {% if section.settings.mission_text != blank %}
+          <p class="text-xs text-[#7A7265] font-light leading-relaxed">
+            {{ section.settings.mission_text }}
+          </p>
+        {% endif %}
+        {% if section.settings.badge_1 != blank or section.settings.badge_2 != blank %}
+          <div class="pt-2 flex items-center gap-3 text-[10px] uppercase tracking-wider text-[#5C6B56] font-semibold flex-wrap">
+            {% if section.settings.badge_1 != blank %}
+              <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">{{ section.settings.badge_1 }}</span>
+            {% endif %}
+            {% if section.settings.badge_1 != blank and section.settings.badge_2 != blank %}
+              <span>&bull;</span>
+            {% endif %}
+            {% if section.settings.badge_2 != blank %}
+              <span class="px-2 py-0.5 bg-[#5C6B56]/10 rounded border border-[#5C6B56]/20">{{ section.settings.badge_2 }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
         <div class="text-xs text-[#1A1A1A] space-y-1 pt-1">
-          <p class="font-medium">📍 <strong>Istituto Mile &amp; Flagship Verona</strong></p>
-          <p class="text-[#7A7265]">{{ section.settings.address | default: 'Corso Cavour 18, 37121 Verona (VR)' }}</p>
-          <p class="text-[#7A7265]">Tel: <a href="tel:{{ section.settings.phone | default: '+39 045 800 1234' | replace: ' ', '' }}" class="hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">{{ section.settings.phone | default: '+39 045 800 1234' }}</a></p>
+          {% if section.settings.boutique_title != blank %}
+            <p class="font-medium"><strong>{{ section.settings.boutique_title }}</strong></p>
+          {% endif %}
+          {% if section.settings.address != blank %}
+            <p class="text-[#7A7265]">{{ section.settings.address }}</p>
+          {% endif %}
+          {% if section.settings.phone != blank %}
+            <p class="text-[#7A7265]">Tel: <a href="tel:{{ section.settings.phone | replace: ' ', '' }}" class="hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">{{ section.settings.phone }}</a></p>
+          {% endif %}
+          {% if section.settings.email != blank %}
+            <p class="text-[#7A7265]">Email: <a href="mailto:{{ section.settings.email }}" class="hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">{{ section.settings.email }}</a></p>
+          {% endif %}
         </div>
+        {% if section.settings.instagram_url != blank or section.settings.whatsapp_url != blank %}
+          <div class="pt-2 flex items-center gap-4 text-xs text-[#1A1A1A]">
+            {% if section.settings.instagram_url != blank %}
+              <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:text-[#C8A878] transition-colors" aria-label="Instagram">
+                <svg class="w-4 h-4 fill-currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span>Instagram</span>
+              </a>
+            {% endif %}
+            {% if section.settings.whatsapp_url != blank %}
+              <a href="{{ section.settings.whatsapp_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:text-[#5C6B56] transition-colors" aria-label="WhatsApp Concierge">
+                <svg class="w-4 h-4 fill-currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <span>WhatsApp Concierge</span>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
 
       <!-- Col 2: Collezioni Mile -->
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">{{ linklists[section.settings.menu_1].title | default: 'Collezioni' }}</h4>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">
+          {{ section.settings.col2_title | default: linklists[section.settings.menu_1].title | default: 'Collezioni' }}
+        </h4>
         <ul class="space-y-2.5 text-xs text-[#7A7265]">
-          {% if section.settings.menu_1 != blank %}
+          {% if section.settings.menu_1 != blank and linklists[section.settings.menu_1].links.size > 0 %}
             {% for link in linklists[section.settings.menu_1].links %}
               <li><a href="{{ link.url }}" class="hover:text-[#C8A878] transition-colors block">{{ link.title }}</a></li>
             {% endfor %}
@@ -46,13 +89,21 @@
 
       <!-- Col 3: Istituto & Concierge Verona -->
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">{{ linklists[section.settings.menu_2].title | default: 'Istituto &amp; Concierge' }}</h4>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">
+          {{ section.settings.col3_title | default: linklists[section.settings.menu_2].title | default: 'Istituto &amp; Concierge' }}
+        </h4>
         <div class="space-y-2 text-xs text-[#7A7265] font-light">
-          <p><strong class="text-[#1A1A1A] font-medium">Boutique Corso Cavour 18</strong>, 37121 Verona</p>
-          <p>Tel Concierge: <a href="tel:+390458001234" class="text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors">+39 045 800 1234</a></p>
-          <p>Orari: Lun &ndash; Sab: 09:30 &ndash; 19:30</p>
+          {% if section.settings.col3_location != blank %}
+            <p>{{ section.settings.col3_location }}</p>
+          {% endif %}
+          {% if section.settings.col3_phone != blank %}
+            <p>Tel Concierge: <a href="tel:{{ section.settings.col3_phone | replace: ' ', '' }}" class="text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors">{{ section.settings.col3_phone }}</a></p>
+          {% endif %}
+          {% if section.settings.col3_hours != blank %}
+            <p>Orari: {{ section.settings.col3_hours }}</p>
+          {% endif %}
           <div class="pt-2 space-y-1.5 border-t border-[#E5E0D8]/60">
-            {% if section.settings.menu_2 != blank %}
+            {% if section.settings.menu_2 != blank and linklists[section.settings.menu_2].links.size > 0 %}
               {% for link in linklists[section.settings.menu_2].links %}
                 <a href="{{ link.url }}" class="block hover:text-[#C8A878] transition-colors">{{ link.title }}</a>
               {% endfor %}
@@ -70,7 +121,9 @@
 
       <!-- Col 4: Privilege Club Newsletter & Payments -->
       <div>
-        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">Privilege Club</h4>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1A1A] mb-4 border-b border-[#E5E0D8] pb-1">
+          {{ section.settings.newsletter_title | default: 'Privilege Club' }}
+        </h4>
         <p class="text-xs text-[#7A7265] mb-3 font-light leading-relaxed">
           {{ section.settings.newsletter_desc | default: "Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il 15% di benvenuto con codice MILE15." }}
         </p>
@@ -79,31 +132,41 @@
           <div class="flex gap-2">
             <input type="email" name="contact[email]" required placeholder="La tua migliore email..." class="bg-white border border-[#E5E0D8] px-3.5 py-2.5 text-xs flex-1 text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none focus:border-[#1A1A1A]">
             <button type="submit" class="bg-[#1A1A1A] text-white px-4 py-2.5 text-xs uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors flex-shrink-0 cursor-pointer">
-              Iscriviti
+              {{ section.settings.newsletter_button_text | default: 'Iscriviti' }}
             </button>
           </div>
-          <span class="text-[10px] text-[#7A7265]/80 block">Trattamento riservato &bull; Disiscrizione con un click</span>
+          {% if section.settings.newsletter_note != blank %}
+            <span class="text-[10px] text-[#7A7265]/80 block">{{ section.settings.newsletter_note }}</span>
+          {% endif %}
         {% endform %}
 
-        <div class="pt-5 mt-4 border-t border-[#E5E0D8]/60 space-y-2">
-          <span class="text-[10px] uppercase tracking-wider text-[#7A7265] font-medium block">Pagamenti Sicuri &amp; Certificati:</span>
-          <div class="flex items-center gap-2 text-[#7A7265] flex-wrap">
-            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">SSL 256</span>
-            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">VISA</span>
-            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">MC</span>
-            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">APPLE PAY</span>
-            <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">KLARNA</span>
+        {% if section.settings.payment_methods != blank %}
+          <div class="pt-5 mt-4 border-t border-[#E5E0D8]/60 space-y-2">
+            {% if section.settings.payment_title != blank %}
+              <span class="text-[10px] uppercase tracking-wider text-[#7A7265] font-medium block">
+                {{ section.settings.payment_title }}
+              </span>
+            {% endif %}
+            <div class="flex items-center gap-2 text-[#7A7265] flex-wrap">
+              {% assign payment_list = section.settings.payment_methods | split: ',' %}
+              {% for item in payment_list %}
+                {% assign badge = item | strip %}
+                {% if badge != blank %}
+                  <span class="text-xs font-semibold px-2 py-1 bg-white border border-[#E5E0D8]">{{ badge }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
           </div>
-        </div>
+        {% endif %}
       </div>
 
     </div>
 
     <!-- Bottom Copyright & Legal Circular Links -->
     <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-[#7A7265] font-light gap-4">
-      <p>&copy; {{ 'now' | date: '%Y' }} MILE &bull; Milebiolab S.r.l. &bull; Corso Cavour 18, 37121 Verona &bull; P.IVA IT04829100238. Tutti i diritti riservati.</p>
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright_text | default: 'MILE • Milebiolab S.r.l. • Corso Cavour 18, 37121 Verona • P.IVA IT04829100238. Tutti i diritti riservati.' }}</p>
       <div class="flex flex-wrap gap-5 text-xs">
-        {% if section.settings.menu_bottom != blank %}
+        {% if section.settings.menu_bottom != blank and linklists[section.settings.menu_bottom].links.size > 0 %}
           {% for link in linklists[section.settings.menu_bottom].links %}
             <a href="{{ link.url }}" class="hover:text-[#1A1A1A] transition-colors">{{ link.title }}</a>
           {% endfor %}
@@ -126,43 +189,179 @@
   "name": "Footer Mile Elite",
   "settings": [
     {
+      "type": "header",
+      "content": "Maison & Mission (Colonna 1)"
+    },
+    {
       "type": "text",
-      "id": "newsletter_title",
-      "label": "Titolo Newsletter",
-      "default": "Unisciti al Club Mile"
+      "id": "brand_name",
+      "label": "Nome Brand",
+      "default": "MILE"
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "label": "Tagline Brand",
+      "default": "Botanical Haute Couture • Verona"
     },
     {
       "type": "textarea",
-      "id": "newsletter_desc",
-      "label": "Descrizione Newsletter",
-      "default": "Iscriviti per ricevere il 15% di sconto sul tuo primo ordine con codice MILE15, anteprime botaniche e inviti per l'Istituto a Verona."
+      "id": "mission_text",
+      "label": "Descrizione Mission",
+      "default": "Dermocosmesi botanica di precisione formulata in sinergia con Team Dr Joseph. Principi attivi alpini biodisponibili, biomimesi cellulare ed eccellenza clinica certificata B-Corp."
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Badge Certificazione 1",
+      "default": "B-Corp Certified"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Badge Certificazione 2",
+      "default": "100% Bio-compatibile"
+    },
+    {
+      "type": "text",
+      "id": "boutique_title",
+      "label": "Titolo Sede / Flagship",
+      "default": "📍 Istituto Mile & Flagship Verona"
     },
     {
       "type": "text",
       "id": "address",
-      "label": "Indirizzo Boutique Verona",
+      "label": "Indirizzo Flagship Verona",
       "default": "Corso Cavour 18, 37121 Verona (VR)"
     },
     {
       "type": "text",
       "id": "phone",
-      "label": "Telefono Assistenza",
+      "label": "Telefono Assistenza / Flagship",
       "default": "+39 045 800 1234"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email di Contatto",
+      "default": "info@milebiolab.it"
+    },
+    {
+      "type": "header",
+      "content": "Collezioni (Colonna 2)"
+    },
+    {
+      "type": "text",
+      "id": "col2_title",
+      "label": "Titolo Colonna Collezioni",
+      "default": "Collezioni"
     },
     {
       "type": "link_list",
       "id": "menu_1",
-      "label": "Menu Colonna 2 (Collezioni)"
+      "label": "Menu Collezioni"
+    },
+    {
+      "type": "header",
+      "content": "Istituto & Concierge (Colonna 3)"
+    },
+    {
+      "type": "text",
+      "id": "col3_title",
+      "label": "Titolo Colonna Istituto",
+      "default": "Istituto & Concierge"
+    },
+    {
+      "type": "text",
+      "id": "col3_location",
+      "label": "Indirizzo / Sede Istituto",
+      "default": "Boutique Corso Cavour 18, 37121 Verona"
+    },
+    {
+      "type": "text",
+      "id": "col3_phone",
+      "label": "Telefono Concierge",
+      "default": "+39 045 800 1234"
+    },
+    {
+      "type": "text",
+      "id": "col3_hours",
+      "label": "Orari Boutique & Istituto",
+      "default": "Lun – Sab: 09:30 – 19:30"
     },
     {
       "type": "link_list",
       "id": "menu_2",
-      "label": "Menu Colonna 3 (Istituto)"
+      "label": "Menu Istituto"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter & Pagamenti (Colonna 4)"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Titolo Newsletter",
+      "default": "Privilege Club"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_desc",
+      "label": "Descrizione Newsletter",
+      "default": "Iscriviti per ricevere inviti prioritari alle giornate di diagnosi in cabina a Verona e il 15% di benvenuto con codice MILE15."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Testo Pulsante Iscrizione",
+      "default": "Iscriviti"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_note",
+      "label": "Nota Informativa Newsletter",
+      "default": "Trattamento riservato • Disiscrizione con un click"
+    },
+    {
+      "type": "text",
+      "id": "payment_title",
+      "label": "Titolo Sezione Pagamenti",
+      "default": "Pagamenti Sicuri & Certificati:"
+    },
+    {
+      "type": "text",
+      "id": "payment_methods",
+      "label": "Metodi di Pagamento (separati da virgola)",
+      "default": "SSL 256, VISA, MASTERCARD, APPLE PAY, KLARNA"
+    },
+    {
+      "type": "header",
+      "content": "Social & WhatsApp"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Link Instagram"
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_url",
+      "label": "Link WhatsApp Concierge"
+    },
+    {
+      "type": "header",
+      "content": "Barra Inferiore: Copyright & Menu Legale"
+    },
+    {
+      "type": "textarea",
+      "id": "copyright_text",
+      "label": "Testo Copyright",
+      "default": "MILE • Milebiolab S.r.l. • Corso Cavour 18, 37121 Verona • P.IVA IT04829100238. Tutti i diritti riservati."
     },
     {
       "type": "link_list",
       "id": "menu_bottom",
-      "label": "Menu Bottom (Legale)"
+      "label": "Menu Legale Bottom"
     }
   ]
 }
