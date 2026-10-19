@@ -10,7 +10,9 @@
   assign quote_text = section.settings.quote_text | default: "L'amore per la natura e prendermi cura del benessere delle persone che si affidano a me ogni giorno è una passione che arricchisce la vita, lo fa in modi profondi ed inaspettati... tutto questo non è solo un piacere personale, ma una forza motrice per gli altri."
   assign quote_author = section.settings.quote_author | default: "Mile • Maestra d'Arte ed Estetista Fondatrice"
   
+  assign portrait_image = section.settings.portrait_image
   assign portrait_url = section.settings.portrait_url | default: "https://static.wixstatic.com/media/e3d7d4_f4f1817e09bd4ca688132f9832d1172f~mv2.jpg"
+  assign portrait_alt = portrait_image.alt | default: 'Mile - Fondatrice MileBioLab'
   assign path_title = section.settings.path_title | default: "Il Percorso Professionale: 20 Anni di Eccellenza Beauty"
   assign path_subtitle = section.settings.path_subtitle | default: "Una vita dedicata alla dermocosmetica autentica, alla ricerca della purezza botanica e al benessere profondo."
   
@@ -73,12 +75,23 @@
       <div class="lg:col-span-5 relative">
         <div class="absolute inset-0 border-2 border-[#C8A878] translate-x-3 translate-y-3 pointer-events-none"></div>
         <div class="relative bg-white p-2 shadow-lg border border-[#E5E0D8]">
-          <img 
-            src="{{ portrait_url }}" 
-            alt="Mile - Fondatrice MileBioLab" 
-            class="w-full h-auto object-cover aspect-[4/5] filter brightness-[0.98] contrast-[1.02]"
-            loading="lazy"
-          >
+          {%- if portrait_image != blank -%}
+            {{ portrait_image | image_url: width: 1000 | image_tag: 
+              alt: portrait_alt,
+              class: 'w-full h-auto object-cover aspect-[4/5] filter brightness-[0.98] contrast-[1.02]',
+              loading: 'lazy',
+              widths: '300, 500, 700, 900, 1100'
+            }}
+          {%- elsif portrait_url != blank -%}
+            <img 
+              src="{{ portrait_url }}" 
+              alt="Mile - Fondatrice MileBioLab" 
+              class="w-full h-auto object-cover aspect-[4/5] filter brightness-[0.98] contrast-[1.02]"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'w-full h-auto aspect-[4/5] bg-stone-100 object-cover' }}
+          {%- endif -%}
           <div class="absolute bottom-6 left-6 right-6 bg-[#1A1A1A]/90 backdrop-blur-md text-[#FAF8F5] p-4 text-center border border-[#C8A878]/40">
             <span class="block font-serif text-lg text-[#C8A878]">20 Anni</span>
             <span class="text-[11px] uppercase tracking-widest text-[#E5E0D8]">Di Esperienza Sul Campo</span>
@@ -312,9 +325,14 @@
       "content": "Percorso Professionale & Ritratto"
     },
     {
+      "type": "image_picker",
+      "id": "portrait_image",
+      "label": "Foto Ritratto di Mile (Personalizzabile)"
+    },
+    {
       "type": "text",
       "id": "portrait_url",
-      "label": "URL Immagine / Ritratto di Mile",
+      "label": "URL Immagine / Ritratto di Mile (Fallback)",
       "default": "https://static.wixstatic.com/media/e3d7d4_f4f1817e09bd4ca688132f9832d1172f~mv2.jpg"
     },
     {
