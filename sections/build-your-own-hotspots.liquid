@@ -2,19 +2,28 @@
   <div class="section-container">
     
     <div class="hotspots-header">
-      <span class="protocol-tag">{{ section.settings.tag }}</span>
-      {%- assign hotspots_title = section.settings.title | replace: 'Hotspot in Cabina', '<em>Hotspot in Cabina</em>' -%}
+      <span class="protocol-tag">{{ section.settings.tag | default: "ESPERIENZA INTERATTIVA" }}</span>
+      {%- assign hotspots_title = section.settings.title | default: "Costruisci il Tuo Rituale: Hotspot in Cabina" | replace: 'Hotspot in Cabina', '<em>Hotspot in Cabina</em>' -%}
       <h2>{{ hotspots_title }}</h2>
       <p style="color: var(--color-text-secondary); font-size: 1rem; margin-top: 0.5rem;">
-        {{ section.settings.subtitle }}
+        {{ section.settings.subtitle | default: "Tocca i punti interattivi del trattamento per scoprire i cosmetici biomimetici applicati durante il protocollo in cabina a Verona." }}
       </p>
     </div>
 
     <div class="hotspots-lifestyle-container">
-      <img 
-        src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=85" 
-        alt="Trattamento Viso Milebiolab Team Dr Joseph" 
-        class="hotspots-lifestyle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+      {%- if section.settings.lifestyle_image != blank -%}
+        <img 
+          src="{{ section.settings.lifestyle_image | image_url: width: 1600 }}" 
+          alt="{{ section.settings.lifestyle_image.alt | default: 'Trattamento Viso Milebiolab Team Dr Joseph' | escape }}" 
+          class="hotspots-lifestyle-img"
+          loading="lazy"
+        >
+      {%- else -%}
+        <img 
+          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=85" 
+          alt="Trattamento Viso Milebiolab Team Dr Joseph" 
+          class="hotspots-lifestyle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+      {%- endif -%}
 
       <!-- Hotspot 1: Step 1 Cleansing (Top-Left) -->
       <button 
@@ -29,14 +38,18 @@
       </button>
 
       <div class="hotspot-popover" data-hotspot-id="1" style="top: 36%; left: 16%;">
-        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80" alt="Latte Detergente & Tonico Quotidiano" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
-        <span class="popover-step">STEP 01 • DETERSIONE PURIFICANTE</span>
-        <h4 class="popover-title">Latte Detergente & Tonico Quotidiano</h4>
-        <p class="popover-actives">Fieno Greco & Fiori di Camomilla Bio. Rimuove le impurità preservando il film idrolipidico.</p>
+        {%- if section.settings.spot1_image != blank -%}
+          <img src="{{ section.settings.spot1_image | image_url: width: 300 }}" alt="{{ section.settings.spot1_title | default: 'Latte Detergente & Tonico Quotidiano' | escape }}" class="popover-img" loading="lazy">
+        {%- else -%}
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80" alt="Latte Detergente & Tonico Quotidiano" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        {%- endif -%}
+        <span class="popover-step">{{ section.settings.spot1_step | default: "STEP 01 • DETERSIONE PURIFICANTE" }}</span>
+        <h4 class="popover-title">{{ section.settings.spot1_title | default: "Latte Detergente & Tonico Quotidiano" }}</h4>
+        <p class="popover-actives">{{ section.settings.spot1_actives | default: "Fieno Greco & Fiori di Camomilla Bio. Rimuove le impurità preservando il film idrolipidico." }}</p>
         <div class="popover-price-row">
-          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 38,00</strong>
+          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">{{ section.settings.spot1_price | default: "€ 38,00" }}</strong>
           <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Latte Detergente & Tonico Quotidiano', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', 'STEP 01')">
-            + Carrello
+            {{ section.settings.spot1_btn_text | default: "+ Carrello" }}
           </button>
         </div>
       </div>
@@ -54,14 +67,18 @@
       </button>
 
       <div class="hotspot-popover" data-hotspot-id="2" style="top: 20%; left: 62%;">
-        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80" alt="Siero Concentrato all'Acido Ialuronico Puro" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
-        <span class="popover-step">STEP 02 • BOOSTER ATTIVO</span>
-        <h4 class="popover-title">Siero Concentrato all'Acido Ialuronico Puro</h4>
-        <p class="popover-actives">5 Pesi Molecolari di Acido Ialuronico e Biofermentato di Mirtillo Alpino.</p>
+        {%- if section.settings.spot2_image != blank -%}
+          <img src="{{ section.settings.spot2_image | image_url: width: 300 }}" alt="{{ section.settings.spot2_title | default: 'Siero Concentrato all\'Acido Ialuronico Puro' | escape }}" class="popover-img" loading="lazy">
+        {%- else -%}
+          <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80" alt="Siero Concentrato all'Acido Ialuronico Puro" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        {%- endif -%}
+        <span class="popover-step">{{ section.settings.spot2_step | default: "STEP 02 • BOOSTER ATTIVO" }}</span>
+        <h4 class="popover-title">{{ section.settings.spot2_title | default: "Siero Concentrato all'Acido Ialuronico Puro" }}</h4>
+        <p class="popover-actives">{{ section.settings.spot2_actives | default: "5 Pesi Molecolari di Acido Ialuronico e Biofermentato di Mirtillo. Azione rimpolpante profonda." }}</p>
         <div class="popover-price-row">
-          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 86,00</strong>
+          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">{{ section.settings.spot2_price | default: "€ 86,00" }}</strong>
           <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Siero Concentrato all\'Acido Ialuronico Puro', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', 'STEP 02')">
-            + Carrello
+            {{ section.settings.spot2_btn_text | default: "+ Carrello" }}
           </button>
         </div>
       </div>
@@ -79,14 +96,18 @@
       </button>
 
       <div class="hotspot-popover" data-hotspot-id="3" style="top: 40%; left: 24%;">
-        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" alt="Crema Riparatrice Cellulare Suprema" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
-        <span class="popover-step">STEP 03 • BARRIERA CELLULARE</span>
-        <h4 class="popover-title">Crema Riparatrice Cellulare Suprema</h4>
-        <p class="popover-actives">Cellule staminali di Stella Alpina e Olio di Jojoba bio. Idratazione continua 72 ore.</p>
+        {%- if section.settings.spot3_image != blank -%}
+          <img src="{{ section.settings.spot3_image | image_url: width: 300 }}" alt="{{ section.settings.spot3_title | default: 'Crema Riparatrice Cellulare Suprema' | escape }}" class="popover-img" loading="lazy">
+        {%- else -%}
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" alt="Crema Riparatrice Cellulare Suprema" class="popover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+        {%- endif -%}
+        <span class="popover-step">{{ section.settings.spot3_step | default: "STEP 03 • BARRIERA CELLULARE" }}</span>
+        <h4 class="popover-title">{{ section.settings.spot3_title | default: "Crema Riparatrice Cellulare Suprema" }}</h4>
+        <p class="popover-actives">{{ section.settings.spot3_actives | default: "Cellule staminali di Stella Alpina e Olio di Jojoba bio. Idratazione 24h e rigenerazione epidermica." }}</p>
         <div class="popover-price-row">
-          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">€ 84,00</strong>
+          <strong style="font-family: var(--font-mono); font-size: 1.05rem;">{{ section.settings.spot3_price | default: "€ 84,00" }}</strong>
           <button type="button" class="btn-primary" style="padding: 0.5rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Crema Riparatrice Cellulare Suprema', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', 'STEP 03')">
-            + Carrello
+            {{ section.settings.spot3_btn_text | default: "+ Carrello" }}
           </button>
         </div>
       </div>
@@ -100,6 +121,10 @@
 {
   "name": "Build Your Own Hotspots",
   "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Sezione"
+    },
     {
       "type": "text",
       "id": "tag",
@@ -117,6 +142,132 @@
       "id": "subtitle",
       "label": "Sottotitolo",
       "default": "Tocca i punti interattivi del trattamento per scoprire i cosmetici biomimetici applicati durante il protocollo in cabina a Verona."
+    },
+    {
+      "type": "header",
+      "content": "Immagine Principale"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image",
+      "label": "Immagine Trattamento / Lifestyle"
+    },
+    {
+      "type": "header",
+      "content": "Hotspot 1 - Detersione"
+    },
+    {
+      "type": "image_picker",
+      "id": "spot1_image",
+      "label": "Immagine Prodotto 1"
+    },
+    {
+      "type": "text",
+      "id": "spot1_step",
+      "label": "Step Hotspot 1",
+      "default": "STEP 01 • DETERSIONE PURIFICANTE"
+    },
+    {
+      "type": "text",
+      "id": "spot1_title",
+      "label": "Titolo Prodotto 1",
+      "default": "Latte Detergente & Tonico Quotidiano"
+    },
+    {
+      "type": "textarea",
+      "id": "spot1_actives",
+      "label": "Attivi / Descrizione 1",
+      "default": "Fieno Greco & Fiori di Camomilla Bio. Rimuove le impurità preservando il film idrolipidico."
+    },
+    {
+      "type": "text",
+      "id": "spot1_price",
+      "label": "Prezzo Prodotto 1",
+      "default": "€ 38,00"
+    },
+    {
+      "type": "text",
+      "id": "spot1_btn_text",
+      "label": "Testo Bottone 1",
+      "default": "+ Carrello"
+    },
+    {
+      "type": "header",
+      "content": "Hotspot 2 - Siero"
+    },
+    {
+      "type": "image_picker",
+      "id": "spot2_image",
+      "label": "Immagine Prodotto 2"
+    },
+    {
+      "type": "text",
+      "id": "spot2_step",
+      "label": "Step Hotspot 2",
+      "default": "STEP 02 • BOOSTER ATTIVO"
+    },
+    {
+      "type": "text",
+      "id": "spot2_title",
+      "label": "Titolo Prodotto 2",
+      "default": "Siero Concentrato all'Acido Ialuronico Puro"
+    },
+    {
+      "type": "textarea",
+      "id": "spot2_actives",
+      "label": "Attivi / Descrizione 2",
+      "default": "5 Pesi Molecolari di Acido Ialuronico e Biofermentato di Mirtillo. Azione rimpolpante profonda."
+    },
+    {
+      "type": "text",
+      "id": "spot2_price",
+      "label": "Prezzo Prodotto 2",
+      "default": "€ 86,00"
+    },
+    {
+      "type": "text",
+      "id": "spot2_btn_text",
+      "label": "Testo Bottone 2",
+      "default": "+ Carrello"
+    },
+    {
+      "type": "header",
+      "content": "Hotspot 3 - Crema Barriera"
+    },
+    {
+      "type": "image_picker",
+      "id": "spot3_image",
+      "label": "Immagine Prodotto 3"
+    },
+    {
+      "type": "text",
+      "id": "spot3_step",
+      "label": "Step Hotspot 3",
+      "default": "STEP 03 • BARRIERA CELLULARE"
+    },
+    {
+      "type": "text",
+      "id": "spot3_title",
+      "label": "Titolo Prodotto 3",
+      "default": "Crema Riparatrice Cellulare Suprema"
+    },
+    {
+      "type": "textarea",
+      "id": "spot3_actives",
+      "label": "Attivi / Descrizione 3",
+      "default": "Cellule staminali di Stella Alpina e Olio di Jojoba bio. Idratazione 24h e rigenerazione epidermica."
+    },
+    {
+      "type": "text",
+      "id": "spot3_price",
+      "label": "Prezzo Prodotto 3",
+      "default": "€ 84,00"
+    },
+    {
+      "type": "text",
+      "id": "spot3_btn_text",
+      "label": "Testo Bottone 3",
+      "default": "+ Carrello"
     }
   ],
   "presets": [

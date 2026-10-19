@@ -5,12 +5,12 @@
         <!-- Left: Title & Accordions -->
         <div class="lg:col-span-6 space-y-6">
             <div>
-                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.subtitle }}</span>
+                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.eyebrow | default: section.settings.subtitle | default: "TECNOLOGIA DELLA FORMULAZIONE" }}</span>
                 <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-ink leading-tight">
-                    {{ section.settings.title }}
+                    {{ section.settings.title | default: "BALM-TO-OIL FORMULA FOR AN IRRESISTIBLE GLOW" }}
                 </h2>
                 <p class="text-ash text-sm leading-relaxed mt-3 font-light">
-                    {{ section.settings.description }}
+                    {{ section.settings.description | default: "Una metamorfosi sensoriale senza precedenti: a contatto con la temperatura cutanea, la preziosa emulsione compatta si fonde in un olio serico ultra-penetrante." }}
                 </p>
             </div>
 
@@ -39,12 +39,18 @@
         <!-- Right: Editorial Photo -->
         <div class="lg:col-span-6">
             <div class="relative aspect-square bg-white border border-borderLinen shadow-2xl overflow-hidden group">
-                <img src="{{ section.settings.image | image_url: width: 1200 }}" 
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80'" 
-                     alt="{{ section.settings.image.alt | escape }}" 
-                     class="w-full h-full object-cover transition-transform duration-700">
+                {% if section.settings.image != blank %}
+                    <img src="{{ section.settings.image | image_url: width: 1200 }}" 
+                         alt="{{ section.settings.image.alt | default: section.settings.title | escape }}" 
+                         class="w-full h-full object-cover transition-transform duration-700">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80" 
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80'" 
+                         alt="{{ section.settings.title | default: 'Texture Originale' | escape }}" 
+                         class="w-full h-full object-cover transition-transform duration-700">
+                {% endif %}
                 <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md py-2 px-4 border border-borderLinen text-xs uppercase tracking-wider text-ink shadow-sm">
-                    {{ section.settings.image_caption }}
+                    {{ section.settings.image_caption | default: "Texture Originale • Balm-to-Oil" }}
                 </div>
             </div>
         </div>
@@ -56,6 +62,16 @@
 {
   "name": "Product Features",
   "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Sezione"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow / Sopratitolo",
+      "default": "TECNOLOGIA DELLA FORMULAZIONE"
+    },
     {
       "type": "text",
       "id": "subtitle",
@@ -73,6 +89,10 @@
       "id": "description",
       "label": "Descrizione",
       "default": "Una metamorfosi sensoriale senza precedenti: a contatto con la temperatura cutanea, la preziosa emulsione compatta si fonde in un olio serico ultra-penetrante."
+    },
+    {
+      "type": "header",
+      "content": "Immagine Editoriale"
     },
     {
       "type": "image_picker",

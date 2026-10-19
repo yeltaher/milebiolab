@@ -84,7 +84,7 @@
       <!-- Share Buttons -->
       {% if section.settings.show_share_buttons %}
         <div class="mt-8 pt-6 border-t border-[#F5F2EB] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <span class="font-serif text-base text-[#1A1A1A]">Condividi questo protocollo di bellezza</span>
+          <span class="font-serif text-base text-[#1A1A1A]">{{ section.settings.share_title | default: "Condividi questo protocollo di bellezza" }}</span>
           <div class="flex items-center gap-3">
             <a
               href="https://api.whatsapp.com/send?text={{ article.title | url_encode }}%20{{ shop.url }}{{ article.url }}"
@@ -125,9 +125,9 @@
           🌿
         </div>
         <div class="text-center sm:text-left">
-          <h3 class="font-serif text-lg text-[#1A1A1A]">Redazione Scientifica MileBioLab</h3>
+          <h3 class="font-serif text-lg text-[#1A1A1A]">{{ section.settings.author_card_title | default: "Redazione Scientifica MileBioLab" }}</h3>
           <p class="text-xs text-[#7A7265] mt-1 leading-relaxed font-light">
-            I contenuti del Giornale Botanico sono redatti in collaborazione con le nostre dermo-consulenti e gli specialisti Team Dr Joseph a Verona, per divulgare i benefici della cosmetica biomimetica certificata.
+            {{ section.settings.author_card_desc | default: "I contenuti del Giornale Botanico sono redatti in collaborazione con le nostre dermo-consulenti e cosmetologhe per promuovere una cultura di bellezza consapevole." }}
           </p>
         </div>
       </div>
@@ -136,7 +136,7 @@
     <!-- Comments Section (If enabled in Shopify) -->
     {% if blog.comments_enabled? %}
       <div id="comments" class="mt-14 bg-white border border-[#DDD7CE] p-8 sm:p-12" style="border: 3px double #EDE5DB;">
-        <h3 class="font-serif text-2xl text-[#1A1A1A] mb-6">Commenti ({{ article.comments_count }})</h3>
+        <h3 class="font-serif text-2xl text-[#1A1A1A] mb-6">{{ section.settings.comments_heading | default: "Commenti" }} ({{ article.comments_count }})</h3>
 
         {% paginate article.comments by 5 %}
           {% if article.comments_count > 0 %}
@@ -157,7 +157,7 @@
 
           <!-- Comment Form -->
           {% form 'new_comment', article %}
-            <h4 class="font-serif text-lg text-[#1A1A1A] mb-4">Lascia una riflessione</h4>
+            <h4 class="font-serif text-lg text-[#1A1A1A] mb-4">{{ section.settings.comment_form_title | default: "Lascia una riflessione" }}</h4>
 
             {% if form.posted_successfully? %}
               <div class="p-3 bg-green-50 border border-green-200 text-green-800 text-xs mb-4">
@@ -203,7 +203,7 @@
             >{{ form.body }}</textarea>
 
             <button type="submit" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors">
-              Pubblica Commento
+              {{ section.settings.comment_submit_btn | default: "Pubblica Commento" }}
             </button>
           {% endform %}
         {% endpaginate %}
@@ -213,7 +213,7 @@
     <!-- Back to Blog Button -->
     <div class="mt-12 text-center">
       <a href="{{ blog.url }}" class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#1A1A1A] hover:text-[#C8A878] transition-colors border-b border-[#1A1A1A] pb-1">
-        &larr; Torna a {{ blog.title }}
+        &larr; {{ section.settings.back_btn_text | default: "Torna a" }} {{ blog.title }}
       </a>
     </div>
 
@@ -224,6 +224,10 @@
 {
   "name": "Main Article Mile",
   "settings": [
+    {
+      "type": "header",
+      "content": "Elementi Visivi"
+    },
     {
       "type": "checkbox",
       "id": "show_featured_image",
@@ -243,16 +247,70 @@
       "default": true
     },
     {
+      "type": "header",
+      "content": "Condivisione Social"
+    },
+    {
       "type": "checkbox",
       "id": "show_share_buttons",
       "label": "Mostra pulsanti condivisione",
       "default": true
     },
     {
+      "type": "text",
+      "id": "share_title",
+      "label": "Titolo Condivisione",
+      "default": "Condividi questo protocollo di bellezza"
+    },
+    {
+      "type": "header",
+      "content": "Box Autore / Redazione"
+    },
+    {
       "type": "checkbox",
       "id": "show_author_card",
       "label": "Mostra box redazione / istituto",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "author_card_title",
+      "label": "Titolo Box Autore",
+      "default": "Redazione Scientifica MileBioLab"
+    },
+    {
+      "type": "textarea",
+      "id": "author_card_desc",
+      "label": "Descrizione Box Autore",
+      "default": "I contenuti del Giornale Botanico sono redatti in collaborazione con le nostre dermo-consulenti e cosmetologhe per promuovere una cultura di bellezza consapevole."
+    },
+    {
+      "type": "header",
+      "content": "Commenti & Navigazione"
+    },
+    {
+      "type": "text",
+      "id": "comments_heading",
+      "label": "Titolo Sezione Commenti",
+      "default": "Commenti"
+    },
+    {
+      "type": "text",
+      "id": "comment_form_title",
+      "label": "Titolo Form Commento",
+      "default": "Lascia una riflessione"
+    },
+    {
+      "type": "text",
+      "id": "comment_submit_btn",
+      "label": "Testo Bottone Invia Commento",
+      "default": "Pubblica Commento"
+    },
+    {
+      "type": "text",
+      "id": "back_btn_text",
+      "label": "Testo Bottone Ritorno al Blog",
+      "default": "Torna a"
     }
   ]
 }

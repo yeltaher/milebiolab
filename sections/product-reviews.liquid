@@ -6,12 +6,12 @@
                 
                 <!-- Overall Rating Score Box -->
                 <div class="lg:col-span-4 text-center lg:text-left lg:border-r border-borderLinen lg:pr-12">
-                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">VALUTAZIONI CLIENTELA ELITE</span>
-                    <div class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ section.settings.overall_score }}</div>
+                    <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.eyebrow | default: "OPINIONI VERIFICATE • CLUB MILE" }}</span>
+                    <div class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ section.settings.overall_score | default: "4.9" }}</div>
                     <div class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
-                    <p class="text-xs text-ash">Basato su {{ section.settings.total_reviews }} recensioni certificate da acquirenti reali</p>
+                    <p class="text-xs text-ash">Basato su {{ section.settings.total_reviews | default: "142" }} recensioni certificate da acquirenti reali</p>
                     <div class="mt-4 inline-block bg-linen px-3 py-1.5 text-xs text-sage font-medium border border-borderLinen">
-                        98% delle clienti riacquista entro 60 giorni
+                        {{ section.settings.repurchase_badge | default: "98% delle clienti riacquista entro 60 giorni" }}
                     </div>
                 </div>
 
@@ -147,6 +147,16 @@
   "name": "Recensioni Clientela",
   "settings": [
     {
+      "type": "header",
+      "content": "Intestazione & Punteggio"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow / Sopratitolo",
+      "default": "OPINIONI VERIFICATE • CLUB MILE"
+    },
+    {
       "type": "text",
       "id": "overall_score",
       "label": "Punteggio Medio",
@@ -157,6 +167,16 @@
       "id": "total_reviews",
       "label": "Numero Totale Recensioni",
       "default": "142"
+    },
+    {
+      "type": "text",
+      "id": "repurchase_badge",
+      "label": "Badge Tasso Riacquisto",
+      "default": "98% delle clienti riacquista entro 60 giorni"
+    },
+    {
+      "type": "header",
+      "content": "Distribuzione Stelle (%)"
     },
     {
       "type": "range",
