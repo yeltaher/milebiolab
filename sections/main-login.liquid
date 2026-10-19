@@ -1,4 +1,4 @@
-﻿{% comment %}
+{% comment %}
   MILEBIOLAB - TEMPLATE CUSTOMER LOGIN & RECOVER PASSWORD
   Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
 {% endcomment %}
@@ -23,15 +23,15 @@
         <div class="relative z-10">
           <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-borderLinen text-[11px] font-mono tracking-wider uppercase text-sage mb-6">
             <span class="w-1.5 h-1.5 rounded-full bg-sage"></span>
-            Club Mile Privilège
+            {{ section.settings.privilege_badge | default: "Club Mile Privilège" }}
           </div>
 
           <h2 class="font-serif text-3xl sm:text-4xl text-ink font-normal leading-tight mb-4">
-            L'Eccellenza Dermocosmetica <br><span class="italic text-sage">Riservata a Te</span>
+            {{ section.settings.privilege_title | default: "L'Eccellenza Dermocosmetica <br><span class='italic text-sage'>Riservata a Te</span>" }}
           </h2>
 
           <p class="text-sm text-ash leading-relaxed mb-8">
-            Accedi al tuo spazio esclusivo MileBioLab per gestire i tuoi rituali di bellezza Team Dr Joseph, consultare lo storico dei tuoi trattamenti e sbloccare i privilegi della nostra community.
+            {{ section.settings.privilege_description | default: "Accedi al tuo spazio esclusivo MileBioLab per gestire i tuoi ordini, consultare lo storico dei tuoi trattamenti e sbloccare i privilegi della nostra community." }}
           </p>
 
           <!-- Benefits List -->
@@ -39,29 +39,29 @@
             <li class="flex items-start gap-3">
               <span class="w-5 h-5 rounded-full bg-amber/20 text-amber flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
               <div>
-                <strong class="font-semibold block text-ink">10-15% di Sconto sul Primo Ordine</strong>
-                <span class="text-ash text-xs">Accesso immediato a promozioni riservate e codici fedeltà esclusivi.</span>
+                <strong class="font-semibold block text-ink">{{ section.settings.benefit_1_title | default: "10-15% di Sconto sul Primo Ordine" }}</strong>
+                <span class="text-ash text-xs">{{ section.settings.benefit_1_desc | default: "Utilizza il codice benvenuto riservato al momento del tuo primo checkout." }}</span>
               </div>
             </li>
             <li class="flex items-start gap-3">
               <span class="w-5 h-5 rounded-full bg-sage/20 text-sage flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
               <div>
-                <strong class="font-semibold block text-ink">Ritiro Esclusivo in Sede a Verona</strong>
-                <span class="text-ash text-xs">Corso Cavour 18: pronto in sole 2 ore con check-up cutaneo e campioni su misura.</span>
+                <strong class="font-semibold block text-ink">{{ section.settings.benefit_2_title | default: "Ritiro Esclusivo in Sede a Verona" }}</strong>
+                <span class="text-ash text-xs">{{ section.settings.benefit_2_desc | default: "Ordina online e ritira entro 2 ore in boutique in Corso Cavour 18." }}</span>
               </div>
             </li>
             <li class="flex items-start gap-3">
               <span class="w-5 h-5 rounded-full bg-amber/20 text-amber flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
               <div>
-                <strong class="font-semibold block text-ink">Consulenza Viso Dedicata</strong>
-                <span class="text-ash text-xs">Supporto concierge prioritario per l'analisi della barriera epidermica.</span>
+                <strong class="font-semibold block text-ink">{{ section.settings.benefit_3_title | default: "Consulenza Viso Dedicata" }}</strong>
+                <span class="text-ash text-xs">{{ section.settings.benefit_3_desc | default: "Supporto personalizzato per creare la tua routine botanica ideale." }}</span>
               </div>
             </li>
             <li class="flex items-start gap-3">
               <span class="w-5 h-5 rounded-full bg-sage/20 text-sage flex items-center justify-center shrink-0 mt-0.5 font-serif font-bold text-xs">✓</span>
               <div>
-                <strong class="font-semibold block text-ink">Campioncini Deluxe Omaggio</strong>
-                <span class="text-ash text-xs">Formule botaniche selezionate con cura inserite in ogni spedizione.</span>
+                <strong class="font-semibold block text-ink">{{ section.settings.benefit_4_title | default: "Campioncini Deluxe Omaggio" }}</strong>
+                <span class="text-ash text-xs">{{ section.settings.benefit_4_desc | default: "Una selezione esclusiva in miniatura inclusa in ogni tuo ordine." }}</span>
               </div>
             </li>
           </ul>
@@ -71,9 +71,15 @@
         <div class="relative z-10 pt-6 border-t border-borderLinen flex items-center justify-between text-xs text-ash">
           <span class="flex items-center gap-1.5 font-medium text-ink">
             <svg class="w-4 h-4 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            Boutique &amp; Istituto &bull; Verona
+            {{ section.settings.boutique_title | default: "Boutique &amp; Istituto &bull; Verona" }}
           </span>
-          <span class="font-mono text-[11px] text-amber uppercase font-semibold">Corso Cavour 18</span>
+          {% if section.settings.boutique_url != blank %}
+            <a href="{{ section.settings.boutique_url }}" class="font-mono text-[11px] text-amber uppercase font-semibold hover:underline">
+              {{ section.settings.boutique_details | default: "Corso Cavour 18" }}
+            </a>
+          {% else %}
+            <span class="font-mono text-[11px] text-amber uppercase font-semibold">{{ section.settings.boutique_details | default: "Corso Cavour 18" }}</span>
+          {% endif %}
         </div>
       </div>
 
@@ -86,9 +92,9 @@
         <div id="CustomerLoginForm" class="w-full">
           <div class="mb-8">
             <span class="text-[11px] font-mono tracking-widest uppercase text-ash block mb-1">Bentornato nel tuo Spazio</span>
-            <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">Accedi al Tuo Profilo</h1>
+            <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">{{ section.settings.login_title | default: "Accedi al Tuo Profilo" }}</h1>
             <p class="text-xs sm:text-sm text-ash mt-2">
-              Inserisci le tue credenziali per accedere allo storico ordini e ai tuoi rituali salvati.
+              {{ section.settings.login_subtitle | default: "Inserisci le tue credenziali per accedere allo storico ordini e ai tuoi rituali salvati." }}
             </p>
           </div>
 
@@ -137,7 +143,7 @@
                   onclick="toggleRecoverForm(true)"
                   class="text-xs text-ash hover:text-amber transition-colors underline underline-offset-4 cursor-pointer"
                 >
-                  Password dimenticata?
+                  {{ section.settings.forgot_password_text | default: "Password dimenticata?" }}
                 </button>
               </div>
               <input
@@ -158,7 +164,7 @@
                 type="submit"
                 class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Accedi al Club Mile</span>
+                <span>{{ section.settings.login_btn_text | default: "Accedi al Club Mile" }}</span>
                 <span class="text-amber">&rarr;</span>
               </button>
             </div>
@@ -167,13 +173,13 @@
           <!-- Switch to Registration Link -->
           <div class="mt-8 pt-6 border-t border-borderLinen text-center">
             <p class="text-xs sm:text-sm text-ash mb-3">
-              Non possiedi ancora un account Club Mile?
+              {{ section.settings.register_prompt_text | default: "Non possiedi ancora un account Club Mile?" }}
             </p>
             <a
               href="{{ routes.account_register_url }}"
               class="inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold"
             >
-              Crea un Nuovo Account &bull; Ricevi il 10%
+              {{ section.settings.register_link_text | default: "Crea un Nuovo Account • Ricevi il 10%" }}
             </a>
           </div>
         </div>
@@ -184,9 +190,9 @@
         <div id="RecoverPasswordForm" class="hidden w-full">
           <div class="mb-8">
             <span class="text-[11px] font-mono tracking-widest uppercase text-amber block mb-1">Recupero Credenziali</span>
-            <h2 class="font-serif text-3xl sm:text-4xl text-ink font-normal">Reimposta Password</h2>
+            <h2 class="font-serif text-3xl sm:text-4xl text-ink font-normal">{{ section.settings.recover_title | default: "Reimposta Password" }}</h2>
             <p class="text-xs sm:text-sm text-ash mt-2">
-              Inserisci l'indirizzo email associato al tuo profilo Club Mile. Ti invieremo un link sicuro per impostare una nuova password.
+              {{ section.settings.recover_subtitle | default: "Inserisci l'indirizzo email associato al tuo profilo Club Mile. Ti invieremo un link sicuro per impostare una nuova password." }}
             </p>
           </div>
 
@@ -224,7 +230,7 @@
                 type="submit"
                 class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Invia Link di Reimpostazione</span>
+                <span>{{ section.settings.recover_btn_text | default: "Invia Link di Reimpostazione" }}</span>
                 <span class="text-amber">&rarr;</span>
               </button>
 
@@ -233,7 +239,7 @@
                 onclick="toggleRecoverForm(false)"
                 class="w-full py-3 text-xs uppercase tracking-widest text-ash hover:text-ink transition-colors cursor-pointer text-center"
               >
-                &larr; Torna alla Schermata di Accesso
+                &larr; {{ section.settings.recover_cancel_text | default: "Torna alla Schermata di Accesso" }}
               </button>
             </div>
           {% endform %}
@@ -278,10 +284,165 @@
   });
 </script>
 
-
 {% schema %}
 {
   "name": "Accesso Cliente (Login)",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colonna Privilegi (Sinistra)"
+    },
+    {
+      "type": "text",
+      "id": "privilege_badge",
+      "label": "Badge Privilegio",
+      "default": "Club Mile Privilège"
+    },
+    {
+      "type": "text",
+      "id": "privilege_title",
+      "label": "Titolo Privilegio",
+      "default": "L'Eccellenza Dermocosmetica <br><span class='italic text-sage'>Riservata a Te</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "privilege_description",
+      "label": "Descrizione Privilegio",
+      "default": "Accedi al tuo spazio esclusivo MileBioLab per gestire i tuoi ordini, consultare lo storico dei tuoi trattamenti e sbloccare i privilegi della nostra community."
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_title",
+      "label": "Vantaggio 1 - Titolo",
+      "default": "10-15% di Sconto sul Primo Ordine"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_desc",
+      "label": "Vantaggio 1 - Descrizione",
+      "default": "Utilizza il codice benvenuto riservato al momento del tuo primo checkout."
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_title",
+      "label": "Vantaggio 2 - Titolo",
+      "default": "Ritiro Esclusivo in Sede a Verona"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_desc",
+      "label": "Vantaggio 2 - Descrizione",
+      "default": "Ordina online e ritira entro 2 ore in boutique in Corso Cavour 18."
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_title",
+      "label": "Vantaggio 3 - Titolo",
+      "default": "Consulenza Viso Dedicata"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_desc",
+      "label": "Vantaggio 3 - Descrizione",
+      "default": "Supporto personalizzato per creare la tua routine botanica ideale."
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_title",
+      "label": "Vantaggio 4 - Titolo",
+      "default": "Campioncini Deluxe Omaggio"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_desc",
+      "label": "Vantaggio 4 - Descrizione",
+      "default": "Una selezione esclusiva in miniatura inclusa in ogni tuo ordine."
+    },
+    {
+      "type": "text",
+      "id": "boutique_title",
+      "label": "Titolo Boutique Sede",
+      "default": "Boutique & Istituto • Verona"
+    },
+    {
+      "type": "text",
+      "id": "boutique_details",
+      "label": "Dettagli Boutique Sede",
+      "default": "Corso Cavour 18"
+    },
+    {
+      "type": "url",
+      "id": "boutique_url",
+      "label": "Link Scopri la sede (opzionale)"
+    },
+    {
+      "type": "header",
+      "content": "Modulo di Accesso (Destra)"
+    },
+    {
+      "type": "text",
+      "id": "login_title",
+      "label": "Titolo Form Login",
+      "default": "Accedi al Tuo Profilo"
+    },
+    {
+      "type": "textarea",
+      "id": "login_subtitle",
+      "label": "Sottotitolo Form Login",
+      "default": "Inserisci le tue credenziali per accedere allo storico ordini e ai tuoi rituali salvati."
+    },
+    {
+      "type": "text",
+      "id": "forgot_password_text",
+      "label": "Testo Link Password Dimenticata",
+      "default": "Password dimenticata?"
+    },
+    {
+      "type": "text",
+      "id": "login_btn_text",
+      "label": "Testo Bottone Accedi",
+      "default": "Accedi al Club Mile"
+    },
+    {
+      "type": "text",
+      "id": "register_prompt_text",
+      "label": "Testo Invito Registrazione",
+      "default": "Non possiedi ancora un account Club Mile?"
+    },
+    {
+      "type": "text",
+      "id": "register_link_text",
+      "label": "Testo Link Registrazione",
+      "default": "Crea un Nuovo Account • Ricevi il 10%"
+    },
+    {
+      "type": "header",
+      "content": "Modulo Ripristino Password"
+    },
+    {
+      "type": "text",
+      "id": "recover_title",
+      "label": "Titolo Form Recupero",
+      "default": "Reimposta Password"
+    },
+    {
+      "type": "textarea",
+      "id": "recover_subtitle",
+      "label": "Sottotitolo Form Recupero",
+      "default": "Inserisci l'indirizzo email associato al tuo profilo Club Mile. Ti invieremo un link sicuro per impostare una nuova password."
+    },
+    {
+      "type": "text",
+      "id": "recover_btn_text",
+      "label": "Testo Bottone Invia Link",
+      "default": "Invia Link di Reimpostazione"
+    },
+    {
+      "type": "text",
+      "id": "recover_cancel_text",
+      "label": "Testo Link Annulla Recupero",
+      "default": "Torna alla Schermata di Accesso"
+    }
+  ]
 }
 {% endschema %}

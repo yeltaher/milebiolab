@@ -20,7 +20,7 @@
         href="{{ routes.account_url }}"
         class="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-ash hover:text-ink transition-colors font-semibold"
       >
-        <span>&larr; Torna a Tutti gli Ordini</span>
+        <span>{{ section.settings.back_btn_text | default: "← Torna a Tutti gli Ordini" }}</span>
       </a>
     </div>
 
@@ -28,7 +28,7 @@
     <div class="bg-white border border-borderLinen p-6 sm:p-8 mb-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div>
         <div class="flex items-center gap-3 mb-2">
-          <span class="text-[11px] font-mono tracking-widest uppercase text-sage">Dettagli Ordine</span>
+          <span class="text-[11px] font-mono tracking-widest uppercase text-sage">{{ section.settings.eyebrow | default: "Dettagli Ordine" }}</span>
           <span class="text-sand">&bull;</span>
           <span class="font-mono text-xs text-ash">{{ order.created_at | date: "%d/%m/%Y alle %H:%M" }}</span>
         </div>
@@ -67,7 +67,7 @@
       <!-- LINE ITEMS SECTION (8 COLS) -->
       <div class="lg:col-span-8 bg-white border border-borderLinen p-6 sm:p-8 shadow-sm">
         <h2 class="font-serif text-2xl text-ink font-normal pb-4 border-b border-borderLinen mb-6">
-          Formule nel tuo Ordine ({{ order.line_items.size }})
+          {{ section.settings.items_heading | default: "Formule nel tuo Ordine" }} ({{ order.line_items.size }})
         </h2>
 
         <div class="divide-y divide-borderLinen">
@@ -150,7 +150,7 @@
         <!-- Shipping Address -->
         <div class="bg-white border border-borderLinen p-6 shadow-sm">
           <h3 class="font-serif text-lg text-ink pb-3 border-b border-borderLinen mb-4 flex items-center gap-2">
-            <span>📍 Indirizzo di Consegna</span>
+            <span>{{ section.settings.shipping_heading | default: "📍 Indirizzo di Consegna" }}</span>
           </h3>
           {% if order.shipping_address %}
             <div class="text-xs sm:text-sm text-ash leading-relaxed space-y-1">
@@ -176,7 +176,7 @@
         <!-- Billing Address -->
         <div class="bg-white border border-borderLinen p-6 shadow-sm">
           <h3 class="font-serif text-lg text-ink pb-3 border-b border-borderLinen mb-4 flex items-center gap-2">
-            <span>🧾 Dati di Fatturazione</span>
+            <span>{{ section.settings.billing_heading | default: "🧾 Dati di Fatturazione" }}</span>
           </h3>
           {% if order.billing_address %}
             <div class="text-xs sm:text-sm text-ash leading-relaxed space-y-1">
@@ -195,13 +195,22 @@
 
         <!-- Verona Assistance / Concierge Card -->
         <div class="bg-[#FAF8F5] border border-borderLinen p-6 shadow-sm text-xs text-ash leading-relaxed">
-          <h4 class="font-serif text-base text-ink mb-2">Assistenza Ordini Verona</h4>
-          <p class="mb-3">Hai domande sul tuo ordine o desideri supporto applicativo per i prodotti ricevuti?</p>
-          <div class="space-y-1 text-ink font-medium">
+          <h4 class="font-serif text-base text-ink mb-2">{{ section.settings.support_title | default: "Assistenza Ordini Verona" }}</h4>
+          <p class="mb-3">{{ section.settings.support_desc | default: "Hai domande sul tuo ordine o desideri supporto applicativo per i prodotti ricevuti?" }}</p>
+          <div class="space-y-1 text-ink font-medium{% if section.settings.support_btn_text != blank %} mb-4{% endif %}">
             <p>📍 Corso Cavour 18, Verona</p>
             <p>💬 WhatsApp Concierge: +39 045 800 1234</p>
             <p>✉️ ordini@milebiolab.com</p>
           </div>
+          {% if section.settings.support_btn_text != blank %}
+            {% assign support_target = section.settings.support_url | default: '/pages/chi-siamo' %}
+            <a
+              href="{{ support_target }}"
+              class="inline-block w-full py-2.5 px-4 bg-ink hover:bg-sage text-white text-xs uppercase tracking-widest font-semibold transition-colors text-center cursor-pointer"
+            >
+              {{ section.settings.support_btn_text }}
+            </a>
+          {% endif %}
         </div>
 
       </div>
@@ -211,10 +220,74 @@
   </div>
 </div>
 
-
 {% schema %}
 {
   "name": "Dettaglio Ordine",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navigazione e Testate"
+    },
+    {
+      "type": "text",
+      "id": "back_btn_text",
+      "label": "Testo Link Torna Indietro",
+      "default": "← Torna a Tutti gli Ordini"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Occhiello Dettaglio Ordine",
+      "default": "Dettagli Ordine"
+    },
+    {
+      "type": "text",
+      "id": "items_heading",
+      "label": "Titolo Sezione Articoli",
+      "default": "Formule nel tuo Ordine"
+    },
+    {
+      "type": "header",
+      "content": "Recapiti di Spedizione e Fatturazione"
+    },
+    {
+      "type": "text",
+      "id": "shipping_heading",
+      "label": "Titolo Indirizzo di Spedizione",
+      "default": "📍 Indirizzo di Consegna"
+    },
+    {
+      "type": "text",
+      "id": "billing_heading",
+      "label": "Titolo Indirizzo di Fatturazione",
+      "default": "🧾 Dati di Fatturazione"
+    },
+    {
+      "type": "header",
+      "content": "Assistenza Concierge"
+    },
+    {
+      "type": "text",
+      "id": "support_title",
+      "label": "Titolo Box Assistenza",
+      "default": "Assistenza Ordini Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "support_desc",
+      "label": "Descrizione Box Assistenza",
+      "default": "Hai domande sul tuo ordine o desideri supporto applicativo per i prodotti ricevuti?"
+    },
+    {
+      "type": "text",
+      "id": "support_btn_text",
+      "label": "Testo Bottone Assistenza (opzionale)"
+    },
+    {
+      "type": "url",
+      "id": "support_url",
+      "label": "Link Pagina Assistenza (opzionale)"
+    }
+  ]
 }
 {% endschema %}

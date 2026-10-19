@@ -1,4 +1,4 @@
-﻿{% comment %}
+{% comment %}
   MILEBIOLAB - TEMPLATE CUSTOMER ADDRESSES MANAGEMENT
   Bespoke Haute Couture / Splendor Palette (#F5F2EB, #FAF8F5, #E5E0D8, #5C6B56, #C8A878, #1A1A1A)
 {% endcomment %}
@@ -13,7 +13,7 @@
         <span class="text-sand">/</span>
         <a href="{{ routes.account_url }}" class="hover:text-ink transition-colors">Club Mile</a>
         <span class="text-sand">/</span>
-        <span class="text-ink font-semibold">Rubrica Indirizzi</span>
+        <span class="text-ink font-semibold">{{ section.settings.nav_title | default: "Rubrica Indirizzi" }}</span>
       </nav>
 
       <a
@@ -28,9 +28,9 @@
     <div class="bg-white border border-borderLinen p-6 sm:p-8 mb-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
       <div>
         <span class="text-[11px] font-mono tracking-widest uppercase text-sage block mb-1">Spedizioni &bull; Ritiro</span>
-        <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">I Tuoi Indirizzi</h1>
+        <h1 class="font-serif text-3xl sm:text-4xl text-ink font-normal">{{ section.settings.title | default: "I Tuoi Indirizzi" }}</h1>
         <p class="text-xs sm:text-sm text-ash mt-1">
-          Gestisci gli indirizzi di spedizione per le consegne a domicilio e la fatturazione.
+          {{ section.settings.subtitle | default: "Gestisci gli indirizzi di spedizione per le consegne a domicilio e la fatturazione." }}
         </p>
       </div>
 
@@ -39,7 +39,7 @@
         onclick="toggleAddressNewForm()"
         class="bg-ink hover:bg-sage text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer shrink-0 flex items-center justify-center gap-2"
       >
-        <span>+ Aggiungi Nuovo Indirizzo</span>
+        <span>{{ section.settings.add_btn_text | default: "+ Aggiungi Nuovo Indirizzo" }}</span>
       </button>
     </div>
 
@@ -49,8 +49,8 @@
     <div id="AddAddressWrapper" class="hidden mb-10 bg-white border border-borderLinen p-6 sm:p-10 shadow-sm">
       <div class="border-b border-borderLinen pb-4 mb-6 flex items-center justify-between">
         <div>
-          <h2 class="font-serif text-2xl text-ink font-normal">Aggiungi Nuovo Indirizzo</h2>
-          <p class="text-xs text-ash mt-0.5">Inserisci i dettagli per salvare un nuovo recapito di consegna.</p>
+          <h2 class="font-serif text-2xl text-ink font-normal">{{ section.settings.modal_add_title | default: "Aggiungi Nuovo Indirizzo" }}</h2>
+          <p class="text-xs text-ash mt-0.5">{{ section.settings.modal_add_subtitle | default: "Inserisci i dettagli per salvare un nuovo recapito di consegna." }}</p>
         </div>
         <button
           type="button"
@@ -126,14 +126,14 @@
             type="submit"
             class="bg-ink hover:bg-sage text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer"
           >
-            Salva Indirizzo
+            {{ section.settings.save_btn_text | default: "Salva Indirizzo" }}
           </button>
           <button
             type="button"
             onclick="toggleAddressNewForm()"
             class="py-3.5 px-6 border border-borderLinen text-ash hover:text-ink text-xs uppercase tracking-widest transition-colors cursor-pointer"
           >
-            Annulla
+            {{ section.settings.cancel_btn_text | default: "Annulla" }}
           </button>
         </div>
 
@@ -294,13 +294,13 @@
 
       {% else %}
         <div class="bg-white border border-dashed border-borderLinen p-12 text-center">
-          <p class="text-sm text-ash mb-4">Non hai ancora inserito alcun indirizzo nella tua rubrica.</p>
+          <p class="text-sm text-ash mb-4">{{ section.settings.empty_text | default: "Non hai ancora inserito alcun indirizzo nella tua rubrica." }}</p>
           <button
             type="button"
             onclick="toggleAddressNewForm()"
             class="bg-ink hover:bg-sage text-white py-3 px-6 text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer"
           >
-            Aggiungi il tuo primo indirizzo
+            {{ section.settings.empty_btn_text | default: "Aggiungi il tuo primo indirizzo" }}
           </button>
         </div>
       {% endif %}
@@ -328,10 +328,82 @@
   }
 </script>
 
-
 {% schema %}
 {
   "name": "Indirizzi Cliente",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Pagina"
+    },
+    {
+      "type": "text",
+      "id": "nav_title",
+      "label": "Titolo Breadcrumb",
+      "default": "Rubrica Indirizzi"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Principale",
+      "default": "I Tuoi Indirizzi"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Gestisci gli indirizzi di spedizione per le consegne a domicilio e la fatturazione."
+    },
+    {
+      "type": "text",
+      "id": "add_btn_text",
+      "label": "Testo Bottone Aggiungi",
+      "default": "+ Aggiungi Nuovo Indirizzo"
+    },
+    {
+      "type": "header",
+      "content": "Modulo Nuovo Indirizzo"
+    },
+    {
+      "type": "text",
+      "id": "modal_add_title",
+      "label": "Titolo Modulo Nuovo",
+      "default": "Aggiungi Nuovo Indirizzo"
+    },
+    {
+      "type": "textarea",
+      "id": "modal_add_subtitle",
+      "label": "Sottotitolo Modulo Nuovo",
+      "default": "Inserisci i dettagli per salvare un nuovo recapito di consegna."
+    },
+    {
+      "type": "text",
+      "id": "save_btn_text",
+      "label": "Testo Bottone Salva",
+      "default": "Salva Indirizzo"
+    },
+    {
+      "type": "text",
+      "id": "cancel_btn_text",
+      "label": "Testo Bottone Annulla",
+      "default": "Annulla"
+    },
+    {
+      "type": "header",
+      "content": "Stato Vuoto (Nessun Indirizzo)"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Messaggio Lista Vuota",
+      "default": "Non hai ancora inserito alcun indirizzo nella tua rubrica."
+    },
+    {
+      "type": "text",
+      "id": "empty_btn_text",
+      "label": "Testo Bottone Primo Indirizzo",
+      "default": "Aggiungi il tuo primo indirizzo"
+    }
+  ]
 }
 {% endschema %}
