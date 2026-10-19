@@ -1,14 +1,14 @@
 <div class="bg-[#F5F2EB] text-[#1A1A1A] min-h-screen py-16">
   <div class="max-w-5xl mx-auto px-6 lg:px-12">
     <div class="text-center mb-10">
-      <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">MILEBIOLAB HAUTE COSMÉTIQUE</span>
-      <h1 class="font-serif text-4xl sm:text-5xl text-[#1A1A1A]">Il Tuo Rituale di Bellezza</h1>
+      <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">{{ section.settings.eyebrow | default: "MILEBIOLAB HAUTE COSMÉTIQUE" }}</span>
+      <h1 class="font-serif text-4xl sm:text-5xl text-[#1A1A1A]">{{ section.settings.title | default: "Il Tuo Rituale di Bellezza" }}</h1>
     </div>
 
     <!-- Free Shipping & Samples Progress Bar -->
     <div class="bg-white border border-[#E5E0D8] p-5 mb-8 shadow-xs">
       <div id="cart-progress-text" class="text-xs text-[#1A1A1A] font-medium mb-2.5">
-        🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e il Cofanetto 3 Campioncini Deluxe Omaggio!
+        {{ section.settings.progress_text | default: "🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e il Cofanetto 3 Campioncini Deluxe Omaggio!" }}
       </div>
       <div class="w-full bg-[#E5E0D8] h-2 rounded-full overflow-hidden">
         <div class="bg-[#5C6B56] h-full transition-all duration-500 rounded-full" id="cart-progress-fill" style="width: 70%;"></div>
@@ -20,7 +20,7 @@
       
       <!-- Items List -->
       <div class="lg:col-span-7 bg-white border border-[#E5E0D8] p-6 shadow-xs">
-        <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">Formule Selezionate</h3>
+        <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">{{ section.settings.heading_items | default: "Formule Selezionate" }}</h3>
         
         <div class="space-y-6" id="cart-page-items-list">
           {% if cart.items.size > 0 %}
@@ -53,7 +53,7 @@
 
       <!-- Summary & Checkout Box -->
       <div class="lg:col-span-5 bg-white border border-[#E5E0D8] p-6 shadow-xs sticky top-28">
-        <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">Riepilogo Ordine</h3>
+        <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">{{ section.settings.heading_summary | default: "Riepilogo Ordine" }}</h3>
         
         <div class="space-y-3 text-xs mb-6">
           <div class="flex justify-between">
@@ -71,12 +71,26 @@
         </div>
 
         <a href="{{ routes.cart_url }}/checkout" class="w-full bg-[#1A1A1A] text-white py-4 px-6 text-xs uppercase tracking-[0.22em] font-semibold hover:bg-[#5C6B56] transition-all text-center flex items-center justify-center luxury-interactive shadow-md mb-4">
-          Procedi al Checkout Sicuro
+          {{ section.settings.checkout_btn_text | default: "Procedi al Checkout Sicuro" }}
         </a>
 
         <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-3 text-[11px] text-[#7A7265] space-y-1">
-          <div>📍 <strong>Ritiro gratuito disponibile:</strong> Corso Cavour 18, Verona (pronto in 2 ore).</div>
-          <div>🌿 <strong>Omaggi inclusi:</strong> 3 campioncini deluxe e packaging regalo riciclabile.</div>
+          <div>
+            {% assign pickup_text = section.settings.notice_pickup | default: "📍 Ritiro gratuito disponibile: Corso Cavour 18, Verona (pronto in 2 ore)." %}
+            {% if pickup_text contains "Ritiro gratuito disponibile:" %}
+              {{ pickup_text | replace: "Ritiro gratuito disponibile:", "<strong>Ritiro gratuito disponibile:</strong>" }}
+            {% else %}
+              {{ pickup_text }}
+            {% endif %}
+          </div>
+          <div>
+            {% assign samples_text = section.settings.notice_samples | default: "🌿 Omaggi inclusi: 3 campioncini deluxe e packaging regalo riciclabile." %}
+            {% if samples_text contains "Omaggi inclusi:" %}
+              {{ samples_text | replace: "Omaggi inclusi:", "<strong>Omaggi inclusi:</strong>" }}
+            {% else %}
+              {{ samples_text }}
+            {% endif %}
+          </div>
         </div>
       </div>
 
@@ -87,6 +101,71 @@
 {% schema %}
 {
   "name": "Main Cart Page Mile",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Carrello"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Eyebrow",
+      "default": "MILEBIOLAB HAUTE COSMÉTIQUE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Carrello",
+      "default": "Il Tuo Rituale di Bellezza"
+    },
+    {
+      "type": "header",
+      "content": "Barra Progresso Omaggi"
+    },
+    {
+      "type": "textarea",
+      "id": "progress_text",
+      "label": "Messaggio Soglia Spedizione & Omaggi",
+      "default": "🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e il Cofanetto 3 Campioncini Deluxe Omaggio!"
+    },
+    {
+      "type": "header",
+      "content": "Titoli & Checkout"
+    },
+    {
+      "type": "text",
+      "id": "heading_items",
+      "label": "Titolo Sezione Articoli",
+      "default": "Formule Selezionate"
+    },
+    {
+      "type": "text",
+      "id": "heading_summary",
+      "label": "Titolo Riepilogo Ordine",
+      "default": "Riepilogo Ordine"
+    },
+    {
+      "type": "text",
+      "id": "checkout_btn_text",
+      "label": "Testo Bottone Checkout",
+      "default": "Procedi al Checkout Sicuro"
+    },
+    {
+      "type": "header",
+      "content": "Avvisi Informativi Ritiro & Omaggi"
+    },
+    {
+      "type": "textarea",
+      "id": "notice_pickup",
+      "label": "Avviso Ritiro in Sede Verona",
+      "default": "📍 Ritiro gratuito disponibile: Corso Cavour 18, Verona (pronto in 2 ore)."
+    },
+    {
+      "type": "textarea",
+      "id": "notice_samples",
+      "label": "Avviso Omaggi Inclusi",
+      "default": "🌿 Omaggi inclusi: 3 campioncini deluxe e packaging regalo riciclabile."
+    }
+  ]
 }
 {% endschema %}

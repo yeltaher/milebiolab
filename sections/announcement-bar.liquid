@@ -5,15 +5,15 @@
   
   <div class="announcement-carousel-inner" id="announcement-carousel-container">
     <div class="announcement-slide active">
-      <span class="magnetic-glow-pulse-badge">PROMOZIONE</span>
+      <span class="magnetic-glow-pulse-badge">{{ section.settings.badge_1 | default: "PROMOZIONE" }}</span>
       <span>{{ section.settings.message_1 }}</span>
     </div>
     <div class="announcement-slide">
-      <span class="magnetic-glow-pulse-badge">FLAGSHIP VERONA</span>
+      <span class="magnetic-glow-pulse-badge">{{ section.settings.badge_2 | default: "FLAGSHIP VERONA" }}</span>
       <span>{{ section.settings.message_2 }}</span>
     </div>
     <div class="announcement-slide">
-      <span class="magnetic-glow-pulse-badge">CERTIFICAZIONE</span>
+      <span class="magnetic-glow-pulse-badge">{{ section.settings.badge_3 | default: "CERTIFICAZIONE" }}</span>
       <span>{{ section.settings.message_3 }}</span>
     </div>
   </div>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="utility-actions-group">
-      <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" style="color: var(--color-accent-olive); font-weight: 600;">Prenota Trattamento Cabina &rarr;</a>
+      <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" style="color: var(--color-accent-olive); font-weight: 600;">{{ section.settings.action_text | default: "Prenota Trattamento Cabina &rarr;" }}</a>
       <div class="currency-lang-switcher">
         <span>🌐 EUR (€) / IT</span>
       </div>
@@ -54,10 +54,24 @@
   "name": "Announcement Bar",
   "settings": [
     {
+      "type": "header",
+      "content": "Configurazione Generale"
+    },
+    {
       "type": "checkbox",
       "id": "show_announcement",
       "label": "Mostra Barra Annunci a Carosello",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Annuncio 1"
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Badge Annuncio 1",
+      "default": "PROMOZIONE"
     },
     {
       "type": "text",
@@ -66,16 +80,40 @@
       "default": "✦ SPEDIZIONE GRATUITA DA €60 IN TUTTA ITALIA • 3 CAMPIONCINI OMAGGIO CON OGNI ORDINE"
     },
     {
+      "type": "header",
+      "content": "Annuncio 2"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Badge Annuncio 2",
+      "default": "FLAGSHIP VERONA"
+    },
+    {
       "type": "text",
       "id": "message_2",
       "label": "Messaggio 2",
       "default": "📍 RITIRO GRATUITO ALL'ISTITUTO DI VERONA IN 2 ORE CON CHECK-UP PELLE VISIA"
     },
     {
+      "type": "header",
+      "content": "Annuncio 3"
+    },
+    {
+      "type": "text",
+      "id": "badge_3",
+      "label": "Badge Annuncio 3",
+      "default": "CERTIFICAZIONE"
+    },
+    {
       "type": "text",
       "id": "message_3",
       "label": "Messaggio 3",
       "default": "🌿 100% ALTA COSMECEUTICA BOTANICA BIOCERTIFICATA TEAM DR JOSEPH & BIOTECNOLOGIA ALPINA"
+    },
+    {
+      "type": "header",
+      "content": "Barra Servizi & Concierge"
     },
     {
       "type": "text",
@@ -94,6 +132,12 @@
       "id": "boutique_phone",
       "label": "Telefono",
       "default": "+39 045 800 1234"
+    },
+    {
+      "type": "text",
+      "id": "action_text",
+      "label": "Testo Link Prenotazione",
+      "default": "Prenota Trattamento Cabina →"
     }
   ]
 }

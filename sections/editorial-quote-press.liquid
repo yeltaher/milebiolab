@@ -19,7 +19,7 @@
       </div>
       <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-[#DDD7CE]/30 -z-0 hidden sm:block"></div>
       <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm p-3 sm:p-4 border border-[#E5E0D8] text-[10px] sm:text-xs tracking-wider uppercase text-[#1A1A1A] z-20 shadow-md">
-        Istituto Dermo-Specialistico &bull; Verona
+        {{ section.settings.badge_text | default: "Istituto Dermo-Specialistico • Verona" }}
       </div>
     </div>
 
@@ -36,11 +36,11 @@
         </blockquote>
 
         <p class="text-[#7A7265] text-xs sm:text-sm leading-relaxed mb-4 font-light">
-          Non crediamo nelle scorciatoie della chimica aggressiva né nell'approssimazione dell'erboristeria empirica. Il nostro metodo nasce dalla ricerca pionieristica di bio-compatibilità: ogni fitocomplesso viene estratto a freddo nel pieno rispetto della matrice vegetale viva.
+          {{ section.settings.paragraph_1 | default: "Non crediamo nelle scorciatoie della chimica aggressiva né nell'approssimazione dell'erboristeria empirica. Il nostro metodo nasce dalla ricerca pionieristica di bio-compatibilità: ogni fitocomplesso viene estratto a freddo nel pieno rispetto della matrice vegetale viva." }}
         </p>
 
         <p class="text-[#7A7265] text-xs sm:text-sm leading-relaxed mb-6 font-light">
-          Nella nostra boutique e istituto di Verona in Corso Cavour 18, accogliamo ogni persona per creare un percorso dermocosmetico sartoriale, supportato da verifiche strumentali e risultati clinicamente tangibili.
+          {{ section.settings.paragraph_2 | default: "Nella nostra boutique e istituto di Verona in Corso Cavour 18, accogliamo ogni persona per creare un percorso dermocosmetico sartoriale, supportato da verifiche strumentali e risultati clinicamente tangibili." }}
         </p>
 
         <div class="pt-6 border-t border-[#E5E0D8] flex items-center justify-between">
@@ -48,8 +48,8 @@
             <span class="font-serif italic text-lg text-[#1A1A1A] block">{{ section.settings.author | default: 'Milena Tacchella' }}</span>
             <span class="text-[10px] uppercase tracking-widest text-[#7A7265]">{{ section.settings.author_role | default: 'Fondatrice & Dermo-Specialista • Milebiolab Verona' }}</span>
           </div>
-          <a href="/pages/chi-siamo" class="inline-block border-b-2 border-[#1A1A1A] pb-1 text-xs uppercase tracking-widest font-semibold hover:text-[#C8A878] hover:border-[#C8A878] transition-colors">
-            LA NOSTRA STORIA &rarr;
+          <a href="{{ section.settings.link_url | default: '/pages/chi-siamo' }}" class="inline-block border-b-2 border-[#1A1A1A] pb-1 text-xs uppercase tracking-widest font-semibold hover:text-[#C8A878] hover:border-[#C8A878] transition-colors">
+            {{ section.settings.link_text | default: "LA NOSTRA STORIA →" }}
           </a>
         </div>
       </div>
@@ -60,18 +60,18 @@
   <!-- Press & Recognition Logos Marquee -->
   <div class="mt-16 pt-10 border-t border-[#E5E0D8] max-w-7xl mx-auto px-6">
     <div class="text-center mb-6">
-      <span class="text-[10px] uppercase tracking-[0.3em] text-[#7A7265] font-semibold">RACCONTATO &amp; ACCLAMATO DA</span>
+      <span class="text-[10px] uppercase tracking-[0.3em] text-[#7A7265] font-semibold">{{ section.settings.press_heading | default: "RACCONTATO & ACCLAMATO DA" }}</span>
     </div>
     <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-xs uppercase tracking-[0.28em] text-[#7A7265] font-serif">
-      <span class="hover:text-[#1A1A1A] transition-colors">VOGUE <em class="text-[10px] font-sans lowercase">Beauty</em></span>
-      <span class="text-[#DDD7CE]">•</span>
-      <span class="hover:text-[#1A1A1A] transition-colors font-semibold">ELLE</span>
-      <span class="text-[#DDD7CE]">•</span>
-      <span class="hover:text-[#1A1A1A] transition-colors">MARIE CLAIRE</span>
-      <span class="text-[#DDD7CE]">•</span>
-      <span class="hover:text-[#1A1A1A] transition-colors">VANITY FAIR</span>
-      <span class="text-[#DDD7CE]">•</span>
-      <span class="hover:text-[#1A1A1A] transition-colors">HARPER'S BAZAAR</span>
+      {% assign press_items = section.settings.press_logos | default: "VOGUE, ELLE, MARIE CLAIRE, VANITY FAIR, HARPER'S BAZAAR" | split: "," %}
+      {% for press_item in press_items %}
+        {% assign trimmed = press_item | strip %}
+        <span class="hover:text-[#1A1A1A] transition-colors {% if trimmed == 'ELLE' %}font-semibold{% endif %}">
+          {{ trimmed }}
+          {% if trimmed == 'VOGUE' %} <em class="text-[10px] font-sans lowercase">Beauty</em>{% endif %}
+        </span>
+        {% unless forloop.last %}<span class="text-[#DDD7CE]">•</span>{% endunless %}
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -81,9 +81,28 @@
   "name": "Editorial Quote & Press",
   "settings": [
     {
+      "type": "header",
+      "content": "Badge & Immagine"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Testo Badge Sede",
+      "default": "Istituto Dermo-Specialistico • Verona"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Ritratto Milena Tacchella"
+    },
+    {
+      "type": "header",
+      "content": "Manifesto & Citazione"
+    },
+    {
       "type": "text",
       "id": "tag",
-      "label": "Tag",
+      "label": "Tag Sezione",
       "default": "IL NOSTRO MANIFESTO"
     },
     {
@@ -99,6 +118,18 @@
       "default": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata."
     },
     {
+      "type": "textarea",
+      "id": "paragraph_1",
+      "label": "Primo Paragrafo",
+      "default": "Non crediamo nelle scorciatoie della chimica aggressiva né nell'approssimazione dell'erboristeria empirica. Il nostro metodo nasce dalla ricerca pionieristica di bio-compatibilità: ogni fitocomplesso viene estratto a freddo nel pieno rispetto della matrice vegetale viva."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2",
+      "label": "Secondo Paragrafo",
+      "default": "Nella nostra boutique e istituto di Verona in Corso Cavour 18, accogliamo ogni persona per creare un percorso dermocosmetico sartoriale, supportato da verifiche strumentali e risultati clinicamente tangibili."
+    },
+    {
       "type": "text",
       "id": "author",
       "label": "Autore",
@@ -111,9 +142,31 @@
       "default": "Fondatrice & Dermo-Specialista • Milebiolab Verona"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Ritratto Milena Tacchella"
+      "type": "text",
+      "id": "link_text",
+      "label": "Testo Link Storia",
+      "default": "LA NOSTRA STORIA →"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link Pagina Storia"
+    },
+    {
+      "type": "header",
+      "content": "Press & Riconoscimenti"
+    },
+    {
+      "type": "text",
+      "id": "press_heading",
+      "label": "Titolo Sezione Press",
+      "default": "RACCONTATO & ACCLAMATO DA"
+    },
+    {
+      "type": "textarea",
+      "id": "press_logos",
+      "label": "Testate Giornalistiche (separate da virgola)",
+      "default": "VOGUE, ELLE, MARIE CLAIRE, VANITY FAIR, HARPER'S BAZAAR"
     }
   ],
   "presets": [

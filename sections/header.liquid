@@ -3,7 +3,7 @@
 <div class="bg-[#1A1A1A] text-white text-center py-2.5 px-4 text-xs tracking-wider uppercase flex items-center justify-center gap-2">
   <span>{{ section.settings.announcement_text }}</span>
   <span class="opacity-40">•</span>
-  <a href="/collections/all" class="underline underline-offset-4 hover:text-[#C8A878] transition-colors font-medium">Acquista Ora</a>
+  <a href="{{ section.settings.announcement_link | default: '/collections/all' }}" class="underline underline-offset-4 hover:text-[#C8A878] transition-colors font-medium">{{ section.settings.announcement_link_text | default: "Acquista Ora" }}</a>
 </div>
 {% endif %}
 
@@ -12,11 +12,11 @@
   <div class="flex items-center">
     <span class="text-[#1A1A1A] font-medium flex items-center gap-1 cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
       <svg class="w-3.5 h-3.5 text-[#5C6B56]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-      Ritiro in sede Verona
+      {{ section.settings.verona_pickup | default: "Ritiro in sede Verona" }}
     </span>
   </div>
   <div class="flex items-center">
-    <button type="button" onclick="if(window.openWishlistDrawer) openWishlistDrawer();" class="hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer text-xs uppercase tracking-widest text-[#7A7265]">Lista Desideri</button>
+    <button type="button" onclick="if(window.openWishlistDrawer) openWishlistDrawer();" class="hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer text-xs uppercase tracking-widest text-[#7A7265]">{{ section.settings.wishlist_label | default: "Lista Desideri" }}</button>
   </div>
 </div>
 
@@ -57,13 +57,13 @@
       {% else %}
         <button type="button" id="header-customer-btn" onclick="if(window.openAccountDrawer){openAccountDrawer();}else{window.location.href='/pages/account';}" class="flex items-center gap-2 text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer hidden sm:flex bg-transparent border-0 p-0" aria-label="Account Club Mile">
           <span id="header-customer-indicator" class="w-2 h-2 rounded-full bg-[#5C6B56] hidden"></span>
-          <span id="header-customer-greeting" class="text-xs uppercase tracking-wider font-semibold">Accedi / Registrati</span>
+          <span id="header-customer-greeting" class="text-xs uppercase tracking-wider font-semibold">{{ section.settings.login_label | default: "Accedi / Registrati" }}</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
         </button>
       {% endif %}
       <button type="button" onclick="if(window.openCartDrawer) openCartDrawer();" class="flex items-center gap-1.5 hover:text-[#C8A878] text-[#1A1A1A] bg-transparent border-0 cursor-pointer transition-colors">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-        <span class="hidden sm:inline-block text-xs tracking-widest uppercase font-semibold">Carrello</span>
+        <span class="hidden sm:inline-block text-xs tracking-widest uppercase font-semibold">{{ section.settings.cart_label | default: "Carrello" }}</span>
         <span class="cart-count-badge bg-[#1A1A1A] text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full">{{ cart.item_count }}</span>
       </button>
     </div>
@@ -106,7 +106,7 @@
           {% else %}
             <button type="button" id="mobile-menu-customer-btn" onclick="closeMobileNav(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#7A7265] text-sm uppercase tracking-widest font-semibold flex items-center gap-2 bg-transparent border-0 p-0 cursor-pointer">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-              <span id="mobile-menu-customer-greeting">Accedi / Registrati</span>
+              <span id="mobile-menu-customer-greeting">{{ section.settings.login_label | default: "Accedi / Registrati" }}</span>
             </button>
           {% endif %}
         </div>
@@ -155,21 +155,35 @@
   "name": "Header Mile Mega Menu",
   "settings": [
     {
+      "type": "header",
+      "content": "Barra Annunci Superiore"
+    },
+    {
       "type": "checkbox",
       "id": "show_announcement",
       "label": "Mostra barra annunci",
       "default": true
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu di Navigazione"
-    },
-    {
       "type": "text",
       "id": "announcement_text",
       "label": "Testo Barra Annunci",
       "default": "Ottieni il 15% di sconto sul tuo primo ordine con codice MILE15 • Spedizione gratuita sopra € 50"
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_text",
+      "label": "Testo Link Annuncio",
+      "default": "Acquista Ora"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link Annuncio"
+    },
+    {
+      "type": "header",
+      "content": "Branding & Navigazione"
     },
     {
       "type": "text",
@@ -184,10 +198,37 @@
       "default": "HAUTE COSMÉTIQUE • VERONA"
     },
     {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu di Navigazione"
+    },
+    {
+      "type": "header",
+      "content": "Etichette & Utility"
+    },
+    {
       "type": "text",
       "id": "verona_pickup",
       "label": "Didascalia Ritiro Verona",
       "default": "Verona, Corso Cavour 18"
+    },
+    {
+      "type": "text",
+      "id": "wishlist_label",
+      "label": "Etichetta Lista Desideri",
+      "default": "Lista Desideri"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Etichetta Accedi / Registrati",
+      "default": "Accedi / Registrati"
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Etichetta Carrello",
+      "default": "Carrello"
     }
   ]
 }

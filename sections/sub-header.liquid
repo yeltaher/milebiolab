@@ -2,7 +2,7 @@
   {% assign sub_menu = linklists[section.settings.sub_menu] %}
   {% if section.blocks.size > 0 %}
     {% for block in section.blocks %}
-      <a href="{{ block.settings.url | default: '#' }}" class="hover:text-[#C8A878] transition-colors" {{ block.shopify_attributes }}>{{ block.settings.title }}</a>
+      <a href="{{ block.settings.url | default: '/collections/all' }}" class="hover:text-[#C8A878] transition-colors" {{ block.shopify_attributes }}>{{ block.settings.title }}</a>
     {% endfor %}
   {% elsif sub_menu.links.size > 0 %}
     {% for link in sub_menu.links %}
@@ -41,8 +41,7 @@
         {
           "type": "url",
           "id": "url",
-          "label": "Link / Collezione",
-          "default": "/collections/all"
+          "label": "Link / Collezione"
         }
       ]
     }

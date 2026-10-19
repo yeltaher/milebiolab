@@ -1,15 +1,15 @@
 <div class="bg-[#F5F2EB] text-[#1A1A1A] py-16">
   <main class="max-w-5xl mx-auto px-4 sm:px-8 space-y-8">
     <div class="text-center max-w-xl mx-auto space-y-3">
-      <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-bold">MOTORE DI RICERCA DERMOBOTANICA</span>
-      <h1 class="font-serif text-4xl sm:text-5xl text-[#1A1A1A] font-normal">Cerca nel Mondo Mile</h1>
-      <p class="text-[#7A7265] text-xs sm:text-sm font-light">Inserisci un attivo (es. Edelweiss, Bakuchiol), una formula o un servizio cabina.</p>
+      <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-bold">{{ section.settings.eyebrow | default: "MOTORE DI RICERCA DERMOBOTANICA" }}</span>
+      <h1 class="font-serif text-4xl sm:text-5xl text-[#1A1A1A] font-normal">{{ section.settings.title | default: "Cerca nel Mondo Mile" }}</h1>
+      <p class="text-[#7A7265] text-xs sm:text-sm font-light">{{ section.settings.subtitle | default: "Inserisci un attivo (es. Edelweiss, Bakuchiol), una formula o un servizio cabina." }}</p>
     </div>
 
     <!-- Live Search Input Form -->
     <div class="max-w-2xl mx-auto space-y-3">
       <form action="{{ routes.search_url }}" method="get" class="relative shadow-md">
-        <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="Digita per cercare formule, attivi alpini, trattamenti, articoli..." class="w-full bg-white border border-[#E5E0D8] py-4 pl-12 pr-12 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]">
+        <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.placeholder | default: 'Digita per cercare formule, attivi alpini, trattamenti, articoli...' }}" class="w-full bg-white border border-[#E5E0D8] py-4 pl-12 pr-12 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]">
         <svg class="w-5 h-5 text-[#7A7265] absolute left-4 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
@@ -17,12 +17,14 @@
       
       <!-- Quick Search Pill Tags -->
       <div class="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
-        <span class="text-[11px] uppercase tracking-wider text-[#7A7265] font-medium mr-1">Ricerche Frequenti:</span>
-        <a href="{{ routes.search_url }}?q=Edelweiss" class="px-3 py-1 bg-white border border-[#E5E0D8] text-[#7A7265] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-all text-xs">Edelweiss</a>
-        <a href="{{ routes.search_url }}?q=Bakuchiol" class="px-3 py-1 bg-white border border-[#E5E0D8] text-[#7A7265] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-all text-xs">Bakuchiol</a>
-        <a href="{{ routes.search_url }}?q=Olio+Corpo+Elisir+Dorato" class="px-3 py-1 bg-white border border-[#E5E0D8] text-[#7A7265] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-all text-xs">Olio Corpo Elisir Dorato</a>
-        <a href="{{ routes.search_url }}?q=Acido+Ialuronico" class="px-3 py-1 bg-white border border-[#E5E0D8] text-[#7A7265] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-all text-xs">Acido Ialuronico</a>
-        <a href="{{ routes.search_url }}?q=Verona" class="px-3 py-1 bg-white border border-[#E5E0D8] text-[#7A7265] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-all text-xs">Cabina Verona</a>
+        <span class="text-[11px] uppercase tracking-wider text-[#7A7265] font-medium mr-1">{{ section.settings.quick_search_label | default: "Ricerche Frequenti:" }}</span>
+        {% assign default_quick_tags = "Edelweiss, Bakuchiol, Olio Corpo Elisir Dorato, Acido Ialuronico, Cabina Verona" %}
+        {% assign tag_list = section.settings.quick_tags | default: default_quick_tags | split: "," %}
+        {% for tag in tag_list %}
+          {% assign tag_clean = tag | strip %}
+          {% assign tag_param = tag_clean | replace: ' ', '+' %}
+          <a href="{{ routes.search_url }}?q={{ tag_param }}" class="px-3 py-1 bg-white border border-[#E5E0D8] text-[#7A7265] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-all text-xs">{{ tag_clean }}</a>
+        {% endfor %}
       </div>
     </div>
 
@@ -52,7 +54,7 @@
       {% else %}
         <!-- Featured Discoveries -->
         <div class="text-center py-8">
-          <span class="text-xs uppercase tracking-widest text-[#7A7265]">Inizia a digitare o seleziona una delle parole chiave per scoprire i nostri fitocosmetici.</span>
+          <span class="text-xs uppercase tracking-widest text-[#7A7265]">{{ section.settings.empty_msg | default: "Inizia a digitare o seleziona una delle parole chiave per scoprire i nostri fitocosmetici." }}</span>
         </div>
       {% endif %}
     </div>
@@ -62,6 +64,61 @@
 {% schema %}
 {
   "name": "Main Search Mile",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Ricerca"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Eyebrow",
+      "default": "MOTORE DI RICERCA DERMOBOTANICA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Pagina Ricerca",
+      "default": "Cerca nel Mondo Mile"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Descrizione Introduttiva",
+      "default": "Inserisci un attivo (es. Edelweiss, Bakuchiol), una formula o un servizio cabina."
+    },
+    {
+      "type": "header",
+      "content": "Campo di Ricerca & Tag Suggeriti"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder Campo Input",
+      "default": "Digita per cercare formule, attivi alpini, trattamenti, articoli..."
+    },
+    {
+      "type": "text",
+      "id": "quick_search_label",
+      "label": "Etichetta Ricerche Rapide",
+      "default": "Ricerche Frequenti:"
+    },
+    {
+      "type": "textarea",
+      "id": "quick_tags",
+      "label": "Tag Ricerche Frequenti (separati da virgola)",
+      "default": "Edelweiss, Bakuchiol, Olio Corpo Elisir Dorato, Acido Ialuronico, Cabina Verona"
+    },
+    {
+      "type": "header",
+      "content": "Stato Iniziale"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_msg",
+      "label": "Messaggio Prima della Ricerca",
+      "default": "Inizia a digitare o seleziona una delle parole chiave per scoprire i nostri fitocosmetici."
+    }
+  ]
 }
 {% endschema %}

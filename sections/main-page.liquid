@@ -47,12 +47,18 @@
     {% if section.settings.show_verona_banner %}
       <div class="mt-12 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="text-center sm:text-left">
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">Boutique & Cabina Esclusiva</span>
-          <h3 class="font-serif text-xl text-[#1A1A1A]">Desideri una consulenza vis-à-vis a Verona?</h3>
-          <p class="text-xs text-[#7A7265] mt-1">Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste.</p>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">
+            {{ section.settings.verona_banner_eyebrow | default: "Boutique & Cabina Esclusiva" }}
+          </span>
+          <h3 class="font-serif text-xl text-[#1A1A1A]">
+            {{ section.settings.verona_banner_title | default: "Desideri una consulenza vis-à-vis a Verona?" }}
+          </h3>
+          <p class="text-xs text-[#7A7265] mt-1">
+            {{ section.settings.verona_banner_text | default: "Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste." }}
+          </p>
         </div>
         <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0 text-center">
-          Info Ritiro in Sede
+          {{ section.settings.verona_banner_btn_text | default: "Info Ritiro in Sede" }}
         </a>
       </div>
     {% endif %}
@@ -64,6 +70,10 @@
 {
   "name": "Main Page Mile",
   "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Pagina"
+    },
     {
       "type": "text",
       "id": "eyebrow",
@@ -94,10 +104,38 @@
       "default": "medium"
     },
     {
+      "type": "header",
+      "content": "Banner Flagship Verona"
+    },
+    {
       "type": "checkbox",
       "id": "show_verona_banner",
       "label": "Mostra box Sede Verona",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "verona_banner_eyebrow",
+      "label": "Eyebrow Banner Verona",
+      "default": "Boutique & Cabina Esclusiva"
+    },
+    {
+      "type": "text",
+      "id": "verona_banner_title",
+      "label": "Titolo Banner Verona",
+      "default": "Desideri una consulenza vis-à-vis a Verona?"
+    },
+    {
+      "type": "textarea",
+      "id": "verona_banner_text",
+      "label": "Testo Banner Verona",
+      "default": "Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste."
+    },
+    {
+      "type": "text",
+      "id": "verona_banner_btn_text",
+      "label": "Testo Bottone Banner Verona",
+      "default": "Info Ritiro in Sede"
     }
   ]
 }

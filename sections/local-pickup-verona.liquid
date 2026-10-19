@@ -5,7 +5,7 @@
       
       <!-- Text & Benefits Column -->
       <div class="lg:col-span-7">
-        <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">ISTITUTO MILEBIOLAB &bull; VERONA FLAGSHIP</span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">{{ section.settings.tagline | default: "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP" }}</span>
         <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] leading-tight mb-4">
           {{ section.settings.title | default: "L'Esperienza Esclusiva del Ritiro a Verona" }}
         </h2>
@@ -17,31 +17,31 @@
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-full bg-white border border-[#E5E0D8] flex items-center justify-center font-mono font-bold text-xs text-[#5C6B56] flex-shrink-0">01</div>
             <div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A]">Pronto in 2 Ore Lavorative</h4>
-              <p class="text-xs text-[#7A7265] mt-1 font-light">Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge.</p>
+              <h4 class="font-serif text-base font-medium text-[#1A1A1A]">{{ section.settings.step1_title | default: "Pronto in 2 Ore Lavorative" }}</h4>
+              <p class="text-xs text-[#7A7265] mt-1 font-light">{{ section.settings.step1_desc | default: "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge." }}</p>
             </div>
           </div>
 
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-full bg-white border border-[#E5E0D8] flex items-center justify-center font-mono font-bold text-xs text-[#5C6B56] flex-shrink-0">02</div>
             <div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A]">Consulenza Dermocosmetica Omaggio</h4>
-              <p class="text-xs text-[#7A7265] mt-1 font-light">Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle con check-up Visia di 15 minuti senza alcun costo.</p>
+              <h4 class="font-serif text-base font-medium text-[#1A1A1A]">{{ section.settings.step2_title | default: "Consulenza Dermocosmetica Omaggio" }}</h4>
+              <p class="text-xs text-[#7A7265] mt-1 font-light">{{ section.settings.step2_desc | default: "Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle con check-up Visia di 15 minuti senza alcun costo." }}</p>
             </div>
           </div>
 
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-full bg-white border border-[#E5E0D8] flex items-center justify-center font-mono font-bold text-xs text-[#5C6B56] flex-shrink-0">03</div>
             <div>
-              <h4 class="font-serif text-base font-medium text-[#1A1A1A]">Set Campioncini Deluxe Personalizzati</h4>
-              <p class="text-xs text-[#7A7265] mt-1 font-light">Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea.</p>
+              <h4 class="font-serif text-base font-medium text-[#1A1A1A]">{{ section.settings.step3_title | default: "Set Campioncini Deluxe Personalizzati" }}</h4>
+              <p class="text-xs text-[#7A7265] mt-1 font-light">{{ section.settings.step3_desc | default: "Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea." }}</p>
             </div>
           </div>
         </div>
 
         <div>
           <button type="button" class="bg-[#1A1A1A] text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
-            Verifica Disponibilità Ritiro a Verona &rarr;
+            {{ section.settings.btn_text | default: "Verifica Disponibilità Ritiro a Verona →" }}
           </button>
         </div>
       </div>
@@ -50,16 +50,22 @@
       <div class="lg:col-span-5">
         <div class="bg-white border border-[#E5E0D8] p-5 shadow-lg">
           <div class="aspect-[4/3] overflow-hidden bg-[#F5F2EB] mb-4">
-            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" 
-                 alt="Istituto Milebiolab Corso Cavour Verona" 
-                 class="w-full h-full object-cover" 
-                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+            {% if section.settings.card_image != blank %}
+              <img src="{{ section.settings.card_image | image_url: width: 800 }}" 
+                   alt="{{ section.settings.card_image.alt | default: section.settings.card_title | default: 'Istituto Milebiolab Corso Cavour Verona' }}" 
+                   class="w-full h-full object-cover">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" 
+                   alt="{{ section.settings.card_title | default: 'Istituto Milebiolab Corso Cavour Verona' }}" 
+                   class="w-full h-full object-cover" 
+                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
+            {% endif %}
           </div>
           <div class="space-y-2 text-xs">
-            <h3 class="font-serif text-lg text-[#1A1A1A] font-semibold">Istituto di Bellezza &amp; Haute Cosmétique</h3>
-            <p class="text-[#1A1A1A] font-medium">📍 Corso Cavour, 18 &bull; 37121 Verona (VR)</p>
-            <p class="text-[#7A7265]">🕒 Lunedì &ndash; Sabato: 09:30 &ndash; 19:30 (Orario continuato)</p>
-            <p class="text-[#7A7265]">📞 Tel: <a href="tel:+390458001234" class="text-[#1A1A1A] hover:text-[#C8A878] font-medium">+39 045 800 1234</a></p>
+            <h3 class="font-serif text-lg text-[#1A1A1A] font-semibold">{{ section.settings.card_title | default: "Istituto di Bellezza & Haute Cosmétique" }}</h3>
+            <p class="text-[#1A1A1A] font-medium">📍 {{ section.settings.card_address | default: "Corso Cavour, 18 • 37121 Verona (VR)" }}</p>
+            <p class="text-[#7A7265]">🕒 {{ section.settings.card_hours | default: "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)" }}</p>
+            <p class="text-[#7A7265]">📞 Tel: <a href="tel:{{ section.settings.card_phone | default: '+39 045 800 1234' | replace: ' ', '' }}" class="text-[#1A1A1A] hover:text-[#C8A878] font-medium">{{ section.settings.card_phone | default: "+39 045 800 1234" }}</a></p>
           </div>
         </div>
       </div>
@@ -73,6 +79,16 @@
   "name": "Local Pickup Verona",
   "settings": [
     {
+      "type": "header",
+      "content": "Testata & Introduzione"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline / Eyebrow",
+      "default": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Titolo Sezione",
@@ -83,6 +99,85 @@
       "id": "description",
       "label": "Descrizione",
       "default": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona in Corso Cavour 18."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Testo Bottone Azione",
+      "default": "Verifica Disponibilità Ritiro a Verona →"
+    },
+    {
+      "type": "header",
+      "content": "Punti di Forza / Step"
+    },
+    {
+      "type": "text",
+      "id": "step1_title",
+      "label": "Step 1 - Titolo",
+      "default": "Pronto in 2 Ore Lavorative"
+    },
+    {
+      "type": "textarea",
+      "id": "step1_desc",
+      "label": "Step 1 - Descrizione",
+      "default": "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge."
+    },
+    {
+      "type": "text",
+      "id": "step2_title",
+      "label": "Step 2 - Titolo",
+      "default": "Consulenza Dermocosmetica Omaggio"
+    },
+    {
+      "type": "textarea",
+      "id": "step2_desc",
+      "label": "Step 2 - Descrizione",
+      "default": "Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle con check-up Visia di 15 minuti senza alcun costo."
+    },
+    {
+      "type": "text",
+      "id": "step3_title",
+      "label": "Step 3 - Titolo",
+      "default": "Set Campioncini Deluxe Personalizzati"
+    },
+    {
+      "type": "textarea",
+      "id": "step3_desc",
+      "label": "Step 3 - Descrizione",
+      "default": "Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea."
+    },
+    {
+      "type": "header",
+      "content": "Scheda Sede Flagship"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image",
+      "label": "Immagine Sede Verona"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Titolo Scheda",
+      "default": "Istituto di Bellezza & Haute Cosmétique"
+    },
+    {
+      "type": "text",
+      "id": "card_address",
+      "label": "Indirizzo Sede",
+      "default": "Corso Cavour, 18 • 37121 Verona (VR)"
+    },
+    {
+      "type": "text",
+      "id": "card_hours",
+      "label": "Orari Apertura",
+      "default": "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)"
+    },
+    {
+      "type": "text",
+      "id": "card_phone",
+      "label": "Telefono Concierge",
+      "default": "+39 045 800 1234"
     }
   ],
   "presets": [

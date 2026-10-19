@@ -15,10 +15,10 @@
         
         <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <button type="button" class="bg-[#1A1A1A] text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer whitespace-nowrap" onclick="if(window.openSkinQuiz) openSkinQuiz();">
-            ✦ Inizia il Quiz della Pelle &rarr;
+            {{ section.settings.btn_text | default: "✦ Inizia il Quiz della Pelle →" }}
           </button>
           <span class="text-xs font-mono text-[#5C6B56] font-semibold">
-            🎁 Coupon Sconto 15% con codice MILE15
+            {{ section.settings.coupon_badge | default: "🎁 Coupon Sconto 15% con codice MILE15" }}
           </span>
         </div>
       </div>
@@ -32,7 +32,12 @@
             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'">
         </div>
         <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-3.5 border border-[#E5E0D8] text-[11px] text-[#1A1A1A] shadow-md">
-          <strong>Algoritmo Dermocosmetico Milebiolab</strong> &bull; Basato sui protocolli clinici dell'Istituto di Verona
+          {% assign card_note_content = section.settings.card_note | default: "Algoritmo Dermocosmetico Milebiolab • Basato sui protocolli clinici dell'Istituto di Verona" %}
+          {% if card_note_content contains "Algoritmo Dermocosmetico Milebiolab" %}
+            {{ card_note_content | replace: "Algoritmo Dermocosmetico Milebiolab", "<strong>Algoritmo Dermocosmetico Milebiolab</strong>" }}
+          {% else %}
+            {{ card_note_content }}
+          {% endif %}
         </div>
       </div>
     </div>
@@ -44,6 +49,10 @@
 {
   "name": "Skin Quiz Banner",
   "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione & Testi"
+    },
     {
       "type": "text",
       "id": "tag",
@@ -63,9 +72,35 @@
       "default": "Rispondi a 3 brevi domande sulla tua pelle e ricevi la prescrizione formulata dalle nostre Beauty Specialist di Verona con il 15% di sconto immediato sul tuo primo ordine."
     },
     {
+      "type": "header",
+      "content": "Call To Action & Coupon"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Testo Bottone Quiz",
+      "default": "✦ Inizia il Quiz della Pelle →"
+    },
+    {
+      "type": "text",
+      "id": "coupon_badge",
+      "label": "Badge Coupon Promo",
+      "default": "🎁 Coupon Sconto 15% con codice MILE15"
+    },
+    {
+      "type": "header",
+      "content": "Card Visiva"
+    },
+    {
       "type": "image_picker",
       "id": "bg_image",
       "label": "Immagine di Sfondo"
+    },
+    {
+      "type": "textarea",
+      "id": "card_note",
+      "label": "Didascalia Box Clinico",
+      "default": "Algoritmo Dermocosmetico Milebiolab • Basato sui protocolli clinici dell'Istituto di Verona"
     }
   ],
   "presets": [

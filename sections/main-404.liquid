@@ -2,39 +2,39 @@
 <div class="py-20 lg:py-28 bg-[#F5F2EB] text-[#1A1A1A]">
   <main class="max-w-7xl mx-auto px-4 sm:px-8 text-center">
     <div class="max-w-2xl mx-auto">
-      <span class="text-[#C8A878] font-mono text-sm tracking-widest uppercase font-semibold">Errore 404 &bull; Pagina Non Trovata</span>
+      <span class="text-[#C8A878] font-mono text-sm tracking-widest uppercase font-semibold">{{ section.settings.eyebrow | default: "Errore 404 • Pagina Non Trovata" }}</span>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#1A1A1A] tracking-tight mt-3 leading-tight">
-        {{ section.settings.heading }}
+        {{ section.settings.heading | default: "Un sentiero inesplorato tra le erbe alpine" }}
       </h1>
       <p class="text-sm text-[#7A7265] mt-4 leading-relaxed font-light">
-        {{ section.settings.subheading }}
+        {{ section.settings.subheading | default: "La pagina o il trattamento che stai cercando potrebbe essere stato spostato o riformulato per un'esperienza ancora più sublime." }}
       </p>
 
       <!-- Search Field -->
       <form action="{{ routes.search_url }}" method="get" class="mt-8 max-w-md mx-auto flex items-center border border-[#DDD7CE] bg-white rounded-none overflow-hidden shadow-xs focus-within:border-[#C8A878] transition-colors">
-        <input type="text" name="q" placeholder="Cerca un ingrediente, formula o trattamento..." class="flex-1 px-4 py-3 text-xs text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none bg-transparent">
+        <input type="text" name="q" placeholder="{{ section.settings.search_placeholder | default: 'Cerca un ingrediente, formula o trattamento...' }}" class="flex-1 px-4 py-3 text-xs text-[#1A1A1A] placeholder-[#7A7265]/60 focus:outline-none bg-transparent">
         <button type="submit" class="px-5 py-3 bg-[#1A1A1A] hover:bg-[#C8A878] text-white text-xs uppercase tracking-wider font-semibold transition-colors">
-          Cerca
+          {{ section.settings.search_btn_text | default: "Cerca" }}
         </button>
       </form>
 
       <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs">
-        <a href="{{ routes.root_url }}" class="px-6 py-2.5 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] transition-colors uppercase tracking-wider font-medium">
-          Torna alla Home
+        <a href="{{ section.settings.btn1_url | default: routes.root_url }}" class="px-6 py-2.5 bg-[#1A1A1A] text-white hover:bg-[#5C6B56] transition-colors uppercase tracking-wider font-medium">
+          {{ section.settings.btn1_text | default: "Torna alla Home" }}
         </a>
-        <a href="/collections/all" class="px-6 py-2.5 bg-white border border-[#DDD7CE] text-[#1A1A1A] hover:border-[#1A1A1A] transition-colors uppercase tracking-wider font-medium">
-          Esplora il Catalogo
+        <a href="{{ section.settings.btn2_url | default: '/collections/all' }}" class="px-6 py-2.5 bg-white border border-[#DDD7CE] text-[#1A1A1A] hover:border-[#1A1A1A] transition-colors uppercase tracking-wider font-medium">
+          {{ section.settings.btn2_text | default: "Esplora il Catalogo" }}
         </a>
-        <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-2.5 bg-[#F5F2EB] border border-[#DDD7CE] text-[#1A1A1A] hover:text-[#C8A878] transition-colors uppercase tracking-wider font-medium">
-          Ritiro a Verona
+        <a href="{{ section.settings.btn3_url | default: '#istituto-verona' }}" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-2.5 bg-[#F5F2EB] border border-[#DDD7CE] text-[#1A1A1A] hover:text-[#C8A878] transition-colors uppercase tracking-wider font-medium">
+          {{ section.settings.btn3_text | default: "Ritiro a Verona" }}
         </a>
       </div>
     </div>
 
     <!-- Curated Recommended Products -->
     <div class="mt-20 border-t border-[#DDD7CE] pt-16">
-      <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold block mb-2">Bestseller In Evidenza</span>
-      <h2 class="text-2xl sm:text-3xl font-serif text-[#1A1A1A] mb-10">Formule Botaniche Più Amate</h2>
+      <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold block mb-2">{{ section.settings.rec_tag | default: "Bestseller In Evidenza" }}</span>
+      <h2 class="text-2xl sm:text-3xl font-serif text-[#1A1A1A] mb-10">{{ section.settings.rec_title | default: "Formule Botaniche Più Amate" }}</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto text-left">
         <!-- Product 1 -->
@@ -148,9 +148,19 @@
   "name": "Main 404 Mile",
   "settings": [
     {
+      "type": "header",
+      "content": "Intestazione Errore"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Badge",
+      "default": "Errore 404 • Pagina Non Trovata"
+    },
+    {
       "type": "text",
       "id": "heading",
-      "label": "Titolo",
+      "label": "Titolo Principale",
       "default": "Un sentiero inesplorato tra le erbe alpine"
     },
     {
@@ -158,6 +168,75 @@
       "id": "subheading",
       "label": "Descrizione",
       "default": "La pagina o il trattamento che stai cercando potrebbe essere stato spostato o riformulato per un'esperienza ancora più sublime."
+    },
+    {
+      "type": "header",
+      "content": "Barra di Ricerca"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder Ricerca",
+      "default": "Cerca un ingrediente, formula o trattamento..."
+    },
+    {
+      "type": "text",
+      "id": "search_btn_text",
+      "label": "Testo Bottone Ricerca",
+      "default": "Cerca"
+    },
+    {
+      "type": "header",
+      "content": "Pulsanti di Navigazione Rapida"
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Pulsante 1 - Testo",
+      "default": "Torna alla Home"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Pulsante 1 - Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Pulsante 2 - Testo",
+      "default": "Esplora il Catalogo"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Pulsante 2 - Link"
+    },
+    {
+      "type": "text",
+      "id": "btn3_text",
+      "label": "Pulsante 3 - Testo",
+      "default": "Ritiro a Verona"
+    },
+    {
+      "type": "url",
+      "id": "btn3_url",
+      "label": "Pulsante 3 - Link"
+    },
+    {
+      "type": "header",
+      "content": "Sezione Prodotti Consigliati"
+    },
+    {
+      "type": "text",
+      "id": "rec_tag",
+      "label": "Tag Sezione Consigliati",
+      "default": "Bestseller In Evidenza"
+    },
+    {
+      "type": "text",
+      "id": "rec_title",
+      "label": "Titolo Sezione Consigliati",
+      "default": "Formule Botaniche Più Amate"
     }
   ]
 }
