@@ -276,36 +276,59 @@ async function fetchShopifyCart() {
 
 async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
   const addUrl = (window.routes && window.routes.cart_add_url) ? window.routes.cart_add_url : '/cart/add.js';
-  try {
-    const payload = {
-      id: variantId,
-      quantity: qty
+  const cleanId = (variantId && variantId !== 'undefined' && variantId !== 'null') ? String(variantId).trim() : '';
+
+  const addDirectToLocalCart = () => {
+    const fallbackItem = {
+      id: cleanId || Date.now(),
+      title: (itemData && itemData.title) ? translateProductTitleToItalian(itemData.title) : 'Prodotto MileBioLab',
+      price: (itemData && typeof itemData.price === 'number') ? itemData.price : (parseFloat(itemData && itemData.price) || 75.00),
+      volume: (itemData && itemData.volume) || '50 ml',
+      step: (itemData && itemData.step) || 'RITUALE BOTANICO',
+      qty: qty || 1,
+      image: (itemData && itemData.image) || ''
     };
-    if (itemData && itemData.properties) {
-      payload.properties = itemData.properties;
+    const existing = MilebiolabState.cart.find(i => i.id == fallbackItem.id || (fallbackItem.title && i.title === fallbackItem.title));
+    if (existing) {
+      existing.qty += (qty || 1);
+    } else {
+      MilebiolabState.cart.push(fallbackItem);
     }
-    const res = await fetch(addUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) throw new Error('Add to cart API returned ' + res.status);
-    await fetchShopifyCart();
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+    } catch (e) {}
+    renderCartDrawer();
     openCartDrawer();
-    return true;
-  } catch (err) {
-    addToCart(itemData && itemData.title ? itemData : {
-      id: variantId,
-      title: (itemData && itemData.title) || 'Olio Corpo Botanico Elisir Dorato',
-      price: (itemData && itemData.price) || 76.00,
-      volume: (itemData && itemData.volume) || '100 ml',
-      qty: qty,
-      image: (itemData && itemData.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'
-    });
     return false;
+  };
+
+  if (cleanId && !isNaN(Number(cleanId)) && Number(cleanId) > 100) {
+    try {
+      const payload = {
+        id: Number(cleanId),
+        quantity: qty || 1
+      };
+      if (itemData && itemData.properties) {
+        payload.properties = itemData.properties;
+      }
+      const res = await fetch(addUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Add to cart API returned ' + res.status);
+      await fetchShopifyCart();
+      openCartDrawer();
+      return true;
+    } catch (err) {
+      console.warn('Shopify Cart API add failed or offline, adding directly to local cart without recursion:', err);
+      return addDirectToLocalCart();
+    }
+  } else {
+    return addDirectToLocalCart();
   }
 }
 
@@ -345,6 +368,7 @@ async function changeShopifyCartQty(itemKeyOrId, newQty) {
 window.fetchShopifyCart = fetchShopifyCart;
 window.addShopifyCartItem = addShopifyCartItem;
 window.changeShopifyCartQty = changeShopifyCartQty;
+window.addToCart = addToCart;
 
 function renderCartDrawer() {
   const container = document.getElementById('cart-drawer-items-list');
@@ -451,34 +475,54 @@ function closeCartDrawer() {
 window.openCartDrawer = openCartDrawer;
 window.closeCartDrawer = closeCartDrawer;
 
-function addToCart(item) {
+function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage) {
+  let item;
+  if (itemOrId && typeof itemOrId === 'object') {
+    item = Object.assign({}, itemOrId);
+  } else {
+    item = {
+      id: itemOrId,
+      title: maybeTitle || 'Prodotto MileBioLab',
+      price: (typeof maybePrice === 'number') ? maybePrice : (parseFloat(maybePrice) || 75.00),
+      image: maybeImage || '',
+      volume: '50 ml',
+      qty: 1
+    };
+  }
+
   if (item && item.title) {
     item.title = translateProductTitleToItalian(item.title);
   }
+
+  // If item has a valid numeric Shopify variant ID (> 100), delegate to addShopifyCartItem
   if (item && item.id && (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
     addShopifyCartItem(item.id, item.qty || 1, item);
     return;
   }
 
-  const existing = MilebiolabState.cart.find(i => i.id === item.id);
+  const targetId = item.id || Date.now();
+  const existing = MilebiolabState.cart.find(i => i.id == targetId || (item.title && i.title === item.title));
   if (existing) {
     existing.qty += (item.qty || 1);
   } else {
     MilebiolabState.cart.push({
-      id: item.id,
-      title: item.title,
+      id: targetId,
+      title: item.title || 'Prodotto MileBioLab',
       step: item.step || 'RITUALE BOTANICO',
-      price: item.price,
+      price: (typeof item.price === 'number') ? item.price : (parseFloat(item.price) || 75.00),
       volume: item.volume || '50 ml',
       qty: item.qty || 1,
-      image: item.image
+      image: item.image || ''
     });
   }
   try {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
   } catch (e) {}
+  renderCartDrawer();
   openCartDrawer();
 }
+
+window.addToCart = addToCart;
 
 function updateCartItemQty(id, delta) {
   const item = MilebiolabState.cart.find(i => i.id == id || i.key == id);
