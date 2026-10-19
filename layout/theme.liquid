@@ -139,41 +139,8 @@
     {% render 'search-predictive-modal' %}
     {% section 'newsletter-popup' %}
 
-    <!-- Modal Ritiro Sede Flagship Verona -->
-    <div id="verona-modal-overlay" class="modal-overlay" aria-hidden="true" onclick="closeVeronaModal()">
-      <div class="verona-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-verona-title" style="background: #FFFFFF; border: var(--border-splendor); max-width: 580px; width: 92%; padding: 2.5rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
-        <button type="button" class="modal-close-btn" onclick="closeVeronaModal()" aria-label="Chiudi finestra">&times;</button>
-        <span class="protocol-tag">ISTITUTO MILEBIOLAB &bull; VERONA FLAGSHIP</span>
-        <h3 id="modal-verona-title" style="font-size: 1.7rem; margin: 0.4rem 0 0.8rem 0;">Ritiro Esclusivo in Sede a Verona</h3>
-        <p style="font-size: 0.88rem; color: var(--color-text-secondary); margin-bottom: 1.5rem;">
-          Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura.
-        </p>
-        
-        <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.84rem; margin-bottom: 1.5rem;">
-          <div>📍 <strong>Indirizzo:</strong> Corso Cavour, 18 &bull; 37121 Verona (VR)</div>
-          <div>⏱️ <strong>Tempo di preparazione:</strong> 2 Ore lavorative (notifica via SMS / Email)</div>
-          <div>🎁 <strong>Omaggio Cabina:</strong> 2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)</div>
-          <div>🕒 <strong>Orari Ritiro:</strong> Lunedì &ndash; Sabato: 09:30 &ndash; 19:30 (Orario Continuato)</div>
-        </div>
-
-        <div style="margin-bottom: 1.5rem;">
-          <label for="postal-code-input" style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">
-            Verifica tempo di disponibilità per il tuo CAP:
-          </label>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="postal-code-input" placeholder="Es. 37121, 37122, 37138" value="37121" style="flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.9rem;">
-            <button type="button" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;" onclick="checkVeronaCap()">Verifica</button>
-          </div>
-          <div id="postal-result-msg" class="postal-msg-success" style="font-size: 0.78rem; color: #2E7D32; font-weight: 600; margin-top: 6px;">
-            ✅ Ritiro disponibile oggi in 2 ore per il tuo CAP.
-          </div>
-        </div>
-
-        <button type="button" class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeVeronaModal(); setDeliveryChoice('pickup'); openCartDrawer();">
-          Seleziona Ritiro a Verona per il Tuo Ordine &rarr;
-        </button>
-      </div>
-    </div>
+    <!-- Modal Ritiro Sede Flagship Verona (OS 2.0 Section) -->
+    {% section 'verona-pickup-modal' %}
 
     <!-- Sticky Mobile & Scroll ATC Snippet Render -->
     {% render 'product-sticky-atc' %}

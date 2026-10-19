@@ -1,0 +1,259 @@
+{%- comment -%}
+  MileBioLab - Modal Ritiro Esclusivo in Sede Flagship Verona
+  OS 2.0 Section - Totalmente personalizzabile da Theme Editor
+{%- endcomment -%}
+
+{%- if section.settings.enable_modal or section.settings.enable_modal == nil or request.design_mode -%}
+<div
+  id="verona-modal-overlay"
+  class="modal-overlay"
+  aria-hidden="true"
+  onclick="closeVeronaModal()"
+  {{ section.shopify_attributes }}
+>
+  <div
+    class="verona-modal-card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-verona-title"
+    style="background: #FFFFFF; border: var(--border-splendor); max-width: 580px; width: 92%; padding: 2.5rem; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2);"
+    onclick="event.stopPropagation()"
+  >
+    <button
+      type="button"
+      class="modal-close-btn"
+      onclick="closeVeronaModal()"
+      aria-label="Chiudi finestra"
+      style="position: absolute; top: 1.25rem; right: 1.25rem; background: transparent; border: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--color-text-secondary); padding: 0.25rem;"
+    >
+      &times;
+    </button>
+
+    <span class="protocol-tag">
+      {{ section.settings.eyebrow | default: 'ISTITUTO MILEBIOLAB • VERONA FLAGSHIP' }}
+    </span>
+
+    <h3
+      id="modal-verona-title"
+      style="font-size: 1.7rem; margin: 0.4rem 0 0.8rem 0;"
+    >
+      {{ section.settings.title | default: 'Ritiro Esclusivo in Sede a Verona' }}
+    </h3>
+
+    <p style="font-size: 0.88rem; color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">
+      {{ section.settings.description | default: "Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura." | newline_to_br }}
+    </p>
+
+    <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.84rem; margin-bottom: 1.5rem;">
+      <div>
+        📍 <strong>{{ section.settings.label_address | default: 'Indirizzo:' }}</strong> {{ section.settings.detail_address | default: 'Corso Cavour, 18 • 37121 Verona (VR)' }}
+      </div>
+      <div>
+        ⏱️ <strong>{{ section.settings.label_time | default: 'Tempo di preparazione:' }}</strong> {{ section.settings.detail_time | default: '2 Ore lavorative (notifica via SMS / Email)' }}
+      </div>
+      <div>
+        🎁 <strong>{{ section.settings.label_gift | default: 'Omaggio Cabina:' }}</strong> {{ section.settings.detail_gift | default: '2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)' }}
+      </div>
+      <div>
+        🕒 <strong>{{ section.settings.label_hours | default: 'Orari Ritiro:' }}</strong> {{ section.settings.detail_hours | default: 'Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato)' }}
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <label
+        for="postal-code-input"
+        style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.4rem;"
+      >
+        {{ section.settings.cap_label | default: 'Verifica tempo di disponibilità per il tuo CAP:' }}
+      </label>
+      <div style="display: flex; gap: 8px;">
+        <input
+          type="text"
+          id="postal-code-input"
+          placeholder="{{ section.settings.cap_placeholder | default: 'Es. 37121, 37122, 37138' }}"
+          value="{{ section.settings.cap_default | default: '37121' }}"
+          style="flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.9rem;"
+        >
+        <button
+          type="button"
+          class="btn-primary"
+          style="padding: 0.6rem 1.2rem; font-size: 0.75rem;"
+          onclick="checkVeronaCap()"
+        >
+          {{ section.settings.cap_btn_text | default: 'Verifica' }}
+        </button>
+      </div>
+      <div
+        id="postal-result-msg"
+        class="postal-msg-success"
+        style="font-size: 0.78rem; color: #2E7D32; font-weight: 600; margin-top: 6px;"
+      >
+        {{ section.settings.cap_success_msg | default: '✅ Ritiro disponibile oggi in 2 ore per il tuo CAP.' }}
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn-primary"
+      style="width: 100%; justify-content: center;"
+      onclick="closeVeronaModal(); setDeliveryChoice('pickup'); openCartDrawer();"
+    >
+      {{ section.settings.cta_btn_text | default: 'Seleziona Ritiro a Verona per il Tuo Ordine →' }}
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    {% if request.design_mode %}
+      document.addEventListener('shopify:section:select', function(event) {
+        if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+          if (typeof openVeronaModal === 'function') openVeronaModal();
+        }
+      });
+      document.addEventListener('shopify:section:deselect', function(event) {
+        if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+          if (typeof closeVeronaModal === 'function') closeVeronaModal();
+        }
+      });
+    {% endif %}
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Modal Ritiro in Sede (VR)",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "Abilita Modal Ritiro in Sede",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Intestazione & Messaggio"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Tagline superiore",
+      "default": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo principale",
+      "default": "Ritiro Esclusivo in Sede a Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrizione",
+      "default": "Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura."
+    },
+    {
+      "type": "header",
+      "content": "Dettagli Ritiro in Sede"
+    },
+    {
+      "type": "text",
+      "id": "label_address",
+      "label": "Etichetta Indirizzo",
+      "default": "Indirizzo:"
+    },
+    {
+      "type": "text",
+      "id": "detail_address",
+      "label": "Valore Indirizzo",
+      "default": "Corso Cavour, 18 • 37121 Verona (VR)"
+    },
+    {
+      "type": "text",
+      "id": "label_time",
+      "label": "Etichetta Tempo di Preparazione",
+      "default": "Tempo di preparazione:"
+    },
+    {
+      "type": "text",
+      "id": "detail_time",
+      "label": "Valore Tempo di Preparazione",
+      "default": "2 Ore lavorative (notifica via SMS / Email)"
+    },
+    {
+      "type": "text",
+      "id": "label_gift",
+      "label": "Etichetta Omaggio Cabina",
+      "default": "Omaggio Cabina:"
+    },
+    {
+      "type": "textarea",
+      "id": "detail_gift",
+      "label": "Valore Omaggio Cabina",
+      "default": "2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)"
+    },
+    {
+      "type": "text",
+      "id": "label_hours",
+      "label": "Etichetta Orari Ritiro",
+      "default": "Orari Ritiro:"
+    },
+    {
+      "type": "text",
+      "id": "detail_hours",
+      "label": "Valore Orari Ritiro",
+      "default": "Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato)"
+    },
+    {
+      "type": "header",
+      "content": "Verifica CAP"
+    },
+    {
+      "type": "text",
+      "id": "cap_label",
+      "label": "Etichetta Verifica CAP",
+      "default": "Verifica tempo di disponibilità per il tuo CAP:"
+    },
+    {
+      "type": "text",
+      "id": "cap_placeholder",
+      "label": "Placeholder input CAP",
+      "default": "Es. 37121, 37122, 37138"
+    },
+    {
+      "type": "text",
+      "id": "cap_default",
+      "label": "Valore predefinito CAP",
+      "default": "37121"
+    },
+    {
+      "type": "text",
+      "id": "cap_btn_text",
+      "label": "Testo pulsante verifica CAP",
+      "default": "Verifica"
+    },
+    {
+      "type": "textarea",
+      "id": "cap_success_msg",
+      "label": "Messaggio di successo CAP",
+      "default": "✅ Ritiro disponibile oggi in 2 ore per il tuo CAP."
+    },
+    {
+      "type": "header",
+      "content": "Pulsante Azione Finale"
+    },
+    {
+      "type": "text",
+      "id": "cta_btn_text",
+      "label": "Testo pulsante di selezione",
+      "default": "Seleziona Ritiro a Verona per il Tuo Ordine →"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Modal Ritiro in Sede (Verona)"
+    }
+  ]
+}
+{% endschema %}

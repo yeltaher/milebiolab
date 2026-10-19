@@ -142,6 +142,29 @@
           "button_text": "Ricevi il 10% di Sconto",
           "privacy_note": "Nessuno spam. Rispettiamo la tua privacy. Disiscrizione in qualsiasi momento con 1 click."
         }
+      },
+      "verona-pickup-modal": {
+        "type": "verona-pickup-modal",
+        "settings": {
+          "enable_modal": true,
+          "eyebrow": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP",
+          "title": "Ritiro Esclusivo in Sede a Verona",
+          "description": "Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura.",
+          "label_address": "Indirizzo:",
+          "detail_address": "Corso Cavour, 18 • 37121 Verona (VR)",
+          "label_time": "Tempo di preparazione:",
+          "detail_time": "2 Ore lavorative (notifica via SMS / Email)",
+          "label_gift": "Omaggio Cabina:",
+          "detail_gift": "2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)",
+          "label_hours": "Orari Ritiro:",
+          "detail_hours": "Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato)",
+          "cap_label": "Verifica tempo di disponibilità per il tuo CAP:",
+          "cap_placeholder": "Es. 37121, 37122, 37138",
+          "cap_default": "37121",
+          "cap_btn_text": "Verifica",
+          "cap_success_msg": "✅ Ritiro disponibile oggi in 2 ore per il tuo CAP.",
+          "cta_btn_text": "Seleziona Ritiro a Verona per il Tuo Ordine →"
+        }
       }
     },
     "content_for_index": []
