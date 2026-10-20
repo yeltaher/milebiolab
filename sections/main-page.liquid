@@ -23,7 +23,7 @@
       </header>
     {% endif %}
 
-    <!-- Page Content Area / Smart Chi-Sono Check -->
+    <!-- Page Content Area / Smart Chi-Sono & Contact Check -->
     {%- liquid
       assign handle_downcase = page.handle | downcase
       assign title_downcase = page.title | downcase
@@ -31,10 +31,16 @@
       if handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or handle_downcase contains 'mile' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
         assign is_chi_sono = true
       endif
+      assign is_contact = false
+      if handle_downcase contains 'contatt' or handle_downcase contains 'contact' or title_downcase contains 'contatt' or title_downcase contains 'contact'
+        assign is_contact = true
+      endif
     -%}
 
     {% if is_chi_sono %}
       {% render 'chi-sono-view' %}
+    {% elsif is_contact %}
+      {% render 'contact-view' %}
     {% else %}
       <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
         <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
