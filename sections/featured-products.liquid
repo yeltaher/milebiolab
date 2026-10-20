@@ -1,4 +1,18 @@
 <section class="py-24 px-6 lg:px-16 bg-[#F5F2EB] border-b border-[#DDD7CE]/50 featured-products-section" id="featured-products-{{ section.id }}">
+  {%- liquid
+    assign show_arrows = section.settings.show_arrows
+    if show_arrows == nil
+      assign show_arrows = true
+    endif
+    assign show_slider_arrows = section.settings.show_slider_arrows
+    if show_slider_arrows == nil
+      assign show_slider_arrows = true
+    endif
+    assign show_column_arrows = section.settings.show_column_arrows
+    if show_column_arrows == nil
+      assign show_column_arrows = true
+    endif
+  -%}
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16">
 
     <!-- Sticky Left Column -->
@@ -17,6 +31,7 @@
       </a>
       {% endif %}
 
+      {% if show_arrows and show_column_arrows %}
       <!-- Slider Navigation Controls (Left Sticky Column) -->
       <div class="flex items-center gap-3 mt-8 pt-4 border-t border-[#DDD7CE]/50">
         <button
@@ -43,10 +58,12 @@
         </button>
         <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold">Scorri Prodotti</span>
       </div>
+      {% endif %}
     </div>
 
     <!-- Products Slider / Grid -->
     <div class="w-full lg:w-2/3 relative group/slider">
+      {% if show_arrows and show_slider_arrows %}
       <!-- Freccia Sinistra Floating Inset (Prev) -->
       <button
         type="button"
@@ -72,6 +89,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </button>
+      {% endif %}
 
       {%- liquid
         assign aspect_ratio_class = 'aspect-[4/5]'
@@ -472,6 +490,29 @@
       "type": "url",
       "id": "link_url",
       "label": "URL Link"
+    },
+    {
+      "type": "header",
+      "content": "Controlli & Frecce di Navigazione"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Abilita frecce di navigazione slider",
+      "default": true,
+      "info": "Attiva o disattiva globalmente le frecce di scorrimento prodotti"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slider_arrows",
+      "label": "Mostra frecce sovrimpresse ai prodotti (floating)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_column_arrows",
+      "label": "Mostra frecce nella colonna di sinistra",
+      "default": true
     },
     {
       "type": "header",

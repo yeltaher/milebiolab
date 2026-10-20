@@ -60,6 +60,9 @@
         "subtitle": "Le formulazioni più richieste del momento.",
         "link_text": "Scopri Tutti",
         "link_url": "shopify://collections/bestseller-preferiti",
+        "show_arrows": true,
+        "show_slider_arrows": true,
+        "show_column_arrows": true,
         "card_aspect_ratio": "4/5",
         "image_fit": "contain"
       }

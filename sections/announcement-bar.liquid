@@ -1,7 +1,9 @@
 {% if section.settings.show_announcement %}
 <!-- MILE TOP ROTATING ANNOUNCEMENT BAR -->
 <div class="announcement-carousel-bar" role="region" aria-label="Annunci del negozio">
-  <button type="button" class="announcement-arrow-btn" onclick="prevAnnouncement()" aria-label="Messaggio precedente">&#8249;</button>
+  {% if section.settings.show_arrows != false %}
+    <button type="button" class="announcement-arrow-btn" onclick="prevAnnouncement()" aria-label="Messaggio precedente">&#8249;</button>
+  {% endif %}
   
   <div class="announcement-carousel-inner" id="announcement-carousel-container">
     <div class="announcement-slide active">
@@ -18,7 +20,9 @@
     </div>
   </div>
 
-  <button type="button" class="announcement-arrow-btn" onclick="nextAnnouncement()" aria-label="Messaggio successivo">&#8250;</button>
+  {% if section.settings.show_arrows != false %}
+    <button type="button" class="announcement-arrow-btn" onclick="nextAnnouncement()" aria-label="Messaggio successivo">&#8250;</button>
+  {% endif %}
 </div>
 
 <!-- MILE UTILITY SUPPORT BAR -->
@@ -61,6 +65,12 @@
       "type": "checkbox",
       "id": "show_announcement",
       "label": "Mostra Barra Annunci a Carosello",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Mostra frecce di scorrimento annunci",
       "default": true
     },
     {
