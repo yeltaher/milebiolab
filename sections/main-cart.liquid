@@ -1,10 +1,15 @@
 <div class="bg-[#F5F2EB] text-[#1A1A1A] min-h-screen py-16">
   <div class="max-w-5xl mx-auto px-6 lg:px-12">
+    {% unless section.settings.show_header == false %}
     <div class="text-center mb-10">
+      {% unless section.settings.show_eyebrow == false %}
       <span class="text-xs uppercase tracking-[0.25em] text-[#5C6B56] font-semibold block mb-2">{{ section.settings.eyebrow | default: "MILEBIOLAB HAUTE COSMÉTIQUE" }}</span>
+      {% endunless %}
       <h1 class="font-serif text-4xl sm:text-5xl text-[#1A1A1A]">{{ section.settings.title | default: "Il Tuo Rituale di Bellezza" }}</h1>
     </div>
+    {% endunless %}
 
+    {% unless section.settings.show_progress_bar == false %}
     <!-- Free Shipping & Samples Progress Bar -->
     <div class="bg-white border border-[#E5E0D8] p-5 mb-8 shadow-xs">
       <div id="cart-progress-text" class="text-xs text-[#1A1A1A] font-medium mb-2.5">
@@ -14,6 +19,7 @@
         <div class="bg-[#5C6B56] h-full transition-all duration-500 rounded-full" id="cart-progress-fill" style="width: 70%;"></div>
       </div>
     </div>
+    {% endunless %}
 
     <!-- Cart Layout Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -119,6 +125,18 @@
       "content": "Intestazione Carrello"
     },
     {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Mostra Intestazione Carrello",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "label": "Mostra Sottotitolo Superiore (Eyebrow)",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Sottotitolo / Eyebrow",
@@ -132,7 +150,13 @@
     },
     {
       "type": "header",
-      "content": "Barra Progresso Omaggi"
+      "content": "Barra Progresso Omaggi & Spedizione"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Mostra Barra Spedizione & Omaggi",
+      "default": true
     },
     {
       "type": "textarea",

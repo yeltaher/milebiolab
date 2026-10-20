@@ -10,6 +10,7 @@
   </div>
   
   <!-- Free Shipping & 3 Samples Progress Bar (Threshold: €120) -->
+  {% unless settings.show_drawer_shipping_bar == false %}
   <div class="shipping-bar-container">
     <div id="cart-progress-text" style="line-height: 1.4;">
       🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e i 3 Campioncini Omaggio!
@@ -18,6 +19,7 @@
       <div class="shipping-progress-fill" id="cart-progress-fill" style="width: 70%;"></div>
     </div>
   </div>
+  {% endunless %}
 
 
 

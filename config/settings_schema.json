@@ -82,5 +82,16 @@
         "default": "+39 045 800 1234"
       }
     ]
+  },
+  {
+    "name": "Carrello & Drawer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_drawer_shipping_bar",
+        "label": "Mostra Barra Spedizione & Omaggi nel Carrello Laterale",
+        "default": true
+      }
+    ]
   }
 ]
