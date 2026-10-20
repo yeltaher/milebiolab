@@ -4,7 +4,7 @@
   Completamente personalizzabile dal Theme Editor Shopify.
 {% endcomment %}
 
-{% render 'loyalty-view' %}
+{% render 'loyalty-view', section: section %}
 
 {% schema %}
 {
@@ -145,6 +145,81 @@
       "id": "faq_title",
       "label": "Titolo FAQ",
       "default": "Tutto Quello che C'è da Sapere sul Beauty Club"
+    },
+    {
+      "type": "header",
+      "content": "✨ Banner CTA Finale (Colori & Testi)"
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_bg",
+      "label": "Colore Sfondo Banner (Inizio Gradiente)",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_bg_end",
+      "label": "Colore Sfondo Banner (Fine Gradiente)",
+      "default": "#2B2B2B"
+    },
+    {
+      "type": "text",
+      "id": "cta_banner_tag",
+      "label": "Tag / Sopratitolo Banner",
+      "default": "LA TUA BELLEZZA PREMIATA"
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_tag_color",
+      "label": "Colore Tag / Sopratitolo",
+      "default": "#C8A878"
+    },
+    {
+      "type": "text",
+      "id": "cta_banner_title",
+      "label": "Titolo Banner CTA",
+      "default": "Pronta a Iniziare il Tuo Percorso nel Beauty Club?"
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_title_color",
+      "label": "Colore Titolo Banner",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_banner_desc",
+      "label": "Descrizione Banner CTA",
+      "default": "Iscriviti subito al Club Mile e ricevi istantaneamente 20 Beauty Punti in omaggio sul tuo nuovo profilo personale."
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_desc_color",
+      "label": "Colore Descrizione Banner",
+      "default": "#DDD7CE"
+    },
+    {
+      "type": "text",
+      "id": "cta_banner_btn_text",
+      "label": "Testo Pulsante CTA",
+      "default": "ISCRIVITI E RICEVI 20 PUNTI SUBITO"
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_btn_bg",
+      "label": "Colore Sfondo Pulsante",
+      "default": "#C8A878"
+    },
+    {
+      "type": "color",
+      "id": "cta_banner_btn_text_color",
+      "label": "Colore Testo Pulsante",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "url",
+      "id": "cta_banner_btn_url",
+      "label": "Link Pulsante CTA"
     }
   ]
 }

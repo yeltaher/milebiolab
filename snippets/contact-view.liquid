@@ -7,35 +7,35 @@
 {% endcomment %}
 
 {%- liquid
-  assign eyebrow = section.settings.eyebrow | default: "CONCIERGE & BOUTIQUE • VERONA"
+  assign eyebrow = section.settings.eyebrow | default: "Ritiro a • VERONA"
   if template.name == '404' or template == '404' or eyebrow contains '404'
-    assign eyebrow = "CONCIERGE & BOUTIQUE • VERONA"
+    assign eyebrow = "Ritiro a • VERONA"
   endif
-  assign title = section.settings.title | default: "Entra in Contatto con MileBioLab"
-  assign subtitle = section.settings.subtitle | default: "Desideri una consulenza personalizzata sulla tua routine di bellezza o hai domande sui nostri trattamenti e formulazioni? Siamo a tua completa disposizione."
+  assign title = section.settings.title | default: "Entra in Contatto con Mile BioLab"
+  assign subtitle = section.settings.subtitle | default: "Desideri informazioni particolari?\nContattaci siamo a tua disposizione"
 
-  assign boutique_tag = section.settings.boutique_tag | default: "FLAGSHIP & SALON"
+  assign boutique_tag = section.settings.boutique_tag | default: "Per RITIRI IN ISTITUTO a VERONA"
   assign boutique_title = section.settings.boutique_title | default: "Lebestetik Beauty & Spa"
-  assign boutique_address_label = section.settings.boutique_address_label | default: "Sede & Flagship"
+  assign boutique_address_label = section.settings.boutique_address_label | default: "SedeLebestetik"
   assign boutique_address = section.settings.boutique_address | default: "Verona, Via Torricelle 2c in Lebestetik Beauty & Spa"
   assign boutique_pickup_text = section.settings.boutique_pickup_text | default: "Dettagli Ritiro in Sede & Guida"
   assign boutique_hours_label = section.settings.boutique_hours_label | default: "Orari di Apertura"
-  assign boutique_hours = section.settings.boutique_hours | default: "Lunedì – Sabato: 09:30 – 19:30 (su appuntamento)"
-  assign boutique_phone_label = section.settings.boutique_phone_label | default: "Telefono Boutique"
-  assign phone = section.settings.phone | default: "+39 045 800 1234"
-  assign boutique_email_label = section.settings.boutique_email_label | default: "Email Concierge"
-  assign email = section.settings.email | default: "concierge@milebiolab.com"
+  assign boutique_hours = section.settings.boutique_hours | default: "SU APPUNTAMENTO Lunedì – Sabato: 09:30 – 19:30 (chiuso il mercoledì)"
+  assign boutique_phone_label = section.settings.boutique_phone_label | default: "Messaggi Whatsapp Per Appuntamento"
+  assign phone = section.settings.phone | default: "+39 045 8301811"
+  assign boutique_email_label = section.settings.boutique_email_label | default: "info@beautyespatorricelle.it"
+  assign email = section.settings.email | default: "info@beautyespatorricelle.it"
   assign whatsapp_text = section.settings.whatsapp_text | default: "Scrivici su WhatsApp Diretto"
   assign whatsapp_url = section.settings.whatsapp_url
   if whatsapp_url == blank
-    assign whatsapp_url = "https://wa.me/390458001234"
+    assign whatsapp_url = "https://wa.me/393421647585"
   endif
 
-  assign consultation_title = section.settings.consultation_title | default: "Consulenza Dermocosmetica & Check-up"
-  assign consultation_desc = section.settings.consultation_desc | default: "Presso il nostro istituto di Verona offriamo analisi cutanea approfondita e trattamenti viso e corpo su misura con protocolli Team Dr. Joseph e formulazioni pure MileBioLab."
-  assign consultation_badge = section.settings.consultation_badge | default: "Check-up cutaneo e campioncini deluxe omaggio con ogni visita"
+  assign consultation_title = section.settings.consultation_title | default: "Consulenza e sconto speciale"
+  assign consultation_desc = section.settings.consultation_desc | default: "Ritirando presso il nostro istituto di Verona riceverai un trattamento privilegiato"
+  assign consultation_badge = section.settings.consultation_badge | default: "Sconto riservato del 10% per un trattamento benessere in istituto"
 
-  assign form_title = section.settings.form_title | default: "Scrivi al Nostro Concierge"
+  assign form_title = section.settings.form_title | default: "Scrivi al Nostro Servizio MILE"
   assign form_subtitle = section.settings.form_subtitle | default: "Rispondiamo entro 24 ore lavorative"
   assign label_name = section.settings.label_name | default: "Nome e Cognome"
   assign placeholder_name = section.settings.placeholder_name | default: "Es. Maria Rossi"
@@ -316,7 +316,7 @@
                     id="ContactFormMotivo"
                     class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DDD7CE] text-xs text-[#1A1A1A] focus:outline-none focus:border-[#C8A878] focus:bg-white transition-colors appearance-none cursor-pointer pr-10"
                   >
-                    {%- assign raw_reason_str = section.settings.reason_options | default: "Consulenza Dermocosmetica Personalizzata\nInformazioni Ordini & Spedizioni\nPrenotazione Trattamento a Verona\nRichiesta Campioncini Deluxe\nAltro" -%}
+                    {%- assign raw_reason_str = section.settings.reason_options | default: "Consulenza Dermocosmetica Personalizzata\nInformazioni Ordini & Spedizioni\nPrenotazione Trattamento a Verona\nAltro" -%}
                     {%- assign raw_options = raw_reason_str | newline_to_br | replace: '<br />', '<br>' | split: '<br>' -%}
                     {%- for opt in raw_options -%}
                       {%- assign clean_opt = opt | strip -%}
