@@ -117,8 +117,10 @@
 
         <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-3 text-[11px] text-[#7A7265] space-y-1">
           <div>
-            {% assign pickup_text = section.settings.notice_pickup | default: "📍 Ritiro gratuito disponibile: Corso Cavour 18, Verona (pronto in 2 ore)." %}
-            {% if pickup_text contains "Ritiro gratuito disponibile:" %}
+            {% assign pickup_text = section.settings.notice_pickup | default: "📍 Ritiro in sede disponibile: Verona, Via Torricelle 2c." %}
+            {% if pickup_text contains "Ritiro in sede disponibile:" %}
+              {{ pickup_text | replace: "Ritiro in sede disponibile:", "<strong>Ritiro in sede disponibile:</strong>" }}
+            {% elsif pickup_text contains "Ritiro gratuito disponibile:" %}
               {{ pickup_text | replace: "Ritiro gratuito disponibile:", "<strong>Ritiro gratuito disponibile:</strong>" }}
             {% else %}
               {{ pickup_text }}
@@ -218,7 +220,7 @@
       "type": "textarea",
       "id": "notice_pickup",
       "label": "Avviso Ritiro in Sede Verona",
-      "default": "📍 Ritiro gratuito disponibile: Corso Cavour 18, Verona (pronto in 2 ore)."
+      "default": "📍 Ritiro in sede disponibile: Verona, Via Torricelle 2c."
     },
     {
       "type": "textarea",

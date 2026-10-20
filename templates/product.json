@@ -152,13 +152,13 @@
         "card_address": "Corso Cavour, 18 • 37121 Verona (VR)",
         "card_hours": "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)",
         "card_phone": "+39 045 800 1234"
-      }
+      },
+      "disabled": true
     }
   },
   "order": [
     "main-product",
     "product-reviews",
-    "product-faq",
-    "local-pickup"
+    "product-faq"
   ]
 }
