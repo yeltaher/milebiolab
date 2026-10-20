@@ -12,8 +12,11 @@
     "main": {
       "type": "main-cart",
       "settings": {
+        "show_header": true,
+        "show_eyebrow": true,
         "eyebrow": "MILE DERMOCOSMESI • VERONA • PURE PERFORMANCE",
         "title": "Il Tuo Carrello",
+        "show_progress_bar": false,
         "progress_text": "🌿 Spedizione standard gratuita da 60 euro",
         "heading_items": "Formule Selezionate",
         "heading_summary": "Riepilogo Ordine",
