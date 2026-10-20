@@ -19,8 +19,8 @@
         "bullet_list_4RYLbY": {
           "type": "bullet_list",
           "settings": {
-            "point_1": "Formula Biomimetica",
-            "point_2": "Assorbimento Rapido",
+            "point_1": "Fragranza Pompelmo",
+            "point_2": "NO SLS, SLES, PARABENI, SILICONI, PETROLATI, PEG",
             "point_3": "",
             "point_4": ""
           }
@@ -63,7 +63,17 @@
     },
     "product-reviews": {
       "type": "product-reviews",
-      "settings": {}
+      "settings": {
+        "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
+        "overall_score": "4.9",
+        "total_reviews": "142",
+        "repurchase_badge": "98% delle clienti riacquista entro 60 giorni",
+        "pct_5": 92,
+        "pct_4": 6,
+        "pct_3": 2,
+        "pct_2": 0,
+        "pct_1": 0
+      }
     },
     "product-faq": {
       "type": "product-faq",
@@ -119,13 +129,29 @@
         "faq_item_5",
         "faq_item_6"
       ],
-      "settings": {}
+      "settings": {
+        "tag": "CHIAREZZA E TRASPARENZA",
+        "title": "Domande Frequenti",
+        "subtitle": "Tutto quello che desideri sapere sul prodotto."
+      }
     },
     "local-pickup": {
       "type": "local-pickup-verona",
       "settings": {
+        "tagline": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP",
         "title": "L'Esperienza Esclusiva del Ritiro a Verona",
-        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona in Corso Cavour 18."
+        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona in Corso Cavour 18.",
+        "btn_text": "Verifica Disponibilità Ritiro a Verona →",
+        "step1_title": "Pronto in 2 Ore Lavorative",
+        "step1_desc": "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge.",
+        "step2_title": "Consulenza Dermocosmetica Omaggio",
+        "step2_desc": "Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle con check-up Visia di 15 minuti senza alcun costo.",
+        "step3_title": "Set Campioncini Deluxe Personalizzati",
+        "step3_desc": "Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea.",
+        "card_title": "Istituto di Bellezza & Haute Cosmétique",
+        "card_address": "Corso Cavour, 18 • 37121 Verona (VR)",
+        "card_hours": "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)",
+        "card_phone": "+39 045 800 1234"
       }
     }
   },
