@@ -143,7 +143,7 @@
         "type": "newsletter-popup",
         "settings": {
           "enable_popup": true,
-          "popup_delay": 10,
+          "popup_delay": 5,
           "image": "shopify://shop_images/1792504535841.jpg",
           "location_badge": "MILE DERMOCOSMESI • Verona",
           "tagline": "BENVENUTO NEL CLUB MILE",
