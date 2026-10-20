@@ -25,11 +25,16 @@
         "type": "header",
         "settings": {
           "show_announcement": true,
-          "menu": "",
           "announcement_text": "Ottieni il 10% di sconto sul tuo primo ordine  • Spedizione gratuita sopra € 60",
+          "announcement_link_text": "Acquista Ora",
+          "announcement_link": "",
           "brand_name": "MILE",
           "brand_payoff": "DERMOCOSMESI • VERONA • PURE PERFORMANCE",
-          "verona_pickup": "Verona, Via Torricelle,2c in Lebestetik Beauty & Spa"
+          "menu": "",
+          "verona_pickup": "Verona, Via Torricelle,2c in Lebestetik Beauty & Spa",
+          "wishlist_label": "Lista Desideri",
+          "login_label": "Accedi / Registrati",
+          "cart_label": "Carrello"
         }
       },
       "footer": {
@@ -43,12 +48,12 @@
           "boutique_title": "📍 Istituto Lebestetik Verona",
           "address": "Via Torricelle 2c, 37128 Verona (VR)",
           "phone": "+39 045 8301811",
-          "email": "info@miledermocosmesi.it",
+          "email": "info@beautyespatorricelle.it",
           "col2_title": "Collezioni",
-          "menu_1": "",
+          "menu_1": "main-menu",
           "col3_title": "Ritiro a Verona Lebestetik",
           "col3_location": "Via Torricelle, 2c, 37128 Verona",
-          "col3_phone": "+39 045 8301811",
+          "col3_phone": "+39 3421647585",
           "col3_hours": "Lun – Sab: 09:30 – 19:30 (chiuso Mercoledi)",
           "menu_2": "",
           "newsletter_title": "Privilege Club",
@@ -56,10 +61,10 @@
           "newsletter_button_text": "Iscriviti",
           "newsletter_note": "Trattamento riservato • Disiscrizione con un click",
           "payment_title": "Pagamenti Sicuri & Certificati:",
-          "payment_methods": "SSL 256, VISA, MASTERCARD, APPLE PAY, KLARNA",
-          "instagram_url": "",
-          "whatsapp_url": "",
-          "copyright_text": "MILE • Milebiolab S.r.l. • Corso Cavour 18, 37121 Verona • P.IVA IT04829100238. Tutti i diritti riservati.",
+          "payment_methods": "SSL 256, VISA, MASTERCARD, PAY PAL, KLARNA",
+          "instagram_url": "https://www.instagram.com/miledermocosmesi/",
+          "whatsapp_url": "tel:+393421647585",
+          "copyright_text": "MILE • Mile Dermocosmesi. • VERONA • P.IVA IT03581060237. Tutti i diritti riservati.",
           "menu_bottom": ""
         }
       },
