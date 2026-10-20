@@ -2,6 +2,7 @@
   MILEBIOLAB - SECTION MAIN PAGE CONTACT
   Sezione Pagina Contatti Haute Couture conforme all'estetica Splendor & Dr. Joseph.
   Layout a due colonne con Boutique & Concierge Verona e Modulo Ufficiale Shopify.
+  Completamente personalizzabile dal Theme Editor Shopify.
 {% endcomment %}
 
 {% render 'contact-view' %}
@@ -13,6 +14,12 @@
     {
       "type": "header",
       "content": "Intestazione Pagina"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Mostra Intestazione",
+      "default": true
     },
     {
       "type": "text",
@@ -34,12 +41,18 @@
     },
     {
       "type": "header",
-      "content": "Boutique & Flagship Verona"
+      "content": "Card Boutique Verona"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_boutique_card",
+      "label": "Mostra Card Boutique Flagship",
+      "default": true
     },
     {
       "type": "text",
       "id": "boutique_tag",
-      "label": "Tag Boutique",
+      "label": "Tag / Categoria Boutique",
       "default": "FLAGSHIP & SALON"
     },
     {
@@ -50,15 +63,45 @@
     },
     {
       "type": "text",
+      "id": "boutique_address_label",
+      "label": "Etichetta Indirizzo",
+      "default": "Sede & Flagship"
+    },
+    {
+      "type": "text",
       "id": "boutique_address",
       "label": "Indirizzo Sede",
       "default": "Verona, Via Torricelle 2c in Lebestetik Beauty & Spa"
     },
     {
+      "type": "checkbox",
+      "id": "show_pickup_guide",
+      "label": "Mostra Link Guida Ritiro",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "boutique_pickup_text",
+      "label": "Testo Link Guida Ritiro",
+      "default": "Dettagli Ritiro in Sede & Guida"
+    },
+    {
+      "type": "text",
+      "id": "boutique_hours_label",
+      "label": "Etichetta Orari",
+      "default": "Orari di Apertura"
+    },
+    {
       "type": "text",
       "id": "boutique_hours",
-      "label": "Orari Boutique",
+      "label": "Orari di Apertura",
       "default": "Lunedì – Sabato: 09:30 – 19:30 (su appuntamento)"
+    },
+    {
+      "type": "text",
+      "id": "boutique_phone_label",
+      "label": "Etichetta Telefono",
+      "default": "Telefono Boutique"
     },
     {
       "type": "text",
@@ -68,9 +111,25 @@
     },
     {
       "type": "text",
+      "id": "boutique_email_label",
+      "label": "Etichetta Email",
+      "default": "Email Concierge"
+    },
+    {
+      "type": "text",
       "id": "email",
       "label": "Indirizzo Email Concierge",
       "default": "concierge@milebiolab.com"
+    },
+    {
+      "type": "header",
+      "content": "Pulsante WhatsApp"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_whatsapp_btn",
+      "label": "Mostra Pulsante WhatsApp",
+      "default": true
     },
     {
       "type": "text",
@@ -81,11 +140,39 @@
     {
       "type": "url",
       "id": "whatsapp_url",
-      "label": "Link WhatsApp (opzionale, default: https://wa.me/390458001234)"
+      "label": "Link WhatsApp Diretto (es. https://wa.me/390458001234)"
     },
     {
       "type": "header",
-      "content": "Modulo di Contatto"
+      "content": "Card Consulenza & Check-up"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_consultation_card",
+      "label": "Mostra Box Consulenza",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "consultation_title",
+      "label": "Titolo Box Consulenza",
+      "default": "Consulenza Dermocosmetica & Check-up"
+    },
+    {
+      "type": "textarea",
+      "id": "consultation_desc",
+      "label": "Descrizione Box Consulenza",
+      "default": "Presso il nostro istituto di Verona offriamo analisi cutanea approfondita e trattamenti viso e corpo su misura con protocolli Team Dr. Joseph e formulazioni pure MileBioLab."
+    },
+    {
+      "type": "text",
+      "id": "consultation_badge",
+      "label": "Badge Vantaggio Box Consulenza",
+      "default": "Check-up cutaneo e campioncini deluxe omaggio con ogni visita"
+    },
+    {
+      "type": "header",
+      "content": "Modulo di Contatto Concierge"
     },
     {
       "type": "text",
@@ -101,9 +188,91 @@
     },
     {
       "type": "text",
+      "id": "label_name",
+      "label": "Etichetta Nome",
+      "default": "Nome e Cognome"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_name",
+      "label": "Placeholder Nome",
+      "default": "Es. Maria Rossi"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Etichetta Email",
+      "default": "Indirizzo Email"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Placeholder Email",
+      "default": "nome@esempio.it"
+    },
+    {
+      "type": "text",
+      "id": "label_phone",
+      "label": "Etichetta Telefono",
+      "default": "Telefono (opzionale)"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_phone",
+      "label": "Placeholder Telefono",
+      "default": "+39 333 1234567"
+    },
+    {
+      "type": "text",
+      "id": "label_reason",
+      "label": "Etichetta Motivo Contatto",
+      "default": "Motivo del Contatto"
+    },
+    {
+      "type": "textarea",
+      "id": "reason_options",
+      "label": "Opzioni Motivo Richiesta (una per riga)",
+      "default": "Consulenza Dermocosmetica Personalizzata\nInformazioni Ordini & Spedizioni\nPrenotazione Trattamento a Verona\nRichiesta Campioncini Deluxe\nAltro"
+    },
+    {
+      "type": "text",
+      "id": "label_message",
+      "label": "Etichetta Messaggio",
+      "default": "Messaggio"
+    },
+    {
+      "type": "textarea",
+      "id": "placeholder_message",
+      "label": "Placeholder Messaggio",
+      "default": "Descrivi la tua richiesta, esigenze cutanee o informazioni desiderate..."
+    },
+    {
+      "type": "textarea",
+      "id": "privacy_text",
+      "label": "Testo Consenso Privacy (supporta link HTML)",
+      "default": "Ho letto e accetto l'<a href=\"/policies/privacy-policy\" class=\"underline underline-offset-2 hover:text-[#1A1A1A] transition-colors\" target=\"_blank\" rel=\"noopener noreferrer\">Informativa sulla Privacy</a> per il trattamento dei dati personali."
+    },
+    {
+      "type": "text",
       "id": "submit_label",
       "label": "Testo Pulsante Invia",
       "default": "Invia Messaggio al Concierge →"
+    },
+    {
+      "type": "header",
+      "content": "Feedback Conferma"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Titolo Messaggio Successo",
+      "default": "Messaggio Inviato con Successo"
+    },
+    {
+      "type": "textarea",
+      "id": "success_desc",
+      "label": "Descrizione Messaggio Successo",
+      "default": "Grazie per aver contattato il Concierge MileBioLab. Abbiamo ricevuto la tua richiesta e ti risponderemo con la massima cura entro 24 ore lavorative."
     }
   ],
   "presets": [
