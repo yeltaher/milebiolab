@@ -1687,42 +1687,8 @@ function addInDrawerUpsell(title, price, image, vol, button) {
    ============================================================================ */
 
 function translateProductTitleToItalian(title) {
-  if (!title || typeof title !== 'string') return title;
-  const trimmed = title.trim();
-  const lower = trimmed.toLowerCase();
-
-  if (lower.includes('conditioner') || lower.includes('radiace') || lower.includes('radiance - sublimating') || lower.includes('sublimating conditioner') || lower.includes('hydrating and radiace') || lower.includes('hydrating and radiance')) {
-    return 'Balsamo Idratante Sublimatore di Luminosità';
-  }
-  if (lower.includes('shampoo')) {
-    return 'Shampoo Rivitalizzante Botanico';
-  }
-  if (lower.includes('hair mask') || lower.includes('maschera capelli')) {
-    return 'Maschera Nutriente Intensiva';
-  }
-  if (lower.includes('radiance serum')) {
-    return 'Siero Perfezionatore Illuminante Longevity';
-  }
-  if (lower.includes('hyaluronic boost') || lower.includes('multy-weight') || lower.includes('multi-weight')) {
-    return "Gel Idratante Booster all'Acido Ialuronico";
-  }
-  if (lower.includes('daily cleansing milk') || lower.includes('cleansing milk')) {
-    return 'Latte Detergente & Tonico Quotidiano';
-  }
-  if (lower.includes('intense hyaluronic')) {
-    return "Siero Concentrato all'Acido Ialuronico Puro";
-  }
-  if (lower.includes('supreme moisture cream') || lower.includes('moisture cream')) {
-    return 'Crema Riparatrice Cellulare Suprema';
-  }
-  if (lower.includes('golden glow body oil') || lower.includes('golden glow')) {
-    return 'Olio Corpo Botanico Elisir Dorato';
-  }
-  if (lower.includes('cellular youth eye') || lower.includes('eye & lip contour') || lower.includes('eye and lip contour')) {
-    return 'Contorno Occhi & Labbra Giovinezza Cellulare';
-  }
-
-  return trimmed;
+  if (!title || typeof title !== 'string') return title || '';
+  return title.trim();
 }
 window.translateProductTitleToItalian = translateProductTitleToItalian;
 

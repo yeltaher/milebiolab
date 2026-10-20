@@ -48,11 +48,11 @@
 
               <img 
                 src="{{ card_photo_url }}" 
-                alt="{% render 'italian-product-title', title: product.title %}" 
+                alt="{{ product.title | escape }}" 
                 class="routine-card-photo" loading="lazy">
 
               <div>
-                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{% render 'italian-product-title', title: product.title %}</h4>
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{{ product.title }}</h4>
                 <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
                   {{ card_subtitle }}
                 </span>

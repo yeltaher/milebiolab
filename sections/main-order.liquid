@@ -84,7 +84,7 @@
                 <div>
                   <h3 class="font-serif text-base sm:text-lg text-ink font-normal leading-snug">
                     <a href="{{ line_item.url }}" class="hover:text-amber transition-colors">
-                      {% render 'italian-product-title', title: line_item.product.title, default: line_item.title %}
+                      {{ line_item.product.title | default: line_item.title }}
                     </a>
                   </h3>
                   

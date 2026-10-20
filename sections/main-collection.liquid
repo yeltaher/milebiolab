@@ -36,7 +36,7 @@
                   <a href="{{ product.url }}" class="aspect-square bg-[#F5F2EB] border border-[#E5E0D8] mb-3 p-4 flex items-center justify-center overflow-hidden relative group/img block">
                     <img src="{{ product.featured_image | image_url: width: 600 }}"
                          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
-                         alt="{% render 'italian-product-title', title: product.title %}" class="h-full w-full object-contain transition-opacity duration-500">
+                         alt="{{ product.title | escape }}" class="h-full w-full object-contain transition-opacity duration-500">
                   </a>
                   <button type="button"
                     onclick="toggleWishlistBtn(this, event)"
@@ -51,7 +51,7 @@
                   </button>
                 </div>
                 <a href="{{ product.url }}" class="font-serif text-lg text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors block mt-0.5">
-                  {% render 'italian-product-title', title: product.title %}
+                  {{ product.title }}
                 </a>
                 <div class="flex items-center gap-1.5 mt-1 text-[11px]">
                   <span class="text-[#C8A878]">★★★★★</span>
