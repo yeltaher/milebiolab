@@ -11,7 +11,21 @@
   "sections": {
     "main": {
       "type": "main-404",
-      "settings": {}
+      "settings": {
+        "eyebrow": "MILE DERMOCOSMESI • VERONA • PURE PERFORMANCE",
+        "heading": "LA PAGINA non è disponibile",
+        "subheading": "",
+        "search_placeholder": "Cerca un ingrediente, formula o trattamento...",
+        "search_btn_text": "Cerca",
+        "btn1_text": "Torna alla Home",
+        "btn1_url": "",
+        "btn2_text": "Esplora il Catalogo",
+        "btn2_url": "",
+        "btn3_text": "Ritiro a Verona",
+        "btn3_url": "",
+        "rec_tag": "Bestseller In Evidenza",
+        "rec_title": "Formule Botaniche Più Amate"
+      }
     }
   },
   "order": [
