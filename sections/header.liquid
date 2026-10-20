@@ -34,9 +34,17 @@
       </button>
     </div>
 
-    <!-- Desktop Left Spacer -->
-    <div class="flex-1 hidden lg:flex items-center">
-    </div>
+    <!-- Desktop Left Navigation (Chi Sono & Contatti) -->
+    <nav class="flex-1 hidden lg:flex items-center gap-6 xl:gap-8">
+      {% unless section.settings.show_institutional_links == false %}
+        <a href="{{ section.settings.chi_sono_url | default: '/pages/chi-sono' }}" class="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1A1A] hover:text-[#C8A878] transition-colors luxury-interactive whitespace-nowrap">
+          {{ section.settings.chi_sono_label | default: "Chi Sono" }}
+        </a>
+        <a href="{{ section.settings.contatti_url | default: '/pages/contatti' }}" class="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1A1A] hover:text-[#C8A878] transition-colors luxury-interactive whitespace-nowrap">
+          {{ section.settings.contatti_label | default: "Contatti" }}
+        </a>
+      {% endunless %}
+    </nav>
 
     <!-- Logo Center -->
     <div class="text-center flex-1 lg:flex-none">
@@ -103,6 +111,10 @@
           <a href="/blogs/journal" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">Journal Clinico</a>
           <a href="/collections/all" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">Bestseller</a>
         {% endif %}
+        {% unless section.settings.show_institutional_links == false %}
+          <a href="{{ section.settings.chi_sono_url | default: '/pages/chi-sono' }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ section.settings.chi_sono_label | default: "Chi Sono" }}</a>
+          <a href="{{ section.settings.contatti_url | default: '/pages/contatti' }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ section.settings.contatti_label | default: "Contatti" }}</a>
+        {% endunless %}
       </nav>
 
       <div class="mt-10 pt-8 border-t border-[#E5E0D8] flex flex-col gap-4">
@@ -214,6 +226,38 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu di Navigazione"
+    },
+    {
+      "type": "header",
+      "content": "Pagine Istituzionali (Header Sinistra)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_institutional_links",
+      "label": "Mostra Link Istituzionali a Sinistra",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "chi_sono_label",
+      "label": "Etichetta Chi Sono",
+      "default": "Chi Sono"
+    },
+    {
+      "type": "url",
+      "id": "chi_sono_url",
+      "label": "Link Chi Sono"
+    },
+    {
+      "type": "text",
+      "id": "contatti_label",
+      "label": "Etichetta Contatti",
+      "default": "Contatti"
+    },
+    {
+      "type": "url",
+      "id": "contatti_url",
+      "label": "Link Contatti"
     },
     {
       "type": "header",
