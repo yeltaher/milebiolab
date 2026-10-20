@@ -82,15 +82,13 @@
                   </h3>
                   <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">{{ product.price | money }}</span>
                 </div>
-                <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type | default: 'Trattamento Biomimetico' }}</p>
-                <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
+                {%- if product.type != blank and product.type != 'Trattamento Biomimetico' -%}
+                  <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type }}</p>
+                {%- endif -%}
+                <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-2">
                   <span>★★★★★</span>
                   <span class="text-[#7A7265] font-sans text-[11px]">4.92 ({{ forloop.index | times: 28 | plus: 65 }})</span>
                 </div>
-              </div>
-              <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
-                <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">Formula Clinica</span>
-                <div class="w-3.5 h-3.5 rounded-full bg-[#C8A878] border border-[#DDD7CE]"></div>
               </div>
             </div>
           {% endfor %}
@@ -143,7 +141,7 @@
               </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
-              <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">100 ml / Clinico</span>
+              <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">100 ml / Botanico</span>
               <div class="w-3.5 h-3.5 rounded-full bg-[#C8A878] border border-[#DDD7CE]" title="Oro Ambrato"></div>
             </div>
           </div>
@@ -189,7 +187,7 @@
                 </h3>
                 <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 84,00</span>
               </div>
-              <p class="text-xs text-[#7A7265] mb-2 italic">Emulsione idratante biomimetica</p>
+              <p class="text-xs text-[#7A7265] mb-2 italic">Emulsione idratante rigenerante</p>
               <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
                 <span>★★★★★</span>
                 <span class="text-[#7A7265] font-sans text-[11px]">4.95 (98)</span>

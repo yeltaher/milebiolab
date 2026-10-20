@@ -36,7 +36,10 @@
 
             {%- if product != blank -%}
               {%- assign card_photo = block.settings.custom_image | default: product.featured_image -%}
-              {%- assign card_subtitle = block.settings.product_subtitle | default: product.metafields.custom.subtitle | default: 'Trattamento Biomimetico' -%}
+              {%- assign card_subtitle = block.settings.product_subtitle | default: product.metafields.custom.subtitle | default: product.type | default: '' -%}
+              {%- if card_subtitle == 'Trattamento Biomimetico' -%}
+                {%- assign card_subtitle = '' -%}
+              {%- endif -%}
               
               {%- if card_photo != blank -%}
                 {%- assign card_photo_url = card_photo | image_url: width: 600 -%}
@@ -53,9 +56,11 @@
 
               <div>
                 <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">{{ product.title }}</h4>
-                <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
-                  {{ card_subtitle }}
-                </span>
+                {%- if card_subtitle != blank -%}
+                  <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
+                    {{ card_subtitle }}
+                  </span>
+                {%- endif -%}
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                   <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ product.price | money }}</strong>
                   {%- if product.available -%}
@@ -108,7 +113,7 @@
                   {%- assign fallback_img = "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" -%}
               {%- endcase -%}
 
-              {%- assign card_subtitle = block.settings.product_subtitle | default: fallback_sub | default: 'Trattamento Biomimetico' -%}
+              {%- assign card_subtitle = block.settings.product_subtitle | default: fallback_sub -%}
 
               {%- if block.settings.custom_image != blank -%}
                 {%- assign current_card_img = block.settings.custom_image | image_url: width: 600 -%}
@@ -288,7 +293,9 @@
           {%- else -%}
             {%- assign p_img_url = 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80' -%}
           {%- endif -%}
-          {%- capture item_json -%}{"id":"{{ v.id }}","title":{{ p.title | json }},"price":{{ p.price | divided_by: 100.0 }},"volume":{{ block.settings.product_subtitle | default: 'Trattamento Biomimetico' | json }},"qty":1,"image":"{{ p_img_url }}","step":"0{{ forloop.index }} {{ block.settings.title | escape }}"}{%- endcapture -%}
+          {%- assign p_vol = block.settings.product_subtitle | default: p.metafields.custom.subtitle | default: p.type | default: '' -%}
+          {%- if p_vol == 'Trattamento Biomimetico' %}{% assign p_vol = '' %}{% endif -%}
+          {%- capture item_json -%}{"id":"{{ v.id }}","title":{{ p.title | json }},"price":{{ p.price | divided_by: 100.0 }},"volume":{{ p_vol | json }},"qty":1,"image":"{{ p_img_url }}","step":"0{{ forloop.index }} {{ block.settings.title | escape }}"}{%- endcapture -%}
           {%- if step_variants_json == '' -%}
             {%- assign step_variants_json = item_json -%}
           {%- else -%}
