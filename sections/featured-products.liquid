@@ -19,7 +19,33 @@
     </div>
 
     <!-- Products Slider / Grid -->
-    <div class="w-full lg:w-2/3">
+    <div class="w-full lg:w-2/3 relative group/slider">
+      <!-- Freccia Sinistra (Prev) -->
+      <button
+        type="button"
+        id="featured-prev-{{ section.id }}"
+        onclick="slideFeaturedProducts('{{ section.id }}', -1)"
+        aria-label="Scorri prodotti precedenti"
+        class="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-white/95 hover:bg-[#5C6B56] hover:text-white border border-[#E5E0D8] text-[#1A1A1A] shadow-md items-center justify-center transition-all duration-300 cursor-pointer backdrop-blur-xs disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-white/95 disabled:hover:text-[#1A1A1A] hover:scale-105 active:scale-95 group-hover/slider:border-[#C8A878]"
+      >
+        <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- Freccia Destra (Next) -->
+      <button
+        type="button"
+        id="featured-next-{{ section.id }}"
+        onclick="slideFeaturedProducts('{{ section.id }}', 1)"
+        aria-label="Scorri prodotti successivi"
+        class="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-white/95 hover:bg-[#5C6B56] hover:text-white border border-[#E5E0D8] text-[#1A1A1A] shadow-md items-center justify-center transition-all duration-300 cursor-pointer backdrop-blur-xs disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-white/95 disabled:hover:text-[#1A1A1A] hover:scale-105 active:scale-95 group-hover/slider:border-[#C8A878]"
+      >
+        <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
       {%- liquid
         assign aspect_ratio_class = 'aspect-[4/5]'
         if section.settings.card_aspect_ratio == '1/1'
@@ -36,11 +62,11 @@
         endif
       -%}
 
-      <div class="flex gap-6 overflow-x-auto slider-no-scrollbar pb-6 pt-1">
+      <div id="featured-slider-{{ section.id }}" class="flex gap-6 overflow-x-auto slider-no-scrollbar scroll-smooth pb-6 pt-1">
 
         {% assign feat_collection = collections[section.settings.collection] %}
         {% if feat_collection != blank and feat_collection.products.size > 0 %}
-          {% for product in feat_collection.products limit: 4 %}
+          {% for product in feat_collection.products limit: section.settings.products_to_show | default: 8 %}
             {%- assign card_variant_id = product.selected_or_first_available_variant.id | default: product.first_available_variant.id | default: product.variants.first.id | default: product.id -%}
             <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="{{ product.id }}">
               <div>
@@ -310,6 +336,55 @@
     </div>
 
   </div>
+
+  <script>
+    (function() {
+      function slideFeatured(sectionId, direction) {
+        var slider = document.getElementById('featured-slider-' + sectionId);
+        if (!slider) return;
+        var card = slider.querySelector('[data-product-id]');
+        var cardWidth = card ? card.offsetWidth : 320;
+        var scrollAmount = cardWidth + 24; // card width + gap-6 (24px)
+        slider.scrollBy({
+          left: direction * scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+      window.slideFeaturedProducts = slideFeatured;
+
+      function initFeaturedArrows(sectionId) {
+        var slider = document.getElementById('featured-slider-' + sectionId);
+        var prevBtn = document.getElementById('featured-prev-' + sectionId);
+        var nextBtn = document.getElementById('featured-next-' + sectionId);
+        if (!slider || !prevBtn || !nextBtn) return;
+
+        function updateState() {
+          var maxScroll = slider.scrollWidth - slider.clientWidth - 8;
+          prevBtn.disabled = slider.scrollLeft <= 8;
+          nextBtn.disabled = slider.scrollLeft >= maxScroll;
+        }
+
+        slider.addEventListener('scroll', updateState, { passive: true });
+        window.addEventListener('resize', updateState);
+        updateState();
+        setTimeout(updateState, 200);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          initFeaturedArrows('{{ section.id }}');
+        });
+      } else {
+        initFeaturedArrows('{{ section.id }}');
+      }
+
+      document.addEventListener('shopify:section:load', function(e) {
+        if (e.target && e.target.querySelector('#featured-slider-{{ section.id }}')) {
+          initFeaturedArrows('{{ section.id }}');
+        }
+      });
+    })();
+  </script>
 </section>
 
 {% schema %}
@@ -320,6 +395,15 @@
       "type": "collection",
       "id": "collection",
       "label": "Collezione in Evidenza"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Numero massimo di prodotti da mostrare",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8
     },
     {
       "type": "text",
