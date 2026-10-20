@@ -144,10 +144,11 @@
         "settings": {
           "enable_popup": true,
           "popup_delay": 10,
-          "location_badge": "Boutique • Verona",
+          "image": "shopify://shop_images/1792504535841.jpg",
+          "location_badge": "MILE DERMOCOSMESI • Verona",
           "tagline": "BENVENUTO NEL CLUB MILE",
           "heading": "10% di Sconto sul tuo Primo Ordine",
-          "description": "Iscriviti alla nostra cerchia riservata. Riceverai immediatamente il tuo codice coupon esclusivo e gli inviti agli eventi e check-up in boutique a Verona.",
+          "description": "Iscriviti nel nostro Club riservato. Riceverai immediatamente il tuo codice coupon esclusivo piu tanti vantaggi !",
           "coupon_code": "MILE10",
           "button_text": "Ricevi il 10% di Sconto",
           "privacy_note": "Nessuno spam. Rispettiamo la tua privacy. Disiscrizione in qualsiasi momento con 1 click."
