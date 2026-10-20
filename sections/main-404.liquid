@@ -1,3 +1,14 @@
+<script>
+  (function() {
+    var path = window.location.pathname.toLowerCase();
+    if (path.indexOf('/pages/account') !== -1 || path.indexOf('/pages/profilo') !== -1 || path.indexOf('/pages/club-mile') !== -1 || path.indexOf('/pages/accedi') !== -1 ||
+        path.indexOf('/pages/chi-sono') !== -1 || path.indexOf('/pages/chi-siamo') !== -1 || path.indexOf('/pages/mile') !== -1 || path.indexOf('/pages/about') !== -1 ||
+        path.indexOf('/pages/contatt') !== -1 || path.indexOf('/pages/contact') !== -1 || path.indexOf('/contact') !== -1 || path.indexOf('/contatti') !== -1 || path.indexOf('/pages/concierge') !== -1) {
+      document.write('<style>#standard-404-view { display: none !important; }</style>');
+    }
+  })();
+</script>
+
 <div id="standard-404-view">
 <div class="py-20 lg:py-28 bg-[#F5F2EB] text-[#1A1A1A]">
   <main class="max-w-7xl mx-auto px-4 sm:px-8 text-center">
@@ -141,6 +152,10 @@
   {% render 'chi-sono-view' %}
 </div>
 
+<div id="dynamic-contact-404-view" class="hidden">
+  {% render 'contact-view' %}
+</div>
+
 <script>
   (function() {
     var path = window.location.pathname.toLowerCase();
@@ -162,6 +177,14 @@
         stdView.style.display = 'none';
         chiView.classList.remove('hidden');
         document.title = "Chi Sono • MileBioLab & Lebestetik Verona";
+      }
+    } else if (path.indexOf('/pages/contatt') !== -1 || path.indexOf('/pages/contact') !== -1 || path.indexOf('/contact') !== -1 || path.indexOf('/contatti') !== -1 || path.indexOf('/pages/concierge') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var contactView = document.getElementById('dynamic-contact-404-view');
+      if (stdView && contactView) {
+        stdView.style.display = 'none';
+        contactView.classList.remove('hidden');
+        document.title = "Contatti & Concierge • MileBioLab & Lebestetik Verona";
       }
     }
   })();

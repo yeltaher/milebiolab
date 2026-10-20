@@ -1709,60 +1709,182 @@ function renderAccordionDescription(container) {
     const htmlAll = raw.innerHTML || '';
     let naturalBadgeText = null;
 
-    // Naturality & Certification percentage detection (with optional space before %)
+    // 1. Naturality & Certification percentage detection (80% - 100%)
     const hasEcocert = /ecocert|cosmos/i.test(textAll) || /ecocert|cosmos/i.test(htmlAll);
-    const percentMatch = textAll.match(/(?:ECOCERT|COSMOS[A-Z\s\-–]*?)?(\d{2,3})\s*%\s*(?:naturale|d'origine naturale|natural|organico|biologico)?/i)
-                      || textAll.match(/(\d{2,3})\s*%\s*(?:naturale|d'origine naturale|natural|organico|biologico)/i)
-                      || textAll.match(/(?:ecocert|cosmos)[\s\w\-–]*?(\d{2,3})\s*%/i)
-                      || textAll.match(/(\d{2,3})\s*%/);
+    const natContextMatch = textAll.match(/(?:ECOCERT|COSMOS[A-Z\s\-–]*?)?\b(100(?:\.0+)?|[89]\d(?:[.,]\d+)?)\s*%\s*(?:d'origine\s+naturale|d'origine|naturale|natural|biologico|organico|secondo\s+lo\s+standard|standard|iso|formula|ingredienti)/i)
+      || textAll.match(/(?:d'origine\s+naturale|naturale|natural|biologico|organico|standard|iso|formula|ingredienti)[\s\w\-–]{0,35}?\b(100(?:\.0+)?|[89]\d(?:[.,]\d+)?)\s*%/i)
+      || textAll.match(/(?:ecocert|cosmos)[\s\w\-–]*?\b(100(?:\.0+)?|[89]\d(?:[.,]\d+)?)\s*%/i)
+      || textAll.match(/\b(100(?:\.0+)?|[89]\d(?:[.,]\d+)?)\s*%/);
 
-    if (percentMatch && percentMatch[1]) {
-      const p = percentMatch[1].trim() + '%';
-      if (hasEcocert) {
-        naturalBadgeText = `${p} Naturale (Certificato ECOCERT COSMOS)`;
-      } else {
-        naturalBadgeText = `${p} d'Origine Naturale Certificata`;
+    if (natContextMatch && natContextMatch[1]) {
+      const valNum = parseFloat(natContextMatch[1].replace(',', '.'));
+      if (valNum >= 80 && valNum <= 100) {
+        const p = `${natContextMatch[1].trim()}%`;
+        if (hasEcocert) {
+          naturalBadgeText = `${p} Naturale (Certificato ECOCERT COSMOS)`;
+        } else {
+          naturalBadgeText = `${p} d'Origine Naturale Certificata`;
+        }
       }
     } else if (hasEcocert) {
       naturalBadgeText = '100% Naturale (Certificato ECOCERT COSMOS)';
     }
 
-    // Active ingredient percentages detection (e.g., 2% Acido Ialuronico, 10% Niacinamide, 5% Vitamina C, etc.)
+    // 2. Cosmetic Active Ingredients Filtering (Concentration 0.1% - 30%, Allowlist & Blocklist)
+    const VALID_ACTIVES = [
+      'acido ialuronico', 'hyaluronic', 'niacinamide', 'vitamina c', 'vitamin c',
+      'ascorbico', 'vitamina e', 'tocoferolo', 'retinolo', 'retinol', 'bio-retinolo',
+      'bakuchiol', 'acido salicilico', 'salicylic', 'bha', 'acido glicolico',
+      'glycolic', 'aha', 'acido lattico', 'lactic', 'acido azelaico', 'azelaic',
+      'acido ferulico', 'ferulic', 'peptidi', 'peptides', 'polipeptidi', 'zinco',
+      'zinc', 'ceramidi', 'ceramides', 'caffeina', 'caffeine', 'q10', 'ubiquinone',
+      'centella', 'madecassoside', 'cica', 'pantenolo', 'panthenol', 'squalano',
+      'squalane', 'resveratrolo', 'resveratrol', 'collagene', 'collagen', 'elastina',
+      'elastin', 'ectoina', 'ectoin', 'allantoina', 'allantoin', 'karit', 'shea',
+      'argan', 'jojoba', 'rosa mosqueta', 'amamelide', 'hamamelis', 'calendula',
+      'aloe', 'alghe', 'algae', 'tea tree', 'bava di lumaca'
+    ];
+
+    const NONSENSE_BLOCKLIST = [
+      'secondo', 'standard', 'iso', 'rivoluziona', 'concetto', 'soggetti',
+      'donne', 'consumatori', 'consumatrici', 'intervistati', 'clienti', 'partecipanti', 'persone',
+      'riscontrato', 'notato', 'dichiarano', 'dichiara', 'afferma', 'confermato', 'efficacia',
+      'risultati', 'test', 'clinico', 'studio', 'autovalutazione', 'soddisfazione',
+      'ingredienti', 'formula', 'composizione', 'prodotto', 'trattamento', 'routine',
+      'applicazione', 'in base', 'rispetto', 'come', 'mentre', 'quando', 'dopo',
+      'prima', 'grazie', 'attraverso', 'dona', 'rende', 'lascia', 'aiuta', 'migliora',
+      'riduce', 'aumenta', 'stimola', 'favorisce', 'sconto', 'naturale', 'natural',
+      'biologico', 'organico', "d'origine"
+    ];
+
+    const ACTIVE_DISPLAY_NAMES = {
+      'acido ialuronico': 'Acido Ialuronico',
+      'hyaluronic': 'Acido Ialuronico',
+      'niacinamide': 'Niacinamide',
+      'vitamina c': 'Vitamina C',
+      'vitamin c': 'Vitamina C',
+      'ascorbico': 'Acido Ascorbico (Vit. C)',
+      'vitamina e': 'Vitamina E',
+      'tocoferolo': 'Tocoferolo (Vit. E)',
+      'retinolo': 'Retinolo',
+      'retinol': 'Retinolo',
+      'bio-retinolo': 'Bio-Retinolo',
+      'bakuchiol': 'Bakuchiol',
+      'acido salicilico': 'Acido Salicilico',
+      'salicylic': 'Acido Salicilico',
+      'bha': 'BHA',
+      'acido glicolico': 'Acido Glicolico',
+      'glycolic': 'Acido Glicolico',
+      'aha': 'AHA',
+      'acido lattico': 'Acido Lattico',
+      'lactic': 'Acido Lattico',
+      'acido azelaico': 'Acido Azelaico',
+      'azelaic': 'Acido Azelaico',
+      'acido ferulico': 'Acido Ferulico',
+      'ferulic': 'Acido Ferulico',
+      'peptidi': 'Peptidi',
+      'peptides': 'Peptidi',
+      'polipeptidi': 'Polipeptidi',
+      'zinco': 'Zinco',
+      'zinc': 'Zinco',
+      'ceramidi': 'Ceramidi',
+      'ceramides': 'Ceramidi',
+      'caffeina': 'Caffeina',
+      'caffeine': 'Caffeina',
+      'q10': 'Coenzima Q10',
+      'ubiquinone': 'Coenzima Q10',
+      'centella': 'Centella Asiatica',
+      'madecassoside': 'Madecassoside',
+      'cica': 'Centella Asiatica (CICA)',
+      'pantenolo': 'Pantenolo',
+      'panthenol': 'Pantenolo',
+      'squalano': 'Squalano',
+      'squalane': 'Squalano',
+      'resveratrolo': 'Resveratrolo',
+      'resveratrol': 'Resveratrolo',
+      'collagene': 'Collagene',
+      'collagen': 'Collagene',
+      'elastina': 'Elastina',
+      'elastin': 'Elastina',
+      'ectoina': 'Ectoina',
+      'ectoin': 'Ectoina',
+      'allantoina': 'Allantoina',
+      'allantoin': 'Allantoina',
+      'karit': 'Burro di Karitè',
+      'shea': 'Burro di Karitè',
+      'argan': 'Olio di Argan',
+      'jojoba': 'Olio di Jojoba',
+      'rosa mosqueta': 'Rosa Mosqueta',
+      'amamelide': 'Amamelide',
+      'hamamelis': 'Amamelide',
+      'calendula': 'Calendula',
+      'aloe': 'Aloe Vera',
+      'alghe': 'Estratto di Alghe',
+      'algae': 'Estratto di Alghe',
+      'tea tree': 'Tea Tree',
+      'bava di lumaca': 'Bava di Lumaca'
+    };
+
+    const sortedActives = [...VALID_ACTIVES].sort((a, b) => b.length - a.length);
+
+    function isValidActiveCandidate(rawName, valNum) {
+      // Regola 1: Soglia Percentuale Attivi (0.1% - 30%)
+      if (isNaN(valNum) || valNum <= 0 || valNum > 30) {
+        return null;
+      }
+      if (!rawName || typeof rawName !== 'string') {
+        return null;
+      }
+
+      const lower = rawName.toLowerCase();
+
+      // Regola 3: Blocklist Parole senza Senso
+      const isBlocked = NONSENSE_BLOCKLIST.some(word => lower.includes(word.toLowerCase()));
+      if (isBlocked) {
+        return null;
+      }
+
+      // Regola 2: Allowlist Cosmetica Positiva
+      for (const act of sortedActives) {
+        let isMatch = false;
+        if (act.length <= 4) {
+          const re = new RegExp(`\\b${act}\\b`, 'i');
+          isMatch = re.test(lower);
+        } else {
+          isMatch = lower.includes(act);
+        }
+
+        if (isMatch) {
+          return ACTIVE_DISPLAY_NAMES[act] || (act.charAt(0).toUpperCase() + act.slice(1));
+        }
+      }
+
+      return null;
+    }
+
     const ingredientBadges = [];
-    const activeRegex = /\b(\d{1,2}(?:[.,]\d+)?)\s*%\s+([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s\-–]{2,30})/gi;
+    const activeRegex = /\b(\d{1,2}(?:[.,]\d+)?)\s*%\s+([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s\-–]{2,40})/gi;
     let m;
     while ((m = activeRegex.exec(textAll)) !== null) {
-      const val = m[1].replace(',', '.');
-      const pctStr = `${val}%`;
-      let rawName = m[2].trim();
-      rawName = rawName.replace(/\s+(?:e|ed|con|per|\+|&)\b.*$/i, '').trim();
-      rawName = rawName.split(/[.,;\n\r\(\)]/)[0].trim();
-      if (/^(?:naturale|d'origine|natural|biologico|organico|sconto|dei soggetti|dei consumatori|delle donne|efficacia)/i.test(rawName)) {
-        continue;
-      }
-      const words = rawName.split(/\s+/).slice(0, 3).join(' ');
-      if (words.length >= 3) {
-        const itemText = `${pctStr} ${words}`;
-        if (!ingredientBadges.some(b => b.toLowerCase() === itemText.toLowerCase())) {
+      const valNum = parseFloat(m[1].replace(',', '.'));
+      const activeName = isValidActiveCandidate(m[2], valNum);
+      if (activeName) {
+        const pctStr = `${m[1].trim()}%`;
+        const itemText = `${pctStr} ${activeName}`;
+        if (!ingredientBadges.some(b => b.toLowerCase().includes(activeName.toLowerCase()))) {
           ingredientBadges.push(itemText);
         }
       }
     }
 
-    const activeSuffixRegex = /\b([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s\-–]{2,25})\s*(?:\(|\:|\-)?\s*(\d{1,2}(?:[.,]\d+)?)\s*%\)?/gi;
+    const activeSuffixRegex = /\b([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\s\-–]{2,30})\s*(?:\(|\:|\-)?\s*(\d{1,2}(?:[.,]\d+)?)\s*%\)?/gi;
     while ((m = activeSuffixRegex.exec(textAll)) !== null) {
-      let rawName = m[1].trim();
-      const val = m[2].replace(',', '.');
-      const pctStr = `${val}%`;
-      rawName = rawName.replace(/^(?:contiene|arricchito\s+con|con|formula\s+con)\s+/i, '').trim();
-      rawName = rawName.split(/[.,;\n\r\(\)]/)[0].trim();
-      if (/ecocert|cosmos|naturale|natural|biologico|organico|sconto|risultati|test|donne|consumatori|soggetti/i.test(rawName)) {
-        continue;
-      }
-      const words = rawName.split(/\s+/).slice(-3).join(' ');
-      if (words.length >= 3 && !/^\d+$/.test(words)) {
-        const itemText = `${pctStr} ${words}`;
-        if (!ingredientBadges.some(b => b.toLowerCase().includes(words.toLowerCase()) || b.toLowerCase().includes(pctStr.toLowerCase()))) {
+      const valNum = parseFloat(m[2].replace(',', '.'));
+      const activeName = isValidActiveCandidate(m[1], valNum);
+      if (activeName) {
+        const pctStr = `${m[2].trim()}%`;
+        const itemText = `${pctStr} ${activeName}`;
+        if (!ingredientBadges.some(b => b.toLowerCase().includes(activeName.toLowerCase()))) {
           ingredientBadges.push(itemText);
         }
       }
@@ -1775,7 +1897,7 @@ function renderAccordionDescription(container) {
         let existingBadge = bulletList.querySelector('.pdp-auto-natural-badge');
         if (!existingBadge) {
           const alreadyPresent = Array.from(bulletList.children).some(child =>
-            child.textContent.includes(naturalBadgeText.slice(0, 8))
+            child.textContent.includes("d'Origine Naturale") || child.textContent.includes('ECOCERT')
           );
           if (!alreadyPresent) {
             const badgeDiv = document.createElement('div');
@@ -1785,11 +1907,25 @@ function renderAccordionDescription(container) {
           }
         } else {
           const span = existingBadge.querySelector('span:last-child');
-          if (span && (!span.textContent.includes('%') || (naturalBadgeText.includes('ECOCERT') && !span.textContent.includes('ECOCERT')))) {
-            span.textContent = naturalBadgeText;
+          if (span) {
+            const existingPctMatch = span.textContent.match(/\b\d{2,3}%\b/);
+            const newPctMatch = naturalBadgeText.match(/\b\d{2,3}%\b/);
+            if (!existingPctMatch || (newPctMatch && existingPctMatch[0] !== newPctMatch[0]) || (naturalBadgeText.includes('ECOCERT') && !span.textContent.includes('ECOCERT'))) {
+              span.textContent = naturalBadgeText;
+            }
           }
         }
       }
+
+      // Clean up any stale or non-compliant auto active badges
+      const existingActiveBadges = bulletList.querySelectorAll('.pdp-auto-active-badge');
+      existingActiveBadges.forEach(badge => {
+        const text = badge.textContent || '';
+        const isStillValid = ingredientBadges.some(b => text.toLowerCase().includes(b.toLowerCase()));
+        if (!isStillValid) {
+          badge.remove();
+        }
+      });
 
       // Active ingredient percentage badges injection
       ingredientBadges.forEach(ingText => {
