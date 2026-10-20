@@ -102,6 +102,40 @@
       <nav class="flex flex-col gap-6">
         {% assign menu_handle = section.settings.menu | default: 'main-menu' %}
         {% assign nav_menu = linklists[menu_handle] %}
+        {%- liquid
+          assign has_contatti_in_menu = false
+          assign has_chi_sono_in_menu = false
+          if nav_menu.links.size > 0
+            for link in nav_menu.links
+              assign link_title_lower = link.title | downcase
+              assign link_url_lower = link.url | downcase
+              if link_title_lower contains 'contatt' or link_url_lower contains 'contatt' or link_url_lower contains 'contact'
+                assign has_contatti_in_menu = true
+              endif
+              if link_title_lower contains 'chi sono' or link_title_lower contains 'chi siamo' or link_url_lower contains 'chi-sono' or link_url_lower contains 'chi-siamo'
+                assign has_chi_sono_in_menu = true
+              endif
+              if section.settings.contatti_url != blank and link.url == section.settings.contatti_url
+                assign has_contatti_in_menu = true
+              endif
+              if section.settings.chi_sono_url != blank and link.url == section.settings.chi_sono_url
+                assign has_chi_sono_in_menu = true
+              endif
+              if link.links.size > 0
+                for child_link in link.links
+                  assign child_title_lower = child_link.title | downcase
+                  assign child_url_lower = child_link.url | downcase
+                  if child_title_lower contains 'contatt' or child_url_lower contains 'contatt' or child_url_lower contains 'contact'
+                    assign has_contatti_in_menu = true
+                  endif
+                  if child_title_lower contains 'chi sono' or child_title_lower contains 'chi siamo' or child_url_lower contains 'chi-sono' or child_url_lower contains 'chi-siamo'
+                    assign has_chi_sono_in_menu = true
+                  endif
+                endfor
+              endif
+            endfor
+          endif
+        -%}
         {% if nav_menu.links.size > 0 %}
           {% for link in nav_menu.links %}
             <a href="{{ link.url }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ link.title }}</a>
@@ -112,8 +146,12 @@
           <a href="/collections/all" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">Bestseller</a>
         {% endif %}
         {% unless section.settings.show_institutional_links == false %}
-          <a href="{{ section.settings.chi_sono_url | default: '/pages/chi-sono' }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ section.settings.chi_sono_label | default: "Chi Sono" }}</a>
-          <a href="{{ section.settings.contatti_url | default: '/pages/contatti' }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ section.settings.contatti_label | default: "Contatti" }}</a>
+          {% unless has_chi_sono_in_menu %}
+            <a href="{{ section.settings.chi_sono_url | default: '/pages/chi-sono' }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ section.settings.chi_sono_label | default: "Chi Sono" }}</a>
+          {% endunless %}
+          {% unless has_contatti_in_menu %}
+            <a href="{{ section.settings.contatti_url | default: '/pages/contatti' }}" class="text-[#1A1A1A] text-lg font-medium tracking-wide uppercase">{{ section.settings.contatti_label | default: "Contatti" }}</a>
+          {% endunless %}
         {% endunless %}
       </nav>
 
