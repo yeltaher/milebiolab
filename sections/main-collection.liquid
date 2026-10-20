@@ -39,9 +39,13 @@
                          alt="{% render 'italian-product-title', title: product.title %}" class="h-full w-full object-contain transition-opacity duration-500">
                   </a>
                   <button type="button"
-                    onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('{{ product.id }}', {{ product.title | json }}, {{ product.price | divided_by: 100.0 }}, '{{ product.featured_image | image_url: width: 300 }}', '{{ product.variants.first.title | default: '50 ml' }}', this);}"
-                    class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                    onclick="toggleWishlistBtn(this, event)"
                     data-wishlist-id="{{ product.id }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-price="{{ product.price | divided_by: 100.0 }}"
+                    data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 300 }}{% endif %}"
+                    data-product-volume="{{ product.variants.first.title | escape | default: '50 ml' }}"
+                    class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
                     aria-label="Salva nei preferiti">
                     <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                   </button>
@@ -57,8 +61,13 @@
               <div class="mt-4 pt-3 border-t border-[#E5E0D8] flex items-center justify-between">
                 <span class="font-serif text-lg font-semibold text-[#555E6B]">{{ product.price | money }}</span>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('{{ card_variant_id }}', 1, {id: '{{ card_variant_id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: '{{ product.variants.first.title | default: "50 ml" }}', image: '{{ product.featured_image | image_url: width: 300 }}'});} else if(window.addToCart){addToCart({id: '{{ card_variant_id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: '{{ product.variants.first.title | default: "50 ml" }}', qty: 1, image: '{{ product.featured_image | image_url: width: 300 }}'});}"
-                  class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
+                        onclick="quickAddProduct(this, event)"
+                        data-variant-id="{{ card_variant_id }}"
+                        data-product-title="{{ product.title | escape }}"
+                        data-product-price="{{ product.price | divided_by: 100.0 | default: 75.00 }}"
+                        data-product-volume="{{ product.variants.first.title | escape | default: '50 ml' }}"
+                        data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 400 }}{% endif %}"
+                        class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
                   {{ section.settings.quick_add_text | default: "+ Acquisto Rapido" }}
                 </button>
               </div>
@@ -75,9 +84,13 @@
                        alt="Olio Corpo Botanico Elisir Dorato" class="h-full w-full object-contain">
                 </a>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('fallback-prod-1', 'Olio Corpo Botanico Elisir Dorato', 76.00, 'https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80', '100 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="fallback-prod-1"
+                  data-product-title="Olio Corpo Botanico Elisir Dorato"
+                  data-product-price="76.00"
+                  data-product-volume="100 ml"
+                  data-product-image="https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -90,7 +103,14 @@
             </div>
             <div class="mt-4 pt-3 border-t border-[#E5E0D8] flex items-center justify-between">
               <span class="font-serif text-lg font-semibold text-[#555E6B]">€ 76,00</span>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('1', 1, {id: 1, title: 'Olio Corpo Botanico Elisir Dorato', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80'});} else if(window.addToCart){addToCart({id: 1, title: 'Olio Corpo Botanico Elisir Dorato', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=300&q=80'});}" class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
+              <button type="button"
+                      onclick="quickAddProduct(this, event)"
+                      data-variant-id="fallback-prod-1"
+                      data-product-title="Olio Corpo Botanico Elisir Dorato"
+                      data-product-price="76.00"
+                      data-product-volume="100 ml"
+                      data-product-image="https://images.unsplash.com/photo-1608248597359-58d4a974b6c3?auto=format&fit=crop&w=500&q=80"
+                      class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
                 {{ section.settings.quick_add_text | default: "+ Acquisto Rapido" }}
               </button>
             </div>
@@ -105,9 +125,13 @@
                        alt="Siero Concentrato Supremo di Giovinezza" class="h-full w-full object-contain">
                 </a>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('fallback-prod-2', 'Siero Concentrato Supremo di Giovinezza', 88.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80', '30 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="fallback-prod-2"
+                  data-product-title="Siero Concentrato Supremo di Giovinezza"
+                  data-product-price="88.00"
+                  data-product-volume="30 ml"
+                  data-product-image="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -120,7 +144,14 @@
             </div>
             <div class="mt-4 pt-3 border-t border-[#E5E0D8] flex items-center justify-between">
               <span class="font-serif text-lg font-semibold text-[#555E6B]">€ 88,00</span>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('2', 1, {id: 2, title: 'Siero Concentrato Supremo di Giovinezza', price: 88.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80'});} else if(window.addToCart){addToCart({id: 2, title: 'Siero Concentrato Supremo di Giovinezza', price: 88.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80'});}" class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
+              <button type="button"
+                      onclick="quickAddProduct(this, event)"
+                      data-variant-id="fallback-prod-2"
+                      data-product-title="Siero Concentrato Supremo di Giovinezza"
+                      data-product-price="88.00"
+                      data-product-volume="30 ml"
+                      data-product-image="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=500&q=80"
+                      class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
                 {{ section.settings.quick_add_text | default: "+ Acquisto Rapido" }}
               </button>
             </div>
@@ -135,9 +166,13 @@
                        alt="Latte Detergente Riequilibrante" class="h-full w-full object-contain">
                 </a>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('fallback-prod-3', 'Latte Detergente Riequilibrante', 48.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80', '150 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="fallback-prod-3"
+                  data-product-title="Latte Detergente Riequilibrante"
+                  data-product-price="48.00"
+                  data-product-volume="150 ml"
+                  data-product-image="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -150,7 +185,14 @@
             </div>
             <div class="mt-4 pt-3 border-t border-[#E5E0D8] flex items-center justify-between">
               <span class="font-serif text-lg font-semibold text-[#555E6B]">€ 48,00</span>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('3', 1, {id: 3, title: 'Latte Detergente Riequilibrante', price: 48.00, volume: '150 ml', qty: 1, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80'});} else if(window.addToCart){addToCart({id: 3, title: 'Latte Detergente Riequilibrante', price: 48.00, volume: '150 ml', qty: 1, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80'});}" class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
+              <button type="button"
+                      onclick="quickAddProduct(this, event)"
+                      data-variant-id="fallback-prod-3"
+                      data-product-title="Latte Detergente Riequilibrante"
+                      data-product-price="48.00"
+                      data-product-volume="150 ml"
+                      data-product-image="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80"
+                      class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
                 {{ section.settings.quick_add_text | default: "+ Acquisto Rapido" }}
               </button>
             </div>
@@ -165,9 +207,13 @@
                        alt="Crema Velluto Barriera 48h" class="h-full w-full object-contain">
                 </a>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('fallback-prod-4', 'Crema Velluto Barriera 48h', 72.00, 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=300&q=80', '50 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="fallback-prod-4"
+                  data-product-title="Crema Velluto Barriera 48h"
+                  data-product-price="72.00"
+                  data-product-volume="50 ml"
+                  data-product-image="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=300&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -180,7 +226,14 @@
             </div>
             <div class="mt-4 pt-3 border-t border-[#E5E0D8] flex items-center justify-between">
               <span class="font-serif text-lg font-semibold text-[#555E6B]">€ 72,00</span>
-              <button type="button" onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('4', 1, {id: 4, title: 'Crema Velluto Barriera 48h', price: 72.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=300&q=80'});} else if(window.addToCart){addToCart({id: 4, title: 'Crema Velluto Barriera 48h', price: 72.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=300&q=80'});}" class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
+              <button type="button"
+                      onclick="quickAddProduct(this, event)"
+                      data-variant-id="fallback-prod-4"
+                      data-product-title="Crema Velluto Barriera 48h"
+                      data-product-price="72.00"
+                      data-product-volume="50 ml"
+                      data-product-image="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=500&q=80"
+                      class="bg-[#1A1A1A] text-white px-4 py-2 text-[10px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer">
                 {{ section.settings.quick_add_text | default: "+ Acquisto Rapido" }}
               </button>
             </div>

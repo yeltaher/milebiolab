@@ -44,25 +44,34 @@
             {%- assign card_variant_id = product.selected_or_first_available_variant.id | default: product.first_available_variant.id | default: product.variants.first.id | default: product.id -%}
             <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="{{ product.id }}">
               <div>
-                <div class="relative">
-                  <a href="{{ product.url }}" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+                <div class="relative mb-4">
+                  <a href="{{ product.url }}" class="block relative {{ aspect_ratio_class }} overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
                     <img src="{{ product.featured_image | image_url: width: 800 }}"
                          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
                          class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105"
                          alt="{% render 'italian-product-title', title: product.title %}"
                          loading="lazy">
-                    <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
-                      <button type="button"
-                              onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('{{ card_variant_id }}', 1, {id: '{{ card_variant_id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: '{{ product.variants.first.title | default: "50 ml" }}', image: '{{ product.featured_image | image_url: width: 400 }}'});} else if(window.addToCart){addToCart({id: '{{ card_variant_id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: '{{ product.variants.first.title | default: "50 ml" }}', qty: 1, image: '{{ product.featured_image | image_url: width: 400 }}'});}"
-                              class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
-                        Acquisto Rapido
-                      </button>
-                    </div>
                   </a>
+                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 flex justify-center z-10 pointer-events-auto">
+                    <button type="button"
+                            onclick="quickAddProduct(this, event)"
+                            data-variant-id="{{ card_variant_id }}"
+                            data-product-title="{{ product.title | escape }}"
+                            data-product-price="{{ product.price | divided_by: 100.0 | default: 75.00 }}"
+                            data-product-volume="{{ product.variants.first.title | escape | default: '50 ml' }}"
+                            data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 400 }}{% endif %}"
+                            class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md cursor-pointer">
+                      {{ section.settings.quick_add_text | default: "Acquisto Rapido" }}
+                    </button>
+                  </div>
                   <button type="button"
-                    onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('{{ product.id }}', {{ product.title | json }}, {{ product.price | divided_by: 100.0 }}, '{{ product.featured_image | image_url: width: 300 }}', '{{ product.variants.first.title | default: '50 ml' }}', this);}"
-                    class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                    onclick="toggleWishlistBtn(this, event)"
                     data-wishlist-id="{{ product.id }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-price="{{ product.price | divided_by: 100.0 }}"
+                    data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 300 }}{% endif %}"
+                    data-product-volume="{{ product.variants.first.title | escape | default: '50 ml' }}"
+                    class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-20 cursor-pointer shadow-xs"
                     aria-label="Salva nei preferiti">
                     <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                   </button>
@@ -89,25 +98,34 @@
           <!-- Product 1: Olio Corpo Botanico Elisir Dorato -->
           <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="feat-fallback-1">
             <div>
-              <div class="relative">
-                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+              <div class="relative mb-4">
+                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
                   <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80"
                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
                        class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105"
                        alt="Olio Corpo Botanico Elisir Dorato"
                        loading="lazy">
-                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
-                    <button type="button"
-                            onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('1', 1, {id: 1, title: 'Olio Corpo Botanico Elisir Dorato', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80'});} else if(window.addToCart){addToCart({id: 1, title: 'Olio Corpo Botanico Elisir Dorato', price: 76.00, volume: '100 ml', qty: 1, image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80'});}"
-                            class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
-                      Acquisto Rapido
-                    </button>
-                  </div>
                 </a>
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 flex justify-center z-10 pointer-events-auto">
+                  <button type="button"
+                          onclick="quickAddProduct(this, event)"
+                          data-variant-id="1"
+                          data-product-title="Olio Corpo Botanico Elisir Dorato"
+                          data-product-price="76.00"
+                          data-product-volume="100 ml"
+                          data-product-image="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80"
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md cursor-pointer">
+                    {{ section.settings.quick_add_text | default: "Acquisto Rapido" }}
+                  </button>
+                </div>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('feat-fallback-1', 'Olio Corpo Botanico Elisir Dorato', 76.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80', '100 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="feat-fallback-1"
+                  data-product-title="Olio Corpo Botanico Elisir Dorato"
+                  data-product-price="76.00"
+                  data-product-volume="100 ml"
+                  data-product-image="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-20 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -133,25 +151,34 @@
           <!-- Product 2: Crema Rigenerante -->
           <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="feat-fallback-2">
             <div>
-              <div class="relative">
-                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+              <div class="relative mb-4">
+                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
                   <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80"
                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
                        class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105"
                        alt="Crema Rigenerante Cellulare"
                        loading="lazy">
-                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
-                    <button type="button"
-                            onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('2', 1, {id: 2, title: 'Crema Rigenerante Supreme', price: 84.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80'});} else if(window.addToCart){addToCart({id: 2, title: 'Crema Rigenerante Supreme', price: 84.00, volume: '50 ml', qty: 1, image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80'});}"
-                            class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
-                      Acquisto Rapido
-                    </button>
-                  </div>
                 </a>
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 flex justify-center z-10 pointer-events-auto">
+                  <button type="button"
+                          onclick="quickAddProduct(this, event)"
+                          data-variant-id="2"
+                          data-product-title="Crema Rigenerante Supreme"
+                          data-product-price="84.00"
+                          data-product-volume="50 ml"
+                          data-product-image="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80"
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md cursor-pointer">
+                    {{ section.settings.quick_add_text | default: "Acquisto Rapido" }}
+                  </button>
+                </div>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('feat-fallback-2', 'Crema Rigenerante Supreme', 84.00, 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80', '50 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="feat-fallback-2"
+                  data-product-title="Crema Rigenerante Supreme"
+                  data-product-price="84.00"
+                  data-product-volume="50 ml"
+                  data-product-image="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-20 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -177,25 +204,34 @@
           <!-- Product 3: Siero Botanico Notte -->
           <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="feat-fallback-3">
             <div>
-              <div class="relative">
-                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+              <div class="relative mb-4">
+                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
                   <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=1200&q=80"
                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
                        class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105"
                        alt="Siero Botanico Notte"
                        loading="lazy">
-                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
-                    <button type="button"
-                            onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('3', 1, {id: 3, title: 'Siero Botanico Notte', price: 110.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80'});} else if(window.addToCart){addToCart({id: 3, title: 'Siero Botanico Notte', price: 110.00, volume: '30 ml', qty: 1, image: 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80'});}"
-                            class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
-                      Acquisto Rapido
-                    </button>
-                  </div>
                 </a>
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 flex justify-center z-10 pointer-events-auto">
+                  <button type="button"
+                          onclick="quickAddProduct(this, event)"
+                          data-variant-id="3"
+                          data-product-title="Siero Botanico Notte"
+                          data-product-price="110.00"
+                          data-product-volume="30 ml"
+                          data-product-image="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80"
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md cursor-pointer">
+                    {{ section.settings.quick_add_text | default: "Acquisto Rapido" }}
+                  </button>
+                </div>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('feat-fallback-3', 'Siero Botanico Notte', 110.00, 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80', '30 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="feat-fallback-3"
+                  data-product-title="Siero Botanico Notte"
+                  data-product-price="110.00"
+                  data-product-volume="30 ml"
+                  data-product-image="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=400&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-20 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>
@@ -221,25 +257,34 @@
           <!-- Product 4: Detergente Delicato -->
           <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="feat-fallback-4">
             <div>
-              <div class="relative">
-                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} mb-4 overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
+              <div class="relative mb-4">
+                <a href="/products/golden-glow-body-oil" class="block relative {{ aspect_ratio_class }} overflow-hidden bg-[#FAF8F5] border border-[#E5E0D8]/40">
                   <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80"
                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80'"
                        class="w-full h-full {{ image_fit_class }} {{ image_padding_class }} transition-transform duration-700 group-hover:scale-105"
                        alt="Detergente Delicato"
                        loading="lazy">
-                  <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 flex justify-center">
-                    <button type="button"
-                            onclick="event.preventDefault(); event.stopPropagation(); if(window.addShopifyCartItem){window.addShopifyCartItem('4', 1, {id: 4, title: 'Detergente Delicato', price: 38.00, volume: '200 ml', qty: 1, image: 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80'});} else if(window.addToCart){addToCart({id: 4, title: 'Detergente Delicato', price: 38.00, volume: '200 ml', qty: 1, image: 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80'});}"
-                            class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md">
-                      Acquisto Rapido
-                    </button>
-                  </div>
                 </a>
+                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 flex justify-center z-10 pointer-events-auto">
+                  <button type="button"
+                          onclick="quickAddProduct(this, event)"
+                          data-variant-id="4"
+                          data-product-title="Detergente Delicato"
+                          data-product-price="38.00"
+                          data-product-volume="200 ml"
+                          data-product-image="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80"
+                          class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md cursor-pointer">
+                    {{ section.settings.quick_add_text | default: "Acquisto Rapido" }}
+                  </button>
+                </div>
                 <button type="button"
-                  onclick="event.preventDefault(); event.stopPropagation(); if(window.toggleWishlistItem){window.toggleWishlistItem('feat-fallback-4', 'Detergente Delicato', 38.00, 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80', '200 ml', this);}"
-                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-10 cursor-pointer shadow-xs"
+                  onclick="toggleWishlistBtn(this, event)"
                   data-wishlist-id="feat-fallback-4"
+                  data-product-title="Detergente Delicato"
+                  data-product-price="38.00"
+                  data-product-volume="200 ml"
+                  data-product-image="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=400&q=80"
+                  class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-20 cursor-pointer shadow-xs"
                   aria-label="Salva nei preferiti">
                   <svg class="w-4 h-4 wishlist-card-svg transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 </button>

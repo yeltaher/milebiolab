@@ -61,9 +61,15 @@
                   {%- if product.available -%}
                     <button 
                       type="button" 
-                      class="btn-primary" 
+                      class="btn-primary cursor-pointer" 
                       style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
-                      onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ product.selected_or_first_available_variant.id }}', 1, {id: '{{ product.selected_or_first_available_variant.id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});} else if(window.addToCart){addToCart({id: '{{ product.selected_or_first_available_variant.id }}', title: {{ product.title | json }}, price: {{ product.price | divided_by: 100.0 }}, volume: 'Standard', qty: 1, image: '{{ cart_item_img }}'});}">
+                      onclick="quickAddProduct(this, event)"
+                      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                      data-product-title="{{ product.title | escape }}"
+                      data-product-price="{{ product.price | divided_by: 100.0 | default: 75.00 }}"
+                      data-product-volume="{{ card_subtitle | escape | default: 'Standard' }}"
+                      data-product-image="{{ cart_item_img }}"
+                      data-product-step="0{{ forloop.index }} {{ block.settings.title | escape }}">
                       + Carrello
                     </button>
                   {%- else -%}
@@ -127,9 +133,15 @@
                   <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ fallback_price }}</strong>
                   <button 
                     type="button" 
-                    class="btn-primary" 
+                    class="btn-primary cursor-pointer" 
                     style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
-                    onclick="addToCartMock('{{ fallback_title | replace: "'", "\'" }}', {{ fallback_price_num }}, '{{ mock_cart_img }}', '{{ fallback_vol }}', '0{{ forloop.index }} {{ block.settings.title | escape }}')">
+                    onclick="quickAddProduct(this, event)"
+                    data-variant-id="routine-fallback-{{ forloop.index }}"
+                    data-product-title="{{ fallback_title | escape }}"
+                    data-product-price="{{ fallback_price_num }}"
+                    data-product-volume="{{ fallback_vol | escape }}"
+                    data-product-image="{{ mock_cart_img }}"
+                    data-product-step="0{{ forloop.index }} {{ block.settings.title | escape }}">
                     + Carrello
                   </button>
                 </div>
@@ -160,7 +172,14 @@
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Camomilla Bio & Fieno Greco</span>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 38,00</strong>
-              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Latte Detergente Delicato', 38.00, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80', '200 ml', '01 PURIFICAZIONE & RESET')">
+              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;"
+                onclick="quickAddProduct(this, event)"
+                data-variant-id="step-01-reset"
+                data-product-title="Latte Detergente Delicato"
+                data-product-price="38.00"
+                data-product-volume="200 ml"
+                data-product-image="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80"
+                data-product-step="01 PURIFICAZIONE & RESET">
                 + Carrello
               </button>
             </div>
@@ -188,7 +207,14 @@
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">5 Pesi Molecolari & Mirtillo Biofermentato</span>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 86,00</strong>
-              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Siero Concentrato all\'Acido Ialuronico', 86.00, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80', '30 ml', '02 BOOSTER CONCENTRATO')">
+              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;"
+                onclick="quickAddProduct(this, event)"
+                data-variant-id="step-02-concentrate"
+                data-product-title="Siero Concentrato all'Acido Ialuronico"
+                data-product-price="86.00"
+                data-product-volume="30 ml"
+                data-product-image="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80"
+                data-product-step="02 BOOSTER CONCENTRATO">
                 + Carrello
               </button>
             </div>
@@ -216,7 +242,14 @@
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Staminali Stella Alpina & Jojoba Bio</span>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 84,00</strong>
-              <button type="button" class="btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" onclick="addToCartMock('Crema Riparatrice Cellulare Suprema', 84.00, 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80', '50 ml', '03 IDRATAZIONE SUPREMA')">
+              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;"
+                onclick="quickAddProduct(this, event)"
+                data-variant-id="step-03-hydrate"
+                data-product-title="Crema Riparatrice Cellulare Suprema"
+                data-product-price="84.00"
+                data-product-volume="50 ml"
+                data-product-image="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80"
+                data-product-step="03 IDRATAZIONE SUPREMA">
                 + Carrello
               </button>
             </div>
@@ -294,12 +327,18 @@
             {%- assign bundle_img = bundle_prod.featured_image | image_url: width: 300 -%}
             <button 
               type="button" 
-              class="btn-primary btn-atc-olive" 
+              class="btn-primary btn-atc-olive cursor-pointer" 
               style="padding: 1.1rem 2rem;"
               {%- if bundle_variant.available == false -%}
                 disabled style="padding: 1.1rem 2rem; opacity: 0.5; cursor: not-allowed;"
               {%- endif -%}
-              onclick="if(window.addShopifyCartItem){window.addShopifyCartItem('{{ bundle_variant.id }}', 1, {id: '{{ bundle_variant.id }}', title: {{ bundle_prod.title | json }}, price: {{ bundle_prod.price | divided_by: 100.0 }}, volume: 'Set Routine', qty: 1, image: '{{ bundle_img }}'});} else if(window.addToCart){addToCart({id: '{{ bundle_variant.id }}', title: {{ bundle_prod.title | json }}, price: {{ bundle_prod.price | divided_by: 100.0 }}, volume: 'Set Routine', qty: 1, image: '{{ bundle_img }}'});} else if(window.addRoutineBundleToCart){addRoutineBundleToCart();}">
+              onclick="quickAddProduct(this, event)"
+              data-variant-id="{{ bundle_variant.id }}"
+              data-product-title="{{ bundle_prod.title | escape }}"
+              data-product-price="{{ bundle_prod.price | divided_by: 100.0 }}"
+              data-product-volume="Set Routine"
+              data-product-image="{{ bundle_img }}"
+              data-product-step="ROUTINE COMPLETA (-15%)">
               {%- if bundle_variant.available == false -%}
                 Esaurito
               {%- else -%}

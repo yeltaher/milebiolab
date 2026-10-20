@@ -497,7 +497,7 @@ function closeCartDrawer() {
 window.openCartDrawer = openCartDrawer;
 window.closeCartDrawer = closeCartDrawer;
 
-function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage) {
+function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage, maybeVolume, maybeStep) {
   let item;
   if (itemOrId && typeof itemOrId === 'object') {
     item = Object.assign({}, itemOrId);
@@ -507,7 +507,8 @@ function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage) {
       title: maybeTitle || 'Prodotto MileBioLab',
       price: (typeof maybePrice === 'number') ? maybePrice : (parseFloat(maybePrice) || 75.00),
       image: maybeImage || '',
-      volume: '50 ml',
+      volume: maybeVolume || '50 ml',
+      step: maybeStep || 'RITUALE BOTANICO',
       qty: 1
     };
   }
@@ -545,6 +546,55 @@ function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage) {
 }
 
 window.addToCart = addToCart;
+
+function quickAddProduct(btn, event) {
+  if (event) {
+    if (typeof event.preventDefault === 'function') event.preventDefault();
+    if (typeof event.stopPropagation === 'function') event.stopPropagation();
+  }
+  if (!btn) return;
+
+  const variantId = btn.getAttribute('data-variant-id') || btn.dataset.variantId || '';
+  const title = btn.getAttribute('data-product-title') || btn.dataset.productTitle || 'Prodotto MileBioLab';
+  const price = parseFloat(btn.getAttribute('data-product-price') || btn.dataset.productPrice) || 75.00;
+  const volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume || '50 ml';
+  const image = btn.getAttribute('data-product-image') || btn.dataset.productImage || '';
+  const step = btn.getAttribute('data-product-step') || btn.dataset.productStep || 'RITUALE BOTANICO';
+
+  const itemData = {
+    id: variantId,
+    title: title,
+    price: price,
+    volume: volume,
+    step: step,
+    qty: 1,
+    image: image
+  };
+
+  // Feedback visivo immediato sul pulsante
+  const originalHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span>✓ Aggiunto</span>';
+  btn.style.transition = 'all 0.25s ease';
+  const originalBg = btn.style.backgroundColor;
+  const originalColor = btn.style.color;
+  btn.style.backgroundColor = '#5C6B56';
+  btn.style.color = '#FFFFFF';
+
+  setTimeout(() => {
+    btn.innerHTML = originalHtml;
+    btn.style.backgroundColor = originalBg;
+    btn.style.color = originalColor;
+    btn.disabled = false;
+  }, 1400);
+
+  if (window.addShopifyCartItem) {
+    window.addShopifyCartItem(variantId, 1, itemData);
+  } else if (window.addToCart) {
+    window.addToCart(itemData);
+  }
+}
+window.quickAddProduct = quickAddProduct;
 
 function updateCartItemQty(id, delta) {
   const item = MilebiolabState.cart.find(i => i.id == id || i.key == id);
@@ -1362,6 +1412,15 @@ function updateWishlistUI() {
 }
 
 function toggleWishlistItem(id, title, price, image, volume, btn) {
+  if (id && typeof id === 'object' && id.nodeType === 1) {
+    btn = id;
+    id = btn.getAttribute('data-wishlist-id') || btn.dataset.wishlistId;
+    title = btn.getAttribute('data-product-title') || btn.dataset.productTitle;
+    price = btn.getAttribute('data-product-price') || btn.dataset.productPrice;
+    image = btn.getAttribute('data-product-image') || btn.dataset.productImage;
+    volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume;
+  }
+
   const cleanId = String(id || '').trim();
   if (!cleanId) return;
 
@@ -1398,6 +1457,22 @@ function toggleWishlistItem(id, title, price, image, volume, btn) {
   }
   saveWishlist();
 }
+
+function toggleWishlistBtn(btn, event) {
+  if (event) {
+    if (typeof event.preventDefault === 'function') event.preventDefault();
+    if (typeof event.stopPropagation === 'function') event.stopPropagation();
+  }
+  if (!btn) return;
+  const id = btn.getAttribute('data-wishlist-id') || btn.dataset.wishlistId;
+  const title = btn.getAttribute('data-product-title') || btn.dataset.productTitle || 'Prodotto MileBioLab';
+  const price = parseFloat(btn.getAttribute('data-product-price') || btn.dataset.productPrice) || 0;
+  const image = btn.getAttribute('data-product-image') || btn.dataset.productImage || '';
+  const volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume || '50 ml';
+  toggleWishlistItem(id, title, price, image, volume, btn);
+}
+
+window.toggleWishlistBtn = toggleWishlistBtn;
 
 function togglePdpWishlist(btn) {
   const targetBtn = btn || document.getElementById('wishlist-btn');
