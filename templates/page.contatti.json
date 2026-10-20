@@ -32,7 +32,7 @@
         "show_whatsapp_btn": true,
         "whatsapp_text": "Scrivici su WhatsApp Diretto",
         "whatsapp_url": "https://wa.me/393421647585",
-        "show_consultation_card": true,
+        "show_consultation_card": false,
         "consultation_title": "Consulenza e sconto speciale",
         "consultation_desc": "Ritirando presso il nostro istituto di Verona riceverai un trattamento privilegiato",
         "consultation_badge": "Sconto riservato del 10% per un trattamento benessere in istituto",

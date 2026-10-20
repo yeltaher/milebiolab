@@ -31,6 +31,7 @@
     assign whatsapp_url = "https://wa.me/393421647585"
   endif
 
+  assign show_consultation_card = section.settings.show_consultation_card
   assign consultation_title = section.settings.consultation_title | default: "Consulenza e sconto speciale"
   assign consultation_desc = section.settings.consultation_desc | default: "Ritirando presso il nostro istituto di Verona riceverai un trattamento privilegiato"
   assign consultation_badge = section.settings.consultation_badge | default: "Sconto riservato del 10% per un trattamento benessere in istituto"
@@ -52,7 +53,7 @@
   assign success_desc = section.settings.success_desc | default: "Grazie per aver contattato il Concierge MileBioLab. Abbiamo ricevuto la tua richiesta e ti risponderemo con la massima cura entro 24 ore lavorative."
 
   assign show_sidebar = true
-  if section.settings.show_boutique_card == false and section.settings.show_consultation_card == false
+  if section.settings.show_boutique_card == false and show_consultation_card != true
     assign show_sidebar = false
   endif
 -%}
@@ -183,7 +184,7 @@
         {% endunless %}
 
         <!-- Box Informativo Consulenza Personalizzata -->
-        {% unless section.settings.show_consultation_card == false %}
+        {% if show_consultation_card == true %}
         <div class="bg-white border border-[#E5E0D8] p-6 shadow-sm space-y-3">
           <div class="flex items-center gap-2.5 text-[#5C6B56]">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,7 +204,7 @@
           </div>
           {% endif %}
         </div>
-        {% endunless %}
+        {% endif %}
 
       </div>
       {% endif %}
