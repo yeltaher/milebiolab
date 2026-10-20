@@ -11,7 +11,16 @@
   "sections": {
     "main": {
       "type": "main-cart",
-      "settings": {}
+      "settings": {
+        "eyebrow": "MILE DERMOCOSMESI • VERONA • PURE PERFORMANCE",
+        "title": "Il Tuo Carrello",
+        "progress_text": "🌿 Spedizione standard gratuita da 60 euro",
+        "heading_items": "Formule Selezionate",
+        "heading_summary": "Riepilogo Ordine",
+        "checkout_btn_text": "Procedi al Checkout Sicuro",
+        "notice_pickup": "📍 Ritiro gratuito disponibile: Verona in Lebestetik Torricelle",
+        "notice_samples": "🌿"
+      }
     }
   },
   "order": [
