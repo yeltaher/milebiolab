@@ -102,19 +102,13 @@
           {% if section.settings.col3_hours != blank %}
             <p>Orari: {{ section.settings.col3_hours }}</p>
           {% endif %}
-          <div class="pt-2 space-y-1.5 border-t border-[#E5E0D8]/60">
-            {% if section.settings.menu_2 != blank and linklists[section.settings.menu_2].links.size > 0 %}
+          {% if section.settings.menu_2 != blank and linklists[section.settings.menu_2].links.size > 0 %}
+            <div class="pt-2 space-y-1.5 border-t border-[#E5E0D8]/60">
               {% for link in linklists[section.settings.menu_2].links %}
                 <a href="{{ link.url }}" class="block hover:text-[#C8A878] transition-colors">{{ link.title }}</a>
               {% endfor %}
-            {% else %}
-              <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="block hover:text-[#C8A878] transition-colors font-medium text-[#1A1A1A]">I 5 Trattamenti Cabina &rarr;</a>
-              <a href="#filosofia" class="block hover:text-[#C8A878] transition-colors">Milena Tacchella &amp; Filosofia</a>
-              <a href="/pages/contatti" class="block hover:text-[#C8A878] transition-colors">Contatti &amp; WhatsApp Diretto</a>
-              <a href="/pages/faq" class="block hover:text-[#C8A878] transition-colors">Domande Frequenti &amp; FAQ</a>
-              <a href="{% if customer %}{{ routes.account_url }}{% else %}/pages/accedi{% endif %}" {% unless customer %}onclick="if(window.openAccountDrawer){openAccountDrawer(); return false;}"{% endunless %} class="block hover:text-[#C8A878] transition-colors">Area Riservata &amp; Ordini</a>
-            {% endif %}
-          </div>
+            </div>
+          {% endif %}
         </div>
       </div>
 
