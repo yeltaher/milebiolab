@@ -91,7 +91,7 @@
                     <img id="main-product-img-fade"
                          src="{{ product.featured_media | image_url: width: 1200 }}"
                          alt="{{ product.featured_media.alt | escape }}"
-                         class="absolute inset-0 w-full h-full object-cover p-2 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out"
+                         class="absolute inset-0 w-full h-full object-cover p-2 sm:p-4 opacity-0 pointer-events-none"
                          aria-hidden="true">
 
                     <!-- Dedicated PDP Callouts Overlay (Belongs exclusively to Slide 1 - Jar/Bottle) -->
@@ -595,6 +595,10 @@
       }
     });
 
+    if (thumbs[index]) {
+      thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
     dots.forEach((d, i) => {
       if (i === index) {
         d.classList.remove('w-2', 'bg-borderLinen');
@@ -636,12 +640,17 @@
       if (fadeImg.src) {
         mainImg.src = fadeImg.src;
       }
+      mainImg.style.transition = 'none';
+      mainImg.style.opacity = '1';
+      fadeImg.style.transition = 'none';
+      fadeImg.style.opacity = '0';
+      fadeImg.src = '';
     }
     const token = ++galleryTransitionToken;
 
-    // Smooth Dual-Layer Crossfade with Preloading:
-    // 1. Keep base layer (mainImg) 100% visible and sharp (ZERO opacity drop!).
-    // 2. Preload incoming image in memory before triggering animation.
+    // Smooth Dual-Layer Symmetric Crossfade:
+    // fadeImg fades from 0 to 1 while mainImg simultaneously fades from 1 to 0 towards the clean white container background.
+    // This completely eliminates any ghost overlay through transparent packshots (Slide 0).
     const preloader = new Image();
     let isApplied = false;
 
@@ -651,32 +660,43 @@
 
       if (token !== galleryTransitionToken) return;
 
-      // Set preloaded src on the fade overlay
       fadeImg.src = targetSrc;
       fadeImg.style.transition = 'none';
       fadeImg.style.opacity = '0';
+      mainImg.style.transition = 'none';
+      mainImg.style.opacity = '1';
       void fadeImg.offsetWidth; // Force synchronous reflow
 
-      // Animate fade overlay smoothly from 0 to 1 over the sharp base image
-      fadeImg.style.transition = 'opacity 280ms cubic-bezier(0.4, 0, 0.2, 1)';
+      const duration = 240;
+      const easing = 'cubic-bezier(0.25, 1, 0.5, 1)';
+      fadeImg.style.transition = `opacity ${duration}ms ${easing}`;
+      mainImg.style.transition = `opacity ${duration}ms ${easing}`;
       fadeImg.style.opacity = '1';
+      mainImg.style.opacity = '0';
 
-      // Once crossfade completes, commit new image to base layer and reset fade overlay
       galleryFadeTimer = setTimeout(() => {
         if (token !== galleryTransitionToken) return;
 
         mainImg.src = targetSrc;
+        mainImg.style.transition = 'none';
+        mainImg.style.opacity = '1';
         fadeImg.style.transition = 'none';
         fadeImg.style.opacity = '0';
-        void fadeImg.offsetWidth;
+        fadeImg.src = '';
         galleryFadeTimer = null;
-      }, 290);
+      }, duration + 15);
     };
 
     preloader.onload = applyFadeTransition;
     preloader.onerror = () => {
       if (token !== galleryTransitionToken) return;
       mainImg.src = targetSrc;
+      mainImg.style.transition = 'none';
+      mainImg.style.opacity = '1';
+      fadeImg.style.transition = 'none';
+      fadeImg.style.opacity = '0';
+      fadeImg.src = '';
+      galleryFadeTimer = null;
     };
     preloader.src = targetSrc;
 
@@ -690,6 +710,58 @@
     if (index === -1) index = 0;
     selectSlideByIndex(index);
   }
+
+  // Mobile Touch Swipe Gesture Handler for PDP Gallery
+  (function initGalleryTouchSwipe() {
+    const box = document.getElementById('pdp-main-gallery-box');
+    if (!box) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    const minSwipeDistance = 35;
+
+    box.addEventListener('touchstart', function(e) {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchEndX = touchStartX;
+        touchEndY = touchStartY;
+      }
+    }, { passive: true });
+
+    box.addEventListener('touchmove', function(e) {
+      if (e.touches && e.touches.length === 1) {
+        touchEndX = e.touches[0].clientX;
+        touchEndY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    box.addEventListener('touchend', function(e) {
+      if (e && e.changedTouches && e.changedTouches.length === 1) {
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+      }
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) >= minSwipeDistance) {
+        if (!galleryImages || galleryImages.length <= 1) return;
+        if (deltaX < 0) {
+          const nextIndex = (currentSlideIndex + 1) % galleryImages.length;
+          selectSlideByIndex(nextIndex);
+        } else {
+          const prevIndex = (currentSlideIndex - 1 + galleryImages.length) % galleryImages.length;
+          selectSlideByIndex(prevIndex);
+        }
+      }
+      touchStartX = 0;
+      touchEndX = 0;
+      touchStartY = 0;
+      touchEndY = 0;
+    }, { passive: true });
+  })();
 
   // Formats Data & State
   let currentPrice = {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | default: 0 }};
