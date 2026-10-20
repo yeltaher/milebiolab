@@ -153,7 +153,7 @@ function initAnnouncementCarousel() {
 function toggleHotspot(id) {
   const allPins = document.querySelectorAll('.hotspot-pin');
   const allPopovers = document.querySelectorAll('.hotspot-popover');
-  
+
   allPins.forEach((pin) => {
     const pinId = parseInt(pin.getAttribute('data-hotspot-id'), 10);
     if (pinId === id) {
@@ -840,11 +840,11 @@ function filterSearch(query) {
   if (!container) return;
 
   const q = query.trim().toLowerCase();
-  const results = q === '' 
-    ? MilebiolabState.catalog 
-    : MilebiolabState.catalog.filter(p => 
-        p.title.toLowerCase().includes(q) || 
-        p.category.toLowerCase().includes(q) || 
+  const results = q === ''
+    ? MilebiolabState.catalog
+    : MilebiolabState.catalog.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
         p.actives.toLowerCase().includes(q)
       );
 
@@ -1264,6 +1264,11 @@ function initWishlist() {
     const saved = localStorage.getItem('milebiolab_wishlist');
     if (saved) {
       MilebiolabState.wishlist = JSON.parse(saved);
+      if (!Array.isArray(MilebiolabState.wishlist)) {
+        MilebiolabState.wishlist = [];
+      }
+    } else {
+      MilebiolabState.wishlist = [];
     }
   } catch (e) {
     MilebiolabState.wishlist = [];
@@ -1273,71 +1278,118 @@ function initWishlist() {
 
 function saveWishlist() {
   try {
-    localStorage.setItem('milebiolab_wishlist', JSON.stringify(MilebiolabState.wishlist));
+    localStorage.setItem('milebiolab_wishlist', JSON.stringify(MilebiolabState.wishlist || []));
   } catch (e) {}
   updateWishlistUI();
 }
 
 function updateWishlistUI() {
-  const counter = document.getElementById('wishlist-counter');
-  const titleCount = document.getElementById('wishlist-title-count');
+  if (!Array.isArray(MilebiolabState.wishlist)) {
+    MilebiolabState.wishlist = [];
+  }
   const count = MilebiolabState.wishlist.length;
 
+  const counter = document.getElementById('wishlist-counter');
   if (counter) counter.textContent = count;
+
+  const headerCounter = document.getElementById('header-wishlist-counter');
+  if (headerCounter) headerCounter.textContent = count;
+
+  const titleCount = document.getElementById('wishlist-title-count');
   if (titleCount) titleCount.textContent = `(${count})`;
 
-  // Update product card heart states
-  document.querySelectorAll('.card-wishlist-btn').forEach(btn => {
-    const card = btn.closest('[data-product-id]');
-    if (card) {
-      const pid = card.getAttribute('data-product-id');
-      const exists = MilebiolabState.wishlist.some(item => item.id === pid);
-      if (exists) btn.classList.add('active');
-      else btn.classList.remove('active');
-    }
+  document.querySelectorAll('.wishlist-counter-mobile').forEach(el => {
+    el.textContent = count;
   });
 
-  // Update PDP heart state
-  const pdpBtn = document.getElementById('pdpWishlistBtn');
-  if (pdpBtn) {
-    const exists = MilebiolabState.wishlist.some(item => item.id === 'supreme-cream-pdp');
-    if (exists) {
-      pdpBtn.classList.add('active');
-      const t = pdpBtn.querySelector('.pdp-wishlist-text');
-      if (t) t.textContent = 'Nei Preferiti ♥';
+  // Sincronizza lo stato del cuore PDP
+  const pdpBtn = document.getElementById('wishlist-btn');
+  const pdpSvg = document.getElementById('wishlist-svg');
+  const pdpId = pdpBtn ? (pdpBtn.getAttribute('data-product-id') || pdpBtn.dataset.productId) : null;
+  const isPdpInWishlist = pdpId ? MilebiolabState.wishlist.some(item => String(item.id) === String(pdpId)) : false;
+
+  if (pdpSvg) {
+    if (isPdpInWishlist) {
+      pdpSvg.setAttribute('fill', 'currentColor');
+      pdpSvg.classList.add('text-red-600');
+      pdpSvg.classList.remove('text-black');
     } else {
-      pdpBtn.classList.remove('active');
-      const t = pdpBtn.querySelector('.pdp-wishlist-text');
-      if (t) t.textContent = 'Salva nei Preferiti';
+      pdpSvg.setAttribute('fill', 'none');
+      pdpSvg.classList.remove('text-red-600');
+      pdpSvg.classList.add('text-black');
     }
   }
+
+  // Sincronizza lo stato dei cuori sulle card catalogo (.card-wishlist-btn)
+  document.querySelectorAll('.card-wishlist-btn').forEach(btn => {
+    const wid = btn.getAttribute('data-wishlist-id') || (btn.closest('[data-product-id]') ? btn.closest('[data-product-id]').getAttribute('data-product-id') : null);
+    const inWish = wid ? MilebiolabState.wishlist.some(item => String(item.id) === String(wid)) : false;
+    const svg = btn.querySelector('svg');
+    if (inWish) {
+      btn.classList.add('active', 'text-red-600');
+      btn.classList.remove('text-[#1A1A1A]');
+      if (svg) svg.setAttribute('fill', 'currentColor');
+    } else {
+      btn.classList.remove('active', 'text-red-600');
+      btn.classList.add('text-[#1A1A1A]');
+      if (svg) svg.setAttribute('fill', 'none');
+    }
+  });
 
   renderWishlistDrawer();
 }
 
 function toggleWishlistItem(id, title, price, image, volume, btn) {
-  const idx = MilebiolabState.wishlist.findIndex(item => item.id === id);
+  const cleanId = String(id || '').trim();
+  if (!cleanId) return;
+
+  if (!Array.isArray(MilebiolabState.wishlist)) {
+    MilebiolabState.wishlist = [];
+  }
+
+  const idx = MilebiolabState.wishlist.findIndex(item => String(item.id) === cleanId);
   if (idx > -1) {
     MilebiolabState.wishlist.splice(idx, 1);
-    if (btn) btn.classList.remove('active');
-    showToast(`Rimosso dai preferiti: ${title}`);
+    if (btn) {
+      btn.classList.remove('active', 'text-red-600');
+      btn.classList.add('text-[#1A1A1A]');
+      const svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', 'none');
+    }
+    showToast('Rimosso dai preferiti: ' + (title || 'Prodotto'));
   } else {
-    MilebiolabState.wishlist.push({ id, title, price, image, volume });
-    if (btn) btn.classList.add('active');
-    showToast(`Aggiunto ai tuoi preferiti: ${title} ❤️`);
+    const parsedPrice = (typeof price === 'number') ? price : (parseFloat(price) || 0);
+    MilebiolabState.wishlist.push({
+      id: cleanId,
+      title: title || 'Prodotto MileBioLab',
+      price: parsedPrice,
+      image: image || '',
+      volume: volume || '50 ml'
+    });
+    if (btn) {
+      btn.classList.add('active', 'text-red-600');
+      btn.classList.remove('text-[#1A1A1A]');
+      const svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', 'currentColor');
+    }
+    showToast('Aggiunto ai tuoi preferiti: ' + (title || 'Prodotto') + ' ❤️');
   }
   saveWishlist();
 }
 
 function togglePdpWishlist(btn) {
-  toggleWishlistItem(
-    'supreme-cream-pdp',
-    'Crema Riparatrice Cellulare Suprema',
-    84.00,
-    'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80',
-    MilebiolabState.pdp.selectedVolume || '50 ml',
-    btn
-  );
+  const targetBtn = btn || document.getElementById('wishlist-btn');
+  if (!targetBtn) return;
+
+  const id = targetBtn.getAttribute('data-product-id') || targetBtn.dataset.productId;
+  const title = targetBtn.getAttribute('data-product-title') || targetBtn.dataset.productTitle || (document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : 'Prodotto MileBioLab');
+  const price = targetBtn.getAttribute('data-product-price') || targetBtn.dataset.productPrice || 84.00;
+  const image = targetBtn.getAttribute('data-product-image') || targetBtn.dataset.productImage || '';
+  const volume = (typeof currentFormatLabel !== 'undefined' && currentFormatLabel)
+    ? currentFormatLabel
+    : (MilebiolabState.pdp && MilebiolabState.pdp.selectedVolume ? MilebiolabState.pdp.selectedVolume : '50 ml');
+
+  toggleWishlistItem(id, title, price, image, volume, targetBtn);
 }
 
 function openWishlistDrawer() {
@@ -1395,7 +1447,7 @@ function renderWishlistDrawer() {
   const list = document.getElementById('wishlist-drawer-items-list');
   if (!list) return;
 
-  if (MilebiolabState.wishlist.length === 0) {
+  if (!MilebiolabState.wishlist || MilebiolabState.wishlist.length === 0) {
     list.innerHTML = `
       <div style="text-align: center; padding: 3rem 1rem; color: var(--color-text-secondary);">
         <span style="font-size: 2.2rem; display: block; margin-bottom: 0.75rem; opacity: 0.6;">♡</span>
@@ -1407,43 +1459,58 @@ function renderWishlistDrawer() {
     return;
   }
 
-  list.innerHTML = MilebiolabState.wishlist.map(item => `
-    <div class="wishlist-item-card">
-      <img src="${item.image}" alt="${item.title}" class="wishlist-item-thumb">
-      <div class="wishlist-item-info">
-        <h5 class="wishlist-item-name">${item.title}</h5>
-        <div class="wishlist-item-price">€ ${item.price.toFixed(2).replace('.', ',')} <span style="font-size: 0.7rem; font-weight: 400; color: #8C867D;">(${item.volume || 'Standard'})</span></div>
+  list.innerHTML = MilebiolabState.wishlist.map(item => {
+    const formattedTitle = (typeof translateProductTitleToItalian === 'function')
+      ? translateProductTitleToItalian(item.title)
+      : (item.title || 'Prodotto MileBioLab');
+    const numPrice = (typeof item.price === 'number') ? item.price : (parseFloat(item.price) || 0);
+    const priceDisplay = numPrice.toFixed(2).replace('.', ',');
+    const imgUrl = item.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80';
+
+    return `
+      <div class="wishlist-item-card">
+        <img src="${imgUrl}" alt="${item.title || 'Prodotto Milebiolab'}" class="wishlist-item-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'">
+        <div class="wishlist-item-info">
+          <h5 class="wishlist-item-name">${formattedTitle}</h5>
+          <div class="wishlist-item-price">€ ${priceDisplay} <span style="font-size: 0.7rem; font-weight: 400; color: #8C867D;">(${item.volume || '50 ml'})</span></div>
+        </div>
+        <div class="wishlist-item-actions">
+          <button type="button" class="btn-wishlist-cart" onclick="addWishlistItemToCart('${item.id}')" title="Sposta nel carrello">+ Carrello</button>
+          <button type="button" class="btn-wishlist-remove" onclick="removeWishlistItem('${item.id}')" title="Rimuovi">&times;</button>
+        </div>
       </div>
-      <div class="wishlist-item-actions">
-        <button type="button" class="btn-wishlist-cart" onclick="addWishlistItemToCart('${item.id}')" title="Sposta nel carrello">+ Carrello</button>
-        <button type="button" class="btn-wishlist-remove" onclick="removeWishlistItem('${item.id}')" title="Rimuovi">&times;</button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function removeWishlistItem(id) {
-  const idx = MilebiolabState.wishlist.findIndex(item => item.id === id);
+  const cleanId = String(id || '').trim();
+  const idx = MilebiolabState.wishlist.findIndex(item => String(item.id) === cleanId);
   if (idx > -1) {
     const item = MilebiolabState.wishlist[idx];
     MilebiolabState.wishlist.splice(idx, 1);
     saveWishlist();
-    showToast(`Rimosso: ${item.title}`);
+    showToast(`Rimosso dai preferiti: ${item.title}`);
   }
 }
 
 function addWishlistItemToCart(id) {
-  const item = MilebiolabState.wishlist.find(i => i.id === id);
+  const cleanId = String(id || '').trim();
+  const item = MilebiolabState.wishlist.find(i => String(i.id) === cleanId);
   if (item) {
-    addToCart({
-      id: item.id,
-      title: item.title,
-      step: 'PREFERITI WISHLIST',
-      price: item.price,
-      volume: item.volume || 'Standard',
-      qty: 1,
-      image: item.image
-    });
+    if (window.addShopifyCartItem) {
+      addShopifyCartItem(item.id, 1, item);
+    } else if (typeof addToCart === 'function') {
+      addToCart({
+        id: item.id,
+        title: item.title,
+        step: 'PREFERITI WISHLIST',
+        price: item.price,
+        volume: item.volume || '50 ml',
+        qty: 1,
+        image: item.image
+      });
+    }
     removeWishlistItem(id);
     closeWishlistDrawer();
     openCartDrawer();
@@ -1451,23 +1518,27 @@ function addWishlistItemToCart(id) {
 }
 
 function addAllWishlistToCart() {
-  if (MilebiolabState.wishlist.length === 0) return;
+  if (!MilebiolabState.wishlist || MilebiolabState.wishlist.length === 0) return;
   MilebiolabState.wishlist.forEach(item => {
-    addToCart({
-      id: item.id,
-      title: item.title,
-      step: 'PREFERITI WISHLIST',
-      price: item.price,
-      volume: item.volume || 'Standard',
-      qty: 1,
-      image: item.image
-    });
+    if (window.addShopifyCartItem) {
+      addShopifyCartItem(item.id, 1, item);
+    } else if (typeof addToCart === 'function') {
+      addToCart({
+        id: item.id,
+        title: item.title,
+        step: 'PREFERITI WISHLIST',
+        price: item.price,
+        volume: item.volume || '50 ml',
+        qty: 1,
+        image: item.image
+      });
+    }
   });
   MilebiolabState.wishlist = [];
   saveWishlist();
   closeWishlistDrawer();
   openCartDrawer();
-  showToast('Tutti i preferiti sono stati trasferiti nel carrello! ✨');
+  showToast('Tutti i preferiti sono stati aggiunti al carrello! ✨');
 }
 
 function clearWishlist() {
@@ -1475,6 +1546,17 @@ function clearWishlist() {
   saveWishlist();
   showToast('Lista preferiti svuotata');
 }
+
+// Window Wishlist API Exposure
+window.toggleWishlistItem = toggleWishlistItem;
+window.togglePdpWishlist = togglePdpWishlist;
+window.openWishlistDrawer = openWishlistDrawer;
+window.closeWishlistDrawer = closeWishlistDrawer;
+window.removeWishlistItem = removeWishlistItem;
+window.addWishlistItemToCart = addWishlistItemToCart;
+window.addAllWishlistToCart = addAllWishlistToCart;
+window.clearWishlist = clearWishlist;
+window.updateWishlistUI = updateWishlistUI;
 
 // FEATURE 12: In-Drawer Upsells
 function addInDrawerUpsell(title, price, image, vol, button) {
@@ -1629,7 +1711,7 @@ function renderAccordionDescription(container) {
       if (naturalBadgeText) {
         let existingBadge = bulletList.querySelector('.pdp-auto-natural-badge');
         if (!existingBadge) {
-          const alreadyPresent = Array.from(bulletList.children).some(child => 
+          const alreadyPresent = Array.from(bulletList.children).some(child =>
             child.textContent.includes(naturalBadgeText.slice(0, 8))
           );
           if (!alreadyPresent) {
@@ -1648,7 +1730,7 @@ function renderAccordionDescription(container) {
 
       // Active ingredient percentage badges injection
       ingredientBadges.forEach(ingText => {
-        const alreadyPresent = Array.from(bulletList.children).some(child => 
+        const alreadyPresent = Array.from(bulletList.children).some(child =>
           child.textContent.toLowerCase().includes(ingText.toLowerCase())
         );
         if (!alreadyPresent) {
@@ -1908,7 +1990,7 @@ function renderCustomerAuthState() {
     // 3. Update Account Drawer Views (Switch from Guest View to Logged In Profile View)
     const loggedInView = document.getElementById('DrawerCustomerLoggedInView');
     const guestView = document.getElementById('DrawerCustomerGuestView');
-    
+
     if (loggedInView && guestView) {
       loggedInView.classList.remove('hidden');
       loggedInView.classList.add('flex');
@@ -1957,7 +2039,7 @@ function logoutCustomerSession() {
   try {
     localStorage.removeItem('mile_customer');
   } catch (err) {}
-  
+
   // Redirect to Shopify logout or root
   window.location.href = '/account/logout';
 }
@@ -1971,11 +2053,13 @@ window.logoutCustomerSession = logoutCustomerSession;
 // Auto-run on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   renderCustomerAuthState();
+  initWishlist();
   document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
 });
 
 // Also run immediately
 renderCustomerAuthState();
+initWishlist();
 if (document.readyState === 'interactive' || document.readyState === 'complete') {
   document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
 }
