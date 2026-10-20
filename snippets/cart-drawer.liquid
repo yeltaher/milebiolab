@@ -2,16 +2,16 @@
 <div id="cart-drawer-overlay" class="drawer-overlay" aria-hidden="true" onclick="closeCartDrawer()" style="cursor: pointer;"></div>
 
 <aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrello dei Rituali Milebiolab" aria-hidden="true">
-  
+
   <!-- Header -->
   <div class="cart-drawer-header">
     <h3 class="cart-drawer-title">Il Tuo Rituale di <em>Bellezza</em></h3>
     <button type="button" class="btn-drawer-close" onclick="closeCartDrawer()" aria-label="Chiudi carrello">&times;</button>
   </div>
-  
+
   <!-- Free Shipping & 3 Samples Progress Bar (Threshold: €120) -->
   {% unless settings.show_drawer_shipping_bar == false %}
-  <div class="shipping-bar-container">
+  <div class="shipping-bar-container" id="drawer-shipping-bar" data-shipping-bar-container>
     <div id="cart-progress-text" style="line-height: 1.4;">
       🌿 Aggiungi ancora per sbloccare la Spedizione Gratuita e i 3 Campioncini Omaggio!
     </div>
@@ -19,6 +19,17 @@
       <div class="shipping-progress-fill" id="cart-progress-fill" style="width: 70%;"></div>
     </div>
   </div>
+
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('mile_hide_shipping_bar') === 'true' || (typeof window !== 'undefined' && window.mileHideShippingBar === true)) {
+          var bar = document.getElementById('drawer-shipping-bar');
+          if (bar) bar.style.display = 'none';
+        }
+      } catch(e) {}
+    })();
+  </script>
   {% endunless %}
 
 

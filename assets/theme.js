@@ -371,6 +371,17 @@ window.changeShopifyCartQty = changeShopifyCartQty;
 window.addToCart = addToCart;
 
 function renderCartDrawer() {
+  const isShippingBarHidden = (typeof window !== 'undefined' && window.mileHideShippingBar === true) ||
+                              (typeof localStorage !== 'undefined' && localStorage.getItem('mile_hide_shipping_bar') === 'true');
+  const drawerBarEl = document.getElementById('drawer-shipping-bar') || document.querySelector('.shipping-bar-container');
+  if (drawerBarEl) {
+    if (isShippingBarHidden) {
+      drawerBarEl.style.display = 'none';
+    } else if (drawerBarEl.style.display === 'none' && !window.mileHideShippingBar) {
+      drawerBarEl.style.display = '';
+    }
+  }
+
   const container = document.getElementById('cart-drawer-items-list');
   const counterBadges = document.querySelectorAll('.cart-count-badge');
   const subtotalEl = document.getElementById('cart-subtotal-val');
@@ -448,6 +459,17 @@ function renderCartDrawer() {
 }
 
 function openCartDrawer() {
+  const isShippingBarHidden = (typeof window !== 'undefined' && window.mileHideShippingBar === true) ||
+                              (typeof localStorage !== 'undefined' && localStorage.getItem('mile_hide_shipping_bar') === 'true');
+  const drawerBarEl = document.getElementById('drawer-shipping-bar') || document.querySelector('.shipping-bar-container');
+  if (drawerBarEl) {
+    if (isShippingBarHidden) {
+      drawerBarEl.style.display = 'none';
+    } else if (drawerBarEl.style.display === 'none' && !window.mileHideShippingBar) {
+      drawerBarEl.style.display = '';
+    }
+  }
+
   const overlay = document.getElementById('cart-drawer-overlay');
   const drawer = document.getElementById('cart-drawer');
   if (overlay && drawer) {

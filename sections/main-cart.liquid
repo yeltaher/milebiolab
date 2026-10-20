@@ -21,6 +21,29 @@
     </div>
     {% endunless %}
 
+    {% if section.settings.show_progress_bar == false %}
+      <style id="hide-shipping-bar-style">
+        .shipping-bar-container,
+        #drawer-shipping-bar,
+        [data-shipping-bar-container] {
+          display: none !important;
+        }
+      </style>
+      <script>
+        try {
+          localStorage.setItem('mile_hide_shipping_bar', 'true');
+        } catch(e) {}
+        window.mileHideShippingBar = true;
+      </script>
+    {% else %}
+      <script>
+        try {
+          localStorage.removeItem('mile_hide_shipping_bar');
+        } catch(e) {}
+        window.mileHideShippingBar = false;
+      </script>
+    {% endif %}
+
     <!-- Cart Layout Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
       
@@ -155,7 +178,8 @@
     {
       "type": "checkbox",
       "id": "show_progress_bar",
-      "label": "Mostra Barra Spedizione & Omaggi",
+      "label": "Mostra Barra Spedizione & Omaggi (Carrello e Carrello Laterale)",
+      "info": "Se disattivato, nasconde la barra di avanzamento sia in questa pagina che nel carrello laterale.",
       "default": true
     },
     {
