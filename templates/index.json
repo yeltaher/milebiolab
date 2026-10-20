@@ -9,16 +9,6 @@
  */
 {
   "sections": {
-    "ticker-marquee": {
-      "type": "ticker-marquee",
-      "settings": {
-        "item_1": "✦ RITIRO IN ISTITUTO LEBESTETIK A VERONA",
-        "item_2": "✦ SPEDIZIONE STANDARD GRATUITA DA €60 IN TUTTA ITALIA",
-        "item_3": "",
-        "item_4": "",
-        "item_5": "✦ 98-99- 100% VERA COSMESI NATURALE"
-      }
-    },
     "hero-splendor": {
       "type": "hero-splendor",
       "settings": {
@@ -36,6 +26,16 @@
         "card_subtitle": "Viso e Corpo • 50ml e 1.67 FL. OZ.",
         "card_btn_text": "SCOPRI IL PRODOTTO",
         "card_btn_url": "shopify://products/unicho-21-burro-primordiale-50ml"
+      }
+    },
+    "ticker-marquee": {
+      "type": "ticker-marquee",
+      "settings": {
+        "item_1": "✦ RITIRO IN ISTITUTO LEBESTETIK A VERONA",
+        "item_2": "✦ SPEDIZIONE STANDARD GRATUITA DA €60 IN TUTTA ITALIA",
+        "item_3": "",
+        "item_4": "",
+        "item_5": "✦ 98-99- 100% VERA COSMESI NATURALE"
       }
     },
     "trust-icon-bar": {
@@ -245,8 +245,7 @@
         "card_address": "Corso Cavour, 18 • 37121 Verona (VR)",
         "card_hours": "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)",
         "card_phone": "+39 045 800 1234"
-      },
-      "disabled": true
+      }
     },
     "skin-quiz-banner": {
       "type": "skin-quiz-banner",
@@ -262,8 +261,8 @@
     }
   },
   "order": [
-    "ticker-marquee",
     "hero-splendor",
+    "ticker-marquee",
     "trust-icon-bar",
     "featured-products",
     "routine-steps",
@@ -271,6 +270,7 @@
     "before-after",
     "collections-list",
     "editorial-quote-press",
+    "local-pickup-verona",
     "skin-quiz-banner"
   ]
 }
