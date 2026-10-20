@@ -26,7 +26,19 @@
           {% if cart.items.size > 0 %}
             {% for item in cart.items %}
               <div class="flex gap-4 items-center pb-5 border-b border-[#E5E0D8]">
-                <img src="{{ item.featured_image | image_url: width: 160 }}" alt="{% render 'italian-product-title', title: item.title %}" class="w-20 h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8]">
+                {%- assign item_image = item.image | default: item.product.featured_image | default: item.product.images.first -%}
+                {% if item_image %}
+                  <img src="{{ item_image | image_url: width: 240 }}" 
+                       alt="{% render 'italian-product-title', title: item.product.title %}" 
+                       class="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8] p-1 flex-shrink-0"
+                       loading="lazy"
+                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80';">
+                {% else %}
+                  <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" 
+                       alt="{% render 'italian-product-title', title: item.product.title %}" 
+                       class="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8] p-1 flex-shrink-0"
+                       loading="lazy">
+                {% endif %}
                 <div class="flex-1">
                   <h4 class="font-serif text-base font-medium text-[#1A1A1A]">{% render 'italian-product-title', title: item.product.title %}</h4>
                   <div class="text-xs text-[#7A7265]">{{ item.variant.title }} &bull; Milebiolab Haute Couture</div>
