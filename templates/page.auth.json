@@ -1,8 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page-auth",
-      "settings": {}
+      "settings": {
+        "card_badge": "Club Mile Privilège",
+        "card_title": "L'Eccellenza Dermocosmetica <br><span class=\"italic text-[#5C6B56]\">Riservata a Te</span>",
+        "card_description": "Accedi al tuo spazio esclusivo Mile BioLab per gestire i tuoi rituali di bellezza MILE consultare lo storico dei tuoi ordini e sbloccare i privilegi a te riservati.",
+        "benefit_1_title": "10% di Sconto sul 1° Ordine",
+        "benefit_1_desc": "Codice di benvenuto immediato per scoprire la tua routine viso o corpo.",
+        "benefit_2_title": "Ritiro a Verona",
+        "benefit_2_desc": "In Lebestetik: pronto senza attese con  e omaggi dedicati.",
+        "benefit_3_title": "Sconti Riservati",
+        "benefit_3_desc": "Scontistiche riservate",
+        "benefit_4_title": "Consulenza tramite WhatsApp",
+        "benefit_4_desc": "Assistenza post vendita",
+        "address_text": "Via Torricelle,2c"
+      }
     }
   },
   "order": [
