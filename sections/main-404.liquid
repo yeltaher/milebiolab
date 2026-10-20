@@ -3,7 +3,8 @@
     var path = window.location.pathname.toLowerCase();
     if (path.indexOf('/pages/account') !== -1 || path.indexOf('/pages/profilo') !== -1 || path.indexOf('/pages/club-mile') !== -1 || path.indexOf('/pages/accedi') !== -1 ||
         path.indexOf('/pages/chi-sono') !== -1 || path.indexOf('/pages/chi-siamo') !== -1 || path.indexOf('/pages/mile') !== -1 || path.indexOf('/pages/about') !== -1 ||
-        path.indexOf('/pages/contatt') !== -1 || path.indexOf('/pages/contact') !== -1 || path.indexOf('/contact') !== -1 || path.indexOf('/contatti') !== -1 || path.indexOf('/pages/concierge') !== -1) {
+        path.indexOf('/pages/contatt') !== -1 || path.indexOf('/pages/contact') !== -1 || path.indexOf('/contact') !== -1 || path.indexOf('/contatti') !== -1 || path.indexOf('/pages/concierge') !== -1 ||
+        path.indexOf('/pages/programma-fedelta') !== -1 || path.indexOf('/pages/beauty-club') !== -1 || path.indexOf('/pages/loyalty') !== -1 || path.indexOf('/pages/fedelta') !== -1 || path.indexOf('/pages/punti') !== -1) {
       document.write('<style>#standard-404-view { display: none !important; }</style>');
     }
   })();
@@ -156,6 +157,10 @@
   {% render 'contact-view' %}
 </div>
 
+<div id="dynamic-loyalty-404-view" class="hidden">
+  {% render 'loyalty-view' %}
+</div>
+
 <script>
   (function() {
     var path = window.location.pathname.toLowerCase();
@@ -185,6 +190,14 @@
         stdView.style.display = 'none';
         contactView.classList.remove('hidden');
         document.title = "Contatti & Concierge • MileBioLab & Lebestetik Verona";
+      }
+    } else if (path.indexOf('/pages/programma-fedelta') !== -1 || path.indexOf('/pages/beauty-club') !== -1 || path.indexOf('/pages/loyalty') !== -1 || path.indexOf('/pages/fedelta') !== -1 || path.indexOf('/pages/punti') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var loyaltyView = document.getElementById('dynamic-loyalty-404-view');
+      if (stdView && loyaltyView) {
+        stdView.style.display = 'none';
+        loyaltyView.classList.remove('hidden');
+        document.title = "Beauty Club • Programma Fedeltà | MileBioLab";
       }
     }
   })();

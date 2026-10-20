@@ -111,6 +111,58 @@
           </div>
         </div>
 
+        <!-- BEAUTY CLUB MILE LOYALTY WIDGET -->
+        <div class="loyalty-cart-widget p-4 mb-4 bg-[#FAF8F5] border border-[#E5E0D8] text-xs">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-[#C8A878] font-semibold flex items-center gap-1.5">
+              <span>💖</span> Beauty Club Mile
+            </span>
+            <a href="/pages/programma-fedelta" class="text-[10px] text-[#7A7265] underline hover:text-[#1A1A1A]">Regolamento</a>
+          </div>
+
+          {% if customer %}
+            {% assign customer_points = customer.total_spent | divided_by: 100 | plus: 20 %}
+            <div class="flex items-center justify-between text-xs text-[#1A1A1A] font-medium">
+              <span>Il tuo saldo punti:</span>
+              <span class="font-bold text-[#5C6B56] font-mono text-sm">{{ customer_points }} Beauty Punti</span>
+            </div>
+
+            {% if customer_points >= 100 %}
+              <div class="mt-3 pt-2.5 border-t border-[#E5E0D8]/60 space-y-2">
+                <p class="text-xs text-[#5C6B56] leading-relaxed">
+                  🎉 <strong>Hai sbloccato 5 € di sconto!</strong> Puoi riscattare 100 punti subito per questo ordine.
+                </p>
+                <a href="{{ routes.cart_url }}/checkout?discount=BEAUTYCLUB5" class="w-full py-2.5 px-4 bg-[#5C6B56] hover:bg-[#1A1A1A] text-white text-xs uppercase tracking-wider font-semibold text-center block transition-colors shadow-xs">
+                  Usa i Miei Punti (-5 € al Checkout)
+                </a>
+              </div>
+            {% else %}
+              {% assign points_needed = 100 | minus: customer_points %}
+              <div class="mt-2.5 space-y-1.5">
+                <div class="flex justify-between text-[11px] text-[#7A7265]">
+                  <span>Soglia riscatto 5 € (100 pt)</span>
+                  <span>Mancano {{ points_needed }} pt</span>
+                </div>
+                <div class="w-full h-2 bg-[#E5E0D8] rounded-full overflow-hidden">
+                  <div class="h-full bg-[#C8A878] rounded-full transition-all duration-500" style="width: {{ customer_points }}%;"></div>
+                </div>
+                <p class="text-[11px] text-[#7A7265] leading-relaxed">
+                  Ti mancano <strong>{{ points_needed }} punti</strong> per sbloccare 5 € di sconto immediato.
+                </p>
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="text-xs text-[#1A1A1A] leading-relaxed">
+              <p>
+                ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+{{ cart.total_price | divided_by: 100 }} Beauty Punti</strong>.
+              </p>
+              <p class="mt-1 text-[#7A7265]">
+                <a href="/pages/accedi#register" class="text-[#1A1A1A] underline font-semibold hover:text-[#C8A878]">Accedi o Registrati</a> per ricevere <strong>20 punti di benvenuto subito</strong>!
+              </p>
+            </div>
+          {% endif %}
+        </div>
+
         <a href="{{ routes.cart_url }}/checkout" class="w-full bg-[#1A1A1A] text-white py-4 px-6 text-xs uppercase tracking-[0.22em] font-semibold hover:bg-[#5C6B56] transition-all text-center flex items-center justify-center luxury-interactive shadow-md mb-4">
           {{ section.settings.checkout_btn_text | default: "Procedi al Checkout Sicuro" }}
         </a>

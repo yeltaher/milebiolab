@@ -1,0 +1,559 @@
+{% comment %}
+  MILEBIOLAB - SNIPPET LOYALTY VIEW (HAUTE COUTURE OS 2.0)
+  Pagina Ufficiale Beauty Club Mile & Programma Fedeltà.
+  Layout lussuoso e moderno conforme alla palette Splendor & Dr. Joseph:
+  #F5F2EB (Lino Chiaro), #FAF8F5 (Avorio), #1A1A1A (Inchiostro), #5C6B56 (Salvia), #C8A878 (Oro Satinato), #E5E0D8 (Bordi).
+  Riutilizzabile sia in sections/main-page-loyalty.liquid che nel routing zero-failure di sections/main-404.liquid.
+{% endcomment %}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow | default: "PROGRAMMA FEDELTÀ • BEAUTY CLUB MILE"
+  assign title = section.settings.title | default: "Beauty Club: La Tua Bellezza Premiata"
+  assign welcome_text = section.settings.welcome_text | default: "Benvenuto nel nostro Beauty Club! 💖 Entra a far parte della nostra comunità esclusiva e trasforma la tua passione per la cura della pelle in sconti e privilegi unici. Ogni acquisto, il tuo compleanno e le tue recensioni ti avvicinano a vantaggi esclusivi pensati per esaltare la tua bellezza naturale."
+
+  assign cta_register_text = section.settings.cta_register_text | default: "Iscriviti e Ricevi 20 Punti Subito"
+  assign cta_register_url = section.settings.cta_register_url
+  if cta_register_url == blank
+    assign cta_register_url = "/pages/accedi#register"
+  endif
+
+  assign cta_login_text = section.settings.cta_login_text | default: "Accedi al Tuo Profilo"
+  assign cta_login_url = section.settings.cta_login_url
+  if cta_login_url == blank
+    assign cta_login_url = "/pages/accedi"
+  endif
+
+  assign conv_tag = section.settings.conv_tag | default: "VALORE & TRASPARENZA"
+  assign conv_title = section.settings.conv_title | default: "La Formula Esclusiva di Conversione"
+  assign conv_desc = section.settings.conv_desc | default: "Un sistema di cashback chiaro e generoso, pensato per premiare la tua fedeltà ad ogni singolo ordine."
+
+  assign ways_tag = section.settings.ways_tag | default: "RACCOGLI PUNTI"
+  assign ways_title = section.settings.ways_title | default: "4 Modi Esclusivi per Accumulare Beauty Punti"
+
+  assign steps_tag = section.settings.steps_tag | default: "UTILIZZO NEL CARRELLO"
+  assign steps_title = section.settings.steps_title | default: "Come Utilizzare i Tuoi Sconti"
+  assign steps_desc = section.settings.steps_desc | default: "Al raggiungimento di 100 Punti, converti direttamente il tuo saldo in 5 € di sconto immediato al checkout."
+
+  assign terms_tag = section.settings.terms_tag | default: "REGOLE & TRASPARENZA"
+  assign terms_title = section.settings.terms_title | default: "Termini e Condizioni Ufficiali"
+
+  assign faq_tag = section.settings.faq_tag | default: "DOMANDE FREQUENTI"
+  assign faq_title = section.settings.faq_title | default: "Tutto Quello che C'è da Sapere sul Beauty Club"
+-%}
+
+<div class="loyalty-page-wrapper bg-[#F5F2EB] text-[#1A1A1A] py-10 sm:py-16 lg:py-24 selection:bg-[#C8A878] selection:text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- BREADCRUMB -->
+    <nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
+      <span class="text-[#E5E0D8]">/</span>
+      <span class="text-[#1A1A1A] font-semibold">Beauty Club Mile • Programma Fedeltà</span>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- 1. HERO HEADER HAUTE COUTURE               -->
+    <!-- ========================================== -->
+    <header class="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FAF8F5] border border-[#C8A878]/50 text-[#C8A878] text-[11px] font-mono tracking-[0.2em] uppercase font-semibold mb-5 shadow-xs">
+        <span class="text-xs">✨</span>
+        <span>{{ eyebrow }}</span>
+      </div>
+
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#1A1A1A] font-normal tracking-tight leading-[1.15] mb-6">
+        {{ title }}
+      </h1>
+
+      <p class="text-sm sm:text-base text-[#7A7265] max-w-2xl mx-auto leading-relaxed font-light mb-8 sm:mb-10">
+        {{ welcome_text }}
+      </p>
+
+      {% if customer %}
+        <!-- CUSTOMER LOGGED IN STATUS CARD -->
+        {% assign customer_points = customer.total_spent | divided_by: 100 | plus: 20 %}
+        <div class="bg-gradient-to-r from-[#FAF8F5] via-white to-[#FAF8F5] border border-[#C8A878] p-6 sm:p-8 max-w-xl mx-auto shadow-sm mb-6 text-left relative overflow-hidden">
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">Benvenuto nel tuo spazio</span>
+              <h3 class="font-serif text-xl sm:text-2xl text-[#1A1A1A] font-normal mt-0.5">
+                {{ customer.first_name | default: "Gentile Ospite" }}, hai <span class="font-semibold text-[#5C6B56] font-mono">{{ customer_points }}</span> Beauty Punti
+              </h3>
+              <p class="text-xs text-[#7A7265] mt-1">
+                {% if customer_points >= 100 %}
+                  🎉 Hai sbloccato <strong>5 € di sconto</strong> da applicare sul tuo prossimo ordine!
+                {% else %}
+                  Mancano solo <strong>{{ 100 | minus: customer_points }} punti</strong> per sbloccare il tuo primo buono da 5 €.
+                {% endif %}
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <a href="/pages/account" class="px-5 py-2.5 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors">
+                Profilo
+              </a>
+              <a href="{{ routes.cart_url }}" class="px-5 py-2.5 bg-[#FAF8F5] border border-[#1A1A1A] text-[#1A1A1A] hover:bg-white text-xs uppercase tracking-wider font-semibold transition-colors">
+                Carrello
+              </a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <!-- GUEST CTA BUTTONS -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs font-semibold">
+          <a
+            href="{{ cta_register_url }}"
+            class="w-full sm:w-auto px-8 py-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white uppercase tracking-[0.18em] transition-all duration-300 shadow-md luxury-interactive text-center"
+          >
+            {{ cta_register_text }}
+          </a>
+          <a
+            href="{{ cta_login_url }}"
+            class="w-full sm:w-auto px-8 py-4 bg-[#FAF8F5] border border-[#E5E0D8] text-[#1A1A1A] hover:border-[#1A1A1A] hover:bg-white uppercase tracking-[0.18em] transition-all duration-300 text-center"
+          >
+            {{ cta_login_text }}
+          </a>
+        </div>
+        <p class="text-[11px] text-[#7A7265] mt-3 tracking-wide">
+          🎁 Ricevi subito <strong>20 Beauty Punti in omaggio</strong> alla registrazione del tuo profilo.
+        </p>
+      {% endif %}
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 2. CARD FORMULA DI CONVERSIONE (IN EVIDENZA) -->
+    <!-- ========================================== -->
+    <section class="mb-20 sm:mb-28">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ conv_tag }}</span>
+        <h2 class="font-serif text-2xl sm:text-4xl text-[#1A1A1A] font-normal">{{ conv_title }}</h2>
+        <p class="text-xs sm:text-sm text-[#7A7265] mt-2 leading-relaxed">{{ conv_desc }}</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <!-- Box 1: Accumulo -->
+        <div class="bg-white border border-[#E5E0D8] p-8 shadow-xs hover:border-[#C8A878] transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-full bg-[#FAF8F5] border border-[#E5E0D8] flex items-center justify-center text-[#5C6B56] mb-6 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">REGOLA DI ACCUMULO</span>
+            <h3 class="font-serif text-2xl text-[#1A1A1A] font-normal mb-3">1 € = 1 Beauty Punto</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed">
+              Guadagni 1 Beauty Punto per ogni euro speso su tutto il catalogo MileBioLab e Dr. Joseph, calcolato sul totale carrello escluse spese di spedizione.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-[#F5F2EB] flex items-center justify-between text-[11px] text-[#5C6B56] font-medium">
+            <span>Accredito automatico</span>
+            <span class="font-mono">100% Ordini</span>
+          </div>
+        </div>
+
+        <!-- Box 2: Valore Sconto -->
+        <div class="bg-white border-2 border-[#C8A878] p-8 shadow-md relative flex flex-col justify-between group">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#C8A878] text-white px-3 py-0.5 text-[10px] font-mono uppercase tracking-widest font-semibold shadow-xs">
+            CASHBACK 5% REALE
+          </div>
+          <div>
+            <div class="w-12 h-12 rounded-full bg-[#FAF8F5] border border-[#C8A878]/40 flex items-center justify-center text-[#C8A878] mb-6 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">VALORE DI CONVERSIONE</span>
+            <h3 class="font-serif text-2xl text-[#1A1A1A] font-normal mb-3">100 Punti = 5 € Sconto</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed">
+              1 Beauty Punto vale esattamente <strong>0,05 €</strong>. Raggiungendo 100 punti ottieni <strong>5 € di sconto fisso</strong> sul tuo ordine successivo.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-[#F5F2EB] flex items-center justify-between text-[11px] text-[#C8A878] font-medium">
+            <span>Valore unitario punto</span>
+            <span class="font-mono font-bold">0,05 € / pt</span>
+          </div>
+        </div>
+
+        <!-- Box 3: Riscatto Immediato -->
+        <div class="bg-white border border-[#E5E0D8] p-8 shadow-xs hover:border-[#C8A878] transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-full bg-[#FAF8F5] border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] mb-6 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">SEMPLICITÀ AL CHECKOUT</span>
+            <h3 class="font-serif text-2xl text-[#1A1A1A] font-normal mb-3">Riscatto nel Carrello</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed">
+              Nessun codice complicato: al raggiungimento di 100 punti trovi il pulsante "Usa i miei punti" direttamente nel carrello per applicare lo sconto.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-[#F5F2EB] flex items-center justify-between text-[11px] text-[#1A1A1A] font-medium">
+            <span>Soglia minima di utilizzo</span>
+            <span class="font-mono font-semibold">100 Punti</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. I 4 MODI PER GUADAGNARE PUNTI          -->
+    <!-- ========================================== -->
+    <section class="mb-20 sm:mb-28">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ ways_tag }}</span>
+        <h2 class="font-serif text-2xl sm:text-4xl text-[#1A1A1A] font-normal">{{ ways_title }}</h2>
+        <p class="text-xs sm:text-sm text-[#7A7265] mt-2 leading-relaxed">
+          Accumulare Beauty Punti è semplice, piacevole e gratificante. Ecco tutte le occasioni per far crescere il tuo saldo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1: Acquista e Guadagna -->
+        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-6 sm:p-7 flex flex-col justify-between hover:bg-white transition-all shadow-2xs group">
+          <div>
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform inline-block">🛍️</div>
+            <div class="inline-block px-2.5 py-0.5 bg-[#5C6B56]/10 text-[#5C6B56] text-[10px] font-mono uppercase tracking-wider font-semibold mb-2">
+              1 € = 1 Punto
+            </div>
+            <h3 class="font-serif text-lg text-[#1A1A1A] font-medium mb-2">Acquista e Guadagna</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+              Ogni acquisto online o per il ritiro a Verona ti premia: 1 € speso = 1 Beauty Punto (escluse spese di spedizione).
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[#E5E0D8] text-[11px] text-[#1A1A1A] font-medium">
+            Sempre attivo su ogni ordine
+          </div>
+        </div>
+
+        <!-- Card 2: Bonus di Benvenuto -->
+        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-6 sm:p-7 flex flex-col justify-between hover:bg-white transition-all shadow-2xs group">
+          <div>
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform inline-block">🎁</div>
+            <div class="inline-block px-2.5 py-0.5 bg-[#C8A878]/15 text-[#C8A878] text-[10px] font-mono uppercase tracking-wider font-semibold mb-2">
+              +20 Punti Subito
+            </div>
+            <h3 class="font-serif text-lg text-[#1A1A1A] font-medium mb-2">Bonus di Benvenuto</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+              Registrati gratuitamente al Beauty Club: ricevi immediatamente 20 Beauty Punti in omaggio accreditati sul tuo profilo.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[#E5E0D8] text-[11px] text-[#C8A878] font-medium">
+            All'iscrizione gratuita
+          </div>
+        </div>
+
+        <!-- Card 3: Regalo di Compleanno -->
+        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-6 sm:p-7 flex flex-col justify-between hover:bg-white transition-all shadow-2xs group">
+          <div>
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform inline-block">🎂</div>
+            <div class="inline-block px-2.5 py-0.5 bg-[#C8A878]/15 text-[#C8A878] text-[10px] font-mono uppercase tracking-wider font-semibold mb-2">
+              +50 Punti Extra
+            </div>
+            <h3 class="font-serif text-lg text-[#1A1A1A] font-medium mb-2">Regalo di Compleanno</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+              Nel giorno del tuo compleanno festeggiamo insieme a te con 50 Beauty Punti extra in regalo per una coccola speciale.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[#E5E0D8] text-[11px] text-[#5C6B56] font-medium">
+            Annuale con data nel profilo
+          </div>
+        </div>
+
+        <!-- Card 4: Lascia una Recensione -->
+        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-6 sm:p-7 flex flex-col justify-between hover:bg-white transition-all shadow-2xs group">
+          <div>
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform inline-block">✍️</div>
+            <div class="inline-block px-2.5 py-0.5 bg-[#5C6B56]/10 text-[#5C6B56] text-[10px] font-mono uppercase tracking-wider font-semibold mb-2">
+              +5 Punti a Recensione
+            </div>
+            <h3 class="font-serif text-lg text-[#1A1A1A] font-medium mb-2">Lascia una Recensione</h3>
+            <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+              Condividi la tua esperienza sulle formule acquistate: ogni recensione verificata e approvata ti regala 5 Beauty Punti.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[#E5E0D8] text-[11px] text-[#1A1A1A] font-medium">
+            Per ogni recensione approvata
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. COME UTILIZZARE GLI SCONTI (STEP-BY-STEP)-->
+    <!-- ========================================== -->
+    <section class="mb-20 sm:mb-28">
+      <div class="bg-white border border-[#E5E0D8] p-8 sm:p-12 lg:p-16 shadow-sm">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ steps_tag }}</span>
+          <h2 class="font-serif text-2xl sm:text-4xl text-[#1A1A1A] font-normal">{{ steps_title }}</h2>
+          <p class="text-xs sm:text-sm text-[#7A7265] mt-2 leading-relaxed">
+            {{ steps_desc }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <!-- Step 1 -->
+          <div class="space-y-3 relative">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono font-bold text-xs flex items-center justify-center">1</span>
+              <h4 class="font-serif text-lg text-[#1A1A1A] font-medium">Accumula 100 Punti</h4>
+            </div>
+            <p class="text-xs text-[#7A7265] leading-relaxed pl-11">
+              Raggiungi la soglia minima di 100 Beauty Punti con i tuoi acquisti e i bonus dedicati (benvenuto, compleanno, recensioni).
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="space-y-3 relative">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-[#5C6B56] text-white font-mono font-bold text-xs flex items-center justify-center">2</span>
+              <h4 class="font-serif text-lg text-[#1A1A1A] font-medium">Clicca "Usa i miei punti"</h4>
+            </div>
+            <p class="text-xs text-[#7A7265] leading-relaxed pl-11">
+              Nel carrello o nel carrello laterale seleziona l'opzione "Usa i miei punti": il sistema convertirà istantaneamente i punti in 5 € di sconto.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="space-y-3 relative">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-[#1A1A1A] text-white font-mono font-bold text-xs flex items-center justify-center">3</span>
+              <h4 class="font-serif text-lg text-[#1A1A1A] font-medium">Goditi il Tuo Risparmio</h4>
+            </div>
+            <p class="text-xs text-[#7A7265] leading-relaxed pl-11">
+              Lo sconto di 5 € viene detratto dal totale ordine. I punti residui rimangono sempre al sicuro nel tuo account per gli ordini futuri.
+            </p>
+          </div>
+        </div>
+
+        <!-- Promemoria Validità e Cumulabilità -->
+        <div class="mt-12 pt-8 border-t border-[#E5E0D8] bg-[#FAF8F5] p-5 sm:p-6 border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 text-xs font-semibold text-[#1A1A1A]">
+              <span>⏱️ Validità Punti:</span>
+              <span class="font-normal text-[#7A7265]">12 mesi dal momento dell'accredito</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-[#1A1A1A]">
+              <span>🎟️ Cumulabilità:</span>
+              <span class="font-normal text-[#7A7265]">Non cumulabili con altri coupon temporanei o codici sconto promozionali</span>
+            </div>
+          </div>
+          <a href="{{ routes.all_products_collection_url }}" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0">
+            Esplora il Catalogo &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. TERMINI E CONDIZIONI UFFICIALI         -->
+    <!-- ========================================== -->
+    <section class="mb-20 sm:mb-28">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ terms_tag }}</span>
+        <h2 class="font-serif text-2xl sm:text-4xl text-[#1A1A1A] font-normal">{{ terms_title }}</h2>
+        <p class="text-xs sm:text-sm text-[#7A7265] mt-2 leading-relaxed">
+          Massima chiarezza per offrirti un'esperienza di acquisto sempre trasparente e serena.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <!-- Regola 1: Esclusioni -->
+        <div class="bg-white border border-[#E5E0D8] p-6 sm:p-7 shadow-xs">
+          <div class="flex items-start gap-3">
+            <span class="text-[#5C6B56] text-lg font-bold shrink-0 mt-0.5">01</span>
+            <div>
+              <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Esclusioni dall'Accumulo</h4>
+              <p class="text-xs text-[#7A7265] leading-relaxed">
+                Le spese di spedizione e l'eventuale supplemento contrassegno non generano Beauty Punti. I punti sono calcolati esclusivamente sull'importo netto dei prodotti acquistati.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Regola 2: Arrotondamento -->
+        <div class="bg-white border border-[#E5E0D8] p-6 sm:p-7 shadow-xs">
+          <div class="flex items-start gap-3">
+            <span class="text-[#5C6B56] text-lg font-bold shrink-0 mt-0.5">02</span>
+            <div>
+              <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Arrotondamento per Difetto</h4>
+              <p class="text-xs text-[#7A7265] leading-relaxed">
+                Il conteggio dei Beauty Punti avviene per difetto all'euro intero. Ad esempio, una spesa di <strong>14,90 €</strong> genera esattamente <strong>14 Beauty Punti</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Regola 3: Resi e Annullamenti -->
+        <div class="bg-white border border-[#E5E0D8] p-6 sm:p-7 shadow-xs">
+          <div class="flex items-start gap-3">
+            <span class="text-[#5C6B56] text-lg font-bold shrink-0 mt-0.5">03</span>
+            <div>
+              <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Resi e Annullamenti Ordini</h4>
+              <p class="text-xs text-[#7A7265] leading-relaxed">
+                In caso di reso merce, recesso o annullamento totale o parziale dell'ordine, i Beauty Punti accumulati con quell'ordine verranno proporzionalmente stornati dal saldo cliente.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Regola 4: Scadenza 12 Mesi -->
+        <div class="bg-white border border-[#E5E0D8] p-6 sm:p-7 shadow-xs">
+          <div class="flex items-start gap-3">
+            <span class="text-[#5C6B56] text-lg font-bold shrink-0 mt-0.5">04</span>
+            <div>
+              <h4 class="font-serif text-base text-[#1A1A1A] font-medium mb-1">Scadenza dei Punti (12 Mesi)</h4>
+              <p class="text-xs text-[#7A7265] leading-relaxed">
+                Ciascun accredito di Beauty Punti ha una validità di 12 mesi dalla data esatta dell'accredito. Trascorsi i 12 mesi senza utilizzo, i relativi punti scadranno automaticamente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. FAQ INTERATTIVE ACCORDION               -->
+    <!-- ========================================== -->
+    <section class="mb-20 sm:mb-28 max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ faq_tag }}</span>
+        <h2 class="font-serif text-2xl sm:text-4xl text-[#1A1A1A] font-normal">{{ faq_title }}</h2>
+      </div>
+
+      <div class="space-y-3" id="loyalty-faq-accordion">
+        <!-- FAQ 1 -->
+        <div class="bg-white border border-[#E5E0D8] overflow-hidden">
+          <button
+            type="button"
+            onclick="toggleLoyaltyFaq(this)"
+            class="w-full px-6 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-serif text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer select-none"
+            aria-expanded="false"
+          >
+            <span>Come posso iscrivermi al Beauty Club Mile?</span>
+            <span class="faq-icon text-base font-mono text-[#7A7265] transition-transform duration-300">+</span>
+          </button>
+          <div class="faq-content hidden px-6 pb-4 pt-1 text-xs text-[#7A7265] leading-relaxed border-t border-[#F5F2EB]">
+            L'iscrizione è completamente gratuita! Ti basta creare un account su MileBioLab nella pagina Registrati: riceverai subito 20 Beauty Punti in omaggio sul tuo saldo di benvenuto.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-white border border-[#E5E0D8] overflow-hidden">
+          <button
+            type="button"
+            onclick="toggleLoyaltyFaq(this)"
+            class="w-full px-6 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-serif text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer select-none"
+            aria-expanded="false"
+          >
+            <span>Come inserisco la mia data di nascita per i 50 punti di compleanno?</span>
+            <span class="faq-icon text-base font-mono text-[#7A7265] transition-transform duration-300">+</span>
+          </button>
+          <div class="faq-content hidden px-6 pb-4 pt-1 text-xs text-[#7A7265] leading-relaxed border-t border-[#F5F2EB]">
+            Puoi inserire la tua data di nascita al momento della registrazione nel campo dedicato oppure comunicarla in qualsiasi momento al nostro Concierge via WhatsApp o email. Nel giorno del tuo compleanno ti verranno accreditati automaticamente 50 Beauty Punti in omaggio!
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-white border border-[#E5E0D8] overflow-hidden">
+          <button
+            type="button"
+            onclick="toggleLoyaltyFaq(this)"
+            class="w-full px-6 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-serif text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer select-none"
+            aria-expanded="false"
+          >
+            <span>Come riscatto i miei punti nel carrello?</span>
+            <span class="faq-icon text-base font-mono text-[#7A7265] transition-transform duration-300">+</span>
+          </button>
+          <div class="faq-content hidden px-6 pb-4 pt-1 text-xs text-[#7A7265] leading-relaxed border-t border-[#F5F2EB]">
+            Quando il tuo saldo raggiunge almeno 100 Beauty Punti, troverai nel carrello e nel drawer laterale l'opzione "Usa i miei punti". Cliccando sul pulsante, viene applicato automaticamente uno sconto immediato di 5 € sul totale dell'ordine.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="bg-white border border-[#E5E0D8] overflow-hidden">
+          <button
+            type="button"
+            onclick="toggleLoyaltyFaq(this)"
+            class="w-full px-6 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-serif text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer select-none"
+            aria-expanded="false"
+          >
+            <span>I Beauty Punti hanno una scadenza?</span>
+            <span class="faq-icon text-base font-mono text-[#7A7265] transition-transform duration-300">+</span>
+          </button>
+          <div class="faq-content hidden px-6 pb-4 pt-1 text-xs text-[#7A7265] leading-relaxed border-t border-[#F5F2EB]">
+            Sì, i punti hanno una validità di 12 mesi dalla data del loro accredito. Ti consigliamo di utilizzarli entro tale termine per non perdere i vantaggi accumulati.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="bg-white border border-[#E5E0D8] overflow-hidden">
+          <button
+            type="button"
+            onclick="toggleLoyaltyFaq(this)"
+            class="w-full px-6 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-serif text-[#1A1A1A] hover:text-[#C8A878] transition-colors cursor-pointer select-none"
+            aria-expanded="false"
+          >
+            <span>Posso cumulare i punti con altri codici sconto?</span>
+            <span class="faq-icon text-base font-mono text-[#7A7265] transition-transform duration-300">+</span>
+          </button>
+          <div class="faq-content hidden px-6 pb-4 pt-1 text-xs text-[#7A7265] leading-relaxed border-t border-[#F5F2EB]">
+            Lo sconto fedeltà derivante dai punti non è cumulabile con altri coupon promozionali temporanei nello stesso ordine, garantendoti comunque sempre la massima convenienza.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 7. CTA FINALE & BENVENUTO NEL CLUB         -->
+    <!-- ========================================== -->
+    <div class="bg-gradient-to-r from-[#1A1A1A] to-[#2B2B2B] text-white p-8 sm:p-12 lg:p-16 text-center max-w-4xl mx-auto shadow-xl relative overflow-hidden">
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-[#C8A878] font-semibold block mb-2">
+          LA TUA BELLEZZA PREMIATA
+        </span>
+        <h2 class="font-serif text-2xl sm:text-4xl font-normal leading-tight mb-4">
+          Pronta a Iniziare il Tuo Percorso nel Beauty Club?
+        </h2>
+        <p class="text-xs sm:text-sm text-[#DDD7CE] font-light leading-relaxed mb-8">
+          Iscriviti subito al Club Mile e ricevi istantaneamente <strong>20 Beauty Punti in omaggio</strong> sul tuo nuovo profilo personale.
+        </p>
+
+        {% if customer %}
+          <a
+            href="{{ routes.all_products_collection_url }}"
+            class="inline-block px-8 py-4 bg-[#C8A878] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-[0.18em] font-semibold transition-colors shadow-md"
+          >
+            Inizia a Raccogliere Punti con lo Shopping &rarr;
+          </a>
+        {% else %}
+          <a
+            href="{{ cta_register_url }}"
+            class="inline-block px-8 py-4 bg-[#C8A878] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-[0.18em] font-semibold transition-colors shadow-md"
+          >
+            {{ cta_register_text }} &rarr;
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleLoyaltyFaq(btn) {
+    if (!btn) return;
+    var content = btn.nextElementSibling;
+    var icon = btn.querySelector('.faq-icon');
+    var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+    if (isExpanded) {
+      btn.setAttribute('aria-expanded', 'false');
+      if (content) content.classList.add('hidden');
+      if (icon) icon.textContent = '+';
+    } else {
+      btn.setAttribute('aria-expanded', 'true');
+      if (content) content.classList.remove('hidden');
+      if (icon) icon.textContent = '−';
+    }
+  }
+</script>

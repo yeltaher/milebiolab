@@ -16,9 +16,22 @@
 
   assign show_loyalty_passport = section.settings.show_loyalty_passport | default: true
   assign loyalty_tier_name = section.settings.loyalty_tier_name | default: "Livello: Oro Botanico"
-  assign loyalty_points = section.settings.loyalty_points | default: "270 Punti Fedeltà Attivi"
+  assign loyalty_points = section.settings.loyalty_points | default: "120 Beauty Punti Attivi (1€ = 1 Punto)"
   assign loyalty_progress_percent = section.settings.loyalty_progress_percent | default: 75
-  assign loyalty_next_reward = section.settings.loyalty_next_reward | default: "A soli 30 punti dal Trattamento Cutaneo Visia Omaggio in Cabina a Verona"
+  assign loyalty_next_reward = section.settings.loyalty_next_reward | default: "Hai accumulato oltre 100 punti! Puoi riscattare 5 € di sconto nel tuo carrello."
+
+  if customer
+    assign calculated_points = customer.total_spent | divided_by: 100 | plus: 20
+    assign loyalty_points = calculated_points | append: " Beauty Punti Attivi (1€ = 1 Punto)"
+    if calculated_points >= 100
+      assign loyalty_next_reward = "Hai accumulato oltre 100 punti! Puoi riscattare 5 € di sconto immediato nel carrello con l'opzione 'Usa i miei punti'."
+      assign loyalty_progress_percent = 100
+    else
+      assign missing_pts = 100 | minus: calculated_points
+      assign loyalty_next_reward = "A soli " | append: missing_pts | append: " punti per sbloccare 5 € di sconto immediato nel tuo prossimo carrello."
+      assign loyalty_progress_percent = calculated_points
+    endif
+  endif
 
   assign orders_title = section.settings.orders_title | default: "I Miei Ordini Recenti"
   assign orders_subtitle = section.settings.orders_subtitle | default: "Storico degli acquisti e stato delle spedizioni botaniche."
@@ -150,6 +163,11 @@
               <p class="text-xs text-[#7A7265] italic">
                 {{ loyalty_next_reward }}
               </p>
+              <div class="pt-1">
+                <a href="/pages/programma-fedelta" class="text-[11px] text-[#5C6B56] hover:text-[#C8A878] font-medium underline inline-flex items-center gap-1">
+                  <span>Regolamento completo Beauty Club &amp; Vantaggi</span> &rarr;
+                </a>
+              </div>
             </div>
 
             <!-- Progress Bar Barocca / Haute Couture -->
@@ -365,13 +383,24 @@
 
               {%- unless has_privilege_blocks -%}
                 <li class="flex items-center gap-2">
-                  <span class="text-[#C8A878]">&checkmark;</span> 10% di sconto su tutti i rituali
+                  <span class="text-[#C8A878]">&checkmark;</span> 1 € speso = 1 Beauty Punto (escluse spese di spedizione)
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-[#C8A878]">&checkmark;</span> Campioni omaggio deluxe in ogni ordine
+                  <span class="text-[#C8A878]">&checkmark;</span> 100 Punti = 5 € di sconto immediato nel carrello
                 </li>
                 <li class="flex items-center gap-2">
-                  <span class="text-[#C8A878]">&checkmark;</span> Invito prioritario alle giornate di cabina
+                  <span class="text-[#C8A878]">&checkmark;</span> 🎁 20 Punti di Benvenuto all'iscrizione
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-[#C8A878]">&checkmark;</span> 🎂 50 Punti omaggio nel giorno del tuo compleanno
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-[#C8A878]">&checkmark;</span> ✍️ 5 Punti per ogni recensione approvata
+                </li>
+                <li class="pt-2 border-t border-[#E5E0D8]">
+                  <a href="/pages/programma-fedelta" class="underline text-[#5C6B56] hover:text-[#C8A878] font-medium text-[11px]">
+                    Scopri tutte le regole del Beauty Club &rarr;
+                  </a>
                 </li>
               {%- endunless -%}
             </ul>

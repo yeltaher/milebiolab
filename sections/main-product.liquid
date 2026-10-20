@@ -226,7 +226,7 @@
                                 {% unless product.has_only_default_variant %}
                                     {% for variant in product.variants %}
                                         <button type="button"
-                                                onclick="selectFormat('{{ variant.id }}', {{ variant.price | divided_by: 100.0 }}, '{{ variant.title | escape }}', this, '{{ variant.price | money }}', '+{{ variant.price | divided_by: 20 }}', '{{ variant.id }}')"
+                                                onclick="selectFormat('{{ variant.id }}', {{ variant.price | divided_by: 100.0 }}, '{{ variant.title | escape }}', this, '{{ variant.price | money }}', '+{{ variant.price | divided_by: 100 }}', '{{ variant.id }}')"
                                                 class="format-pill {% if variant.id == product.selected_or_first_available_variant.id %}bg-black text-white{% else %}border border-black/40 text-black hover:border-black bg-transparent{% endif %} min-h-[42px] px-3.5 py-1.5 text-xs font-bold tracking-wider transition-all luxury-interactive flex items-center justify-center">
                                             {{ variant.title }}
                                         </button>
@@ -353,7 +353,7 @@
                                 <span class="font-normal text-[11px] sm:text-xs">Oltre 900 clienti soddisfatti</span>
                             </div>
                             <div id="loyalty-points" class="font-medium text-[11px] sm:text-xs text-[#1A1A1A]">
-                                {{ block.settings.text }}
+                                {{ block.settings.text }} <a href="/pages/programma-fedelta" class="underline text-[#7A7265] hover:text-[#C8A878] ml-1 text-[10px]">Info Beauty Club</a>
                             </div>
                         </div>
 
@@ -790,7 +790,7 @@
 
     const loyaltyEl = document.getElementById('loyalty-points');
     if (loyaltyEl && loyaltyPts) {
-      loyaltyEl.innerHTML = loyaltyPts + ' Punti Fedelt&agrave;';
+      loyaltyEl.innerHTML = loyaltyPts + ' Beauty Punti (1€ = 1 Punto) <a href="/pages/programma-fedelta" class="underline text-[#7A7265] hover:text-[#C8A878] ml-1 text-[10px]">Info Beauty Club</a>';
     }
 
     const pills = document.querySelectorAll('.format-pill');
@@ -956,7 +956,7 @@
           "type": "text",
           "id": "text",
           "label": "Testo Punti",
-          "default": "+380 Punti Fedeltà"
+          "default": "+84 Beauty Punti (1€ = 1 Punto)"
         }
       ]
     },
