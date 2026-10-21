@@ -1,0 +1,38 @@
+{% comment %}
+  MILEBIOLAB - SECTION MAIN PAGE COOKIE
+  Sezione OS 2.0 autonoma per l'Informativa Estesa sui Cookie.
+  Completamente immune da anteprime arbitrarie di pagine nel Theme Editor di Shopify.
+{% endcomment %}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow
+  assign title = section.settings.title
+-%}
+
+{% render 'policy-cookie-view', eyebrow: eyebrow, title: title %}
+
+{% schema %}
+{
+  "name": "Cookie Policy",
+  "tag": "section",
+  "class": "section-policy-cookie",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurazione Cookie Policy"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Badge",
+      "default": "Privacy & Trasparenza • MileBioLab"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Pagina",
+      "default": "Informativa Estesa sui Cookie"
+    }
+  ]
+}
+{% endschema %}

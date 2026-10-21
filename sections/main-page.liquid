@@ -1,30 +1,35 @@
 {%- liquid
-  assign handle_downcase = page.handle | downcase
-  assign title_downcase = page.title | downcase
-
-  assign is_chi_sono = false
-  if handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or handle_downcase contains 'mile' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
-    assign is_chi_sono = true
-  endif
-
-  assign is_contact = false
-  if handle_downcase contains 'contatt' or handle_downcase contains 'contact' or title_downcase contains 'contatt' or title_downcase contains 'contact'
-    assign is_contact = true
-  endif
+  assign t_suffix = template.suffix | default: '' | downcase
+  assign handle_downcase = page.handle | default: '' | downcase
+  assign title_downcase = page.title | default: '' | downcase
 
   assign is_terms = false
-  if handle_downcase contains 'termini' or handle_downcase contains 'terms' or title_downcase contains 'termini' or title_downcase contains 'terms' or handle_downcase contains 'condizioni'
+  if t_suffix contains 'termini' or t_suffix contains 'terms' or t_suffix contains 'condizioni' or handle_downcase contains 'termini' or handle_downcase contains 'terms' or title_downcase contains 'termini' or title_downcase contains 'terms' or handle_downcase contains 'condizioni'
     assign is_terms = true
   endif
 
   assign is_shipping = false
-  if handle_downcase contains 'spedizion' or handle_downcase contains 'shipping' or title_downcase contains 'spedizion' or title_downcase contains 'shipping' or handle_downcase contains 'consegna'
+  if t_suffix contains 'spedizion' or t_suffix contains 'shipping' or t_suffix contains 'consegna' or handle_downcase contains 'spedizion' or handle_downcase contains 'shipping' or title_downcase contains 'spedizion' or title_downcase contains 'shipping' or handle_downcase contains 'consegna'
     assign is_shipping = true
   endif
 
   assign is_cookie = false
-  if handle_downcase contains 'cookie' or title_downcase contains 'cookie'
+  if t_suffix contains 'cookie' or handle_downcase contains 'cookie' or title_downcase contains 'cookie'
     assign is_cookie = true
+  endif
+
+  assign is_chi_sono = false
+  if is_terms == false and is_shipping == false and is_cookie == false
+    if t_suffix contains 'chi-sono' or t_suffix contains 'chi-siamo' or handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
+      assign is_chi_sono = true
+    endif
+  endif
+
+  assign is_contact = false
+  if is_terms == false and is_shipping == false and is_cookie == false and is_chi_sono == false
+    if t_suffix contains 'contatt' or t_suffix contains 'contact' or handle_downcase contains 'contatt' or handle_downcase contains 'contact' or title_downcase contains 'contatt' or title_downcase contains 'contact'
+      assign is_contact = true
+    endif
   endif
 
   assign is_custom_view = false
@@ -59,16 +64,16 @@
     {% endif %}
 
     <!-- Page Content Area / Smart Policy, Chi-Sono & Contact Check -->
-    {% if is_chi_sono %}
+    {% if is_shipping %}
+      {% render 'policy-shipping-view' %}
+    {% elsif is_terms %}
+      {% render 'policy-terms-view' %}
+    {% elsif is_cookie %}
+      {% render 'policy-cookie-view' %}
+    {% elsif is_chi_sono %}
       {% render 'chi-sono-view' %}
     {% elsif is_contact %}
       {% render 'contact-view' %}
-    {% elsif is_terms %}
-      {% render 'policy-terms-view' %}
-    {% elsif is_shipping %}
-      {% render 'policy-shipping-view' %}
-    {% elsif is_cookie %}
-      {% render 'policy-cookie-view' %}
     {% else %}
       <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
         <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">

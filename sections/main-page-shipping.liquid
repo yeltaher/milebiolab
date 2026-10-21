@@ -1,0 +1,38 @@
+{% comment %}
+  MILEBIOLAB - SECTION MAIN PAGE SHIPPING
+  Sezione OS 2.0 autonoma per la pagina Spedizioni & Consegne.
+  Completamente immune da anteprime arbitrarie di pagine nel Theme Editor di Shopify.
+{% endcomment %}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow
+  assign title = section.settings.title
+-%}
+
+{% render 'policy-shipping-view', eyebrow: eyebrow, title: title %}
+
+{% schema %}
+{
+  "name": "Spedizioni & Consegna",
+  "tag": "section",
+  "class": "section-policy-shipping",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurazione Spedizioni"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Badge",
+      "default": "Logistica & Consegne • MileBioLab"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Pagina",
+      "default": "Politica di Spedizione e Consegna"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,38 @@
+{% comment %}
+  MILEBIOLAB - SECTION MAIN PAGE TERMS
+  Sezione OS 2.0 autonoma per i Termini e Condizioni di Vendita.
+  Completamente immune da anteprime arbitrarie di pagine nel Theme Editor di Shopify.
+{% endcomment %}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow
+  assign title = section.settings.title
+-%}
+
+{% render 'policy-terms-view', eyebrow: eyebrow, title: title %}
+
+{% schema %}
+{
+  "name": "Termini e Condizioni",
+  "tag": "section",
+  "class": "section-policy-terms",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurazione Termini"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sottotitolo / Badge",
+      "default": "Documento Ufficiale • MileBioLab"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Pagina",
+      "default": "Termini e Condizioni Generali di Vendita"
+    }
+  ]
+}
+{% endschema %}

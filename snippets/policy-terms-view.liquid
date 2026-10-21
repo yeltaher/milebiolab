@@ -23,11 +23,11 @@
     <header class="text-center max-w-3xl mx-auto space-y-4">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FAF8F5] border border-[#C8A878]/40 text-[#C8A878] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase font-semibold shadow-xs">
         <span class="text-xs">📜</span>
-        <span>DOCUMENTO UFFICIALE • CONTRATTO DI VENDITA</span>
+        <span>{{ eyebrow | default: 'DOCUMENTO UFFICIALE • CONTRATTO DI VENDITA' }}</span>
       </div>
 
       <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl text-[#1A1A1A] font-normal leading-tight tracking-tight">
-        Termini e Condizioni Generali di Vendita e di Servizio
+        {{ title | default: 'Termini e Condizioni Generali di Vendita e di Servizio' }}
       </h1>
 
       <p class="text-sm sm:text-base text-[#7A7265] font-light leading-relaxed max-w-2xl mx-auto">
