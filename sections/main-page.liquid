@@ -1,8 +1,43 @@
-<div class="py-12 sm:py-16 lg:py-20 bg-[#F5F2EB] text-[#1A1A1A]">
-  <div class="{% if section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-8">
+{%- liquid
+  assign handle_downcase = page.handle | downcase
+  assign title_downcase = page.title | downcase
+
+  assign is_chi_sono = false
+  if handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or handle_downcase contains 'mile' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
+    assign is_chi_sono = true
+  endif
+
+  assign is_contact = false
+  if handle_downcase contains 'contatt' or handle_downcase contains 'contact' or title_downcase contains 'contatt' or title_downcase contains 'contact'
+    assign is_contact = true
+  endif
+
+  assign is_terms = false
+  if handle_downcase contains 'termini' or handle_downcase contains 'terms' or title_downcase contains 'termini' or title_downcase contains 'terms' or handle_downcase contains 'condizioni'
+    assign is_terms = true
+  endif
+
+  assign is_shipping = false
+  if handle_downcase contains 'spedizion' or handle_downcase contains 'shipping' or title_downcase contains 'spedizion' or title_downcase contains 'shipping' or handle_downcase contains 'consegna'
+    assign is_shipping = true
+  endif
+
+  assign is_cookie = false
+  if handle_downcase contains 'cookie' or title_downcase contains 'cookie'
+    assign is_cookie = true
+  endif
+
+  assign is_custom_view = false
+  if is_chi_sono or is_contact or is_terms or is_shipping or is_cookie
+    assign is_custom_view = true
+  endif
+-%}
+
+<div class="py-10 sm:py-14 lg:py-18 bg-[#F5F2EB] text-[#1A1A1A]">
+  <div class="{% if is_custom_view %}max-w-6xl{% elsif section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Breadcrumbs -->
-    {% if section.settings.show_breadcrumbs %}
+    {% if section.settings.show_breadcrumbs and is_custom_view == false %}
       <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
         <span class="text-[#DDD7CE]">/</span>
@@ -11,7 +46,7 @@
     {% endif %}
 
     <!-- Page Header -->
-    {% if section.settings.show_title %}
+    {% if section.settings.show_title and is_custom_view == false %}
       <header class="text-center mb-12 sm:mb-16">
         <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
           {{ section.settings.eyebrow | default: 'Istituto MileBioLab • Verona' }}
@@ -23,24 +58,17 @@
       </header>
     {% endif %}
 
-    <!-- Page Content Area / Smart Chi-Sono & Contact Check -->
-    {%- liquid
-      assign handle_downcase = page.handle | downcase
-      assign title_downcase = page.title | downcase
-      assign is_chi_sono = false
-      if handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or handle_downcase contains 'mile' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
-        assign is_chi_sono = true
-      endif
-      assign is_contact = false
-      if handle_downcase contains 'contatt' or handle_downcase contains 'contact' or title_downcase contains 'contatt' or title_downcase contains 'contact'
-        assign is_contact = true
-      endif
-    -%}
-
+    <!-- Page Content Area / Smart Policy, Chi-Sono & Contact Check -->
     {% if is_chi_sono %}
       {% render 'chi-sono-view' %}
     {% elsif is_contact %}
       {% render 'contact-view' %}
+    {% elsif is_terms %}
+      {% render 'policy-terms-view' %}
+    {% elsif is_shipping %}
+      {% render 'policy-shipping-view' %}
+    {% elsif is_cookie %}
+      {% render 'policy-cookie-view' %}
     {% else %}
       <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
         <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
@@ -50,7 +78,7 @@
     {% endif %}
 
     <!-- Optional Verona Boutique Banner -->
-    {% if section.settings.show_verona_banner %}
+    {% if section.settings.show_verona_banner and is_custom_view == false %}
       <div class="mt-12 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="text-center sm:text-left">
           <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">
@@ -60,7 +88,7 @@
             {{ section.settings.verona_banner_title | default: "Desideri una consulenza vis-à-vis a Verona?" }}
           </h3>
           <p class="text-xs text-[#7A7265] mt-1">
-            {{ section.settings.verona_banner_text | default: "Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste." }}
+            {{ section.settings.verona_banner_text | default: "Presso la nostra sede di Via Torricelle 2c in Lebestetik puoi ritirare i tuoi ordini o prenotare un trattamento dermo-specialistico." }}
           </p>
         </div>
         <a href="#istituto-verona" onclick="if(window.openVeronaModal) openVeronaModal();" class="px-6 py-3 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold transition-colors shrink-0 text-center">
@@ -135,7 +163,7 @@
       "type": "textarea",
       "id": "verona_banner_text",
       "label": "Testo Banner Verona",
-      "default": "Presso la nostra sede di Corso Cavour 18 puoi ritirare i tuoi ordini o prenotare un'analisi cutanea Visia con le nostre dermospecialiste."
+      "default": "Presso la nostra sede di Via Torricelle 2c in Lebestetik puoi ritirare i tuoi ordini o prenotare un trattamento dermo-specialistico."
     },
     {
       "type": "text",

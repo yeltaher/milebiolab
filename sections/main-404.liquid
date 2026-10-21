@@ -4,7 +4,10 @@
     if (path.indexOf('/pages/account') !== -1 || path.indexOf('/pages/profilo') !== -1 || path.indexOf('/pages/club-mile') !== -1 || path.indexOf('/pages/accedi') !== -1 ||
         path.indexOf('/pages/chi-sono') !== -1 || path.indexOf('/pages/chi-siamo') !== -1 || path.indexOf('/pages/mile') !== -1 || path.indexOf('/pages/about') !== -1 ||
         path.indexOf('/pages/contatt') !== -1 || path.indexOf('/pages/contact') !== -1 || path.indexOf('/contact') !== -1 || path.indexOf('/contatti') !== -1 || path.indexOf('/pages/concierge') !== -1 ||
-        path.indexOf('/pages/programma-fedelta') !== -1 || path.indexOf('/pages/beauty-club') !== -1 || path.indexOf('/pages/loyalty') !== -1 || path.indexOf('/pages/fedelta') !== -1 || path.indexOf('/pages/punti') !== -1) {
+        path.indexOf('/pages/programma-fedelta') !== -1 || path.indexOf('/pages/beauty-club') !== -1 || path.indexOf('/pages/loyalty') !== -1 || path.indexOf('/pages/fedelta') !== -1 || path.indexOf('/pages/punti') !== -1 ||
+        path.indexOf('/pages/termini') !== -1 || path.indexOf('/pages/terms') !== -1 || path.indexOf('/pages/condizioni') !== -1 || path.indexOf('/policies/terms-of-service') !== -1 ||
+        path.indexOf('/pages/spedizion') !== -1 || path.indexOf('/pages/shipping') !== -1 || path.indexOf('/pages/consegna') !== -1 || path.indexOf('/policies/shipping-policy') !== -1 ||
+        path.indexOf('/pages/cookie') !== -1 || path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/pages/privacy') !== -1) {
       document.write('<style>#standard-404-view { display: none !important; }</style>');
     }
   })();
@@ -161,6 +164,18 @@
   {% render 'loyalty-view' %}
 </div>
 
+<div id="dynamic-terms-404-view" class="hidden">
+  {% render 'policy-terms-view' %}
+</div>
+
+<div id="dynamic-shipping-404-view" class="hidden">
+  {% render 'policy-shipping-view' %}
+</div>
+
+<div id="dynamic-cookie-404-view" class="hidden">
+  {% render 'policy-cookie-view' %}
+</div>
+
 <script>
   (function() {
     var path = window.location.pathname.toLowerCase();
@@ -198,6 +213,30 @@
         stdView.style.display = 'none';
         loyaltyView.classList.remove('hidden');
         document.title = "Beauty Club • Programma Fedeltà | MileBioLab";
+      }
+    } else if (path.indexOf('/pages/termini') !== -1 || path.indexOf('/pages/terms') !== -1 || path.indexOf('/pages/condizioni') !== -1 || path.indexOf('/policies/terms-of-service') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var termsView = document.getElementById('dynamic-terms-404-view');
+      if (stdView && termsView) {
+        stdView.style.display = 'none';
+        termsView.classList.remove('hidden');
+        document.title = "Termini e Condizioni Generali • MileBioLab & Lebestetik Verona";
+      }
+    } else if (path.indexOf('/pages/spedizion') !== -1 || path.indexOf('/pages/shipping') !== -1 || path.indexOf('/pages/consegna') !== -1 || path.indexOf('/policies/shipping-policy') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var shipView = document.getElementById('dynamic-shipping-404-view');
+      if (stdView && shipView) {
+        stdView.style.display = 'none';
+        shipView.classList.remove('hidden');
+        document.title = "Politica di Spedizione e Consegna • MileBioLab & Lebestetik Verona";
+      }
+    } else if (path.indexOf('/pages/cookie') !== -1 || path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/pages/privacy') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var cookieView = document.getElementById('dynamic-cookie-404-view');
+      if (stdView && cookieView) {
+        stdView.style.display = 'none';
+        cookieView.classList.remove('hidden');
+        document.title = "Informativa Cookie & Privacy • MileBioLab & Lebestetik Verona";
       }
     }
   })();
