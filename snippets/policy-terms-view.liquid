@@ -146,7 +146,21 @@
       </div>
     </header>
 
-    <!-- HIGHLIGHT SUMMARY CARDS -->
+        <!-- CONTENUTO PAGINA SHOPIFY ADMIN (IN EVIDENZA PRIORITARIA) -->
+    {%- if page.content != blank -%}
+      <div class="bg-white border border-[#DDD7CE] p-6 sm:p-10 lg:p-12 shadow-xs relative" style="border: 3px double #EDE5DB;">
+        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-[#F5F2EB] text-[#C8A878] font-mono text-xs uppercase tracking-widest font-semibold">
+          <span>📜</span>
+          <span>Termini Contrattuali Personalizzati da Admin</span>
+        </div>
+        <div class="rte prose max-w-none text-sm sm:text-base text-[#1A1A1A] leading-relaxed font-light space-y-4">
+          {{ page.content }}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- unless settings.show_only_page_content and page.content != blank -%}
+<!-- HIGHLIGHT SUMMARY CARDS -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Card 1 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #C8A878;">
@@ -196,15 +210,6 @@
         {%- endif -%}
       </div>
     </div>
-
-    <!-- CONTENUTO PAGINA SHOPIFY ADMIN (SE PRESENTE) -->
-    {%- if page.content != blank -%}
-      <div class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative">
-        <div class="prose max-w-none text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4">
-          {{ page.content }}
-        </div>
-      </div>
-    {%- endif -%}
 
     <!-- INDICE RAPIDO (TOC) -->
     {%- if show_toc -%}
@@ -652,6 +657,7 @@
         {%- endif -%}
       </div>
     </div>
+    {%- endunless -%}
 
   </div>
 </div>

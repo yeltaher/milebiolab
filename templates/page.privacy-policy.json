@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page-privacy",
+      "settings": {
+        "eyebrow": "Privacy & Trasparenza GDPR • MileBioLab",
+        "title": "Informativa sul Trattamento dei Dati Personali (Privacy Policy)",
+        "subtitle": "Informativa resa ai sensi dell'art. 13 del Regolamento UE 2016/679 (GDPR) per i visitatori e clienti del negozio online MileBioLab e dell'istituto dermo-specialistico Lebestetik Beauty & Spa a Verona.",
+        "last_updated": "Ultimo aggiornamento: 21 Ottobre 2026",
+        "badge_location": "Lebestetik Beauty & Spa • Verona",
+        "badge_normative": "Conformità GDPR Reg. UE 2016/679",
+        "titolare_name": "Mile Dermocosmesi di Milena Tacchella",
+        "titolare_address": "Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia",
+        "titolare_email": "info@miledermocosmesi.it",
+        "titolare_phone": "+39 3933909899"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

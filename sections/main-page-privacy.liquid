@@ -1,0 +1,629 @@
+{% comment %}
+  MILEBIOLAB - SECTION MAIN PAGE PRIVACY
+  Sezione OS 2.0 autonoma per l'Informativa sul Trattamento dei Dati Personali (Privacy Policy).
+  Completamente personalizzabile dal Theme Editor di Shopify con anteprima in tempo reale.
+{% endcomment %}
+
+{% render 'policy-privacy-view', settings: section.settings, blocks: section.blocks %}
+
+{% schema %}
+{
+  "name": "Privacy Policy",
+  "tag": "section",
+  "class": "section-policy-privacy",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intestazione Pagina"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Badge / Eyebrow",
+      "default": "PRIVACY & TRASPARENZA GDPR • REG. UE 2016/679"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo Principale",
+      "default": "Informativa sul Trattamento dei Dati Personali (Privacy Policy)"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo / Descrizione",
+      "default": "Informativa resa ai sensi dell'art. 13 del Regolamento Europeo 2016/679 (GDPR) per i visitatori e clienti del negozio online MileBioLab e dell'istituto dermo-specialistico Lebestetik Beauty & Spa a Verona."
+    },
+    {
+      "type": "text",
+      "id": "last_updated",
+      "label": "Data Ultimo Aggiornamento",
+      "default": "Ultimo aggiornamento: 21 Ottobre 2026"
+    },
+    {
+      "type": "text",
+      "id": "badge_location",
+      "label": "Badge Sede",
+      "default": "Lebestetik Beauty & Spa • Verona"
+    },
+    {
+      "type": "text",
+      "id": "badge_normative",
+      "label": "Badge Normativo",
+      "default": "Conformità GDPR Reg. UE 2016/679"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_page_content",
+      "label": "Mostra solo il testo di Shopify Admin",
+      "info": "Se attivato e la pagina contiene testo in Shopify Admin > Pagine, mostra solo il testo personalizzato nascondendo gli articoli predefiniti.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Card Riassuntive Iniziali"
+    },
+    {
+      "type": "text",
+      "id": "card1_badge",
+      "label": "Badge Card 1",
+      "default": "Protezione Rigorosa"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Titolo Card 1",
+      "default": "Dati Protetti e Crittografati"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_desc",
+      "label": "Descrizione Card 1",
+      "default": "I tuoi dati non vengono mai ceduti, venduti o affittati a terzi. Protocolli SSL/TLS a 256 bit e server sicuri europei garantiscono la massima riservatezza."
+    },
+    {
+      "type": "text",
+      "id": "card1_footer",
+      "label": "Didascalia Card 1",
+      "default": "✓ Standard PCI-DSS Livello 1"
+    },
+    {
+      "type": "text",
+      "id": "card2_badge",
+      "label": "Badge Card 2",
+      "default": "Trasparenza Totale"
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Titolo Card 2",
+      "default": "Finalità Chiare e Limitate"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_desc",
+      "label": "Descrizione Card 2",
+      "default": "Trattiamo solo i dati strettamente necessari per gestire gli ordini, recapitare le formule botaniche ed erogare consulenze dermo-estetiche su misura."
+    },
+    {
+      "type": "text",
+      "id": "card2_footer",
+      "label": "Didascalia Card 2",
+      "default": "✓ Zero Sorprese o Spam"
+    },
+    {
+      "type": "text",
+      "id": "card3_badge",
+      "label": "Badge Card 3",
+      "default": "Controllo Utente"
+    },
+    {
+      "type": "text",
+      "id": "card3_title",
+      "label": "Titolo Card 3",
+      "default": "I Tuoi Diritti GDPR"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_desc",
+      "label": "Descrizione Card 3",
+      "default": "Puoi richiedere l'accesso, la rettifica, la cancellazione immediata (diritto all'oblio) o revocare il consenso in qualsiasi momento con un semplice messaggio."
+    },
+    {
+      "type": "text",
+      "id": "card3_footer",
+      "label": "Didascalia Card 3",
+      "default": "✓ Risposta Rapida in 24-48 Ore"
+    },
+    {
+      "type": "header",
+      "content": "Articolo 1 - Titolare del Trattamento"
+    },
+    {
+      "type": "text",
+      "id": "sec1_tag",
+      "label": "Tag Articolo 1",
+      "default": "Identificazione Giuridica"
+    },
+    {
+      "type": "text",
+      "id": "sec1_title",
+      "label": "Titolo Articolo 1",
+      "default": "Titolare del Trattamento dei Dati Personali"
+    },
+    {
+      "type": "textarea",
+      "id": "sec1_content",
+      "label": "Testo Articolo 1",
+      "default": "Ai sensi dell'art. 4, n. 7 e dell'art. 13 del Regolamento UE 2016/679 (General Data Protection Regulation - GDPR), il Titolare del trattamento dei dati personali raccolti tramite il presente sito e presso la boutique dermo-specialistica è:"
+    },
+    {
+      "type": "text",
+      "id": "titolare_name",
+      "label": "Nome Titolare / Azienda",
+      "default": "Mile Dermocosmesi di Milena Tacchella"
+    },
+    {
+      "type": "text",
+      "id": "titolare_address",
+      "label": "Indirizzo Sede",
+      "default": "Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia"
+    },
+    {
+      "type": "text",
+      "id": "titolare_email",
+      "label": "Email Referente Privacy",
+      "default": "info@miledermocosmesi.it"
+    },
+    {
+      "type": "text",
+      "id": "titolare_phone",
+      "label": "Telefono / Assistenza",
+      "default": "+39 3933909899"
+    },
+    {
+      "type": "header",
+      "content": "Articolo 2 - Categorie di Dati"
+    },
+    {
+      "type": "text",
+      "id": "sec2_tag",
+      "label": "Tag Articolo 2",
+      "default": "Dati Trattati"
+    },
+    {
+      "type": "text",
+      "id": "sec2_title",
+      "label": "Titolo Articolo 2",
+      "default": "Categorie di Dati Personali Raccolti"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_content",
+      "label": "Testo Introduttivo Articolo 2",
+      "default": "In base alle interazioni dell'utente con la piattaforma online e con la nostra sede fisica a Verona, Mile Dermocosmesi può raccogliere e trattare le seguenti tipologie di dati personali:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_bullet1",
+      "label": "Punto 1 - Dati identificativi e contatti",
+      "default": "Dati identificativi e di contatto: Nome, cognome, indirizzo di spedizione, indirizzo di fatturazione, codice fiscale/P.IVA (se richiesta fattura), indirizzo email e recapito telefonico/cellulare;"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_bullet2",
+      "label": "Punto 2 - Dati di pagamento",
+      "default": "Dati di pagamento e transazione: Le informazioni relative agli strumenti di pagamento sono gestite e cifrate direttamente dai gateway di pagamento certificati (Shopify Payments, Stripe, PayPal) con crittografia PCI-DSS Level 1. Il Titolare non memorizza né ha accesso ai numeri completi di carta o codici CVV;"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_bullet3",
+      "label": "Punto 3 - Storico ordini",
+      "default": "Dati di acquisto e storico ordini: Prodotti e rituali acquistati, frequenza d'ordine, metodo di spedizione o opzione di ritiro in sede a Verona prescelta;"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_bullet4",
+      "label": "Punto 4 - Dati di navigazione",
+      "default": "Dati di navigazione e tecnici: Indirizzo IP anonimizzato, log di sistema, tipo di browser, orari di accesso e parametri di connessione (come descritto nella Cookie Policy);"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_bullet5",
+      "label": "Punto 5 - Preferenze dermo-cosmetiche",
+      "default": "Dati forniti volontariamente per dermo-consulenze: Informazioni sulla tipologia cutanea o preferenze cosmetiche comunicate spontaneamente dall'utente tramite form o contatto WhatsApp al fine di ottenere indicazioni su misura per protocolli Team Dr. Joseph o Burro UNICHO 21."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 3 - Finalità e Basi Giuridiche"
+    },
+    {
+      "type": "text",
+      "id": "sec3_tag",
+      "label": "Tag Articolo 3",
+      "default": "Finalità & Basi Legali"
+    },
+    {
+      "type": "text",
+      "id": "sec3_title",
+      "label": "Titolo Articolo 3",
+      "default": "Finalità del Trattamento e Basi Giuridiche"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_intro",
+      "label": "Testo Introduttivo Articolo 3",
+      "default": "I dati personali sono trattati esclusivamente per scopi determinati, espliciti e legittimi, nel rispetto dei principi di correttezza e minimizzazione (art. 5 GDPR):"
+    },
+    {
+      "type": "text",
+      "id": "sec3_p1_title",
+      "label": "Finalità 1 - Titolo",
+      "default": "Evasione Ordini e Logistica"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_p1_desc",
+      "label": "Finalità 1 - Descrizione e Base Giuridica",
+      "default": "Gestione del carrello, ricezione del pagamento, allestimento delle confezioni isotermiche, spedizione con corriere espresso o ritiro in sede a Verona, gestione di resi e assistenza clienti. Base giuridica: Esecuzione del contratto di vendita (art. 6.1.b GDPR)."
+    },
+    {
+      "type": "text",
+      "id": "sec3_p2_title",
+      "label": "Finalità 2 - Titolo",
+      "default": "Obblighi Amministrativi e Fiscali"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_p2_desc",
+      "label": "Finalità 2 - Descrizione e Base Giuridica",
+      "default": "Emissione delle ricevute e fatture commerciali, adempimenti contabili e fiscali previsti dalle leggi italiane ed europee. Base giuridica: Adempimento di un obbligo legale (art. 6.1.c GDPR)."
+    },
+    {
+      "type": "text",
+      "id": "sec3_p3_title",
+      "label": "Finalità 3 - Titolo",
+      "default": "Consulenza Dermo-Estetica Personalizzata"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_p3_desc",
+      "label": "Finalità 3 - Descrizione e Base Giuridica",
+      "default": "Risposta a richieste specifiche di orientamento cosmetico e allestimento rituali personalizzati pervenute via email, chat o telefono. Base giuridica: Esecuzione di misure precontrattuali su richiesta dell'interessato (art. 6.1.b GDPR)."
+    },
+    {
+      "type": "text",
+      "id": "sec3_p4_title",
+      "label": "Finalità 4 - Titolo",
+      "default": "Newsletter e Comunicazioni Botaniche"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_p4_desc",
+      "label": "Finalità 4 - Descrizione e Base Giuridica",
+      "default": "Invio di anteprime esclusive, inviti a eventi speciali presso Lebestetik Verona e novità di formulazione. Base giuridica: Consenso esplicito, facoltativo e revocabile in qualsiasi istante (art. 6.1.a GDPR)."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 4 - Modalità e Sicurezza"
+    },
+    {
+      "type": "text",
+      "id": "sec4_tag",
+      "label": "Tag Articolo 4",
+      "default": "Misure di Tutela"
+    },
+    {
+      "type": "text",
+      "id": "sec4_title",
+      "label": "Titolo Articolo 4",
+      "default": "Modalità di Trattamento e Sicurezza dei Dati"
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_content",
+      "label": "Testo Articolo 4",
+      "default": "Il trattamento dei dati personali avviene mediante strumenti informatici, telematici e, in via residuale per gli archivi d'istituto, cartacei, con logiche strettamente correlate alle finalità sopra indicate. Mile Dermocosmesi adotta idonee misure tecniche e organizzative di sicurezza ai sensi dell'art. 32 del GDPR per proteggere i dati da accessi non autorizzati, divulgazione, alterazione o distruzione:"
+    },
+    {
+      "type": "text",
+      "id": "sec4_box1_title",
+      "label": "Box 1 - Titolo",
+      "default": "Crittografia SSL/TLS e Protezione Server"
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_box1_desc",
+      "label": "Box 1 - Descrizione",
+      "default": "L'intera navigazione e il checkout sul sito MileBioLab avvengono su canale cifrato con certificato SSL a 256 bit su infrastruttura Shopify conforme agli standard di sicurezza internazionali più stringenti."
+    },
+    {
+      "type": "text",
+      "id": "sec4_box2_title",
+      "label": "Box 2 - Titolo",
+      "default": "Controllo degli Accessi e Riservatezza"
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_box2_desc",
+      "label": "Box 2 - Descrizione",
+      "default": "L'accesso ai database è consentito esclusivamente alla titolare Milena Tacchella e agli incaricati formati, tramite credenziali individuali complesse e autenticazione a due fattori."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 5 - Destinatari dei Dati"
+    },
+    {
+      "type": "text",
+      "id": "sec5_tag",
+      "label": "Tag Articolo 5",
+      "default": "Condivisione Dati"
+    },
+    {
+      "type": "text",
+      "id": "sec5_title",
+      "label": "Titolo Articolo 5",
+      "default": "Destinatari e Comunicazione dei Dati a Terzi"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_content",
+      "label": "Testo Articolo 5",
+      "default": "I dati personali dell'utente non saranno mai venduti, noleggiati o ceduti a fini di lucro a terze parti estranee. Per adempiere alle obbligazioni contrattuali e legali, i dati potranno essere comunicati unicamente a:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_bullet1",
+      "label": "Destinatario 1 - Corrieri",
+      "default": "Corrieri e vettori logistici convenzionati (GLS, BRT, DHL Express) per la presa in carico, il trasporto e la consegna a domicilio del pacco;"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_bullet2",
+      "label": "Destinatario 2 - Gateway Pagamento",
+      "default": "Fornitori di servizi di pagamento elettronico (Shopify Payments, Stripe, PayPal) per la transazione sicura dell'ordine;"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_bullet3",
+      "label": "Destinatario 3 - Laboratori Cosmetici",
+      "default": "Laboratori partner dermo-cosmetici europei (es. Selfnamed) nei soli limiti tecnici indispensabili all'allestimento on-demand e spedizione delle formulazioni personalizzate;"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_bullet4",
+      "label": "Destinatario 4 - Consulenti e Fisco",
+      "default": "Consulenti contabili, commercialisti e consulenti legali per gli adempimenti fiscali di legge o per la tutela dei diritti contrattuali del Titolare."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 6 - Trasferimento Extra-UE"
+    },
+    {
+      "type": "text",
+      "id": "sec6_tag",
+      "label": "Tag Articolo 6",
+      "default": "Confini Geografici"
+    },
+    {
+      "type": "text",
+      "id": "sec6_title",
+      "label": "Titolo Articolo 6",
+      "default": "Trasferimento dei Dati Extra-UE"
+    },
+    {
+      "type": "textarea",
+      "id": "sec6_content",
+      "label": "Testo Articolo 6",
+      "default": "La gestione operativa e l'infrastruttura di hosting della piattaforma MileBioLab poggiano sui server di Shopify Inc. Qualora alcuni dati siano temporaneamente conservati o instradati verso server collocati al di fuori dello Spazio Economico Europeo (es. Stati Uniti o Canada), tale trasferimento avviene nel rigoroso rispetto del Capo V del GDPR, mediante l'adozione delle Clausole Contrattuali Standard (Standard Contractual Clauses - SCC) approvate dalla Commissione Europea e in conformità all'EU-US Data Privacy Framework."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 7 - Periodo di Conservazione"
+    },
+    {
+      "type": "text",
+      "id": "sec7_tag",
+      "label": "Tag Articolo 7",
+      "default": "Tempi di Conservazione"
+    },
+    {
+      "type": "text",
+      "id": "sec7_title",
+      "label": "Titolo Articolo 7",
+      "default": "Periodo di Conservazione dei Dati (Data Retention)"
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_content",
+      "label": "Testo Articolo 7",
+      "default": "I dati personali vengono conservati per il tempo strettamente necessario a conseguire le finalità per cui sono stati raccolti, conformemente alle previsioni di legge:"
+    },
+    {
+      "type": "text",
+      "id": "sec7_ret1_title",
+      "label": "Voce 1 - Titolo",
+      "default": "Dati di Fatturazione e Fiscopuro"
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_ret1_desc",
+      "label": "Voce 1 - Descrizione",
+      "default": "Conservati per 10 anni dalla data dell'acquisto, in conformità agli obblighi contabili e civilistici ex art. 2220 c.c."
+    },
+    {
+      "type": "text",
+      "id": "sec7_ret2_title",
+      "label": "Voce 2 - Titolo",
+      "default": "Dati di Account e Ordini"
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_ret2_desc",
+      "label": "Voce 2 - Descrizione",
+      "default": "Conservati per tutta la durata del rapporto commerciale o fino all'eventuale richiesta di cancellazione da parte del cliente."
+    },
+    {
+      "type": "text",
+      "id": "sec7_ret3_title",
+      "label": "Voce 3 - Titolo",
+      "default": "Dati per Finalità di Marketing"
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_ret3_desc",
+      "label": "Voce 3 - Descrizione",
+      "default": "Conservati fino alla revoca del consenso (disiscrizione autonoma con link presente in ogni email) o per un massimo di 24 mesi dall'ultima interazione."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 8 - Diritti dell'Interessato"
+    },
+    {
+      "type": "text",
+      "id": "sec8_tag",
+      "label": "Tag Articolo 8",
+      "default": "Esercizio Diritti"
+    },
+    {
+      "type": "text",
+      "id": "sec8_title",
+      "label": "Titolo Articolo 8",
+      "default": "Diritti dell'Interessato (Artt. 15-22 del GDPR)"
+    },
+    {
+      "type": "textarea",
+      "id": "sec8_content",
+      "label": "Testo Articolo 8",
+      "default": "In qualità di interessato, il cliente ha il pieno diritto di esercitare in ogni momento le facoltà previste dagli articoli da 15 a 22 del Regolamento UE 2016/679:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec8_garante_note",
+      "label": "Nota Reclamo Garante Privacy",
+      "default": "Qualora l'interessato ritenga che il trattamento dei propri dati personali avvenga in violazione del GDPR, ha il diritto di proporre reclamo all'Autorità Garante per la Protezione dei Dati Personali (Piazza Venezia 11, 00187 Roma - www.garanteprivacy.it) o di adire le opportune sedi giudiziarie."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 9 - Minori di 18 Anni"
+    },
+    {
+      "type": "text",
+      "id": "sec9_tag",
+      "label": "Tag Articolo 9",
+      "default": "Tutela Minori"
+    },
+    {
+      "type": "text",
+      "id": "sec9_title",
+      "label": "Titolo Articolo 9",
+      "default": "Trattamento dei Dati dei Minori di Anni 18"
+    },
+    {
+      "type": "textarea",
+      "id": "sec9_content",
+      "label": "Testo Articolo 9",
+      "default": "I servizi e i prodotti cosmetici offerti sul sito web MileBioLab sono riservati a persone maggiorenni. Mile Dermocosmesi non raccoglie consapevolmente dati personali relativi a minori di 18 anni. Nel caso in cui dovesse essere riscontrata la registrazione involontaria di dati di un minore, tali informazioni saranno tempestivamente cancellate dai nostri sistemi."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 10 - Modifiche e Aggiornamenti"
+    },
+    {
+      "type": "text",
+      "id": "sec10_tag",
+      "label": "Tag Articolo 10",
+      "default": "Revisione Normativa"
+    },
+    {
+      "type": "text",
+      "id": "sec10_title",
+      "label": "Titolo Articolo 10",
+      "default": "Modifiche e Aggiornamenti dell'Informativa"
+    },
+    {
+      "type": "textarea",
+      "id": "sec10_content",
+      "label": "Testo Articolo 10",
+      "default": "Il Titolare si riserva il diritto di modificare o aggiornare la presente Informativa sulla Privacy in qualsiasi momento, anche in conseguenza di variazioni legislative o regolamentari intervenute. La versione aggiornata sarà sempre consultabile con indicazione della data di ultima revisione."
+    },
+    {
+      "type": "header",
+      "content": "Assistenza Privacy & DPO"
+    },
+    {
+      "type": "text",
+      "id": "help_title",
+      "label": "Titolo Box Assistenza",
+      "default": "Assistenza Privacy & Concierge MileBioLab"
+    },
+    {
+      "type": "textarea",
+      "id": "help_desc",
+      "label": "Descrizione Box Assistenza",
+      "default": "Per esercitare i tuoi diritti privacy, richiedere la rettifica o la cancellazione dei tuoi dati o per qualunque chiarimento relativo alla tutela della riservatezza, contatta direttamente il nostro referente:"
+    },
+    {
+      "type": "text",
+      "id": "help_whatsapp_text",
+      "label": "Testo Pulsante WhatsApp",
+      "default": "WhatsApp Referente Privacy"
+    },
+    {
+      "type": "text",
+      "id": "help_whatsapp_url",
+      "label": "Link WhatsApp (es. https://wa.me/393933909899)",
+      "default": "https://wa.me/393933909899"
+    },
+    {
+      "type": "text",
+      "id": "help_email_text",
+      "label": "Testo Pulsante Email",
+      "default": "Scrivi a info@miledermocosmesi.it"
+    },
+    {
+      "type": "text",
+      "id": "help_email_address",
+      "label": "Indirizzo Email DPO / Privacy",
+      "default": "info@miledermocosmesi.it"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_privacy_clause",
+      "name": "Clausola Privacy Custom",
+      "settings": [
+        {
+          "type": "text",
+          "id": "article_number",
+          "label": "Numero / Indice Articolo (opzionale)",
+          "default": "11"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag / Categoria",
+          "default": "Integrazione Privacy"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Clausola",
+          "default": "Disposizioni Integrative sul Trattamento"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Testo Clausola",
+          "default": "<p>Inserisci qui eventuali clausole integrative, informative specifiche per nuovi servizi o aggiornamenti di conformità privacy.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Privacy Policy"
+    }
+  ]
+}
+{% endschema %}

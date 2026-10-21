@@ -7,7 +7,7 @@
         path.indexOf('/pages/programma-fedelta') !== -1 || path.indexOf('/pages/beauty-club') !== -1 || path.indexOf('/pages/loyalty') !== -1 || path.indexOf('/pages/fedelta') !== -1 || path.indexOf('/pages/punti') !== -1 ||
         path.indexOf('/pages/termini') !== -1 || path.indexOf('/pages/terms') !== -1 || path.indexOf('/pages/condizioni') !== -1 || path.indexOf('/policies/terms-of-service') !== -1 ||
         path.indexOf('/pages/spedizion') !== -1 || path.indexOf('/pages/shipping') !== -1 || path.indexOf('/pages/consegna') !== -1 || path.indexOf('/policies/shipping-policy') !== -1 ||
-        path.indexOf('/pages/cookie') !== -1 || path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/pages/privacy') !== -1) {
+        path.indexOf('/pages/cookie') !== -1 || path.indexOf('/policies/cookie-policy') !== -1 || path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/pages/privacy') !== -1 || path.indexOf('/policies/privacy') !== -1) {
       document.write('<style>#standard-404-view { display: none !important; }</style>');
     }
   })();
@@ -176,6 +176,10 @@
   {% render 'policy-cookie-view' %}
 </div>
 
+<div id="dynamic-privacy-404-view" class="hidden">
+  {% render 'policy-privacy-view' %}
+</div>
+
 <script>
   (function() {
     var path = window.location.pathname.toLowerCase();
@@ -230,13 +234,21 @@
         shipView.classList.remove('hidden');
         document.title = "Politica di Spedizione e Consegna • MileBioLab & Lebestetik Verona";
       }
-    } else if (path.indexOf('/pages/cookie') !== -1 || path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/pages/privacy') !== -1) {
+    } else if (path.indexOf('/pages/cookie') !== -1 || path.indexOf('/policies/cookie-policy') !== -1) {
       var stdView = document.getElementById('standard-404-view');
       var cookieView = document.getElementById('dynamic-cookie-404-view');
       if (stdView && cookieView) {
         stdView.style.display = 'none';
         cookieView.classList.remove('hidden');
-        document.title = "Informativa Cookie & Privacy • MileBioLab & Lebestetik Verona";
+        document.title = "Informativa sui Cookie • MileBioLab & Lebestetik Verona";
+      }
+    } else if (path.indexOf('/pages/privacy') !== -1 || path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/policies/privacy') !== -1) {
+      var stdView = document.getElementById('standard-404-view');
+      var privacyView = document.getElementById('dynamic-privacy-404-view');
+      if (stdView && privacyView) {
+        stdView.style.display = 'none';
+        privacyView.classList.remove('hidden');
+        document.title = "Informativa sulla Privacy (GDPR) • MileBioLab & Lebestetik Verona";
       }
     }
   })();

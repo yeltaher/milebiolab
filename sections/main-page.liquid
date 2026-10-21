@@ -3,6 +3,11 @@
   assign handle_downcase = page.handle | default: '' | downcase
   assign title_downcase = page.title | default: '' | downcase
 
+  assign is_privacy = false
+  if t_suffix contains 'privacy' or handle_downcase contains 'privacy' or title_downcase contains 'privacy'
+    assign is_privacy = true
+  endif
+
   assign is_terms = false
   if t_suffix contains 'termini' or t_suffix contains 'terms' or t_suffix contains 'condizioni' or handle_downcase contains 'termini' or handle_downcase contains 'terms' or title_downcase contains 'termini' or title_downcase contains 'terms' or handle_downcase contains 'condizioni'
     assign is_terms = true
@@ -19,30 +24,35 @@
   endif
 
   assign is_chi_sono = false
-  if is_terms == false and is_shipping == false and is_cookie == false
+  if is_terms == false and is_shipping == false and is_cookie == false and is_privacy == false
     if t_suffix contains 'chi-sono' or t_suffix contains 'chi-siamo' or handle_downcase contains 'chi-sono' or handle_downcase contains 'chi-siamo' or title_downcase contains 'chi sono' or title_downcase contains 'chi siamo'
       assign is_chi_sono = true
     endif
   endif
 
   assign is_contact = false
-  if is_terms == false and is_shipping == false and is_cookie == false and is_chi_sono == false
+  if is_terms == false and is_shipping == false and is_cookie == false and is_privacy == false and is_chi_sono == false
     if t_suffix contains 'contatt' or t_suffix contains 'contact' or handle_downcase contains 'contatt' or handle_downcase contains 'contact' or title_downcase contains 'contatt' or title_downcase contains 'contact'
       assign is_contact = true
     endif
   endif
 
   assign is_custom_view = false
-  if is_chi_sono or is_contact or is_terms or is_shipping or is_cookie
+  if is_chi_sono or is_contact or is_terms or is_shipping or is_cookie or is_privacy
     assign is_custom_view = true
+  endif
+
+  assign show_admin_page_content = false
+  if page.content != blank and section.settings.prefer_page_content != false
+    assign show_admin_page_content = true
   endif
 -%}
 
 <div class="py-10 sm:py-14 lg:py-18 bg-[#F5F2EB] text-[#1A1A1A]">
-  <div class="{% if is_custom_view %}max-w-6xl{% elsif section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="{% if is_custom_view and show_admin_page_content == false %}max-w-6xl{% elsif section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Breadcrumbs -->
-    {% if section.settings.show_breadcrumbs and is_custom_view == false %}
+    {% if section.settings.show_breadcrumbs and (is_custom_view == false or show_admin_page_content) %}
       <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
         <span class="text-[#DDD7CE]">/</span>
@@ -51,7 +61,7 @@
     {% endif %}
 
     <!-- Page Header -->
-    {% if section.settings.show_title and is_custom_view == false %}
+    {% if section.settings.show_title and (is_custom_view == false or show_admin_page_content) %}
       <header class="text-center mb-12 sm:mb-16">
         <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
           {{ section.settings.eyebrow | default: 'Istituto MileBioLab • Verona' }}
@@ -64,12 +74,20 @@
     {% endif %}
 
     <!-- Page Content Area / Smart Policy, Chi-Sono & Contact Check -->
-    {% if is_shipping %}
+    {% if show_admin_page_content %}
+      <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
+        <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
+          {{ page.content }}
+        </div>
+      </article>
+    {% elsif is_shipping %}
       {% render 'policy-shipping-view', settings: section.settings, blocks: section.blocks %}
     {% elsif is_terms %}
       {% render 'policy-terms-view', settings: section.settings, blocks: section.blocks %}
     {% elsif is_cookie %}
       {% render 'policy-cookie-view', settings: section.settings, blocks: section.blocks %}
+    {% elsif is_privacy %}
+      {% render 'policy-privacy-view', settings: section.settings, blocks: section.blocks %}
     {% elsif is_chi_sono %}
       {% render 'chi-sono-view' %}
       {% if page.content != blank %}
@@ -97,7 +115,7 @@
     {% endif %}
 
     <!-- Optional Verona Boutique Banner -->
-    {% if section.settings.show_verona_banner and is_custom_view == false %}
+    {% if section.settings.show_verona_banner and (is_custom_view == false or show_admin_page_content) %}
       <div class="mt-12 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="text-center sm:text-left">
           <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">
@@ -132,6 +150,12 @@
       "id": "eyebrow",
       "label": "Sottotitolo / Eyebrow",
       "default": "Istituto MileBioLab • Verona"
+    },
+    {
+      "type": "checkbox",
+      "id": "prefer_page_content",
+      "label": "Mostra prioritariamente il testo inserito in Shopify Admin > Pagine",
+      "default": true
     },
     {
       "type": "checkbox",
