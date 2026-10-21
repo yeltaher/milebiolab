@@ -1,15 +1,10 @@
 {% comment %}
   MILEBIOLAB - SECTION MAIN PAGE TERMS
-  Sezione OS 2.0 autonoma per i Termini e Condizioni di Vendita.
-  Completamente immune da anteprime arbitrarie di pagine nel Theme Editor di Shopify.
+  Sezione OS 2.0 autonoma per i Termini e Condizioni Generali di Vendita e di Servizio.
+  Completamente personalizzabile dal Theme Editor di Shopify con anteprima in tempo reale.
 {% endcomment %}
 
-{%- liquid
-  assign eyebrow = section.settings.eyebrow
-  assign title = section.settings.title
--%}
-
-{% render 'policy-terms-view', eyebrow: eyebrow, title: title %}
+{% render 'policy-terms-view', settings: section.settings, blocks: section.blocks %}
 
 {% schema %}
 {
@@ -19,19 +14,550 @@
   "settings": [
     {
       "type": "header",
-      "content": "Configurazione Termini"
+      "content": "Intestazione Pagina"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Sottotitolo / Badge",
-      "default": "Documento Ufficiale • MileBioLab"
+      "label": "Badge / Eyebrow",
+      "default": "DOCUMENTO UFFICIALE • CONTRATTO DI VENDITA"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Titolo Pagina",
-      "default": "Termini e Condizioni Generali di Vendita"
+      "label": "Titolo Principale",
+      "default": "Termini e Condizioni Generali di Vendita e di Servizio"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo / Descrizione Introduttiva",
+      "default": "Regolamento contrattuale applicabile all'acquisto dei prodotti cosmetici biomimetici, protocolli di longevità cutanea e servizi boutique erogati da MileBioLab."
+    },
+    {
+      "type": "text",
+      "id": "last_updated",
+      "label": "Data Ultimo Aggiornamento",
+      "default": "Ultimo aggiornamento: 21 Ottobre 2026"
+    },
+    {
+      "type": "text",
+      "id": "badge_location",
+      "label": "Testo Badge Sede",
+      "default": "Lebestetik Beauty & Spa • Verona"
+    },
+    {
+      "type": "header",
+      "content": "Card Riassuntive Iniziali"
+    },
+    {
+      "type": "text",
+      "id": "card1_badge",
+      "label": "Etichetta Card 1",
+      "default": "Sicurezza Contrattuale"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Titolo Card 1",
+      "default": "Trasparenza & Prezzi IVA Inclusa"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_desc",
+      "label": "Descrizione Card 1",
+      "default": "Tutti i prezzi sono espressi in Euro (€) con IVA 22% inclusa. Transazioni crittografate SSL a 256 bit e conformità rigorosa al Codice del Consumo (D.Lgs. 206/2005)."
+    },
+    {
+      "type": "text",
+      "id": "card1_footer",
+      "label": "Nota Card 1",
+      "default": "✓ Pagamenti 3D Secure 2.0"
+    },
+    {
+      "type": "text",
+      "id": "card2_badge",
+      "label": "Etichetta Card 2",
+      "default": "Modello Integrato"
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Titolo Card 2",
+      "default": "MileBioLab + Selfnamed"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_desc",
+      "label": "Descrizione Card 2",
+      "default": "Le eccellenze d'istituto viaggiano dalla nostra sede di Verona e le formule on-demand dai laboratori certificati Selfnamed. Per gli ordini misti, spedizione unica senza costi doppi."
+    },
+    {
+      "type": "text",
+      "id": "card2_footer",
+      "label": "Nota Card 2",
+      "default": "✓ Garanzia & Assistenza Unificate"
+    },
+    {
+      "type": "text",
+      "id": "card3_badge",
+      "label": "Etichetta Card 3",
+      "default": "Tutela della Salute"
+    },
+    {
+      "type": "text",
+      "id": "card3_title",
+      "label": "Titolo Card 3",
+      "default": "Clausola Cosmetica Art. 59"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_desc",
+      "label": "Descrizione Card 3",
+      "default": "Recesso di 14 giorni per prodotti sigillati. Per motivi igienico-sanitari e a salvaguardia della pelle, il recesso è escluso su cosmetici aperti o usati."
+    },
+    {
+      "type": "text",
+      "id": "card3_footer",
+      "label": "Nota Card 3",
+      "default": "✓ Confezioni Sigillate a Norma"
+    },
+    {
+      "type": "header",
+      "content": "Indice Clausole Contrattuali"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_toc",
+      "label": "Mostra Indice Rapido",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "toc_title",
+      "label": "Titolo Indice Rapido",
+      "default": "Indice delle Clausole Contrattuali"
+    },
+    {
+      "type": "header",
+      "content": "Articolo 1 - Dati Societari & Titolare"
+    },
+    {
+      "type": "text",
+      "id": "art1_title",
+      "label": "Titolo Articolo 1",
+      "default": "Informazioni Generali e Dati Societari"
+    },
+    {
+      "type": "textarea",
+      "id": "art1_content",
+      "label": "Contenuto Introduttivo Articolo 1",
+      "default": "Il presente sito web (di seguito denominato la \"Piattaforma\" o il \"Sito\") è di proprietà ed è gestito da MileBioLab di Milena Tacchella, ditta individuale operante con sede legale e operativa presso la prestigiosa sede e flagship boutique:"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Ragione Sociale Titolare",
+      "default": "MileBioLab di Milena Tacchella"
+    },
+    {
+      "type": "text",
+      "id": "company_address",
+      "label": "Sede Operativa & Flagship",
+      "default": "Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia"
+    },
+    {
+      "type": "text",
+      "id": "company_email",
+      "label": "Email Istituzionale Sede",
+      "default": "info@beautyespatorricelle.it"
+    },
+    {
+      "type": "text",
+      "id": "company_concierge_email",
+      "label": "Email Concierge Ordini",
+      "default": "concierge@milebiolab.com"
+    },
+    {
+      "type": "text",
+      "id": "company_phone",
+      "label": "Telefono Fisso Sede",
+      "default": "+39 045 8301811"
+    },
+    {
+      "type": "text",
+      "id": "company_whatsapp",
+      "label": "WhatsApp Concierge Diretto",
+      "default": "+39 342 1647585"
+    },
+    {
+      "type": "textarea",
+      "id": "art1_note",
+      "label": "Clausola Codice del Consumo",
+      "default": "I presenti Termini e Condizioni Generali regolano l'offerta, l'inoltro e l'accettazione di ordini d'acquisto di prodotti cosmetici e correlati servizi di bellezza effettuati a distanza tramite la piattaforma telematica tra il Venditore e qualsiasi persona fisica che agisca per scopi estranei all'attività imprenditoriale o professionale (di seguito il \"Cliente\" o \"Consumatore\" ai sensi del D.Lgs. 206/2005)."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 2 - Oggetto & Cosmesi Biomimetica"
+    },
+    {
+      "type": "text",
+      "id": "art2_title",
+      "label": "Titolo Articolo 2",
+      "default": "Oggetto del Servizio e Natura dei Prodotti Cosmetici"
+    },
+    {
+      "type": "textarea",
+      "id": "art2_content",
+      "label": "Contenuto Articolo 2",
+      "default": "MileBioLab commercializza prodotti cosmetici biomimetici di altissima gamma con percentuali di origine naturale comprese tra il 98%, 99% e 100%, fito-estratti botanici puri, protocolli rigenerativi Team Dr. Joseph, linee di longevità cutanea (Longevity Skin) e creazioni iconiche della Maestra d'Arte Mile quali la linea e il Burro Primordiale UNICHO 21, oltre a voucher per trattamenti cabina presso l'istituto di Verona."
+    },
+    {
+      "type": "text",
+      "id": "art2_box_title",
+      "label": "Titolo Box Normativa Cosmetica",
+      "default": "Finalità e Destinazione d'Uso (Regolamento CE 1223/2009):"
+    },
+    {
+      "type": "textarea",
+      "id": "art2_box_content",
+      "label": "Testo Box Normativa Cosmetica",
+      "default": "Tutti i prodotti offerti sono destinati esclusivamente ad uso topico ed esterno per la cura, protezione e benessere dell'epidermide, in piena rispondenza al Regolamento (CE) n. 1223/2009 sui prodotti cosmetici. Non costituiscono dispositivi medici né farmaci e non hanno proprietà terapeutiche o curative di affezioni patologiche. Le immagini e le descrizioni presenti nelle schede prodotto riproducono fedelmente le formulazioni e le consistenze olfattive e sensoriali. Trattandosi di materie prime botaniche, lievi variazioni di colore o profumazione testimoniano l'autenticità e la purezza della lavorazione."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 3 - Modello Ibrido & Selfnamed"
+    },
+    {
+      "type": "text",
+      "id": "art3_title",
+      "label": "Titolo Articolo 3",
+      "default": "Modello di Produzione ed Evasione Ibrido (MileBioLab + Selfnamed)"
+    },
+    {
+      "type": "textarea",
+      "id": "art3_content",
+      "label": "Contenuto Articolo 3",
+      "default": "A garanzia della massima freschezza cosmetica e trasparenza verso la clientela, MileBioLab adotta un innovativo modello dermo-produttivo ed evasivo articolato su due filiere d'eccellenza:"
+    },
+    {
+      "type": "text",
+      "id": "art3_polo_a_title",
+      "label": "Titolo Polo A",
+      "default": "A) Laboratorio & Flagship Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "art3_polo_a_desc",
+      "label": "Descrizione Polo A",
+      "default": "Le formulazioni proprietarie d'istituto (tra cui il Burro UNICHO 21 e i protocolli Team Dr. Joseph) vengono custodite, confezionate ed evase direttamente dalla sede di Lebestetik Beauty & Spa a Verona."
+    },
+    {
+      "type": "text",
+      "id": "art3_polo_b_title",
+      "label": "Titolo Polo B",
+      "default": "B) Laboratori On-Demand Selfnamed"
+    },
+    {
+      "type": "textarea",
+      "id": "art3_polo_b_desc",
+      "label": "Descrizione Polo B",
+      "default": "Le formulazioni personalizzate ad alta tecnologia biologica vengono realizzate ed evase fresche \"on-demand\" in partnership certificata con i laboratori europei Selfnamed (conformità ISO 22716, standard Cosmos Natural / ECOCERT)."
+    },
+    {
+      "type": "text",
+      "id": "art3_guarantee_title",
+      "label": "Titolo Clausola Spedizione Unica",
+      "default": "🌟 Clausola di Garanzia Unificata e Spedizione Senza Raddoppio di Spese:"
+    },
+    {
+      "type": "textarea",
+      "id": "art3_guarantee_text",
+      "label": "Testo Clausola Spedizione Unica",
+      "default": "Qualora un ordine contenga congiuntamente referenze a marchio MileBioLab/Verona e formule allestite tramite i laboratori Selfnamed, l'ordine è processato come un'unica transazione. Al Cliente viene addebitata una sola spesa di spedizione unificata (o azzerata se supera la soglia di gratuità). Nel caso in cui l'ordine venga recapitato mediante due colli separati per salvaguardare la freschezza degli attivi, non vi sarà alcun costo aggiuntivo a carico del Cliente. La titolarità del contratto, la garanzia di conformità e il servizio clienti rimangono accentrati unicamente in capo a MileBioLab di Milena Tacchella."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 4 - Prezzi & Pagamenti"
+    },
+    {
+      "type": "text",
+      "id": "art4_title",
+      "label": "Titolo Articolo 4",
+      "default": "Prezzi, Valuta e Modalità di Pagamento Sicure"
+    },
+    {
+      "type": "textarea",
+      "id": "art4_content",
+      "label": "Contenuto Articolo 4",
+      "default": "Tutti i prezzi di vendita esposti sul Sito sono espressi in Euro (€) e si intendono comprensivi dell'Imposta sul Valore Aggiunto (IVA al 22%) e di ogni altra imposta applicabile. Le spese di spedizione, ove dovute, sono chiaramente evidenziate prima dell'invio definitivo dell'ordine. MileBioLab si avvale dei più avanzati gateway di pagamento con crittografia end-to-end e standard PCI-DSS Livello 1: Carte di credito/debito (Visa, Mastercard, Amex), Apple Pay, Google Pay, Shop Pay, PayPal e pagamento in contanti/POS in caso di Ritiro a Verona. I dati finanziari transitano su circuiti protetti con 3D Secure 2.0 e non vengono mai archiviati dal Venditore."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 5 - Perfezionamento del Contratto"
+    },
+    {
+      "type": "text",
+      "id": "art5_title",
+      "label": "Titolo Articolo 5",
+      "default": "Conclusione del Contratto e Accettazione dell'Ordine"
+    },
+    {
+      "type": "textarea",
+      "id": "art5_content",
+      "label": "Contenuto Articolo 5",
+      "default": "L'invio dell'ordine tramite il modulo telematico costituisce proposta contrattuale d'acquisto a titolo oneroso. Il contratto di compravendita si intende perfezionato e vincolante nel momento in cui MileBioLab trasmette al Cliente, all'indirizzo email comunicato, la Conferma d'Ordine Ufficiale contenente il riepilogo dettagliato dei prodotti acquistati, il corrispettivo pagato, l'indirizzo di spedizione prescelto e i riferimenti del Concierge. Qualora eccezionalmente uno dei prodotti ordinati non risulti disponibile, il Concierge contatterà tempestivamente il Cliente offrendo l'attesa del lotto fresco, la sostituzione con formula equivalente o il rimborso integrale e immediato."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 6 - Spedizioni & Ritiro Verona"
+    },
+    {
+      "type": "text",
+      "id": "art6_title",
+      "label": "Titolo Articolo 6",
+      "default": "Spedizioni, Consegna e Ritiro in Sede a Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "art6_content",
+      "label": "Contenuto Articolo 6",
+      "default": "MileBioLab effettua spedizioni su tutto il territorio italiano (comprese isole maggiori, minori e laguna veneta) e a livello internazionale nell'Unione Europea ed Extra-UE con tariffe standard (€ 7,00 o gratis da € 75,00), espresso prioritarie (€ 12,00) e ritiro gratuito presso la flagship Lebestetik Beauty & Spa a Verona su appuntamento. Per tutti i dettagli completi, i tempi e le modalità doganali si rimanda alla consultazione della Politica di Spedizione e Consegna, che costituisce parte integrante dei presenti termini."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 7 - Recesso & Tutela Sanitaria Art. 59"
+    },
+    {
+      "type": "text",
+      "id": "art7_title",
+      "label": "Titolo Articolo 7",
+      "default": "Diritto di Recesso e Politica di Reso (Tutela Igienico-Sanitaria)"
+    },
+    {
+      "type": "textarea",
+      "id": "art7_content",
+      "label": "Contenuto Introduttivo Articolo 7",
+      "default": "Ai sensi degli articoli 52 e seguenti del D.Lgs. 6 settembre 2005, n. 206 (Codice del Consumo), il Cliente Consumatore ha diritto di recedere dal contratto di acquisto, senza alcuna penalità e senza specificarne il motivo, entro il termine di 14 (quattordici) giorni di calendario a decorrere dalla data di materiale ricezione dei prodotti."
+    },
+    {
+      "type": "text",
+      "id": "art7_warning_title",
+      "label": "Titolo Alert Art. 59",
+      "default": "⚠️ Eccezione Igienico-Sanitaria ex Art. 59, comma 1, lett. e, Codice del Consumo"
+    },
+    {
+      "type": "textarea",
+      "id": "art7_warning_quote",
+      "label": "Citazione Art. 59",
+      "default": "«Il diritto di recesso è espressamente ESCLUSO per la fornitura di beni sigillati che non si prestano ad essere restituiti per motivi igienici o connessi alla protezione della salute e che sono stati aperti o dissigillati dopo la consegna.»"
+    },
+    {
+      "type": "textarea",
+      "id": "art7_warning_desc",
+      "label": "Spiegazione Vincolo Sigilli",
+      "default": "Pertanto, il recesso può essere esercitato esclusivamente per prodotti perfettamente intatti, non dissigillati, non aperti, non provati e con il sigillo di garanzia o la pellicola protettiva completamente intonsa, conservati nell'imballaggio originario provvisto di tutti gli accessori, bugiardini o campioncini abbinati."
+    },
+    {
+      "type": "text",
+      "id": "art7_steps_title",
+      "label": "Titolo Procedura Reso",
+      "default": "Procedura Operativa per il Reso:"
+    },
+    {
+      "type": "textarea",
+      "id": "art7_step1",
+      "label": "Passaggio Reso 1",
+      "default": "Inviare entro 14 giorni dalla consegna una comunicazione scritta a concierge@milebiolab.com indicando numero d'ordine, referenze da restituire e conferma che il sigillo igienico è intatto."
+    },
+    {
+      "type": "textarea",
+      "id": "art7_step2",
+      "label": "Passaggio Reso 2",
+      "default": "Ricevere l'autorizzazione formale al rientro (Codice RMA) dal Concierge MileBioLab."
+    },
+    {
+      "type": "textarea",
+      "id": "art7_step3",
+      "label": "Passaggio Reso 3",
+      "default": "Imballare i prodotti con la massima cura e spedirli a proprie spese con corriere tracciato presso la sede: MileBioLab c/o Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR)."
+    },
+    {
+      "type": "textarea",
+      "id": "art7_step4",
+      "label": "Passaggio Reso 4",
+      "default": "A seguito della verifica peritale dell'integrità del packaging e dei sigilli di sicurezza da parte del laboratorio, MileBioLab provvederà al rimborso dell'importo entro 14 giorni con lo stesso metodo di pagamento."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 8 - Garanzia Legale 24 Mesi"
+    },
+    {
+      "type": "text",
+      "id": "art8_title",
+      "label": "Titolo Articolo 8",
+      "default": "Garanzia Legale di Conformità e Tollerabilità Cutanea"
+    },
+    {
+      "type": "textarea",
+      "id": "art8_content",
+      "label": "Contenuto Articolo 8",
+      "default": "Tutti i prodotti cosmetici commercializzati da MileBioLab beneficiano della Garanzia Legale di Conformità di 24 mesi prevista dagli artt. 128-135 del Codice del Consumo a tutela di eventuali difetti di conformità originari (es. difetto del meccanismo dispenser, flacone fallato all'origine)."
+    },
+    {
+      "type": "text",
+      "id": "art8_box_title",
+      "label": "Titolo Box Tollerabilità",
+      "default": "Consigli d'Uso, Conservazione e Test di Tollerabilità:"
+    },
+    {
+      "type": "textarea",
+      "id": "art8_box_desc",
+      "label": "Testo Box Tollerabilità",
+      "default": "Per preservare intatte le proprietà biomimetiche degli attivi vegetali puri, i prodotti devono essere conservati in un ambiente fresco e asciutto, lontano dalla luce solare diretta. Invitiamo sempre i soggetti con pelli particolarmente reattive o allergie note a verificare con attenzione l'INCI sulla scheda prodotto e a svolgere un preliminare patch test cutaneo 24 ore prima dell'applicazione continuativa."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 9 - Beauty Club Mile"
+    },
+    {
+      "type": "text",
+      "id": "art9_title",
+      "label": "Titolo Articolo 9",
+      "default": "Programma Fedeltà Beauty Club Mile (Regole Punti e Sconti)"
+    },
+    {
+      "type": "textarea",
+      "id": "art9_content",
+      "label": "Contenuto Articolo 9",
+      "default": "L'iscrizione gratuita al programma fedeltà Beauty Club Mile consente agli utenti registrati di accumulare Beauty Punti secondo il rapporto base di 1 € speso = 1 Beauty Punto (oltre a punti speciali per compleanno e recensioni verificate). Ogni 100 Beauty Punti accumulati danno diritto a un buono sconto immediato di € 5,00 convertibile in fase di checkout. I punti hanno natura promozionale, sono strettamente personali, non sono cedibili a terzi né convertibili in denaro liquido. Per il regolamento dettagliato, si rinvia alla pagina ufficiale del Beauty Club Mile."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 10 - Proprietà Intellettuale & Marchi"
+    },
+    {
+      "type": "text",
+      "id": "art10_title",
+      "label": "Titolo Articolo 10",
+      "default": "Proprietà Intellettuale, Marchi e Diritti Riservati"
+    },
+    {
+      "type": "textarea",
+      "id": "art10_content",
+      "label": "Contenuto Articolo 10",
+      "default": "Tutti i contenuti presenti sul Sito, inclusi marchi figurativi e denominativi (MileBioLab, Lebestetik, UNICHO 21), testi descrittivi, fotografie, rendering estetici, layout grafici, codice sorgente e video tutorial, sono di proprietà esclusiva di Milena Tacchella o dei rispettivi partner licenziatari (Team Dr. Joseph, Selfnamed) e sono tutelati dalle leggi in materia di diritto d'autore e proprietà industriale. È severamente vietata qualsiasi forma di riproduzione o sfruttamento commerciale non autorizzato per iscritto dal titolare."
+    },
+    {
+      "type": "header",
+      "content": "Articolo 11 - Legge Applicabile & Foro Competente"
+    },
+    {
+      "type": "text",
+      "id": "art11_title",
+      "label": "Titolo Articolo 11",
+      "default": "Legge Applicabile, Risoluzione Controversie e Foro Competente"
+    },
+    {
+      "type": "textarea",
+      "id": "art11_content",
+      "label": "Contenuto Articolo 11",
+      "default": "I presenti Termini e Condizioni sono integralmente regolati e interpretati in conformità alla Legge della Repubblica Italiana. Per qualsiasi controversia tra MileBioLab e il Cliente Consumatore residente o domiciliato nella UE, la competenza territoriale inderogabile spetta al Giudice del luogo di residenza o di domicilio del consumatore (art. 66-bis D.Lgs. 206/2005). Per i clienti con sede all'estero extra-UE o per acquisti con partita IVA (B2B), è convenuta la competenza esclusiva del Foro di Verona (Italia)."
+    },
+    {
+      "type": "text",
+      "id": "art11_odr_title",
+      "label": "Titolo Box ODR Risoluzione Controversie",
+      "default": "Risoluzione Alternativa delle Controversie Online (ODR):"
+    },
+    {
+      "type": "textarea",
+      "id": "art11_odr_text",
+      "label": "Testo Box ODR",
+      "default": "Ai sensi del Regolamento UE n. 524/2013, il Consumatore residente nella UE può promuovere la risoluzione extragiudiziale delle controversie attraverso la piattaforma europea ODR accessibile all'indirizzo: https://ec.europa.eu/consumers/odr."
+    },
+    {
+      "type": "header",
+      "content": "Box Concierge Finale"
+    },
+    {
+      "type": "text",
+      "id": "help_badge",
+      "label": "Badge Box Concierge",
+      "default": "Assistenza Diretta & Concierge"
+    },
+    {
+      "type": "text",
+      "id": "help_title",
+      "label": "Titolo Box Concierge",
+      "default": "Hai domande sui termini o sul tuo ordine?"
+    },
+    {
+      "type": "textarea",
+      "id": "help_desc",
+      "label": "Descrizione Box Concierge",
+      "default": "Il nostro Concierge presso la sede di Verona è a tua disposizione per chiarimenti legali, assistenza pre-acquisto e supporto su ogni spedizione."
+    },
+    {
+      "type": "text",
+      "id": "help_whatsapp_text",
+      "label": "Testo Pulsante WhatsApp",
+      "default": "WhatsApp Diretto"
+    },
+    {
+      "type": "text",
+      "id": "help_whatsapp_url",
+      "label": "Link WhatsApp (es. https://wa.me/393421647585)",
+      "default": "https://wa.me/393421647585"
+    },
+    {
+      "type": "text",
+      "id": "help_email_text",
+      "label": "Testo Pulsante Email",
+      "default": "Scrivi al Concierge"
+    },
+    {
+      "type": "text",
+      "id": "help_email_address",
+      "label": "Indirizzo Email Concierge",
+      "default": "concierge@milebiolab.com"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_clause",
+      "name": "Clausola Personalizzata",
+      "settings": [
+        {
+          "type": "text",
+          "id": "article_number",
+          "label": "Numero / Indice Articolo (opzionale)",
+          "default": "12"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag / Categoria",
+          "default": "Disposizione Speciale"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Clausola",
+          "default": "Ulteriori Disposizioni Contrattuali"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Testo Clausola",
+          "default": "<p>Inserisci qui eventuali clausole integrative, patti speciali o aggiornamenti normativi contrattuali.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Termini e Condizioni"
     }
   ]
 }

@@ -1,15 +1,10 @@
 {% comment %}
   MILEBIOLAB - SECTION MAIN PAGE SHIPPING
   Sezione OS 2.0 autonoma per la pagina Spedizioni & Consegne.
-  Completamente immune da anteprime arbitrarie di pagine nel Theme Editor di Shopify.
+  Completamente personalizzabile dal Theme Editor di Shopify con anteprima in tempo reale.
 {% endcomment %}
 
-{%- liquid
-  assign eyebrow = section.settings.eyebrow
-  assign title = section.settings.title
--%}
-
-{% render 'policy-shipping-view', eyebrow: eyebrow, title: title %}
+{% render 'policy-shipping-view', settings: section.settings, blocks: section.blocks %}
 
 {% schema %}
 {
@@ -19,19 +14,668 @@
   "settings": [
     {
       "type": "header",
-      "content": "Configurazione Spedizioni"
+      "content": "Intestazione Pagina"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Sottotitolo / Badge",
-      "default": "Logistica & Consegne • MileBioLab"
+      "label": "Badge / Eyebrow",
+      "default": "LOGISTICA & CONSEGNE • TRASPORTI SICURI"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Titolo Pagina",
+      "label": "Titolo Principale",
       "default": "Politica di Spedizione e Consegna"
+    },
+    {
+      "type": "text",
+      "id": "last_updated",
+      "label": "Data Ultimo Aggiornamento",
+      "default": "Ultimo aggiornamento: 21 Ottobre 2026"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Testo Introduttivo",
+      "default": "Dalla formulazione nei nostri laboratori fino alla consegna al tuo domicilio: scopri tariffe, tempi, imballaggi isotermici ecosostenibili e l'opzione esclusiva di ritiro a Verona."
+    },
+    {
+      "type": "text",
+      "id": "badge1_text",
+      "label": "Testo Badge 1 (Verde)",
+      "default": "Evasione rapida in 24-48 ore"
+    },
+    {
+      "type": "text",
+      "id": "badge2_text",
+      "label": "Testo Badge 2 (Foglia)",
+      "default": "Imballaggi antiurto 100% riciclabili"
+    },
+    {
+      "type": "header",
+      "content": "Top Box 1 - Spedizione Standard"
+    },
+    {
+      "type": "text",
+      "id": "card1_badge",
+      "label": "Etichetta Superiore Card 1",
+      "default": "Formula Più Scelta"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Titolo Card 1",
+      "default": "Spedizione Standard Italia"
+    },
+    {
+      "type": "text",
+      "id": "card1_price",
+      "label": "Prezzo Card 1",
+      "default": "Gratis"
+    },
+    {
+      "type": "text",
+      "id": "card1_time",
+      "label": "Sottotitolo / Condizione Prezzo",
+      "default": "da € 75,00 di spesa (o € 7,00)"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_desc",
+      "label": "Descrizione Card 1",
+      "default": "Consegna in 3-5 giorni lavorativi tramite corriere espresso tracciato (GLS / BRT / DHL). Packaging isotermico protettivo con campioncini dermo-consulenziali inclusi."
+    },
+    {
+      "type": "text",
+      "id": "card1_footer",
+      "label": "Nota a piè Card 1",
+      "default": "Tracciamento SMS ed Email"
+    },
+    {
+      "type": "header",
+      "content": "Top Box 2 - Spedizione Espresso"
+    },
+    {
+      "type": "text",
+      "id": "card2_badge",
+      "label": "Etichetta Superiore Card 2",
+      "default": "Massima Rapidità"
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Titolo Card 2",
+      "default": "Spedizione Espresso"
+    },
+    {
+      "type": "text",
+      "id": "card2_price",
+      "label": "Prezzo Card 2",
+      "default": "€ 12,00"
+    },
+    {
+      "type": "text",
+      "id": "card2_time",
+      "label": "Sottotitolo / Condizione Prezzo",
+      "default": "Tariffa fissa prioritaria"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_desc",
+      "label": "Descrizione Card 2",
+      "default": "Consegna garantita in 1-2 giorni lavorativi (24/48h penisola, 48/72h isole). Priorità assoluta di lavorazione e allestimento in laboratorio."
+    },
+    {
+      "type": "text",
+      "id": "card2_footer",
+      "label": "Nota a piè Card 2",
+      "default": "Lavorazione Priority Lab"
+    },
+    {
+      "type": "header",
+      "content": "Top Box 3 - Ritiro in Sede a Verona"
+    },
+    {
+      "type": "text",
+      "id": "card3_badge",
+      "label": "Etichetta Superiore Card 3",
+      "default": "Esperienza Boutique"
+    },
+    {
+      "type": "text",
+      "id": "card3_title",
+      "label": "Titolo Card 3",
+      "default": "Ritiro Gratuito in Sede"
+    },
+    {
+      "type": "text",
+      "id": "card3_price",
+      "label": "Prezzo Card 3",
+      "default": "€ 0,00"
+    },
+    {
+      "type": "text",
+      "id": "card3_time",
+      "label": "Luogo / Sede Ritiro",
+      "default": "Lebestetik Beauty & Spa Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_desc",
+      "label": "Descrizione Card 3",
+      "default": "Pronto in 24 ore su appuntamento. Incontro vis-à-vis con la Maestra d'Arte Mile e sconto riservato del 10% su un trattamento in istituto."
+    },
+    {
+      "type": "text",
+      "id": "card3_footer",
+      "label": "Nota a piè Card 3",
+      "default": "Zero attese con parcheggio privato"
+    },
+    {
+      "type": "header",
+      "content": "Sezione 1 - Elaborazione & Confezionamento"
+    },
+    {
+      "type": "text",
+      "id": "sec1_tag",
+      "label": "Tag / Categoria Sezione 1",
+      "default": "Fase Preliminare"
+    },
+    {
+      "type": "text",
+      "id": "sec1_title",
+      "label": "Titolo Sezione 1",
+      "default": "Tempi di Elaborazione e Confezionamento degli Ordini"
+    },
+    {
+      "type": "textarea",
+      "id": "sec1_content",
+      "label": "Contenuto Introduttivo Sezione 1",
+      "default": "Ogni ordine ricevuto viene preso in carico entro 24-48 ore lavorative (dal lunedì al venerdì, esclusi i giorni festivi). Trattandosi di formulazioni biomimetiche ricche di principi attivi vivi ed estratti botanici pregiati, il confezionamento avviene secondo rigorosi standard di laboratorio:"
+    },
+    {
+      "type": "text",
+      "id": "sec1_box1_title",
+      "label": "Titolo Box 1 (Imballaggio)",
+      "default": "Imballaggio Isotermico Protettivo"
+    },
+    {
+      "type": "textarea",
+      "id": "sec1_box1_desc",
+      "label": "Descrizione Box 1 (Imballaggio)",
+      "default": "Scatole rinforzate in cartone riciclato con imbottiture naturali anti-shock per preservare le formule dagli sbalzi termici durante il trasporto."
+    },
+    {
+      "type": "text",
+      "id": "sec1_box2_title",
+      "label": "Titolo Box 2 (Campioncini)",
+      "default": "Campioncini Dermo-Consulenziali"
+    },
+    {
+      "type": "textarea",
+      "id": "sec1_box2_desc",
+      "label": "Descrizione Box 2 (Campioncini)",
+      "default": "Ogni pacco include una selezione su misura di campioncini per scoprire nuove texture e rituali di longevità cutanea."
+    },
+    {
+      "type": "textarea",
+      "id": "sec1_note",
+      "label": "Nota Conclusiva Sezione 1",
+      "default": "Gli ordini inoltrati durante il fine settimana o nei giorni festivi vengono processati a partire dal primo giorno feriale successivo in ordine cronologico di ricezione."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 2 - Evasione Ibrida (MileBioLab + Selfnamed)"
+    },
+    {
+      "type": "text",
+      "id": "sec2_tag",
+      "label": "Tag / Categoria Sezione 2",
+      "default": "Trasparenza Logistica"
+    },
+    {
+      "type": "text",
+      "id": "sec2_title",
+      "label": "Titolo Sezione 2",
+      "default": "Evasione Ordini Ibridi (MileBioLab + Selfnamed)"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_content",
+      "label": "Contenuto Introduttivo Sezione 2",
+      "default": "Il nostro catalogo combina la maestria artigianale della Maestra Mile a Verona con le più moderne biotecnologie cosmetiche europee. Per questo motivo, l'evasione logistica si articola su due poli specializzati:"
+    },
+    {
+      "type": "text",
+      "id": "sec2_polo_a_tag",
+      "label": "Tag Polo A (Verona)",
+      "default": "Polo A • Verona Flagship"
+    },
+    {
+      "type": "text",
+      "id": "sec2_polo_a_title",
+      "label": "Titolo Polo A (Verona)",
+      "default": "Laboratorio MileBioLab & Lebestetik"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_polo_a_desc",
+      "label": "Descrizione Polo A (Verona)",
+      "default": "Le referenze d'istituto, il Burro Primordiale UNICHO 21 e i protocolli professionali Team Dr. Joseph sono gestiti e spediti direttamente dalla nostra sede storica di Via Torricelle 2c a Verona."
+    },
+    {
+      "type": "text",
+      "id": "sec2_polo_b_tag",
+      "label": "Tag Polo B (Selfnamed)",
+      "default": "Polo B • Laboratori On-Demand"
+    },
+    {
+      "type": "text",
+      "id": "sec2_polo_b_title",
+      "label": "Titolo Polo B (Selfnamed)",
+      "default": "Partnership Certificata Selfnamed"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_polo_b_desc",
+      "label": "Descrizione Polo B (Selfnamed)",
+      "default": "Le formule on-demand personalizzate vengono allestite fresche secondo i più elevati standard europei (ISO 22716 / Cosmos Natural) e spedite direttamente dalla linea produttiva dei laboratori Selfnamed."
+    },
+    {
+      "type": "text",
+      "id": "sec2_callout_title",
+      "label": "Titolo Box Spedizione Unificata",
+      "default": "Nessun Costo Aggiuntivo per gli Ordini Misti:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_callout_desc",
+      "label": "Testo Box Spedizione Unificata",
+      "default": "Se acquisti contemporaneamente prodotti della casa (Verona) e formule allestite tramite Selfnamed, pagherai una sola tariffa di spedizione (o nessuna spesa se superi € 75,00). Qualora i prodotti vengano spediti in due colli separati per garantirti la massima freschezza e integrità degli attivi, riceverai due codici di tracciamento coordinati, senza alcun sovrapprezzo a tuo carico. Per qualsiasi richiesta, il Concierge MileBioLab di Verona rimane il tuo unico e fidato punto di contatto."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 3 - Tariffe & Modalità Italia"
+    },
+    {
+      "type": "text",
+      "id": "sec3_tag",
+      "label": "Tag / Categoria Sezione 3",
+      "default": "Tariffario Ufficiale"
+    },
+    {
+      "type": "text",
+      "id": "sec3_title",
+      "label": "Titolo Sezione 3",
+      "default": "Modalità e Tariffe di Spedizione in Italia"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_content",
+      "label": "Contenuto Introduttivo Sezione 3",
+      "default": "Le consegne sul territorio nazionale avvengono tramite corrieri leader (GLS, BRT, DHL Express) selezionati per affidabilità e cura nel maneggio dei colli contenenti flaconi e vasetti cosmetici:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_note",
+      "label": "Nota Isole e Località Remote",
+      "default": "Nota per Isole Minori e Laguna Veneta: Per località particolarmente remote o a logistica speciale potrebbero rendersi necessari 1-2 giorni lavorativi aggiuntivi di transito."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 4 - Ritiro in Sede a Verona"
+    },
+    {
+      "type": "text",
+      "id": "sec4_tag",
+      "label": "Tag / Categoria Sezione 4",
+      "default": "Boutique & Flagship"
+    },
+    {
+      "type": "text",
+      "id": "sec4_title",
+      "label": "Titolo Sezione 4",
+      "default": "Ritiro Gratuito presso Lebestetik Beauty & Spa a Verona"
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_content",
+      "label": "Contenuto Introduttivo Sezione 4",
+      "default": "Se risiedi a Verona o ti trovi nelle vicinanze, puoi scegliere di ritirare il tuo ordine direttamente presso la nostra prestigiosa oasi di benessere e flagship boutique:"
+    },
+    {
+      "type": "textarea",
+      "id": "verona_address",
+      "label": "Indirizzo Sede Verona",
+      "default": "Lebestetik Beauty & Spa\nVia Torricelle 2c, 37128 Verona (VR)"
+    },
+    {
+      "type": "textarea",
+      "id": "verona_hours",
+      "label": "Orari Ritiro Verona",
+      "default": "SU APPUNTAMENTO\nLunedì – Sabato: 09:30 – 19:30\n(Chiuso il mercoledì e la domenica)"
+    },
+    {
+      "type": "text",
+      "id": "verona_phone",
+      "label": "Telefono Sede Verona",
+      "default": "+39 045 8301811"
+    },
+    {
+      "type": "text",
+      "id": "verona_whatsapp",
+      "label": "WhatsApp Ritiro Verona",
+      "default": "+39 342 1647585"
+    },
+    {
+      "type": "text",
+      "id": "sec4_steps_title",
+      "label": "Titolo Guida al Ritiro",
+      "default": "Come Funziona il Ritiro in Sede:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_step1",
+      "label": "Passaggio 1",
+      "default": "Seleziona l'opzione \"Ritiro in Sede a Verona\" in fase di checkout."
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_step2",
+      "label": "Passaggio 2",
+      "default": "Attendi l'email o il messaggio WhatsApp del Concierge che ti notifica che il tuo pacco è stato allestito ed è pronto."
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_step3",
+      "label": "Passaggio 3",
+      "default": "Concorda via WhatsApp l'orario a te più comodo per passare in istituto. Potrai usufruire del comodo parcheggio riservato ai clienti."
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_step4",
+      "label": "Passaggio 4",
+      "default": "Ritirando in istituto riceverai una consulenza rapida personalizzata e uno sconto speciale riservato del 10% valido su un successivo trattamento viso o corpo in cabina."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 5 - Spedizioni Internazionali"
+    },
+    {
+      "type": "text",
+      "id": "sec5_tag",
+      "label": "Tag / Categoria Sezione 5",
+      "default": "Mondo & Europa"
+    },
+    {
+      "type": "text",
+      "id": "sec5_title",
+      "label": "Titolo Sezione 5",
+      "default": "Spedizioni Internazionali (UE ed Extra-UE)"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_content",
+      "label": "Contenuto Introduttivo Sezione 5",
+      "default": "Portiamo l'alta dermocosmesi naturale di MileBioLab in tutto il mondo grazie a partnership con corrieri internazionali espressi (DHL Express, UPS, FedEx):"
+    },
+    {
+      "type": "text",
+      "id": "sec5_eu_title",
+      "label": "Titolo Box Unione Europea",
+      "default": "Unione Europea"
+    },
+    {
+      "type": "text",
+      "id": "sec5_eu_subtitle",
+      "label": "Sottotitolo Box UE",
+      "default": "Zona Euro & Paesi UE"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_eu_details",
+      "label": "Dettagli Spedizioni UE (una voce per riga)",
+      "default": "• Tempi: 3-6 giorni lavorativi\n• Tariffe a partire da € 15,00\n• Nessuna dogana: IVA inclusa all'origine"
+    },
+    {
+      "type": "text",
+      "id": "sec5_extra_title",
+      "label": "Titolo Box Extra-UE",
+      "default": "Paesi Extra-UE"
+    },
+    {
+      "type": "text",
+      "id": "sec5_extra_subtitle",
+      "label": "Sottotitolo Box Extra-UE",
+      "default": "Svizzera, UK, USA, Canada"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_extra_details",
+      "label": "Dettagli Spedizioni Extra-UE (una voce per riga)",
+      "default": "• Tempi: 5-10 giorni lavorativi\n• Tariffe a partire da € 28,00\n• Servizio aereo espresso tracciato"
+    },
+    {
+      "type": "text",
+      "id": "sec5_duties_title",
+      "label": "Titolo Informativa Dazi e Dogana",
+      "default": "Informativa su Dazi Doganali, Imposte d'Importazione ed Oneri Locali (Extra-UE):"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_duties_text",
+      "label": "Testo Informativa Dazi e Dogana",
+      "default": "Per le spedizioni indirizzate verso Paesi non appartenenti all'Unione Europea (tra cui Confederazione Svizzera, Regno Unito, Stati Uniti d'America, ecc.), eventuali dazi doganali, tasse d'importazione locali, accise o spese di sdoganamento sono posti ad esclusivo carico del destinatario. Tali importi vengono quantificati direttamente dagli uffici doganali dello Stato di destinazione all'atto dell'ingresso del collo e dovranno essere saldati al corriere al momento della consegna. MileBioLab non ha controllo su tali oneri e non può prevederne preventivamente l'esatto ammontare."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 6 - Tracciamento Live"
+    },
+    {
+      "type": "text",
+      "id": "sec6_tag",
+      "label": "Tag / Categoria Sezione 6",
+      "default": "Monitoraggio Spedizione"
+    },
+    {
+      "type": "text",
+      "id": "sec6_title",
+      "label": "Titolo Sezione 6",
+      "default": "Tracciamento della Spedizione e Notifiche in Tempo Reale"
+    },
+    {
+      "type": "textarea",
+      "id": "sec6_content",
+      "label": "Contenuto Introduttivo Sezione 6",
+      "default": "Non appena il collo viene affidato fisicamente al vettore espresso, il nostro sistema invia una notifica automatica via email (e via SMS, qualora sia stato fornito il recapito cellulare) contenente:"
+    },
+    {
+      "type": "text",
+      "id": "sec6_bullet1",
+      "label": "Punto Elenco 1",
+      "default": "Nome del corriere incaricato del trasporto (GLS / BRT / DHL)"
+    },
+    {
+      "type": "text",
+      "id": "sec6_bullet2",
+      "label": "Punto Elenco 2",
+      "default": "Codice univoco di tracciamento (Tracking Number)"
+    },
+    {
+      "type": "text",
+      "id": "sec6_bullet3",
+      "label": "Punto Elenco 3",
+      "default": "Link diretto per monitorare la geolocalizzazione del pacco h24"
+    },
+    {
+      "type": "textarea",
+      "id": "sec6_note",
+      "label": "Nota Attivazione Tracciamento",
+      "default": "Il codice di tracciamento diventa attivo e consultabile generalmente entro 12 ore dal ritiro del pacco da parte del vettore."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 7 - Consegna & Giacenze"
+    },
+    {
+      "type": "text",
+      "id": "sec7_tag",
+      "label": "Tag / Categoria Sezione 7",
+      "default": "Gestione Mancata Consegna"
+    },
+    {
+      "type": "text",
+      "id": "sec7_title",
+      "label": "Titolo Sezione 7",
+      "default": "Consegna, Assenza del Destinatario e Giacenze"
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_content",
+      "label": "Contenuto Introduttivo Sezione 7",
+      "default": "I corrieri convenzionati effettuano generalmente due tentativi di consegna consecutivi all'indirizzo indicato in ordine. Qualora in entrambe le circostanze il destinatario risulti assente:"
+    },
+    {
+      "type": "text",
+      "id": "sec7_bullet1",
+      "label": "Punto Elenco 1",
+      "default": "Verrà rilasciato un avviso di mancata consegna cartaceo e/o una notifica elettronica via email/SMS;"
+    },
+    {
+      "type": "text",
+      "id": "sec7_bullet2",
+      "label": "Punto Elenco 2",
+      "default": "Il cliente potrà riprogrammare autonomamente la riconsegna entro 48 ore tramite il portale del corriere;"
+    },
+    {
+      "type": "text",
+      "id": "sec7_bullet3",
+      "label": "Punto Elenco 3",
+      "default": "In alternativa, il pacco potrà essere depositato presso il punto di ritiro convenzionato (Locker / Point di prossimità) più vicino, dove rimarrà in giacenza disponibile per 5-7 giorni di calendario."
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_note",
+      "label": "Nota Giacenza e Rientro Pacco",
+      "default": "In caso di mancato ritiro entro il periodo di giacenza, il collo rientrerà presso i nostri laboratori. I costi per una seconda spedizione saranno a carico del cliente."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 8 - Danneggiamenti da Trasporto"
+    },
+    {
+      "type": "text",
+      "id": "sec8_tag",
+      "label": "Tag / Categoria Sezione 8",
+      "default": "Protezione Spedizione"
+    },
+    {
+      "type": "text",
+      "id": "sec8_title",
+      "label": "Titolo Sezione 8",
+      "default": "Danneggiamenti da Trasporto e Segnalazione Anomalie"
+    },
+    {
+      "type": "textarea",
+      "id": "sec8_content",
+      "label": "Contenuto Introduttivo Sezione 8",
+      "default": "Al momento della consegna del pacco da parte del fattorino, invitiamo cortesemente il Cliente a verificare con scrupolo:"
+    },
+    {
+      "type": "text",
+      "id": "sec8_bullet1",
+      "label": "Verifica 1",
+      "default": "Che il numero dei colli corrisponda a quanto indicato nel documento di trasporto;"
+    },
+    {
+      "type": "text",
+      "id": "sec8_bullet2",
+      "label": "Verifica 2",
+      "default": "Che l'imballo esterno risulti integro, non bagnato, non schiacciato e con il nastro sigillante intatto."
+    },
+    {
+      "type": "text",
+      "id": "sec8_box_title",
+      "label": "Titolo Box Segnalazione",
+      "default": "Cosa fare se il pacco appare visibilmente danneggiato:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec8_box_text",
+      "label": "Istruzioni Danno e Riserva",
+      "default": "Accettare la consegna apponendo sul palmare del corriere la dicitura: \"ACCETTATO CON RISERVA SPECIFICA DI CONTROLLO\" indicando l'anomalia (es. scatola ammaccata, fondo umido, sigillo manomesso). Qualora aprendo la confezione un prodotto risulti danneggiato, scatta delle foto del collo e dei flaconi e inviale entro 48 ore all'indirizzo concierge@milebiolab.com. Provvederemo a rispedire immediatamente a nostre spese una nuova confezione integra!"
+    },
+    {
+      "type": "header",
+      "content": "Sezione 9 - Assistenza Concierge"
+    },
+    {
+      "type": "text",
+      "id": "sec9_tag",
+      "label": "Tag / Categoria Sezione 9",
+      "default": "Supporto Personalizzato"
+    },
+    {
+      "type": "text",
+      "id": "sec9_title",
+      "label": "Titolo Sezione 9",
+      "default": "Assistenza Spedizioni & Concierge Dedicato"
+    },
+    {
+      "type": "textarea",
+      "id": "sec9_content",
+      "label": "Contenuto Introduttivo Sezione 9",
+      "default": "Per qualsiasi dubbio, variazione d'indirizzo o richiesta speciale di consegna (es. orario preferito o giorno prestabilito per il ritiro in cabina), il nostro Servizio Concierge a Verona è al tuo fianco:"
+    },
+    {
+      "type": "text",
+      "id": "concierge_whatsapp",
+      "label": "Numero WhatsApp Concierge",
+      "default": "+39 342 1647585"
+    },
+    {
+      "type": "text",
+      "id": "concierge_phone",
+      "label": "Telefono Sede Concierge",
+      "default": "+39 045 8301811"
+    },
+    {
+      "type": "text",
+      "id": "concierge_email",
+      "label": "Email Concierge Ordini",
+      "default": "concierge@milebiolab.com"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_section",
+      "name": "Sezione Personalizzata",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Badge / Categoria",
+          "default": "Informativa Supplementare"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Sezione",
+          "default": "Disposizioni Speciali di Spedizione"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Contenuto Sezione",
+          "default": "<p>Inserisci qui ulteriori specifiche logistiche, condizioni relative a festività o informazioni personalizzate per i clienti.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spedizioni & Consegna"
     }
   ]
 }

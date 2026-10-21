@@ -1,15 +1,10 @@
 {% comment %}
   MILEBIOLAB - SECTION MAIN PAGE COOKIE
   Sezione OS 2.0 autonoma per l'Informativa Estesa sui Cookie.
-  Completamente immune da anteprime arbitrarie di pagine nel Theme Editor di Shopify.
+  Completamente personalizzabile dal Theme Editor di Shopify con anteprima in tempo reale.
 {% endcomment %}
 
-{%- liquid
-  assign eyebrow = section.settings.eyebrow
-  assign title = section.settings.title
--%}
-
-{% render 'policy-cookie-view', eyebrow: eyebrow, title: title %}
+{% render 'policy-cookie-view', settings: section.settings, blocks: section.blocks %}
 
 {% schema %}
 {
@@ -19,19 +14,478 @@
   "settings": [
     {
       "type": "header",
-      "content": "Configurazione Cookie Policy"
+      "content": "Intestazione Pagina"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Sottotitolo / Badge",
-      "default": "Privacy & Trasparenza • MileBioLab"
+      "label": "Badge / Eyebrow",
+      "default": "PRIVACY & TRASPARENZA DIGITALE"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Titolo Pagina",
-      "default": "Informativa Estesa sui Cookie"
+      "label": "Titolo Principale",
+      "default": "Informativa Estesa sui Cookie (Cookie Policy)"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Testo Introduttivo",
+      "default": "Informativa dettagliata sull'utilizzo dei cookie e tecnologie affini ai sensi del Regolamento UE 2016/679 (GDPR), della Direttiva ePrivacy e delle Linee Guida del Garante per la Protezione dei Dati Personali."
+    },
+    {
+      "type": "text",
+      "id": "last_updated",
+      "label": "Data Ultimo Aggiornamento",
+      "default": "Ultimo aggiornamento: 21 Ottobre 2026"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Normativo (Scudo)",
+      "default": "Conformità GDPR & Garante Privacy"
+    },
+    {
+      "type": "header",
+      "content": "Card Riassuntive Iniziali"
+    },
+    {
+      "type": "text",
+      "id": "card1_badge",
+      "label": "Etichetta Card 1",
+      "default": "Funzionamento Base"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Titolo Card 1",
+      "default": "Cookie Tecnici & Carrello"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_desc",
+      "label": "Descrizione Card 1",
+      "default": "Indispensabili per consentire la navigazione fluida, la conservazione del carrello acquisti, il checkout sicuro e la gestione delle sessioni Shopify. Sono sempre attivi."
+    },
+    {
+      "type": "text",
+      "id": "card1_footer",
+      "label": "Nota Card 1",
+      "default": "✓ Sempre Attivi di Default"
+    },
+    {
+      "type": "text",
+      "id": "card2_badge",
+      "label": "Etichetta Card 2",
+      "default": "Analisi & Statistica"
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Titolo Card 2",
+      "default": "Metriche Aggregate"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_desc",
+      "label": "Descrizione Card 2",
+      "default": "Misuriamo in forma anonimizzata e aggregata le visite al sito e la fruizione delle formule botaniche per migliorare costantemente le prestazioni della piattaforma."
+    },
+    {
+      "type": "text",
+      "id": "card2_footer",
+      "label": "Nota Card 2",
+      "default": "✓ Indirizzi IP Mascherati"
+    },
+    {
+      "type": "text",
+      "id": "card3_badge",
+      "label": "Etichetta Card 3",
+      "default": "Consenso Libero"
+    },
+    {
+      "type": "text",
+      "id": "card3_title",
+      "label": "Titolo Card 3",
+      "default": "Profilazione & Marketing"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_desc",
+      "label": "Descrizione Card 3",
+      "default": "I cookie di marketing e i pixel pubblicitari (Meta, Google) vengono attivati esclusivamente previo tuo consenso esplicito, liberamente revocabile in ogni momento."
+    },
+    {
+      "type": "text",
+      "id": "card3_footer",
+      "label": "Nota Card 3",
+      "default": "✓ Consenso Modificabile h24"
+    },
+    {
+      "type": "header",
+      "content": "Sezione 1 - Cos'è un Cookie & Finalità"
+    },
+    {
+      "type": "text",
+      "id": "sec1_tag",
+      "label": "Tag Sezione 1",
+      "default": "Definizione & Scopi"
+    },
+    {
+      "type": "text",
+      "id": "sec1_title",
+      "label": "Titolo Sezione 1",
+      "default": "Cosa sono i Cookie e Finalità del Trattamento"
+    },
+    {
+      "type": "textarea",
+      "id": "sec1_content",
+      "label": "Contenuto Introduttivo Sezione 1",
+      "default": "I cookie sono stringhe di testo di piccole dimensioni che i siti web visitati inviano al terminale dell'utente (computer, tablet, smartphone), dove vengono memorizzati per essere poi ritrasmessi agli stessi siti alla successiva visita del medesimo utente. Oltre ai cookie tradizionali, questa informativa si applica anche a strumenti di tracciamento affini, quali web beacon, pixel tag (come il Pixel di Meta), storage locale HTML5 e identificatori generati dai software e dai browser. Tali tecnologie permettono di:"
+    },
+    {
+      "type": "text",
+      "id": "sec1_bullet1",
+      "label": "Punto Elenco 1",
+      "default": "Garantire il corretto funzionamento operativo e la sicurezza del negozio online;"
+    },
+    {
+      "type": "text",
+      "id": "sec1_bullet2",
+      "label": "Punto Elenco 2",
+      "default": "Ricordare le preferenze di navigazione dell'utente (come la lingua prescelta e la valuta EUR);"
+    },
+    {
+      "type": "text",
+      "id": "sec1_bullet3",
+      "label": "Punto Elenco 3",
+      "default": "Raccogliere dati statistici aggregati sull'utilizzo del sito per ottimizzare l'esperienza utente;"
+    },
+    {
+      "type": "text",
+      "id": "sec1_bullet4",
+      "label": "Punto Elenco 4",
+      "default": "Mostrare annunci promozionali pertinenti su piattaforme terze, esclusivamente previo consenso."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 2 - Titolare del Trattamento"
+    },
+    {
+      "type": "text",
+      "id": "sec2_tag",
+      "label": "Tag Sezione 2",
+      "default": "Responsabile dei Dati"
+    },
+    {
+      "type": "text",
+      "id": "sec2_title",
+      "label": "Titolo Sezione 2",
+      "default": "Titolare del Trattamento dei Dati"
+    },
+    {
+      "type": "textarea",
+      "id": "sec2_content",
+      "label": "Contenuto Introduttivo Sezione 2",
+      "default": "Il Titolare del trattamento dei dati personali raccolti tramite cookie e strumenti analoghi sul presente sito è:"
+    },
+    {
+      "type": "text",
+      "id": "titolare_name",
+      "label": "Nome Titolare",
+      "default": "MileBioLab di Milena Tacchella"
+    },
+    {
+      "type": "text",
+      "id": "titolare_address",
+      "label": "Sede Operativa Titolare",
+      "default": "Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia"
+    },
+    {
+      "type": "text",
+      "id": "titolare_email",
+      "label": "Email Concierge Privacy",
+      "default": "concierge@milebiolab.com"
+    },
+    {
+      "type": "text",
+      "id": "titolare_sede_email",
+      "label": "Email Sede Istituzionale",
+      "default": "info@beautyespatorricelle.it"
+    },
+    {
+      "type": "text",
+      "id": "titolare_phone",
+      "label": "Telefono Titolare",
+      "default": "+39 045 8301811"
+    },
+    {
+      "type": "header",
+      "content": "Sezione 3 - Categorie di Cookie"
+    },
+    {
+      "type": "text",
+      "id": "sec3_tag",
+      "label": "Tag Sezione 3",
+      "default": "Classificazione Giuridica"
+    },
+    {
+      "type": "text",
+      "id": "sec3_title",
+      "label": "Titolo Sezione 3",
+      "default": "Categorie di Cookie Utilizzati sul Sito"
+    },
+    {
+      "type": "textarea",
+      "id": "sec3_intro",
+      "label": "Contenuto Introduttivo Sezione 3",
+      "default": "In conformità alle disposizioni del Garante Privacy e del GDPR, i cookie impiegati su MileBioLab appartengono alle seguenti tipologie:"
+    },
+    {
+      "type": "text",
+      "id": "cat_a_title",
+      "label": "Titolo Categoria A (Tecnici)",
+      "default": "A) Cookie Tecnici e di Sessione Strettamente Necessari"
+    },
+    {
+      "type": "text",
+      "id": "cat_a_badge",
+      "label": "Badge Categoria A",
+      "default": "Sempre Attivi"
+    },
+    {
+      "type": "textarea",
+      "id": "cat_a_desc",
+      "label": "Descrizione Categoria A",
+      "default": "Questi cookie sono fondamentali per consentire la navigazione all'interno del sito e la corretta fruizione delle funzionalità di base (ad es. autenticazione nell'area riservata Club Mile, gestione del carrello d'acquisto, instradamento verso il checkout protetto Shopify). Ai sensi dell'art. 122 del Codice Privacy e delle Linee Guida del Garante del 10 giugno 2021, per l'installazione di tali cookie non è richiesto il preventivo consenso dell'utente."
+    },
+    {
+      "type": "text",
+      "id": "cat_b_title",
+      "label": "Titolo Categoria B (Funzionalità)",
+      "default": "B) Cookie di Preferenza e Funzionalità"
+    },
+    {
+      "type": "text",
+      "id": "cat_b_badge",
+      "label": "Badge Categoria B",
+      "default": "Funzionali"
+    },
+    {
+      "type": "textarea",
+      "id": "cat_b_desc",
+      "label": "Descrizione Categoria B",
+      "default": "Permettono alla piattaforma di memorizzare le preferenze espresse dall'utente durante la navigazione (come la selezione della lingua italiana, la valuta di acquisto in Euro o la modalità preferenziale di ritiro presso la sede di Verona)."
+    },
+    {
+      "type": "text",
+      "id": "cat_c_title",
+      "label": "Titolo Categoria C (Analitici)",
+      "default": "C) Cookie Analitici e Statistici (Statistiche Aggregate)"
+    },
+    {
+      "type": "text",
+      "id": "cat_c_badge",
+      "label": "Badge Categoria C",
+      "default": "Anonimizzati"
+    },
+    {
+      "type": "textarea",
+      "id": "cat_c_desc",
+      "label": "Descrizione Categoria C",
+      "default": "Utilizzati per comprendere come i visitatori interagiscono con il catalogo dei cosmetici, quali pagine sono più visitate e se si verificano errori tecnici. Vengono adottate misure di anonimizzazione e mascheramento parziale degli indirizzi IP (es. Shopify Analytics e Google Analytics anonimizzato), equiparandoli giuridicamente ai cookie tecnici di prima parte."
+    },
+    {
+      "type": "text",
+      "id": "cat_d_title",
+      "label": "Titolo Categoria D (Marketing)",
+      "default": "D) Cookie di Profilazione e Marketing di Terze Parti"
+    },
+    {
+      "type": "text",
+      "id": "cat_d_badge",
+      "label": "Badge Categoria D",
+      "default": "Previo Consenso"
+    },
+    {
+      "type": "textarea",
+      "id": "cat_d_desc",
+      "label": "Descrizione Categoria D",
+      "default": "Questi cookie (gestiti da terze parti come Meta Platforms Inc. e Google LLC) sono volti a creare profili relativi all'utente per inviargli messaggi pubblicitari in linea con le preferenze manifestate durante la navigazione in rete. Sono installati esclusivamente se l'utente presta il proprio consenso espresso tramite il banner o il pannello di preferenze cookie."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 4 - Tabella Cookie Shopify & Partner"
+    },
+    {
+      "type": "text",
+      "id": "sec4_tag",
+      "label": "Tag Sezione 4",
+      "default": "Elenco Dettagliato"
+    },
+    {
+      "type": "text",
+      "id": "sec4_title",
+      "label": "Titolo Sezione 4",
+      "default": "Tabella dei Principali Cookie Attivi"
+    },
+    {
+      "type": "textarea",
+      "id": "sec4_content",
+      "label": "Contenuto Introduttivo Sezione 4",
+      "default": "Di seguito si riportano i principali cookie operativi sul sito web di MileBioLab:"
+    },
+    {
+      "type": "header",
+      "content": "Sezione 5 - Gestione Consenso & Browser"
+    },
+    {
+      "type": "text",
+      "id": "sec5_tag",
+      "label": "Tag Sezione 5",
+      "default": "Controllo Utente"
+    },
+    {
+      "type": "text",
+      "id": "sec5_title",
+      "label": "Titolo Sezione 5",
+      "default": "Gestione del Consenso e Opzioni di Rifiuto"
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_content",
+      "label": "Contenuto Introduttivo Sezione 5",
+      "default": "Al primo accesso al Sito, viene visualizzato un apposito banner informativo che consente di accettare tutti i cookie, rifiutare quelli non necessari o personalizzare in dettaglio le preferenze. Il consenso espresso può essere modificato o revocato in qualsiasi momento. In aggiunta, l'utente può configurare direttamente il proprio browser web per bloccare o eliminare tutti i cookie o solo quelli di terze parti:"
+    },
+    {
+      "type": "textarea",
+      "id": "browser_chrome",
+      "label": "Istruzioni Google Chrome",
+      "default": "Menu > Impostazioni > Privacy e sicurezza > Cookie di terze parti > Blocca cookie di terze parti."
+    },
+    {
+      "type": "textarea",
+      "id": "browser_safari",
+      "label": "Istruzioni Apple Safari",
+      "default": "Preferenze/Impostazioni > Safari > Privacy > Abilita \"Impedisci il monitoraggio tra siti web\"."
+    },
+    {
+      "type": "textarea",
+      "id": "browser_firefox",
+      "label": "Istruzioni Mozilla Firefox",
+      "default": "Opzioni > Privacy e sicurezza > Protezione antitracciamento avanzata > Seleziona \"Restrittiva\" o \"Personalizzata\"."
+    },
+    {
+      "type": "textarea",
+      "id": "browser_edge",
+      "label": "Istruzioni Microsoft Edge",
+      "default": "Impostazioni > Cookie e autorizzazioni sito > Gestisci ed elimina cookie e dati del sito."
+    },
+    {
+      "type": "textarea",
+      "id": "sec5_note",
+      "label": "Avvertenza Disattivazione Cookie Tecnici",
+      "default": "Avvertenza: La disattivazione totale dei cookie tecnici potrebbe compromettere alcune funzionalità essenziali del carrello acquisti o del login sul sito."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 6 - Diritti GDPR Artt. 15-22"
+    },
+    {
+      "type": "text",
+      "id": "sec6_tag",
+      "label": "Tag Sezione 6",
+      "default": "Tutela Giuridica"
+    },
+    {
+      "type": "text",
+      "id": "sec6_title",
+      "label": "Titolo Sezione 6",
+      "default": "Diritti dell'Utente ai Sensi degli Artt. 15-22 del GDPR"
+    },
+    {
+      "type": "textarea",
+      "id": "sec6_content",
+      "label": "Contenuto Introduttivo Sezione 6",
+      "default": "In qualità di interessato, l'utente ha diritto di esercitare in ogni momento i diritti riconosciuti dagli articoli da 15 a 22 del Regolamento (UE) 2016/679:"
+    },
+    {
+      "type": "textarea",
+      "id": "sec6_dpo_note",
+      "label": "Nota Reclamo Garante Privacy",
+      "default": "Gli interessati hanno inoltre il diritto di proporre reclamo all'Autorità di controllo nazionale (Garante per la Protezione dei Dati Personali, Piazza Venezia n. 11, 00187 Roma, sito web: www.garanteprivacy.it)."
+    },
+    {
+      "type": "header",
+      "content": "Sezione 7 - Contatti Privacy & DPO"
+    },
+    {
+      "type": "text",
+      "id": "sec7_tag",
+      "label": "Tag Sezione 7",
+      "default": "Canale Dedicato"
+    },
+    {
+      "type": "text",
+      "id": "sec7_title",
+      "label": "Titolo Sezione 7",
+      "default": "Contatti del Titolare per la Protezione dei Dati"
+    },
+    {
+      "type": "textarea",
+      "id": "sec7_content",
+      "label": "Contenuto Introduttivo Sezione 7",
+      "default": "Per l'esercizio dei propri diritti privacy o per richiedere chiarimenti in merito alla presente Cookie Policy, l'utente può contattare direttamente il nostro referente privacy:"
+    },
+    {
+      "type": "text",
+      "id": "privacy_email",
+      "label": "Email Privacy Concierge",
+      "default": "concierge@milebiolab.com"
+    },
+    {
+      "type": "text",
+      "id": "privacy_address",
+      "label": "Indirizzo Sede Privacy",
+      "default": "Via Torricelle 2c, 37128 Verona (VR)"
+    },
+    {
+      "type": "text",
+      "id": "privacy_phone",
+      "label": "Telefono Sede Privacy",
+      "default": "+39 045 8301811"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_cookie_clause",
+      "name": "Clausola Cookie Extra",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag / Categoria",
+          "default": "Specifica Tecnica"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo Clausola",
+          "default": "Aggiornamenti & Strumenti Addizionali"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Contenuto Informativo",
+          "default": "<p>Inserisci qui eventuali ulteriori informazioni sui tool di terze parti, script di tracciamento o note specifiche per la protezione dei dati.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cookie Policy"
     }
   ]
 }
