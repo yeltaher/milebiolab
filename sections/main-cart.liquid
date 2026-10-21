@@ -55,38 +55,87 @@
           {% if cart.items.size > 0 %}
             {% for item in cart.items %}
               <div class="flex gap-4 items-center pb-5 border-b border-[#E5E0D8]">
-                {%- assign item_image = item.image | default: item.product.featured_image | default: item.product.images.first -%}
-                {% if item_image %}
-                  <img src="{{ item_image | image_url: width: 240 }}" 
-                       alt="{{ item.product.title | escape }}" 
-                       class="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8] p-1 flex-shrink-0"
-                       loading="lazy"
-                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80';">
-                {% else %}
-                  <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" 
-                       alt="{{ item.product.title | escape }}" 
-                       class="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8] p-1 flex-shrink-0"
-                       loading="lazy">
-                {% endif %}
-                <div class="flex-1">
-                  <h4 class="font-serif text-base font-medium text-[#1A1A1A]">{{ item.product.title }}</h4>
-                  <div class="text-xs text-[#7A7265]">{{ item.variant.title }} &bull; Milebiolab Haute Couture</div>
+                <a href="{{ item.url }}" class="flex-shrink-0">
+                  {%- assign item_image = item.image | default: item.product.featured_image | default: item.product.images.first -%}
+                  {% if item_image %}
+                    <img src="{{ item_image | image_url: width: 240 }}" 
+                         alt="{{ item.product.title | escape }}" 
+                         class="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8] p-1 flex-shrink-0 hover:opacity-90 transition-opacity"
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80';">
+                  {% else %}
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80" 
+                         alt="{{ item.product.title | escape }}" 
+                         class="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-[#F5F2EB] border border-[#E5E0D8] p-1 flex-shrink-0 hover:opacity-90 transition-opacity"
+                         loading="lazy">
+                  {% endif %}
+                </a>
+                <div class="flex-1 min-w-0 pr-2">
+                  <h4 class="font-serif text-base font-medium text-[#1A1A1A]">
+                    <a href="{{ item.url }}" class="hover:text-[#C8A878] transition-colors">{{ item.product.title }}</a>
+                  </h4>
+                  {% unless item.variant.title contains 'Default' %}
+                    <div class="text-xs text-[#7A7265] mt-0.5">{{ item.variant.title }} &bull; Milebiolab Haute Couture</div>
+                  {% endunless %}
                   <div class="text-xs font-semibold text-[#1A1A1A] mt-1">{{ item.price | money }}</div>
                 </div>
-                <div class="text-right">
-                  <div class="text-xs text-[#1A1A1A]">Qtà: <strong>{{ item.quantity }}</strong></div>
-                  <button type="button" onclick="if(window.changeShopifyCartQty) changeShopifyCartQty('{{ item.key }}', 0);" class="text-[10px] text-[#7A7265] underline mt-1 cursor-pointer">Rimuovi</button>
+                <div class="flex flex-col items-end gap-2 shrink-0">
+                  <!-- Prezzo Totale Riga -->
+                  <div class="text-xs font-semibold text-[#1A1A1A]">
+                    {{ item.final_line_price | default: item.line_price | money }}
+                  </div>
+
+                  <!-- Selettore Quantità (- / Qty / +) -->
+                  <div class="flex items-center border border-[#E5E0D8] bg-[#FAF8F5]">
+                    <button
+                      type="button"
+                      onclick="updateCartPageQty('{{ item.key }}', {{ item.quantity | minus: 1 }})"
+                      class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-sm font-semibold text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white transition-colors cursor-pointer"
+                      aria-label="Riduci quantità di {{ item.product.title | escape }}"
+                    >
+                      &minus;
+                    </button>
+                    <input
+                      type="number"
+                      name="updates[]"
+                      id="updates_{{ item.key }}"
+                      value="{{ item.quantity }}"
+                      min="0"
+                      onchange="updateCartPageQty('{{ item.key }}', this.value)"
+                      class="w-9 h-7 sm:w-10 sm:h-8 text-center text-xs font-medium text-[#1A1A1A] bg-white border-x border-[#E5E0D8] focus:outline-none focus:bg-[#FAF8F5] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      aria-label="Quantità per {{ item.product.title | escape }}"
+                    >
+                    <button
+                      type="button"
+                      onclick="updateCartPageQty('{{ item.key }}', {{ item.quantity | plus: 1 }})"
+                      class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-sm font-semibold text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white transition-colors cursor-pointer"
+                      aria-label="Aumenta quantità di {{ item.product.title | escape }}"
+                    >
+                      &#43;
+                    </button>
+                  </div>
+
+                  <!-- Link Rimuovi -->
+                  <button
+                    type="button"
+                    onclick="updateCartPageQty('{{ item.key }}', 0)"
+                    class="text-[11px] text-[#7A7265] hover:text-red-700 underline transition-colors cursor-pointer"
+                    title="Rimuovi prodotto dal carrello"
+                  >
+                    Rimuovi
+                  </button>
                 </div>
               </div>
             {% endfor %}
           {% else %}
-            <!-- Fallback Client-side items from MilebiolabState -->
-            <div class="py-8 text-center text-[#7A7265]">
-              <span class="text-3xl block mb-2">🌿</span>
-              <p class="text-sm">Il tuo carrello dei rituali contiene i trattamenti selezionati.</p>
-              <button type="button" onclick="openCartDrawer()" class="mt-4 px-6 py-2.5 bg-[#1A1A1A] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#5C6B56] transition-colors">
-                Apri Carrello Laterale
-              </button>
+            <!-- Stato Carrello Vuoto Elegante -->
+            <div class="py-12 text-center text-[#7A7265] space-y-4">
+              <span class="text-4xl block mb-2">🌿</span>
+              <p class="font-serif text-xl text-[#1A1A1A]">Il tuo carrello è attualmente vuoto.</p>
+              <p class="text-xs text-[#7A7265] max-w-sm mx-auto">Esplora le nostre formulazioni d'eccellenza e componi la tua routine su misura.</p>
+              <a href="{{ routes.all_products_collection_url | default: '/collections/all' }}" class="inline-block mt-2 px-8 py-3 bg-[#1A1A1A] text-white text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive shadow-sm">
+                Scopri i Trattamenti
+              </a>
             </div>
           {% endif %}
         </div>
@@ -192,6 +241,44 @@
     </div>
   </div>
 </div>
+
+<script>
+  async function updateCartPageQty(itemKey, newQty) {
+    newQty = parseInt(newQty, 10);
+    if (isNaN(newQty) || newQty < 0) newQty = 0;
+
+    const itemsList = document.getElementById('cart-page-items-list');
+    if (itemsList) {
+      itemsList.style.pointerEvents = 'none';
+      itemsList.style.opacity = '0.5';
+    }
+
+    try {
+      const res = await fetch((window.routes && window.routes.cart_change_url) || '/cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          id: itemKey,
+          quantity: newQty
+        })
+      });
+
+      if (window.fetchShopifyCart) {
+        try {
+          await window.fetchShopifyCart();
+        } catch(e) {}
+      }
+
+      window.location.reload();
+    } catch (err) {
+      console.error('Errore aggiornamento carrello:', err);
+      window.location.reload();
+    }
+  }
+</script>
 
 {% schema %}
 {
