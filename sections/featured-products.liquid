@@ -143,7 +143,8 @@
 
         {% assign feat_collection = collections[section.settings.collection] %}
         {% if feat_collection != blank and feat_collection.products.size > 0 %}
-          {% for product in feat_collection.products limit: section.settings.products_to_show | default: 8 %}
+          {% assign feat_products_limit = section.settings.products_to_show | default: 8 %}
+          {% for product in feat_collection.products limit: feat_products_limit %}
             {%- assign card_variant_id = product.selected_or_first_available_variant.id | default: product.first_available_variant.id | default: product.variants.first.id | default: product.id -%}
             <div class="min-w-[300px] w-[300px] sm:min-w-[320px] sm:w-[320px] flex-shrink-0 group bg-white p-4 sm:p-5 border border-[#E5E0D8] hover:border-[#C8A878]/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative" data-product-id="{{ product.id }}">
               <div>

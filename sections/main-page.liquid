@@ -47,7 +47,13 @@
   <div class="{% if is_custom_view and page.content == blank %}max-w-6xl{% elsif section.settings.page_width == 'narrow' %}max-w-3xl{% elsif section.settings.page_width == 'wide' %}max-w-6xl{% else %}max-w-4xl{% endif %} mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Breadcrumbs -->
-    {% if section.settings.show_breadcrumbs and (is_custom_view == false or page.content != blank) %}
+    {% assign show_bc = false %}
+    {% if section.settings.show_breadcrumbs %}
+      {% if is_custom_view == false or page.content != blank %}
+        {% assign show_bc = true %}
+      {% endif %}
+    {% endif %}
+    {% if show_bc %}
       <nav class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#7A7265] mb-8" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}" class="hover:text-[#1A1A1A] transition-colors">Home</a>
         <span class="text-[#DDD7CE]">/</span>
@@ -56,7 +62,13 @@
     {% endif %}
 
     <!-- Page Header -->
-    {% if section.settings.show_title and (is_custom_view == false or page.content != blank) %}
+    {% assign show_hdr = false %}
+    {% if section.settings.show_title %}
+      {% if is_custom_view == false or page.content != blank %}
+        {% assign show_hdr = true %}
+      {% endif %}
+    {% endif %}
+    {% if show_hdr %}
       <header class="text-center mb-12 sm:mb-16">
         <span class="inline-block text-[#C8A878] font-mono text-xs tracking-widest uppercase font-semibold mb-3">
           {{ section.settings.eyebrow | default: 'Mile Dermocosmesi • Verona' }}
@@ -112,7 +124,13 @@
     {% endif %}
 
     <!-- Optional Verona Boutique Banner -->
-    {% if section.settings.show_verona_banner and (is_custom_view == false or page.content != blank) %}
+    {% assign show_vb = false %}
+    {% if section.settings.show_verona_banner %}
+      {% if is_custom_view == false or page.content != blank %}
+        {% assign show_vb = true %}
+      {% endif %}
+    {% endif %}
+    {% if show_vb %}
       <div class="mt-12 bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="text-center sm:text-left">
           <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-1">

@@ -158,6 +158,7 @@
   },
   "order": [
     "main-product",
+    "local-pickup",
     "product-reviews",
     "product-faq"
   ]
