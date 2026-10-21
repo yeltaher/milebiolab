@@ -11,7 +11,7 @@
 {%- liquid
   assign eyebrow = settings.eyebrow | default: eyebrow | default: 'PRIVACY & TRASPARENZA GDPR • REG. UE 2016/679'
   assign title = settings.title | default: title | default: 'Informativa sul Trattamento dei Dati Personali (Privacy Policy)'
-  assign subtitle = settings.subtitle | default: subtitle | default: "Informativa resa ai sensi dell'art. 13 del Regolamento Europeo 2016/679 (GDPR) per i visitatori e clienti del negozio online MileBioLab e dell'istituto dermo-specialistico Lebestetik Beauty & Spa a Verona."
+  assign subtitle = settings.subtitle | default: subtitle | default: "Informativa resa ai sensi dell'art. 13 del Regolamento Europeo 2016/679 (GDPR) per i visitatori e clienti del negozio online Mile Dermocosmesi e dell'istituto dermo-specialistico Lebestetik Beauty & Spa a Verona."
   assign last_updated = settings.last_updated | default: 'Ultimo aggiornamento: 21 Ottobre 2026'
   assign badge_location = settings.badge_location | default: 'Lebestetik Beauty & Spa • Verona'
   assign badge_normative = settings.badge_normative | default: 'Conformità GDPR Reg. UE 2016/679'
@@ -35,9 +35,9 @@
   assign sec1_title = settings.sec1_title | default: 'Titolare del Trattamento dei Dati Personali'
   assign sec1_content = settings.sec1_content | default: 'Ai sensi dell\'art. 4, n. 7 e dell\'art. 13 del Regolamento UE 2016/679 (General Data Protection Regulation - GDPR), il Titolare del trattamento dei dati personali raccolti tramite il presente sito e presso la boutique dermo-specialistica è:'
   assign titolare_name = settings.titolare_name | default: 'Mile Dermocosmesi di Milena Tacchella'
-  assign titolare_address = settings.titolare_address | default: 'Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia'
+  assign titolare_address = settings.titolare_address | default: 'Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa'
   assign titolare_email = settings.titolare_email | default: 'info@miledermocosmesi.it'
-  assign titolare_phone = settings.titolare_phone | default: '+39 3933909899'
+  assign titolare_phone = settings.titolare_phone | default: '+39 045 8301811 • WhatsApp +39 342 1647585'
 
   assign sec2_tag = settings.sec2_tag | default: 'Dati Trattati'
   assign sec2_title = settings.sec2_title | default: 'Categorie di Dati Personali Raccolti'
@@ -64,7 +64,7 @@
   assign sec4_title = settings.sec4_title | default: 'Modalità di Trattamento e Sicurezza dei Dati'
   assign sec4_content = settings.sec4_content | default: 'Il trattamento dei dati personali avviene mediante strumenti informatici, telematici e, in via residuale per gli archivi d\'istituto, cartacei, con logiche strettamente correlate alle finalità sopra indicate. Mile Dermocosmesi adotta idonee misure tecniche e organizzative di sicurezza ai sensi dell\'art. 32 del GDPR per proteggere i dati da accessi non autorizzati, divulgazione, alterazione o distruzione:'
   assign sec4_box1_title = settings.sec4_box1_title | default: 'Crittografia SSL/TLS e Protezione Server'
-  assign sec4_box1_desc = settings.sec4_box1_desc | default: 'L\'intera navigazione e il checkout sul sito MileBioLab avvengono su canale cifrato con certificato SSL a 256 bit su infrastruttura Shopify conforme agli standard di sicurezza internazionali più stringenti.'
+  assign sec4_box1_desc = settings.sec4_box1_desc | default: 'L\'intera navigazione e il checkout sul sito Mile Dermocosmesi avvengono su canale cifrato con certificato SSL a 256 bit su infrastruttura Shopify conforme agli standard di sicurezza internazionali più stringenti.'
   assign sec4_box2_title = settings.sec4_box2_title | default: 'Controllo degli Accessi e Riservatezza'
   assign sec4_box2_desc = settings.sec4_box2_desc | default: 'L\'accesso ai database è consentito esclusivamente alla titolare Milena Tacchella e agli incaricati formati, tramite credenziali individuali complesse e autenticazione a due fattori.'
 
@@ -78,7 +78,7 @@
 
   assign sec6_tag = settings.sec6_tag | default: 'Confini Geografici'
   assign sec6_title = settings.sec6_title | default: 'Trasferimento dei Dati Extra-UE'
-  assign sec6_content = settings.sec6_content | default: 'La gestione operativa e l\'infrastruttura di hosting della piattaforma MileBioLab poggiano sui server di Shopify Inc. Qualora alcuni dati siano temporaneamente conservati o instradati verso server collocati al di fuori dello Spazio Economico Europeo (es. Stati Uniti o Canada), tale trasferimento avviene nel rigoroso rispetto del Capo V del GDPR, mediante l\'adozione delle Clausole Contrattuali Standard (Standard Contractual Clauses - SCC) approvate dalla Commissione Europea e in conformità all\'EU-US Data Privacy Framework.'
+  assign sec6_content = settings.sec6_content | default: 'La gestione operativa e l\'infrastruttura di hosting della piattaforma Mile Dermocosmesi poggiano sui server di Shopify Inc. Qualora alcuni dati siano temporaneamente conservati o instradati verso server collocati al di fuori dello Spazio Economico Europeo (es. Stati Uniti o Canada), tale trasferimento avviene nel rigoroso rispetto del Capo V del GDPR, mediante l\'adozione delle Clausole Contrattuali Standard (Standard Contractual Clauses - SCC) approvate dalla Commissione Europea e in conformità all\'EU-US Data Privacy Framework.'
 
   assign sec7_tag = settings.sec7_tag | default: 'Tempi di Conservazione'
   assign sec7_title = settings.sec7_title | default: 'Periodo di Conservazione dei Dati (Data Retention)'
@@ -97,17 +97,17 @@
 
   assign sec9_tag = settings.sec9_tag | default: 'Tutela Minori'
   assign sec9_title = settings.sec9_title | default: 'Trattamento dei Dati dei Minori di Anni 18'
-  assign sec9_content = settings.sec9_content | default: 'I servizi e i prodotti cosmetici offerti sul sito web MileBioLab sono riservati a persone maggiorenni. Mile Dermocosmesi non raccoglie consapevolmente dati personali relativi a minori di 18 anni. Nel caso in cui dovesse essere riscontrata la registrazione involontaria di dati di un minore, tali informazioni saranno tempestivamente cancellate dai nostri sistemi.'
+  assign sec9_content = settings.sec9_content | default: 'I servizi e i prodotti cosmetici offerti sul sito web Mile Dermocosmesi sono riservati a persone maggiorenni. Mile Dermocosmesi non raccoglie consapevolmente dati personali relativi a minori di 18 anni. Nel caso in cui dovesse essere riscontrata la registrazione involontaria di dati di un minore, tali informazioni saranno tempestivamente cancellate dai nostri sistemi.'
 
   assign sec10_tag = settings.sec10_tag | default: 'Revisione Normativa'
   assign sec10_title = settings.sec10_title | default: 'Modifiche e Aggiornamenti dell\'Informativa'
   assign sec10_content = settings.sec10_content | default: 'Il Titolare si riserva il diritto di modificare o aggiornare la presente Informativa sulla Privacy in qualsiasi momento, anche in conseguenza di variazioni legislative o regolamentari intervenute. La versione aggiornata sarà sempre consultabile con indicazione della data di ultima revisione.'
 
-  assign help_title = settings.help_title | default: 'Assistenza Privacy & Concierge MileBioLab'
+  assign help_title = settings.help_title | default: 'Assistenza Privacy & Contatto Diretto'
   assign help_desc = settings.help_desc | default: 'Per esercitare i tuoi diritti privacy, richiedere la rettifica o la cancellazione dei tuoi dati o per qualunque chiarimento relativo alla tutela della riservatezza, contatta direttamente il nostro referente:'
-  assign help_whatsapp_text = settings.help_whatsapp_text | default: 'WhatsApp Referente Privacy'
-  assign help_whatsapp_url = settings.help_whatsapp_url | default: 'https://wa.me/393933909899'
-  assign help_email_text = settings.help_email_text | default: 'Scrivi a info@miledermocosmesi.it'
+  assign help_whatsapp_text = settings.help_whatsapp_text | default: 'WhatsApp Diretto 3421647585'
+  assign help_whatsapp_url = settings.help_whatsapp_url | default: 'https://wa.me/393421647585'
+  assign help_email_text = settings.help_email_text | default: 'Scrivici'
   assign help_email_address = settings.help_email_address | default: 'info@miledermocosmesi.it'
 -%}
 
@@ -584,7 +584,7 @@
       <div class="bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-10 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="space-y-2">
           <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">
-            Ufficio DPO & Concierge • Lebestetik Verona
+            Ufficio Privacy • Lebestetik Verona
           </span>
           <h3 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">
             {{ help_title }}

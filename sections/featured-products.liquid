@@ -39,7 +39,7 @@
           onclick="slideFeaturedProducts('{{ section.id }}', -1)"
           id="featured-col-prev-{{ section.id }}"
           aria-label="Prodotti precedenti"
-          class="w-11 h-11 rounded-full border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] transition-all duration-300 flex items-center justify-center shadow-md cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed group"
+          class="w-11 h-11 rounded-full border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] transition-all duration-300 flex items-center justify-center shadow-md cursor-pointer active:scale-95 group"
         >
           <svg class="w-5 h-5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -50,19 +50,51 @@
           onclick="slideFeaturedProducts('{{ section.id }}', 1)"
           id="featured-col-next-{{ section.id }}"
           aria-label="Prodotti successivi"
-          class="w-11 h-11 rounded-full border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] transition-all duration-300 flex items-center justify-center shadow-md cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed group"
+          class="w-11 h-11 rounded-full border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] transition-all duration-300 flex items-center justify-center shadow-md cursor-pointer active:scale-95 group"
         >
           <svg class="w-5 h-5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
-        <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold">Scorri Prodotti</span>
+        <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold">Scorri Bestseller</span>
       </div>
       {% endif %}
     </div>
 
     <!-- Products Slider / Grid -->
     <div class="w-full lg:w-2/3 relative group/slider">
+      {% if show_arrows %}
+      <!-- Controlli Superiori / Header Slider Haute Couture (Sempre Visibili su Mobile & Desktop) -->
+      <div class="flex items-center justify-between pb-4 mb-3 border-b border-[#DDD7CE]/50">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-[#5C6B56]"></span>
+          <span class="text-xs uppercase tracking-widest text-[#7A7265] font-semibold">Scorri Bestseller (← / →)</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            onclick="slideFeaturedProducts('{{ section.id }}', -1)"
+            aria-label="Scorri bestseller precedenti"
+            class="w-11 h-11 rounded-full border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] transition-all duration-300 flex items-center justify-center shadow-lg cursor-pointer group active:scale-95"
+          >
+            <svg class="w-5 h-5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onclick="slideFeaturedProducts('{{ section.id }}', 1)"
+            aria-label="Scorri bestseller successivi"
+            class="w-11 h-11 rounded-full border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] transition-all duration-300 flex items-center justify-center shadow-lg cursor-pointer group active:scale-95"
+          >
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      {% endif %}
+
       {% if show_arrows and show_slider_arrows %}
       <!-- Freccia Sinistra Floating Inset (Prev) -->
       <button
@@ -70,7 +102,7 @@
         id="featured-prev-{{ section.id }}"
         onclick="slideFeaturedProducts('{{ section.id }}', -1)"
         aria-label="Scorri prodotti precedenti"
-        class="flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] shadow-xl items-center justify-center transition-all duration-300 cursor-pointer hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] hover:scale-105 active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed disabled:border-[#DDD7CE] disabled:text-[#9C9488] disabled:hover:bg-white disabled:hover:text-[#9C9488] disabled:hover:border-[#DDD7CE] group"
+        class="flex absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] shadow-xl items-center justify-center transition-all duration-300 cursor-pointer hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] hover:scale-105 active:scale-95 group"
       >
         <svg class="w-5 h-5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -83,7 +115,7 @@
         id="featured-next-{{ section.id }}"
         onclick="slideFeaturedProducts('{{ section.id }}', 1)"
         aria-label="Scorri prodotti successivi"
-        class="flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] shadow-xl items-center justify-center transition-all duration-300 cursor-pointer hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] hover:scale-105 active:scale-95 disabled:opacity-35 disabled:cursor-not-allowed disabled:border-[#DDD7CE] disabled:text-[#9C9488] disabled:hover:bg-white disabled:hover:text-[#9C9488] disabled:hover:border-[#DDD7CE] group"
+        class="flex absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] shadow-xl items-center justify-center transition-all duration-300 cursor-pointer hover:bg-[#5C6B56] hover:text-white hover:border-[#5C6B56] hover:scale-105 active:scale-95 group"
       >
         <svg class="w-5 h-5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -390,13 +422,26 @@
         var card = slider.querySelector('[data-product-id]');
         var cardWidth = card ? card.offsetWidth : 320;
         var scrollAmount = cardWidth + 24; // card width + gap-6 (24px)
-        slider.scrollBy({
-          left: direction * scrollAmount,
-          behavior: 'smooth'
-        });
+        
+        if (direction === 1) {
+          // Se lo slider è già alla fine o vicino alla fine, torna fluidamente all'inizio (loop continuo)
+          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 16) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          }
+        } else if (direction === -1) {
+          // Se lo slider è all'inizio, scorre fluidamente alla fine (loop continuo)
+          if (slider.scrollLeft <= 16) {
+            slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
+          } else {
+            slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+          }
+        }
       }
       window.slideFeaturedProducts = slideFeatured;
 
+      // Le frecce rimangono SEMPRE attive e cliccabili per consentire navigazione continua ad anello
       function initFeaturedArrows(sectionId) {
         var slider = document.getElementById('featured-slider-' + sectionId);
         if (!slider) return;
@@ -406,25 +451,10 @@
         var colPrevBtn = document.getElementById('featured-col-prev-' + sectionId);
         var colNextBtn = document.getElementById('featured-col-next-' + sectionId);
 
-        function updateState() {
-          var isAtStart = slider.scrollLeft <= 8;
-          var maxScroll = slider.scrollWidth - slider.clientWidth - 8;
-          var isAtEnd = slider.scrollLeft >= maxScroll;
-
-          if (prevBtn) prevBtn.disabled = isAtStart;
-          if (nextBtn) nextBtn.disabled = isAtEnd;
-          if (colPrevBtn) colPrevBtn.disabled = isAtStart;
-          if (colNextBtn) colNextBtn.disabled = isAtEnd;
-        }
-
-        slider.addEventListener('scroll', updateState, { passive: true });
-        window.addEventListener('resize', updateState);
-        window.addEventListener('load', updateState);
-
-        updateState();
-        setTimeout(updateState, 100);
-        setTimeout(updateState, 400);
-        setTimeout(updateState, 1200);
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) nextBtn.disabled = false;
+        if (colPrevBtn) colPrevBtn.disabled = false;
+        if (colNextBtn) colNextBtn.disabled = false;
       }
 
       if (document.readyState === 'loading') {

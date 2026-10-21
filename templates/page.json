@@ -12,7 +12,7 @@
     "main": {
       "type": "main-page",
       "settings": {
-        "eyebrow": "Istituto MileBioLab • Verona",
+        "eyebrow": "Mile Dermocosmesi • Verona",
         "show_title": true,
         "show_breadcrumbs": true,
         "page_width": "medium",

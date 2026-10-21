@@ -39,15 +39,15 @@
   assign sec2_tag = settings.sec2_tag | default: 'Responsabile dei Dati'
   assign sec2_title = settings.sec2_title | default: 'Titolare del Trattamento dei Dati'
   assign sec2_content = settings.sec2_content | default: 'Il Titolare del trattamento dei dati personali raccolti tramite cookie e strumenti analoghi sul presente sito è:'
-  assign titolare_name = settings.titolare_name | default: 'MileBioLab di Milena Tacchella'
-  assign titolare_address = settings.titolare_address | default: 'Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia'
-  assign titolare_email = settings.titolare_email | default: 'concierge@milebiolab.com'
-  assign titolare_sede_email = settings.titolare_sede_email | default: 'info@beautyespatorricelle.it'
-  assign titolare_phone = settings.titolare_phone | default: '+39 045 8301811'
+  assign titolare_name = settings.titolare_name | default: 'Mile Dermocosmesi di Milena Tacchella'
+  assign titolare_address = settings.titolare_address | default: 'Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa'
+  assign titolare_email = settings.titolare_email | default: 'info@miledermocosmesi.it'
+  assign titolare_sede_email = settings.titolare_sede_email | default: 'info@miledermocosmesi.it'
+  assign titolare_phone = settings.titolare_phone | default: '+39 045 8301811 • WhatsApp +39 342 1647585'
 
   assign sec3_tag = settings.sec3_tag | default: 'Classificazione Giuridica'
   assign sec3_title = settings.sec3_title | default: 'Categorie di Cookie Utilizzati sul Sito'
-  assign sec3_intro = settings.sec3_intro | default: 'In conformità alle disposizioni del Garante Privacy e del GDPR, i cookie impiegati su MileBioLab appartengono alle seguenti tipologie:'
+  assign sec3_intro = settings.sec3_intro | default: 'In conformità alle disposizioni del Garante Privacy e del GDPR, i cookie impiegati su Mile Dermocosmesi appartengono alle seguenti tipologie:'
 
   assign cat_a_title = settings.cat_a_title | default: 'A) Cookie Tecnici e di Sessione Strettamente Necessari'
   assign cat_a_badge = settings.cat_a_badge | default: 'Sempre Attivi'
@@ -67,7 +67,7 @@
 
   assign sec4_tag = settings.sec4_tag | default: 'Elenco Dettagliato'
   assign sec4_title = settings.sec4_title | default: 'Tabella dei Principali Cookie Attivi'
-  assign sec4_content = settings.sec4_content | default: 'Di seguito si riportano i principali cookie operativi sul sito web di MileBioLab:'
+  assign sec4_content = settings.sec4_content | default: 'Di seguito si riportano i principali cookie operativi sul sito web di Mile Dermocosmesi:'
 
   assign sec5_tag = settings.sec5_tag | default: 'Controllo Utente'
   assign sec5_title = settings.sec5_title | default: 'Gestione del Consenso e Opzioni di Rifiuto'
@@ -86,9 +86,9 @@
   assign sec7_tag = settings.sec7_tag | default: 'Canale Dedicato'
   assign sec7_title = settings.sec7_title | default: 'Contatti del Titolare per la Protezione dei Dati'
   assign sec7_content = settings.sec7_content | default: 'Per l\'esercizio dei propri diritti privacy o per richiedere chiarimenti in merito alla presente Cookie Policy, l\'utente può contattare direttamente il nostro referente privacy:'
-  assign privacy_email = settings.privacy_email | default: 'concierge@milebiolab.com'
-  assign privacy_address = settings.privacy_address | default: 'Via Torricelle 2c, 37128 Verona (VR)'
-  assign privacy_phone = settings.privacy_phone | default: '+39 045 8301811'
+  assign privacy_email = settings.privacy_email | default: 'info@miledermocosmesi.it'
+  assign privacy_address = settings.privacy_address | default: 'Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa'
+  assign privacy_phone = settings.privacy_phone | default: '+39 045 8301811 • WhatsApp +39 342 1647585'
 -%}
 
 <div class="policy-cookie-wrapper bg-[#F5F2EB] text-[#1A1A1A] py-10 sm:py-16 lg:py-20 font-sans selection:bg-[#C8A878] selection:text-white">
@@ -249,7 +249,7 @@
             <p><strong class="text-[#1A1A1A]">Titolare:</strong> {{ titolare_name }}</p>
             <p><strong class="text-[#1A1A1A]">Sede Operativa & Flagship Boutique:</strong> {{ titolare_address }}</p>
             {%- if titolare_email != blank -%}
-              <p><strong class="text-[#1A1A1A]">Email Concierge Privacy:</strong> <a href="mailto:{{ titolare_email }}" class="text-[#5C6B56] underline">{{ titolare_email }}</a></p>
+              <p><strong class="text-[#1A1A1A]">Email Privacy:</strong> <a href="mailto:{{ titolare_email }}" class="text-[#5C6B56] underline">{{ titolare_email }}</a></p>
             {%- endif -%}
             {%- if titolare_sede_email != blank -%}
               <p><strong class="text-[#1A1A1A]">Email Sede:</strong> <a href="mailto:{{ titolare_sede_email }}" class="text-[#5C6B56] underline">{{ titolare_sede_email }}</a></p>
@@ -403,7 +403,7 @@
                 </tr>
                 <tr class="hover:bg-[#FAF8F5]/50 transition-colors">
                   <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">localization</td>
-                  <td class="p-3 sm:p-4">MileBioLab</td>
+                  <td class="p-3 sm:p-4">Mile Dermocosmesi</td>
                   <td class="p-3 sm:p-4 text-[#C8A878] font-semibold">Funzionale</td>
                   <td class="p-3 sm:p-4">1 anno</td>
                   <td class="p-3 sm:p-4">Memorizzazione della valuta (€) e lingua di navigazione</td>
