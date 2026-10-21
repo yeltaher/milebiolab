@@ -1,107 +1,11 @@
 {% comment %}
   MILEBIOLAB - SNIPPET POLICY TERMS VIEW (HAUTE COUTURE LUSH DESIGN)
   Informativa Termini e Condizioni Generali di Vendita e di Servizio.
-  Completamente personalizzabile dal Theme Editor di Shopify in tempo reale.
-  Supporta blocchi personalizzati OS 2.0 e visualizzazione di page.content.
+  Conforme al Codice del Consumo (D.Lgs. 206/2005 e ss.mm.ii.), Direttiva UE 2019/771 e Regolamento CE 1223/2009.
+  Dettaglia il modello di evasione ibrido (MileBioLab sede Verona + laboratori Selfnamed)
+  e la clausola inderogabile di tutela igienico-sanitaria sui cosmetici dissigillati (Art. 59 lett. e).
   Palette Splendor & Dr. Joseph: #F5F2EB, #FAF8F5, #1A1A1A, #5C6B56, #C8A878, #E5E0D8, #DDD7CE.
 {% endcomment %}
-
-{%- liquid
-  assign eyebrow = settings.eyebrow | default: eyebrow | default: 'DOCUMENTO UFFICIALE • CONTRATTO DI VENDITA'
-  assign title = settings.title | default: title | default: 'Termini e Condizioni Generali di Vendita e di Servizio'
-  assign subtitle = settings.subtitle | default: "Regolamento contrattuale applicabile all'acquisto dei prodotti cosmetici biomimetici, protocolli di longevità cutanea e servizi boutique erogati da MileBioLab."
-  assign last_updated = settings.last_updated | default: 'Ultimo aggiornamento: 21 Ottobre 2026'
-  assign badge_location = settings.badge_location | default: 'Lebestetik Beauty & Spa • Verona'
-
-  assign card1_badge = settings.card1_badge | default: 'Sicurezza Contrattuale'
-  assign card1_title = settings.card1_title | default: 'Trasparenza & Prezzi IVA Inclusa'
-  assign card1_desc = settings.card1_desc | default: 'Tutti i prezzi sono espressi in Euro (€) con IVA 22% inclusa. Transazioni crittografate SSL a 256 bit e conformità rigorosa al Codice del Consumo (D.Lgs. 206/2005).'
-  assign card1_footer = settings.card1_footer | default: '✓ Pagamenti 3D Secure 2.0'
-
-  assign card2_badge = settings.card2_badge | default: 'Modello Integrato'
-  assign card2_title = settings.card2_title | default: 'MileBioLab + Selfnamed'
-  assign card2_desc = settings.card2_desc | default: 'Le eccellenze d\'istituto viaggiano dalla nostra sede di Verona e le formule on-demand dai laboratori certificati Selfnamed. Per gli ordini misti, spedizione unica senza costi doppi.'
-  assign card2_footer = settings.card2_footer | default: '✓ Garanzia & Assistenza Unificate'
-
-  assign card3_badge = settings.card3_badge | default: 'Tutela della Salute'
-  assign card3_title = settings.card3_title | default: 'Clausola Cosmetica Art. 59'
-  assign card3_desc = settings.card3_desc | default: 'Recesso di 14 giorni per prodotti sigillati. Per motivi igienico-sanitari e a salvaguardia della pelle, il recesso è escluso su cosmetici aperti o usati.'
-  assign card3_footer = settings.card3_footer | default: '✓ Confezioni Sigillate a Norma'
-
-  assign show_toc = true
-  if settings.show_toc == false
-    assign show_toc = false
-  endif
-  assign toc_title = settings.toc_title | default: 'Indice delle Clausole Contrattuali'
-
-  assign art1_title = settings.art1_title | default: 'Informazioni Generali e Dati Societari'
-  assign art1_content = settings.art1_content | default: 'Il presente sito web (di seguito denominato la "Piattaforma" o il "Sito") è di proprietà ed è gestito da MileBioLab di Milena Tacchella, ditta individuale operante con sede legale e operativa presso la prestigiosa sede e flagship boutique:'
-  assign company_name = settings.company_name | default: 'MileBioLab di Milena Tacchella'
-  assign company_address = settings.company_address | default: 'Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia'
-  assign company_email = settings.company_email | default: 'info@beautyespatorricelle.it'
-  assign company_concierge_email = settings.company_concierge_email | default: 'concierge@milebiolab.com'
-  assign company_phone = settings.company_phone | default: '+39 045 8301811'
-  assign company_whatsapp = settings.company_whatsapp | default: '+39 342 1647585'
-  assign art1_note = settings.art1_note | default: "I presenti Termini e Condizioni Generali regolano l'offerta, l'inoltro e l'accettazione di ordini d'acquisto di prodotti cosmetici e correlati servizi di bellezza effettuati a distanza tramite la piattaforma telematica tra il Venditore e qualsiasi persona fisica che agisca per scopi estranei all'attività imprenditoriale o professionale (di seguito il \"Cliente\" o \"Consumatore\" ai sensi del D.Lgs. 206/2005)."
-
-  assign art2_title = settings.art2_title | default: 'Oggetto del Servizio e Natura dei Prodotti Cosmetici'
-  assign art2_content = settings.art2_content | default: 'MileBioLab commercializza prodotti cosmetici biomimetici di altissima gamma con percentuali di origine naturale comprese tra il 98%, 99% e 100%, fito-estratti botanici puri, protocolli rigenerativi Team Dr. Joseph, linee di longevità cutanea (Longevity Skin) e creazioni iconiche della Maestra d\'Arte Mile quali la linea e il Burro Primordiale UNICHO 21, oltre a voucher per trattamenti cabina presso l\'istituto di Verona.'
-  assign art2_box_title = settings.art2_box_title | default: 'Finalità e Destinazione d\'Uso (Regolamento CE 1223/2009):'
-  assign art2_box_content = settings.art2_box_content | default: "Tutti i prodotti offerti sono destinati esclusivamente ad uso topico ed esterno per la cura, protezione e benessere dell'epidermide, in piena rispondenza al Regolamento (CE) n. 1223/2009 sui prodotti cosmetici. Non costituiscono dispositivi medici né farmaci e non hanno proprietà terapeutiche o curative di affezioni patologiche. Le immagini e le descrizioni presenti nelle schede prodotto riproducono fedelmente le formulazioni, le consistenze olfattive e sensoriali. Trattandosi di materie prime naturali di origine botanica, lievi variazioni di colore o profumazione da un lotto all'altro testimoniano l'autenticità e la purezza della lavorazione."
-
-  assign art3_title = settings.art3_title | default: 'Modello di Produzione ed Evasione Ibrido (MileBioLab + Selfnamed)'
-  assign art3_content = settings.art3_content | default: 'A garanzia della massima freschezza cosmetica e trasparenza verso la clientela, MileBioLab adotta un innovativo modello dermo-produttivo ed evasivo articolato su due filiere d\'eccellenza:'
-  assign art3_polo_a_title = settings.art3_polo_a_title | default: 'A) Laboratorio & Flagship Verona'
-  assign art3_polo_a_desc = settings.art3_polo_a_desc | default: 'Le formulazioni proprietarie d\'istituto (tra cui il Burro UNICHO 21 e i protocolli Team Dr. Joseph) vengono custodite, confezionate ed evase direttamente dalla sede di Lebestetik Beauty & Spa a Verona.'
-  assign art3_polo_b_title = settings.art3_polo_b_title | default: 'B) Laboratori On-Demand Selfnamed'
-  assign art3_polo_b_desc = settings.art3_polo_b_desc | default: 'Le formule on-demand personalizzate vengono realizzate ed evase fresche "on-demand" in partnership certificata con i laboratori europei Selfnamed (conformità ISO 22716, standard Cosmos Natural / ECOCERT).'
-  assign art3_guarantee_title = settings.art3_guarantee_title | default: '🌟 Clausola di Garanzia Unificata e Spedizione Senza Raddoppio di Spese:'
-  assign art3_guarantee_text = settings.art3_guarantee_text | default: "Qualora un ordine contenga congiuntamente referenze a marchio MileBioLab/Verona e formule allestite tramite i laboratori Selfnamed, l'ordine è processato come un'unica transazione. Al Cliente viene addebitata una sola spesa di spedizione unificata (o azzerata se supera la soglia di gratuità). Nel caso in cui per motivi di salvaguardia della freschezza l'ordine venga recapitato mediante due colli separati con differenti codici di tracciamento, non vi sarà alcun costo aggiuntivo a carico del Cliente. La titolarità del contratto, la fatturazione, la garanzia legale di conformità e il servizio clienti rimangono accentrati unicamente in capo a MileBioLab di Milena Tacchella."
-
-  assign art4_title = settings.art4_title | default: 'Prezzi, Valuta e Modalità di Pagamento Sicure'
-  assign art4_content = settings.art4_content | default: "Tutti i prezzi di vendita esposti sul Sito sono espressi in Euro (€) e si intendono comprensivi dell'Imposta sul Valore Aggiunto (IVA al 22%) e di ogni altra imposta applicabile. Le spese di spedizione, ove dovute, sono chiaramente calcolate ed evidenziate nella pagina di riepilogo del carrello prima dell'invio definitivo dell'ordine. MileBioLab si avvale dei più avanzati gateway di pagamento telematico dotati di crittografia end-to-end e standard PCI-DSS Livello 1: Carte di credito/debito (Visa, Mastercard, Maestro, American Express), Apple Pay, Google Pay, Shop Pay, PayPal con protezione acquisti e pagamento in contanti o POS presso la nostra boutique di Verona in caso di selezione 'Ritiro Gratuito in Sede'. I dati sensibili della carta di pagamento transitano direttamente sui server sicuri del gestore bancario con protocollo 3D Secure 2.0; in nessun momento MileBioLab accede né archivia i dati finanziari o il codice CVV del Cliente."
-
-  assign art5_title = settings.art5_title | default: 'Conclusione del Contratto e Accettazione dell\'Ordine'
-  assign art5_content = settings.art5_content | default: "L'invio dell'ordine tramite il modulo telematico costituisce proposta contrattuale d'acquisto a titolo oneroso. Il contratto di compravendita si intende perfezionato e vincolante nel momento in cui MileBioLab trasmette al Cliente, all'indirizzo email comunicato, la Conferma d'Ordine Ufficiale contenente il riepilogo dettagliato dei prodotti acquistati, il corrispettivo pagato, l'indirizzo di spedizione prescelto e i riferimenti del Concierge. Qualora eccezionalmente uno dei prodotti ordinati non risulti disponibile o presenti un lotto in preparazione, il Concierge contatterà tempestivamente il Cliente offrendo l'attesa del lotto fresco, la sostituzione con formula equivalente o il rimborso integrale e immediato dell'importo corrisposto."
-
-  assign art6_title = settings.art6_title | default: 'Spedizioni, Consegna e Ritiro in Sede a Verona'
-  assign art6_content = settings.art6_content | default: "MileBioLab effettua spedizioni su tutto il territorio italiano (comprese isole maggiori, minori e laguna veneta) e a livello internazionale nell'Unione Europea ed Extra-UE:"
-
-  assign art7_title = settings.art7_title | default: 'Diritto di Recesso e Politica di Reso (Tutela Igienico-Sanitaria)'
-  assign art7_content = settings.art7_content | default: 'Ai sensi degli articoli 52 e seguenti del D.Lgs. 6 settembre 2005, n. 206 (Codice del Consumo), il Cliente Consumatore ha diritto di recedere dal contratto di acquisto, senza alcuna penalità e senza specificarne il motivo, entro il termine di 14 (quattordici) giorni di calendario a decorrere dalla data di materiale ricezione dei prodotti.'
-  assign art7_warning_title = settings.art7_warning_title | default: '⚠️ Eccezione Igienico-Sanitaria ex Art. 59, comma 1, lett. e, Codice del Consumo'
-  assign art7_warning_quote = settings.art7_warning_quote | default: '«Il diritto di recesso è espressamente ESCLUSO per la fornitura di beni sigillati che non si prestano ad essere restituiti per motivi igienici o connessi alla protezione della salute e che sono stati aperti o dissigillati dopo la consegna.»'
-  assign art7_warning_desc = settings.art7_warning_desc | default: 'Pertanto, il recesso può essere esercitato esclusivamente per prodotti perfettamente intatti, non dissigillati, non aperti, non provati e con il sigillo di garanzia o la pellicola protettiva completamente intonsa, conservati nell\'imballaggio originario provvisto di tutti gli accessori, bugiardini o campioncini abbinati.'
-  assign art7_steps_title = settings.art7_steps_title | default: 'Procedura Operativa per il Reso:'
-  assign art7_step1 = settings.art7_step1 | default: 'Inviare entro 14 giorni dalla consegna una comunicazione scritta a concierge@milebiolab.com indicando numero d\'ordine, referenze da restituire e conferma che il sigillo igienico è intatto.'
-  assign art7_step2 = settings.art7_step2 | default: 'Ricevere l\'autorizzazione formale al rientro (Codice RMA) dal Concierge MileBioLab.'
-  assign art7_step3 = settings.art7_step3 | default: 'Imballare i prodotti con la massima cura e spedirli a proprie spese con corriere tracciato presso la sede: MileBioLab c/o Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR).'
-  assign art7_step4 = settings.art7_step4 | default: 'A seguito della verifica peritale dell\'integrità del packaging e dei sigilli di sicurezza da parte del laboratorio, MileBioLab provvederà al rimborso dell\'importo entro 14 giorni con lo stesso metodo di pagamento.'
-
-  assign art8_title = settings.art8_title | default: 'Garanzia Legale di Conformità e Tollerabilità Cutanea'
-  assign art8_content = settings.art8_content | default: 'Tutti i prodotti cosmetici commercializzati da MileBioLab beneficiano della Garanzia Legale di Conformità di 24 mesi prevista dagli artt. 128-135 del Codice del Consumo a tutela di eventuali difetti di conformità originari (es. difetto del meccanismo dell\'erogatore dispenser, imperfezione strutturale del flacone o confezione fallata all\'origine).'
-  assign art8_box_title = settings.art8_box_title | default: 'Consigli d\'Uso, Conservazione e Test di Tollerabilità:'
-  assign art8_box_desc = settings.art8_box_desc | default: 'Per preservare intatte le proprietà biomimetiche degli attivi vegetali puri, i prodotti devono essere conservati in un ambiente fresco e asciutto, lontano dalla luce solare diretta e da fonti di calore. Invitiamo sempre i soggetti con pelli particolarmente reattive o con allergie note a verificare con attenzione l\'INCI (lista ingredienti) riportato sulla scheda prodotto e a svolgere un preliminare patch test cutaneo (applicando una piccola goccia di prodotto sulla piega interna del gomito) 24 ore prima dell\'applicazione continuativa.'
-
-  assign art9_title = settings.art9_title | default: 'Programma Fedeltà Beauty Club Mile (Regole Punti e Sconti)'
-  assign art9_content = settings.art9_content | default: 'L\'iscrizione gratuita al programma fedeltà Beauty Club Mile consente agli utenti registrati di accumulare Beauty Punti secondo il rapporto base di 1 € speso = 1 Beauty Punto (oltre a punti speciali per compleanno e recensioni verificate). Ogni 100 Beauty Punti accumulati danno diritto a un buono sconto immediato di € 5,00 convertibile direttamente in fase di checkout. I punti hanno natura promozionale, sono strettamente personali, non sono cedibili a terzi né convertibili in denaro liquido. Per il regolamento dettagliato, si rinvia alla pagina ufficiale Beauty Club Mile.'
-
-  assign art10_title = settings.art10_title | default: 'Proprietà Intellettuale, Marchi e Diritti Riservati'
-  assign art10_content = settings.art10_content | default: 'Tutti i contenuti presenti sul Sito, inclusi a titolo esemplificativo marchi figurativi e denominativi (MileBioLab, Lebestetik, UNICHO 21), testi descrittivi, fotografie, rendering estetici, layout grafici, codice sorgente e video tutorial, sono di proprietà esclusiva di Milena Tacchella o dei rispettivi partner licenziatari (Team Dr. Joseph, Selfnamed) e sono tutelati dalle leggi nazionali e internazionali in materia di diritto d\'autore e proprietà industriale. È severamente vietata qualsiasi forma di riproduzione, alterazione, diffusione o sfruttamento commerciale non espressamente autorizzato per iscritto dal titolare.'
-
-  assign art11_title = settings.art11_title | default: 'Legge Applicabile, Risoluzione Controversie e Foro Competente'
-  assign art11_content = settings.art11_content | default: 'I presenti Termini e Condizioni e i relativi contratti di compravendita sono integralmente regolati e interpretati in conformità alla Legge della Repubblica Italiana. Per qualsiasi controversia derivante dall\'interpretazione, esecuzione o risoluzione del contratto tra MileBioLab e il Cliente Consumatore residente o domiciliato nel territorio dell\'Unione Europea, la competenza territoriale inderogabile spetta al Giudice del luogo di residenza o di domicilio del consumatore, conformemente all\'art. 66-bis del D.Lgs. 206/2005. Per i clienti con sede all\'estero extra-UE o per acquisti con partita IVA (B2B), è convenuta la competenza esclusiva del Foro di Verona (Italia).'
-  assign art11_odr_title = settings.art11_odr_title | default: 'Risoluzione Alternativa delle Controversie Online (ODR):'
-  assign art11_odr_text = settings.art11_odr_text | default: 'Ai sensi del Regolamento UE n. 524/2013, il Consumatore residente nella UE può promuovere la risoluzione extragiudiziale delle controversie attraverso la piattaforma europea ODR accessibile all\'indirizzo: https://ec.europa.eu/consumers/odr.'
-
-  assign help_badge = settings.help_badge | default: 'Assistenza Diretta & Concierge'
-  assign help_title = settings.help_title | default: 'Hai domande sui termini o sul tuo ordine?'
-  assign help_desc = settings.help_desc | default: 'Il nostro Concierge presso la sede di Verona è a tua disposizione per chiarimenti legali, assistenza pre-acquisto e supporto su ogni spedizione.'
-  assign help_whatsapp_text = settings.help_whatsapp_text | default: 'WhatsApp Diretto'
-  assign help_whatsapp_url = settings.help_whatsapp_url | default: 'https://wa.me/393421647585'
-  assign help_email_text = settings.help_email_text | default: 'Scrivi al Concierge'
-  assign help_email_address = settings.help_email_address | default: 'concierge@milebiolab.com'
--%}
 
 <div class="policy-terms-wrapper bg-[#F5F2EB] text-[#1A1A1A] py-10 sm:py-16 lg:py-20 font-sans selection:bg-[#C8A878] selection:text-white">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
@@ -119,30 +23,26 @@
     <header class="text-center max-w-3xl mx-auto space-y-4">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FAF8F5] border border-[#C8A878]/40 text-[#C8A878] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase font-semibold shadow-xs">
         <span class="text-xs">📜</span>
-        <span>{{ eyebrow }}</span>
+        <span>{{ eyebrow | default: 'DOCUMENTO UFFICIALE • CONTRATTO DI VENDITA' }}</span>
       </div>
 
       <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl text-[#1A1A1A] font-normal leading-tight tracking-tight">
-        {{ title }}
+        {{ title | default: 'Termini e Condizioni Generali di Vendita e di Servizio' }}
       </h1>
 
       <p class="text-sm sm:text-base text-[#7A7265] font-light leading-relaxed max-w-2xl mx-auto">
-        {{ subtitle }}
+        Regolamento contrattuale applicabile all'acquisto dei prodotti cosmetici biomimetici, protocolli di longevità cutanea e servizi boutique erogati da MileBioLab.
       </p>
 
       <div class="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs text-[#5C6B56] font-mono">
-        {%- if last_updated != blank -%}
-          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
-            {{ last_updated }}
-          </span>
-        {%- endif -%}
-        {%- if badge_location != blank -%}
-          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
-            <span>📍</span>
-            {{ badge_location }}
-          </span>
-        {%- endif -%}
+        <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+          Ultimo aggiornamento: 21 Ottobre 2026
+        </span>
+        <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
+          <span>📍</span>
+          Lebestetik Beauty & Spa • Verona
+        </span>
       </div>
     </header>
 
@@ -151,105 +51,88 @@
       <!-- Card 1 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #C8A878;">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ card1_badge }}</span>
-          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">{{ card1_title }}</h3>
-          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
-            {{ card1_desc }}
-          </div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">Sicurezza Contrattuale</span>
+          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">Trasparenza & Prezzi IVA Inclusa</h3>
+          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+            Tutti i prezzi sono espressi in Euro (€) con IVA 22% inclusa. Transazioni crittografate SSL a 256 bit e conformità rigorosa al Codice del Consumo (D.Lgs. 206/2005).
+          </p>
         </div>
-        {%- if card1_footer != blank -%}
-          <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
-            {{ card1_footer }}
-          </div>
-        {%- endif -%}
+        <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
+          ✓ Pagamenti 3D Secure 2.0
+        </div>
       </div>
 
       <!-- Card 2 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #5C6B56;">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold block mb-2">{{ card2_badge }}</span>
-          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">{{ card2_title }}</h3>
-          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
-            {{ card2_desc }}
-          </div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold block mb-2">Modello Integrato</span>
+          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">MileBioLab + Selfnamed</h3>
+          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+            Le eccellenze d'istituto viaggiano dalla nostra sede di Verona e le formule on-demand dai laboratori certificati Selfnamed. Per gli ordini misti, spedizione unica senza costi doppi.
+          </p>
         </div>
-        {%- if card2_footer != blank -%}
-          <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
-            {{ card2_footer }}
-          </div>
-        {%- endif -%}
+        <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
+          ✓ Garanzia & Assistenza Unificate
+        </div>
       </div>
 
       <!-- Card 3 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #1A1A1A;">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#1A1A1A] font-semibold block mb-2">{{ card3_badge }}</span>
-          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">{{ card3_title }}</h3>
-          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
-            {{ card3_desc }}
-          </div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#1A1A1A] font-semibold block mb-2">Tutela della Salute</span>
+          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">Clausola Cosmetica Art. 59</h3>
+          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+            Recesso di 14 giorni per prodotti sigillati. Per motivi igienico-sanitari e a salvaguardia della pelle, il recesso è escluso su cosmetici aperti o usati.
+          </p>
         </div>
-        {%- if card3_footer != blank -%}
-          <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
-            {{ card3_footer }}
-          </div>
-        {%- endif -%}
+        <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
+          ✓ Confezioni Sigillate a Norma
+        </div>
       </div>
     </div>
 
-    <!-- CONTENUTO PAGINA SHOPIFY ADMIN (SE PRESENTE) -->
-    {%- if page.content != blank -%}
-      <div class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative">
-        <div class="prose max-w-none text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4">
-          {{ page.content }}
-        </div>
-      </div>
-    {%- endif -%}
-
     <!-- INDICE RAPIDO (TOC) -->
-    {%- if show_toc -%}
-      <div class="bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="w-2 h-2 rounded-full bg-[#C8A878]"></span>
-          <h2 class="font-serif text-lg text-[#1A1A1A] font-medium tracking-wide">{{ toc_title }}</h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-xs font-mono text-[#7A7265]">
-          <a href="#art-1" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">01.</span> {{ art1_title }}
-          </a>
-          <a href="#art-2" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">02.</span> {{ art2_title }}
-          </a>
-          <a href="#art-3" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">03.</span> {{ art3_title }}
-          </a>
-          <a href="#art-4" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">04.</span> {{ art4_title }}
-          </a>
-          <a href="#art-5" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">05.</span> {{ art5_title }}
-          </a>
-          <a href="#art-6" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">06.</span> {{ art6_title }}
-          </a>
-          <a href="#art-7" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">07.</span> {{ art7_title }}
-          </a>
-          <a href="#art-8" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">08.</span> {{ art8_title }}
-          </a>
-          <a href="#art-9" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">09.</span> {{ art9_title }}
-          </a>
-          <a href="#art-10" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">10.</span> {{ art10_title }}
-          </a>
-          <a href="#art-11" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
-            <span class="text-[#C8A878] font-bold">11.</span> {{ art11_title }}
-          </a>
-        </div>
+    <div class="bg-[#FAF8F5] border border-[#DDD7CE] p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="w-2 h-2 rounded-full bg-[#C8A878]"></span>
+        <h2 class="font-serif text-lg text-[#1A1A1A] font-medium tracking-wide">Indice delle Clausole Contrattuali</h2>
       </div>
-    {%- endif -%}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-xs font-mono text-[#7A7265]">
+        <a href="#art-1" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">01.</span> Dati Societari & Titolare
+        </a>
+        <a href="#art-2" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">02.</span> Natura dei Prodotti Cosmetici
+        </a>
+        <a href="#art-3" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">03.</span> Modello Ibrido & Selfnamed
+        </a>
+        <a href="#art-4" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">04.</span> Prezzi & Metodi di Pagamento
+        </a>
+        <a href="#art-5" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">05.</span> Perfezionamento del Contratto
+        </a>
+        <a href="#art-6" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">06.</span> Spedizioni & Ritiro a Verona
+        </a>
+        <a href="#art-7" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">07.</span> Diritto di Recesso & Resi
+        </a>
+        <a href="#art-8" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">08.</span> Garanzia Legale & Tollerabilità
+        </a>
+        <a href="#art-9" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">09.</span> Beauty Club Mile (Punti & Sconti)
+        </a>
+        <a href="#art-10" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">10.</span> Proprietà Intellettuale & Marchi
+        </a>
+        <a href="#art-11" class="hover:text-[#C8A878] transition-colors py-1 flex items-center gap-2">
+          <span class="text-[#C8A878] font-bold">11.</span> Legge Applicabile & Foro
+        </a>
+      </div>
+    </div>
 
     <!-- SEZIONI CONTRATTUALI ESTESE -->
     <div class="space-y-10 sm:space-y-12">
@@ -260,42 +143,24 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">01</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 1</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art1_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Informazioni Generali e Dati Societari</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art1_content contains '<p>' -%}
-              {{ art1_content }}
-            {%- else -%}
-              <p>{{ art1_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            Il presente sito web (di seguito denominato la <strong>"Piattaforma"</strong> o il <strong>"Sito"</strong>) è di proprietà ed è gestito da <strong>MileBioLab di Milena Tacchella</strong>, ditta individuale operante con sede legale e operativa presso la prestigiosa sede e flagship boutique:
+          </p>
           <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-5 my-4 space-y-2 text-xs font-mono">
-            <p><strong class="text-[#1A1A1A]">Titolare e Venditore:</strong> {{ company_name }}</p>
-            <p><strong class="text-[#1A1A1A]">Sede Operativa & Flagship:</strong> {{ company_address }}</p>
-            {%- if company_email != blank -%}
-              <p><strong class="text-[#1A1A1A]">Email Istituzionale:</strong> <a href="mailto:{{ company_email }}" class="text-[#5C6B56] underline">{{ company_email }}</a></p>
-            {%- endif -%}
-            {%- if company_concierge_email != blank -%}
-              <p><strong class="text-[#1A1A1A]">Email Concierge Ordini:</strong> <a href="mailto:{{ company_concierge_email }}" class="text-[#5C6B56] underline">{{ company_concierge_email }}</a></p>
-            {%- endif -%}
-            {%- if company_phone != blank -%}
-              <p><strong class="text-[#1A1A1A]">Telefono Fisso Sede:</strong> <a href="tel:{{ company_phone | remove: ' ' }}" class="text-[#5C6B56] underline">{{ company_phone }}</a></p>
-            {%- endif -%}
-            {%- if company_whatsapp != blank -%}
-              <p><strong class="text-[#1A1A1A]">WhatsApp Concierge Diretto:</strong> <a href="https://wa.me/{{ company_whatsapp | remove: '+' | remove: ' ' | remove: '-' }}" target="_blank" rel="noopener noreferrer" class="text-[#5C6B56] underline">{{ company_whatsapp }}</a></p>
-            {%- endif -%}
+            <p><strong class="text-[#1A1A1A]">Titolare e Venditore:</strong> MileBioLab di Milena Tacchella</p>
+            <p><strong class="text-[#1A1A1A]">Sede Operativa & Flagship:</strong> Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia</p>
+            <p><strong class="text-[#1A1A1A]">Email Istituzionale:</strong> <a href="mailto:info@beautyespatorricelle.it" class="text-[#5C6B56] underline">info@beautyespatorricelle.it</a></p>
+            <p><strong class="text-[#1A1A1A]">Email Concierge Ordini:</strong> <a href="mailto:concierge@milebiolab.com" class="text-[#5C6B56] underline">concierge@milebiolab.com</a></p>
+            <p><strong class="text-[#1A1A1A]">Telefono Fisso Sede:</strong> +39 045 8301811</p>
+            <p><strong class="text-[#1A1A1A]">WhatsApp Concierge Diretto:</strong> +39 342 1647585</p>
           </div>
-          {%- if art1_note != blank -%}
-            <div class="text-[#7A7265] space-y-2">
-              {%- if art1_note contains '<p>' -%}
-                {{ art1_note }}
-              {%- else -%}
-                <p>{{ art1_note | newline_to_br }}</p>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
+          <p>
+            I presenti Termini e Condizioni Generali regolano l'offerta, l'inoltro e l'accettazione di ordini d'acquisto di prodotti cosmetici e correlati servizi di bellezza effettuati a distanza tramite la piattaforma telematica tra il Venditore e qualsiasi persona fisica che agisca per scopi estranei all'attività imprenditoriale o professionale (di seguito il <strong>"Cliente"</strong> o <strong>"Consumatore"</strong> ai sensi del D.Lgs. 206/2005).
+          </p>
         </div>
       </article>
 
@@ -305,28 +170,20 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">02</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 2</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art2_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Oggetto del Servizio e Natura dei Prodotti Cosmetici</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art2_content contains '<p>' -%}
-              {{ art2_content }}
-            {%- else -%}
-              <p>{{ art2_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            MileBioLab commercializza prodotti cosmetici biomimetici di altissima gamma con percentuali di origine naturale comprese tra il <strong>98%, 99% e 100%</strong>, fito-estratti botanici puri, protocolli rigenerativi <strong>Team Dr. Joseph</strong>, linee di longevità cutanea (Longevity Skin) e creazioni iconiche della Maestra d'Arte Mile quali la linea e il <strong>Burro Primordiale UNICHO 21</strong>, oltre a voucher per trattamenti cabina presso l'istituto di Verona.
+          </p>
           <div class="bg-[#FAF8F5] border-l-2 border-[#5C6B56] p-4 text-xs text-[#7A7265] space-y-2">
-            <p class="font-semibold text-[#1A1A1A]">
-              {{ art2_box_title }}
+            <p>
+              <strong>Finalità e Destinazione d'Uso:</strong> Tutti i prodotti offerti sono destinati esclusivamente ad uso topico ed esterno per la cura, protezione e benessere dell'epidermide, in piena rispondenza al <em>Regolamento (CE) n. 1223/2009</em> sui prodotti cosmetici. Non costituiscono dispositivi medici né farmaci e non hanno proprietà terapeutiche o curative di affezioni patologiche.
             </p>
-            <div class="space-y-2">
-              {%- if art2_box_content contains '<p>' -%}
-                {{ art2_box_content }}
-              {%- else -%}
-                <p>{{ art2_box_content | newline_to_br }}</p>
-              {%- endif -%}
-            </div>
+            <p>
+              Le immagini e le descrizioni presenti nelle schede prodotto riproducono fedelmente le formulazioni, le consistenze olfattive e sensoriali. Trattandosi di materie prime naturali di origine botanica, lievi variazioni di colore o profumazione da un lotto all'altro testimoniano l'autenticità e la purezza della lavorazione.
+            </p>
           </div>
         </div>
       </article>
@@ -337,42 +194,37 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">03</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 3</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art3_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Modello di Produzione ed Evasione Ibrido (MileBioLab + Selfnamed)</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art3_content contains '<p>' -%}
-              {{ art3_content }}
-            {%- else -%}
-              <p>{{ art3_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            A garanzia della massima freschezza cosmetica e trasparenza verso la clientela, MileBioLab adotta un innovativo modello dermo-produttivo ed evasivo articolato su due filiere d'eccellenza:
+          </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
             <div class="p-4 bg-[#FAF8F5] border border-[#DDD7CE]">
-              <h4 class="font-serif text-sm font-semibold text-[#1A1A1A] mb-1">{{ art3_polo_a_title }}</h4>
+              <h4 class="font-serif text-sm font-semibold text-[#1A1A1A] mb-1">A) Laboratorio & Flagship Verona</h4>
               <p class="text-xs text-[#7A7265]">
-                {{ art3_polo_a_desc }}
+                Le formulazioni proprietarie d'istituto (tra cui il Burro UNICHO 21 e i protocolli Team Dr. Joseph) vengono custodite, confezionate ed evase direttamente dalla sede di <strong>Lebestetik Beauty & Spa a Verona</strong>.
               </p>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#DDD7CE]">
-              <h4 class="font-serif text-sm font-semibold text-[#1A1A1A] mb-1">{{ art3_polo_b_title }}</h4>
+              <h4 class="font-serif text-sm font-semibold text-[#1A1A1A] mb-1">B) Laboratori On-Demand Selfnamed</h4>
               <p class="text-xs text-[#7A7265]">
-                {{ art3_polo_b_desc }}
+                Le formulazioni personalizzate ad alta tecnologia biologica vengono realizzate ed evase fresche "on-demand" in partnership certificata con i laboratori europei <strong>Selfnamed</strong> (conformità ISO 22716, standard Cosmos Natural / ECOCERT).
               </p>
             </div>
           </div>
           <div class="bg-[#FAF8F5] border border-[#C8A878]/50 p-4 text-xs text-[#1A1A1A] space-y-2">
             <p class="font-semibold text-[#5C6B56]">
-              {{ art3_guarantee_title }}
+              🌟 Clausola di Garanzia Unificata e Spedizione Senza Raddoppio di Spese:
             </p>
-            <div class="space-y-2 text-[#7A7265]">
-              {%- if art3_guarantee_text contains '<p>' -%}
-                {{ art3_guarantee_text }}
-              {%- else -%}
-                <p>{{ art3_guarantee_text | newline_to_br }}</p>
-              {%- endif -%}
-            </div>
+            <p>
+              Qualora un ordine contenga congiuntamente referenze a marchio MileBioLab/Verona e formule allestite tramite i laboratori Selfnamed, l'ordine è processato come un'unica transazione. <strong>Al Cliente viene addebitata una sola spesa di spedizione unificata</strong> (o azzerata se supera la soglia di gratuità).
+            </p>
+            <p>
+              Nel caso in cui per motivi di salvaguardia della freschezza l'ordine venga recapitato mediante due colli separati con differenti codici di tracciamento, non vi sarà alcun costo aggiuntivo a carico del Cliente. La titolarità del contratto, la fatturazione, la garanzia legale di conformità e il servizio clienti rimangono accentrati unicamente in capo a <strong>MileBioLab di Milena Tacchella</strong>.
+            </p>
           </div>
         </div>
       </article>
@@ -383,17 +235,25 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">04</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 4</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art4_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Prezzi, Valuta e Modalità di Pagamento Sicure</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art4_content contains '<p>' -%}
-              {{ art4_content }}
-            {%- else -%}
-              <p>{{ art4_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            Tutti i prezzi di vendita esposti sul Sito sono espressi in <strong>Euro (€)</strong> e si intendono <strong>comprensivi dell'Imposta sul Valore Aggiunto (IVA al 22%)</strong> e di ogni altra imposta applicabile. Le spese di spedizione, ove dovute, sono chiaramente calcolate ed evidenziate nella pagina di riepilogo del carrello prima dell'invio definitivo dell'ordine.
+          </p>
+          <p>
+            MileBioLab si avvale dei più avanzati gateway di pagamento telematico dotati di crittografia end-to-end e standard <strong>PCI-DSS Livello 1</strong>:
+          </p>
+          <ul class="list-disc pl-5 text-xs text-[#7A7265] space-y-1 font-mono">
+            <li>Carte di credito/debito (Visa, Mastercard, Maestro, American Express)</li>
+            <li>Apple Pay, Google Pay, Shop Pay</li>
+            <li>PayPal con protezione acquisti</li>
+            <li>Pagamento in contanti o POS presso la nostra boutique di Verona in caso di selezione <em>"Ritiro Gratuito in Sede"</em></li>
+          </ul>
+          <p class="text-xs text-[#7A7265]">
+            I dati sensibili della carta di pagamento transitano direttamente sui server sicuri del gestore bancario (Shopify Payments / PayPal) con protocollo 3D Secure 2.0; in nessun momento MileBioLab accede né archivia i dati finanziari o il codice CVV del Cliente.
+          </p>
         </div>
       </article>
 
@@ -403,17 +263,16 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">05</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 5</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art5_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Conclusione del Contratto e Accettazione dell'Ordine</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art5_content contains '<p>' -%}
-              {{ art5_content }}
-            {%- else -%}
-              <p>{{ art5_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            L'invio dell'ordine tramite il modulo telematico costituisce proposta contrattuale d'acquisto a titolo oneroso. Il contratto di compravendita si intende perfezionato e vincolante nel momento in cui MileBioLab trasmette al Cliente, all'indirizzo email comunicato, la <strong>Conferma d'Ordine Ufficiale</strong> contenente il riepilogo dettagliato dei prodotti acquistati, il corrispettivo pagato, l'indirizzo di spedizione prescelto e i riferimenti del Concierge.
+          </p>
+          <p>
+            Qualora eccezionalmente uno dei prodotti ordinati non risulti disponibile o presenti un lotto in preparazione, il Concierge contatterà tempestivamente il Cliente offrendo l'attesa del lotto fresco, la sostituzione con formula equivalente o il rimborso integrale e immediato dell'importo corrisposto.
+          </p>
         </div>
       </article>
 
@@ -423,17 +282,13 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">06</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 6</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art6_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Spedizioni, Consegna e Ritiro in Sede a Verona</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art6_content contains '<p>' -%}
-              {{ art6_content }}
-            {%- else -%}
-              <p>{{ art6_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            MileBioLab effettua spedizioni su tutto il territorio italiano (comprese isole maggiori, minori e laguna veneta) e a livello internazionale nell'Unione Europea ed Extra-UE:
+          </p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs my-3">
             <div class="p-3 bg-[#FAF8F5] border border-[#DDD7CE]">
               <strong class="text-[#1A1A1A] block font-semibold mb-1">Italia Standard</strong>
@@ -463,44 +318,37 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">07</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">Articolo 7 • Disposizione Inderogabile</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art7_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Diritto di Recesso e Politica di Reso (Tutela Igienico-Sanitaria)</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art7_content contains '<p>' -%}
-              {{ art7_content }}
-            {%- else -%}
-              <p>{{ art7_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            Ai sensi degli articoli 52 e seguenti del <strong>D.Lgs. 6 settembre 2005, n. 206 (Codice del Consumo)</strong>, il Cliente Consumatore ha diritto di recedere dal contratto di acquisto, senza alcuna penalità e senza specificarne il motivo, entro il termine di <strong>14 (quattordici) giorni di calendario</strong> a decorrere dalla data di materiale ricezione dei prodotti.
+          </p>
 
           <!-- ECCEZIONE SANITARIA ART 59 -->
           <div class="bg-[#FAF8F5] border border-[#C8A878] p-5 space-y-3">
             <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#C8A878] font-bold">
               <span>⚠️</span>
-              <span>{{ art7_warning_title }}</span>
+              <span>Eccezione Igienico-Sanitaria ex Art. 59, comma 1, lett. e, Codice del Consumo</span>
             </div>
-            <p class="text-xs text-[#1A1A1A] font-semibold italic bg-white p-3 border border-[#E5E0D8]">
-              {{ art7_warning_quote }}
+            <p class="text-xs text-[#1A1A1A] leading-relaxed">
+              Trattandosi di preparati dermo-cosmetici a base di principi attivi naturali e puri destinati all'applicazione epidermica, ai sensi dell'art. 59, comma 1, lett. e) del Codice del Consumo:
             </p>
-            <div class="text-xs text-[#7A7265] leading-relaxed space-y-2">
-              {%- if art7_warning_desc contains '<p>' -%}
-                {{ art7_warning_desc }}
-              {%- else -%}
-                <p>{{ art7_warning_desc | newline_to_br }}</p>
-              {%- endif -%}
-            </div>
+            <p class="text-xs text-[#1A1A1A] font-semibold italic bg-white p-3 border border-[#E5E0D8]">
+              «Il diritto di recesso è espressamente ESCLUSO per la fornitura di beni sigillati che non si prestano ad essere restituiti per motivi igienici o connessi alla protezione della salute e che sono stati aperti o dissigillati dopo la consegna.»
+            </p>
+            <p class="text-xs text-[#7A7265] leading-relaxed">
+              Pertanto, il recesso può essere esercitato <strong>esclusivamente per prodotti perfettamente intatti, non dissigillati, non aperti, non provati e con il sigillo di garanzia o la pellicola protettiva completamente intonsa</strong>, conservati nell'imballaggio originario provvisto di tutti gli accessori, bugiardini o campioncini abbinati.
+            </p>
           </div>
 
-          {%- if art7_steps_title != blank -%}
-            <h4 class="font-serif text-base text-[#1A1A1A] pt-2">{{ art7_steps_title }}</h4>
-          {%- endif -%}
+          <h4 class="font-serif text-base text-[#1A1A1A] pt-2">Procedura Operativa per il Reso:</h4>
           <ol class="list-decimal pl-5 text-xs text-[#7A7265] space-y-2 font-mono">
-            {%- if art7_step1 != blank -%}<li>{{ art7_step1 }}</li>{%- endif -%}
-            {%- if art7_step2 != blank -%}<li>{{ art7_step2 }}</li>{%- endif -%}
-            {%- if art7_step3 != blank -%}<li>{{ art7_step3 }}</li>{%- endif -%}
-            {%- if art7_step4 != blank -%}<li>{{ art7_step4 }}</li>{%- endif -%}
+            <li>Inviare entro 14 giorni dalla consegna una comunicazione scritta all'indirizzo email <a href="mailto:concierge@milebiolab.com" class="text-[#5C6B56] underline">concierge@milebiolab.com</a> indicando numero d'ordine, referenze da restituire e conferma che il sigillo igienico è intatto.</li>
+            <li>Ricevere l'autorizzazione formale al rientro (Codice RMA) dal Concierge MileBioLab.</li>
+            <li>Imballare i prodotti con la massima cura e spedirli a proprie spese con corriere tracciato presso la sede: <strong>MileBioLab c/o Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR)</strong>.</li>
+            <li>A seguito della verifica peritale dell'integrità del packaging e dei sigilli di sicurezza da parte del nostro laboratorio, MileBioLab provvederà al rimborso dell'importo entro 14 giorni tramite il medesimo metodo di pagamento originario.</li>
           </ol>
         </div>
       </article>
@@ -511,28 +359,23 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">08</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 8</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art8_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Garanzia Legale di Conformità e Tollerabilità Cutanea</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art8_content contains '<p>' -%}
-              {{ art8_content }}
-            {%- else -%}
-              <p>{{ art8_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            Tutti i prodotti cosmetici commercializzati da MileBioLab beneficiano della <strong>Garanzia Legale di Conformità di 24 mesi</strong> prevista dagli artt. 128-135 del Codice del Consumo a tutela di eventuali difetti di conformità originari (es. difetto del meccanismo dell'erogatore dispenser, imperfezione strutturale del flacone o confezione fallata all'origine).
+          </p>
           <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 text-xs space-y-2 text-[#7A7265]">
             <p class="font-semibold text-[#1A1A1A]">
-              {{ art8_box_title }}
+              Consigli d'Uso, Conservazione e Test di Tollerabilità:
             </p>
-            <div class="space-y-2">
-              {%- if art8_box_desc contains '<p>' -%}
-                {{ art8_box_desc }}
-              {%- else -%}
-                <p>{{ art8_box_desc | newline_to_br }}</p>
-              {%- endif -%}
-            </div>
+            <p>
+              Per preservare intatte le proprietà biomimetiche degli attivi vegetali puri, i prodotti devono essere conservati in un ambiente fresco e asciutto, lontano dalla luce solare diretta e da fonti di calore.
+            </p>
+            <p>
+              Invitiamo sempre i soggetti con pelli particolarmente reattive o con allergie note a verificare con attenzione l'INCI (lista ingredienti) riportato sulla scheda prodotto e a svolgere un preliminare <em>patch test</em> cutaneo (applicando una piccola goccia di prodotto sulla piega interna del gomito) 24 ore prima dell'applicazione continuativa.
+            </p>
           </div>
         </div>
       </article>
@@ -543,17 +386,16 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">09</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 9</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art9_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Programma Fedeltà Beauty Club Mile (Regole Punti e Sconti)</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art9_content contains '<p>' -%}
-              {{ art9_content }}
-            {%- else -%}
-              <p>{{ art9_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            L'iscrizione gratuita al programma fedeltà <strong>Beauty Club Mile</strong> consente agli utenti registrati di accumulare Beauty Punti secondo il rapporto base di <strong>1 € speso = 1 Beauty Punto</strong> (oltre a punti speciali per compleanno e recensioni verificate).
+          </p>
+          <p>
+            Ogni 100 Beauty Punti accumulati danno diritto a un buono sconto immediato di <strong>€ 5,00</strong> convertibile direttamente in fase di checkout. I punti hanno natura promozionale, sono strettamente personali, non sono cedibili a terzi né convertibili in denaro liquido. Per il regolamento dettagliato, si rinvia alla pagina ufficiale <a href="/pages/programma-fedelta" class="text-[#5C6B56] underline font-medium">Beauty Club Mile</a>.
+          </p>
         </div>
       </article>
 
@@ -563,17 +405,16 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">10</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 10</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art10_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Proprietà Intellettuale, Marchi e Diritti Riservati</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art10_content contains '<p>' -%}
-              {{ art10_content }}
-            {%- else -%}
-              <p>{{ art10_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
+          <p>
+            Tutti i contenuti presenti sul Sito, inclusi a titolo esemplificativo marchi figurativi e denominativi (MileBioLab, Lebestetik, UNICHO 21), testi descrittivi, fotografie, rendering estetici, layout grafici, codice sorgente e video tutorial, sono di proprietà esclusiva di <strong>Milena Tacchella</strong> o dei rispettivi partner licenziatari (Team Dr. Joseph, Selfnamed) e sono tutelati dalle leggi nazionali e internazionali in materia di diritto d'autore e proprietà industriale.
+          </p>
+          <p>
+            È severamente vietata qualsiasi forma di riproduzione, alterazione, diffusione o sfruttamento commerciale non espressamente autorizzato per iscritto dal titolare.
+          </p>
         </div>
       </article>
 
@@ -583,73 +424,41 @@
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">11</span>
           <div>
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Articolo 11</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ art11_title }}</h2>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Legge Applicabile, Risoluzione Controversie e Foro Competente</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <div class="space-y-2">
-            {%- if art11_content contains '<p>' -%}
-              {{ art11_content }}
-            {%- else -%}
-              <p>{{ art11_content | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
-          <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 text-xs font-mono text-[#7A7265] space-y-1">
-            <p class="text-[#1A1A1A] font-semibold">{{ art11_odr_title }}</p>
-            <div class="space-y-1">
-              {%- if art11_odr_text contains '<p>' -%}
-                {{ art11_odr_text }}
-              {%- else -%}
-                <p>{{ art11_odr_text | newline_to_br }}</p>
-              {%- endif -%}
-            </div>
+          <p>
+            I presenti Termini e Condizioni e i relativi contratti di compravendita sono integralmente regolati e interpretati in conformità alla <strong>Legge della Repubblica Italiana</strong>.
+          </p>
+          <p>
+            Per qualsiasi controversia derivante dall'interpretazione, esecuzione o risoluzione del contratto tra MileBioLab e il Cliente Consumatore residente o domiciliato nel territorio dell'Unione Europea, la competenza territoriale inderogabile spetta al <strong>Giudice del luogo di residenza o di domicilio del consumatore</strong>, conformemente all'art. 66-bis del D.Lgs. 206/2005. Per i clienti con sede all'estero extra-UE o per acquisti con partita IVA (B2B), è convenuta la competenza esclusiva del <strong>Foro di Verona (Italia)</strong>.
+          </p>
+          <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 text-xs font-mono text-[#7A7265]">
+            <p class="text-[#1A1A1A] font-semibold mb-1">Risoluzione Alternativa delle Controversie Online (ODR):</p>
+            <p>
+              Ai sensi del Regolamento UE n. 524/2013, il Consumatore residente nella UE può promuovere la risoluzione extragiudiziale delle controversie attraverso la piattaforma europea ODR accessibile all'indirizzo: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" class="text-[#5C6B56] underline">https://ec.europa.eu/consumers/odr</a>.
+            </p>
           </div>
         </div>
       </article>
-
-      <!-- BLOCCHI PERSONALIZZATI OS 2.0 (CLAUSOLE AGGIUNTIVE) -->
-      {%- for block in blocks -%}
-        {%- case block.type -%}
-          {%- when 'custom_clause' -%}
-            <article class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative scroll-mt-24" {{ block.shopify_attributes }}>
-              <div class="flex items-start gap-4 mb-4">
-                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">
-                  {{ block.settings.article_number | default: '✦' }}
-                </span>
-                <div>
-                  {%- if block.settings.tag != blank -%}
-                    <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ block.settings.tag }}</span>
-                  {%- endif -%}
-                  <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ block.settings.title }}</h2>
-                </div>
-              </div>
-              <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-                {{ block.settings.content }}
-              </div>
-            </article>
-        {%- endcase -%}
-      {%- endfor -%}
 
     </div>
 
     <!-- CONCIERGE HELP BOX -->
     <div class="bg-[#FAF8F5] border border-[#DDD7CE] p-8 text-center space-y-4 max-w-2xl mx-auto shadow-xs">
-      <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">{{ help_badge }}</span>
-      <h3 class="font-serif text-2xl text-[#1A1A1A]">{{ help_title }}</h3>
+      <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">Assistenza Diretta & Concierge</span>
+      <h3 class="font-serif text-2xl text-[#1A1A1A]">Hai domande sui termini o sul tuo ordine?</h3>
       <p class="text-xs sm:text-sm text-[#7A7265] font-light max-w-md mx-auto">
-        {{ help_desc }}
+        Il nostro Concierge presso la sede di Verona è a tua disposizione per chiarimenti legali, assistenza pre-acquisto e supporto su ogni spedizione.
       </p>
       <div class="pt-2 flex flex-wrap justify-center gap-4 text-xs font-mono">
-        {%- if help_whatsapp_url != blank -%}
-          <a href="{{ help_whatsapp_url }}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-[#5C6B56] hover:bg-[#1A1A1A] text-white transition-colors uppercase tracking-wider font-semibold inline-flex items-center gap-2">
-            <span>💬</span> {{ help_whatsapp_text }}
-          </a>
-        {%- endif -%}
-        {%- if help_email_address != blank -%}
-          <a href="mailto:{{ help_email_address }}" class="px-5 py-2.5 bg-white border border-[#DDD7CE] hover:border-[#1A1A1A] text-[#1A1A1A] transition-colors uppercase tracking-wider font-semibold inline-flex items-center gap-2">
-            <span>✉️</span> {{ help_email_text }}
-          </a>
-        {%- endif -%}
+        <a href="https://wa.me/393421647585" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-[#5C6B56] hover:bg-[#1A1A1A] text-white transition-colors uppercase tracking-wider font-semibold inline-flex items-center gap-2">
+          <span>💬</span> WhatsApp Diretto
+        </a>
+        <a href="mailto:concierge@milebiolab.com" class="px-5 py-2.5 bg-white border border-[#DDD7CE] hover:border-[#1A1A1A] text-[#1A1A1A] transition-colors uppercase tracking-wider font-semibold inline-flex items-center gap-2">
+          <span>✉️</span> Scrivi al Concierge
+        </a>
       </div>
     </div>
 
