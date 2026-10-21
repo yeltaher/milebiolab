@@ -55,11 +55,15 @@
       "type": "featured-products",
       "settings": {
         "collection": "bestseller-preferiti",
+        "products_to_show": 8,
         "tag": "I NOSTRI BESTSELLER",
         "title": "Di tendenza",
         "subtitle": "Le formulazioni più richieste del momento.",
         "link_text": "Scopri Tutti",
         "link_url": "shopify://collections/bestseller-preferiti",
+        "show_arrows": true,
+        "show_slider_arrows": true,
+        "show_column_arrows": false,
         "card_aspect_ratio": "4/5",
         "image_fit": "contain"
       }
@@ -111,6 +115,7 @@
         "title": "La tua routine, efficace, semplice",
         "subtitle": "Tutto ciò che la tua pelle necessita per ritrovare il suo stato orgiginario",
         "show_bundle": true,
+        "bundle_product": "",
         "bundle_badge": "OFFERTA SET ESCLUSIVO",
         "bundle_title": "Acquista i 3 Step Insieme • Sconto 15% Immediato",
         "bundle_desc": "Set base pelli sensibili e reattive con Sensitive Skin Balm - Hyaluronic Boost Gel - Unicho21 Burro Primordiale, indicato per tutti i tipi di pelle.",
