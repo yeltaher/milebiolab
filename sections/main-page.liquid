@@ -71,14 +71,14 @@
     <!-- Page Content Area / Smart Policy, Chi-Sono & Contact Check (Massima Priorita a page.content) -->
     {% if page.content != blank %}
       {% if is_chi_sono %}
-        {% render 'chi-sono-view' %}
+        {% render 'chi-sono-view', section: section %}
         <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative mt-8" style="border: 3px double #EDE5DB;">
           <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
             {{ page.content }}
           </div>
         </article>
       {% elsif is_contact %}
-        {% render 'contact-view' %}
+        {% render 'contact-view', section: section %}
         <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative mt-8" style="border: 3px double #EDE5DB;">
           <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
             {{ page.content }}
@@ -92,17 +92,17 @@
         </article>
       {% endif %}
     {% elsif is_shipping %}
-      {% render 'policy-shipping-view', settings: section.settings, blocks: section.blocks %}
+      {% render 'policy-shipping-view', section: section %}
     {% elsif is_terms %}
-      {% render 'policy-terms-view', settings: section.settings, blocks: section.blocks %}
+      {% render 'policy-terms-view', section: section %}
     {% elsif is_cookie %}
-      {% render 'policy-cookie-view', settings: section.settings, blocks: section.blocks %}
+      {% render 'policy-cookie-view', section: section %}
     {% elsif is_privacy %}
-      {% render 'policy-privacy-view', settings: section.settings, blocks: section.blocks %}
+      {% render 'policy-privacy-view', section: section %}
     {% elsif is_chi_sono %}
-      {% render 'chi-sono-view' %}
+      {% render 'chi-sono-view', section: section %}
     {% elsif is_contact %}
-      {% render 'contact-view' %}
+      {% render 'contact-view', section: section %}
     {% else %}
       <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
         <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">

@@ -7,6 +7,8 @@
 {% endcomment %}
 
 {%- liquid
+  assign settings = section.settings | default: settings
+  assign blocks = section.blocks | default: blocks
   assign eyebrow = settings.eyebrow | default: eyebrow | default: 'PRIVACY & TRASPARENZA DIGITALE'
   assign title = settings.title | default: title | default: 'Informativa Estesa sui Cookie (Cookie Policy)'
   assign intro_text = settings.intro_text | default: "Informativa dettagliata sull'utilizzo dei cookie e tecnologie affini ai sensi del Regolamento UE 2016/679 (GDPR), della Direttiva ePrivacy e delle Linee Guida del Garante per la Protezione dei Dati Personali."

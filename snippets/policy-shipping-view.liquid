@@ -7,6 +7,8 @@
 {% endcomment %}
 
 {%- liquid
+  assign settings = section.settings | default: settings
+  assign blocks = section.blocks | default: blocks
   assign eyebrow = settings.eyebrow | default: eyebrow | default: 'LOGISTICA & CONSEGNE • TRASPORTI SICURI'
   assign title = settings.title | default: title | default: 'Politica di Spedizione e Consegna'
   assign last_updated = settings.last_updated | default: 'Ultimo aggiornamento: 21 Ottobre 2026'

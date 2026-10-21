@@ -7,6 +7,8 @@
 {% endcomment %}
 
 {%- liquid
+  assign settings = section.settings | default: settings
+  assign blocks = section.blocks | default: blocks
   assign eyebrow = settings.eyebrow | default: eyebrow | default: 'DOCUMENTO UFFICIALE • CONTRATTO DI VENDITA'
   assign title = settings.title | default: title | default: 'Termini e Condizioni Generali di Vendita e di Servizio'
   assign subtitle = settings.subtitle | default: "Regolamento contrattuale applicabile all'acquisto dei prodotti cosmetici biomimetici, protocolli di longevità cutanea e servizi boutique erogati da Mile Dermocosmesi."
