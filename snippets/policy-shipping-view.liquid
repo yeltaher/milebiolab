@@ -1,10 +1,124 @@
 {% comment %}
   MILEBIOLAB - SNIPPET POLICY SHIPPING VIEW (HAUTE COUTURE LUSH DESIGN)
   Informativa Logistica, Spedizioni Espresse e Ritiro in Sede a Verona.
-  Include il modello di evasione ibrido (MileBioLab sede Verona + laboratori Selfnamed),
-  le tariffe per l'Italia (Standard, Espresso, Ritiro a Verona) e spedizioni internazionali (UE ed Extra-UE).
+  Completamente personalizzabile dal Theme Editor di Shopify in tempo reale.
+  Supporta blocchi personalizzati OS 2.0 e visualizzazione di page.content.
   Palette Splendor & Dr. Joseph: #F5F2EB, #FAF8F5, #1A1A1A, #5C6B56, #C8A878, #E5E0D8, #DDD7CE.
 {% endcomment %}
+
+{%- liquid
+  assign eyebrow = settings.eyebrow | default: eyebrow | default: 'LOGISTICA & CONSEGNE • TRASPORTI SICURI'
+  assign title = settings.title | default: title | default: 'Politica di Spedizione e Consegna'
+  assign last_updated = settings.last_updated | default: 'Ultimo aggiornamento: 21 Ottobre 2026'
+  assign intro_text = settings.intro_text | default: "Dalla formulazione nei nostri laboratori fino alla consegna al tuo domicilio: scopri tariffe, tempi, imballaggi isotermici ecosostenibili e l'opzione esclusiva di ritiro a Verona."
+  assign badge1_text = settings.badge1_text | default: 'Evasione rapida in 24-48 ore'
+  assign badge2_text = settings.badge2_text | default: 'Imballaggi antiurto 100% riciclabili'
+
+  assign card1_badge = settings.card1_badge | default: 'Formula Più Scelta'
+  assign card1_title = settings.card1_title | default: 'Spedizione Standard Italia'
+  assign card1_price = settings.card1_price | default: 'Gratis'
+  assign card1_time = settings.card1_time | default: 'da € 75,00 di spesa (o € 7,00)'
+  assign card1_desc = settings.card1_desc | default: 'Consegna in 3-5 giorni lavorativi tramite corriere espresso tracciato (GLS / BRT / DHL). Packaging isotermico protettivo con campioncini dermo-consulenziali inclusi.'
+  assign card1_footer = settings.card1_footer | default: 'Tracciamento SMS ed Email'
+
+  assign card2_badge = settings.card2_badge | default: 'Massima Rapidità'
+  assign card2_title = settings.card2_title | default: 'Spedizione Espresso'
+  assign card2_price = settings.card2_price | default: '€ 12,00'
+  assign card2_time = settings.card2_time | default: 'Tariffa fissa prioritaria'
+  assign card2_desc = settings.card2_desc | default: 'Consegna garantita in 1-2 giorni lavorativi (24/48h penisola, 48/72h isole). Priorità assoluta di lavorazione e allestimento in laboratorio.'
+  assign card2_footer = settings.card2_footer | default: 'Lavorazione Priority Lab'
+
+  assign card3_badge = settings.card3_badge | default: 'Esperienza Boutique'
+  assign card3_title = settings.card3_title | default: 'Ritiro Gratuito in Sede'
+  assign card3_price = settings.card3_price | default: '€ 0,00'
+  assign card3_time = settings.card3_time | default: 'Lebestetik Beauty & Spa Verona'
+  assign card3_desc = settings.card3_desc | default: 'Pronto in 24 ore su appuntamento. Incontro vis-à-vis con la Maestra d\'Arte Mile e sconto riservato del 10% su un trattamento in istituto.'
+  assign card3_footer = settings.card3_footer | default: 'Zero attese con parcheggio privato'
+
+  assign sec1_tag = settings.sec1_tag | default: 'Fase Preliminare'
+  assign sec1_title = settings.sec1_title | default: 'Tempi di Elaborazione e Confezionamento degli Ordini'
+  assign sec1_content = settings.sec1_content | default: 'Ogni ordine ricevuto viene preso in carico entro 24-48 ore lavorative (dal lunedì al venerdì, esclusi i giorni festivi). Trattandosi di formulazioni biomimetiche ricche di principi attivi vivi ed estratti botanici pregiati, il confezionamento avviene secondo rigorosi standard di laboratorio:'
+  assign sec1_box1_title = settings.sec1_box1_title | default: 'Imballaggio Isotermico Protettivo'
+  assign sec1_box1_desc = settings.sec1_box1_desc | default: 'Scatole rinforzate in cartone riciclato con imbottiture naturali anti-shock per preservare le formule dagli sbalzi termici durante il trasporto.'
+  assign sec1_box2_title = settings.sec1_box2_title | default: 'Campioncini Dermo-Consulenziali'
+  assign sec1_box2_desc = settings.sec1_box2_desc | default: 'Ogni pacco include una selezione su misura di campioncini per scoprire nuove texture e rituali di longevità cutanea.'
+  assign sec1_note = settings.sec1_note | default: 'Gli ordini inoltrati durante il fine settimana o nei giorni festivi vengono processati a partire dal primo giorno feriale successivo in ordine cronologico di ricezione.'
+
+  assign sec2_tag = settings.sec2_tag | default: 'Trasparenza Logistica'
+  assign sec2_title = settings.sec2_title | default: 'Evasione Ordini Ibridi (MileBioLab + Selfnamed)'
+  assign sec2_content = settings.sec2_content | default: "Il nostro catalogo combina la maestria artigianale della Maestra Mile a Verona con le più moderne biotecnologie cosmetiche europee. Per questo motivo, l'evasione logistica si articola su due poli specializzati:"
+  assign sec2_polo_a_tag = settings.sec2_polo_a_tag | default: 'Polo A • Verona Flagship'
+  assign sec2_polo_a_title = settings.sec2_polo_a_title | default: 'Laboratorio MileBioLab & Lebestetik'
+  assign sec2_polo_a_desc = settings.sec2_polo_a_desc | default: 'Le referenze d\'istituto, il Burro Primordiale UNICHO 21 e i protocolli professionali Team Dr. Joseph sono gestiti e spediti direttamente dalla nostra sede storica di Via Torricelle 2c a Verona.'
+  assign sec2_polo_b_tag = settings.sec2_polo_b_tag | default: 'Polo B • Laboratori On-Demand'
+  assign sec2_polo_b_title = settings.sec2_polo_b_title | default: 'Partnership Certificata Selfnamed'
+  assign sec2_polo_b_desc = settings.sec2_polo_b_desc | default: 'Le formule on-demand personalizzate vengono allestite fresche secondo i più elevati standard europei (ISO 22716 / Cosmos Natural) e spedite direttamente dalla linea produttiva dei laboratori Selfnamed.'
+  assign sec2_callout_title = settings.sec2_callout_title | default: 'Nessun Costo Aggiuntivo per gli Ordini Misti:'
+  assign sec2_callout_desc = settings.sec2_callout_desc | default: 'Se acquisti contemporaneamente prodotti della casa (Verona) e formule allestite tramite Selfnamed, pagherai una sola tariffa di spedizione (o nessuna spesa se superi € 75,00). Qualora i prodotti vengano spediti in due colli separati per garantirti la massima freschezza e integrità degli attivi, riceverai due codici di tracciamento coordinati, senza alcun sovrapprezzo a tuo carico. Per qualsiasi richiesta, il Concierge MileBioLab di Verona rimane il tuo unico e fidato punto di contatto.'
+
+  assign sec3_tag = settings.sec3_tag | default: 'Tariffario Ufficiale'
+  assign sec3_title = settings.sec3_title | default: 'Modalità e Tariffe di Spedizione in Italia'
+  assign sec3_content = settings.sec3_content | default: 'Le consegne sul territorio nazionale avvengono tramite corrieri leader (GLS, BRT, DHL Express) selezionati per affidabilità e cura nel maneggio dei colli contenenti flaconi e vasetti cosmetici:'
+  assign sec3_note = settings.sec3_note | default: 'Nota per Isole Minori e Laguna Veneta: Per località particolarmente remote o a logistica speciale potrebbero rendersi necessari 1-2 giorni lavorativi aggiuntivi di transito.'
+
+  assign sec4_tag = settings.sec4_tag | default: 'Boutique & Flagship'
+  assign sec4_title = settings.sec4_title | default: 'Ritiro Gratuito presso Lebestetik Beauty & Spa a Verona'
+  assign sec4_content = settings.sec4_content | default: 'Se risiedi a Verona o ti trovi nelle vicinanze, puoi scegliere di ritirare il tuo ordine direttamente presso la nostra prestigiosa oasi di benessere e flagship boutique:'
+  assign verona_address = settings.verona_address | default: "Lebestetik Beauty & Spa\nVia Torricelle 2c, 37128 Verona (VR)"
+  assign verona_hours = settings.verona_hours | default: "SU APPUNTAMENTO\nLunedì – Sabato: 09:30 – 19:30\n(Chiuso il mercoledì e la domenica)"
+  assign verona_phone = settings.verona_phone | default: '+39 045 8301811'
+  assign verona_whatsapp = settings.verona_whatsapp | default: '+39 342 1647585'
+  assign sec4_steps_title = settings.sec4_steps_title | default: 'Come Funziona il Ritiro in Sede:'
+  assign sec4_step1 = settings.sec4_step1 | default: 'Seleziona l\'opzione "Ritiro in Sede a Verona" in fase di checkout.'
+  assign sec4_step2 = settings.sec4_step2 | default: 'Attendi l\'email o il messaggio WhatsApp del Concierge che ti notifica che il tuo pacco è stato allestito ed è pronto.'
+  assign sec4_step3 = settings.sec4_step3 | default: 'Concorda via WhatsApp l\'orario a te più comodo per passare in istituto. Potrai usufruire del comodo parcheggio riservato ai clienti.'
+  assign sec4_step4 = settings.sec4_step4 | default: 'Ritirando in istituto riceverai una consulenza rapida personalizzata e uno sconto speciale riservato del 10% valido su un successivo trattamento viso o corpo in cabina.'
+
+  assign sec5_tag = settings.sec5_tag | default: 'Mondo & Europa'
+  assign sec5_title = settings.sec5_title | default: 'Spedizioni Internazionali (UE ed Extra-UE)'
+  assign sec5_content = settings.sec5_content | default: 'Portiamo l\'alta dermocosmesi naturale di MileBioLab in tutto il mondo grazie a partnership con corrieri internazionali espressi (DHL Express, UPS, FedEx):'
+  assign sec5_eu_title = settings.sec5_eu_title | default: 'Unione Europea'
+  assign sec5_eu_subtitle = settings.sec5_eu_subtitle | default: 'Zona Euro & Paesi UE'
+  assign sec5_eu_details = settings.sec5_eu_details | default: "• Tempi: 3-6 giorni lavorativi\n• Tariffe a partire da € 15,00\n• Nessuna dogana: IVA inclusa all'origine"
+  assign sec5_extra_title = settings.sec5_extra_title | default: 'Paesi Extra-UE'
+  assign sec5_extra_subtitle = settings.sec5_extra_subtitle | default: 'Svizzera, UK, USA, Canada'
+  assign sec5_extra_details = settings.sec5_extra_details | default: "• Tempi: 5-10 giorni lavorativi\n• Tariffe a partire da € 28,00\n• Servizio aereo espresso tracciato"
+  assign sec5_duties_title = settings.sec5_duties_title | default: 'Informativa su Dazi Doganali, Imposte d\'Importazione ed Oneri Locali (Extra-UE):'
+  assign sec5_duties_text = settings.sec5_duties_text | default: "Per le spedizioni indirizzate verso Paesi non appartenenti all'Unione Europea (tra cui Confederazione Svizzera, Regno Unito, Stati Uniti d'America, ecc.), eventuali dazi doganali, tasse d'importazione locali, accise o spese di sdoganamento sono posti ad esclusivo carico del destinatario. Tali importi vengono quantificati direttamente dagli uffici doganali dello Stato di destinazione all'atto dell'ingresso del collo e dovranno essere saldati al corriere al momento della consegna. MileBioLab non ha controllo su tali oneri e non può prevederne preventivamente l'esatto ammontare."
+
+  assign sec6_tag = settings.sec6_tag | default: 'Monitoraggio Spedizione'
+  assign sec6_title = settings.sec6_title | default: 'Tracciamento della Spedizione e Notifiche in Tempo Reale'
+  assign sec6_content = settings.sec6_content | default: 'Non appena il collo viene affidato fisicamente al vettore espresso, il nostro sistema invia una notifica automatica via email (e via SMS, qualora sia stato fornito il recapito cellulare) contenente:'
+  assign sec6_bullet1 = settings.sec6_bullet1 | default: 'Nome del corriere incaricato del trasporto (GLS / BRT / DHL)'
+  assign sec6_bullet2 = settings.sec6_bullet2 | default: 'Codice univoco di tracciamento (Tracking Number)'
+  assign sec6_bullet3 = settings.sec6_bullet3 | default: 'Link diretto per monitorare la geolocalizzazione del pacco h24'
+  assign sec6_note = settings.sec6_note | default: 'Il codice di tracciamento diventa attivo e consultabile generalmente entro 12 ore dal ritiro del pacco da parte del vettore.'
+
+  assign sec7_tag = settings.sec7_tag | default: 'Gestione Mancata Consegna'
+  assign sec7_title = settings.sec7_title | default: 'Consegna, Assenza del Destinatario e Giacenze'
+  assign sec7_content = settings.sec7_content | default: 'I corrieri convenzionati effettuano generalmente due tentativi di consegna consecutivi all\'indirizzo indicato in ordine. Qualora in entrambe le circostanze il destinatario risulti assente:'
+  assign sec7_bullet1 = settings.sec7_bullet1 | default: 'Verrà rilasciato un avviso di mancata consegna cartaceo e/o una notifica elettronica via email/SMS;'
+  assign sec7_bullet2 = settings.sec7_bullet2 | default: 'Il cliente potrà riprogrammare autonomamente la riconsegna entro 48 ore tramite il portale del corriere;'
+  assign sec7_bullet3 = settings.sec7_bullet3 | default: 'In alternativa, il pacco potrà essere depositato presso il punto di ritiro convenzionato (Locker / Point di prossimità) più vicino, dove rimarrà in giacenza disponibile per 5-7 giorni di calendario.'
+  assign sec7_note = settings.sec7_note | default: 'In caso di mancato ritiro entro il periodo di giacenza, il collo rientrerà presso i nostri laboratori. I costi per una seconda spedizione saranno a carico del cliente.'
+
+  assign sec8_tag = settings.sec8_tag | default: 'Protezione Spedizione'
+  assign sec8_title = settings.sec8_title | default: 'Danneggiamenti da Trasporto e Segnalazione Anomalie'
+  assign sec8_content = settings.sec8_content | default: 'Al momento della consegna del pacco da parte del fattorino, invitiamo cortesemente il Cliente a verificare con scrupolo:'
+  assign sec8_bullet1 = settings.sec8_bullet1 | default: 'Che il numero dei colli corrisponda a quanto indicato nel documento di trasporto;'
+  assign sec8_bullet2 = settings.sec8_bullet2 | default: 'Che l\'imballo esterno risulti integro, non bagnato, non schiacciato e con il nastro sigillante intatto.'
+  assign sec8_box_title = settings.sec8_box_title | default: 'Cosa fare se il pacco appare visibilmente danneggiato:'
+  assign sec8_box_text = settings.sec8_box_text | default: 'Accettare la consegna apponendo sul palmare del corriere la dicitura: "ACCETTATO CON RISERVA SPECIFICA DI CONTROLLO" indicando l\'anomalia (es. scatola ammaccata, fondo umido, sigillo manomesso). Qualora aprendo la confezione un prodotto risulti danneggiato, scatta delle foto del collo e dei flaconi e inviale entro 48 ore all\'indirizzo concierge@milebiolab.com. Provvederemo a rispedire immediatamente a nostre spese una nuova confezione integra!'
+
+  assign sec9_tag = settings.sec9_tag | default: 'Supporto Personalizzato'
+  assign sec9_title = settings.sec9_title | default: 'Assistenza Spedizioni & Concierge Dedicato'
+  assign sec9_content = settings.sec9_content | default: 'Per qualsiasi dubbio, variazione d\'indirizzo o richiesta speciale di consegna (es. orario preferito o giorno prestabilito per il ritiro in cabina), il nostro Servizio Concierge a Verona è al tuo fianco:'
+  assign concierge_phone = settings.concierge_phone | default: '+39 045 8301811'
+  assign concierge_whatsapp = settings.concierge_whatsapp | default: '+39 342 1647585'
+  assign concierge_email = settings.concierge_email | default: 'concierge@milebiolab.com'
+
+  assign whatsapp_clean = concierge_whatsapp | remove: '+' | remove: ' ' | remove: '-'
+-%}
 
 <div class="policy-shipping-wrapper bg-[#F5F2EB] text-[#1A1A1A] py-10 sm:py-16 lg:py-20 font-sans selection:bg-[#C8A878] selection:text-white">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
@@ -22,26 +136,36 @@
     <header class="text-center max-w-3xl mx-auto space-y-4">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FAF8F5] border border-[#C8A878]/40 text-[#C8A878] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase font-semibold shadow-xs">
         <span class="text-xs">📦</span>
-        <span>{{ eyebrow | default: 'LOGISTICA & CONSEGNE • TRASPORTI SICURI' }}</span>
+        <span>{{ eyebrow }}</span>
       </div>
 
       <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl text-[#1A1A1A] font-normal leading-tight tracking-tight">
-        {{ title | default: 'Politica di Spedizione e Consegna' }}
+        {{ title }}
       </h1>
 
       <p class="text-sm sm:text-base text-[#7A7265] font-light leading-relaxed max-w-2xl mx-auto">
-        Dalla formulazione nei nostri laboratori fino alla consegna al tuo domicilio: scopri tariffe, tempi, imballaggi isotermici ecosostenibili e l'opzione esclusiva di ritiro a Verona.
+        {{ intro_text }}
       </p>
 
       <div class="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs text-[#5C6B56] font-mono">
-        <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
-          Evasione rapida in 24-48 ore
-        </span>
-        <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
-          <span>🌿</span>
-          Imballaggi antiurto 100% riciclabili
-        </span>
+        {%- if badge1_text != blank -%}
+          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+            {{ badge1_text }}
+          </span>
+        {%- endif -%}
+        {%- if badge2_text != blank -%}
+          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
+            <span>🌿</span>
+            {{ badge2_text }}
+          </span>
+        {%- endif -%}
+        {%- if last_updated != blank -%}
+          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8] text-[#7A7265]">
+            <span>🕒</span>
+            {{ last_updated }}
+          </span>
+        {%- endif -%}
       </div>
     </header>
 
@@ -52,66 +176,81 @@
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #5C6B56;">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold">Formula Più Scelta</span>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold">{{ card1_badge }}</span>
             <span class="text-xs">🚚</span>
           </div>
-          <h3 class="font-serif text-xl text-[#1A1A1A] mb-1">Spedizione Standard Italia</h3>
+          <h3 class="font-serif text-xl text-[#1A1A1A] mb-1">{{ card1_title }}</h3>
           <div class="my-3">
-            <span class="font-mono text-2xl font-bold text-[#1A1A1A]">Gratis</span>
-            <span class="text-xs text-[#7A7265] block font-mono">da € 75,00 di spesa (o € 7,00)</span>
+            <span class="font-mono text-2xl font-bold text-[#1A1A1A]">{{ card1_price }}</span>
+            <span class="text-xs text-[#7A7265] block font-mono">{{ card1_time }}</span>
           </div>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            Consegna in <strong>3-5 giorni lavorativi</strong> tramite corriere espresso tracciato (GLS / BRT / DHL). Packaging isotermico protettivo con campioncini dermo-consulenziali inclusi.
-          </p>
+          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
+            {{ card1_desc }}
+          </div>
         </div>
-        <div class="mt-5 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56] flex items-center gap-1.5">
-          <span>✓</span> Tracciamento SMS ed Email
-        </div>
+        {%- if card1_footer != blank -%}
+          <div class="mt-5 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56] flex items-center gap-1.5">
+            <span>✓</span> {{ card1_footer }}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Card 2: Espresso Italia -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #C8A878;">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold">Massima Rapidità</span>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold">{{ card2_badge }}</span>
             <span class="text-xs">⚡</span>
           </div>
-          <h3 class="font-serif text-xl text-[#1A1A1A] mb-1">Spedizione Espresso</h3>
+          <h3 class="font-serif text-xl text-[#1A1A1A] mb-1">{{ card2_title }}</h3>
           <div class="my-3">
-            <span class="font-mono text-2xl font-bold text-[#1A1A1A]">€ 12,00</span>
-            <span class="text-xs text-[#7A7265] block font-mono">Tariffa fissa prioritaria</span>
+            <span class="font-mono text-2xl font-bold text-[#1A1A1A]">{{ card2_price }}</span>
+            <span class="text-xs text-[#7A7265] block font-mono">{{ card2_time }}</span>
           </div>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            Consegna garantita in <strong>1-2 giorni lavorativi</strong> (24/48h penisola, 48/72h isole). Priorità assoluta di lavorazione e allestimento in laboratorio.
-          </p>
+          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
+            {{ card2_desc }}
+          </div>
         </div>
-        <div class="mt-5 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56] flex items-center gap-1.5">
-          <span>✓</span> Lavorazione Priority Lab
-        </div>
+        {%- if card2_footer != blank -%}
+          <div class="mt-5 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56] flex items-center gap-1.5">
+            <span>✓</span> {{ card2_footer }}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Card 3: Ritiro a Verona -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #1A1A1A;">
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#1A1A1A] font-semibold">Esperienza Boutique</span>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#1A1A1A] font-semibold">{{ card3_badge }}</span>
             <span class="text-xs">🏛️</span>
           </div>
-          <h3 class="font-serif text-xl text-[#1A1A1A] mb-1">Ritiro Gratuito in Sede</h3>
+          <h3 class="font-serif text-xl text-[#1A1A1A] mb-1">{{ card3_title }}</h3>
           <div class="my-3">
-            <span class="font-mono text-2xl font-bold text-[#1A1A1A]">€ 0,00</span>
-            <span class="text-xs text-[#7A7265] block font-mono">Lebestetik Beauty & Spa Verona</span>
+            <span class="font-mono text-2xl font-bold text-[#1A1A1A]">{{ card3_price }}</span>
+            <span class="text-xs text-[#7A7265] block font-mono">{{ card3_time }}</span>
           </div>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            Pronto in <strong>24 ore</strong> su appuntamento. Incontro vis-à-vis con la Maestra d'Arte Mile e <strong>sconto riservato del 10%</strong> su un trattamento in istituto.
-          </p>
+          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
+            {{ card3_desc }}
+          </div>
         </div>
-        <div class="mt-5 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56] flex items-center gap-1.5">
-          <span>✓</span> Zero attese con parcheggio privato
-        </div>
+        {%- if card3_footer != blank -%}
+          <div class="mt-5 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56] flex items-center gap-1.5">
+            <span>✓</span> {{ card3_footer }}
+          </div>
+        {%- endif -%}
       </div>
 
     </div>
+
+    <!-- CONTENUTO PAGINA SHOPIFY ADMIN (SE PRESENTE) -->
+    {%- if page.content != blank -%}
+      <div class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative">
+        <div class="prose max-w-none text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4">
+          {{ page.content }}
+        </div>
+      </div>
+    {%- endif -%}
 
     <!-- SEZIONI DETTAGLIATE -->
     <div class="space-y-10 sm:space-y-12">
@@ -121,27 +260,33 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">01</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Fase Preliminare</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Tempi di Elaborazione e Confezionamento degli Ordini</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec1_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec1_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Ogni ordine ricevuto viene preso in carico entro <strong>24-48 ore lavorative</strong> (dal lunedì al venerdì, esclusi i giorni festivi). Trattandosi di formulazioni biomimetiche ricche di principi attivi vivi ed estratti botanici pregiati, il confezionamento avviene secondo rigorosi standard di laboratorio:
-          </p>
+          <div class="space-y-2">
+            {%- if sec1_content contains '<p>' -%}
+              {{ sec1_content }}
+            {%- else -%}
+              <p>{{ sec1_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2 text-xs">
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-1">
-              <strong class="font-serif text-sm text-[#1A1A1A] block">📦 Imballaggio Isotermico Protettivo</strong>
-              <p class="text-[#7A7265]">Scatole rinforzate in cartone riciclato con imbottiture naturali anti-shock per preservare le formule dagli sbalzi termici durante il trasporto.</p>
+              <strong class="font-serif text-sm text-[#1A1A1A] block">📦 {{ sec1_box1_title }}</strong>
+              <p class="text-[#7A7265]">{{ sec1_box1_desc }}</p>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-1">
-              <strong class="font-serif text-sm text-[#1A1A1A] block">🎁 Campioncini Dermo-Consulenziali</strong>
-              <p class="text-[#7A7265]">Ogni pacco include una selezione su misura di campioncini per scoprire nuove texture e rituali di longevità cutanea.</p>
+              <strong class="font-serif text-sm text-[#1A1A1A] block">🎁 {{ sec1_box2_title }}</strong>
+              <p class="text-[#7A7265]">{{ sec1_box2_desc }}</p>
             </div>
           </div>
-          <p class="text-xs text-[#7A7265]">
-            Gli ordini inoltrati durante il fine settimana o nei giorni festivi vengono processati a partire dal primo giorno feriale successivo in ordine cronologico di ricezione.
-          </p>
+          {%- if sec1_note != blank -%}
+            <p class="text-xs text-[#7A7265]">
+              {{ sec1_note }}
+            </p>
+          {%- endif -%}
         </div>
       </section>
 
@@ -150,40 +295,45 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#5C6B56] text-[#5C6B56] font-mono text-xs font-bold flex items-center justify-center">02</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold block">Trasparenza Logistica</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Evasione Ordini Ibridi (MileBioLab + Selfnamed)</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold block">{{ sec2_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec2_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Il nostro catalogo combina la maestria artigianale della Maestra Mile a Verona con le più moderne biotecnologie cosmetiche europee. Per questo motivo, l'evasione logistica si articola su due poli specializzati:
-          </p>
+          <div class="space-y-2">
+            {%- if sec2_content contains '<p>' -%}
+              {{ sec2_content }}
+            {%- else -%}
+              <p>{{ sec2_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
             <div class="p-4 bg-[#FAF8F5] border border-[#DDD7CE]">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-bold block mb-1">Polo A • Verona Flagship</span>
-              <p class="text-xs text-[#1A1A1A] font-medium mb-1">Laboratorio MileBioLab & Lebestetik</p>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-bold block mb-1">{{ sec2_polo_a_tag }}</span>
+              <p class="text-xs text-[#1A1A1A] font-medium mb-1">{{ sec2_polo_a_title }}</p>
               <p class="text-xs text-[#7A7265]">
-                Le referenze d'istituto, il Burro Primordiale UNICHO 21 e i protocolli professionali Team Dr. Joseph sono gestiti e spediti direttamente dalla nostra sede storica di <strong>Via Torricelle 2c a Verona</strong>.
+                {{ sec2_polo_a_desc }}
               </p>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#DDD7CE]">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-bold block mb-1">Polo B • Laboratori On-Demand</span>
-              <p class="text-xs text-[#1A1A1A] font-medium mb-1">Partnership Certificata Selfnamed</p>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-bold block mb-1">{{ sec2_polo_b_tag }}</span>
+              <p class="text-xs text-[#1A1A1A] font-medium mb-1">{{ sec2_polo_b_title }}</p>
               <p class="text-xs text-[#7A7265]">
-                Le formule on-demand personalizzate vengono allestite fresche secondo i più elevati standard europei (ISO 22716 / Cosmos Natural) e spedite direttamente dalla linea produttiva dei laboratori <strong>Selfnamed</strong>.
+                {{ sec2_polo_b_desc }}
               </p>
             </div>
           </div>
           <div class="bg-[#FAF8F5] border border-[#C8A878]/50 p-4 text-xs space-y-2">
             <p class="font-semibold text-[#1A1A1A] flex items-center gap-2">
-              <span class="text-sm">✨</span> Nessun Costo Aggiuntivo per gli Ordini Misti:
+              <span class="text-sm">✨</span> {{ sec2_callout_title }}
             </p>
-            <p class="text-[#7A7265]">
-              Se acquisti contemporaneamente prodotti della casa (Verona) e formule allestite tramite Selfnamed, <strong>pagherai una sola tariffa di spedizione</strong> (o nessuna spesa se superi € 75,00). 
-            </p>
-            <p class="text-[#7A7265]">
-              Qualora i prodotti vengano spediti in due colli separati per garantirti la massima freschezza e integrità degli attivi, riceverai due codici di tracciamento coordinati, <strong>senza alcun sovrapprezzo a tuo carico</strong>. Per qualsiasi richiesta, il Concierge MileBioLab di Verona rimane il tuo unico e fidato punto di contatto.
-            </p>
+            <div class="text-[#7A7265] space-y-2">
+              {%- if sec2_callout_desc contains '<p>' -%}
+                {{ sec2_callout_desc }}
+              {%- else -%}
+                <p>{{ sec2_callout_desc | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       </section>
@@ -193,14 +343,18 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">03</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Tariffario Ufficiale</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Modalità e Tariffe di Spedizione in Italia</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec3_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec3_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Le consegne sul territorio nazionale avvengono tramite corrieri leader (GLS, BRT, DHL Express) selezionati per affidabilità e cura nel maneggio dei colli contenenti flaconi e vasetti cosmetici:
-          </p>
+          <div class="space-y-2">
+            {%- if sec3_content contains '<p>' -%}
+              {{ sec3_content }}
+            {%- else -%}
+              <p>{{ sec3_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
 
           <!-- TABELLA TARIFFE ITALIA -->
           <div class="overflow-x-auto border border-[#E5E0D8] my-4">
@@ -216,7 +370,7 @@
               </thead>
               <tbody class="divide-y divide-[#E5E0D8] font-mono text-[#7A7265]">
                 <tr class="hover:bg-[#FAF8F5]/50 transition-colors">
-                  <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">Standard Tracciato</td>
+                  <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">{{ card1_title }}</td>
                   <td class="p-3 sm:p-4">Tutta Italia (Penisola)</td>
                   <td class="p-3 sm:p-4">3-5 gg lavorativi</td>
                   <td class="p-3 sm:p-4">€ 7,00</td>
@@ -230,14 +384,14 @@
                   <td class="p-3 sm:p-4 text-[#5C6B56] font-bold">GRATIS</td>
                 </tr>
                 <tr class="hover:bg-[#FAF8F5]/50 transition-colors bg-[#FAF8F5]/30">
-                  <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">Espresso Priority</td>
+                  <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">{{ card2_title }}</td>
                   <td class="p-3 sm:p-4">Tutta Italia</td>
                   <td class="p-3 sm:p-4 text-[#C8A878] font-bold">1-2 gg lavorativi</td>
                   <td class="p-3 sm:p-4">€ 12,00</td>
                   <td class="p-3 sm:p-4">€ 12,00</td>
                 </tr>
                 <tr class="hover:bg-[#FAF8F5]/50 transition-colors">
-                  <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">Ritiro in Sede</td>
+                  <td class="p-3 sm:p-4 font-semibold text-[#1A1A1A]">{{ card3_title }}</td>
                   <td class="p-3 sm:p-4">Lebestetik Verona (Torricelle)</td>
                   <td class="p-3 sm:p-4">24 ore (su appuntamento)</td>
                   <td class="p-3 sm:p-4 text-[#5C6B56] font-bold">GRATIS (€ 0)</td>
@@ -246,9 +400,11 @@
               </tbody>
             </table>
           </div>
-          <p class="text-xs text-[#7A7265]">
-            <em>Nota per Isole Minori e Laguna Veneta:</em> Per località particolarmente remote o a logistica speciale potrebbero rendersi necessari 1-2 giorni lavorativi aggiuntivi di transito.
-          </p>
+          {%- if sec3_note != blank -%}
+            <p class="text-xs text-[#7A7265] italic">
+              {{ sec3_note }}
+            </p>
+          {%- endif -%}
         </div>
       </section>
 
@@ -257,36 +413,46 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">04</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Boutique & Flagship</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Ritiro Gratuito presso Lebestetik Beauty & Spa a Verona</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec4_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec4_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Se risiedi a Verona o ti trovi nelle vicinanze, puoi scegliere di ritirare il tuo ordine direttamente presso la nostra prestigiosa oasi di benessere e flagship boutique:
-          </p>
+          <div class="space-y-2">
+            {%- if sec4_content contains '<p>' -%}
+              {{ sec4_content }}
+            {%- else -%}
+              <p>{{ sec4_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <div class="bg-[#FAF8F5] border border-[#DDD7CE] p-5 space-y-3 text-xs font-mono">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <strong class="text-[#1A1A1A] block font-semibold mb-1">📍 Indirizzo Sede:</strong>
-                <span class="text-[#7A7265]">Lebestetik Beauty & Spa<br>Via Torricelle 2c, 37128 Verona (VR)</span>
+                <span class="text-[#7A7265] whitespace-pre-line">{{ verona_address }}</span>
               </div>
               <div>
                 <strong class="text-[#1A1A1A] block font-semibold mb-1">🕒 Orari per il Ritiro:</strong>
-                <span class="text-[#7A7265]">SU APPUNTAMENTO<br>Lunedì – Sabato: 09:30 – 19:30<br>(Chiuso il mercoledì e la domenica)</span>
+                <span class="text-[#7A7265] whitespace-pre-line">{{ verona_hours }}</span>
               </div>
             </div>
             <div class="pt-2 border-t border-[#E5E0D8] flex flex-wrap items-center gap-4 text-[#5C6B56]">
-              <span>📞 Tel: +39 045 8301811</span>
-              <span>💬 WhatsApp: +39 342 1647585</span>
+              {%- if verona_phone != blank -%}
+                <a href="tel:{{ verona_phone | remove: ' ' }}" class="hover:underline">📞 Tel: {{ verona_phone }}</a>
+              {%- endif -%}
+              {%- if verona_whatsapp != blank -%}
+                <a href="https://wa.me/{{ verona_whatsapp | remove: '+' | remove: ' ' | remove: '-' }}" target="_blank" rel="noopener noreferrer" class="hover:underline">💬 WhatsApp: {{ verona_whatsapp }}</a>
+              {%- endif -%}
             </div>
           </div>
-          <h4 class="font-serif text-base text-[#1A1A1A] pt-2">Come Funziona il Ritiro in Sede:</h4>
+          {%- if sec4_steps_title != blank -%}
+            <h4 class="font-serif text-base text-[#1A1A1A] pt-2">{{ sec4_steps_title }}</h4>
+          {%- endif -%}
           <ol class="list-decimal pl-5 text-xs text-[#7A7265] space-y-2 font-mono">
-            <li>Seleziona l'opzione <strong>"Ritiro in Sede a Verona"</strong> in fase di checkout.</li>
-            <li>Attendi l'email o il messaggio WhatsApp del Concierge che ti notifica che il tuo pacco è stato allestito ed è pronto.</li>
-            <li>Concorda via WhatsApp l'orario a te più comodo per passare in istituto. Potrai usufruire del comodo parcheggio riservato ai clienti.</li>
-            <li>Ritirando in istituto riceverai una consulenza rapida personalizzata e uno <strong>sconto speciale riservato del 10%</strong> valido su un successivo trattamento viso o corpo in cabina.</li>
+            {%- if sec4_step1 != blank -%}<li>{{ sec4_step1 }}</li>{%- endif -%}
+            {%- if sec4_step2 != blank -%}<li>{{ sec4_step2 }}</li>{%- endif -%}
+            {%- if sec4_step3 != blank -%}<li>{{ sec4_step3 }}</li>{%- endif -%}
+            {%- if sec4_step4 != blank -%}<li>{{ sec4_step4 }}</li>{%- endif -%}
           </ol>
         </div>
       </section>
@@ -296,46 +462,47 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">05</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Mondo & Europa</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Spedizioni Internazionali (UE ed Extra-UE)</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec5_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec5_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Portiamo l'alta dermocosmesi naturale di MileBioLab in tutto il mondo grazie a partnership con corrieri internazionali espressi (DHL Express, UPS, FedEx):
-          </p>
+          <div class="space-y-2">
+            {%- if sec5_content contains '<p>' -%}
+              {{ sec5_content }}
+            {%- else -%}
+              <p>{{ sec5_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3 text-xs">
             <div class="p-4 bg-[#FAF8F5] border border-[#DDD7CE]">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-bold block mb-1">🇪🇺 Unione Europea</span>
-              <p class="text-sm font-serif text-[#1A1A1A] font-semibold mb-1">Zona Euro & Paesi UE</p>
-              <ul class="space-y-1 font-mono text-[#7A7265] mt-2">
-                <li>• Tempi: <strong>3-6 giorni lavorativi</strong></li>
-                <li>• Tariffe a partire da <strong>€ 15,00</strong></li>
-                <li>• Nessuna dogana: IVA inclusa all'origine</li>
-              </ul>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-bold block mb-1">🇪🇺 {{ sec5_eu_title }}</span>
+              <p class="text-sm font-serif text-[#1A1A1A] font-semibold mb-1">{{ sec5_eu_subtitle }}</p>
+              <div class="space-y-1 font-mono text-[#7A7265] mt-2 whitespace-pre-line">
+                {{ sec5_eu_details }}
+              </div>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#DDD7CE]">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-bold block mb-1">🌍 Paesi Extra-UE</span>
-              <p class="text-sm font-serif text-[#1A1A1A] font-semibold mb-1">Svizzera, UK, USA, Canada</p>
-              <ul class="space-y-1 font-mono text-[#7A7265] mt-2">
-                <li>• Tempi: <strong>5-10 giorni lavorativi</strong></li>
-                <li>• Tariffe a partire da <strong>€ 28,00</strong></li>
-                <li>• Servizio aereo espresso tracciato</li>
-              </ul>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-bold block mb-1">🌍 {{ sec5_extra_title }}</span>
+              <p class="text-sm font-serif text-[#1A1A1A] font-semibold mb-1">{{ sec5_extra_subtitle }}</p>
+              <div class="space-y-1 font-mono text-[#7A7265] mt-2 whitespace-pre-line">
+                {{ sec5_extra_details }}
+              </div>
             </div>
           </div>
 
           <div class="bg-[#FAF8F5] border-l-2 border-[#C8A878] p-4 text-xs text-[#7A7265] space-y-2">
             <p class="font-semibold text-[#1A1A1A]">
-              Informativa su Dazi Doganali, Imposte d'Importazione ed Oneri Locali (Extra-UE):
+              {{ sec5_duties_title }}
             </p>
-            <p>
-              Per le spedizioni indirizzate verso Paesi non appartenenti all'Unione Europea (tra cui Confederazione Svizzera, Regno Unito, Stati Uniti d'America, ecc.), <strong>eventuali dazi doganali, tasse d'importazione locali, accise o spese di sdoganamento sono posti ad esclusivo carico del destinatario</strong>.
-            </p>
-            <p>
-              Tali importi vengono quantificati direttamente dagli uffici doganali dello Stato di destinazione all'atto dell'ingresso del collo e dovranno essere saldati al corriere al momento della consegna. MileBioLab non ha controllo su tali oneri e non può prevederne preventivamente l'esatto ammontare.
-            </p>
+            <div class="space-y-2">
+              {%- if sec5_duties_text contains '<p>' -%}
+                {{ sec5_duties_text }}
+              {%- else -%}
+                <p>{{ sec5_duties_text | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       </section>
@@ -345,22 +512,28 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">06</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Monitoraggio Spedizione</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Tracciamento della Spedizione e Notifiche in Tempo Reale</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec6_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec6_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-3 pt-2">
-          <p>
-            Non appena il collo viene affidato fisicamente al vettore espresso, il nostro sistema invia una notifica automatica via email (e via SMS, qualora sia stato fornito il recapito cellulare) contenente:
-          </p>
+          <div class="space-y-2">
+            {%- if sec6_content contains '<p>' -%}
+              {{ sec6_content }}
+            {%- else -%}
+              <p>{{ sec6_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <ul class="list-disc pl-5 text-xs text-[#7A7265] space-y-1 font-mono">
-            <li>Nome del corriere incaricato del trasporto (GLS / BRT / DHL)</li>
-            <li>Codice univoco di tracciamento (Tracking Number)</li>
-            <li>Link diretto per monitorare la geolocalizzazione del pacco h24</li>
+            {%- if sec6_bullet1 != blank -%}<li>{{ sec6_bullet1 }}</li>{%- endif -%}
+            {%- if sec6_bullet2 != blank -%}<li>{{ sec6_bullet2 }}</li>{%- endif -%}
+            {%- if sec6_bullet3 != blank -%}<li>{{ sec6_bullet3 }}</li>{%- endif -%}
           </ul>
-          <p class="text-xs text-[#7A7265]">
-            Il codice di tracciamento diventa attivo e consultabile generalmente entro 12 ore dal ritiro del pacco da parte del vettore.
-          </p>
+          {%- if sec6_note != blank -%}
+            <p class="text-xs text-[#7A7265]">
+              {{ sec6_note }}
+            </p>
+          {%- endif -%}
         </div>
       </section>
 
@@ -369,22 +542,28 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">07</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Gestione Mancata Consegna</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Consegna, Assenza del Destinatario e Giacenze</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec7_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec7_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-3 pt-2">
-          <p>
-            I corrieri convenzionati effettuano generalmente <strong>due tentativi di consegna consecutivi</strong> all'indirizzo indicato in ordine. Qualora in entrambe le circostanze il destinatario risulti assente:
-          </p>
+          <div class="space-y-2">
+            {%- if sec7_content contains '<p>' -%}
+              {{ sec7_content }}
+            {%- else -%}
+              <p>{{ sec7_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <ul class="list-disc pl-5 text-xs text-[#7A7265] space-y-1 font-mono">
-            <li>Verrà rilasciato un avviso di mancata consegna cartaceo e/o una notifica elettronica via email/SMS;</li>
-            <li>Il cliente potrà riprogrammare autonomamente la riconsegna entro 48 ore tramite il portale del corriere;</li>
-            <li>In alternativa, il pacco potrà essere depositato presso il punto di ritiro convenzionato (Locker / Point di prossimità) più vicino, dove rimarrà in giacenza disponibile per 5-7 giorni di calendario.</li>
+            {%- if sec7_bullet1 != blank -%}<li>{{ sec7_bullet1 }}</li>{%- endif -%}
+            {%- if sec7_bullet2 != blank -%}<li>{{ sec7_bullet2 }}</li>{%- endif -%}
+            {%- if sec7_bullet3 != blank -%}<li>{{ sec7_bullet3 }}</li>{%- endif -%}
           </ul>
-          <p class="text-xs text-[#7A7265]">
-            In caso di mancato ritiro entro il periodo di giacenza, il collo rientrerà presso i nostri laboratori. I costi per una seconda spedizione saranno a carico del cliente.
-          </p>
+          {%- if sec7_note != blank -%}
+            <p class="text-xs text-[#7A7265]">
+              {{ sec7_note }}
+            </p>
+          {%- endif -%}
         </div>
       </section>
 
@@ -393,26 +572,31 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">08</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">Protezione Spedizione</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Danneggiamenti da Trasporto e Segnalazione Anomalie</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block">{{ sec8_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec8_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Al momento della consegna del pacco da parte del fattorino, invitiamo cortesemente il Cliente a verificare con scrupolo:
-          </p>
+          <div class="space-y-2">
+            {%- if sec8_content contains '<p>' -%}
+              {{ sec8_content }}
+            {%- else -%}
+              <p>{{ sec8_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <ul class="list-disc pl-5 text-xs text-[#7A7265] space-y-1 font-mono">
-            <li>Che il numero dei colli corrisponda a quanto indicato nel documento di trasporto;</li>
-            <li>Che l'imballo esterno risulti integro, non bagnato, non schiacciato e con il nastro sigillante intatto.</li>
+            {%- if sec8_bullet1 != blank -%}<li>{{ sec8_bullet1 }}</li>{%- endif -%}
+            {%- if sec8_bullet2 != blank -%}<li>{{ sec8_bullet2 }}</li>{%- endif -%}
           </ul>
           <div class="bg-[#FAF8F5] border border-[#DDD7CE] p-4 text-xs text-[#1A1A1A] space-y-2">
-            <p class="font-semibold text-[#5C6B56]">Cosa fare se il pacco appare visibilmente danneggiato:</p>
-            <p class="text-[#7A7265]">
-              Accettare la consegna apponendo sul palmare del corriere la dicitura: <strong>"ACCETTATO CON RISERVA SPECIFICA DI CONTROLLO"</strong> indicando l'anomalia (es. <em>scatola ammaccata, fondo umido, sigillo manomesso</em>).
-            </p>
-            <p class="text-[#7A7265]">
-              Qualora aprendo la confezione un prodotto risulti danneggiato, scatta delle foto del collo e dei flaconi e inviale <strong>entro 48 ore</strong> all'indirizzo <a href="mailto:concierge@milebiolab.com" class="text-[#5C6B56] underline font-semibold">concierge@milebiolab.com</a>. Provvederemo a rispedire immediatamente a nostre spese una nuova confezione integra!
-            </p>
+            <p class="font-semibold text-[#5C6B56]">{{ sec8_box_title }}</p>
+            <div class="text-[#7A7265] space-y-2">
+              {%- if sec8_box_text contains '<p>' -%}
+                {{ sec8_box_text }}
+              {%- else -%}
+                <p>{{ sec8_box_text | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       </section>
@@ -422,33 +606,58 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">09</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Supporto Personalizzato</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Assistenza Spedizioni & Concierge Dedicato</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec9_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec9_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Per qualsiasi dubbio, variazione d'indirizzo o richiesta speciale di consegna (es. orario preferito o giorno prestabilito per il ritiro in cabina), il nostro Servizio Concierge a Verona è al tuo fianco:
-          </p>
+          <div class="space-y-2">
+            {%- if sec9_content contains '<p>' -%}
+              {{ sec9_content }}
+            {%- else -%}
+              <p>{{ sec9_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono text-center">
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <span class="text-lg block mb-1">💬</span>
               <strong class="text-[#1A1A1A] block">WhatsApp Concierge</strong>
-              <a href="https://wa.me/393421647585" target="_blank" rel="noopener noreferrer" class="text-[#5C6B56] underline mt-1 block">+39 342 1647585</a>
+              <a href="https://wa.me/{{ whatsapp_clean }}" target="_blank" rel="noopener noreferrer" class="text-[#5C6B56] underline mt-1 block">{{ concierge_whatsapp }}</a>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <span class="text-lg block mb-1">📞</span>
               <strong class="text-[#1A1A1A] block">Telefono Sede</strong>
-              <a href="tel:+390458301811" class="text-[#5C6B56] underline mt-1 block">+39 045 8301811</a>
+              <a href="tel:{{ concierge_phone | remove: ' ' }}" class="text-[#5C6B56] underline mt-1 block">{{ concierge_phone }}</a>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <span class="text-lg block mb-1">✉️</span>
               <strong class="text-[#1A1A1A] block">Email Ordini</strong>
-              <a href="mailto:concierge@milebiolab.com" class="text-[#5C6B56] underline mt-1 block">concierge@milebiolab.com</a>
+              <a href="mailto:{{ concierge_email }}" class="text-[#5C6B56] underline mt-1 block">{{ concierge_email }}</a>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- BLOCCHI PERSONALIZZATI OS 2.0 (SE PRESENTI) -->
+      {%- for block in blocks -%}
+        {%- case block.type -%}
+          {%- when 'custom_section' -%}
+            <section class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative" {{ block.shopify_attributes }}>
+              <div class="flex items-start gap-4 mb-4">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">✦</span>
+                <div>
+                  {%- if block.settings.tag != blank -%}
+                    <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ block.settings.tag }}</span>
+                  {%- endif -%}
+                  <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ block.settings.title }}</h2>
+                </div>
+              </div>
+              <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
+                {{ block.settings.content }}
+              </div>
+            </section>
+        {%- endcase -%}
+      {%- endfor -%}
 
     </div>
 

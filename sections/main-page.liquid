@@ -65,15 +65,29 @@
 
     <!-- Page Content Area / Smart Policy, Chi-Sono & Contact Check -->
     {% if is_shipping %}
-      {% render 'policy-shipping-view' %}
+      {% render 'policy-shipping-view', settings: section.settings, blocks: section.blocks %}
     {% elsif is_terms %}
-      {% render 'policy-terms-view' %}
+      {% render 'policy-terms-view', settings: section.settings, blocks: section.blocks %}
     {% elsif is_cookie %}
-      {% render 'policy-cookie-view' %}
+      {% render 'policy-cookie-view', settings: section.settings, blocks: section.blocks %}
     {% elsif is_chi_sono %}
       {% render 'chi-sono-view' %}
+      {% if page.content != blank %}
+        <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative mt-8" style="border: 3px double #EDE5DB;">
+          <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
+            {{ page.content }}
+          </div>
+        </article>
+      {% endif %}
     {% elsif is_contact %}
       {% render 'contact-view' %}
+      {% if page.content != blank %}
+        <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative mt-8" style="border: 3px double #EDE5DB;">
+          <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">
+            {{ page.content }}
+          </div>
+        </article>
+      {% endif %}
     {% else %}
       <article class="bg-white border border-[#DDD7CE] p-6 sm:p-12 lg:p-16 shadow-xs relative" style="border: 3px double #EDE5DB;">
         <div class="rte prose max-w-none text-[#1A1A1A] text-sm sm:text-base leading-relaxed font-light space-y-6">

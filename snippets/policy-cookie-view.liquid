@@ -1,10 +1,95 @@
 {% comment %}
   MILEBIOLAB - SNIPPET POLICY COOKIE VIEW (HAUTE COUTURE LUSH DESIGN)
   Informativa Estesa sui Cookie e Tecnologie di Tracciamento.
-  Conforme al Regolamento UE 2016/679 (GDPR), Direttiva 2002/58/CE (ePrivacy),
-  D.Lgs. 196/2003 novellato e Linee Guida Cookie del Garante Privacy 10 giugno 2021.
+  Completamente personalizzabile dal Theme Editor di Shopify in tempo reale.
+  Supporta blocchi personalizzati OS 2.0 e visualizzazione di page.content.
   Palette Splendor & Dr. Joseph: #F5F2EB, #FAF8F5, #1A1A1A, #5C6B56, #C8A878, #E5E0D8, #DDD7CE.
 {% endcomment %}
+
+{%- liquid
+  assign eyebrow = settings.eyebrow | default: eyebrow | default: 'PRIVACY & TRASPARENZA DIGITALE'
+  assign title = settings.title | default: title | default: 'Informativa Estesa sui Cookie (Cookie Policy)'
+  assign intro_text = settings.intro_text | default: "Informativa dettagliata sull'utilizzo dei cookie e tecnologie affini ai sensi del Regolamento UE 2016/679 (GDPR), della Direttiva ePrivacy e delle Linee Guida del Garante per la Protezione dei Dati Personali."
+  assign last_updated = settings.last_updated | default: 'Ultimo aggiornamento: 21 Ottobre 2026'
+  assign badge_text = settings.badge_text | default: 'Conformità GDPR & Garante Privacy'
+
+  assign card1_badge = settings.card1_badge | default: 'Funzionamento Base'
+  assign card1_title = settings.card1_title | default: 'Cookie Tecnici & Carrello'
+  assign card1_desc = settings.card1_desc | default: 'Indispensabili per consentire la navigazione fluida, la conservazione del carrello acquisti, il checkout sicuro e la gestione delle sessioni Shopify. Sono sempre attivi.'
+  assign card1_footer = settings.card1_footer | default: '✓ Sempre Attivi di Default'
+
+  assign card2_badge = settings.card2_badge | default: 'Analisi & Statistica'
+  assign card2_title = settings.card2_title | default: 'Metriche Aggregate'
+  assign card2_desc = settings.card2_desc | default: 'Misuriamo in forma anonimizzata e aggregata le visite al sito e la fruizione delle formule botaniche per migliorare costantemente le prestazioni della piattaforma.'
+  assign card2_footer = settings.card2_footer | default: '✓ Indirizzi IP Mascherati'
+
+  assign card3_badge = settings.card3_badge | default: 'Consenso Libero'
+  assign card3_title = settings.card3_title | default: 'Profilazione & Marketing'
+  assign card3_desc = settings.card3_desc | default: 'I cookie di marketing e i pixel pubblicitari (Meta, Google) vengono attivati esclusivamente previo tuo consenso esplicito, liberamente revocabile in ogni momento.'
+  assign card3_footer = settings.card3_footer | default: '✓ Consenso Modificabile h24'
+
+  assign sec1_tag = settings.sec1_tag | default: 'Definizione & Scopi'
+  assign sec1_title = settings.sec1_title | default: 'Cosa sono i Cookie e Finalità del Trattamento'
+  assign sec1_content = settings.sec1_content | default: "I cookie sono stringhe di testo di piccole dimensioni che i siti web visitati inviano al terminale dell'utente (computer, tablet, smartphone), dove vengono memorizzati per essere poi ritrasmessi agli stessi siti alla successiva visita del medesimo utente. Oltre ai cookie tradizionali, questa informativa si applica anche a strumenti di tracciamento affini, quali web beacon, pixel tag (come il Pixel di Meta), storage locale HTML5 e identificatori generati dai software e dai browser. Tali tecnologie permettono di:"
+  assign sec1_bullet1 = settings.sec1_bullet1 | default: 'Garantire il corretto funzionamento operativo e la sicurezza del negozio online;'
+  assign sec1_bullet2 = settings.sec1_bullet2 | default: 'Ricordare le preferenze di navigazione dell\'utente (come la lingua prescelta e la valuta EUR);'
+  assign sec1_bullet3 = settings.sec1_bullet3 | default: 'Raccogliere dati statistici aggregati sull\'utilizzo del sito per ottimizzare l\'esperienza utente;'
+  assign sec1_bullet4 = settings.sec1_bullet4 | default: 'Mostrare annunci promozionali pertinenti su piattaforme terze, esclusivamente previo consenso.'
+
+  assign sec2_tag = settings.sec2_tag | default: 'Responsabile dei Dati'
+  assign sec2_title = settings.sec2_title | default: 'Titolare del Trattamento dei Dati'
+  assign sec2_content = settings.sec2_content | default: 'Il Titolare del trattamento dei dati personali raccolti tramite cookie e strumenti analoghi sul presente sito è:'
+  assign titolare_name = settings.titolare_name | default: 'MileBioLab di Milena Tacchella'
+  assign titolare_address = settings.titolare_address | default: 'Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia'
+  assign titolare_email = settings.titolare_email | default: 'concierge@milebiolab.com'
+  assign titolare_sede_email = settings.titolare_sede_email | default: 'info@beautyespatorricelle.it'
+  assign titolare_phone = settings.titolare_phone | default: '+39 045 8301811'
+
+  assign sec3_tag = settings.sec3_tag | default: 'Classificazione Giuridica'
+  assign sec3_title = settings.sec3_title | default: 'Categorie di Cookie Utilizzati sul Sito'
+  assign sec3_intro = settings.sec3_intro | default: 'In conformità alle disposizioni del Garante Privacy e del GDPR, i cookie impiegati su MileBioLab appartengono alle seguenti tipologie:'
+
+  assign cat_a_title = settings.cat_a_title | default: 'A) Cookie Tecnici e di Sessione Strettamente Necessari'
+  assign cat_a_badge = settings.cat_a_badge | default: 'Sempre Attivi'
+  assign cat_a_desc = settings.cat_a_desc | default: "Questi cookie sono fondamentali per consentire la navigazione all'interno del sito e la corretta fruizione delle funzionalità di base (ad es. autenticazione nell'area riservata Club Mile, gestione del carrello d'acquisto, instradamento verso il checkout protetto Shopify). Ai sensi dell'art. 122 del Codice Privacy e delle Linee Guida del Garante del 10 giugno 2021, per l'installazione di tali cookie non è richiesto il preventivo consenso dell'utente."
+
+  assign cat_b_title = settings.cat_b_title | default: 'B) Cookie di Preferenza e Funzionalità'
+  assign cat_b_badge = settings.cat_b_badge | default: 'Funzionali'
+  assign cat_b_desc = settings.cat_b_desc | default: "Permettono alla piattaforma di memorizzare le preferenze espresse dall'utente durante la navigazione (come la selezione della lingua italiana, la valuta di acquisto in Euro o la modalità preferenziale di ritiro presso la sede di Verona)."
+
+  assign cat_c_title = settings.cat_c_title | default: 'C) Cookie Analitici e Statistici (Statistiche Aggregate)'
+  assign cat_c_badge = settings.cat_c_badge | default: 'Anonimizzati'
+  assign cat_c_desc = settings.cat_c_desc | default: "Utilizzati per comprendere come i visitatori interagiscono con il catalogo dei cosmetici, quali pagine sono più visitate e se si verificano errori tecnici. Vengono adottate misure di anonimizzazione e mascheramento parziale degli indirizzi IP (es. Shopify Analytics e Google Analytics anonimizzato), equiparandoli giuridicamente ai cookie tecnici di prima parte."
+
+  assign cat_d_title = settings.cat_d_title | default: 'D) Cookie di Profilazione e Marketing di Terze Parti'
+  assign cat_d_badge = settings.cat_d_badge | default: 'Previo Consenso'
+  assign cat_d_desc = settings.cat_d_desc | default: "Questi cookie (gestiti da terze parti come Meta Platforms Inc. e Google LLC) sono volti a creare profili relativi all'utente per inviargli messaggi pubblicitari in linea con le preferenze manifestate durante la navigazione in rete. Sono installati esclusivamente se l'utente presta il proprio consenso espresso tramite il banner o il pannello di preferenze cookie."
+
+  assign sec4_tag = settings.sec4_tag | default: 'Elenco Dettagliato'
+  assign sec4_title = settings.sec4_title | default: 'Tabella dei Principali Cookie Attivi'
+  assign sec4_content = settings.sec4_content | default: 'Di seguito si riportano i principali cookie operativi sul sito web di MileBioLab:'
+
+  assign sec5_tag = settings.sec5_tag | default: 'Controllo Utente'
+  assign sec5_title = settings.sec5_title | default: 'Gestione del Consenso e Opzioni di Rifiuto'
+  assign sec5_content = settings.sec5_content | default: 'Al primo accesso al Sito, viene visualizzato un apposito banner informativo che consente di accettare tutti i cookie, rifiutare quelli non necessari o personalizzare in dettaglio le preferenze. Il consenso espresso può essere modificato o revocato in qualsiasi momento. In aggiunta, l\'utente può configurare direttamente il proprio browser web per bloccare o eliminare tutti i cookie o solo quelli di terze parti:'
+  assign browser_chrome = settings.browser_chrome | default: 'Menu > Impostazioni > Privacy e sicurezza > Cookie di terze parti > Blocca cookie di terze parti.'
+  assign browser_safari = settings.browser_safari | default: 'Preferenze/Impostazioni > Safari > Privacy > Abilita "Impedisci il monitoraggio tra siti web".'
+  assign browser_firefox = settings.browser_firefox | default: 'Opzioni > Privacy e sicurezza > Protezione antitracciamento avanzata > Seleziona "Restrittiva" o "Personalizzata".'
+  assign browser_edge = settings.browser_edge | default: 'Impostazioni > Cookie e autorizzazioni sito > Gestisci ed elimina cookie e dati del sito.'
+  assign sec5_note = settings.sec5_note | default: 'Avvertenza: La disattivazione totale dei cookie tecnici potrebbe compromettere alcune funzionalità essenziali del carrello acquisti o del login sul sito.'
+
+  assign sec6_tag = settings.sec6_tag | default: 'Tutela Giuridica'
+  assign sec6_title = settings.sec6_title | default: 'Diritti dell\'Utente ai Sensi degli Artt. 15-22 del GDPR'
+  assign sec6_content = settings.sec6_content | default: 'In qualità di interessato, l\'utente ha diritto di esercitare in ogni momento i diritti riconosciuti dagli articoli da 15 a 22 del Regolamento (UE) 2016/679:'
+  assign sec6_dpo_note = settings.sec6_dpo_note | default: 'Gli interessati hanno inoltre il diritto di proporre reclamo all\'Autorità di controllo nazionale (Garante per la Protezione dei Dati Personali, Piazza Venezia n. 11, 00187 Roma, sito web: www.garanteprivacy.it).'
+
+  assign sec7_tag = settings.sec7_tag | default: 'Canale Dedicato'
+  assign sec7_title = settings.sec7_title | default: 'Contatti del Titolare per la Protezione dei Dati'
+  assign sec7_content = settings.sec7_content | default: 'Per l\'esercizio dei propri diritti privacy o per richiedere chiarimenti in merito alla presente Cookie Policy, l\'utente può contattare direttamente il nostro referente privacy:'
+  assign privacy_email = settings.privacy_email | default: 'concierge@milebiolab.com'
+  assign privacy_address = settings.privacy_address | default: 'Via Torricelle 2c, 37128 Verona (VR)'
+  assign privacy_phone = settings.privacy_phone | default: '+39 045 8301811'
+-%}
 
 <div class="policy-cookie-wrapper bg-[#F5F2EB] text-[#1A1A1A] py-10 sm:py-16 lg:py-20 font-sans selection:bg-[#C8A878] selection:text-white">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
@@ -22,26 +107,30 @@
     <header class="text-center max-w-3xl mx-auto space-y-4">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#FAF8F5] border border-[#C8A878]/40 text-[#C8A878] text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase font-semibold shadow-xs">
         <span class="text-xs">🔒</span>
-        <span>{{ eyebrow | default: 'PRIVACY & TRASPARENZA DIGITALE' }}</span>
+        <span>{{ eyebrow }}</span>
       </div>
 
       <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl text-[#1A1A1A] font-normal leading-tight tracking-tight">
-        {{ title | default: 'Informativa Estesa sui Cookie (Cookie Policy)' }}
+        {{ title }}
       </h1>
 
       <p class="text-sm sm:text-base text-[#7A7265] font-light leading-relaxed max-w-2xl mx-auto">
-        Informativa dettagliata sull'utilizzo dei cookie e tecnologie affini ai sensi del Regolamento UE 2016/679 (GDPR), della Direttiva ePrivacy e delle Linee Guida del Garante per la Protezione dei Dati Personali.
+        {{ intro_text }}
       </p>
 
       <div class="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs text-[#5C6B56] font-mono">
-        <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
-          Ultimo aggiornamento: 21 Ottobre 2026
-        </span>
-        <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
-          <span>🛡️</span>
-          Conformità GDPR & Garante Privacy
-        </span>
+        {%- if last_updated != blank -%}
+          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+            {{ last_updated }}
+          </span>
+        {%- endif -%}
+        {%- if badge_text != blank -%}
+          <span class="inline-flex items-center gap-1.5 bg-white px-3 py-1 border border-[#E5E0D8]">
+            <span>🛡️</span>
+            {{ badge_text }}
+          </span>
+        {%- endif -%}
       </div>
     </header>
 
@@ -50,45 +139,60 @@
       <!-- Card 1 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #5C6B56;">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold block mb-2">Funzionamento Base</span>
-          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">Cookie Tecnici & Carrello</h3>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            Indispensabili per consentire la navigazione fluida, la conservazione del carrello acquisti, il checkout sicuro e la gestione delle sessioni Shopify. Sono sempre attivi.
-          </p>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#5C6B56] font-semibold block mb-2">{{ card1_badge }}</span>
+          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">{{ card1_title }}</h3>
+          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
+            {{ card1_desc }}
+          </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
-          ✓ Sempre Attivi di Default
-        </div>
+        {%- if card1_footer != blank -%}
+          <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
+            {{ card1_footer }}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Card 2 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #C8A878;">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">Analisi & Statistica</span>
-          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">Metriche Aggregate</h3>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            Misuriamo in forma anonimizzata e aggregata le visite al sito e la fruizione delle formule botaniche per migliorare costantemente le prestazioni della piattaforma.
-          </p>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#C8A878] font-semibold block mb-2">{{ card2_badge }}</span>
+          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">{{ card2_title }}</h3>
+          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
+            {{ card2_desc }}
+          </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
-          ✓ Indirizzi IP Mascherati
-        </div>
+        {%- if card2_footer != blank -%}
+          <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
+            {{ card2_footer }}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Card 3 -->
       <div class="bg-white border border-[#E5E0D8] p-6 shadow-xs flex flex-col justify-between relative overflow-hidden" style="border-top: 3px solid #1A1A1A;">
         <div>
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#1A1A1A] font-semibold block mb-2">Consenso Libero</span>
-          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">Profilazione & Marketing</h3>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            I cookie di marketing e i pixel pubblicitari (Meta, Google) vengono attivati esclusivamente previo tuo consenso esplicito, liberamente revocabile in ogni momento.
-          </p>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#1A1A1A] font-semibold block mb-2">{{ card3_badge }}</span>
+          <h3 class="font-serif text-lg text-[#1A1A1A] mb-2">{{ card3_title }}</h3>
+          <div class="text-xs text-[#7A7265] leading-relaxed font-light">
+            {{ card3_desc }}
+          </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
-          ✓ Consenso Modificabile h24
-        </div>
+        {%- if card3_footer != blank -%}
+          <div class="mt-4 pt-3 border-t border-[#F5F2EB] text-[11px] font-mono text-[#5C6B56]">
+            {{ card3_footer }}
+          </div>
+        {%- endif -%}
       </div>
     </div>
+
+    <!-- CONTENUTO PAGINA SHOPIFY ADMIN (SE PRESENTE) -->
+    {%- if page.content != blank -%}
+      <div class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative">
+        <div class="prose max-w-none text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4">
+          {{ page.content }}
+        </div>
+      </div>
+    {%- endif -%}
 
     <!-- SEZIONI DETTAGLIATE -->
     <div class="space-y-10 sm:space-y-12">
@@ -98,22 +202,23 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">01</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Definizione & Scopi</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Cosa sono i Cookie e Finalità del Trattamento</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec1_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec1_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            I <strong>cookie</strong> sono stringhe di testo di piccole dimensioni che i siti web visitati inviano al terminale dell'utente (computer, tablet, smartphone), dove vengono memorizzati per essere poi ritrasmessi agli stessi siti alla successiva visita del medesimo utente.
-          </p>
-          <p>
-            Oltre ai cookie tradizionali, questa informativa si applica anche a strumenti di tracciamento affini, quali web beacon, pixel tag (come il Pixel di Meta), storage locale HTML5 e identificatori generati dai software e dai browser. Tali tecnologie permettono di:
-          </p>
+          <div class="space-y-2">
+            {%- if sec1_content contains '<p>' -%}
+              {{ sec1_content }}
+            {%- else -%}
+              <p>{{ sec1_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <ul class="list-disc pl-5 text-xs text-[#7A7265] space-y-1 font-mono">
-            <li>Garantire il corretto funzionamento operativo e la sicurezza del negozio online;</li>
-            <li>Ricordare le preferenze di navigazione dell'utente (come la lingua prescelta e la valuta EUR);</li>
-            <li>Raccogliere dati statistici aggregati sull'utilizzo del sito per ottimizzare l'esperienza utente;</li>
-            <li>Mostrare annunci promozionali pertinenti su piattaforme terze, esclusivamente previo consenso.</li>
+            {%- if sec1_bullet1 != blank -%}<li>{{ sec1_bullet1 }}</li>{%- endif -%}
+            {%- if sec1_bullet2 != blank -%}<li>{{ sec1_bullet2 }}</li>{%- endif -%}
+            {%- if sec1_bullet3 != blank -%}<li>{{ sec1_bullet3 }}</li>{%- endif -%}
+            {%- if sec1_bullet4 != blank -%}<li>{{ sec1_bullet4 }}</li>{%- endif -%}
           </ul>
         </div>
       </section>
@@ -123,20 +228,30 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">02</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Responsabile dei Dati</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Titolare del Trattamento dei Dati</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec2_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec2_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Il Titolare del trattamento dei dati personali raccolti tramite cookie e strumenti analoghi sul presente sito è:
-          </p>
+          <div class="space-y-2">
+            {%- if sec2_content contains '<p>' -%}
+              {{ sec2_content }}
+            {%- else -%}
+              <p>{{ sec2_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-5 space-y-2 text-xs font-mono">
-            <p><strong class="text-[#1A1A1A]">Titolare:</strong> MileBioLab di Milena Tacchella</p>
-            <p><strong class="text-[#1A1A1A]">Sede Operativa & Flagship Boutique:</strong> Lebestetik Beauty & Spa, Via Torricelle 2c, 37128 Verona (VR), Italia</p>
-            <p><strong class="text-[#1A1A1A]">Email Concierge Privacy:</strong> <a href="mailto:concierge@milebiolab.com" class="text-[#5C6B56] underline">concierge@milebiolab.com</a></p>
-            <p><strong class="text-[#1A1A1A]">Email Sede:</strong> <a href="mailto:info@beautyespatorricelle.it" class="text-[#5C6B56] underline">info@beautyespatorricelle.it</a></p>
-            <p><strong class="text-[#1A1A1A]">Telefono:</strong> +39 045 8301811</p>
+            <p><strong class="text-[#1A1A1A]">Titolare:</strong> {{ titolare_name }}</p>
+            <p><strong class="text-[#1A1A1A]">Sede Operativa & Flagship Boutique:</strong> {{ titolare_address }}</p>
+            {%- if titolare_email != blank -%}
+              <p><strong class="text-[#1A1A1A]">Email Concierge Privacy:</strong> <a href="mailto:{{ titolare_email }}" class="text-[#5C6B56] underline">{{ titolare_email }}</a></p>
+            {%- endif -%}
+            {%- if titolare_sede_email != blank -%}
+              <p><strong class="text-[#1A1A1A]">Email Sede:</strong> <a href="mailto:{{ titolare_sede_email }}" class="text-[#5C6B56] underline">{{ titolare_sede_email }}</a></p>
+            {%- endif -%}
+            {%- if titolare_phone != blank -%}
+              <p><strong class="text-[#1A1A1A]">Telefono:</strong> <a href="tel:{{ titolare_phone | remove: ' ' }}" class="text-[#5C6B56] underline">{{ titolare_phone }}</a></p>
+            {%- endif -%}
           </div>
         </div>
       </section>
@@ -146,58 +261,78 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">03</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Classificazione Giuridica</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Categorie di Cookie Utilizzati sul Sito</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec3_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec3_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-6 pt-2">
-          <p>
-            In conformità alle disposizioni del Garante Privacy e del GDPR, i cookie impiegati su MileBioLab appartengono alle seguenti tipologie:
-          </p>
+          <div class="space-y-2">
+            {%- if sec3_intro contains '<p>' -%}
+              {{ sec3_intro }}
+            {%- else -%}
+              <p>{{ sec3_intro | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
 
           <div class="space-y-4">
             <!-- A) Tecnici -->
             <div class="p-5 bg-[#FAF8F5] border border-[#DDD7CE] space-y-2">
               <div class="flex items-center justify-between">
-                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">A) Cookie Tecnici e di Sessione Strettamente Necessari</h4>
-                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#5C6B56] text-white font-semibold">Sempre Attivi</span>
+                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">{{ cat_a_title }}</h4>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#5C6B56] text-white font-semibold">{{ cat_a_badge }}</span>
               </div>
-              <p class="text-xs text-[#7A7265]">
-                Questi cookie sono fondamentali per consentire la navigazione all'interno del sito e la corretta fruizione delle funzionalità di base (ad es. autenticazione nell'area riservata Club Mile, gestione del carrello d'acquisto, instradamento verso il checkout protetto Shopify). Ai sensi dell'art. 122 del Codice Privacy e delle Linee Guida del Garante del 10 giugno 2021, per l'installazione di tali cookie <strong>non è richiesto il preventivo consenso dell'utente</strong>.
-              </p>
+              <div class="text-xs text-[#7A7265] space-y-2">
+                {%- if cat_a_desc contains '<p>' -%}
+                  {{ cat_a_desc }}
+                {%- else -%}
+                  <p>{{ cat_a_desc | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
             </div>
 
             <!-- B) Funzionalità / Preferenze -->
             <div class="p-5 bg-[#FAF8F5] border border-[#DDD7CE] space-y-2">
               <div class="flex items-center justify-between">
-                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">B) Cookie di Preferenza e Funzionalità</h4>
-                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#C8A878] text-white font-semibold">Funzionali</span>
+                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">{{ cat_b_title }}</h4>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#C8A878] text-white font-semibold">{{ cat_b_badge }}</span>
               </div>
-              <p class="text-xs text-[#7A7265]">
-                Permettono alla piattaforma di memorizzare le preferenze espresse dall'utente durante la navigazione (come la selezione della lingua italiana, la valuta di acquisto in Euro o la modalità preferenziale di ritiro presso la sede di Verona).
-              </p>
+              <div class="text-xs text-[#7A7265] space-y-2">
+                {%- if cat_b_desc contains '<p>' -%}
+                  {{ cat_b_desc }}
+                {%- else -%}
+                  <p>{{ cat_b_desc | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
             </div>
 
             <!-- C) Analitici -->
             <div class="p-5 bg-[#FAF8F5] border border-[#DDD7CE] space-y-2">
               <div class="flex items-center justify-between">
-                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">C) Cookie Analitici e Statistici (Statistiche Aggregate)</h4>
-                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#7A7265] text-white font-semibold">Anonimizzati</span>
+                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">{{ cat_c_title }}</h4>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#7A7265] text-white font-semibold">{{ cat_c_badge }}</span>
               </div>
-              <p class="text-xs text-[#7A7265]">
-                Utilizzati per comprendere come i visitatori interagiscono con il catalogo dei cosmetici, quali pagine sono più visitate e se si verificano errori tecnici. Vengono adottate misure di anonimizzazione e mascheramento parziale degli indirizzi IP (es. Shopify Analytics e Google Analytics anonimizzato), equiparandoli giuridicamente ai cookie tecnici di prima parte.
-              </p>
+              <div class="text-xs text-[#7A7265] space-y-2">
+                {%- if cat_c_desc contains '<p>' -%}
+                  {{ cat_c_desc }}
+                {%- else -%}
+                  <p>{{ cat_c_desc | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
             </div>
 
             <!-- D) Marketing -->
             <div class="p-5 bg-[#FAF8F5] border border-[#DDD7CE] space-y-2">
               <div class="flex items-center justify-between">
-                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">D) Cookie di Profilazione e Marketing di Terze Parti</h4>
-                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#1A1A1A] text-white font-semibold">Previo Consenso</span>
+                <h4 class="font-serif text-base font-semibold text-[#1A1A1A]">{{ cat_d_title }}</h4>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-[#1A1A1A] text-white font-semibold">{{ cat_d_badge }}</span>
               </div>
-              <p class="text-xs text-[#7A7265]">
-                Questi cookie (gestiti da terze parti come Meta Platforms Inc. e Google LLC) sono volti a creare profili relativi all'utente per inviargli messaggi pubblicitari in linea con le preferenze manifestate durante la navigazione in rete. <strong>Sono installati esclusivamente se l'utente presta il proprio consenso espresso</strong> tramite il banner o il pannello di preferenze cookie.
-              </p>
+              <div class="text-xs text-[#7A7265] space-y-2">
+                {%- if cat_d_desc contains '<p>' -%}
+                  {{ cat_d_desc }}
+                {%- else -%}
+                  <p>{{ cat_d_desc | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
             </div>
           </div>
         </div>
@@ -208,14 +343,18 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">04</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Elenco Dettagliato</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Tabella dei Principali Cookie Attivi</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec4_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec4_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Di seguito si riportano i principali cookie operativi sul sito web di MileBioLab:
-          </p>
+          <div class="space-y-2">
+            {%- if sec4_content contains '<p>' -%}
+              {{ sec4_content }}
+            {%- else -%}
+              <p>{{ sec4_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
 
           <div class="overflow-x-auto border border-[#E5E0D8] my-4">
             <table class="w-full text-left border-collapse text-xs">
@@ -289,39 +428,42 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">05</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Controllo Utente</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Gestione del Consenso e Opzioni di Rifiuto</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec5_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec5_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Al primo accesso al Sito, viene visualizzato un apposito banner informativo che consente di accettare tutti i cookie, rifiutare quelli non necessari o personalizzare in dettaglio le preferenze. Il consenso espresso può essere modificato o revocato in qualsiasi momento.
-          </p>
-          <p>
-            In aggiunta, l'utente può configurare direttamente il proprio browser web per bloccare o eliminare tutti i cookie o solo quelli di terze parti:
-          </p>
+          <div class="space-y-2">
+            {%- if sec5_content contains '<p>' -%}
+              {{ sec5_content }}
+            {%- else -%}
+              <p>{{ sec5_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono my-3">
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <strong class="text-[#1A1A1A] block font-semibold mb-1">Google Chrome</strong>
-              <p class="text-[#7A7265]">Menu > Impostazioni > Privacy e sicurezza > Cookie di terze parti > Blocca cookie di terze parti.</p>
+              <p class="text-[#7A7265]">{{ browser_chrome }}</p>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <strong class="text-[#1A1A1A] block font-semibold mb-1">Apple Safari (macOS / iOS)</strong>
-              <p class="text-[#7A7265]">Preferenze/Impostazioni > Safari > Privacy > Abilita "Impedisci il monitoraggio tra siti web".</p>
+              <p class="text-[#7A7265]">{{ browser_safari }}</p>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <strong class="text-[#1A1A1A] block font-semibold mb-1">Mozilla Firefox</strong>
-              <p class="text-[#7A7265]">Opzioni > Privacy e sicurezza > Protezione antitracciamento avanzata > Seleziona "Restrittiva" o "Personalizzata".</p>
+              <p class="text-[#7A7265]">{{ browser_firefox }}</p>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <strong class="text-[#1A1A1A] block font-semibold mb-1">Microsoft Edge</strong>
-              <p class="text-[#7A7265]">Impostazioni > Cookie e autorizzazioni sito > Gestisci ed elimina cookie e dati del sito.</p>
+              <p class="text-[#7A7265]">{{ browser_edge }}</p>
             </div>
           </div>
-          <p class="text-xs text-[#7A7265]">
-            <em>Avvertenza:</em> La disattivazione totale dei cookie tecnici potrebbe compromettere alcune funzionalità essenziali del carrello acquisti o del login sul sito.
-          </p>
+          {%- if sec5_note != blank -%}
+            <p class="text-xs text-[#7A7265] italic">
+              {{ sec5_note }}
+            </p>
+          {%- endif -%}
         </div>
       </section>
 
@@ -330,14 +472,18 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">06</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Tutela Giuridica</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Diritti dell'Utente ai Sensi degli Artt. 15-22 del GDPR</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec6_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec6_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            In qualità di interessato, l'utente ha diritto di esercitare in ogni momento i diritti riconosciuti dagli articoli da 15 a 22 del Regolamento (UE) 2016/679:
-          </p>
+          <div class="space-y-2">
+            {%- if sec6_content contains '<p>' -%}
+              {{ sec6_content }}
+            {%- else -%}
+              <p>{{ sec6_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <ul class="list-disc pl-5 text-xs text-[#7A7265] space-y-2 font-mono">
             <li><strong>Diritto di Accesso (art. 15):</strong> Ottenere conferma dell'esistenza di dati personali che lo riguardano e riceverne copia;</li>
             <li><strong>Diritto di Rettifica (art. 16):</strong> Richiedere l'aggiornamento o la correzione dei dati inesatti;</li>
@@ -346,9 +492,11 @@
             <li><strong>Diritto alla Portabilità dei Dati (art. 20):</strong> Ricevere i propri dati in formato strutturato di uso comune e leggibile da dispositivo automatico;</li>
             <li><strong>Diritto di Opposizione e Revoca del Consenso (artt. 21 e 7):</strong> Opporsi in qualsiasi momento al trattamento per finalità di marketing o revocare il consenso precedentemente rilasciato senza pregiudicare la liceità del trattamento basata sul consenso anteriore alla revoca.</li>
           </ul>
-          <p class="text-xs text-[#7A7265]">
-            Gli interessati hanno inoltre il diritto di proporre reclamo all'Autorità di controllo nazionale (Garante per la Protezione dei Dati Personali, Piazza Venezia n. 11, 00187 Roma, sito web: <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener noreferrer" class="text-[#5C6B56] underline">www.garanteprivacy.it</a>).
-          </p>
+          {%- if sec6_dpo_note != blank -%}
+            <p class="text-xs text-[#7A7265]">
+              {{ sec6_dpo_note }}
+            </p>
+          {%- endif -%}
         </div>
       </section>
 
@@ -357,33 +505,58 @@
         <div class="flex items-start gap-4 mb-4">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">07</span>
           <div>
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">Canale Dedicato</span>
-            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">Contatti del Titolare per la Protezione dei Dati</h2>
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ sec7_tag }}</span>
+            <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ sec7_title }}</h2>
           </div>
         </div>
         <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
-          <p>
-            Per l'esercizio dei propri diritti privacy o per richiedere chiarimenti in merito alla presente Cookie Policy, l'utente può contattare direttamente il nostro referente privacy:
-          </p>
+          <div class="space-y-2">
+            {%- if sec7_content contains '<p>' -%}
+              {{ sec7_content }}
+            {%- else -%}
+              <p>{{ sec7_content | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono text-center">
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <span class="text-lg block mb-1">✉️</span>
               <strong class="text-[#1A1A1A] block">Email Privacy</strong>
-              <a href="mailto:concierge@milebiolab.com" class="text-[#5C6B56] underline mt-1 block">concierge@milebiolab.com</a>
+              <a href="mailto:{{ privacy_email }}" class="text-[#5C6B56] underline mt-1 block">{{ privacy_email }}</a>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <span class="text-lg block mb-1">🏛️</span>
               <strong class="text-[#1A1A1A] block">Sede Lebestetik</strong>
-              <span class="text-[#7A7265] mt-1 block">Via Torricelle 2c, 37128 Verona</span>
+              <span class="text-[#7A7265] mt-1 block">{{ privacy_address }}</span>
             </div>
             <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8]">
               <span class="text-lg block mb-1">📞</span>
               <strong class="text-[#1A1A1A] block">Telefono Sede</strong>
-              <a href="tel:+390458301811" class="text-[#5C6B56] underline mt-1 block">+39 045 8301811</a>
+              <a href="tel:{{ privacy_phone | remove: ' ' }}" class="text-[#5C6B56] underline mt-1 block">{{ privacy_phone }}</a>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- BLOCCHI PERSONALIZZATI OS 2.0 (CLAUSOLE AGGIUNTIVE COOKIE) -->
+      {%- for block in blocks -%}
+        {%- case block.type -%}
+          {%- when 'custom_cookie_clause' -%}
+            <section class="bg-white border border-[#E5E0D8] p-6 sm:p-10 shadow-xs relative" {{ block.shopify_attributes }}>
+              <div class="flex items-start gap-4 mb-4">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FAF8F5] border border-[#C8A878] text-[#C8A878] font-mono text-xs font-bold flex items-center justify-center">✦</span>
+                <div>
+                  {%- if block.settings.tag != blank -%}
+                    <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block">{{ block.settings.tag }}</span>
+                  {%- endif -%}
+                  <h2 class="font-serif text-xl sm:text-2xl text-[#1A1A1A]">{{ block.settings.title }}</h2>
+                </div>
+              </div>
+              <div class="text-sm text-[#1A1A1A] leading-relaxed font-light space-y-4 pt-2">
+                {{ block.settings.content }}
+              </div>
+            </section>
+        {%- endcase -%}
+      {%- endfor -%}
 
     </div>
 
