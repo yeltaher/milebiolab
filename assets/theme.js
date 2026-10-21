@@ -1047,18 +1047,7 @@ function closeVeronaModal() {
 }
 
 function checkVeronaCap() {
-  const capInput = document.getElementById('postal-code-input');
-  const resultMsg = document.getElementById('postal-result-msg');
-  if (!capInput || !resultMsg) return;
-
-  const val = capInput.value.trim();
-  if (val.startsWith('37')) {
-    resultMsg.className = 'postal-msg-success';
-    resultMsg.textContent = `✅ Ritiro all'Istituto di Verona confermato: pronto in 2 ore per il CAP ${val} (Corso Cavour 18).`;
-  } else {
-    resultMsg.className = 'postal-msg-success';
-    resultMsg.textContent = `📍 Il tuo CAP ${val} è fuori provincia di Verona. Puoi comunque ritirare in sede o richiedere la spedizione espressa in 24/48h.`;
-  }
+  // Deprecato: verifica CAP rimossa su richiesta cliente
 }
 
 /* ==========================================================================

@@ -1,16 +1,16 @@
 <section class="py-24 px-6 lg:px-16 bg-[#F5F2EB] border-b border-[#DDD7CE]/50 featured-products-section" id="featured-products-{{ section.id }}">
   {%- liquid
-    assign show_arrows = section.settings.show_arrows
-    if show_arrows == nil
-      assign show_arrows = true
+    assign show_arrows = true
+    if section.settings.show_arrows == false
+      assign show_arrows = false
     endif
-    assign show_slider_arrows = section.settings.show_slider_arrows
-    if show_slider_arrows == nil
-      assign show_slider_arrows = true
+    assign show_slider_arrows = true
+    if section.settings.show_slider_arrows == false
+      assign show_slider_arrows = false
     endif
-    assign show_column_arrows = section.settings.show_column_arrows
-    if show_column_arrows == nil
-      assign show_column_arrows = true
+    assign show_column_arrows = true
+    if section.settings.show_column_arrows == false
+      assign show_column_arrows = false
     endif
   -%}
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16">

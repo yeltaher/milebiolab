@@ -4,23 +4,25 @@
     
     <!-- Foto Fondatrice Milena Tacchella a sinistra -->
     <div class="lg:col-span-6 relative">
-      <div class="relative z-10 border border-[#E5E0D8] shadow-2xl overflow-hidden bg-[#F5F2EB] aspect-[4/3] sm:aspect-[16/11]">
+      <div class="relative z-10 border border-[#E5E0D8] shadow-2xl overflow-hidden bg-[#F5F2EB] aspect-[3/4] sm:aspect-[4/5] min-h-[500px] lg:min-h-[580px] w-full h-full">
         {% if section.settings.image %}
           <img src="{{ section.settings.image | img_url: '1200x' }}" 
                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'"
                alt="{{ section.settings.author | default: 'Milena Tacchella' }} - Fondatrice & Dermo-Specialista" 
-               class="w-full h-full object-cover object-[center_20%]">
+               class="w-full h-full object-cover object-[center_15%]">
         {% else %}
           <img src="{{ 'milena-tacchella.jpg' | asset_url }}" 
                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80'"
                alt="Milena Tacchella - Fondatrice & Dermo-Specialista • Milebiolab Verona" 
-               class="w-full h-full object-cover object-[center_20%]">
+               class="w-full h-full object-cover object-[center_15%]">
         {% endif %}
       </div>
       <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-[#DDD7CE]/30 -z-0 hidden sm:block"></div>
-      <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm p-3 sm:p-4 border border-[#E5E0D8] text-[10px] sm:text-xs tracking-wider uppercase text-[#1A1A1A] z-20 shadow-md">
-        {{ section.settings.badge_text | default: "Istituto Dermo-Specialistico • Verona" }}
-      </div>
+      {% if section.settings.show_badge and section.settings.badge_text != blank %}
+        <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm p-3 sm:p-4 border border-[#E5E0D8] text-[10px] sm:text-xs tracking-wider uppercase text-[#1A1A1A] z-20 shadow-md">
+          {{ section.settings.badge_text }}
+        </div>
+      {% endif %}
     </div>
 
     <!-- Manifesto del Brand a destra con cornice sartoriale -->
@@ -85,10 +87,16 @@
       "content": "Badge & Immagine"
     },
     {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Mostra Badge Sovrapposto",
+      "default": false
+    },
+    {
       "type": "text",
       "id": "badge_text",
       "label": "Testo Badge Sede",
-      "default": "Istituto Dermo-Specialistico • Verona"
+      "default": ""
     },
     {
       "type": "image_picker",

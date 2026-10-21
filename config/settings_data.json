@@ -162,19 +162,15 @@
           "title": "in Lebestetik Beauty & Spa Torricelle",
           "description": "Ordina comodamente online e ritira il tuo ordine presso Lebestetik a Verona.",
           "label_address": "Indirizzo:",
-          "detail_address": "Via Torricelle 2c • 371218 Verona (VR)",
+          "detail_address": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa",
           "label_time": "Tempo di preparazione:",
           "detail_time": "generalmente 24/48 Ore lavorative (notifica via Whatsapp / Email)",
           "label_gift": "Omaggio Lebestetik:",
           "detail_gift": "Per te uno sconto del 10% se prenotati un servizio Benessere ( Massaggi rituali Spa)",
           "label_hours": "Orari Ritiro:",
-          "detail_hours": "SU APPUNTAMENTO da Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato - Chiuso Mercoledì)",
-          "cap_label": "Verifica tempo di disponibilità per il tuo CAP:",
-          "cap_placeholder": "Es. 37121, 37122, 37138",
-          "cap_default": "37121",
-          "cap_btn_text": "Verifica",
-          "cap_success_msg": "✅ Ritiro disponibile per il tuo CAP.",
-          "cta_btn_text": "Seleziona Ritiro a Verona per il Tuo Ordine →"
+          "detail_hours": "SU APPUNTAMENTO Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato - Chiuso Mercoledì)",
+          "cta_btn_text": "Seleziona Ritiro a Verona per il Tuo Ordine →",
+          "detail_phone": "+39 045 8301811 • WhatsApp +39 342 1647585"
         }
       }
     },

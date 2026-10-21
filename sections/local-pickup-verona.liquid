@@ -41,7 +41,7 @@
 
         <div>
           <button type="button" class="bg-[#1A1A1A] text-white px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#5C6B56] transition-colors luxury-interactive cursor-pointer" onclick="if(window.openVeronaModal) openVeronaModal();">
-            {{ section.settings.btn_text | default: "Verifica Disponibilità Ritiro a Verona →" }}
+            {{ section.settings.btn_text | default: "Scopri il Ritiro a Verona →" }}
           </button>
         </div>
       </div>
@@ -63,9 +63,9 @@
           </div>
           <div class="space-y-2 text-xs">
             <h3 class="font-serif text-lg text-[#1A1A1A] font-semibold">{{ section.settings.card_title | default: "Istituto di Bellezza & Haute Cosmétique" }}</h3>
-            <p class="text-[#1A1A1A] font-medium">📍 {{ section.settings.card_address | default: "Corso Cavour, 18 • 37121 Verona (VR)" }}</p>
-            <p class="text-[#7A7265]">🕒 {{ section.settings.card_hours | default: "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)" }}</p>
-            <p class="text-[#7A7265]">📞 Tel: <a href="tel:{{ section.settings.card_phone | default: '+39 045 800 1234' | replace: ' ', '' }}" class="text-[#1A1A1A] hover:text-[#C8A878] font-medium">{{ section.settings.card_phone | default: "+39 045 800 1234" }}</a></p>
+            <p class="text-[#1A1A1A] font-medium">📍 {{ section.settings.card_address | default: "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa" }}</p>
+            <p class="text-[#7A7265]">🕒 {{ section.settings.card_hours | default: "Lunedì – Sabato: 09:30 – 19:30 (SU APPUNTAMENTO - chiuso il mercoledì)" }}</p>
+            <p class="text-[#7A7265]">📞 <span class="text-[#1A1A1A] font-medium">{{ section.settings.card_phone | default: "+39 045 8301811 • WhatsApp +39 342 1647585" }}</span></p>
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@
       "type": "text",
       "id": "btn_text",
       "label": "Testo Bottone Azione",
-      "default": "Verifica Disponibilità Ritiro a Verona →"
+      "default": "Scopri il Ritiro a Verona →"
     },
     {
       "type": "header",
@@ -165,19 +165,19 @@
       "type": "text",
       "id": "card_address",
       "label": "Indirizzo Sede",
-      "default": "Corso Cavour, 18 • 37121 Verona (VR)"
+      "default": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa"
     },
     {
       "type": "text",
       "id": "card_hours",
       "label": "Orari Apertura",
-      "default": "Lunedì – Sabato: 09:30 – 19:30 (Orario continuato)"
+      "default": "Lunedì – Sabato: 09:30 – 19:30 (SU APPUNTAMENTO - chiuso il mercoledì)"
     },
     {
       "type": "text",
       "id": "card_phone",
       "label": "Telefono Concierge",
-      "default": "+39 045 800 1234"
+      "default": "+39 045 8301811 • WhatsApp +39 342 1647585"
     }
   ],
   "presets": [

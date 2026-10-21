@@ -41,54 +41,24 @@
     </h3>
 
     <p style="font-size: 0.88rem; color: var(--color-text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">
-      {{ section.settings.description | default: "Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura." | newline_to_br }}
+      {{ section.settings.description | default: "Ordina comodamente online e ritira il tuo ordine presso il nostro istituto Lebestetik in Via Torricelle, 2c a Verona. Riceverai un'accoglienza personalizzata e un buono sconto del 10% per i trattamenti benessere in Spa." | newline_to_br }}
     </p>
 
     <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.84rem; margin-bottom: 1.5rem;">
       <div>
-        📍 <strong>{{ section.settings.label_address | default: 'Indirizzo:' }}</strong> {{ section.settings.detail_address | default: 'Corso Cavour, 18 • 37121 Verona (VR)' }}
+        📍 <strong>{{ section.settings.label_address | default: 'Indirizzo:' }}</strong> {{ section.settings.detail_address | default: 'Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa' }}
       </div>
       <div>
-        ⏱️ <strong>{{ section.settings.label_time | default: 'Tempo di preparazione:' }}</strong> {{ section.settings.detail_time | default: '2 Ore lavorative (notifica via SMS / Email)' }}
+        ⏱️ <strong>{{ section.settings.label_time | default: 'Tempo di preparazione:' }}</strong> {{ section.settings.detail_time | default: 'Pronto entro 48 ore lavorative (notifica via WhatsApp / SMS)' }}
       </div>
       <div>
-        🎁 <strong>{{ section.settings.label_gift | default: 'Omaggio Cabina:' }}</strong> {{ section.settings.detail_gift | default: '2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)' }}
+        🎁 <strong>{{ section.settings.label_gift | default: 'Omaggio Esclusivo:' }}</strong> {{ section.settings.detail_gift | default: 'Buono sconto 10% per trattamenti benessere Lebestetik & consulenza' }}
       </div>
       <div>
-        🕒 <strong>{{ section.settings.label_hours | default: 'Orari Ritiro:' }}</strong> {{ section.settings.detail_hours | default: 'Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato)' }}
+        🕒 <strong>{{ section.settings.label_hours | default: 'Orari Ritiro:' }}</strong> {{ section.settings.detail_hours | default: 'Lunedì – Sabato: 09:30 – 19:30 (SU APPUNTAMENTO - chiuso il mercoledì)' }}
       </div>
-    </div>
-
-    <div style="margin-bottom: 1.5rem;">
-      <label
-        for="postal-code-input"
-        style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.4rem;"
-      >
-        {{ section.settings.cap_label | default: 'Verifica tempo di disponibilità per il tuo CAP:' }}
-      </label>
-      <div style="display: flex; gap: 8px;">
-        <input
-          type="text"
-          id="postal-code-input"
-          placeholder="{{ section.settings.cap_placeholder | default: 'Es. 37121, 37122, 37138' }}"
-          value="{{ section.settings.cap_default | default: '37121' }}"
-          style="flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.9rem;"
-        >
-        <button
-          type="button"
-          class="btn-primary"
-          style="padding: 0.6rem 1.2rem; font-size: 0.75rem;"
-          onclick="checkVeronaCap()"
-        >
-          {{ section.settings.cap_btn_text | default: 'Verifica' }}
-        </button>
-      </div>
-      <div
-        id="postal-result-msg"
-        class="postal-msg-success"
-        style="font-size: 0.78rem; color: #2E7D32; font-weight: 600; margin-top: 6px;"
-      >
-        {{ section.settings.cap_success_msg | default: '✅ Ritiro disponibile oggi in 2 ore per il tuo CAP.' }}
+      <div>
+        📞 <strong>{{ section.settings.label_phone | default: 'Contatti:' }}</strong> {{ section.settings.detail_phone | default: '+39 045 8301811 • WhatsApp +39 342 1647585' }}
       </div>
     </div>
 
@@ -151,7 +121,7 @@
       "type": "textarea",
       "id": "description",
       "label": "Descrizione",
-      "default": "Ordina comodamente online e ritira il tuo ordine entro 2 ore lavorative nel nostro istituto di Corso Cavour 18, Verona. Riceverai un'accoglienza personalizzata con consulenza dermocosmetica e campioncini su misura."
+      "default": "Ordina comodamente online e ritira il tuo ordine presso il nostro istituto Lebestetik in Via Torricelle, 2c a Verona. Riceverai un'accoglienza personalizzata e un buono sconto del 10% per i trattamenti benessere in Spa."
     },
     {
       "type": "header",
@@ -167,7 +137,7 @@
       "type": "text",
       "id": "detail_address",
       "label": "Valore Indirizzo",
-      "default": "Corso Cavour, 18 • 37121 Verona (VR)"
+      "default": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa"
     },
     {
       "type": "text",
@@ -179,7 +149,7 @@
       "type": "text",
       "id": "detail_time",
       "label": "Valore Tempo di Preparazione",
-      "default": "2 Ore lavorative (notifica via SMS / Email)"
+      "default": "Pronto entro 48 ore lavorative (notifica via WhatsApp / SMS)"
     },
     {
       "type": "text",
@@ -190,8 +160,8 @@
     {
       "type": "textarea",
       "id": "detail_gift",
-      "label": "Valore Omaggio Cabina",
-      "default": "2 Campioncini Deluxe & Check-up pelle Visia omaggio (15 min)"
+      "label": "Valore Omaggio Esclusivo",
+      "default": "Buono sconto 10% per trattamenti benessere Lebestetik & consulenza"
     },
     {
       "type": "text",
@@ -203,41 +173,7 @@
       "type": "text",
       "id": "detail_hours",
       "label": "Valore Orari Ritiro",
-      "default": "Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato)"
-    },
-    {
-      "type": "header",
-      "content": "Verifica CAP"
-    },
-    {
-      "type": "text",
-      "id": "cap_label",
-      "label": "Etichetta Verifica CAP",
-      "default": "Verifica tempo di disponibilità per il tuo CAP:"
-    },
-    {
-      "type": "text",
-      "id": "cap_placeholder",
-      "label": "Placeholder input CAP",
-      "default": "Es. 37121, 37122, 37138"
-    },
-    {
-      "type": "text",
-      "id": "cap_default",
-      "label": "Valore predefinito CAP",
-      "default": "37121"
-    },
-    {
-      "type": "text",
-      "id": "cap_btn_text",
-      "label": "Testo pulsante verifica CAP",
-      "default": "Verifica"
-    },
-    {
-      "type": "textarea",
-      "id": "cap_success_msg",
-      "label": "Messaggio di successo CAP",
-      "default": "✅ Ritiro disponibile oggi in 2 ore per il tuo CAP."
+      "default": "Lunedì – Sabato: 09:30 – 19:30 (SU APPUNTAMENTO - chiuso il mercoledì)"
     },
     {
       "type": "header",
@@ -248,6 +184,18 @@
       "id": "cta_btn_text",
       "label": "Testo pulsante di selezione",
       "default": "Seleziona Ritiro a Verona per il Tuo Ordine →"
+    },
+    {
+      "type": "text",
+      "id": "label_phone",
+      "label": "Etichetta Contatti",
+      "default": "Contatti:"
+    },
+    {
+      "type": "text",
+      "id": "detail_phone",
+      "label": "Valore Recapito Telefonico",
+      "default": "+39 045 8301811 • WhatsApp +39 342 1647585"
     }
   ],
   "presets": [

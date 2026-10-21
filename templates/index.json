@@ -61,7 +61,10 @@
         "link_text": "Scopri Tutti",
         "link_url": "shopify://collections/bestseller-preferiti",
         "card_aspect_ratio": "4/5",
-        "image_fit": "contain"
+        "image_fit": "contain",
+        "show_arrows": true,
+        "show_slider_arrows": true,
+        "show_column_arrows": true
       }
     },
     "routine-steps": {
@@ -213,7 +216,7 @@
     "editorial-quote-press": {
       "type": "editorial-quote-press",
       "settings": {
-        "badge_text": "Istituto Dermo-Specialistico • Verona",
+        "badge_text": "",
         "image": "shopify://shop_images/image.jpg",
         "tag": "LA mia Idea di Bellezza",
         "title": "Dove la scienza botanica incontra la fisiologia cutanea",
@@ -225,7 +228,8 @@
         "link_text": "LA MIA STORIA →",
         "link_url": "https://milebiolab.myshopify.com/pages/chi-siamo",
         "press_heading": "E TU CHE COSMESI SCEGLI PER LA TUA PELLE?",
-        "press_logos": "98-99-100% NATURALE, SICURO, Certificato , NON NUOCE ALLA PELLE, Per te e per chi ami"
+        "press_logos": "98-99-100% NATURALE, SICURO, Certificato , NON NUOCE ALLA PELLE, Per te e per chi ami",
+        "show_badge": false
       }
     },
     "local-pickup-verona": {
@@ -234,7 +238,7 @@
         "tagline": "ISTITUTO A VERONA - RITIRO GRATUITO",
         "title": "Ritiro a Verona in Lebestetik",
         "description": "Sei di Verona o sei di assaggio, organizza il tuo ritiro in istituto Lebestetik",
-        "btn_text": "Verifica Disponibilità Ritiro a Verona →",
+        "btn_text": "Scopri il Ritiro a Verona →",
         "step1_title": "Pronto entro 48 ore lavorative gratuitamente",
         "step1_desc": "Acquista online e ricevi la notifica tramite messaggio WhatsApp appena ordine è pronto per la consegna.",
         "step2_title": "Buono Sconto del 10% in Lebestetik",
@@ -243,9 +247,9 @@
         "step3_desc": "Potrai sempre provare i prodotti MILE che ti interessano",
         "card_image": "shopify://shop_images/1792514728075.jpg",
         "card_title": "Istituto di Bellezza  Lebestetik Beauty & Spa",
-        "card_address": "Via Torricelle, 2c • 37128 Verona (VR)",
+        "card_address": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa",
         "card_hours": "SU APPUNTAMENTO Lunedì – Sabato: 09:30 – 19:30 (Orario continuato - chiuso il mercoledì)",
-        "card_phone": "+39 045 8301811 -  Messaggi WhatsApp 342 1647585"
+        "card_phone": "+39 045 8301811 • WhatsApp +39 342 1647585"
       }
     },
     "skin-quiz-banner": {
