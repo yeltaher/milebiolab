@@ -147,7 +147,7 @@
           "image": "shopify://shop_images/1792504535841.jpg",
           "location_badge": "MILE DERMOCOSMESI • Verona",
           "tagline": "BENVENUTO NEL CLUB MILE",
-          "heading": "🎁 10% di Sconto sul tuo Primo Ordine e ricevi subito 20 Beauty Punti in omaggio alla registrazione del tuo profilo.",
+          "heading": "🎁 10% di Sconto sul tuo Primo Ordine e ricevi subito 20 Punti in omaggio alla registrazione del tuo profilo.",
           "description": "Iscriviti nel nostro Club riservato. Riceverai immediatamente il tuo codice coupon esclusivo piu tanti vantaggi !",
           "coupon_code": "MILE10",
           "button_text": "Ricevi il 10% di Sconto",
@@ -170,6 +170,7 @@
           "label_hours": "Orari Ritiro:",
           "detail_hours": "SU APPUNTAMENTO Lunedì – Sabato: 09:30 – 19:30 (Orario Continuato - Chiuso Mercoledì)",
           "cta_btn_text": "Seleziona Ritiro a Verona per il Tuo Ordine →",
+          "label_phone": "Contatti:",
           "detail_phone": "+39 045 8301811 • WhatsApp +39 342 1647585"
         }
       }
