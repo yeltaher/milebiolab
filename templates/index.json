@@ -216,7 +216,6 @@
     "editorial-quote-press": {
       "type": "editorial-quote-press",
       "settings": {
-        "badge_text": "",
         "image": "shopify://shop_images/image.jpg",
         "tag": "LA mia Idea di Bellezza",
         "title": "Dove la scienza botanica incontra la fisiologia cutanea",
@@ -228,8 +227,7 @@
         "link_text": "LA MIA STORIA →",
         "link_url": "https://milebiolab.myshopify.com/pages/chi-siamo",
         "press_heading": "E TU CHE COSMESI SCEGLI PER LA TUA PELLE?",
-        "press_logos": "98-99-100% NATURALE, SICURO, Certificato , NON NUOCE ALLA PELLE, Per te e per chi ami",
-        "show_badge": false
+        "press_logos": "98-99-100% NATURALE, SICURO, Certificato , NON NUOCE ALLA PELLE, Per te e per chi ami"
       }
     },
     "local-pickup-verona": {
