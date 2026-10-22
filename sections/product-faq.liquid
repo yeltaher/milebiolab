@@ -13,58 +13,157 @@
       </p>
     </div>
 
+    {%- comment -%} Check targeted and global manual blocks {%- endcomment -%}
+    {%- assign targeted_faq_count = 0 -%}
+    {%- assign global_faq_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+        {%- assign targeted_faq_count = targeted_faq_count | plus: 1 -%}
+      {%- elsif block.settings.target_product == blank -%}
+        {%- assign global_faq_count = global_faq_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign use_targeted_faq = false -%}
+    {%- assign use_global_faq = false -%}
+    {%- if targeted_faq_count > 0 -%}
+      {%- assign use_targeted_faq = true -%}
+    {%- elsif global_faq_count > 0 -%}
+      {%- assign use_global_faq = true -%}
+    {%- endif -%}
+
+    {%- assign has_meta_faq = false -%}
+    {%- if product.metafields.custom.faq != blank -%}
+      {%- assign has_meta_faq = true -%}
+      {%- if product.metafields.custom.faq contains '~~~' -%}
+        {%- assign meta_faq_list = product.metafields.custom.faq | strip | split: '~~~' -%}
+      {%- else -%}
+        {%- assign meta_faq_list = product.metafields.custom.faq | newline_to_br | split: '<br />' -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- comment -%} Prepare Dynamic Category Fallback if no targeted blocks or metafields {%- endcomment -%}
+    {%- if use_targeted_faq == false and has_meta_faq == false and use_global_faq == false -%}
+      {%- assign prod_title_lower = product.title | downcase -%}
+      {%- assign prod_handle_lower = product.handle | downcase -%}
+      {%- assign is_unicho = false -%}
+      {%- if prod_handle_lower contains 'unicho' or prod_title_lower contains 'unicho' or prod_title_lower contains 'burro primordiale' -%}
+        {%- assign is_unicho = true -%}
+      {%- endif -%}
+
+      {%- assign prod_cat = 'general' -%}
+      {%- assign check_text = product.title | append: ' ' | append: product.type | append: ' ' | append: product.tags | downcase -%}
+      {%- if is_unicho -%}
+        {%- assign prod_cat = 'unicho' -%}
+      {%- elsif check_text contains 'detergente' or check_text contains 'cleanser' or check_text contains 'mousse' or check_text contains 'latte' or check_text contains 'tonico' or check_text contains 'strucc' -%}
+        {%- assign prod_cat = 'cleanser' -%}
+      {%- elsif check_text contains 'siero' or check_text contains 'serum' or check_text contains 'booster' or check_text contains 'ialuronico' or check_text contains 'vitamina' or check_text contains 'attivo' -%}
+        {%- assign prod_cat = 'serum' -%}
+      {%- elsif check_text contains 'peeling' or check_text contains 'esfolia' or check_text contains 'scrub' or check_text contains 'enzim' or check_text contains 'acido' -%}
+        {%- assign prod_cat = 'peeling' -%}
+      {%- elsif check_text contains 'crema' or check_text contains 'emulsione' or check_text contains 'creme' or check_text contains 'idrat' or check_text contains 'notte' or check_text contains 'giorno' -%}
+        {%- assign prod_cat = 'cream' -%}
+      {%- elsif check_text contains 'olio' or check_text contains 'corpo' or check_text contains 'body' or check_text contains 'balsamo corpo' -%}
+        {%- assign prod_cat = 'body' -%}
+      {%- endif -%}
+
+      {%- case prod_cat -%}
+        {%- when 'unicho' -%}
+          {%- capture raw_faq -%}
+Nel vasetto ha una consistenza solida da burro botanico, come si applica correttamente sul viso?|Basta prelevare una piccolissima punta con il polpastrello. A contatto con il calore naturale della cute, la formula anidra si fonde istantaneamente trasformandosi in un olio satinato e vellutato che penetra in profondità senza lasciare residui pesanti.
+~~~Può ungere il cuscino o appesantire la pelle durante la notte?|Assolutamente no se dosato con cura: grazie all'assenza di cere minerali e siliconi, i fitosteroli puri penetrano nei primi strati cornei in 2-3 minuti. Al risveglio la cute è distesa, compatta e asciutta al tatto, senza residui sul guanciale.
+~~~È indicato per l'inverno o per zone con clima rigido e vento?|È il trattamento ideale per ripristinare il film idrolipidico compromesso da freddo, aria secca o sbalzi termici. Protegge e lenisce screpolature, desquamazioni e rossori su zigomi, labbra, fronte e collo.
+~~~È adatto anche a pelli particolarmente sensibili o reattive?|Certamente. Unicho 21 è formulato con ingredienti botanici organici puri ad altissima tollerabilità cutanea, senza profumazioni sintetiche, parabeni, oli minerali o alcol. È raccomandato anche dopo trattamenti dermatologici intensivi.
+~~~Qual è la durata media di un vasetto da 50 ml?|Grazie alla sua concentrazione anidra (senza aggiunta di acqua), una piccolissima quantità copre l'intero viso e décolleté. Con uso quotidiano serale, un vasetto dura tra i 4 e i 6 mesi.
+~~~Come funziona il ritiro in boutique a Verona?|Puoi selezionare il ritiro gratuito in sede al checkout. Il tuo cofanetto sarà confezionato e pronto al desk entro 2 ore presso la nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.
+          {%- endcapture -%}
+        {%- when 'cleanser' -%}
+          {%- capture raw_faq -%}
+Strucca efficacemente anche il make-up waterproof e il trucco occhi?|Sì, la formula lipofila biomimetica scioglie con delicatezza i pigmenti minerali, impurità e make-up waterproof senza irritare la congiuntiva e senza bruciare gli occhi.
+~~~È indicato per pelli delicate, reattive o con tendenza ai rossori?|Perfetto: rispetta il mantello acido naturale e la barriera lipidica cutanea, evitando la tipica sensazione di "pelle che tira" dopo la pulizia grazie a tensioattivi zuccherini delicatissimi ed estratti calmanti.
+~~~Con quale frequenza si consiglia di utilizzarlo nella routine?|Si consiglia l'uso quotidiano due volte al giorno: al mattino per risvegliare e purificare la cute dalle tossine notturne, e la sera per eliminare smog, trucco e residui di filtri solari.
+~~~Lascia un residuo oleoso o una patina dopo il risciacquo con acqua tiepida?|No. A contatto con l'acqua tiepida si trasforma in una morbida emulsione lattea che si risciacqua facilmente lasciando la pelle purificata, fresca e vellutata.
+~~~Come conservare il prodotto per preservare gli attivi vegetali?|Conservare il flacone chiuso a temperatura ambiente (15-25°C), al riparo da fonti dirette di calore e luce solare. Il packaging schermante assicura la longevità dei fitocomplessi bio.
+~~~Come funziona il ritiro in 2 ore a Verona?|Selezionando il ritiro al checkout, prepariamo la confezione sartoriale in 2 ore presso la sede di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa, con campioncini deluxe omaggio calibrati sul tuo tipo di pelle.
+          {%- endcapture -%}
+        {%- when 'serum' -%}
+          {%- capture raw_faq -%}
+In quale ordine della skincare routine va applicato il siero?|Il siero va applicato subito dopo la detersione e la tonificazione, e sempre prima della crema viso o dell'olio sigillante, per consentire ai micro-peptidi e agli attivi ad alto assorbimento di penetrare in profondità.
+~~~Quante gocce sono necessarie per viso, collo e décolleté?|Bastano 3 o 4 gocce prelevate con il contagocce di precisione. Consigliamo di scaldarle leggermente tra i palmi e tamponare delicatamente dal centro verso l'esterno del viso senza frizionare.
+~~~È compatibile come base prima del make-up o della protezione solare?|Assolutamente sì: la texture a rapido assorbimento non crea residui né "pallini" (pilling), creando un finish setoso ideale prima del fondotinta, crema colorata o SPF.
+~~~Si usa solo al mattino, alla sera o in entrambi i momenti?|Può essere applicato mattina e sera. Al mattino potenzia la protezione antiossidante contro i radicali liberi urbani; la sera coadiuva la fisiologica rigenerazione cellulare notturna.
+~~~Contiene profumazioni sintetiche o siliconi?|No, la formula è pulita, senza siliconi, derivati petrolchimici o profumi chimici aggressivi, formulata unicamente con estratti botanici ed eccipienti dermo-compatibili.
+~~~È possibile effettuare il ritiro a Verona in giornata?|Sì, selezionando il ritiro al checkout il tuo ordine sarà pronto in sole 2 ore presso il nostro istituto a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.
+          {%- endcapture -%}
+        {%- when 'peeling' -%}
+          {%- capture raw_faq -%}
+Quante volte a settimana è consigliato applicare questo peeling?|Per una corretta rigenerazione epidermica senza aggredire il film idrolipidico, consigliamo 1 o 2 applicazioni a settimana, preferibilmente durante la routine serale.
+~~~È fotosensibilizzante? Posso espormi al sole il giorno dopo?|Dopo l'esfoliazione la pelle rinnovata è più sensibile ai raggi UV. Raccomandiamo sempre l'applicazione di una protezione solare SPF adeguata il mattino seguente e di evitare lampade solari dirette per 48 ore.
+~~~È normale avvertire un leggero pizzicore durante il tempo di posa?|Un lieve formicolio nei primi 60-90 secondi è del tutto fisiologico ed è indice dell'attivazione enzimatica e degli acidi botanici. Sciacquare abbondantemente con acqua fresca al termine del tempo di posa.
+~~~Come si rimuove correttamente il prodotto dal viso?|Emulsionare con acqua tiepida e rimuovere con una lavetta in mussola o spugnetta morbida, senza strofinare con forza. Tamponare delicatamente e applicare subito il siero o la crema nutriente.
+~~~Può essere utilizzato in caso di couperose o pelle molto reattiva?|Per pelli reattive o con capillari fragili consigliamo di ridurre il tempo di posa a 3-5 minuti ed effettuare prima una prova di tollerabilità su una piccola area del collo.
+~~~Il ritiro a Verona include una consulenza dermo-specialistica?|Ritirando l'ordine a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa, il nostro team è a disposizione per verificare la combinazione ottimale con i tuoi attivi quotidiani.
+          {%- endcapture -%}
+        {%- when 'cream' -%}
+          {%- capture raw_faq -%}
+Per quale tipologia di pelle è maggiormente indicata questa crema?|La formula dermo-funzionale è calibrata per ripristinare i lipidi essenziali e il fattore naturale di idratazione (NMF), risultando ideale sia per pelli normali e secche, sia per pelli miste disidratate.
+~~~Quanto tempo impiega ad assorbirsi completamente?|Grazie alla struttura a cristalli liquidi biomimetici, si fonde con l'epidermide in meno di un minuto, lasciando un tocco vellutato asciutto e una sensazione prolungata di comfort.
+~~~Posso applicarla anche sul contorno occhi e sul décolleté?|Certamente: priva di sostanze irritanti o siliconi occlusivi, è sicura ed efficace anche sulla delicata zona perioculare e per prevenire rilassamenti cutanei su collo e décolleté.
+~~~In quanto tempo si notano i benefici sulla barriera cutanea?|Il sollievo da secchezza e tensione è immediato fin dal primo massaggio. In 14-21 giorni di applicazione costante la barriera cutanea risulta visibilmente rigenerata, compatta ed elastica.
+~~~Contiene conservanti aggressivi, parabeni o oli minerali?|Assolutamente no: preserviamo le formule con sistemi conservanti naturali derivati dalla fermentazione botanica approvati dai disciplinari biologici europei.
+~~~Come funziona il ritiro in boutique a Verona?|Puoi scegliere il ritiro in sede al checkout: prepariamo il tuo ordine entro 120 minuti nella nostra boutique a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.
+          {%- endcapture -%}
+        {%- else -%}
+          {%- capture raw_faq -%}
+Lascia la pelle unta o rischia di macchiare gli abiti?|No: la texture dry-touch a rapido assorbimento cutaneo penetra istantaneamente, lasciando una sensazione satinata e consentendo di vestirsi subito dopo l'applicazione.
+~~~È adatta per l'idratazione in gravidanza o per prevenire smagliature?|Sì, la formula ricca di acidi grassi essenziali e antiossidanti vegetali migliora l'elasticità tessutale ed è sicura e priva di ingredienti controindicati.
+~~~Si applica meglio su pelle umida o asciutta?|Consigliamo l'applicazione subito dopo il bagno o la doccia con pelle ancora leggermente umida: in questo modo i vettori lipidici trattengono l'acqua superficiale moltiplicando l'idratazione.
+~~~Può essere utilizzato anche per capelli o zone particolarmente ruvide?|Certamente: una noce o poche gocce sono perfette per nutrire gomiti, ginocchia o per lucidare le punte secche dei capelli dopo lo styling.
+~~~Come si conserva il prodotto per mantenerne inalterata l'efficacia?|Riporre il flacone a temperatura ambiente (15-25°C) al riparo da fonti dirette di luce. Il vetro ambrato speciale protegge i preziosi attivi botanici fotolabili.
+~~~Come posso ritirare il prodotto a Verona?|Il ritiro è disponibile entro 2 ore lavorative presso il nostro istituto e boutique di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.
+          {%- endcapture -%}
+      {%- endcase -%}
+      {%- assign fallback_faq_items = raw_faq | strip | split: '~~~' -%}
+    {%- endif -%}
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 text-xs leading-relaxed">
-      {% if section.blocks.size > 0 %}
-        {% for block in section.blocks %}
-          <div class="border-b border-borderLinen pb-6" {{ block.shopify_attributes }}>
-            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.question }}</h4>
-            <p class="text-ash font-light leading-relaxed">{{ block.settings.answer }}</p>
+      {%- if use_targeted_faq -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+            <div class="border-b border-borderLinen pb-6" {{ block.shopify_attributes }}>
+              <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.question }}</h4>
+              <p class="text-ash font-light leading-relaxed">{{ block.settings.answer }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif has_meta_faq -%}
+        {%- for item in meta_faq_list -%}
+          {%- assign parts = item | split: '|' -%}
+          {%- if parts.size >= 2 -%}
+            <div class="border-b border-borderLinen pb-6">
+              <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ parts[0] | strip }}</h4>
+              <p class="text-ash font-light leading-relaxed">{{ parts[1] | strip }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif use_global_faq -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.target_product == blank -%}
+            <div class="border-b border-borderLinen pb-6" {{ block.shopify_attributes }}>
+              <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.question }}</h4>
+              <p class="text-ash font-light leading-relaxed">{{ block.settings.answer }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for item in fallback_faq_items -%}
+          {%- assign parts = item | split: '|' -%}
+          <div class="border-b border-borderLinen pb-6">
+            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ parts[0] | strip }}</h4>
+            <p class="text-ash font-light leading-relaxed">{{ parts[1] | strip }}</p>
           </div>
-        {% endfor %}
-      {% else %}
-        <!-- Fallback 6 Domande / Risposte Originali -->
-        <div class="border-b border-borderLinen pb-6">
-          <h4 class="font-serif text-base font-semibold text-ink mb-2">Questo olio lascia la pelle unta o macchia i vestiti?</h4>
-          <p class="text-ash font-light leading-relaxed">
-            Assolutamente no. La formula balm-to-oil sfrutta vettori lipidici biomimetici a rapidissimo assorbimento cutaneo che penetrano all'istante lasciando un finish asciutto, satinato e setoso.
-          </p>
-        </div>
-
-        <div class="border-b border-borderLinen pb-6">
-          <h4 class="font-serif text-base font-semibold text-ink mb-2">&Egrave; adatto durante la gravidanza o l'allattamento?</h4>
-          <p class="text-ash font-light leading-relaxed">
-            S&igrave;, la formula &egrave; 100% organica certificata Cosmos, priva di oli essenziali fotosensibilizzanti o composti controindicati, ideale per elasticizzare la pelle e prevenire smagliature.
-          </p>
-        </div>
-
-        <div class="border-b border-borderLinen pb-6">
-          <h4 class="font-serif text-base font-semibold text-ink mb-2">Come funziona il ritiro in 2 ore a Verona?</h4>
-          <p class="text-ash font-light leading-relaxed">
-            Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Via Torricelle, 2c in Lebestetik Beauty & Spa preparer&agrave; la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email.
-          </p>
-        </div>
-
-        <div class="border-b border-borderLinen pb-6">
-          <h4 class="font-serif text-base font-semibold text-ink mb-2">Qual &egrave; la durata del vasetto da 100 ml con uso quotidiano?</h4>
-          <p class="text-ash font-light leading-relaxed">
-            Con un'applicazione quotidiana su tutto il corpo, il formato standard da 100 ml dura in media tra le 6 e le 8 settimane grazie all'elevatissima resa concentrata del balsamo.
-          </p>
-        </div>
-
-        <div class="border-b border-borderLinen pb-6">
-          <h4 class="font-serif text-base font-semibold text-ink mb-2">Posso utilizzarlo anche sulla pelle del viso o sulle punte dei capelli?</h4>
-          <p class="text-ash font-light leading-relaxed">
-            Certamente. La formula non comedogenica &egrave; ideale per illuminare gli zigomi o nutrire le punte secche dei capelli dopo la piega con pochissime gocce scaldate tra le dita.
-          </p>
-        </div>
-
-        <div class="border-b border-borderLinen pb-6">
-          <h4 class="font-serif text-base font-semibold text-ink mb-2">Come si conserva al meglio il prodotto?</h4>
-          <p class="text-ash font-light leading-relaxed">
-            Consigliamo di conservare il flacone a temperatura ambiente (15-25&deg;C) al riparo dalla luce solare diretta. Il vetro ambrato schermante assicura la perfetta integrit&agrave; dei principi attivi.
-          </p>
-        </div>
-      {% endif %}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
 
   </div>
@@ -99,6 +198,12 @@
       "name": "Domanda / Risposta",
       "settings": [
         {
+          "type": "product",
+          "id": "target_product",
+          "label": "Mostra solo per questo Prodotto (Opzionale)",
+          "info": "Seleziona il prodotto a cui associare questa FAQ. Se vuoto, compare su tutti i prodotti."
+        },
+        {
           "type": "text",
           "id": "question",
           "label": "Domanda",
@@ -115,51 +220,7 @@
   ],
   "presets": [
     {
-      "name": "FAQ Prodotto",
-      "blocks": [
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "Questo olio lascia la pelle unta o macchia i vestiti?",
-            "answer": "Assolutamente no. La formula balm-to-oil sfrutta vettori lipidici biomimetici a rapidissimo assorbimento cutaneo che penetrano all'istante lasciando un finish asciutto, satinato e setoso."
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "È adatto durante la gravidanza o l'allattamento?",
-            "answer": "Sì, la formula è 100% organica certificata Cosmos, priva di oli essenziali fotosensibilizzanti o composti controindicati, ideale per elasticizzare la pelle e prevenire smagliature."
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "Come funziona il ritiro in 2 ore a Verona?",
-            "answer": "Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Via Torricelle, 2c in Lebestetik Beauty & Spa preparerà la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email."
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "Qual è la durata del vasetto da 100 ml con uso quotidiano?",
-            "answer": "Con un'applicazione quotidiana su tutto il corpo, il formato standard da 100 ml dura in media tra le 6 e le 8 settimane grazie all'elevatissima resa concentrata del balsamo."
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "Posso utilizzarlo anche sulla pelle del viso o sulle punte dei capelli?",
-            "answer": "Certamente. La formula non comedogenica è ideale per illuminare gli zigomi o nutrire le punte secche dei capelli dopo la piega con pochissime gocce scaldate tra le dita."
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "Come si conserva al meglio il prodotto?",
-            "answer": "Consigliamo di conservare il flacone a temperatura ambiente (15-25°C) al riparo dalla luce solare diretta. Il vetro ambrato schermante assicura la perfetta integrità dei principi attivi."
-          }
-        }
-      ]
+      "name": "FAQ Prodotto"
     }
   ]
 }

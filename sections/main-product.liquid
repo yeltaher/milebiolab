@@ -472,6 +472,47 @@
     {%- if section.settings.show_routine -%}
     {%- assign routine_blocks = section.blocks | where: 'type', 'routine_card' -%}
 
+    {%- comment -%} Check targeted routine blocks for this product {%- endcomment -%}
+    {%- assign targeted_routine_count = 0 -%}
+    {%- for b in routine_blocks -%}
+      {%- if b.settings.target_product != blank and b.settings.target_product.id == product.id -%}
+        {%- assign targeted_routine_count = targeted_routine_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Check Metafields {%- endcomment -%}
+    {%- assign meta_routine_prods = product.metafields.shopify--discovery--product_recommendation.complementary_products.value | default: product.metafields.custom.routine_products.value | default: product.metafields.custom.routine.value -%}
+    {%- assign has_meta_routine = false -%}
+    {%- if meta_routine_prods != blank and meta_routine_prods.count > 0 or meta_routine_prods.size > 0 -%}
+      {%- assign has_meta_routine = true -%}
+    {%- endif -%}
+
+    {%- comment -%} Check Global blocks with assigned product {%- endcomment -%}
+    {%- assign global_routine_prods_count = 0 -%}
+    {%- for b in routine_blocks -%}
+      {%- if b.settings.target_product == blank and b.settings.product != blank -%}
+        {%- assign global_routine_prods_count = global_routine_prods_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Find Primary Collection for Dynamic Resolution {%- endcomment -%}
+    {%- assign target_col = product.collections.first -%}
+    {%- for col in product.collections -%}
+      {%- if col.handle != 'all' and col.handle != 'frontpage' -%}
+        {%- assign target_col = col -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign col_sibling_count = 0 -%}
+    {%- if target_col != blank -%}
+      {%- for p in target_col.products -%}
+        {%- if p.id != product.id -%}
+          {%- assign col_sibling_count = col_sibling_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
     <section class="py-24 bg-white border-b border-borderLinen">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
 
@@ -490,81 +531,102 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {%- if routine_blocks.size > 0 -%}
-                {%- for block in routine_blocks -%}
-                  {%- assign block_prod = block.settings.product -%}
-                  {%- if block_prod != blank -%}
-                    {%- assign card_title = block.settings.title -%}
-                    {%- if card_title == blank or card_title == 'Detergente Lipofilo Purificante' or card_title == 'Siero Rigenerante Notturno' or card_title == 'Elisir Botanico Viso e Collo' -%}
-                      {%- assign card_title = block_prod.title -%}
-                    {%- endif -%}
-                    {%- assign card_sub = block.settings.subtitle -%}
-                    {%- if card_sub == blank or card_sub contains 'Rispetta la barriera' or card_sub contains 'Concentrato molecolare' or card_sub contains 'Fitocomplessi montani' -%}
-                      {%- assign card_sub = block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
-                    {%- endif -%}
-                    {%- if block.settings.image != blank -%}
-                      {%- assign card_img = block.settings.image | image_url: width: 800 -%}
-                    {%- elsif block_prod.featured_image != blank -%}
-                      {%- assign card_img = block_prod.featured_image | image_url: width: 800 -%}
-                    {%- else -%}
-                      {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
-                    {%- endif -%}
-                    {%- if block.settings.price != blank and block.settings.price != '42,00' and block.settings.price != '94,00' and block.settings.price != '86,00' -%}
-                      {%- assign card_price_val = block.settings.price -%}
-                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
-                      {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
-                    {%- else -%}
-                      {%- assign card_price_html = block_prod.price | money -%}
-                      {%- assign card_price_num = block_prod.price | divided_by: 100.0 -%}
-                    {%- endif -%}
-                    {%- assign card_url = block_prod.url -%}
-                    {%- assign card_variant_id = block_prod.selected_or_first_available_variant.id | default: block_prod.variants.first.id -%}
-                  {%- else -%}
-                    {%- case forloop.index -%}
-                      {%- when 1 -%}
-                        {%- assign default_fallback_title = 'Detergente Lipofilo Purificante' -%}
-                        {%- assign default_fallback_sub = '150 ml • Rispetta la barriera idrolipidica' -%}
-                        {%- assign default_fallback_price_val = '42,00' -%}
-                        {%- assign default_fallback_price_num = '42.00' -%}
-                        {%- assign default_fallback_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
-                        {%- assign default_fallback_variant = '1' -%}
-                      {%- when 2 -%}
-                        {%- assign default_fallback_title = 'Siero Rigenerante Notturno' -%}
-                        {%- assign default_fallback_sub = '30 ml • Concentrato molecolare di bio-peptidi' -%}
-                        {%- assign default_fallback_price_val = '94,00' -%}
-                        {%- assign default_fallback_price_num = '94.00' -%}
-                        {%- assign default_fallback_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
-                        {%- assign default_fallback_variant = '2' -%}
-                      {%- else -%}
-                        {%- assign default_fallback_title = 'Elisir Botanico Viso e Collo' -%}
-                        {%- assign default_fallback_sub = '50 ml • Fitocomplessi montani antiossidanti' -%}
-                        {%- assign default_fallback_price_val = '86,00' -%}
-                        {%- assign default_fallback_price_num = '86.00' -%}
-                        {%- assign default_fallback_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
-                        {%- assign default_fallback_variant = '3' -%}
-                    {%- endcase -%}
-                    {%- assign card_title = block.settings.title | default: default_fallback_title -%}
-                    {%- assign card_sub = block.settings.subtitle | default: default_fallback_sub -%}
-                    {%- if block.settings.image != blank -%}
-                      {%- assign card_img = block.settings.image | image_url: width: 800 -%}
-                    {%- else -%}
-                      {%- assign card_img = default_fallback_img -%}
-                    {%- endif -%}
-                    {%- if block.settings.price != blank -%}
-                      {%- assign card_price_val = block.settings.price -%}
-                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
-                      {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
-                    {%- else -%}
-                      {%- assign card_price_val = default_fallback_price_val -%}
-                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
-                      {%- assign card_price_num = default_fallback_price_num -%}
-                    {%- endif -%}
-                    {%- assign card_url = '#' -%}
-                    {%- assign card_variant_id = default_fallback_variant -%}
-                  {%- endif -%}
-                  {%- assign card_step = block.settings.step | default: 'STEP ROUTINE' -%}
+            {%- assign routine_rendered_count = 0 -%}
 
-                  <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
+            {%- if targeted_routine_count > 0 -%}
+                {%- for block in routine_blocks -%}
+                  {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id and routine_rendered_count < 3 -%}
+                    {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                    {%- assign block_prod = block.settings.product -%}
+                    {%- if block_prod != blank -%}
+                      {%- assign card_title = block.settings.title | default: block_prod.title -%}
+                      {%- assign card_sub = block.settings.subtitle | default: block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                      {%- if block.settings.image != blank -%}
+                        {%- assign card_img = block.settings.image | image_url: width: 800 -%}
+                      {%- elsif block_prod.featured_image != blank -%}
+                        {%- assign card_img = block_prod.featured_image | image_url: width: 800 -%}
+                      {%- else -%}
+                        {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                      {%- endif -%}
+                      {%- if block.settings.price != blank -%}
+                        {%- assign card_price_val = block.settings.price -%}
+                        {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
+                        {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
+                      {%- else -%}
+                        {%- assign card_price_html = block_prod.price | money -%}
+                        {%- assign card_price_num = block_prod.price | divided_by: 100.0 -%}
+                      {%- endif -%}
+                      {%- assign card_url = block_prod.url -%}
+                      {%- assign card_variant_id = block_prod.selected_or_first_available_variant.id | default: block_prod.variants.first.id -%}
+                    {%- else -%}
+                      {%- assign card_title = block.settings.title | default: 'Trattamento Botanico Consigliato' -%}
+                      {%- assign card_sub = block.settings.subtitle | default: 'Formula sinergica per la tua pelle' -%}
+                      {%- if block.settings.image != blank -%}
+                        {%- assign card_img = block.settings.image | image_url: width: 800 -%}
+                      {%- else -%}
+                        {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                      {%- endif -%}
+                      {%- assign card_price_val = block.settings.price | default: '42,00' -%}
+                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
+                      {%- assign card_price_num = card_price_val | replace: ',', '.' | remove: '€' | strip -%}
+                      {%- assign card_url = '#' -%}
+                      {%- assign card_variant_id = '1' -%}
+                    {%- endif -%}
+                    {%- assign card_step = block.settings.step | default: 'STEP ROUTINE' -%}
+
+                    <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
+                      <div>
+                        <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
+                          <a href="{{ card_url }}" class="w-full h-full block">
+                            <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                          </a>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
+                        <h4 class="font-serif text-lg font-normal text-ink mb-1">
+                          <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
+                        </h4>
+                        <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
+                      </div>
+                      <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
+                        <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                        <button type="button"
+                                onclick="quickAddProduct(this, event)"
+                                data-variant-id="{{ card_variant_id }}"
+                                data-product-title="{{ card_title | escape }}"
+                                data-product-price="{{ card_price_num }}"
+                                data-product-volume="{{ card_sub | escape }}"
+                                data-product-image="{{ card_img }}"
+                                data-product-step="{{ card_step | escape }}"
+                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                          + AGGIUNGI
+                        </button>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+
+            {%- elsif has_meta_routine -%}
+                {%- for meta_prod in meta_routine_prods limit: 3 -%}
+                  {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                  {%- case forloop.index -%}
+                    {%- when 1 -%}{%- assign meta_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
+                    {%- when 2 -%}{%- assign meta_step = 'STEP 02 • BOOSTER & ATTIVO' -%}
+                    {%- else -%}{%- assign meta_step = 'STEP 03 • BARRIERA & COMFORT' -%}
+                  {%- endcase -%}
+                  {%- assign card_title = meta_prod.title -%}
+                  {%- assign card_sub = meta_prod.metafields.custom.subtitle | default: meta_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                  {%- if meta_prod.featured_image != blank -%}
+                    {%- assign card_img = meta_prod.featured_image | image_url: width: 800 -%}
+                  {%- else -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- endif -%}
+                  {%- assign card_price_html = meta_prod.price | money -%}
+                  {%- assign card_price_num = meta_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_url = meta_prod.url -%}
+                  {%- assign card_variant_id = meta_prod.selected_or_first_available_variant.id | default: meta_prod.variants.first.id -%}
+                  {%- assign card_step = meta_step -%}
+
+                  <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                     <div>
                       <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
                         <a href="{{ card_url }}" class="w-full h-full block">
@@ -593,8 +655,121 @@
                     </div>
                   </div>
                 {%- endfor -%}
-            {%- else -%}
-                <!-- Fallback 3 Card Predefinite -->
+
+            {%- elsif global_routine_prods_count > 0 -%}
+                {%- for block in routine_blocks -%}
+                  {%- if block.settings.target_product == blank and block.settings.product != blank and routine_rendered_count < 3 -%}
+                    {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                    {%- assign block_prod = block.settings.product -%}
+                    {%- assign card_title = block.settings.title | default: block_prod.title -%}
+                    {%- assign card_sub = block.settings.subtitle | default: block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                    {%- if block.settings.image != blank -%}
+                      {%- assign card_img = block.settings.image | image_url: width: 800 -%}
+                    {%- elsif block_prod.featured_image != blank -%}
+                      {%- assign card_img = block_prod.featured_image | image_url: width: 800 -%}
+                    {%- else -%}
+                      {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
+                    {%- if block.settings.price != blank -%}
+                      {%- assign card_price_val = block.settings.price -%}
+                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
+                      {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
+                    {%- else -%}
+                      {%- assign card_price_html = block_prod.price | money -%}
+                      {%- assign card_price_num = block_prod.price | divided_by: 100.0 -%}
+                    {%- endif -%}
+                    {%- assign card_url = block_prod.url -%}
+                    {%- assign card_variant_id = block_prod.selected_or_first_available_variant.id | default: block_prod.variants.first.id -%}
+                    {%- assign card_step = block.settings.step | default: 'STEP ROUTINE' -%}
+
+                    <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
+                      <div>
+                        <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
+                          <a href="{{ card_url }}" class="w-full h-full block">
+                            <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                          </a>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
+                        <h4 class="font-serif text-lg font-normal text-ink mb-1">
+                          <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
+                        </h4>
+                        <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
+                      </div>
+                      <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
+                        <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                        <button type="button"
+                                onclick="quickAddProduct(this, event)"
+                                data-variant-id="{{ card_variant_id }}"
+                                data-product-title="{{ card_title | escape }}"
+                                data-product-price="{{ card_price_num }}"
+                                data-product-volume="{{ card_sub | escape }}"
+                                data-product-image="{{ card_img }}"
+                                data-product-step="{{ card_step | escape }}"
+                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                          + AGGIUNGI
+                        </button>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+
+            {%- elsif col_sibling_count >= 1 -%}
+                {%- for sib_prod in target_col.products -%}
+                  {%- if sib_prod.id != product.id and routine_rendered_count < 3 -%}
+                    {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                    {%- case routine_rendered_count -%}
+                      {%- when 1 -%}{%- assign sib_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
+                      {%- when 2 -%}{%- assign sib_step = 'STEP 02 • TRATTAMENTO SINERGICO' -%}
+                      {%- else -%}{%- assign sib_step = 'STEP 03 • BARRIERA & COMFORT' -%}
+                    {%- endcase -%}
+                    {%- assign card_title = sib_prod.title -%}
+                    {%- assign card_sub = sib_prod.metafields.custom.subtitle | default: sib_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                    {%- if sib_prod.featured_image != blank -%}
+                      {%- assign card_img = sib_prod.featured_image | image_url: width: 800 -%}
+                    {%- else -%}
+                      {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
+                    {%- assign card_price_html = sib_prod.price | money -%}
+                    {%- assign card_price_num = sib_prod.price | divided_by: 100.0 -%}
+                    {%- assign card_url = sib_prod.url -%}
+                    {%- assign card_variant_id = sib_prod.selected_or_first_available_variant.id | default: sib_prod.variants.first.id -%}
+                    {%- assign card_step = sib_step -%}
+
+                    <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
+                      <div>
+                        <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
+                          <a href="{{ card_url }}" class="w-full h-full block">
+                            <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                          </a>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
+                        <h4 class="font-serif text-lg font-normal text-ink mb-1">
+                          <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
+                        </h4>
+                        <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
+                      </div>
+                      <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
+                        <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                        <button type="button"
+                                onclick="quickAddProduct(this, event)"
+                                data-variant-id="{{ card_variant_id }}"
+                                data-product-title="{{ card_title | escape }}"
+                                data-product-price="{{ card_price_num }}"
+                                data-product-volume="{{ card_sub | escape }}"
+                                data-product-image="{{ card_img }}"
+                                data-product-step="{{ card_step | escape }}"
+                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                          + AGGIUNGI
+                        </button>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+            {%- endif -%}
+
+            {%- comment -%} Safety Fallback: if fewer than 3 were rendered, fill up to 3 cards {%- endcomment -%}
+            {%- if routine_rendered_count < 3 -%}
+              {%- if routine_rendered_count < 1 -%}
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                   <div>
                     <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
@@ -623,7 +798,9 @@
                     </button>
                   </div>
                 </div>
+              {%- endif -%}
 
+              {%- if routine_rendered_count < 2 -%}
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                   <div>
                     <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
@@ -652,7 +829,9 @@
                     </button>
                   </div>
                 </div>
+              {%- endif -%}
 
+              {%- if routine_rendered_count < 3 -%}
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                   <div>
                     <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
@@ -681,15 +860,13 @@
                     </button>
                   </div>
                 </div>
+              {%- endif -%}
             {%- endif -%}
             </div>
 
         </div>
     </section>
     {%- endif -%}
-
-
-
 <script>
   // PDP Gallery Data & Controls
   const galleryImages = [
@@ -1249,8 +1426,14 @@
     {
       "type": "routine_card",
       "name": "Scheda Routine",
-      "limit": 3,
+      "limit": 50,
       "settings": [
+        {
+          "type": "product",
+          "id": "target_product",
+          "label": "Mostra solo per questo Prodotto (Opzionale)",
+          "info": "Seleziona la pagina prodotto dove mostrare questa scheda. Se vuoto, viene considerata globale."
+        },
         {
           "type": "product",
           "id": "product",

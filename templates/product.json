@@ -28,7 +28,7 @@
         "subtitle_xHjxQ6": {
           "type": "subtitle",
           "settings": {
-            "text": "Balsamo-Olio Rigenerante"
+            "text": ""
           }
         },
         "description_XzghRk": {
@@ -39,15 +39,36 @@
           "type": "price",
           "settings": {}
         },
-        "loyalty_points_MpXdLD": {
-          "type": "loyalty_points",
-          "settings": {
-            "text": "+380 Punti Fedeltà"
-          }
-        },
         "buy_buttons_RpQVMq": {
           "type": "buy_buttons",
           "settings": {}
+        },
+        "routine_card_1": {
+          "type": "routine_card",
+          "settings": {
+            "step": "STEP 01 • DETERSIONE PURIFICANTE",
+            "title": "",
+            "subtitle": "",
+            "price": ""
+          }
+        },
+        "routine_card_2": {
+          "type": "routine_card",
+          "settings": {
+            "step": "STEP 02 • BOOSTER ATTIVO",
+            "title": "",
+            "subtitle": "",
+            "price": ""
+          }
+        },
+        "routine_card_3": {
+          "type": "routine_card",
+          "settings": {
+            "step": "STEP 03 • BARRIERA CELLULARE",
+            "title": "",
+            "subtitle": "",
+            "price": ""
+          }
         }
       },
       "block_order": [
@@ -56,25 +77,18 @@
         "subtitle_xHjxQ6",
         "description_XzghRk",
         "price_YQjBcF",
-        "loyalty_points_MpXdLD",
-        "buy_buttons_RpQVMq"
+        "buy_buttons_RpQVMq",
+        "routine_card_1",
+        "routine_card_2",
+        "routine_card_3"
       ],
       "settings": {
-        "show_founder": true,
+        "show_press": false,
         "founder_tag": "FILOSOFIA DELLA FONDATRICE",
         "founder_quote": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.",
         "founder_text": "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nella nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
         "founder_name": "Milena Tacchella",
-        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona",
-        "show_press": false,
-        "press_tag": "RICONOSCIMENTI DELLA CRITICA INTERNAZIONALE",
-        "press_items": "GALA, BRIGITTE, GLAMOUR, VOGUE, ELLE",
-        "press_quote": "L'apice della fitoterapia di lusso che ridefinisce lo standard della cura della pelle contemporanea.",
-        "press_source": "Vogue Italia",
-        "show_routine": true,
-        "routine_tag": "RITUALE COMPLETO SINERGICO",
-        "routine_title": "Completa la tua Routine",
-        "routine_subtitle": "Formulazioni complementari studiate per amplificare l'assorbimento degli attivi e prolungare la luminosità."
+        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona"
       }
     },
     "local-pickup": {
@@ -83,7 +97,7 @@
       "settings": {
         "tagline": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP",
         "title": "L'Esperienza Esclusiva del Ritiro a Verona",
-        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona in Corso Cavour 18.",
+        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro istituto di bellezza e benessere a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
         "btn_text": "Scopri il Ritiro a Verona →",
         "step1_title": "Pronto in 2 Ore Lavorative",
         "step1_desc": "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge.",
@@ -99,39 +113,13 @@
     },
     "product-reviews": {
       "type": "product-reviews",
-      "blocks": {
-        "review_NVHEW8": {
-          "type": "review",
-          "settings": {
-            "author": "Fabiana",
-            "date": "12 Maggio 2026",
-            "rating": 5,
-            "title": "Ottimo prodotto",
-            "text": "Veramente naturale, si sente!"
-          }
-        },
-        "review_YQtKr6": {
-          "type": "review",
-          "settings": {
-            "author": "Elena Ricci",
-            "date": "12 Maggio 2025",
-            "rating": 5,
-            "title": "Lo uso sempre",
-            "text": "Da qualche anno lo uso ogni giorno sulla mia pelle e quella dei miei figli, non solo sul viso ma per ogni esigenza cutanea da scottature, punture insetto, irritazioni in generale."
-          }
-        }
-      },
-      "block_order": [
-        "review_NVHEW8",
-        "review_YQtKr6"
-      ],
       "settings": {
         "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
         "overall_score": "4.9",
         "total_reviews": "321",
         "repurchase_badge": "98% delle clienti riacquista entro 60 giorni",
-        "pct_5": 99,
-        "pct_4": 1,
+        "pct_5": 92,
+        "pct_4": 6,
         "pct_3": 0,
         "pct_2": 0,
         "pct_1": 0
@@ -139,58 +127,6 @@
     },
     "product-faq": {
       "type": "product-faq",
-      "blocks": {
-        "faq_item_1": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Questo burro lascia la pelle unta o macchia i vestiti?",
-            "answer": "Assolutamente no. Penetra nella pelle ma se non si accade significa che hai usato una quantità troppo elevata, considera che è un prodotti ricchissimo di oli e burri, se inumidisci la parte prima dell' applicazione penetrerà ancora prima."
-          }
-        },
-        "faq_item_2": {
-          "type": "faq_item",
-          "settings": {
-            "question": "È adatto durante la gravidanza o l'allattamento?",
-            "answer": "Sì, la formula è 100% organica certificata Cosmos, priva di oli essenziali fotosensibilizzanti o composti controindicati, ideale per elasticizzare la pelle e prevenire smagliature."
-          }
-        },
-        "faq_item_3": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Come funziona il ritiro in 2 ore a Verona?",
-            "answer": "Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Corso Cavour 18 preparerà la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email."
-          }
-        },
-        "faq_item_4": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Qual è la durata del vasetto da 100 ml con uso quotidiano?",
-            "answer": "Con un'applicazione quotidiana su tutto il corpo, il formato standard da 100 ml dura in media tra le 6 e le 8 settimane grazie all'elevatissima resa concentrata del balsamo."
-          }
-        },
-        "faq_item_5": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Posso utilizzarlo anche sulla pelle del viso o sulle punte dei capelli?",
-            "answer": "Certamente. La formula non comedogenica è ideale per illuminare gli zigomi o nutrire le punte secche dei capelli dopo la piega con pochissime gocce scaldate tra le dita."
-          }
-        },
-        "faq_item_6": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Come si conserva al meglio il prodotto?",
-            "answer": "Consigliamo di conservare il flacone a temperatura ambiente (15-25°C) al riparo dalla luce solare diretta. Il vetro ambrato schermante assicura la perfetta integrità dei principi attivi."
-          }
-        }
-      },
-      "block_order": [
-        "faq_item_1",
-        "faq_item_2",
-        "faq_item_3",
-        "faq_item_4",
-        "faq_item_5",
-        "faq_item_6"
-      ],
       "settings": {
         "tag": "CHIAREZZA E TRASPARENZA",
         "title": "Domande Frequenti",

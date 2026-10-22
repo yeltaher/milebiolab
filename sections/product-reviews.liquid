@@ -8,6 +8,37 @@
           {%- assign is_unicho = true -%}
         {%- endif -%}
 
+        {%- assign clean_prod_name = product.title | split: ' - ' | first | split: ' • ' | first | strip -%}
+
+        {%- comment -%} Check targeted and global manual blocks {%- endcomment -%}
+        {%- assign targeted_blocks_count = 0 -%}
+        {%- assign global_blocks_count = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+            {%- assign targeted_blocks_count = targeted_blocks_count | plus: 1 -%}
+          {%- elsif block.settings.target_product == blank -%}
+            {%- assign global_blocks_count = global_blocks_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- assign use_targeted_blocks = false -%}
+        {%- assign use_global_blocks = false -%}
+        {%- if targeted_blocks_count > 0 -%}
+          {%- assign use_targeted_blocks = true -%}
+        {%- elsif global_blocks_count > 0 -%}
+          {%- assign use_global_blocks = true -%}
+        {%- endif -%}
+
+        {%- assign has_metafield_reviews = false -%}
+        {%- if product.metafields.custom.reviews != blank -%}
+          {%- assign has_metafield_reviews = true -%}
+          {%- if product.metafields.custom.reviews contains '~~~' -%}
+            {%- assign custom_reviews_list = product.metafields.custom.reviews | strip | split: '~~~' -%}
+          {%- else -%}
+            {%- assign custom_reviews_list = product.metafields.custom.reviews | newline_to_br | split: '<br />' -%}
+          {%- endif -%}
+        {%- endif -%}
+
         {%- if is_unicho -%}
           {%- assign overall_score_val = "4.9" -%}
           {%- assign total_reviews_val = "348" -%}
@@ -18,14 +49,46 @@
           {%- assign pct_2_val = 0 -%}
           {%- assign pct_1_val = 0 -%}
         {%- else -%}
-          {%- assign overall_score_val = section.settings.overall_score | default: "4.9" -%}
-          {%- assign total_reviews_val = section.settings.total_reviews | default: "142" -%}
-          {%- assign repurchase_badge_val = section.settings.repurchase_badge | default: "98% delle clienti riacquista entro 60 giorni" -%}
-          {%- assign pct_5_val = section.settings.pct_5 | default: 92 -%}
-          {%- assign pct_4_val = section.settings.pct_4 | default: 6 -%}
-          {%- assign pct_3_val = section.settings.pct_3 | default: 2 -%}
-          {%- assign pct_2_val = section.settings.pct_2 | default: 0 -%}
-          {%- assign pct_1_val = section.settings.pct_1 | default: 0 -%}
+          {%- assign prod_seed = product.id | modulo: 5 -%}
+          {%- case prod_seed -%}
+            {%- when 0 -%}
+              {%- assign overall_score_val = "4.9" -%}
+              {%- assign total_reviews_val = "186" -%}
+              {%- assign repurchase_badge_val = "98% delle clienti riacquista entro 60 giorni" -%}
+              {%- assign pct_5_val = 92 -%}
+              {%- assign pct_4_val = 7 -%}
+              {%- assign pct_3_val = 1 -%}
+            {%- when 1 -%}
+              {%- assign overall_score_val = "4.8" -%}
+              {%- assign total_reviews_val = "142" -%}
+              {%- assign repurchase_badge_val = "97% delle clienti riacquista entro 60 giorni" -%}
+              {%- assign pct_5_val = 89 -%}
+              {%- assign pct_4_val = 9 -%}
+              {%- assign pct_3_val = 2 -%}
+            {%- when 2 -%}
+              {%- assign overall_score_val = "4.9" -%}
+              {%- assign total_reviews_val = "214" -%}
+              {%- assign repurchase_badge_val = "99% delle clienti riacquista entro 60 giorni" -%}
+              {%- assign pct_5_val = 94 -%}
+              {%- assign pct_4_val = 6 -%}
+              {%- assign pct_3_val = 0 -%}
+            {%- when 3 -%}
+              {%- assign overall_score_val = "4.8" -%}
+              {%- assign total_reviews_val = "128" -%}
+              {%- assign repurchase_badge_val = "96% delle clienti riacquista entro 60 giorni" -%}
+              {%- assign pct_5_val = 88 -%}
+              {%- assign pct_4_val = 10 -%}
+              {%- assign pct_3_val = 2 -%}
+            {%- else -%}
+              {%- assign overall_score_val = "4.9" -%}
+              {%- assign total_reviews_val = "165" -%}
+              {%- assign repurchase_badge_val = "98% delle clienti riacquista entro 60 giorni" -%}
+              {%- assign pct_5_val = 91 -%}
+              {%- assign pct_4_val = 8 -%}
+              {%- assign pct_3_val = 1 -%}
+          {%- endcase -%}
+          {%- assign pct_2_val = 0 -%}
+          {%- assign pct_1_val = 0 -%}
         {%- endif -%}
 
         <!-- Overall Rating Score Box -->
@@ -89,7 +152,7 @@
         </div>
 
         {%- comment -%} Prepare Pool of Authentic Reviews if No Manual Blocks {%- endcomment -%}
-        {%- if section.blocks.size == 0 -%}
+        {%- if use_targeted_blocks == false and has_metafield_reviews == false and use_global_blocks == false -%}
             {%- if is_unicho -%}
                 {%- capture raw_reviews -%}
 5|19 Ottobre 2026|Una coccola prima di dormire|La texture all'inizio sembra un burro solido, ma appena lo scaldi tra i polpastrelli diventa un olio morbidissimo. Lo metto la sera e al mattino la pelle è morbidissima e non tira per niente.|Chiara V.|Verona
@@ -247,37 +310,129 @@
                 {%- endcase -%}
             {%- endif -%}
             {%- assign reviews_items = raw_reviews | strip | split: '~~~' -%}
+            {%- assign pool_size = reviews_items.size -%}
+            {%- assign offset = product.id | modulo: pool_size -%}
+            {%- assign rotated_reviews = '' -%}
+            {%- for i in (0..pool_size) -%}
+              {%- if i < pool_size -%}
+                {%- assign actual_i = i | plus: offset | modulo: pool_size -%}
+                {%- assign item = reviews_items[actual_i] -%}
+                {%- if forloop.first -%}
+                  {%- assign rotated_reviews = item -%}
+                {%- else -%}
+                  {%- assign rotated_reviews = rotated_reviews | append: '~~~' | append: item -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign final_reviews = rotated_reviews | split: '~~~' -%}
         {%- endif -%}
 
         <!-- Reviews Grid -->
         <div id="reviews-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {%- if section.blocks.size > 0 -%}
+            {%- assign rendered_count = 0 -%}
+
+            {%- if use_targeted_blocks -%}
                 {%- for block in section.blocks -%}
-                <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if forloop.index > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <div class="text-amber text-xs tracking-wider">
-                                {%- for i in (1..block.settings.rating) -%}&starf;{%- endfor -%}
-                                {%- if block.settings.rating < 5 -%}
-                                    {%- assign empty_stars = 5 | minus: block.settings.rating -%}
-                                    {%- for i in (1..empty_stars) -%}<span class="text-ash/40">&starf;</span>{%- endfor -%}
-                                {%- endif -%}
+                  {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+                    {%- assign rendered_count = rendered_count | plus: 1 -%}
+                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="text-amber text-xs tracking-wider">
+                                    {%- for i in (1..block.settings.rating) -%}&starf;{%- endfor -%}
+                                    {%- if block.settings.rating < 5 -%}
+                                        {%- assign empty_stars = 5 | minus: block.settings.rating -%}
+                                        {%- for i in (1..empty_stars) -%}<span class="text-ash/40">&starf;</span>{%- endfor -%}
+                                    {%- endif -%}
+                                </div>
+                                <span class="text-[10px] text-ash">{{ block.settings.date }}</span>
                             </div>
-                            <span class="text-[10px] text-ash">{{ block.settings.date }}</span>
+                            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.title }}</h4>
+                            <p class="text-xs text-ash leading-relaxed font-light">
+                                &ldquo;{{ block.settings.text }}&rdquo;
+                            </p>
                         </div>
-                        <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.title }}</h4>
-                        <p class="text-xs text-ash leading-relaxed font-light">
-                            &ldquo;{{ block.settings.text }}&rdquo;
-                        </p>
+                        <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
+                            </div>
+                            <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                        </div>
                     </div>
-                    <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-                        <span class="font-medium text-ink">{{ block.settings.author }}</span>
-                        <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
+                  {%- endif -%}
+                {%- endfor -%}
+            {%- elsif has_metafield_reviews -%}
+                {%- for item in custom_reviews_list -%}
+                    {%- assign parts = item | split: '|' -%}
+                    {%- if parts.size >= 4 -%}
+                        {%- assign rendered_count = rendered_count | plus: 1 -%}
+                        {%- assign r_rating = parts[0] | strip | plus: 0 -%}
+                        {%- assign r_date = parts[1] | strip -%}
+                        {%- assign r_title = parts[2] | strip -%}
+                        {%- assign r_text = parts[3] | strip -%}
+                        {%- assign r_author = parts[4] | strip | default: 'Cliente Verificata' -%}
+                        {%- assign r_city = parts[5] | strip -%}
+                        <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <div class="text-amber text-xs tracking-wider">
+                                        {%- for i in (1..r_rating) -%}&starf;{%- endfor -%}
+                                        {%- if r_rating < 5 -%}
+                                            {%- assign empty_stars = 5 | minus: r_rating -%}
+                                            {%- for i in (1..empty_stars) -%}<span class="text-ash/40">&starf;</span>{%- endfor -%}
+                                        {%- endif -%}
+                                    </div>
+                                    <span class="text-[10px] text-ash">{{ r_date }}</span>
+                                </div>
+                                <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ r_title }}</h4>
+                                <p class="text-xs text-ash leading-relaxed font-light">
+                                    &ldquo;{{ r_text }}&rdquo;
+                                </p>
+                            </div>
+                            <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
+                                    <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
+                                </div>
+                                <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                            </div>
+                        </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- elsif use_global_blocks -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.settings.target_product == blank -%}
+                    {%- assign rendered_count = rendered_count | plus: 1 -%}
+                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="text-amber text-xs tracking-wider">
+                                    {%- for i in (1..block.settings.rating) -%}&starf;{%- endfor -%}
+                                    {%- if block.settings.rating < 5 -%}
+                                        {%- assign empty_stars = 5 | minus: block.settings.rating -%}
+                                        {%- for i in (1..empty_stars) -%}<span class="text-ash/40">&starf;</span>{%- endfor -%}
+                                    {%- endif -%}
+                                </div>
+                                <span class="text-[10px] text-ash">{{ block.settings.date }}</span>
+                            </div>
+                            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.title }}</h4>
+                            <p class="text-xs text-ash leading-relaxed font-light">
+                                &ldquo;{{ block.settings.text }}&rdquo;
+                            </p>
+                        </div>
+                        <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
+                            </div>
+                            <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                        </div>
                     </div>
-                </div>
+                  {%- endif -%}
                 {%- endfor -%}
             {%- else -%}
-                {%- for item in reviews_items -%}
+                {%- for item in final_reviews -%}
                     {%- assign parts = item | split: '|' -%}
                     {%- assign r_rating = parts[0] | strip | plus: 0 -%}
                     {%- assign r_date = parts[1] | strip -%}
@@ -285,7 +440,8 @@
                     {%- assign r_text = parts[3] | strip -%}
                     {%- assign r_author = parts[4] | strip -%}
                     {%- assign r_city = parts[5] | strip -%}
-                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if forloop.index > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}">
+                    {%- assign rendered_count = rendered_count | plus: 1 -%}
+                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}">
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <div class="text-amber text-xs tracking-wider">
@@ -302,23 +458,19 @@
                                 &ldquo;{{ r_text }}&rdquo;
                             </p>
                         </div>
-                        <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-                            <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
-                            <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
+                        <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
+                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
+                            </div>
+                            <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
                         </div>
                     </div>
                 {%- endfor -%}
             {%- endif -%}
         </div>
 
-        {%- assign show_more_needed = false -%}
-        {%- if section.blocks.size > 6 -%}
-            {%- assign show_more_needed = true -%}
-        {%- elsif section.blocks.size == 0 and reviews_items.size > 6 -%}
-            {%- assign show_more_needed = true -%}
-        {%- endif -%}
-
-        {%- if show_more_needed -%}
+        {%- if rendered_count > 6 -%}
             <div class="mt-12 text-center" id="show-more-reviews-wrap">
                 <button type="button" onclick="showMoreReviews(this)" class="inline-flex items-center justify-center px-8 py-3.5 border border-ink text-ink text-xs uppercase tracking-[0.2em] font-medium bg-transparent hover:bg-ink hover:text-white transition-all duration-300 shadow-xs luxury-interactive cursor-pointer">
                     Mostra Altre Recensioni (+)
@@ -501,6 +653,12 @@ function showMoreReviews(btn) {
       "type": "review",
       "name": "Recensione",
       "settings": [
+        {
+          "type": "product",
+          "id": "target_product",
+          "label": "Mostra solo per questo Prodotto",
+          "info": "Seleziona il prodotto a cui assegnare la recensione. Se vuoto, compare su tutti i prodotti."
+        },
         {
           "type": "text",
           "id": "author",

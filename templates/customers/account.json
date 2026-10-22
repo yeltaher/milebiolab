@@ -10,7 +10,7 @@
         "coupon_label": "Codice Riservato 10%",
         "coupon_cta_text": "Esplora Formule",
         "coupon_cta_url": "/collections/all",
-        "show_loyalty_passport": true,
+        "show_loyalty_passport": false,
         "loyalty_tier_name": "Livello: Oro Botanico",
         "loyalty_points": "270 Punti Fedeltà Attivi",
         "loyalty_progress_percent": 75,

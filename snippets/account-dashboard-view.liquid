@@ -14,7 +14,10 @@
   assign coupon_cta_text = section.settings.coupon_cta_text | default: "Esplora Formule"
   assign coupon_cta_url = section.settings.coupon_cta_url | default: "/collections/all"
 
-  assign show_loyalty_passport = section.settings.show_loyalty_passport | default: true
+  assign show_loyalty_passport = false
+  if section.settings.show_loyalty_passport == true
+    assign show_loyalty_passport = true
+  endif
   assign loyalty_tier_name = section.settings.loyalty_tier_name | default: "Livello: Oro Botanico"
   assign loyalty_points = section.settings.loyalty_points | default: "120 Beauty Punti Attivi (1€ = 1 Punto)"
   assign loyalty_progress_percent = section.settings.loyalty_progress_percent | default: 75
