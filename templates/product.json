@@ -28,7 +28,7 @@
         "subtitle_xHjxQ6": {
           "type": "subtitle",
           "settings": {
-            "text": "Balsamo-Olio Rigenerante"
+            "text": ""
           }
         },
         "description_XzghRk": {
@@ -59,7 +59,14 @@
         "loyalty_points_MpXdLD",
         "buy_buttons_RpQVMq"
       ],
-      "settings": {}
+      "settings": {
+        "show_press": false,
+        "founder_tag": "FILOSOFIA DELLA FONDATRICE",
+        "founder_quote": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.",
+        "founder_text": "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nella nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
+        "founder_name": "Milena Tacchella",
+        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona"
+      }
     },
     "local-pickup": {
       "type": "local-pickup-verona",
@@ -67,7 +74,7 @@
       "settings": {
         "tagline": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP",
         "title": "L'Esperienza Esclusiva del Ritiro a Verona",
-        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro Istituto storico nel cuore di Verona in Corso Cavour 18.",
+        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro istituto di bellezza e benessere a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
         "btn_text": "Scopri il Ritiro a Verona →",
         "step1_title": "Pronto in 2 Ore Lavorative",
         "step1_desc": "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge.",
@@ -116,7 +123,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Come funziona il ritiro in 2 ore a Verona?",
-            "answer": "Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Corso Cavour 18 preparerà la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email."
+            "answer": "Basta selezionare l'opzione al checkout. Il nostro staff di boutique in Via Torricelle, 2c in Lebestetik Beauty & Spa preparerà la confezione sartoriale entro 120 minuti, inviandoti una notifica via SMS ed email."
           }
         },
         "faq_item_4": {
@@ -153,7 +160,8 @@
         "tag": "CHIAREZZA E TRASPARENZA",
         "title": "Domande Frequenti",
         "subtitle": "Tutto quello che desideri sapere sul prodotto."
-      }
+      },
+      "disabled": true
     }
   },
   "order": [

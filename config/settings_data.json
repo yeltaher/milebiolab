@@ -17,7 +17,7 @@
     "color_accent_olive_dark": "#4A5340",
     "color_accent_gold": "#C8A878",
     "enable_verona_pickup": true,
-    "verona_address": "Corso Cavour, 18, 37121 Verona (VR)",
+    "verona_address": "Via Torricelle, 2c, 37128 Verona (VR) in Lebestetik Beauty & Spa",
     "pickup_hours": "Lunedì - Sabato 09:30 - 19:30",
     "pickup_phone": "+39 045 800 1234",
     "sections": {
@@ -187,7 +187,7 @@
       "color_accent_olive_dark": "#4A5340",
       "color_accent_gold": "#C8A878",
       "enable_verona_pickup": true,
-      "verona_address": "Corso Cavour, 18, 37121 Verona (VR)",
+      "verona_address": "Via Torricelle, 2c, 37128 Verona (VR) in Lebestetik Beauty & Spa",
       "pickup_hours": "Lunedì - Sabato 09:30 - 19:30",
       "pickup_phone": "+39 045 800 1234"
     }

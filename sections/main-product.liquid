@@ -158,61 +158,13 @@
                         </div>
 
                     {%- when 'subtitle' -%}
-                        {%- assign display_subtitle = block.settings.text -%}
-                        {%- assign prod_title_lower = product.title | downcase -%}
-                        {%- assign prod_type_lower = product.type | downcase -%}
+                        {%- assign display_subtitle = '' -%}
                         {%- if product.metafields.custom.subtitle != blank -%}
                             {%- assign display_subtitle = product.metafields.custom.subtitle -%}
-                        {%- elsif display_subtitle == 'Balsamo-Olio Rigenerante' or display_subtitle == blank -%}
-                            {%- if prod_title_lower contains 'conditioner' or prod_title_lower contains 'balsamo' or prod_title_lower contains 'radiace' or prod_type_lower contains 'conditioner' or prod_type_lower contains 'balsamo' -%}
-                                {%- assign display_subtitle = 'Balsamo Idratante & Sublimatore' -%}
-                            {%- elsif prod_title_lower contains 'shampoo' or prod_type_lower contains 'shampoo' -%}
-                                {%- assign display_subtitle = 'Shampoo Rivitalizzante Botanico' -%}
-                            {%- elsif prod_title_lower contains 'hair mask' or prod_title_lower contains 'maschera capelli' or prod_type_lower contains 'mask' -%}
-                                {%- assign display_subtitle = 'Maschera Nutriente Intensiva' -%}
-                            {%- elsif prod_title_lower contains 'hair' or prod_title_lower contains 'capelli' or prod_type_lower contains 'hair' -%}
-                                {%- assign display_subtitle = 'Trattamento Botanico Capelli' -%}
-                            {%- elsif prod_title_lower contains 'serum' or prod_title_lower contains 'siero' or prod_type_lower contains 'serum' or prod_type_lower contains 'siero' -%}
-                                {%- if product.type != blank and prod_type_lower != 'default' -%}
-                                    {%- assign display_subtitle = product.type -%}
-                                {%- else -%}
-                                    {%- assign display_subtitle = 'Siero Perfezionatore Concentrato' -%}
-                                {%- endif -%}
-                            {%- elsif prod_title_lower contains 'cleans' or prod_title_lower contains 'detergente' or prod_title_lower contains 'milk' or prod_title_lower contains 'latte' -%}
-                                {%- if product.type != blank and prod_type_lower != 'default' -%}
-                                    {%- assign display_subtitle = product.type -%}
-                                {%- else -%}
-                                    {%- assign display_subtitle = 'Detergente & Tonico Quotidiano' -%}
-                                {%- endif -%}
-                            {%- elsif prod_title_lower contains 'cream' or prod_title_lower contains 'crema' -%}
-                                {%- if product.type != blank and prod_type_lower != 'default' -%}
-                                    {%- assign display_subtitle = product.type -%}
-                                {%- else -%}
-                                    {%- assign display_subtitle = 'Crema Riparatrice Cellulare' -%}
-                                {%- endif -%}
-                            {%- elsif prod_title_lower contains 'gel' -%}
-                                {%- if product.type != blank and prod_type_lower != 'default' -%}
-                                    {%- assign display_subtitle = product.type -%}
-                                {%- else -%}
-                                    {%- assign display_subtitle = 'Gel Booster Idratante' -%}
-                                {%- endif -%}
-                            {%- elsif prod_title_lower contains 'eye' or prod_title_lower contains 'occhi' -%}
-                                {%- if product.type != blank and prod_type_lower != 'default' -%}
-                                    {%- assign display_subtitle = product.type -%}
-                                {%- else -%}
-                                    {%- assign display_subtitle = 'Contorno Occhi & Labbra' -%}
-                                {%- endif -%}
-                            {%- elsif prod_title_lower contains 'oil' or prod_title_lower contains 'olio' -%}
-                                {%- if product.type != blank and prod_type_lower != 'default' -%}
-                                    {%- assign display_subtitle = product.type -%}
-                                {%- else -%}
-                                    {%- assign display_subtitle = 'Olio Botanico Rigenerante' -%}
-                                {%- endif -%}
-                            {%- elsif product.type != blank and prod_type_lower != 'default' -%}
-                                {%- assign display_subtitle = product.type -%}
-                            {%- else -%}
-                                {%- assign display_subtitle = 'Trattamento Botanico Rigenerante' -%}
-                            {%- endif -%}
+                        {%- elsif product.type != blank and product.type != 'Default' and product.type != 'Trattamento Biomimetico' -%}
+                            {%- assign display_subtitle = product.type -%}
+                        {%- elsif block.settings.text != blank and block.settings.text != 'Balsamo-Olio Rigenerante' -%}
+                            {%- assign display_subtitle = block.settings.text -%}
                         {%- endif -%}
                         {%- if display_subtitle != blank -%}
                         <p class="font-sans text-xs tracking-wider text-[#7A7265] mt-2 font-normal" {{ block.shopify_attributes }}>
@@ -460,26 +412,31 @@
             </div>
 
             <div class="md:col-span-7 space-y-4">
-                {%- if section.settings.founder_tag != blank -%}
-                    <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold block">{{ section.settings.founder_tag }}</span>
+                {%- assign founder_tag = section.settings.founder_tag | default: 'FILOSOFIA DELLA FONDATRICE' -%}
+                {%- if founder_tag != blank -%}
+                    <span class="text-xs uppercase tracking-[0.25em] text-sage font-semibold block">{{ founder_tag }}</span>
                 {%- endif -%}
-                {%- if section.settings.founder_quote != blank -%}
+                {%- assign founder_quote = section.settings.founder_quote | default: "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata." -%}
+                {%- if founder_quote != blank -%}
                     <blockquote class="font-serif italic text-2xl sm:text-3xl text-ink leading-snug">
-                        &ldquo;{{ section.settings.founder_quote }}&rdquo;
+                        &ldquo;{{ founder_quote }}&rdquo;
                     </blockquote>
                 {%- endif -%}
-                {%- if section.settings.founder_text != blank -%}
+                {%- assign founder_text = section.settings.founder_text | default: "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nella nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa." -%}
+                {%- if founder_text != blank -%}
                     <p class="text-xs text-ash leading-relaxed font-light">
-                        {{ section.settings.founder_text }}
+                        {{ founder_text }}
                     </p>
                 {%- endif -%}
-                {%- if section.settings.founder_name != blank or section.settings.founder_role != blank -%}
+                {%- assign founder_name = section.settings.founder_name | default: 'Milena Tacchella' -%}
+                {%- assign founder_role = section.settings.founder_role | default: 'Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona' -%}
+                {%- if founder_name != blank or founder_role != blank -%}
                     <div class="pt-2">
-                        {%- if section.settings.founder_name != blank -%}
-                            <span class="font-serif text-lg font-semibold text-ink block">{{ section.settings.founder_name }}</span>
+                        {%- if founder_name != blank -%}
+                            <span class="font-serif text-lg font-semibold text-ink block">{{ founder_name }}</span>
                         {%- endif -%}
-                        {%- if section.settings.founder_role != blank -%}
-                            <span class="text-[10px] uppercase tracking-widest text-ash">{{ section.settings.founder_role }}</span>
+                        {%- if founder_role != blank -%}
+                            <span class="text-[10px] uppercase tracking-widest text-ash">{{ founder_role }}</span>
                         {%- endif -%}
                     </div>
                 {%- endif -%} 
@@ -491,6 +448,118 @@
 
     <!-- 11. Sezione Cross-Sell "IDEAL FOR YOUR SKIN..." -->
     {%- if section.settings.show_routine -%}
+    {%- comment -%}
+      Risoluzione Intelligente Prodotti Routine (3 Priorità):
+      1. Metafield di prodotto (custom.routine, custom.complementary_products, o Shopify Search & Discovery)
+      2. Prodotti correlati dalla collezione (stessa collection, escludendo il prodotto corrente)
+      3. Fallback impostazioni Theme Editor (section.settings.product_1, product_2, product_3)
+    {%- endcomment -%}
+
+    {%- assign routine_source = nil -%}
+    {%- if product.metafields.custom.routine.value != blank -%}
+        {%- assign routine_source = product.metafields.custom.routine.value -%}
+    {%- elsif product.metafields.custom.complementary_products.value != blank -%}
+        {%- assign routine_source = product.metafields.custom.complementary_products.value -%}
+    {%- elsif product.metafields.shopify--discovery--product_recommendation.complementary_products.value != blank -%}
+        {%- assign routine_source = product.metafields.shopify--discovery--product_recommendation.complementary_products.value -%}
+    {%- elsif product.metafields.custom.routine != blank -%}
+        {%- assign routine_source = product.metafields.custom.routine -%}
+    {%- elsif product.metafields.custom.complementary_products != blank -%}
+        {%- assign routine_source = product.metafields.custom.complementary_products -%}
+    {%- endif -%}
+
+    {%- assign routine_count = 0 -%}
+    {%- assign p1 = nil -%}
+    {%- assign p2 = nil -%}
+    {%- assign p3 = nil -%}
+
+    {%- if routine_source != blank -%}
+        {%- for item in routine_source -%}
+            {%- if item.id != product.id -%}
+                {%- if routine_count == 0 -%}
+                    {%- assign p1 = item -%}
+                    {%- assign routine_count = 1 -%}
+                {%- elsif routine_count == 1 -%}
+                    {%- assign p2 = item -%}
+                    {%- assign routine_count = 2 -%}
+                {%- elsif routine_count == 2 -%}
+                    {%- assign p3 = item -%}
+                    {%- assign routine_count = 3 -%}
+                    {%- break -%}
+                {%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+
+    {%- if routine_count < 3 and product.collections.size > 0 -%}
+        {%- for col in product.collections -%}
+            {%- if col.handle != 'all' and col.handle != 'frontpage' -%}
+                {%- for col_prod in col.products -%}
+                    {%- if col_prod.id != product.id -%}
+                        {%- assign already_in_routine = false -%}
+                        {%- if p1 != blank and col_prod.id == p1.id -%}{%- assign already_in_routine = true -%}{%- endif -%}
+                        {%- if p2 != blank and col_prod.id == p2.id -%}{%- assign already_in_routine = true -%}{%- endif -%}
+                        {%- unless already_in_routine -%}
+                            {%- if routine_count == 0 -%}
+                                {%- assign p1 = col_prod -%}
+                                {%- assign routine_count = 1 -%}
+                            {%- elsif routine_count == 1 -%}
+                                {%- assign p2 = col_prod -%}
+                                {%- assign routine_count = 2 -%}
+                            {%- elsif routine_count == 2 -%}
+                                {%- assign p3 = col_prod -%}
+                                {%- assign routine_count = 3 -%}
+                                {%- break -%}
+                            {%- endif -%}
+                        {%- endunless -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                {%- if routine_count >= 3 -%}{%- break -%}{%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if routine_count < 3 and product.collections.first != blank -%}
+            {%- for col_prod in product.collections.first.products -%}
+                {%- if col_prod.id != product.id -%}
+                    {%- assign already_in_routine = false -%}
+                    {%- if p1 != blank and col_prod.id == p1.id -%}{%- assign already_in_routine = true -%}{%- endif -%}
+                    {%- if p2 != blank and col_prod.id == p2.id -%}{%- assign already_in_routine = true -%}{%- endif -%}
+                    {%- unless already_in_routine -%}
+                        {%- if routine_count == 0 -%}
+                            {%- assign p1 = col_prod -%}
+                            {%- assign routine_count = 1 -%}
+                        {%- elsif routine_count == 1 -%}
+                            {%- assign p2 = col_prod -%}
+                            {%- assign routine_count = 2 -%}
+                        {%- elsif routine_count == 2 -%}
+                            {%- assign p3 = col_prod -%}
+                            {%- assign routine_count = 3 -%}
+                            {%- break -%}
+                        {%- endif -%}
+                    {%- endunless -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endif -%}
+
+    {%- if p1 == nil or p1.title == blank -%}
+        {%- assign p1 = section.settings.product_1 -%}
+        {%- if p1 == blank or p1.title == blank -%}
+            {%- assign p1 = all_products[section.settings.product_1] -%}
+        {%- endif -%}
+    {%- endif -%}
+    {%- if p2 == nil or p2.title == blank -%}
+        {%- assign p2 = section.settings.product_2 -%}
+        {%- if p2 == blank or p2.title == blank -%}
+            {%- assign p2 = all_products[section.settings.product_2] -%}
+        {%- endif -%}
+    {%- endif -%}
+    {%- if p3 == nil or p3.title == blank -%}
+        {%- assign p3 = section.settings.product_3 -%}
+        {%- if p3 == blank or p3.title == blank -%}
+            {%- assign p3 = all_products[section.settings.product_3] -%}
+        {%- endif -%}
+    {%- endif -%}
+
     <section class="py-24 bg-white border-b border-borderLinen">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
 
@@ -510,66 +579,47 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <!-- Product 1: Detergente Lipofilo Purificante -->
-                {%- assign p1 = section.settings.product_1 -%}
-                {%- if p1 == blank or p1.title == blank -%} 
-                    {%- assign p1 = all_products[section.settings.product_1] -%}
-                {%- endif -%}
-
-                {%- if p1 != blank and section.settings.product_1_title == 'Detergente Lipofilo Purificante' -%}
+                <!-- Product 1 Card -->
+                {%- if p1 != blank and p1.title != blank -%}
                     {%- assign card_1_title = p1.title -%}
-                {%- elsif section.settings.product_1_title != blank -%}
-                    {%- assign card_1_title = section.settings.product_1_title -%}
-                {%- elsif p1 != blank -%}
-                    {%- assign card_1_title = p1.title -%}
+                    {%- if section.settings.product_1_title != blank and section.settings.product_1_title != 'Detergente Lipofilo Purificante' and section.settings.product_1 != blank and p1.id == section.settings.product_1.id -%}
+                        {%- assign card_1_title = section.settings.product_1_title -%}
+                    {%- endif -%}
+                    {%- if p1.metafields.custom.subtitle != blank -%}
+                        {%- assign card_1_sub = p1.metafields.custom.subtitle -%}
+                    {%- elsif p1.variants.first.title != blank and p1.variants.first.title != 'Default Title' -%}
+                        {%- assign card_1_sub = p1.variants.first.title -%}
+                    {%- elsif p1.type != blank and p1.type != 'Default' -%}
+                        {%- assign card_1_sub = p1.type -%}
+                    {%- elsif section.settings.product_1_subtitle != blank and section.settings.product_1_subtitle != '150 ml • Rispetta la barriera idrolipidica' and section.settings.product_1 != blank and p1.id == section.settings.product_1.id -%}
+                        {%- assign card_1_sub = section.settings.product_1_subtitle -%}
+                    {%- else -%}
+                        {%- assign card_1_sub = 'Trattamento Sinergico Consigliato' -%}
+                    {%- endif -%}
+                    {%- if p1.featured_image != blank -%}
+                        {%- assign card_1_img = p1.featured_image | image_url: width: 800 -%}
+                    {%- elsif section.settings.product_1_image != blank -%}
+                        {%- assign card_1_img = section.settings.product_1_image | image_url: width: 800 -%}
+                    {%- else -%}
+                        {%- assign card_1_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
+                    {%- assign card_1_price_html = p1.price | money -%}
+                    {%- assign card_1_price_num = p1.price | divided_by: 100.0 -%}
+                    {%- assign card_1_url = p1.url -%}
+                    {%- assign card_1_variant_id = p1.selected_or_first_available_variant.id | default: p1.variants.first.id -%}
                 {%- else -%}
-                    {%- assign card_1_title = 'Detergente Lipofilo Purificante' -%}
-                {%- endif -%}
-
-                {%- if section.settings.product_1_subtitle != blank and section.settings.product_1_subtitle != '150 ml • Rispetta la barriera idrolipidica' -%}
-                    {%- assign card_1_sub = section.settings.product_1_subtitle -%}
-                {%- elsif p1 != blank and p1.variants.first.title != blank and p1.variants.first.title != 'Default Title' -%}
-                    {%- assign card_1_sub = p1.variants.first.title -%}
-                {%- else -%}
+                    {%- assign card_1_title = section.settings.product_1_title | default: 'Detergente Lipofilo Purificante' -%}
                     {%- assign card_1_sub = section.settings.product_1_subtitle | default: '150 ml • Rispetta la barriera idrolipidica' -%}
-                {%- endif -%}
-
-                {%- if section.settings.product_1_image != blank -%}
-                    {%- assign card_1_img = section.settings.product_1_image | img_url: '800x' -%}
-                {%- elsif p1 != blank and p1.featured_image != blank -%}
-                    {%- assign card_1_img = p1.featured_image | img_url: '800x' -%}
-                {%- else -%}
-                    {%- assign card_1_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
-                {%- endif -%}
-
-                {%- if p1 != blank and section.settings.product_1_price == '42,00' -%}
-                    {%- assign card_1_price_html = p1.price | money -%}
-                    {%- assign card_1_price_num = p1.price | divided_by: 100.0 -%}
-                {%- elsif p1 != blank and section.settings.product_1_price != blank and section.settings.product_1_price != '42,00' -%}
-                    {%- assign card_1_price_html = '&euro; ' | append: section.settings.product_1_price -%}
-                    {%- assign card_1_price_num = section.settings.product_1_price | replace: ',', '.' | remove: '€' | strip -%}
-                {%- elsif p1 != blank -%}
-                    {%- assign card_1_price_html = p1.price | money -%}
-                    {%- assign card_1_price_num = p1.price | divided_by: 100.0 -%}
-                {%- else -%}
+                    {%- if section.settings.product_1_image != blank -%}
+                        {%- assign card_1_img = section.settings.product_1_image | image_url: width: 800 -%}
+                    {%- else -%}
+                        {%- assign card_1_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
                     {%- assign card_1_price_html = '&euro; ' | append: (section.settings.product_1_price | default: '42,00') -%}
                     {%- assign card_1_price_num = section.settings.product_1_price | replace: ',', '.' | remove: '€' | strip | default: '42.00' -%}
+                    {%- assign card_1_url = '#' -%}
+                    {%- assign card_1_variant_id = '1' -%}
                 {%- endif -%}
-
-                {%- if p1 != blank and p1.url != blank -%}
-                    {%- assign card_1_url = p1.url -%}
-                {%- else -%}
-                    {%- assign card_1_url = product.url | default: '#' -%}
-                {%- endif -%}
-
-                {%- if p1 != blank and p1.selected_or_first_available_variant != blank -%}
-                    {%- assign card_1_variant_id = p1.selected_or_first_available_variant.id -%}
-                {%- elsif p1 != blank and p1.variants.first.id != blank -%}
-                    {%- assign card_1_variant_id = p1.variants.first.id -%}
-                {%- else -%}
-                    {%- assign card_1_variant_id = '2' -%}
-                {%- endif -%}
-
                 {%- assign card_1_step = section.settings.product_1_step | default: 'STEP 01 • DETERSIONE PURIFICANTE' -%}
 
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
@@ -599,66 +649,47 @@
                     </div>
                 </div>
 
-                <!-- Product 2: Siero Attivo Rigenerante Notte -->
-                {%- assign p2 = section.settings.product_2 -%}
-                {%- if p2 == blank or p2.title == blank -%}
-                    {%- assign p2 = all_products[section.settings.product_2] -%}
-                {%- endif -%}
-
-                {%- if p2 != blank and section.settings.product_2_title == 'Siero Rigenerante Notturno' -%}
+                <!-- Product 2 Card -->
+                {%- if p2 != blank and p2.title != blank -%}
                     {%- assign card_2_title = p2.title -%}
-                {%- elsif section.settings.product_2_title != blank -%}
-                    {%- assign card_2_title = section.settings.product_2_title -%}
-                {%- elsif p2 != blank -%}
-                    {%- assign card_2_title = p2.title -%}
+                    {%- if section.settings.product_2_title != blank and section.settings.product_2_title != 'Siero Rigenerante Notturno' and section.settings.product_2 != blank and p2.id == section.settings.product_2.id -%}
+                        {%- assign card_2_title = section.settings.product_2_title -%}
+                    {%- endif -%}
+                    {%- if p2.metafields.custom.subtitle != blank -%}
+                        {%- assign card_2_sub = p2.metafields.custom.subtitle -%}
+                    {%- elsif p2.variants.first.title != blank and p2.variants.first.title != 'Default Title' -%}
+                        {%- assign card_2_sub = p2.variants.first.title -%}
+                    {%- elsif p2.type != blank and p2.type != 'Default' -%}
+                        {%- assign card_2_sub = p2.type -%}
+                    {%- elsif section.settings.product_2_subtitle != blank and section.settings.product_2_subtitle != '30 ml • Concentrato molecolare di bio-peptidi' and section.settings.product_2 != blank and p2.id == section.settings.product_2.id -%}
+                        {%- assign card_2_sub = section.settings.product_2_subtitle -%}
+                    {%- else -%}
+                        {%- assign card_2_sub = 'Trattamento Sinergico Consigliato' -%}
+                    {%- endif -%}
+                    {%- if p2.featured_image != blank -%}
+                        {%- assign card_2_img = p2.featured_image | image_url: width: 800 -%}
+                    {%- elsif section.settings.product_2_image != blank -%}
+                        {%- assign card_2_img = section.settings.product_2_image | image_url: width: 800 -%}
+                    {%- else -%}
+                        {%- assign card_2_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
+                    {%- assign card_2_price_html = p2.price | money -%}
+                    {%- assign card_2_price_num = p2.price | divided_by: 100.0 -%}
+                    {%- assign card_2_url = p2.url -%}
+                    {%- assign card_2_variant_id = p2.selected_or_first_available_variant.id | default: p2.variants.first.id -%}
                 {%- else -%}
-                    {%- assign card_2_title = 'Siero Rigenerante Notturno' -%}
-                {%- endif -%}
-
-                {%- if section.settings.product_2_subtitle != blank and section.settings.product_2_subtitle != '30 ml • Concentrato molecolare di bio-peptidi' -%}
-                    {%- assign card_2_sub = section.settings.product_2_subtitle -%}
-                {%- elsif p2 != blank and p2.variants.first.title != blank and p2.variants.first.title != 'Default Title' -%}
-                    {%- assign card_2_sub = p2.variants.first.title -%}
-                {%- else -%}
+                    {%- assign card_2_title = section.settings.product_2_title | default: 'Siero Rigenerante Notturno' -%}
                     {%- assign card_2_sub = section.settings.product_2_subtitle | default: '30 ml • Concentrato molecolare di bio-peptidi' -%}
-                {%- endif -%}
-
-                {%- if section.settings.product_2_image != blank -%}
-                    {%- assign card_2_img = section.settings.product_2_image | img_url: '800x' -%}
-                {%- elsif p2 != blank and p2.featured_image != blank -%}
-                    {%- assign card_2_img = p2.featured_image | img_url: '800x' -%}
-                {%- else -%}
-                    {%- assign card_2_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
-                {%- endif -%}
-
-                {%- if p2 != blank and section.settings.product_2_price == '94,00' -%}
-                    {%- assign card_2_price_html = p2.price | money -%}
-                    {%- assign card_2_price_num = p2.price | divided_by: 100.0 -%}
-                {%- elsif p2 != blank and section.settings.product_2_price != blank and section.settings.product_2_price != '94,00' -%}
-                    {%- assign card_2_price_html = '&euro; ' | append: section.settings.product_2_price -%}
-                    {%- assign card_2_price_num = section.settings.product_2_price | replace: ',', '.' | remove: '€' | strip -%}
-                {%- elsif p2 != blank -%}
-                    {%- assign card_2_price_html = p2.price | money -%}
-                    {%- assign card_2_price_num = p2.price | divided_by: 100.0 -%}
-                {%- else -%}
+                    {%- if section.settings.product_2_image != blank -%}
+                        {%- assign card_2_img = section.settings.product_2_image | image_url: width: 800 -%}
+                    {%- else -%}
+                        {%- assign card_2_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
                     {%- assign card_2_price_html = '&euro; ' | append: (section.settings.product_2_price | default: '94,00') -%}
                     {%- assign card_2_price_num = section.settings.product_2_price | replace: ',', '.' | remove: '€' | strip | default: '94.00' -%}
+                    {%- assign card_2_url = '#' -%}
+                    {%- assign card_2_variant_id = '2' -%}
                 {%- endif -%}
-
-                {%- if p2 != blank and p2.url != blank -%}
-                    {%- assign card_2_url = p2.url -%}
-                {%- else -%}
-                    {%- assign card_2_url = product.url | default: '#' -%}
-                {%- endif -%}
-
-                {%- if p2 != blank and p2.selected_or_first_available_variant != blank -%}
-                    {%- assign card_2_variant_id = p2.selected_or_first_available_variant.id -%}
-                {%- elsif p2 != blank and p2.variants.first.id != blank -%}
-                    {%- assign card_2_variant_id = p2.variants.first.id -%}
-                {%- else -%}
-                    {%- assign card_2_variant_id = '4' -%}
-                {%- endif -%}
-
                 {%- assign card_2_step = section.settings.product_2_step | default: 'STEP 02 • BOOSTER ATTIVO' -%}
 
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
@@ -688,66 +719,47 @@
                     </div>
                 </div>
 
-                <!-- Product 3: Elisir Botanico Viso e Collo -->
-                {%- assign p3 = section.settings.product_3 -%}
-                {%- if p3 == blank or p3.title == blank -%}
-                    {%- assign p3 = all_products[section.settings.product_3] -%}
-                {%- endif -%}
-
-                {%- if p3 != blank and section.settings.product_3_title == 'Elisir Botanico Viso e Collo' -%}
+                <!-- Product 3 Card -->
+                {%- if p3 != blank and p3.title != blank -%}
                     {%- assign card_3_title = p3.title -%}
-                {%- elsif section.settings.product_3_title != blank -%}
-                    {%- assign card_3_title = section.settings.product_3_title -%}
-                {%- elsif p3 != blank -%}
-                    {%- assign card_3_title = p3.title -%}
+                    {%- if section.settings.product_3_title != blank and section.settings.product_3_title != 'Elisir Botanico Viso e Collo' and section.settings.product_3 != blank and p3.id == section.settings.product_3.id -%}
+                        {%- assign card_3_title = section.settings.product_3_title -%}
+                    {%- endif -%}
+                    {%- if p3.metafields.custom.subtitle != blank -%}
+                        {%- assign card_3_sub = p3.metafields.custom.subtitle -%}
+                    {%- elsif p3.variants.first.title != blank and p3.variants.first.title != 'Default Title' -%}
+                        {%- assign card_3_sub = p3.variants.first.title -%}
+                    {%- elsif p3.type != blank and p3.type != 'Default' -%}
+                        {%- assign card_3_sub = p3.type -%}
+                    {%- elsif section.settings.product_3_subtitle != blank and section.settings.product_3_subtitle != '50 ml • Fitocomplessi montani antiossidanti' and section.settings.product_3 != blank and p3.id == section.settings.product_3.id -%}
+                        {%- assign card_3_sub = section.settings.product_3_subtitle -%}
+                    {%- else -%}
+                        {%- assign card_3_sub = 'Trattamento Sinergico Consigliato' -%}
+                    {%- endif -%}
+                    {%- if p3.featured_image != blank -%}
+                        {%- assign card_3_img = p3.featured_image | image_url: width: 800 -%}
+                    {%- elsif section.settings.product_3_image != blank -%}
+                        {%- assign card_3_img = section.settings.product_3_image | image_url: width: 800 -%}
+                    {%- else -%}
+                        {%- assign card_3_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
+                    {%- assign card_3_price_html = p3.price | money -%}
+                    {%- assign card_3_price_num = p3.price | divided_by: 100.0 -%}
+                    {%- assign card_3_url = p3.url -%}
+                    {%- assign card_3_variant_id = p3.selected_or_first_available_variant.id | default: p3.variants.first.id -%}
                 {%- else -%}
-                    {%- assign card_3_title = 'Elisir Botanico Viso e Collo' -%}
-                {%- endif -%}
-
-                {%- if section.settings.product_3_subtitle != blank and section.settings.product_3_subtitle != '50 ml • Fitocomplessi montani antiossidanti' -%}
-                    {%- assign card_3_sub = section.settings.product_3_subtitle -%}
-                {%- elsif p3 != blank and p3.variants.first.title != blank and p3.variants.first.title != 'Default Title' -%}
-                    {%- assign card_3_sub = p3.variants.first.title -%}
-                {%- else -%}
+                    {%- assign card_3_title = section.settings.product_3_title | default: 'Elisir Botanico Viso e Collo' -%}
                     {%- assign card_3_sub = section.settings.product_3_subtitle | default: '50 ml • Fitocomplessi montani antiossidanti' -%}
-                {%- endif -%}
-
-                {%- if section.settings.product_3_image != blank -%}
-                    {%- assign card_3_img = section.settings.product_3_image | img_url: '800x' -%}
-                {%- elsif p3 != blank and p3.featured_image != blank -%}
-                    {%- assign card_3_img = p3.featured_image | img_url: '800x' -%}
-                {%- else -%}
-                    {%- assign card_3_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
-                {%- endif -%}
-
-                {%- if p3 != blank and section.settings.product_3_price == '86,00' -%}
-                    {%- assign card_3_price_html = p3.price | money -%}
-                    {%- assign card_3_price_num = p3.price | divided_by: 100.0 -%}
-                {%- elsif p3 != blank and section.settings.product_3_price != blank and section.settings.product_3_price != '86,00' -%}
-                    {%- assign card_3_price_html = '&euro; ' | append: section.settings.product_3_price -%}
-                    {%- assign card_3_price_num = section.settings.product_3_price | replace: ',', '.' | remove: '€' | strip -%}
-                {%- elsif p3 != blank -%}
-                    {%- assign card_3_price_html = p3.price | money -%}
-                    {%- assign card_3_price_num = p3.price | divided_by: 100.0 -%}
-                {%- else -%}
+                    {%- if section.settings.product_3_image != blank -%}
+                        {%- assign card_3_img = section.settings.product_3_image | image_url: width: 800 -%}
+                    {%- else -%}
+                        {%- assign card_3_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- endif -%}
                     {%- assign card_3_price_html = '&euro; ' | append: (section.settings.product_3_price | default: '86,00') -%}
                     {%- assign card_3_price_num = section.settings.product_3_price | replace: ',', '.' | remove: '€' | strip | default: '86.00' -%}
+                    {%- assign card_3_url = '#' -%}
+                    {%- assign card_3_variant_id = '3' -%}
                 {%- endif -%}
-
-                {%- if p3 != blank and p3.url != blank -%}
-                    {%- assign card_3_url = p3.url -%}
-                {%- else -%}
-                    {%- assign card_3_url = product.url | default: '#' -%}
-                {%- endif -%}
-
-                {%- if p3 != blank and p3.selected_or_first_available_variant != blank -%}
-                    {%- assign card_3_variant_id = p3.selected_or_first_available_variant.id -%}
-                {%- elsif p3 != blank and p3.variants.first.id != blank -%}
-                    {%- assign card_3_variant_id = p3.variants.first.id -%}
-                {%- else -%}
-                    {%- assign card_3_variant_id = '6' -%}
-                {%- endif -%}
-
                 {%- assign card_3_step = section.settings.product_3_step | default: 'STEP 03 • BARRIERA CELLULARE' -%}
 
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
@@ -1138,7 +1150,7 @@
       "type": "textarea",
       "id": "founder_text",
       "label": "Testo Descrittivo",
-      "default": "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nel nostro istituto e boutique di Verona in Via Torricelle 2c."
+      "default": "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nella nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa."
     },
     {
       "type": "text",
@@ -1160,7 +1172,7 @@
       "type": "checkbox",
       "id": "show_press",
       "label": "Mostra Fascia Riconoscimenti",
-      "default": true
+      "default": false
     },
     {
       "type": "text",
@@ -1346,8 +1358,7 @@
         {
           "type": "text",
           "id": "text",
-          "label": "Testo",
-          "default": "Balsamo-Olio Rigenerante"
+          "label": "Testo"
         }
       ]
     },
