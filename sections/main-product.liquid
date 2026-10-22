@@ -468,7 +468,7 @@
       Risoluzione Intelligente Prodotti Routine (3 Priorità):
       1. Metafield di prodotto (custom.routine, custom.complementary_products, o Shopify Search & Discovery)
       2. Prodotti correlati dalla collezione (stessa collection, escludendo il prodotto corrente)
-      3. Fallback impostazioni Theme Editor (section.settings.product_1, product_2, product_3)
+      3. Fallback impostazioni Theme Editor (section.settings.routine_products)
     {%- endcomment -%}
 
     {%- assign routine_source = nil -%}
@@ -558,22 +558,13 @@
     {%- endif -%}
 
     {%- if p1 == nil or p1.title == blank -%}
-        {%- assign p1 = section.settings.product_1 -%}
-        {%- if p1 == blank or p1.title == blank -%}
-            {%- assign p1 = all_products[section.settings.product_1] -%}
-        {%- endif -%}
+        {%- assign p1 = section.settings.routine_products[0] -%}
     {%- endif -%}
     {%- if p2 == nil or p2.title == blank -%}
-        {%- assign p2 = section.settings.product_2 -%}
-        {%- if p2 == blank or p2.title == blank -%}
-            {%- assign p2 = all_products[section.settings.product_2] -%}
-        {%- endif -%}
+        {%- assign p2 = section.settings.routine_products[1] -%}
     {%- endif -%}
     {%- if p3 == nil or p3.title == blank -%}
-        {%- assign p3 = section.settings.product_3 -%}
-        {%- if p3 == blank or p3.title == blank -%}
-            {%- assign p3 = all_products[section.settings.product_3] -%}
-        {%- endif -%}
+        {%- assign p3 = section.settings.routine_products[2] -%}
     {%- endif -%}
 
     <section class="py-24 bg-white border-b border-borderLinen">
@@ -598,7 +589,7 @@
                 <!-- Product 1 Card -->
                 {%- if p1 != blank and p1.title != blank -%}
                     {%- assign card_1_title = p1.title -%}
-                    {%- if section.settings.product_1_title != blank and section.settings.product_1_title != 'Detergente Lipofilo Purificante' and section.settings.product_1 != blank and p1.id == section.settings.product_1.id -%}
+                    {%- if section.settings.product_1_title != blank and section.settings.product_1_title != 'Detergente Lipofilo Purificante' -%}
                         {%- assign card_1_title = section.settings.product_1_title -%}
                     {%- endif -%}
                     {%- if p1.metafields.custom.subtitle != blank -%}
@@ -607,7 +598,7 @@
                         {%- assign card_1_sub = p1.variants.first.title -%}
                     {%- elsif p1.type != blank and p1.type != 'Default' -%}
                         {%- assign card_1_sub = p1.type -%}
-                    {%- elsif section.settings.product_1_subtitle != blank and section.settings.product_1_subtitle != '150 ml • Rispetta la barriera idrolipidica' and section.settings.product_1 != blank and p1.id == section.settings.product_1.id -%}
+                    {%- elsif section.settings.product_1_subtitle != blank and section.settings.product_1_subtitle != '150 ml • Rispetta la barriera idrolipidica' -%}
                         {%- assign card_1_sub = section.settings.product_1_subtitle -%}
                     {%- else -%}
                         {%- assign card_1_sub = 'Trattamento Sinergico Consigliato' -%}
@@ -669,7 +660,7 @@
                 <!-- Product 2 Card -->
                 {%- if p2 != blank and p2.title != blank -%}
                     {%- assign card_2_title = p2.title -%}
-                    {%- if section.settings.product_2_title != blank and section.settings.product_2_title != 'Siero Rigenerante Notturno' and section.settings.product_2 != blank and p2.id == section.settings.product_2.id -%}
+                    {%- if section.settings.product_2_title != blank and section.settings.product_2_title != 'Siero Rigenerante Notturno' -%}
                         {%- assign card_2_title = section.settings.product_2_title -%}
                     {%- endif -%}
                     {%- if p2.metafields.custom.subtitle != blank -%}
@@ -678,7 +669,7 @@
                         {%- assign card_2_sub = p2.variants.first.title -%}
                     {%- elsif p2.type != blank and p2.type != 'Default' -%}
                         {%- assign card_2_sub = p2.type -%}
-                    {%- elsif section.settings.product_2_subtitle != blank and section.settings.product_2_subtitle != '30 ml • Concentrato molecolare di bio-peptidi' and section.settings.product_2 != blank and p2.id == section.settings.product_2.id -%}
+                    {%- elsif section.settings.product_2_subtitle != blank and section.settings.product_2_subtitle != '30 ml • Concentrato molecolare di bio-peptidi' -%}
                         {%- assign card_2_sub = section.settings.product_2_subtitle -%}
                     {%- else -%}
                         {%- assign card_2_sub = 'Trattamento Sinergico Consigliato' -%}
@@ -740,7 +731,7 @@
                 <!-- Product 3 Card -->
                 {%- if p3 != blank and p3.title != blank -%}
                     {%- assign card_3_title = p3.title -%}
-                    {%- if section.settings.product_3_title != blank and section.settings.product_3_title != 'Elisir Botanico Viso e Collo' and section.settings.product_3 != blank and p3.id == section.settings.product_3.id -%}
+                    {%- if section.settings.product_3_title != blank and section.settings.product_3_title != 'Elisir Botanico Viso e Collo' -%}
                         {%- assign card_3_title = section.settings.product_3_title -%}
                     {%- endif -%}
                     {%- if p3.metafields.custom.subtitle != blank -%}
@@ -749,7 +740,7 @@
                         {%- assign card_3_sub = p3.variants.first.title -%}
                     {%- elsif p3.type != blank and p3.type != 'Default' -%}
                         {%- assign card_3_sub = p3.type -%}
-                    {%- elsif section.settings.product_3_subtitle != blank and section.settings.product_3_subtitle != '50 ml • Fitocomplessi montani antiossidanti' and section.settings.product_3 != blank and p3.id == section.settings.product_3.id -%}
+                    {%- elsif section.settings.product_3_subtitle != blank and section.settings.product_3_subtitle != '50 ml • Fitocomplessi montani antiossidanti' -%}
                         {%- assign card_3_sub = section.settings.product_3_subtitle -%}
                     {%- else -%}
                         {%- assign card_3_sub = 'Trattamento Sinergico Consigliato' -%}
@@ -1246,13 +1237,14 @@
       "default": "Formulazioni complementari studiate per amplificare l'assorbimento degli attivi e prolungare la luminosità."
     },
     {
-      "type": "header",
-      "content": "Prodotto Routine 1"
+      "type": "product_list",
+      "id": "routine_products",
+      "label": "Prodotti Routine Consigliati",
+      "limit": 3
     },
     {
-      "type": "product",
-      "id": "product_1",
-      "label": "Seleziona Prodotto 1"
+      "type": "header",
+      "content": "Prodotto Routine 1"
     },
     {
       "type": "text",
@@ -1288,11 +1280,6 @@
       "content": "Prodotto Routine 2"
     },
     {
-      "type": "product",
-      "id": "product_2",
-      "label": "Seleziona Prodotto 2"
-    },
-    {
       "type": "text",
       "id": "product_2_title",
       "label": "Titolo Personalizzato 2",
@@ -1324,11 +1311,6 @@
     {
       "type": "header",
       "content": "Prodotto Routine 3"
-    },
-    {
-      "type": "product",
-      "id": "product_3",
-      "label": "Seleziona Prodotto 3"
     },
     {
       "type": "text",
@@ -1491,14 +1473,30 @@
     {
       "name": "Main Product PDP Mile",
       "blocks": [
-        { "type": "title" },
-        { "type": "subtitle" },
-        { "type": "price" },
-        { "type": "bullet_list" },
-        { "type": "description" },
-        { "type": "loyalty_points" },
-        { "type": "pickup" },
-        { "type": "buy_buttons" }
+        {
+          "type": "title"
+        },
+        {
+          "type": "subtitle"
+        },
+        {
+          "type": "price"
+        },
+        {
+          "type": "bullet_list"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "loyalty_points"
+        },
+        {
+          "type": "pickup"
+        },
+        {
+          "type": "buy_buttons"
+        }
       ]
     }
   ]
