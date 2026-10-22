@@ -1957,10 +1957,10 @@ function renderAccordionDescription(container) {
       { en: /bio-retinol renewal/i, it: "Rinnovamento al Bio-Retinolo" },
       { en: /lifting (?:and|&) plumping effect/i, it: "Effetto Lifting e Rimpolpante" },
       { en: /antioxidant shield (?:&|and) comfort/i, it: "Scudo Antiossidante & Comfort" },
-      { en: /texture (?:and|&) (?:sensazione|sensation)(?: sulla pelle)?/i, it: "Texture e Sensazione sulla Pelle" },
+      { en: /texture (?:and|&|e) (?:sensazione|sensation)(?: sulla pelle)?/i, it: "Texture e Sensazione sulla Pelle" },
       { en: /the science of/i, it: "La Scienza del" },
-      { en: /^(?:how to use|application ritual|modo d'uso|modalit[aà] d'uso|come si usa|directions|how to apply|modalit[aà] d'uso e applicazione)$/i, it: "Rituale di Applicazione" },
-      { en: /^(?:ingredients?|full inci|inci|ingredienti(\s*[/–-]\s*inci)?|principi attivi)$/i, it: "Principi Attivi & INCI Completo" },
+      { en: /^(?:how to use|application ritual|modo d'uso|modalit[aà] d'uso|modi d'uso|come si usa|directions|how to apply|modalit[aà] d'uso e applicazione|modo d'uso e applicazione)$/i, it: "Rituale di Applicazione" },
+      { en: /^(?:ingredients?|full inci|inci|ingredienti(\s*[/–-]\s*inci)?|principi attivi|ingredienti e certificazioni)$/i, it: "Principi Attivi & INCI Completo" },
       { en: /^(?:clinical results|risultati clinici|studi clinici)$/i, it: "Risultati Clinici & Efficacia" },
       { en: /hydrating (?:and|&) radiac?e|sublimating conditioner/i, it: "Idratazione e Sublimazione di Luminosità" },
       { en: /hair nourishment|deep repair/i, it: "Nutrizione e Riparazione Capillare" },
@@ -1982,7 +1982,7 @@ function renderAccordionDescription(container) {
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = rawHtml;
 
-  let introHtml = '';
+  let volumeHtml = '';
   let sections = [];
   let currentSection = null;
 
@@ -1993,6 +1993,14 @@ function renderAccordionDescription(container) {
     return SECTION_KEYWORD_REGEX.test(str.trim());
   }
 
+  function isVolumeOrFormatString(str) {
+    if (!str || typeof str !== 'string') return false;
+    const s = str.trim();
+    return /^\s*\d+\s*(?:ml|g|oz|fl\s*oz|l)\b/i.test(s)
+        || /\(\s*\d+\s*(?:ml|g|oz|fl\s*oz|l)\s*\)\s*$/i.test(s)
+        || /^\s*(?:formato|volume)\b/i.test(s);
+  }
+
   function isHeadingElement(el) {
     if (!el) return null;
     const tag = el.tagName ? el.tagName.toUpperCase() : '';
@@ -2000,9 +2008,9 @@ function renderAccordionDescription(container) {
     // 1. Standard HTML Headings H2-H6
     if (['H2', 'H3', 'H4', 'H5', 'H6'].includes(tag)) {
       const hText = el.textContent.trim();
-      if (hText.length > 2 && (hText.length <= 65 || hText.endsWith(':') || startsWithSectionKeyword(hText))) {
+      if (hText.length > 2) {
         return {
-          title: hText.replace(/:s*$/, '').trim(),
+          title: hText.replace(/:\s*$/, '').trim(),
           inlineContent: ''
         };
       }
@@ -2020,17 +2028,17 @@ function renderAccordionDescription(container) {
           const strongText = strongEl.textContent.trim();
           const restText = el.textContent.replace(strongEl.textContent, '').trim();
 
-          // Marketing claim / slogan exclusion:
-          // length > 55 AND does NOT end with ':' AND does NOT start with a known section keyword
-          const isMarketingClaim = (strongText.length > 55)
-                                && !strongText.endsWith(':')
-                                && !startsWithSectionKeyword(strongText);
+          const hasColon = strongText.endsWith(':') || restText.startsWith(':') || strongText.indexOf(':') > 0;
+          const isEntireBold = (restText.length === 0);
+          const isDominantBold = (strongText.length >= el.textContent.trim().length * 0.6);
+          const isSectionKw = startsWithSectionKeyword(strongText);
+          const isVolFormat = isVolumeOrFormatString(strongText) || isVolumeOrFormatString(el.textContent);
 
-          if (!isMarketingClaim && strongText.length > 2) {
+          if (strongText.length > 2 && (isEntireBold || hasColon || isDominantBold || isSectionKw || isVolFormat)) {
             let titlePart = strongText;
             let inlineFromStrong = '';
             const colonInStrong = strongText.indexOf(':');
-            if (colonInStrong > 0 && colonInStrong < strongText.length - 1 && startsWithSectionKeyword(strongText.substring(0, colonInStrong))) {
+            if (restText.length > 0 && colonInStrong > 0 && colonInStrong < strongText.length - 1) {
               titlePart = strongText.substring(0, colonInStrong).trim();
               inlineFromStrong = strongText.substring(colonInStrong + 1).trim();
             }
@@ -2038,7 +2046,7 @@ function renderAccordionDescription(container) {
             const combinedInline = (inlineFromStrong ? inlineFromStrong + ' ' : '') + restText.replace(/^[:\s\-–]+/, '').trim();
 
             return {
-              title: titlePart.replace(/:s*$/, '').trim(),
+              title: titlePart.replace(/:\s*$/, '').trim(),
               inlineContent: combinedInline.trim()
             };
           }
@@ -2048,15 +2056,23 @@ function renderAccordionDescription(container) {
       // 3. Paragraphs or Divs WITHOUT Strong (plain text)
       const plainText = el.textContent.trim();
       if (plainText.length > 2) {
-        // Case A: Text ends with ':' and is <= 65 chars
-        if (plainText.endsWith(':') && plainText.length <= 65) {
+        // Case A: Volume/Format plain text (e.g., "(145ml)", "Formato: 145ml", "145ml")
+        if (isVolumeOrFormatString(plainText) && plainText.length <= 80) {
           return {
-            title: plainText.replace(/:s*$/, '').trim(),
+            title: plainText.replace(/:\s*$/, '').trim(),
             inlineContent: ''
           };
         }
 
-        // Case B: Text starts with a known section keyword followed by ':'
+        // Case B: Text ends with ':' and is <= 65 chars
+        if (plainText.endsWith(':') && plainText.length <= 65) {
+          return {
+            title: plainText.replace(/:\s*$/, '').trim(),
+            inlineContent: ''
+          };
+        }
+
+        // Case C: Text starts with a known section keyword followed by ':'
         const colonIdx = plainText.indexOf(':');
         if (colonIdx > 0 && colonIdx <= 55) {
           const candidate = plainText.substring(0, colonIdx).trim();
@@ -2069,10 +2085,10 @@ function renderAccordionDescription(container) {
           }
         }
 
-        // Case C: Heading with section keyword <= 65 chars
+        // Case D: Heading with section keyword <= 65 chars
         if (startsWithSectionKeyword(plainText) && plainText.length <= 65) {
           return {
-            title: plainText.replace(/:s*$/, '').trim(),
+            title: plainText.replace(/:\s*$/, '').trim(),
             inlineContent: ''
           };
         }
@@ -2083,15 +2099,10 @@ function renderAccordionDescription(container) {
     if (tag === 'STRONG' || tag === 'B') {
       const txt = el.textContent.trim();
       if (txt.length > 2) {
-        const isMarketingClaim = (txt.length > 55)
-                              && !txt.endsWith(':')
-                              && !startsWithSectionKeyword(txt);
-        if (!isMarketingClaim) {
-          return {
-            title: txt.replace(/:s*$/, '').trim(),
-            inlineContent: ''
-          };
-        }
+        return {
+          title: txt.replace(/:\s*$/, '').trim(),
+          inlineContent: ''
+        };
       }
     }
 
@@ -2119,7 +2130,11 @@ function renderAccordionDescription(container) {
       const txt = node.textContent.trim();
       if (!txt) return;
       if (!currentSection) {
-        introHtml += `<p class="mb-3 leading-relaxed text-[#1A1A1A]">${txt}</p>`;
+        currentSection = {
+          title: 'Panoramica del Trattamento',
+          content: `<p class="mb-2 leading-relaxed">${txt}</p>`
+        };
+        sections.push(currentSection);
       } else {
         currentSection.content += `<p class="mb-2 leading-relaxed">${txt}</p>`;
       }
@@ -2143,22 +2158,17 @@ function renderAccordionDescription(container) {
       // (e.g., "ECOCERT COSMOS NATURAL - 98% NATURALE", "COSMOS NATURAL", "98% NATURALE")
       const isCertOrPct = /ecocert|cosmos|\b\d{1,3}\s*%/i.test(rawHeadingTitle);
       if (isCertOrPct) {
-        if (inlineContent && inlineContent.length > 5) {
-          introHtml += `<p class="mb-2 leading-relaxed text-[#1A1A1A]">${inlineContent}</p>`;
-        }
-        currentSection = null;
         return;
       }
 
       // FILTER 2: VOLUME / FORMAT / SIZE HEADINGS MUST NEVER CREATE ACCORDIONS
-      // (e.g., "290ML (BALSAMO IDRATANTE E SUBLIMATORE DI LUMINOSITÀ)", "290 ML", "50ml", etc.)
-      const isVolumeOrFormat = /^\s*\d+\s*(?:ml|g|oz|fl\s*oz|l)\b/i.test(rawHeadingTitle)
-                            || /\(\s*\d+\s*(?:ml|g|oz)\s*\)$/i.test(rawHeadingTitle)
-                            || /^\s*(?:formato|volume)\b/i.test(rawHeadingTitle);
+      // (e.g., "145ml", "Formato: 145ml", "Detergente Viso Illuminante Naturale (145ml)", etc.)
+      const isVolumeOrFormat = isVolumeOrFormatString(rawHeadingTitle);
       if (isVolumeOrFormat) {
         const fullVolText = rawHeadingTitle + (inlineContent ? ` — ${inlineContent}` : '');
-        introHtml += `<p class="font-semibold text-ink uppercase tracking-wider text-[11px] mb-2 leading-relaxed">${fullVolText}</p>`;
-        currentSection = null;
+        if (!volumeHtml) {
+          volumeHtml = `<p class="font-semibold text-ink uppercase tracking-wider text-[11px] mb-3 leading-relaxed">${fullVolText}</p>`;
+        }
         return;
       }
 
@@ -2178,19 +2188,18 @@ function renderAccordionDescription(container) {
         return;
       }
 
-      if (!currentSection) {
-        // Formattazione Elegante dell'Intro Overview per i claim/slogan
-        const strongEl = node.querySelector ? node.querySelector('strong, b') : null;
-        const isBoldClaim = strongEl && (
-          strongEl.textContent.trim().length >= nodeText.length * 0.7 ||
-          nodeText.length <= strongEl.textContent.trim().length + 10
-        );
+      // Volume / format line fallback in plain paragraph if not caught by headingCheck
+      if (!volumeHtml && isVolumeOrFormatString(nodeText) && nodeText.length <= 100 && !currentSection) {
+        volumeHtml = `<p class="font-semibold text-ink uppercase tracking-wider text-[11px] mb-3 leading-relaxed">${nodeText}</p>`;
+        return;
+      }
 
-        if (isBoldClaim) {
-          introHtml += `<p class="font-serif text-sm tracking-wide text-ink font-semibold mb-3 uppercase leading-relaxed">${nodeText}</p>`;
-        } else {
-          introHtml += nodeHtml;
-        }
+      if (!currentSection) {
+        currentSection = {
+          title: 'Panoramica del Trattamento',
+          content: nodeHtml
+        };
+        sections.push(currentSection);
       } else {
         currentSection.content += nodeHtml;
       }
@@ -2202,28 +2211,33 @@ function renderAccordionDescription(container) {
     if (!sec || !sec.title) return false;
     const t = sec.title.trim();
     if (/ecocert|cosmos|\b\d{1,3}\s*%/i.test(t)) return false;
-    if (/^\s*\d+\s*(?:ml|g|oz)\b/i.test(t)) return false;
+    if (isVolumeOrFormatString(t)) return false;
     return true;
   });
 
   if (sections.length === 0) {
-    const finalContent = (introHtml.trim() ? introHtml : rawHtml);
-    rendered.innerHTML = `<div class="pdp-intro-overview text-xs text-[#1A1A1A] leading-relaxed mb-4 font-normal">${finalContent}</div>`;
-    raw.style.display = 'none';
-    return;
+    if (rawHtml.trim()) {
+      sections.push({
+        title: 'Panoramica del Trattamento',
+        content: rawHtml
+      });
+    } else {
+      rendered.innerHTML = volumeHtml || '';
+      raw.style.display = 'none';
+      return;
+    }
   }
 
   let outHtml = '';
-  if (introHtml.trim()) {
-    outHtml += `<div class="pdp-intro-overview text-xs text-[#1A1A1A] leading-relaxed mb-5 font-normal space-y-2">${introHtml}</div>`;
+  if (volumeHtml) {
+    outHtml += volumeHtml;
   }
 
   outHtml += '<div class="pdp-accordions-group space-y-0 border-t border-[#E5E0D8]">';
-  sections.forEach((sec, idx) => {
-    if (!sec.title) return;
-    const isFirst = (idx === 0);
+  sections.forEach((sec) => {
+    if (!sec || !sec.title) return;
     outHtml += `
-      <details class="group border-b border-[#E5E0D8]" ${isFirst ? 'open' : ''}>
+      <details class="group border-b border-[#E5E0D8]">
         <summary class="flex justify-between items-center cursor-pointer py-3.5 text-[11px] uppercase tracking-widest font-semibold text-ink list-none [&::-webkit-details-marker]:hidden hover:text-sage transition-colors select-none">
           <span class="acc-heading-title">${sec.title}</span>
           <span class="text-lg font-light transition-transform duration-300 group-open:rotate-45 ml-2">&plus;</span>
