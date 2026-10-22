@@ -48,6 +48,33 @@
         "buy_buttons_RpQVMq": {
           "type": "buy_buttons",
           "settings": {}
+        },
+        "routine_card_1": {
+          "type": "routine_card",
+          "settings": {
+            "step": "STEP 01 • DETERSIONE PURIFICANTE",
+            "title": "Detergente Lipofilo Purificante",
+            "subtitle": "150 ml • Rispetta la barriera idrolipidica",
+            "price": "42,00"
+          }
+        },
+        "routine_card_2": {
+          "type": "routine_card",
+          "settings": {
+            "step": "STEP 02 • BOOSTER ATTIVO",
+            "title": "Siero Rigenerante Notturno",
+            "subtitle": "30 ml • Concentrato molecolare di bio-peptidi",
+            "price": "94,00"
+          }
+        },
+        "routine_card_3": {
+          "type": "routine_card",
+          "settings": {
+            "step": "STEP 03 • BARRIERA CELLULARE",
+            "title": "Elisir Botanico Viso e Collo",
+            "subtitle": "50 ml • Fitocomplessi montani antiossidanti",
+            "price": "86,00"
+          }
         }
       },
       "block_order": [
@@ -57,7 +84,10 @@
         "description_XzghRk",
         "price_YQjBcF",
         "loyalty_points_MpXdLD",
-        "buy_buttons_RpQVMq"
+        "buy_buttons_RpQVMq",
+        "routine_card_1",
+        "routine_card_2",
+        "routine_card_3"
       ],
       "settings": {
         "show_press": false,
