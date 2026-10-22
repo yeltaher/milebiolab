@@ -100,6 +100,16 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_NVHEW8": {
+          "type": "review",
+          "settings": {
+            "author": "Fabiana",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Veramente naturale, si sente!"
+          }
+        },
         "review_YQtKr6": {
           "type": "review",
           "settings": {
@@ -112,6 +122,7 @@
         }
       },
       "block_order": [
+        "review_NVHEW8",
         "review_YQtKr6"
       ],
       "settings": {
@@ -132,8 +143,8 @@
         "faq_item_1": {
           "type": "faq_item",
           "settings": {
-            "question": "Questo olio lascia la pelle unta o macchia i vestiti?",
-            "answer": "Assolutamente no. La formula balm-to-oil sfrutta vettori lipidici biomimetici a rapidissimo assorbimento cutaneo che penetrano all'istante lasciando un finish asciutto, satinato e setoso."
+            "question": "Questo burro lascia la pelle unta o macchia i vestiti?",
+            "answer": "Assolutamente no. Penetra nella pelle ma se non si eccade significa che hai usato una quantità troppo elevata, considera che è un prodotti ricchissimo di oli e burri, se inumidisci la parte prima dell' applicazione penetrerà ancora prima."
           }
         },
         "faq_item_2": {
