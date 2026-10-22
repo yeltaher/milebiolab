@@ -615,7 +615,8 @@
                     {%- else -%}
                         {%- assign card_1_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
                     {%- endif -%}
-                    {%- assign card_1_price_html = '&euro; ' | append: (section.settings.product_1_price | default: '42,00') -%}
+                    {%- assign card_1_price_val = section.settings.product_1_price | default: '42,00' -%}
+                    {%- assign card_1_price_html = '&euro; ' | append: card_1_price_val -%}
                     {%- assign card_1_price_num = section.settings.product_1_price | replace: ',', '.' | remove: '€' | strip | default: '42.00' -%}
                     {%- assign card_1_url = '#' -%}
                     {%- assign card_1_variant_id = '1' -%}
@@ -685,7 +686,8 @@
                     {%- else -%}
                         {%- assign card_2_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
                     {%- endif -%}
-                    {%- assign card_2_price_html = '&euro; ' | append: (section.settings.product_2_price | default: '94,00') -%}
+                    {%- assign card_2_price_val = section.settings.product_2_price | default: '94,00' -%}
+                    {%- assign card_2_price_html = '&euro; ' | append: card_2_price_val -%}
                     {%- assign card_2_price_num = section.settings.product_2_price | replace: ',', '.' | remove: '€' | strip | default: '94.00' -%}
                     {%- assign card_2_url = '#' -%}
                     {%- assign card_2_variant_id = '2' -%}
@@ -755,7 +757,8 @@
                     {%- else -%}
                         {%- assign card_3_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
                     {%- endif -%}
-                    {%- assign card_3_price_html = '&euro; ' | append: (section.settings.product_3_price | default: '86,00') -%}
+                    {%- assign card_3_price_val = section.settings.product_3_price | default: '86,00' -%}
+                    {%- assign card_3_price_html = '&euro; ' | append: card_3_price_val -%}
                     {%- assign card_3_price_num = section.settings.product_3_price | replace: ',', '.' | remove: '€' | strip | default: '86.00' -%}
                     {%- assign card_3_url = '#' -%}
                     {%- assign card_3_variant_id = '3' -%}
