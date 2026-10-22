@@ -59,7 +59,23 @@
         "loyalty_points_MpXdLD",
         "buy_buttons_RpQVMq"
       ],
-      "settings": {}
+      "settings": {
+        "show_founder": true,
+        "founder_tag": "FILOSOFIA DELLA FONDATRICE",
+        "founder_quote": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.",
+        "founder_text": "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nella nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
+        "founder_name": "Milena Tacchella",
+        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona",
+        "show_press": false,
+        "press_tag": "RICONOSCIMENTI DELLA CRITICA INTERNAZIONALE",
+        "press_items": "GALA, BRIGITTE, GLAMOUR, VOGUE, ELLE",
+        "press_quote": "L'apice della fitoterapia di lusso che ridefinisce lo standard della cura della pelle contemporanea.",
+        "press_source": "Vogue Italia",
+        "show_routine": true,
+        "routine_tag": "RITUALE COMPLETO SINERGICO",
+        "routine_title": "Completa la tua Routine",
+        "routine_subtitle": "Formulazioni complementari studiate per amplificare l'assorbimento degli attivi e prolungare la luminosità."
+      }
     },
     "local-pickup": {
       "type": "local-pickup-verona",
@@ -83,6 +99,21 @@
     },
     "product-reviews": {
       "type": "product-reviews",
+      "blocks": {
+        "review_YQtKr6": {
+          "type": "review",
+          "settings": {
+            "author": "Elena Ricci",
+            "date": "12 Maggio 2025",
+            "rating": 5,
+            "title": "Lo uso sempre",
+            "text": "Da qualche anno lo uso ogni giorno sulla mia pelle e quella dei miei figli, non solo sul viso ma per ogni esigenza cutanea da scottature, punture insetto, irritazioni in generale."
+          }
+        }
+      },
+      "block_order": [
+        "review_YQtKr6"
+      ],
       "settings": {
         "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
         "overall_score": "4.9",
