@@ -488,8 +488,14 @@
                 {%- for block in routine_blocks -%}
                   {%- assign block_prod = block.settings.product -%}
                   {%- if block_prod != blank -%}
-                    {%- assign card_title = block.settings.title | default: block_prod.title -%}
-                    {%- assign card_sub = block.settings.subtitle | default: block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                    {%- assign card_title = block.settings.title -%}
+                    {%- if card_title == blank or card_title == 'Detergente Lipofilo Purificante' or card_title == 'Siero Rigenerante Notturno' or card_title == 'Elisir Botanico Viso e Collo' -%}
+                      {%- assign card_title = block_prod.title -%}
+                    {%- endif -%}
+                    {%- assign card_sub = block.settings.subtitle -%}
+                    {%- if card_sub == blank or card_sub contains 'Rispetta la barriera' or card_sub contains 'Concentrato molecolare' or card_sub contains 'Fitocomplessi montani' -%}
+                      {%- assign card_sub = block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                    {%- endif -%}
                     {%- if block.settings.image != blank -%}
                       {%- assign card_img = block.settings.image | image_url: width: 800 -%}
                     {%- elsif block_prod.featured_image != blank -%}
@@ -497,7 +503,7 @@
                     {%- else -%}
                       {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
                     {%- endif -%}
-                    {%- if block.settings.price != blank -%}
+                    {%- if block.settings.price != blank and block.settings.price != '42,00' and block.settings.price != '94,00' and block.settings.price != '86,00' -%}
                       {%- assign card_price_val = block.settings.price -%}
                       {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
                       {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
@@ -508,18 +514,47 @@
                     {%- assign card_url = block_prod.url -%}
                     {%- assign card_variant_id = block_prod.selected_or_first_available_variant.id | default: block_prod.variants.first.id -%}
                   {%- else -%}
-                    {%- assign card_title = block.settings.title | default: 'Trattamento Sinergico Consigliato' -%}
-                    {%- assign card_sub = block.settings.subtitle | default: 'Formula complementare ad alta efficacia' -%}
+                    {%- case forloop.index -%}
+                      {%- when 1 -%}
+                        {%- assign default_fallback_title = 'Detergente Lipofilo Purificante' -%}
+                        {%- assign default_fallback_sub = '150 ml • Rispetta la barriera idrolipidica' -%}
+                        {%- assign default_fallback_price_val = '42,00' -%}
+                        {%- assign default_fallback_price_num = '42.00' -%}
+                        {%- assign default_fallback_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                        {%- assign default_fallback_variant = '1' -%}
+                      {%- when 2 -%}
+                        {%- assign default_fallback_title = 'Siero Rigenerante Notturno' -%}
+                        {%- assign default_fallback_sub = '30 ml • Concentrato molecolare di bio-peptidi' -%}
+                        {%- assign default_fallback_price_val = '94,00' -%}
+                        {%- assign default_fallback_price_num = '94.00' -%}
+                        {%- assign default_fallback_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
+                        {%- assign default_fallback_variant = '2' -%}
+                      {%- else -%}
+                        {%- assign default_fallback_title = 'Elisir Botanico Viso e Collo' -%}
+                        {%- assign default_fallback_sub = '50 ml • Fitocomplessi montani antiossidanti' -%}
+                        {%- assign default_fallback_price_val = '86,00' -%}
+                        {%- assign default_fallback_price_num = '86.00' -%}
+                        {%- assign default_fallback_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
+                        {%- assign default_fallback_variant = '3' -%}
+                    {%- endcase -%}
+                    {%- assign card_title = block.settings.title | default: default_fallback_title -%}
+                    {%- assign card_sub = block.settings.subtitle | default: default_fallback_sub -%}
                     {%- if block.settings.image != blank -%}
                       {%- assign card_img = block.settings.image | image_url: width: 800 -%}
                     {%- else -%}
-                      {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                      {%- assign card_img = default_fallback_img -%}
                     {%- endif -%}
-                    {%- assign card_price_val = block.settings.price | default: '42,00' -%}
-                    {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
-                    {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip | default: '42.00' -%}
+                    {%- if block.settings.price != blank -%}
+                      {%- assign card_price_val = block.settings.price -%}
+                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
+                      {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
+                    {%- else -%}
+                      {%- assign card_price_val = default_fallback_price_val -%}
+                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
+                      {%- assign card_price_num = default_fallback_price_num -%}
+                    {%- endif -%}
                     {%- assign card_url = '#' -%}
-                    {%- assign card_variant_id = '1' -%}
+                    {%- assign card_variant_id = default_fallback_variant -%}
                   {%- endif -%}
                   {%- assign card_step = block.settings.step | default: 'STEP ROUTINE' -%}
 
@@ -1219,27 +1254,31 @@
           "type": "text",
           "id": "step",
           "label": "Step Routine",
-          "default": "STEP 01 • DETERSIONE PURIFICANTE"
+          "default": "STEP 01 • RITUALE"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Titolo Personalizzato (opzionale)"
+          "label": "Titolo Personalizzato (opzionale)",
+          "info": "Lascia vuoto per usare il titolo del prodotto collegato"
         },
         {
           "type": "text",
           "id": "subtitle",
-          "label": "Descrizione o Formato (opzionale)"
+          "label": "Descrizione o Formato (opzionale)",
+          "info": "Lascia vuoto per usare il formato o tipo del prodotto"
         },
         {
           "type": "text",
           "id": "price",
-          "label": "Prezzo Personalizzato (opzionale)"
+          "label": "Prezzo Personalizzato (opzionale)",
+          "info": "Lascia vuoto per usare il prezzo reale del prodotto"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Immagine Personalizzata (opzionale)"
+          "label": "Immagine Personalizzata (opzionale)",
+          "info": "Lascia vuoto per usare la foto del prodotto collegato"
         }
       ]
     }

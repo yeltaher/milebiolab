@@ -53,27 +53,27 @@
           "type": "routine_card",
           "settings": {
             "step": "STEP 01 • DETERSIONE PURIFICANTE",
-            "title": "Detergente Lipofilo Purificante",
-            "subtitle": "150 ml • Rispetta la barriera idrolipidica",
-            "price": "42,00"
+            "title": "",
+            "subtitle": "",
+            "price": ""
           }
         },
         "routine_card_2": {
           "type": "routine_card",
           "settings": {
             "step": "STEP 02 • BOOSTER ATTIVO",
-            "title": "Siero Rigenerante Notturno",
-            "subtitle": "30 ml • Concentrato molecolare di bio-peptidi",
-            "price": "94,00"
+            "title": "",
+            "subtitle": "",
+            "price": ""
           }
         },
         "routine_card_3": {
           "type": "routine_card",
           "settings": {
             "step": "STEP 03 • BARRIERA CELLULARE",
-            "title": "Elisir Botanico Viso e Collo",
-            "subtitle": "50 ml • Fitocomplessi montani antiossidanti",
-            "price": "86,00"
+            "title": "",
+            "subtitle": "",
+            "price": ""
           }
         }
       },
