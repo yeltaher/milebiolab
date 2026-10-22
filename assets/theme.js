@@ -1959,18 +1959,17 @@ function renderAccordionDescription(container) {
       { en: /antioxidant shield (?:&|and) comfort/i, it: "Scudo Antiossidante & Comfort" },
       { en: /texture (?:and|&) (?:sensazione|sensation)(?: sulla pelle)?/i, it: "Texture e Sensazione sulla Pelle" },
       { en: /the science of/i, it: "La Scienza del" },
-      { en: /how to use|application ritual/i, it: "Rituale di Applicazione" },
-      { en: /ingredients|full inci/i, it: "Principi Attivi & INCI Completo" },
-      { en: /clinical results/i, it: "Risultati Clinici & Efficacia" },
+      { en: /^(?:how to use|application ritual|modo d'uso|modalit[aà] d'uso|come si usa|directions|how to apply|modalit[aà] d'uso e applicazione)$/i, it: "Rituale di Applicazione" },
+      { en: /^(?:ingredients?|full inci|inci|ingredienti(\s*[/–-]\s*inci)?|principi attivi)$/i, it: "Principi Attivi & INCI Completo" },
+      { en: /^(?:clinical results|risultati clinici|studi clinici)$/i, it: "Risultati Clinici & Efficacia" },
       { en: /hydrating (?:and|&) radiac?e|sublimating conditioner/i, it: "Idratazione e Sublimazione di Luminosità" },
       { en: /hair nourishment|deep repair/i, it: "Nutrizione e Riparazione Capillare" },
-      { en: /directions|how to apply/i, it: "Modalità d'Uso e Applicazione" },
-      { en: /benefits/i, it: "Benefici e Risultati" }
+      { en: /^benefits$|^benefici$/i, it: "Benefici e Risultati" }
     ];
 
     for (let item of dict) {
       if (item.en.test(h)) {
-        if (h.toLowerCase() === item.en.source.toLowerCase().replace(/\\/g, '')) {
+        if (item.en.source.startsWith('^') || h.toLowerCase() === item.en.source.toLowerCase().replace(/\\/g, '')) {
           return item.it;
         }
         h = h.replace(item.en, item.it);
@@ -1987,32 +1986,115 @@ function renderAccordionDescription(container) {
   let sections = [];
   let currentSection = null;
 
+  const SECTION_KEYWORD_REGEX = /^(?:la scienza|the science|benefic|benefit|\d+\s+benefic|modo d'uso|modalit[aà] d'uso|modi d'uso|rituale di applicazione|rituale d'uso|rituale\s*:|applicazion|how to use|directions|come si usa|come applicare|how to apply|ingredient|inci|full inci|principi attivi|attivi chiave|attivi\s*:|composizione|risultati clinici|clinical results|texture|sensazion|tipo di pelle|skin type|adatto a|consigli d'uso|avvertenz|precauzion)/i;
+
+  function startsWithSectionKeyword(str) {
+    if (!str || typeof str !== 'string') return false;
+    return SECTION_KEYWORD_REGEX.test(str.trim());
+  }
+
   function isHeadingElement(el) {
     if (!el) return null;
     const tag = el.tagName ? el.tagName.toUpperCase() : '';
+
+    // 1. Standard HTML Headings H2-H6
     if (['H2', 'H3', 'H4', 'H5', 'H6'].includes(tag)) {
-      return el.textContent.trim();
+      const hText = el.textContent.trim();
+      if (hText.length > 2 && (hText.length <= 65 || hText.endsWith(':') || startsWithSectionKeyword(hText))) {
+        return {
+          title: hText.replace(/:s*$/, '').trim(),
+          inlineContent: ''
+        };
+      }
+      return null;
     }
+
+    // 2. Paragraphs or Divs with Strong or B
     if (tag === 'P' || tag === 'DIV') {
       const strongEl = el.querySelector('strong, b');
       if (strongEl) {
-        const textBeforeStrong = el.childNodes[0] === strongEl ? '' : (el.childNodes[0].textContent || '').trim();
-        if (textBeforeStrong === '') {
+        const firstNonEmptyChild = Array.from(el.childNodes).find(n => (n.textContent || '').trim().length > 0);
+        const isLeading = firstNonEmptyChild === strongEl || (firstNonEmptyChild && strongEl.contains(firstNonEmptyChild));
+
+        if (isLeading) {
           const strongText = strongEl.textContent.trim();
           const restText = el.textContent.replace(strongEl.textContent, '').trim();
-          if (strongText.length > 3) {
+
+          // Marketing claim / slogan exclusion:
+          // length > 55 AND does NOT end with ':' AND does NOT start with a known section keyword
+          const isMarketingClaim = (strongText.length > 55)
+                                && !strongText.endsWith(':')
+                                && !startsWithSectionKeyword(strongText);
+
+          if (!isMarketingClaim && strongText.length > 2) {
+            let titlePart = strongText;
+            let inlineFromStrong = '';
+            const colonInStrong = strongText.indexOf(':');
+            if (colonInStrong > 0 && colonInStrong < strongText.length - 1 && startsWithSectionKeyword(strongText.substring(0, colonInStrong))) {
+              titlePart = strongText.substring(0, colonInStrong).trim();
+              inlineFromStrong = strongText.substring(colonInStrong + 1).trim();
+            }
+
+            const combinedInline = (inlineFromStrong ? inlineFromStrong + ' ' : '') + restText.replace(/^[:\s\-–]+/, '').trim();
+
             return {
-              title: strongText,
-              inlineContent: restText.replace(/^[:\s\-–]+/, '').trim()
+              title: titlePart.replace(/:s*$/, '').trim(),
+              inlineContent: combinedInline.trim()
             };
           }
         }
       }
+
+      // 3. Paragraphs or Divs WITHOUT Strong (plain text)
+      const plainText = el.textContent.trim();
+      if (plainText.length > 2) {
+        // Case A: Text ends with ':' and is <= 65 chars
+        if (plainText.endsWith(':') && plainText.length <= 65) {
+          return {
+            title: plainText.replace(/:s*$/, '').trim(),
+            inlineContent: ''
+          };
+        }
+
+        // Case B: Text starts with a known section keyword followed by ':'
+        const colonIdx = plainText.indexOf(':');
+        if (colonIdx > 0 && colonIdx <= 55) {
+          const candidate = plainText.substring(0, colonIdx).trim();
+          const remainder = plainText.substring(colonIdx + 1).trim();
+          if (startsWithSectionKeyword(candidate) && candidate.length > 2) {
+            return {
+              title: candidate,
+              inlineContent: remainder
+            };
+          }
+        }
+
+        // Case C: Heading with section keyword <= 65 chars
+        if (startsWithSectionKeyword(plainText) && plainText.length <= 65) {
+          return {
+            title: plainText.replace(/:s*$/, '').trim(),
+            inlineContent: ''
+          };
+        }
+      }
     }
+
+    // 4. Standalone STRONG or B tags
     if (tag === 'STRONG' || tag === 'B') {
       const txt = el.textContent.trim();
-      if (txt.length > 3) return txt;
+      if (txt.length > 2) {
+        const isMarketingClaim = (txt.length > 55)
+                              && !txt.endsWith(':')
+                              && !startsWithSectionKeyword(txt);
+        if (!isMarketingClaim) {
+          return {
+            title: txt.replace(/:s*$/, '').trim(),
+            inlineContent: ''
+          };
+        }
+      }
     }
+
     return null;
   }
 
@@ -2072,7 +2154,7 @@ function renderAccordionDescription(container) {
       // (e.g., "290ML (BALSAMO IDRATANTE E SUBLIMATORE DI LUMINOSITÀ)", "290 ML", "50ml", etc.)
       const isVolumeOrFormat = /^\s*\d+\s*(?:ml|g|oz|fl\s*oz|l)\b/i.test(rawHeadingTitle)
                             || /\(\s*\d+\s*(?:ml|g|oz)\s*\)$/i.test(rawHeadingTitle)
-                            || /^\s*(?:formato|volume)\s*:/i.test(rawHeadingTitle);
+                            || /^\s*(?:formato|volume)\b/i.test(rawHeadingTitle);
       if (isVolumeOrFormat) {
         const fullVolText = rawHeadingTitle + (inlineContent ? ` — ${inlineContent}` : '');
         introHtml += `<p class="font-semibold text-ink uppercase tracking-wider text-[11px] mb-2 leading-relaxed">${fullVolText}</p>`;
@@ -2097,7 +2179,18 @@ function renderAccordionDescription(container) {
       }
 
       if (!currentSection) {
-        introHtml += nodeHtml;
+        // Formattazione Elegante dell'Intro Overview per i claim/slogan
+        const strongEl = node.querySelector ? node.querySelector('strong, b') : null;
+        const isBoldClaim = strongEl && (
+          strongEl.textContent.trim().length >= nodeText.length * 0.7 ||
+          nodeText.length <= strongEl.textContent.trim().length + 10
+        );
+
+        if (isBoldClaim) {
+          introHtml += `<p class="font-serif text-sm tracking-wide text-ink font-semibold mb-3 uppercase leading-relaxed">${nodeText}</p>`;
+        } else {
+          introHtml += nodeHtml;
+        }
       } else {
         currentSection.content += nodeHtml;
       }

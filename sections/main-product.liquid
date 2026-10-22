@@ -1,11 +1,27 @@
 <!-- 3. Breadcrumbs -->
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-3 text-[11px] tracking-wider uppercase text-ash flex items-center gap-2">
-        <a href="/" class="hover:text-ink transition-colors">Home</a>
-        <span>/</span>
-        <a href="/collections/all" class="hover:text-ink transition-colors">Trattamenti Corpo</a>
-        <span>/</span>
-        <span class="text-ink font-medium">{{ product.title | default: section.settings.product_title }}</span>
-    </div>
+<div class="max-w-7xl mx-auto px-6 lg:px-12 py-3 text-[11px] tracking-wider uppercase text-ash flex items-center gap-2">
+    <a href="/" class="hover:text-ink transition-colors">Home</a>
+    <span>/</span>
+    {%- assign product_collection = collection -%}
+    {%- if product_collection == blank and product.collections.size > 0 -%}
+      {%- for c in product.collections -%}
+        {%- unless c.handle == 'all' or c.handle == 'frontpage' -%}
+          {%- assign product_collection = c -%}
+          {%- break -%}
+        {%- endunless -%}
+      {%- endfor -%}
+      {%- if product_collection == blank -%}
+        {%- assign product_collection = product.collections.first -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if product_collection -%}
+      <a href="{{ product_collection.url }}" class="hover:text-ink transition-colors">{{ product_collection.title }}</a>
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}" class="hover:text-ink transition-colors">Trattamenti</a>
+    {%- endif -%}
+    <span>/</span>
+    <span class="text-ink font-medium">{{ product.title | default: section.settings.product_title }}</span>
+</div>
 
     <!-- 4. Above-the-Fold Product Section (100% Faithful to Reference) -->
     <section id="pdp-hero" class="max-w-7xl mx-auto px-6 lg:px-12 pb-20 pt-2 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
