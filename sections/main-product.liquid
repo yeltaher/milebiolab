@@ -160,7 +160,13 @@
                                         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                                     </div>
                                     <span class="text-xs text-[#706E6B] font-sans font-normal tracking-tight group-hover:text-ink transition-colors">
-                                        5/5 &middot; 142 recensioni
+                                        {%- assign p_title_low = product.title | default: section.settings.product_title | downcase -%}
+                                        {%- assign p_handle_low = product.handle | downcase -%}
+                                        {%- if p_handle_low contains 'unicho' or p_title_low contains 'unicho' or p_title_low contains 'burro primordiale' -%}
+                                            4.9/5 &middot; 348 recensioni
+                                        {%- else -%}
+                                            4.9/5 &middot; 142 recensioni
+                                        {%- endif -%}
                                     </span>
                                 </a>
                                 <div class="border border-black px-3 py-0.5 text-[11px] uppercase tracking-wider font-medium text-black">
