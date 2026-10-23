@@ -67,7 +67,7 @@
         "type": "text",
         "id": "verona_address",
         "label": "Indirizzo Flagship",
-        "default": "Corso Cavour, 18, 37121 Verona (VR)"
+        "default": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa"
       },
       {
         "type": "text",
@@ -91,6 +91,67 @@
         "id": "show_drawer_shipping_bar",
         "label": "Mostra Barra Spedizione & Omaggi nel Carrello Laterale",
         "default": true
+      }
+    ]
+  },
+  {
+    "name": "Club Mile & Account Drawer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Box Codice Sconto Riservato"
+      },
+      {
+        "type": "text",
+        "id": "drawer_coupon_label",
+        "label": "Etichetta Codice Sconto",
+        "default": "Codice Sconto Riservato Club Mile:"
+      },
+      {
+        "type": "text",
+        "id": "drawer_coupon_code",
+        "label": "Codice Sconto",
+        "default": "MILE10"
+      },
+      {
+        "type": "text",
+        "id": "drawer_coupon_terms",
+        "label": "Dettagli Validità Sconto",
+        "default": "Valido su tutti i rituali viso e trattamenti barriera."
+      },
+      {
+        "type": "header",
+        "content": "Privilegi & Sede di Ritiro"
+      },
+      {
+        "type": "text",
+        "id": "drawer_privilege_label",
+        "label": "Etichetta Privilegio",
+        "default": "Privilegio Fedeltà:"
+      },
+      {
+        "type": "text",
+        "id": "drawer_privilege_value",
+        "label": "Valore Privilegio",
+        "default": "10% Riservato • Campioni Deluxe"
+      },
+      {
+        "type": "text",
+        "id": "drawer_pickup_label",
+        "label": "Etichetta Sede di Ritiro",
+        "default": "Sede di Ritiro:"
+      },
+      {
+        "type": "text",
+        "id": "drawer_pickup_address",
+        "label": "Indirizzo Sede di Ritiro",
+        "default": "Via Torricelle, 2c • Verona in Lebestetik"
+      },
+      {
+        "type": "text",
+        "id": "drawer_account_btn_text",
+        "label": "Pulsante Pagina Account",
+        "default": "Apri Pagina Account Completa →"
       }
     ]
   }

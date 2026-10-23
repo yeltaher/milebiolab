@@ -175,7 +175,15 @@
         }
       }
     },
-    "content_for_index": []
+    "content_for_index": [],
+    "drawer_coupon_label": "Codice Sconto Riservato Club Mile:",
+    "drawer_coupon_code": "MILE10",
+    "drawer_coupon_terms": "Valido su tutti i rituali viso e trattamenti barriera.",
+    "drawer_privilege_label": "Privilegio Fedeltà:",
+    "drawer_privilege_value": "10% Riservato • Campioni Deluxe",
+    "drawer_pickup_label": "Sede di Ritiro:",
+    "drawer_pickup_address": "Via Torricelle, 2c • Verona in Lebestetik",
+    "drawer_account_btn_text": "Apri Pagina Account Completa →"
   },
   "presets": {
     "Default": {

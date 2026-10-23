@@ -36,10 +36,10 @@
 
       <!-- Box con il codice sconto riservato 10% (MILE10) -->
       <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2 mb-6">
-        <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Codice Sconto Riservato Club Mile:</span>
+        <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">{{ settings.drawer_coupon_label | default: 'Codice Sconto Riservato Club Mile:' }}</span>
         <div class="flex items-center justify-between gap-2">
           <span id="DrawerProfileDiscountCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8] flex-1 text-center">
-            MILE10
+            {{ settings.drawer_coupon_code | default: 'MILE10' }}
           </span>
           <button
             type="button"
@@ -49,24 +49,24 @@
             Copia
           </button>
         </div>
-        <p class="text-[10px] text-[#7A7265] text-center pt-1">Valido su tutti i rituali viso e trattamenti barriera.</p>
+        <p class="text-[10px] text-[#7A7265] text-center pt-1">{{ settings.drawer_coupon_terms | default: 'Valido su tutti i rituali viso e trattamenti barriera.' }}</p>
       </div>
 
       <!-- Quick Info Box -->
       <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 mb-6 space-y-2 text-xs text-[#1A1A1A]">
         <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
-          <span class="text-[#7A7265]">Privilegio Fedeltà:</span>
-          <span class="text-[#5C6B56] font-semibold">10% Riservato &bull; Campioni Deluxe</span>
+          <span class="text-[#7A7265]">{{ settings.drawer_privilege_label | default: 'Privilegio Fedeltà:' }}</span>
+          <span class="text-[#5C6B56] font-semibold">{{ settings.drawer_privilege_value | default: '10% Riservato • Campioni Deluxe' }}</span>
         </div>
         <div class="flex justify-between items-center">
-          <span class="text-[#7A7265]">Sede di Ritiro:</span>
-          <span class="font-medium">Corso Cavour 18, Verona</span>
+          <span class="text-[#7A7265]">{{ settings.drawer_pickup_label | default: 'Sede di Ritiro:' }}</span>
+          <span class="font-medium">{{ settings.drawer_pickup_address | default: settings.verona_address | default: 'Via Torricelle, 2c • Verona in Lebestetik' }}</span>
         </div>
       </div>
 
       <!-- Link alla pagina account completa OS 2.0 -->
       <a href="/pages/account" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm mb-2">
-        Apri Pagina Account Completa &rarr;
+        {{ settings.drawer_account_btn_text | default: 'Apri Pagina Account Completa →' }}
       </a>
     </div>
 
@@ -197,7 +197,7 @@
             10% di Sconto Immediato
           </h4>
           <p class="text-xs text-[#7A7265] mt-1 leading-relaxed">
-            Codice di benvenuto valido subito sul 1° ordine + Ritiro in Sede a Verona in Corso Cavour 18 con campioni deluxe in omaggio.
+            Codice di benvenuto valido subito sul 1° ordine + Ritiro in Sede a Verona in {{ settings.drawer_pickup_address | default: 'Via Torricelle, 2c' }} con campioni deluxe in omaggio.
           </p>
         </div>
 
@@ -464,7 +464,7 @@
 
   function copyDiscountCode(elementId, btn) {
     var codeEl = document.getElementById(elementId);
-    var code = codeEl ? codeEl.innerText.trim() : 'MILE10';
+    var code = codeEl ? codeEl.innerText.trim() : '{{ settings.drawer_coupon_code | default: 'MILE10' }}';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(code).then(function() {
         var oldText = btn.innerText;
