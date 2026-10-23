@@ -133,8 +133,68 @@
     },
     "product-reviews": {
       "type": "product-reviews",
+      "blocks": {
+        "review_6fAyKy": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Mario Rossi",
+            "date": "13 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Scrivi qui la recensione..."
+          }
+        },
+        "review_PeyUCL": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Claudio Verdi",
+            "date": "15 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Non ho parole!"
+          }
+        },
+        "review_8bwkG8": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Giulio Cesare",
+            "date": "17 Maggio 2026",
+            "rating": 3,
+            "title": "Ottimo prodotto",
+            "text": "Ai miei tempi ste cose non c'erano!"
+          }
+        },
+        "review_MX9Xfj": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Carlo Maestri",
+            "date": "25 Luglio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "TOP!"
+          }
+        }
+      },
+      "block_order": [
+        "review_6fAyKy",
+        "review_PeyUCL",
+        "review_8bwkG8",
+        "review_MX9Xfj"
+      ],
       "settings": {
-        "eyebrow": "OPINIONI VERIFICATE • CLUB MILE"
+        "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
+        "overall_score": "4.9",
+        "total_reviews": "142",
+        "repurchase_badge": "98% delle clienti riacquista entro 60 giorni",
+        "pct_5": 92,
+        "pct_4": 6,
+        "pct_3": 2,
+        "pct_2": 0,
+        "pct_1": 0
       }
     },
     "product-faq": {
