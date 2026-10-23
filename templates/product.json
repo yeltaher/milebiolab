@@ -134,15 +134,7 @@
     "product-reviews": {
       "type": "product-reviews",
       "settings": {
-        "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
-        "overall_score": "4.9",
-        "total_reviews": "237",
-        "repurchase_badge": "82% delle clienti riacquista entro 90 giorni",
-        "pct_5": 98,
-        "pct_4": 2,
-        "pct_3": 0,
-        "pct_2": 0,
-        "pct_1": 0
+        "eyebrow": "OPINIONI VERIFICATE • CLUB MILE"
       }
     },
     "product-faq": {

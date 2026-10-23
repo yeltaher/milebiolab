@@ -104,14 +104,6 @@
           {%- endif -%}
         {%- endfor -%}
 
-        {%- assign use_targeted_blocks = false -%}
-        {%- assign use_global_blocks = false -%}
-        {%- if targeted_blocks_count > 0 -%}
-          {%- assign use_targeted_blocks = true -%}
-        {%- elsif global_blocks_count > 0 -%}
-          {%- assign use_global_blocks = true -%}
-        {%- endif -%}
-
         {%- assign has_metafield_reviews = false -%}
         {%- if product.metafields.custom.reviews != blank -%}
           {%- assign has_metafield_reviews = true -%}
@@ -122,120 +114,23 @@
           {%- endif -%}
         {%- endif -%}
 
-        {%- if is_unicho -%}
-          {%- assign overall_score_val = "4.9" -%}
-          {%- assign total_reviews_val = "348" -%}
-          {%- assign repurchase_badge_val = "99% delle clienti riacquista entro 60 giorni" -%}
-          {%- assign pct_5_val = 93 -%}
-          {%- assign pct_4_val = 7 -%}
-          {%- assign pct_3_val = 0 -%}
-          {%- assign pct_2_val = 0 -%}
-          {%- assign pct_1_val = 0 -%}
+        {%- assign use_targeted_blocks = false -%}
+        {%- assign use_metafield_reviews = false -%}
+        {%- assign use_global_blocks = false -%}
+        {%- assign use_category_fallback = false -%}
+
+        {%- if targeted_blocks_count > 0 -%}
+          {%- assign use_targeted_blocks = true -%}
+        {%- elsif has_metafield_reviews -%}
+          {%- assign use_metafield_reviews = true -%}
+        {%- elsif global_blocks_count > 0 -%}
+          {%- assign use_global_blocks = true -%}
         {%- else -%}
-          {%- assign prod_seed = product.id | modulo: 5 -%}
-          {%- case prod_seed -%}
-            {%- when 0 -%}
-              {%- assign overall_score_val = "4.9" -%}
-              {%- assign total_reviews_val = "186" -%}
-              {%- assign repurchase_badge_val = "98% delle clienti riacquista entro 60 giorni" -%}
-              {%- assign pct_5_val = 92 -%}
-              {%- assign pct_4_val = 7 -%}
-              {%- assign pct_3_val = 1 -%}
-            {%- when 1 -%}
-              {%- assign overall_score_val = "4.8" -%}
-              {%- assign total_reviews_val = "142" -%}
-              {%- assign repurchase_badge_val = "97% delle clienti riacquista entro 60 giorni" -%}
-              {%- assign pct_5_val = 89 -%}
-              {%- assign pct_4_val = 9 -%}
-              {%- assign pct_3_val = 2 -%}
-            {%- when 2 -%}
-              {%- assign overall_score_val = "4.9" -%}
-              {%- assign total_reviews_val = "214" -%}
-              {%- assign repurchase_badge_val = "99% delle clienti riacquista entro 60 giorni" -%}
-              {%- assign pct_5_val = 94 -%}
-              {%- assign pct_4_val = 6 -%}
-              {%- assign pct_3_val = 0 -%}
-            {%- when 3 -%}
-              {%- assign overall_score_val = "4.8" -%}
-              {%- assign total_reviews_val = "128" -%}
-              {%- assign repurchase_badge_val = "96% delle clienti riacquista entro 60 giorni" -%}
-              {%- assign pct_5_val = 88 -%}
-              {%- assign pct_4_val = 10 -%}
-              {%- assign pct_3_val = 2 -%}
-            {%- else -%}
-              {%- assign overall_score_val = "4.9" -%}
-              {%- assign total_reviews_val = "165" -%}
-              {%- assign repurchase_badge_val = "98% delle clienti riacquista entro 60 giorni" -%}
-              {%- assign pct_5_val = 91 -%}
-              {%- assign pct_4_val = 8 -%}
-              {%- assign pct_3_val = 1 -%}
-          {%- endcase -%}
-          {%- assign pct_2_val = 0 -%}
-          {%- assign pct_1_val = 0 -%}
+          {%- assign use_category_fallback = true -%}
         {%- endif -%}
 
-        <!-- Overall Rating Score Box -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16 pb-12 border-b border-borderLinen">
-            
-            <div class="lg:col-span-4 text-center lg:text-left lg:border-r border-borderLinen lg:pr-12">
-                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.eyebrow | default: "OPINIONI VERIFICATE • CLUB MILE" }}</span>
-                <div class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ overall_score_val }}</div>
-                <div class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
-                <p class="text-xs text-ash">Basato su {{ total_reviews_val }} recensioni certificate da acquirenti reali</p>
-                <div class="mt-4 inline-block bg-linen px-3 py-1.5 text-xs text-sage font-medium border border-borderLinen">
-                    {{ repurchase_badge_val }}
-                </div>
-            </div>
-
-            <!-- Star Distribution Bars -->
-            <div class="lg:col-span-8 space-y-2 text-xs">
-                
-                <div class="flex items-center gap-4">
-                    <span class="w-16 text-ash">5 Stelle</span>
-                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink h-full rounded-full" style="width: {{ pct_5_val }}%;"></div>
-                    </div>
-                    <span class="w-12 text-right font-medium text-ink">{{ pct_5_val }}%</span>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <span class="w-16 text-ash">4 Stelle</span>
-                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/60 h-full rounded-full" style="width: {{ pct_4_val }}%;"></div>
-                    </div>
-                    <span class="w-12 text-right font-medium text-ink">{{ pct_4_val }}%</span>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <span class="w-16 text-ash">3 Stelle</span>
-                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/40 h-full rounded-full" style="width: {{ pct_3_val }}%;"></div>
-                    </div>
-                    <span class="w-12 text-right font-medium text-ink">{{ pct_3_val }}%</span>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <span class="w-16 text-ash">2 Stelle</span>
-                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/20 h-full rounded-full" style="width: {{ pct_2_val }}%;"></div>
-                    </div>
-                    <span class="w-12 text-right font-medium text-ink">{{ pct_2_val }}%</span>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <span class="w-16 text-ash">1 Stella</span>
-                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/20 h-full rounded-full" style="width: {{ pct_1_val }}%;"></div>
-                    </div>
-                    <span class="w-12 text-right font-medium text-ink">{{ pct_1_val }}%</span>
-                </div>
-
-            </div>
-
-        </div>
-
         {%- comment -%} Prepare Pool of Authentic Reviews if No Manual Blocks {%- endcomment -%}
-        {%- if use_targeted_blocks == false and has_metafield_reviews == false and use_global_blocks == false -%}
+        {%- if use_category_fallback -%}
             {%- case prod_cat -%}
                 {%- when 'unicho' -%}
                     {%- capture raw_reviews -%}
@@ -508,6 +403,172 @@
             {%- assign final_reviews = rotated_reviews | split: '~~~' -%}
         {%- endif -%}
 
+        {%- comment -%} Real Mathematical Calculation of Review Statistics {%- endcomment -%}
+        {%- assign c_5 = 0 -%}
+        {%- assign c_4 = 0 -%}
+        {%- assign c_3 = 0 -%}
+        {%- assign c_2 = 0 -%}
+        {%- assign c_1 = 0 -%}
+
+        {%- if use_targeted_blocks -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+                {%- assign r_val = block.settings.rating | plus: 0 -%}
+                {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
+                {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
+                {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
+                {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
+                {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+        {%- elsif use_metafield_reviews -%}
+            {%- for item in custom_reviews_list -%}
+              {%- assign parts = item | split: '|' -%}
+              {%- if parts.size >= 4 -%}
+                {%- assign r_val = parts[0] | strip | plus: 0 -%}
+                {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
+                {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
+                {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
+                {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
+                {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+        {%- elsif use_global_blocks -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.target_product == blank -%}
+                {%- assign r_val = block.settings.rating | plus: 0 -%}
+                {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
+                {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
+                {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
+                {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
+                {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+        {%- elsif use_category_fallback -%}
+            {%- for item in final_reviews -%}
+              {%- assign parts = item | split: '|' -%}
+              {%- assign r_val = parts[0] | strip | plus: 0 -%}
+              {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
+              {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
+              {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
+              {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
+              {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+
+        {%- assign real_total = c_5 | plus: c_4 | plus: c_3 | plus: c_2 | plus: c_1 -%}
+
+        {%- if real_total > 0 -%}
+            {%- assign sum_5 = c_5 | times: 5 -%}
+            {%- assign sum_4 = c_4 | times: 4 -%}
+            {%- assign sum_3 = c_3 | times: 3 -%}
+            {%- assign sum_2 = c_2 | times: 2 -%}
+            {%- assign sum_1 = c_1 | times: 1 -%}
+            {%- assign sum_ratings = sum_5 | plus: sum_4 | plus: sum_3 | plus: sum_2 | plus: sum_1 -%}
+
+            {%- assign score_x10 = sum_ratings | times: 100 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+            {%- assign score_int = score_x10 | divided_by: 10 -%}
+            {%- assign score_dec = score_x10 | modulo: 10 -%}
+            {%- assign overall_score_val = score_int | append: '.' | append: score_dec -%}
+
+            {%- assign pct_5_val = c_5 | times: 1000 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+            {%- assign pct_4_val = c_4 | times: 1000 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+            {%- assign pct_3_val = c_3 | times: 1000 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+            {%- assign pct_2_val = c_2 | times: 1000 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+            {%- assign pct_1_val = c_1 | times: 1000 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+
+            {%- assign positive_count = c_5 | plus: c_4 -%}
+            {%- assign repurchase_rate = positive_count | times: 1000 | divided_by: real_total | plus: 5 | divided_by: 10 -%}
+            {%- if repurchase_rate > 100 -%}
+              {%- assign repurchase_rate = 100 -%}
+            {%- endif -%}
+            {%- assign repurchase_badge_val = repurchase_rate | append: '% delle clienti consiglia o riacquista questo rituale' -%}
+            {%- assign total_reviews_val = real_total -%}
+        {%- else -%}
+            {%- assign overall_score_val = "5.0" -%}
+            {%- assign total_reviews_val = 0 -%}
+            {%- assign repurchase_badge_val = "" -%}
+            {%- assign pct_5_val = 0 -%}
+            {%- assign pct_4_val = 0 -%}
+            {%- assign pct_3_val = 0 -%}
+            {%- assign pct_2_val = 0 -%}
+            {%- assign pct_1_val = 0 -%}
+        {%- endif -%}
+
+        <!-- Overall Rating Score Box -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16 pb-12 border-b border-borderLinen">
+            
+            <div class="lg:col-span-4 text-center lg:text-left lg:border-r border-borderLinen lg:pr-12">
+                <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.eyebrow | default: "OPINIONI VERIFICATE • CLUB MILE" }}</span>
+                <div class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ overall_score_val }}</div>
+                <div class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
+                <p class="text-xs text-ash">
+                  {%- if real_total == 0 -%}
+                    Nessuna recensione ancora presente
+                  {%- elsif real_total == 1 -%}
+                    Basato su 1 recensione certificata da acquirenti reali
+                  {%- else -%}
+                    Basato su {{ real_total }} recensioni certificate da acquirenti reali
+                  {%- endif -%}
+                </p>
+                {%- if repurchase_badge_val != blank -%}
+                <div class="mt-4 inline-block bg-linen px-3 py-1.5 text-xs text-sage font-medium border border-borderLinen">
+                    {{ repurchase_badge_val }}
+                </div>
+                {%- endif -%}
+            </div>
+
+            <!-- Star Distribution Bars -->
+            <div class="lg:col-span-8 space-y-2 text-xs">
+                
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-ash">5 Stelle</span>
+                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                        <div class="bg-ink h-full rounded-full" style="width: {{ pct_5_val }}%;"></div>
+                    </div>
+                    <span class="w-12 text-right font-medium text-ink">{{ pct_5_val }}%</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-ash">4 Stelle</span>
+                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                        <div class="bg-ink/60 h-full rounded-full" style="width: {{ pct_4_val }}%;"></div>
+                    </div>
+                    <span class="w-12 text-right font-medium text-ink">{{ pct_4_val }}%</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-ash">3 Stelle</span>
+                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                        <div class="bg-ink/40 h-full rounded-full" style="width: {{ pct_3_val }}%;"></div>
+                    </div>
+                    <span class="w-12 text-right font-medium text-ink">{{ pct_3_val }}%</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-ash">2 Stelle</span>
+                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                        <div class="bg-ink/20 h-full rounded-full" style="width: {{ pct_2_val }}%;"></div>
+                    </div>
+                    <span class="w-12 text-right font-medium text-ink">{{ pct_2_val }}%</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-ash">1 Stella</span>
+                    <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
+                        <div class="bg-ink/20 h-full rounded-full" style="width: {{ pct_1_val }}%;"></div>
+                    </div>
+                    <span class="w-12 text-right font-medium text-ink">{{ pct_1_val }}%</span>
+                </div>
+
+            </div>
+
+        </div>
+
         <!-- Reviews Grid -->
         <div id="reviews-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {%- assign rendered_count = 0 -%}
@@ -540,7 +601,7 @@
                     </div>
                   {%- endif -%}
                 {%- endfor -%}
-            {%- elsif has_metafield_reviews -%}
+            {%- elsif use_metafield_reviews -%}
                 {%- for item in custom_reviews_list -%}
                     {%- assign parts = item | split: '|' -%}
                     {%- if parts.size >= 4 -%}
@@ -603,7 +664,7 @@
                     </div>
                   {%- endif -%}
                 {%- endfor -%}
-            {%- else -%}
+            {%- elsif use_category_fallback -%}
                 {%- for item in final_reviews -%}
                     {%- assign parts = item | split: '|' -%}
                     {%- assign r_rating = parts[0] | strip | plus: 0 -%}
@@ -703,6 +764,22 @@
 </section>
 
 <script>
+(function() {
+  function syncTopReviews() {
+    var topReviewsText = document.getElementById('pdp-top-reviews-summary');
+    if (topReviewsText) {
+      var count = {{ total_reviews_val }};
+      var score = "{{ overall_score_val }}";
+      var countLabel = count === 1 ? '1 recensione' : count + ' recensioni';
+      topReviewsText.innerHTML = score + '/5 &middot; ' + countLabel;
+    }
+  }
+  syncTopReviews();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncTopReviews);
+  }
+})();
+
 function showMoreReviews(btn) {
     var container = document.getElementById('reviews-grid-container');
     if (!container) return;
