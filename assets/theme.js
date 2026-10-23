@@ -2261,9 +2261,23 @@ window.renderAccordionDescription = renderAccordionDescription;
 
 function renderCustomerAuthState() {
   try {
-    const rawCustomer = localStorage.getItem('mile_customer');
-    if (!rawCustomer) return;
-    const customer = JSON.parse(rawCustomer);
+    const isDesignMode = Boolean(window.Shopify && window.Shopify.designMode);
+    let customer = null;
+    try {
+      const rawCustomer = localStorage.getItem('mile_customer');
+      if (rawCustomer) {
+        customer = JSON.parse(rawCustomer);
+      }
+    } catch (e) {}
+
+    if (isDesignMode && (!customer || !customer.first_name)) {
+      customer = {
+        first_name: 'Milena',
+        last_name: 'Tacchella',
+        email: 'milesolegirasole@libero.it'
+      };
+    }
+
     if (!customer || !customer.first_name) return;
 
     // 1. Update Header Greeting
@@ -2359,3 +2373,18 @@ if (document.readyState === 'interactive' || document.readyState === 'complete')
   document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
 }
 
+// Shopify Theme Editor Integration
+document.addEventListener('shopify:section:load', (event) => {
+  if (typeof renderCustomerAuthState === 'function') renderCustomerAuthState();
+  if (event.target && event.target.querySelectorAll) {
+    event.target.querySelectorAll('.product-description-container').forEach(c => {
+      if (typeof renderAccordionDescription === 'function') renderAccordionDescription(c);
+    });
+  }
+});
+document.addEventListener('shopify:section:select', () => {
+  if (typeof renderCustomerAuthState === 'function') renderCustomerAuthState();
+});
+document.addEventListener('shopify:block:select', () => {
+  if (typeof renderCustomerAuthState === 'function') renderCustomerAuthState();
+});
