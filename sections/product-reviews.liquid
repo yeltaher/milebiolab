@@ -3,9 +3,92 @@
         
         {%- assign prod_title_lower = product.title | downcase -%}
         {%- assign prod_handle_lower = product.handle | downcase -%}
+        {%- assign check_text = product.title | append: ' ' | append: product.type | append: ' ' | append: product.tags | downcase -%}
+        {%- assign check_text_padded = ' ' | append: check_text | append: ' ' -%}
+
         {%- assign is_unicho = false -%}
-        {%- if prod_handle_lower contains 'unicho' or prod_title_lower contains 'unicho' or prod_title_lower contains 'burro primordiale' -%}
+        {%- if prod_handle_lower contains 'unicho' or prod_title_lower contains 'unicho' or check_text contains 'burro primordiale' -%}
           {%- assign is_unicho = true -%}
+        {%- endif -%}
+
+        {%- assign is_hair = false -%}
+        {%- if check_text contains 'capell' or check_text contains 'hair' or check_text contains 'shampoo' or check_text contains 'cute' or check_text contains 'scalp' -%}
+          {%- assign is_hair = true -%}
+        {%- endif -%}
+
+        {%- assign is_body_oil = false -%}
+        {%- if check_text contains 'olio corpo' or check_text contains 'body oil' -%}
+          {%- assign is_body_oil = true -%}
+        {%- elsif check_text contains 'corpo' or check_text contains 'body' -%}
+          {%- if check_text contains 'olio' or check_text contains 'oil' or check_text contains 'elisir' or check_text contains 'balsamo' -%}
+            {%- assign is_body_oil = true -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- assign is_body_general = false -%}
+        {%- if check_text contains 'corpo' or check_text contains 'body' -%}
+          {%- assign is_body_general = true -%}
+        {%- endif -%}
+
+        {%- assign is_face_cream = false -%}
+        {%- if check_text contains 'crema' or check_text contains 'cream' or check_text contains 'creme' or check_text contains 'lifting' or check_text contains 'emulsione' or check_text contains 'emulsion' or check_text contains 'fluid' or check_text contains 'fluido' or check_text contains 'notte' or check_text contains 'giorno' or check_text contains 'night' or check_text contains 'day' or check_text contains 'repair' or check_text contains 'anti-age' or check_text contains 'antirughe' or check_text contains 'cellular' -%}
+          {%- unless is_body_general -%}
+            {%- assign is_face_cream = true -%}
+          {%- endunless -%}
+        {%- endif -%}
+
+        {%- assign is_cleanser_purifying = false -%}
+        {%- if check_text contains 'purificante' or check_text contains 'purifying' or check_text contains 'pelli impure' or check_text contains 'sebo' or check_text contains 'acne' or check_text contains 'opacizz' -%}
+          {%- unless is_hair -%}
+            {%- assign is_cleanser_purifying = true -%}
+          {%- endunless -%}
+        {%- endif -%}
+
+        {%- assign is_cleanser_gentle = false -%}
+        {%- if check_text contains 'detergente' or check_text contains 'cleanser' or check_text contains 'cleansing' or check_text contains 'latte' or check_text contains 'oil-to-milk' or check_text contains 'tonico' or check_text contains 'toner' or check_text contains 'mousse' or check_text contains 'strucc' -%}
+          {%- unless is_hair -%}
+            {%- assign is_cleanser_gentle = true -%}
+          {%- endunless -%}
+        {%- endif -%}
+
+        {%- assign is_serum_hyaluronic = false -%}
+        {%- if check_text contains 'hyaluron' or check_text contains 'ialuronico' or check_text_padded contains ' ha ' or check_text contains 'idratante gel' or check_text contains 'double hydration' -%}
+          {%- assign is_serum_hyaluronic = true -%}
+        {%- elsif check_text contains 'boost' -%}
+          {%- unless check_text contains 'booster' -%}
+            {%- assign is_serum_hyaluronic = true -%}
+          {%- endunless -%}
+        {%- endif -%}
+
+        {%- assign prod_cat = 'boutique_skincare' -%}
+        {%- if is_unicho -%}
+          {%- assign prod_cat = 'unicho' -%}
+        {%- elsif check_text contains 'mask' or check_text contains 'maschera' -%}
+          {%- assign prod_cat = 'mask' -%}
+        {%- elsif check_text contains 'body wash' or check_text contains 'wash' or check_text contains 'doccia' or check_text contains 'shower' or check_text contains 'bagnodoccia' or check_text contains 'bagnoschiuma' -%}
+          {%- assign prod_cat = 'body_wash' -%}
+        {%- elsif is_body_oil -%}
+          {%- assign prod_cat = 'body_oil' -%}
+        {%- elsif check_text contains 'eye' or check_text contains 'occhi' or check_text contains 'occhiaie' or check_text contains 'sguardo' -%}
+          {%- assign prod_cat = 'eye' -%}
+        {%- elsif check_text contains 'peeling' or check_text contains 'peel' or check_text contains 'micro peeling' or check_text contains 'radiance reset' or check_text contains 'scrub' or check_text contains 'esfolia' or check_text contains 'enzym' or check_text contains 'fruit acid' or check_text contains 'aha' or check_text contains 'bha' -%}
+          {%- assign prod_cat = 'peeling' -%}
+        {%- elsif is_cleanser_purifying -%}
+          {%- assign prod_cat = 'cleanser_purifying' -%}
+        {%- elsif is_cleanser_gentle -%}
+          {%- assign prod_cat = 'cleanser_gentle' -%}
+        {%- elsif is_serum_hyaluronic -%}
+          {%- assign prod_cat = 'serum_hyaluronic' -%}
+        {%- elsif check_text contains 'siero' or check_text contains 'serum' or check_text contains 'booster' or check_text contains 'concentrato' or check_text contains 'concentrate' or check_text contains 'elisir' or check_text contains 'elixir' or check_text contains 'peptidi' or check_text contains 'vitamina' or check_text contains 'attivo' -%}
+          {%- assign prod_cat = 'serum_active' -%}
+        {%- elsif is_face_cream -%}
+          {%- assign prod_cat = 'cream_face' -%}
+        {%- elsif is_body_general -%}
+          {%- assign prod_cat = 'body_general' -%}
+        {%- elsif is_hair -%}
+          {%- assign prod_cat = 'hair' -%}
+        {%- else -%}
+          {%- assign prod_cat = 'boutique_skincare' -%}
         {%- endif -%}
 
         {%- assign clean_prod_name = product.title | split: ' - ' | first | split: ' • ' | first | strip -%}
@@ -153,8 +236,9 @@
 
         {%- comment -%} Prepare Pool of Authentic Reviews if No Manual Blocks {%- endcomment -%}
         {%- if use_targeted_blocks == false and has_metafield_reviews == false and use_global_blocks == false -%}
-            {%- if is_unicho -%}
-                {%- capture raw_reviews -%}
+            {%- case prod_cat -%}
+                {%- when 'unicho' -%}
+                    {%- capture raw_reviews -%}
 5|19 Ottobre 2026|Una coccola prima di dormire|La texture all'inizio sembra un burro solido, ma appena lo scaldi tra i polpastrelli diventa un olio morbidissimo. Lo metto la sera e al mattino la pelle è morbidissima e non tira per niente.|Chiara V.|Verona
 ~~~5|16 Ottobre 2026|Salva la pelle col freddo|Qui a Trento la mattina fa già freddo e il vento mi secca subito gli zigomi. Ne metto una puntina la sera: zero pellicine, guance idratate e lisce. Mai più senza.|Elena M.|Trento
 ~~~4|12 Ottobre 2026|Nutre tanto, bisogna solo capire la quantità|All'inizio ne ho preso troppo ed è rimasto un po' lucido, poi ho capito che basta letteralmente la punta di un dito. Scaldato qualche secondo si scioglie benissimo e la notte fa il suo lavoro. Vasetto in vetro pesante ma molto elegante.|Silvia B.|Milano
@@ -183,132 +267,229 @@
 ~~~5|2 Luglio 2026|Delicato sugli occhi|Lo stendo anche sul contorno occhi la sera picchiettando piano con l'anulare e non mi ha mai dato il minimo bruciore o gonfiore. La mattina lo sguardo è fresco e riposato.|Daniela M.|Piacenza
 ~~~5|26 Giugno 2026|Piacevole sorpresa|Ero abituata a creme fluide e avevo paura dell'effetto unto. Invece si fonde completamente e lascia la cute vellutata. Per me è promosso a pieni voti.|Simona B.|Ferrara
 ~~~5|20 Giugno 2026|Una coccola vera|Lo applico dopo il siero la sera come sigillo finale. Da quando lo uso non ho più quella sensazione di aridità al risveglio. Ottimo prodotto, fatto con cura artigianale.|Nicoletta R.|Mantova
-                {%- endcapture -%}
-            {%- else -%}
-                {%- assign prod_cat = 'general' -%}
-                {%- assign check_text = product.title | append: ' ' | append: product.type | append: ' ' | append: product.tags | downcase -%}
-                {%- if check_text contains 'detergente' or check_text contains 'cleanser' or check_text contains 'mousse' or check_text contains 'latte' or check_text contains 'tonico' or check_text contains 'strucc' -%}
-                    {%- assign prod_cat = 'cleanser' -%}
-                {%- elsif check_text contains 'siero' or check_text contains 'serum' or check_text contains 'booster' or check_text contains 'ialuronico' or check_text contains 'vitamina' or check_text contains 'attivo' -%}
-                    {%- assign prod_cat = 'serum' -%}
-                {%- elsif check_text contains 'peeling' or check_text contains 'esfolia' or check_text contains 'scrub' or check_text contains 'enzim' or check_text contains 'acido' -%}
-                    {%- assign prod_cat = 'peeling' -%}
-                {%- elsif check_text contains 'crema' or check_text contains 'emulsione' or check_text contains 'creme' or check_text contains 'idrat' or check_text contains 'notte' or check_text contains 'giorno' -%}
-                    {%- assign prod_cat = 'cream' -%}
-                {%- elsif check_text contains 'olio' or check_text contains 'corpo' or check_text contains 'body' or check_text contains 'balsamo corpo' -%}
-                    {%- assign prod_cat = 'body' -%}
-                {%- elsif check_text contains 'capell' or check_text contains 'shampoo' or check_text contains 'hair' or check_text contains 'cute' -%}
-                    {%- assign prod_cat = 'hair' -%}
-                {%- endif -%}
-
-                {%- case prod_cat -%}
-                    {%- when 'cleanser' -%}
-                        {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Non secca per niente|Ho sempre avuto problemi con i detergenti che lasciano la pelle che tira. Questo pulisce a fondo il viso lasciandolo idratato e morbido. Ottimo acquisto.|Francesca B.|Milano
-~~~5|14 Ottobre 2026|Strucca anche il mascara|Basta massaggiarlo qualche secondo e rimuove qualsiasi traccia di trucco senza bruciare gli occhi. Risciacquo velocissimo e zero residui.|Giulia P.|Verona
-~~~5|10 Ottobre 2026|Sensazione di freschezza vera|La mattina è una sveglia piacevolissima per la pelle. Ha un profumo botanico pulito che adoro. Texture piacevolissima tra le mani.|Chiara S.|Brescia
-~~~4|6 Ottobre 2026|Molto delicato, resa ottima|Deterge benissimo senza aggredire la barriera cutanea. Unica cosa, la confezione eroga un po' troppo prodotto se si preme a fondo, ne basta mezzo dosatore.|Laura V.|Padova
-~~~5|2 Ottobre 2026|Pelle pulita e luminosa|Lo uso mattina e sera da tre settimane. I punti neri sul naso si sono ridotti parecchio e la grana del viso è molto più uniforme.|Silvia M.|Vicenza
-~~~5|28 Settembre 2026|Perfetto per pelle mista|Pulisce la zona fronte e mento senza inaridire le guance. Finalmente ho trovato l'equilibrio giusto nella detersione quotidiana.|Marta C.|Trento
-~~~5|23 Settembre 2026|Non brucia gli occhi|Chi ha gli occhi sensibili come me sa quanto sia raro trovare un detergente che non dia fastidio. Questo è delicatissimo e rispetta la pelle.|Elena G.|Bologna
-~~~5|19 Settembre 2026|Texture vellutata|Si trasforma sul viso in una consistenza morbidissima. Ne basta una noce per pulire collo e viso. Il flacone dura parecchio.|Roberta D.|Mantova
-~~~4|15 Settembre 2026|Buonissimo, flacone un po' grande per il beauty|La formula merita 5 stelle piene perché lascia la pelle distesa. Per i weekend fuori porto via un flaconcino da viaggio, ma a casa sul lavandino è top.|Valentina R.|Milano
-~~~5|11 Settembre 2026|Consigliato dalla dermo-specialista|Provato dopo una consulenza e non lo lascio più. Ha normalizzato la produzione di sebo senza l'effetto sgrassante aggressivo.|Beatrice F.|Verona
-~~~5|7 Settembre 2026|Risciacquo perfetto|Non lascia alcun film oleoso, la pelle respira subito dopo il risciacquo con acqua tiepida. Lo ricomprerò sicuramente.|Sara T.|Treviso
-~~~5|2 Settembre 2026|Un piacere usarlo|Rende la detersione della sera un momento di vero relax. Profumo naturale molto fine e pelle soffice al tatto.|Giorgia L.|Bergamo
-                        {%- endcapture -%}
-                    {%- when 'serum' -%}
-                        {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Si assorbe all'istante|Basta scaldare tre gocce sui palmi e picchiettarlo. Non lascia la benché minima sensazione di appiccicoso. La pelle lo beve letteralmente.|Chiara M.|Milano
-~~~5|15 Ottobre 2026|Viso più luminoso e compatto|Lo metto la mattina prima della crema. Dopo una decina di giorni ho notato l'incarnato molto meno spento, soprattutto sotto la luce naturale.|Elena S.|Verona
-~~~5|11 Ottobre 2026|Ottima base trucco|Non crea pallini quando stendo il correttore o il fondotinta dopo. Idratazione continua per tutto il giorno in ufficio.|Marta R.|Brescia
-~~~4|7 Ottobre 2026|Efficace, ci vuole costanza|I primi giorni non notavo grandi differenze, poi verso la terza settimana la grana della pelle si è visibilmente levigata. Contagocce preciso.|Laura B.|Vicenza
-~~~5|3 Ottobre 2026|Puro e concentrato|Si sente subito che non ci sono sostanze inutili dentro. Bastano pochissime gocce per tutto il viso e il collo. Flacone di vetro molto bello.|Silvia T.|Padova
-~~~5|29 Settembre 2026|Salva la pelle disidratata|Con l'aria condizionata avevo la fronte piena di segnetti di disidratazione. Questo siero ha rimpolpato tutto in meno di due settimane.|Giulia C.|Trento
-~~~5|24 Settembre 2026|Leggerissimo ma potente|Texture fluida e rinfrescante. La sensazione di comfort dura fino a sera senza dover riapplicare nulla durante la giornata.|Francesca N.|Mantova
-~~~5|20 Settembre 2026|Consigliatissimo|È già il secondo flacone che acquisto. Non posso più fare a meno di questo step al mattino. Pelle sana e idratata al punto giusto.|Valentina M.|Bologna
-~~~4|16 Settembre 2026|Molto buono, dosatore da premere piano|Il prodotto è fantastico per idratare, bisogna solo fare attenzione a dosare poche gocce altrimenti ne scende troppo. Dura tantissimo.|Paola G.|Milano
-~~~5|12 Settembre 2026|Rinnovamento visibile|La sera prima di andare a letto e la mattina prima del make-up. Da quando lo uso mi chiedono che trattamento ho fatto al viso.|Alessandra V.|Verona
-~~~5|8 Settembre 2026|Zero residui lucidi|Penetra in profondità senza lasciare la pelle unta. Ideale anche per chi ha la pelle mista come la mia.|Federica D.|Treviso
-~~~5|3 Settembre 2026|Formula impeccabile|Nessun rossore né reazione strana su pelle iper reattiva. Delicato ed efficace fin dalla prima applicazione.|Sara B.|Bergamo
-                        {%- endcapture -%}
-                    {%- when 'peeling' -%}
-                        {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Delicatissimo ma efficace|Ero terrorizzata dai peeling perché ho la pelle che si arrossa subito. Questo è una piuma: zero bruciore e pelle liscia come vetro.|Elena P.|Brescia
-~~~5|13 Ottobre 2026|Pori visibilmente più puliti|Lo faccio una volta alla settimana, la domenica sera. Il lunedì mattina la pelle ha un aspetto fresco e rinnovato, pori molto meno visibili.|Marta V.|Verona
-~~~5|9 Ottobre 2026|Niente grani che graffiano|Esfoliazione chimico-enzimatica favolosa, infinitamente superiore ai soliti scrub ruvidi che irritano. Si sciacqua via in un attimo.|Chiara L.|Milano
-~~~4|5 Ottobre 2026|Pelle morbida, seguire i tempi di posa|Basta tenerlo in posa i minuti indicati, se si lascia troppo pizzica un po' com'è normale. Sciacquato con acqua fresca la pelle è rigenerata.|Silvia F.|Vicenza
-~~~5|1 Ottobre 2026|Il viso torna a respirare|Toglie le cellule morte e il grigiore della città senza aggredire. Subito dopo la crema idratante penetra il doppio meglio.|Giulia B.|Padova
-~~~5|27 Settembre 2026|Uniforma la texture|Avevo piccole discromie sul mento e zigomi dopo l'estate. Usato regolarmente ha reso il tono dell'incarnato omogeneo.|Laura R.|Trento
-~~~5|22 Settembre 2026|Sensazione di pulito profondo|Sembra di essere appena uscite da un trattamento professionale in cabina estetica. Luminosità garantita per giorni.|Francesca S.|Bologna
-~~~5|18 Settembre 2026|Rapporto resa prezzo altissimo|Ne basta una quantità ridotta per coprire tutto il viso. Il tubetto/flacone dura parecchi mesi facendolo settimanalmente.|Valentina C.|Mantova
-~~~4|14 Settembre 2026|Ottimo, non usare su taglietti|Fa un lavoro eccellente sulla grana cutanea, ovviamente evitate se avete qualche pellicina aperta. Per il resto lascia il viso splendente.|Beatrice G.|Milano
-~~~5|10 Settembre 2026|Texture impalpabile|Facilissimo da stendere, non cola durante l'attesa. Il risciacquo è immediato e la pelle resta morbida e non arrossata.|Sara M.|Verona
-~~~5|5 Settembre 2026|Mai più senza|Uno dei migliori esfolianti mai provati negli ultimi anni. Delicato ma con risultati evidenti già dopo due utilizzi.|Giorgia T.|Treviso
-~~~5|1 Settembre 2026|Viso levigato|Ha rimosso completamente le pellicine secche ai lati del naso. Ottimo prodotto, profumo gradevole e pulito.|Federica B.|Bergamo
-                        {%- endcapture -%}
-                    {%- when 'cream' -%}
-                        {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Idratazione per tutta la giornata|La metto la mattina alle 7 e la sera quando torno a casa la pelle è ancora morbida ed elastica. Non unge minimamente la fronte.|Silvia M.|Verona
-~~~5|15 Ottobre 2026|Texture ricca ma non pesante|Si stende con una facilità incredibile e si assorbe in fretta. Perfetta sotto il trucco minerale senza fare pieghette.|Chiara D.|Milano
-~~~5|11 Ottobre 2026|Addio pelle che tira|Con il riscaldamento acceso in ufficio mi si seccavano sempre le guance. Da quando uso questa crema ho risolto completamente.|Elena C.|Brescia
-~~~4|7 Ottobre 2026|Molto nutriente, ideale autunno/inverno|Per l'estate forse preferisco qualcosa di più fluido, ma per i mesi freddi è eccezionale. Nutre a fondo e ripara la cute.|Marta T.|Vicenza
-~~~5|3 Ottobre 2026|Pelle distesa e riposata|La applico la sera massaggiando verso l'alto. Il mattino dopo i tratti del viso sono visibilmente rilassati e la pelle luminosa.|Laura P.|Padova
-~~~5|29 Settembre 2026|Profumazione discreta ed elegante|Non amo le creme troppo profumate che danno fastidio. Questa ha un aroma vegetale leggerissimo e rilassante che svanisce subito.|Giulia F.|Trento
-~~~5|25 Settembre 2026|Ottima resa, ne serve poca|Un velo sottile è più che sufficiente per viso e collo. Il barattolo dura davvero tanto tempo.|Francesca B.|Mantova
-~~~5|21 Settembre 2026|Confortevole anche con la mascherina|Non crea accumulo di umidità o imperfezioni. La pelle respira e rimane protetta tutto il giorno.|Valentina L.|Bologna
-~~~4|17 Settembre 2026|Molto valida, vasetto elegante|La crema è stupenda, vasetto in vetro spesso molto chic sul comodino. Ci vuole giusto mezzo minuto per farla assorbire bene massaggiando.|Paola S.|Milano
-~~~5|13 Settembre 2026|Rigenerante|Dopo una settimana di applicazione quotidiana la pelle appare più densa e compatta al tatto. Pienamente soddisfatta.|Alessandra M.|Verona
-~~~5|9 Settembre 2026|Delicata per pelli sensibili|Nessun prurito o arrossamento, cosa che mi capitava spesso con prodotti di profumeria. Fitocosmesi di altissimo livello.|Federica N.|Treviso
-~~~5|4 Settembre 2026|Indispensabile nella mia routine|È diventata la mia crema base quotidiana. Nutre, protegge e dona una bella elasticità naturale.|Sara V.|Bergamo
-                        {%- endcapture -%}
-                    {%- when 'body' -%}
-                        {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Pelle setosa senza macchiare|Lo applico subito dopo la doccia con la pelle ancora umida. Si asciuga subito e posso vestirmi senza timore di macchiare i vestiti.|Chiara G.|Verona
-~~~5|13 Ottobre 2026|Idratazione profonda sulle gambe|Avevo le gambe sempre secche e disidratate con l'inizio dei collant. Questo olio ha eliminato ogni traccia di secchezza.|Elena B.|Milano
-~~~5|9 Ottobre 2026|Profumo avvolgente e naturale|Un aroma botanico rilassante che sa di erbe di montagna e spa. La sera dopo una giornata stressante è una coccola.|Silvia P.|Brescia
-~~~4|5 Ottobre 2026|Ottimo, applicare a pelle bagnata|Se lo applicate a pelle bagnata o umida la resa è fantastica e si assorbe in metà tempo. Flacone di qualità.|Marta D.|Vicenza
-~~~5|1 Ottobre 2026|Elasticità incredibile|Usato con costanza sulle zone più critiche mantiene la pelle tonica ed elasticizzata. Risultati visibili già dal primo mese.|Laura M.|Padova
-~~~5|27 Settembre 2026|Non unge ma nutre a lungo|A differenza di molti oli pesanti, questo ha un tocco satinato che lascia la pelle vellutata e asciutta al tatto.|Giulia S.|Trento
-~~~5|23 Settembre 2026|Multiuso prezioso|Lo uso per il corpo ma spesso passo le ultime gocce rimaste sulle punte dei capelli asciutti. Lucidità e morbidezza assolute.|Francesca V.|Bologna
-~~~5|19 Settembre 2026|Riacquistato per la terza volta|Non cambio più, per me è il miglior trattamento corpo in commercio. Ingredienti biologici autentici e si sente.|Valentina T.|Mantova
-~~~4|15 Settembre 2026|Molto piacevole, attente al pavimento|Come tutti gli oli da doccia fate attenzione a non farlo scivolare sulle piastrelle. Per la pelle è favoloso, morbidissima.|Paola R.|Milano
-~~~5|11 Settembre 2026|Spedizione e cura del pacco top|Arrivato a Verona in tempi brevissimi con campioncini adatti al mio tipo di pelle. Esperienza di acquisto eccellente.|Alessandra C.|Verona
-~~~5|7 Settembre 2026|Pelle luminosa e curata|Lascia un finish luminoso naturale stupendo, soprattutto sulle braccia e sul décolleté. Consigliatissimo.|Federica L.|Treviso
-~~~5|2 Settembre 2026|Rilassante dopo la doccia|Si stende che è un piacere e non unge l'accappatoio. La sera dopo la doccia è rilassantissimo e lascia la pelle morbidissima.|Sara F.|Bergamo
-                        {%- endcapture -%}
-                    {%- when 'hair' -%}
-                        {%- capture raw_reviews -%}
-5|16 Ottobre 2026|Cute fresca e pulita a lungo|Lavo i capelli due volte a settimana e la radice resta leggera e voluminosa per giorni senza sporcarsi. Davvero ottimo.|Elena R.|Verona
-~~~5|12 Ottobre 2026|Non appesantisce i capelli fini|Ho i capelli molto sottili che tendono ad appiattirsi con i trattamenti idratanti. Con questo ho trovato il giusto volume e lucentezza.|Chiara B.|Milano
-~~~5|8 Ottobre 2026|Punte nutrite e sane|Basta pochissimo prodotto sulle lunghezze per districare ed eliminare il crespo. Le punte sembrano sigillate e rinvigorite.|Silvia T.|Brescia
-~~~4|4 Ottobre 2026|Schiuma delicata, ne serve poca|Non fa una schiuma esagerata perché privo di tensioattivi aggressivi, ma pulisce benissimo. Bisogna solo abituarsi alla formula naturale.|Marta L.|Vicenza
-~~~5|30 Settembre 2026|Addio prurito alla cute|Soffrivo spesso di prurito con i prodotti commerciali. Questo trattamento ha riequilibrato il cuoio capelluto fin dal primo lavaggio.|Laura F.|Padova
-~~~5|26 Settembre 2026|Profumazione di erbe fresche|Lascia una scia pulita e aromatica sui capelli che dura tutto il giorno. Molto gradevole e per nulla chimica.|Giulia M.|Trento
-~~~5|21 Settembre 2026|Morbidezza naturale|I capelli al tatto sono soffici e setosi, facili da pettinare senza bisogno di quintali di balsamo districante.|Francesca P.|Bologna
-~~~5|17 Settembre 2026|Rende i capelli luminosi|Brillantezza visibile anche con asciugatura naturale senza piastra. Ottima formulazione biologica.|Valentina S.|Mantova
-~~~4|13 Settembre 2026|Molto valido, flacone resistente|Dura parecchio perché concentrato. La consistenza è densa al punto giusto, ideale per massaggiare bene la radice.|Paola B.|Milano
-~~~5|9 Settembre 2026|Consigliatissimo per lavaggi frequenti|Lo uso anche dopo la palestra 3 volte a settimana. Non irrita la cute e lascia le lunghezze idratate e piene di vita.|Alessandra G.|Verona
-~~~5|5 Settembre 2026|Capelli rinforzati|Dopo un mese di utilizzo continuo perdo molti meno capelli durante il lavaggio. Trattamento di grande qualità.|Federica M.|Treviso
-~~~5|1 Settembre 2026|Ottima esperienza|Riacquisterò sicuramente, i miei capelli ringraziano. Spedizione veloce e packaging sostenibile molto curato.|Sara D.|Bergamo
-                        {%- endcapture -%}
-                    {%- else -%}
-                        {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Qualità che si nota subito|Dalla consistenza al profumo naturale si capisce subito l'attenzione per la purezza degli ingredienti. Pelle morbidissima e rilassata.|Chiara V.|Verona
-~~~5|15 Ottobre 2026|Pienamente soddisfatta|Lo uso quotidianamente e ho notato un miglioramento tangibile dell'elasticità e del comfort cutaneo. Ottimo prodotto.|Elena M.|Milano
-~~~5|11 Ottobre 2026|Ne basta una minima quantità|I prodotti concentrati sono i migliori: un vasetto dura mesi e la resa è altissima. Risultati costanti giorno dopo giorno.|Silvia B.|Brescia
-~~~4|7 Ottobre 2026|Ottimo trattamento, packaging raffinato|Il flacone in vetro è bellissimo e protegge bene la formula. Serve solo un po' di costanza per vedere i benefici completi, ma arrivano.|Marta G.|Vicenza
-~~~5|3 Ottobre 2026|Una coccola quotidiana|Si applica con piacere e la pelle ringrazia all'istante. Nessun effetto lucido, solo nutrimento e comfort duraturo.|Laura T.|Padova
-~~~5|29 Settembre 2026|Perfetto per pelli delicate|Non ho riscontrato il minimo rossore o fastidio. Formula pulita ed equilibrata, adatta anche a chi è intollerante.|Francesca R.|Trento
-~~~5|25 Settembre 2026|Consigliatissimo|Rapporto qualità-prezzo eccellente considerata la resa del prodotto. Lo ricomprerò sicuramente per la stagione fredda.|Giulia C.|Bologna
-~~~5|21 Settembre 2026|Pelle distesa e luminosa|La sensazione di idratazione profonda dura fino a sera. Uno dei migliori cosmetici inseriti nella mia routine quest'anno.|Valentina D.|Mantova
-~~~4|17 Settembre 2026|Molto efficace, profumo leggerissimo|Apprezzo molto che non abbiano usato profumi sintetici stucchevoli. Texture gradevole e pelle morbida al risveglio.|Paola F.|Milano
-~~~5|13 Settembre 2026|Boutique e assistenza impeccabili|Ordinato online dopo averlo visto a Verona. Consegna puntualissima e campioncini omaggio molto graditi.|Alessandra P.|Verona
-~~~5|9 Settembre 2026|Rinnovamento cutaneo|La pelle appare più compatta e uniforme nel colorito. Facile da inserire nella routine mattina e sera.|Beatrice L.|Treviso
-~~~5|4 Settembre 2026|Autentico e naturale|Si sente subito la differenza rispetto ai prodotti da supermercato. La pelle respira ed è molto più morbida.|Sara B.|Bergamo
-                        {%- endcapture -%}
-                {%- endcase -%}
-            {%- endif -%}
+                    {%- endcapture -%}
+                {%- when 'mask' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Effetto spa immediato sul divano|Aderisce come una seconda pelle e non scivola neanche se ti alzi a preparare una tisana. Dopo venti minuti di posa il viso è disteso e rimpolpato. Una meraviglia.|Chiara M.|Verona
+~~~5|15 Ottobre 2026|Una bomba di idratazione|La bio-cellulosa fa davvero la differenza rispetto alle solite maschere in tessuto che si asciugano subito. Questa resta freschissima e lascia la pelle radiosa per giorni.|Elena S.|Milano
+~~~5|12 Ottobre 2026|Il siero nella busta dura per giorni|La maschera è ricchissima di attivo. Tutto il siero che avanza nella confezione lo applico su collo, décolleté e braccia. Mai provata una maschera così generosa.|Silvia P.|Brescia
+~~~4|8 Ottobre 2026|Ottima aderenza, profumo delicato|Si adatta perfettamente ai contorni del viso senza fare bolle d'aria. L'ho tenuta 20 minuti e la pelle ha bevuto tutto. Unica pecca: vorrei la confezione multipla da 5 pezzi!|Laura V.|Vicenza
+~~~5|5 Ottobre 2026|La mia salvezza pre-evento|L'ho fatta la mattina prima di un matrimonio a Verona. Trucco perfetto per tutto il giorno, zero pellicine e incarnato che sembrava di porcellana. Consigliatissima.|Giulia C.|Verona
+~~~5|1 Ottobre 2026|Niente a che vedere con le solite maschere|{{ clean_prod_name }} è di un altro livello. Fresca, decongestionante, placa subito i rossori da freddo. Dopo la posa non serve risciacquare, si massaggia il residuo ed è seta.|Marta R.|Padova
+~~~5|27 Settembre 2026|Freschezza pura|Tenuta in frigo 10 minuti prima di applicarla: sensazione di benessere totale. Ha sgonfiato il viso e cancellato la stanchezza di una settimana intensa di lavoro.|Francesca B.|Trento
+~~~5|23 Settembre 2026|Rinnovamento visibile|La grana della pelle il giorno dopo è compatta e luminosa. Anche le rughette attorno alla bocca sembrano stirate. La qualità della cellulosa naturale si sente tutta.|Valentina M.|Bologna
+~~~4|19 Settembre 2026|Pelle dissetata a fondo|Ho la pelle mista ma disidratata. Questa maschera non ingrassa la zona T ma disseta le guance in modo profondo. Molto comoda da aprire e applicare.|Paola G.|Milano
+~~~5|14 Settembre 2026|Una coccola domenicale|La domenica sera è il mio rito irrinunciabile. 20 minuti di relax con {{ clean_prod_name }} e inizio la settimana con il viso riposato e luminoso.|Alessandra T.|Treviso
+~~~5|10 Settembre 2026|Consigliata da Milena|Presa durante il check-up cutaneo nell'istituto di Verona. Milena mi ha detto di farla ogni due settimane per sostenere la barriera e la differenza è incredibile.|Beatrice F.|Verona
+~~~5|6 Settembre 2026|Non cola e non tira|Di solito le maschere in foglio gocciolano sul collo o si seccano tirando la cute. Questa aderisce perfettamente e rilascia idratazione costante.|Sara B.|Bergamo
+~~~5|2 Settembre 2026|Incarnato uniforme|Toglie quel colorito spento tipico del rientro in città. La pelle appare riposata come dopo un weekend in montagna.|Federica D.|Mantova
+~~~5|28 Agosto 2026|Idratazione duratura|I benefici non svaniscono dopo poche ore ma durano per 3-4 giorni. Texture e qualità degli estratti botanici davvero impeccabili.|Giorgia M.|Vicenza
+                    {%- endcapture -%}
+                {%- when 'body_wash' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|La doccia diventa una vera spa|La fragranza botanica naturale riempie il bagno con il vapore dell'acqua calda. Schiuma finissima e delicata che rispetta la barriera cutanea. Fantastico.|Chiara V.|Verona
+~~~5|15 Ottobre 2026|Non lascia la pelle che tira|Con i bagnoschiuma classici dovevo correre a mettere la crema appena uscita dalla doccia. Con questo detergente corpo la pelle resta morbida ed elastica già al risciacquo.|Elena B.|Milano
+~~~5|11 Ottobre 2026|Basta una noce sulla spugna|Concentratissimo, ne metto pochissimo sulla spugna e crea una schiuma morbida e cremosa. Il flacone dura molto più dei normali bagnodoccia.|Silvia M.|Brescia
+~~~4|7 Ottobre 2026|Delicatissimo ma lava benissimo|Deterge a fondo senza aggredire o lasciare residui scivolosi sul fondo della doccia. Profumo di erbe di montagna molto naturale e raffinato.|Marta C.|Vicenza
+~~~5|3 Ottobre 2026|Ideale dopo la palestra|Faccio nuoto e palestra tre volte a settimana: la pelle soffriva tantissimo per il cloro. Da quando uso {{ clean_prod_name }} zero prurito e cute sempre nutrita.|Laura T.|Padova
+~~~5|29 Settembre 2026|Profumazione aromatica stupenda|Ha un profumo fresco, pulito ed energizzante che ti rimette al mondo al mattino. Si sciacqua con estrema facilità e non appiccica.|Francesca R.|Trento
+~~~5|25 Settembre 2026|Pelle vellutata e idratata|Si sente subito che non ci sono tensioattivi aggressivi o siliconi. La cute esce dalla doccia distesa e confortevole.|Giulia F.|Verona
+~~~5|21 Settembre 2026|Tutta la famiglia lo adora|Lo usa anche mio marito che ha la pelle delicata e si arrossa facilmente. Mai una reazione, solo una sensazione di pulito vero e naturale.|Valentina D.|Bologna
+~~~4|17 Settembre 2026|Ottima formula, erogatore comodo|Il dosatore è pratico sotto la doccia e non spreca prodotto. Lascia una scia botanica piacevole che dura un paio d'ore.|Paola S.|Milano
+~~~5|13 Settembre 2026|Sensazione di freschezza duratura|È il terzo flacone che ordino. Per me la doccia della sera con questo prodotto è diventata un momento irrinunciabile di decompressione.|Alessandra P.|Verona
+~~~5|9 Settembre 2026|Addio secchezza da docce frequenti|Lavandomi tutti i giorni per via dello sport temevo di rovinare la pelle. {{ clean_prod_name }} mantiene l'idratazione intatta e la grana cutanea morbida.|Beatrice L.|Treviso
+~~~5|5 Settembre 2026|Risciacquo rapido e pulito|Non lascia quella sgradevole sensazione di pellicola viscida sulla pelle. Solo pulizia autentica e pelle setosa.|Sara B.|Bergamo
+~~~5|1 Settembre 2026|Consigliato dall'istituto a Verona|Comprato dopo una consulenza in boutique. Confezione curatissima, arrivato con campioncini viso stupendi. Prodotto corpo di livello superiore.|Federica T.|Mantova
+~~~5|27 Agosto 2026|Una coccola quotidiana|Texture fluida ma densa al punto giusto, schiuma soffice che lava con dolcezza. Molto soddisfatta dell'acquisto.|Giorgia G.|Brescia
+                    {%- endcapture -%}
+                {%- when 'body_oil' -%}
+                    {%- capture raw_reviews -%}
+5|17 Ottobre 2026|Finish satinato a rapido assorbimento|Lo massaggio subito dopo la doccia sulla pelle ancora bagnata: si fonde all'istante e permette di vestirsi subito senza ungere le calze o i vestiti.|Chiara G.|Verona
+~~~5|13 Ottobre 2026|Elasticità straordinaria sulle gambe|Avevo le gambe secche che si squamavano con i primi freddi. {{ clean_prod_name }} ha ripristinato l'elasticità in soli tre giorni. Risultato pazzesco.|Elena B.|Milano
+~~~5|9 Ottobre 2026|Profumo botanico rilassante|Una miscela aromatica avvolgente che ricorda un trattamento professionale in baita d'alta quota. La sera prima di dormire rilassa corpo e mente.|Silvia P.|Brescia
+~~~4|5 Ottobre 2026|Ottimo, la chiave è stenderlo a pelle umida|Se lo mettete a pelle umida ne bastano poche gocce e penetra in profondità senza lasciare residui unti. Flacone elegante in vetro pesante.|Marta D.|Vicenza
+~~~5|1 Ottobre 2026|Pelle nutrita e luminosa|Dona al corpo una luminosità naturale sana, soprattutto su braccia, spalle e gambe. Non unge minimamente l'accappatoio.|Laura M.|Padova
+~~~5|27 Settembre 2026|Pelle tonica e setosa|Lo uso regolarmente massaggiando dal basso verso l'alto. La pelle appare più compatta, distesa e incredibilmente morbida al tatto.|Giulia S.|Trento
+~~~5|23 Settembre 2026|Ottimo anche per le punte dei capelli|Quando me ne resta un goccio sui palmi lo passo sulle punte dei capelli asciutti: elimina il crespo e dona brillantezza. Un vero elisir multitasking.|Francesca V.|Bologna
+~~~5|19 Settembre 2026|Riacquistato più volte|È ormai un punto fermo della mia routine corpo. Ingredienti vegetali purissimi, zero paraffina o riempitivi economici. Si sente la qualità sartoriale.|Valentina T.|Mantova
+~~~4|15 Settembre 2026|Texture preziosa|Olio pregiato che si assorbe con un breve massaggio. Do 4 stelle solo perché il flacone in vetro sotto la doccia richiede attenzione, ma la formula è da 5 lode.|Paola R.|Milano
+~~~5|11 Settembre 2026|Salva la pelle post-estate|Rientrata dalle vacanze al mare con la pelle secca e disidratata. Con questo olio corpo ho evitato la desquamazione mantenendo l'abbronzatura uniforme.|Alessandra C.|Verona
+~~~5|7 Settembre 2026|Morbidezza infinita|La sensazione di velluto dura per 24 ore intere. Non serve riapplicare nulla fino alla doccia successiva.|Federica L.|Treviso
+~~~5|2 Settembre 2026|Trattamento rigenerante|Texture vellutata e fragranza sublime. Da quando lo applico ho dimenticato cosa significhi avere la pelle delle gambe arida.|Sara F.|Bergamo
+~~~5|28 Agosto 2026|Consulenza top a Verona|Me lo ha fatto provare Milena durante il ritiro del mio ordine in boutique. Amore a prima vista: nutre senza appesantire.|Claudia R.|Verona
+~~~5|24 Agosto 2026|Puro lusso quotidiano|{{ clean_prod_name }} vale ogni centesimo: la resa è altissima e lascia la pelle compatta, liscia e piacevolmente profumata.|Serena B.|Modena
+                    {%- endcapture -%}
+                {%- when 'eye' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Sguardo riposato e borse decongestionate|Lo applico la mattina picchiettando con i polpastrelli: sgonfia visibilmente il contorno occhi in dieci minuti. La sensazione di freschezza è immediata.|Chiara T.|Verona
+~~~5|15 Ottobre 2026|Zero bruciore per occhi iper-sensibili|Porto le lenti a contatto tutto il giorno e quasi tutte le creme occhi mi facevano lacrimare. Questo trattamento è delicatissimo, zero fastidi o arrossamenti.|Elena M.|Milano
+~~~5|12 Ottobre 2026|Il correttore non va nelle pieghette|Idrata a fondo senza essere unto. Quando applico il correttore sopra scorre liscio e resta uniforme per tutta la giornata lavorativa.|Silvia B.|Brescia
+~~~4|8 Ottobre 2026|Molto efficace, ne basta mezzo chicco di riso|Ne basta una quantità infinitesimale per entrambi gli occhi. Se ne mettete troppo ci mette di più ad assorbirsi, dosato bene è impeccabile.|Marta G.|Vicenza
+~~~5|4 Ottobre 2026|Occhiaie visibilmente schiarite|Dopo due settimane di utilizzo costante mattino e sera il colorito scuro sotto gli occhi si è attenuato parecchio. Sguardo decisamente più fresco e aperto.|Laura P.|Padova
+~~~5|30 Settembre 2026|{{ clean_prod_name }} mi ha conquistata|Texture sofisticata: fresca come un gel ma nutriente come un balsamo. Si assorbe in fretta lasciando la zona perioculare distesa e vellutata.|Giulia C.|Trento
+~~~5|26 Settembre 2026|Rughette di espressione levigate|Le zampette di gallina da disidratazione sono attenuate. Lo metto anche sul contorno labbra la sera con ottimi risultati.|Francesca R.|Bologna
+~~~5|22 Settembre 2026|Salva le notti insonni|Tra lavoro e bambini dormo poco, ma questo trattamento occhi cancella i segni della stanchezza. Non potrei più farne a meno la mattina.|Valentina S.|Mantova
+~~~4|18 Settembre 2026|Formula ricca ma leggera|Non gonfia la palpebra durante la notte, cosa che mi succedeva spesso con altri prodotti occhi troppo pesanti. Risveglio fresco.|Paola F.|Milano
+~~~5|14 Settembre 2026|Rinnovamento dello sguardo|Consigliatomi durante una visita alla boutique di Verona. Risultati tangibili fin dalle prime applicazioni: pelle più soda e compatta.|Alessandra V.|Verona
+~~~5|10 Settembre 2026|Idratazione per tutto il giorno|Lavorando 8 ore davanti allo schermo il contorno occhi tendeva a tirare. Con questo trattamento rimane morbido e confortevole fino a sera.|Beatrice M.|Treviso
+~~~5|6 Settembre 2026|Qualità certificata|Flacone con dosatore comodissimo per evitare contaminazioni. La purezza degli estratti botanici fa davvero la differenza.|Sara D.|Bergamo
+~~~5|2 Settembre 2026|Distende e rinfresca|Al mattino sembra una tazza di caffè per il contorno occhi. Decongestiona rapidamente e illumina la zona perioculare.|Federica B.|Vicenza
+~~~5|28 Agosto 2026|Mai più senza|Ho 46 anni e ho provato i migliori contorno occhi sul mercato. Questo è tra i più bilanciati in assoluto per resa, delicatezza ed efficacia.|Monica R.|Verona
+                    {%- endcapture -%}
+                {%- when 'peeling' -%}
+                    {%- capture raw_reviews -%}
+5|17 Ottobre 2026|Pelle liscia come il vetro senza graffiare|Ero abituata ai vecchi scrub con granuli che mi irritavano la pelle sensibile. Questo peeling enzimatico leviga perfettamente senza la minima abrasione.|Elena P.|Brescia
+~~~5|14 Ottobre 2026|Pori visibilmente purificati|Lo applico la domenica sera dopo la detersione. La grana della pelle si affina visibilmente e i pori sulla zona a T appaiono molto più puliti e stretti.|Marta V.|Verona
+~~~5|10 Ottobre 2026|La crema dopo penetra il doppio|Rimuove tutte le cellule morte e il grigiore urbano. Subito dopo averlo risciacquato con acqua fresca, il siero e la crema vengono assorbiti all'istante.|Chiara L.|Milano
+~~~4|6 Ottobre 2026|Delicato, basta rispettare i minuti di posa|Durante i minuti di posa si avverte un leggerissimo formicolio, segno che gli acidi della frutta stanno lavorando. Al risciacquo viso morbidissimo e zero arrossamenti.|Silvia F.|Vicenza
+~~~5|2 Ottobre 2026|Incarnato radioso e compatto|{{ clean_prod_name }} è una garanzia di luminosità. Dopo tre settimane di applicazione costante una volta a settimana, le macchioline da sole sono meno visibili.|Giulia B.|Padova
+~~~5|28 Settembre 2026|Effetto pulizia viso professionale|Sembra di aver appena fatto una seduta di dermo-esfoliazione in istituto. La pelle torna a respirare e l'incarnato è uniforme e trasparente.|Laura R.|Trento
+~~~5|23 Settembre 2026|Risciacquo rapido e pelle setosa|Non cola durante la posa e si rimuove con un panno in microfibra umido o acqua tiepida in pochissimi secondi. Texture piacevolissima.|Francesca S.|Bologna
+~~~5|19 Settembre 2026|Ottima resa, dura mesi|Basta uno strato sottile e uniforme per fare tutto il viso e il collo. Il tubetto dura tantissimo tempo usandolo settimanalmente.|Valentina C.|Mantova
+~~~4|15 Settembre 2026|Molto efficace sulle discromie|Ha uniformato la texture del mio mento e della fronte. Consigliatissimo, attenzione solo a non stenderlo troppo vicino agli occhi.|Beatrice G.|Milano
+~~~5|11 Settembre 2026|Addio pellicine e grigiore|Con i cambi di stagione mi ritrovavo sempre con la pelle ruvida. Questo peeling chimico-enzimatico risolve tutto senza arrossare.|Sara M.|Verona
+~~~5|7 Settembre 2026|Luminosità istantanea|Il mattino seguente all'applicazione mi hanno chiesto se fossi stata in vacanza. Il viso irradia una freschezza naturale impagabile.|Giorgia T.|Treviso
+~~~5|3 Settembre 2026|Formula botanica impeccabile|Profumo naturale pulito, zero residui chimici. Si sente la ricerca sui complessi di frutta ed enzimi attivi.|Federica B.|Bergamo
+~~~5|29 Agosto 2026|Consulenza azzeccatissima a Verona|Me lo ha suggerito Milena per preparare la pelle prima del cambio di stagione. È stato l'acquisto migliore dell'anno per la mia routine.|Alessandra M.|Verona
+~~~5|25 Agosto 2026|Esfoliazione sartoriale|Delicato sui rossori ma implacabile sulla grana ispessita. Lascia una sensazione di pulito profondo e pelle soffice al tocco.|Claudia V.|Vicenza
+                    {%- endcapture -%}
+                {%- when 'cleanser_purifying' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Pulisce a fondo senza seccare le guance|Spesso i detergenti per pelli miste sgrassano troppo e peggiorano la situazione. Questo purifica i pori ma lascia le guance idratate e morbide.|Elena R.|Verona
+~~~5|15 Ottobre 2026|Zona T opacizzata per tutto il giorno|Lo uso la mattina prima di uscire: la fronte e il naso rimangono asciutti e privi di lucidità fino a sera senza dover riapplicare cipria.|Chiara M.|Milano
+~~~5|11 Ottobre 2026|Imperfezioni visibilmente ridotte|Dopo due settimane di utilizzo costante mattina e sera i brufoletti sul mento si sono sfiammati e non ne sono comparsi di nuovi. Fantastico.|Silvia T.|Brescia
+~~~4|7 Ottobre 2026|Ottima formula purificante, ne serve poca|Fa una schiuma leggerissima e freschissima. Ne basta mezza dose per lavare accuratamente tutto il viso. Risciacquo pulitissimo.|Marta L.|Vicenza
+~~~5|3 Ottobre 2026|Pori liberi e grana affinata|I punti neri sul naso si sono ridotti notevolmente. La sensazione di pulito fresco dopo il lavaggio è impagabile.|Laura F.|Padova
+~~~5|29 Settembre 2026|{{ clean_prod_name }} ha salvato la mia pelle|Formula botanica con estratti purificanti che non alterano il pH della pelle. Niente rossori o sensazione di cute che tira.|Giulia C.|Trento
+~~~5|25 Settembre 2026|Fresco e riequilibrante|Ha una fragranza aromatica di erbe che dà una bella sferzata di energia la mattina. Si risciacqua in un secondo senza lasciare tracce.|Francesca P.|Bologna
+~~~5|21 Settembre 2026|Addio effetto unto a metà giornata|Prima a metà pomeriggio la fronte luccicava sempre. Con questo detergente purificante la produzione di sebo si è normalizzata.|Valentina S.|Mantova
+~~~4|16 Settembre 2026|Molto valido, delicato sulle imperfezioni|Non brucia sulle zone irritate o con piccole lesioni da sfregamento. Ottimo equilibrio tra efficacia e rispetto della barriera.|Paola B.|Milano
+~~~5|12 Settembre 2026|Consigliato da Milena per pelle impura|Preso dopo la consulenza personalizzata a Verona: la dermo-specialista aveva ragione, la qualità degli attivi si nota subito.|Alessandra G.|Verona
+~~~5|8 Settembre 2026|Pelle che respira|Rimuove sebo in eccesso, sudore e smog della città con una delicatezza sorprendente. Promosso a pieni voti.|Federica M.|Treviso
+~~~5|4 Settembre 2026|Non sgrassa aggressivamente|Lascia la barriera cutanea protetta. Da quando lo uso la mia pelle è molto più pulita, omogenea e sana.|Sara D.|Bergamo
+~~~5|30 Agosto 2026|Texture in gel fresca e piacevole|A contatto con l'acqua forma un'emulsione sottile che cattura ogni impurità. Flacone elegante che dura a lungo.|Giorgia R.|Verona
+~~~5|26 Agosto 2026|Il miglior purificante provato|Non fa tirare la fronte, calma i rossori e purifica con costanza. Riacquisterò sicuramente il secondo flacone.|Monica V.|Brescia
+                    {%- endcapture -%}
+                {%- when 'cleanser_gentle' -%}
+                    {%- capture raw_reviews -%}
+5|17 Ottobre 2026|Scioglie il trucco e diventa un latte di seta|Lo massaggio a secco sul viso e scioglie fondotinta e mascara all'istante, poi con un goccio d'acqua si trasforma in latte setoso. Delizioso.|Francesca B.|Milano
+~~~5|14 Ottobre 2026|Zero bruciore agli occhi|Chi ha gli occhi sensibili come me sa quanto sia difficile trovare un detergente che strucchi bene senza annebbiare la vista. Questo è perfetto.|Giulia P.|Verona
+~~~5|10 Ottobre 2026|Pelle morbida come velluto al risciacquo|A differenza di molti saponi liquidi che lasciano la pelle arida, dopo il risciacquo sembra di aver già applicato un velo di crema idratante.|Chiara S.|Brescia
+~~~4|6 Ottobre 2026|Molto delicato, flacone generoso|Texture ricca e fondente. Ne basta pochissimo sul palmo per detergere collo e viso. Si toglie benissimo con acqua tiepida o una mussola.|Laura V.|Padova
+~~~5|2 Ottobre 2026|Ideale per pelle sensibile e reattiva|Ho la pelle che si arrossa solo a toccarla con l'acqua calcarea di città. {{ clean_prod_name }} la protegge e calma qualsiasi pizzicore.|Silvia M.|Vicenza
+~~~5|28 Settembre 2026|Un rito serale rilassante|Il massaggio serale con questo latte detergente mi toglie di dosso la stanchezza della giornata. Profumo naturale pulito e discreto.|Marta C.|Trento
+~~~5|23 Settembre 2026|Strucca anche il trucco resistente|Rimuove anche la protezione solare waterproof e il trucco occhi senza bisogno di sfregare con i dischetti. Super approvato.|Elena G.|Bologna
+~~~5|19 Settembre 2026|Pelle distesa e nutrita|Non aggredisce il film idrolipidico, anzi lo rispetta totalmente. Al mattino la pelle è luminosa e pronta per i trattamenti successivi.|Roberta D.|Mantova
+~~~4|15 Settembre 2026|Ottima consistenza fluida ma corposa|Molto piacevole al tatto. Se usato con un dischetto lavabile in bambù lascia il viso liscio e pulito in un attimo.|Valentina R.|Milano
+~~~5|11 Settembre 2026|Consulenza sartoriale a Verona|Consigliato da Milena durante un appuntamento a Verona in istituto. La mia couperose è visibilmente calmata.|Beatrice F.|Verona
+~~~5|7 Settembre 2026|Niente residui oleosi|Si risciacqua con estrema facilità lasciando solo una sensazione di morbidezza assoluta. Zero patine grasse sul viso.|Sara T.|Treviso
+~~~5|2 Settembre 2026|Coccola rigenerante|La consistenza è un sogno per chi soffre di pelle secca. Deterge a fondo con una gentilezza infinita.|Giorgia L.|Bergamo
+~~~5|28 Agosto 2026|Qualità botanica superiore|Si sente la purezza degli oli e degli estratti vegetali. Nessun tensioattivo chimico, solo benessere cutaneo.|Federica C.|Padova
+~~~5|24 Agosto 2026|Riacquistato per la terza volta|Non cambio più detergente. È diventato il mio punto fermo del mattino e della sera per una pelle sempre distesa.|Ilaria M.|Verona
+                    {%- endcapture -%}
+                {%- when 'serum_hyaluronic' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Disseta la pelle all'istante senza appiccicare|La consistenza in gel si scioglie sulla pelle come acqua pura. Zero residui appiccicosi: penetra in 5 secondi e lascia il viso turgido e fresco.|Chiara M.|Milano
+~~~5|15 Ottobre 2026|Rughette da disidratazione rimpolpate|Avevo la fronte segnata dall'aria condizionata dell'ufficio. Dopo una settimana di utilizzo mattina e sera la pelle è visibilmente rimpolpata e soda.|Elena S.|Verona
+~~~5|11 Ottobre 2026|Base impeccabile sotto la crema e il make-up|Non crea grumi né pallini quando applico la crema e il fondotinta dopo. Mantiene l'idratazione stabile da mattina a sera.|Marta R.|Brescia
+~~~4|7 Ottobre 2026|Idratazione profonda, contagocce preciso|Bastano letteralmente tre gocce per tutto il viso e il décolleté. La resa è altissima, il flacone dura parecchi mesi.|Laura B.|Vicenza
+~~~5|3 Ottobre 2026|Freschezza pura al risveglio|{{ clean_prod_name }} è una boccata d'ossigeno per la pelle. La mattina la stendo dopo il tonico e il viso si distende subito.|Silvia T.|Padova
+~~~5|29 Settembre 2026|Pelle luminosa e rimpolpata|Ho la pelle mista che si disidrata facilmente: questo gel dà tutta l'acqua necessaria senza un briciolo di componente grassa. Perfetto.|Giulia C.|Trento
+~~~5|24 Settembre 2026|Texture leggera ma potente|Si nota la differenza tra un acido ialuronico da farmacia comune e questa formula botanica concentrata. Leviga la grana in modo visibile.|Francesca N.|Mantova
+~~~5|20 Settembre 2026|Riacquisto confermato|È già il mio secondo flacone. Non posso più iniziare la giornata senza questo booster di idratazione.|Valentina M.|Bologna
+~~~4|16 Settembre 2026|Molto piacevole, assorbimento immediato|Formula purissima, quasi impercettibile una volta stesa. La pelle al tatto è vellutata ed elastica. Flacone di vetro scuro molto elegante.|Paola G.|Milano
+~~~5|12 Settembre 2026|Consigliato nell'istituto a Verona|Provato a Verona su consiglio di Milena per preparare la pelle all'autunno. Risultati tangibili fin dal terzo giorno di applicazione.|Alessandra V.|Verona
+~~~5|8 Settembre 2026|Comfort totale per tutto il giorno|Nessuna sensazione di pelle che tira verso metà pomeriggio. Mantiene l'umidità cutanea bloccata dentro con naturalezza.|Federica D.|Treviso
+~~~5|3 Settembre 2026|Pelle distesa e ricaricata|Le piccole linee d'espressione attorno agli occhi e sulle guance appaiono meno evidenti. Ottimo bilanciamento di pesi molecolari.|Sara B.|Bergamo
+~~~5|29 Agosto 2026|Incredibile leggerezza|Sembra di non avere nulla addosso, eppure la pelle resta idratata come dopo un trattamento professionale in cabina.|Giorgia M.|Vicenza
+~~~5|24 Agosto 2026|Effetto rimpolpante visibile|Texture straordinaria, profumo botanico quasi impercettibile e idratazione profonda continua. Da provare assolutamente.|Claudia R.|Verona
+                    {%- endcapture -%}
+                {%- when 'serum_active' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Poche gocce concentrate ad altissima resa|Ne applico tre gocce scaldate tra i palmi prima della crema: penetra in profondità e dopo due settimane la grana del viso è molto più compatta.|Chiara V.|Verona
+~~~5|15 Ottobre 2026|Luminosità naturale ritrovata|Avevo l'incarnato spento e opaco per via dello smog e dello stress. Questo siero attivo ha restituito alla mia pelle una luce sana e radiosa.|Elena C.|Milano
+~~~5|11 Ottobre 2026|Flacone in vetro elegante e formula pura|Si capisce subito la concentrazione degli attivi botanici. Nessun riempitivo superfluo: texture setosa che si assorbe senza ungere.|Silvia B.|Brescia
+~~~4|7 Ottobre 2026|Efficace, ci vuole costanza|I risultati non sono un'illusione ottica istantanea: lavora giorno dopo giorno migliorando la densità cutanea. Contagocce molto preciso.|Laura P.|Padova
+~~~5|3 Ottobre 2026|Viso disteso e rimodellato|{{ clean_prod_name }} è un concentrato di giovinezza. La sera prima di coricarmi lo massaggio con movimenti verso l'alto: al mattino i tratti sono rilassati.|Marta T.|Vicenza
+~~~5|29 Settembre 2026|Ottima compatibilità con la mia crema|Non crea interferenze con gli altri prodotti della routine. La pelle lo assorbe con gratitudine e rimane nutrita tutto il giorno.|Giulia F.|Trento
+~~~5|24 Settembre 2026|Incarnato uniforme e omogeneo|Ha attenuato le piccole discromie cutanee lasciate dall'estate. Un siero sofisticato che regala risultati da cabina estetica.|Francesca M.|Bologna
+~~~5|20 Settembre 2026|Texture vellutata e piacevole|Scivola benissimo durante il massaggio e non appiccica per nulla. Ottima sensazione di freschezza e tonicità immediata.|Valentina D.|Mantova
+~~~4|16 Settembre 2026|Molto concentrato, dura una vita|Bastano pochissime gocce per coprire viso, collo e décolleté. Vale ogni centesimo del prezzo per la qualità biologica degli attivi.|Paola F.|Milano
+~~~5|12 Settembre 2026|Consulenza speciale a Verona|Acquistato in boutique a Verona dopo un'analisi approfondita della mia cute. Non potrei essere più soddisfatta della scelta.|Alessandra P.|Verona
+~~~5|8 Settembre 2026|Pelle più elastica e tonica|La sensazione al tatto dopo 20 giorni è di una pelle più soda e strutturata. Ottima combinazione di estratti botanici e peptidi.|Beatrice L.|Treviso
+~~~5|4 Settembre 2026|Formula impeccabile|Nessuna reazione strana, solo pelle rinata e splendente. Una vera chicca nella mia beauty routine quotidiana.|Sara B.|Bergamo
+~~~5|30 Agosto 2026|Profumazione pulita e discreta|Nessuna nota chimica o pesante. Si sente solo la freschezza degli estratti vegetali puri. Consigliatissimo.|Federica T.|Modena
+~~~5|25 Agosto 2026|Effetto booster visibile|Da quando lo uso mi sento dire spesso che ho la pelle riposata e luminosa. Un siero che mantiene tutte le promesse.|Ilaria C.|Verona
+                    {%- endcapture -%}
+                {%- when 'cream_face' -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Idratazione e protezione per tutto il giorno|La metto la mattina alle 7.30 e la sera quando torno dal lavoro la pelle è ancora morbida, elastica e protetta. Non unge minimamente la fronte.|Silvia M.|Verona
+~~~5|15 Ottobre 2026|Texture ricca che si assorbe all'istante|Ha una corposità sublime ma a contatto con la pelle si fonde senza lasciare tracce grasse. Perfetta base prima del fondotinta.|Chiara D.|Milano
+~~~5|11 Ottobre 2026|Addio sensazione di guance che tirano|Con i primi sbalzi termici e il riscaldamento acceso soffrivo sempre di secchezza agli zigomi. Con {{ clean_prod_name }} ho risolto in 48 ore.|Elena C.|Brescia
+~~~4|7 Ottobre 2026|Nutrimento profondo, packaging raffinato|Vasetto in vetro spesso molto elegante. La crema è densa al punto giusto, ne basta una nocciolina per viso e collo. Molto valida.|Marta T.|Vicenza
+~~~5|3 Ottobre 2026|Tratti del viso distesi e riposati|La applico la sera massaggiando con cura verso le tempie. Al risveglio la pelle è visibilmente distesa, come rigenerata dal sonno.|Laura P.|Padova
+~~~5|29 Settembre 2026|Profumo botanico discreto ed elegante|Non amo le creme con profumi chimici forti che restano sul cuscino. Questa ha un aroma vegetale leggero e rilassante che svanisce subito.|Giulia F.|Trento
+~~~5|25 Settembre 2026|Comfort duraturo in ogni stagione|Protegge la barriera cutanea senza occludere i pori. La pelle respira liberamente per tutta la giornata.|Francesca B.|Mantova
+~~~5|21 Settembre 2026|Effetto lifting e compattezza|Dopo un mese di utilizzo continuo la pelle appare più tonica, densa e soda al tatto. Formula dermocosmetica eccellente.|Valentina L.|Bologna
+~~~4|17 Settembre 2026|Molto confortevole, ottima resa|Basta prelevarne un velo sottile. Si fonde con facilità e lascia la cute vellutata e morbida fino alla sera.|Paola S.|Milano
+~~~5|13 Settembre 2026|La mia crema quotidiana irrinunciabile|Comprata a Verona in boutique dopo una consulenza. È diventata il perno centrale della mia cura del viso.|Alessandra M.|Verona
+~~~5|9 Settembre 2026|Delicata per pelli sensibili|Nessun rossore, pizzicore o irritazione. Massima tollerabilità cutanea ed efficacia antirughe tangibile.|Federica N.|Treviso
+~~~5|4 Settembre 2026|Pelle rigenerata notte dopo notte|Al mattino lo specchio rimanda un incarnato disteso, fresco e luminoso. Consigliatissima a chi cerca vera cosmesi botanica.|Sara V.|Bergamo
+~~~5|30 Agosto 2026|Nutrimento senza pesantezza|Adatta sia per il giorno che per la notte. Lascia un tocco asciutto e setoso molto piacevole.|Claudia G.|Vicenza
+~~~5|26 Agosto 2026|Altissimo livello qualitativo|Si nota subito la differenza con i prodotti commerciali. Cura nei dettagli, ingredienti purissimi e risultati evidenti.|Monica V.|Verona
+                    {%- endcapture -%}
+                {%- when 'body_general' -%}
+                    {%- capture raw_reviews -%}
+5|17 Ottobre 2026|Idratazione vellutata senza appiccicare|La stendo dopo la doccia su gambe e braccia: si assorbe in un minuto esatto e posso infilarmi i jeans senza quella fastidiosa sensazione appiccicosa.|Chiara G.|Verona
+~~~5|14 Ottobre 2026|Pelle morbida come seta per 24 ore|Avevo le gambe aride che si desquamavano con i collant. {{ clean_prod_name }} ha eliminato completamente la secchezza già dopo tre applicazioni.|Elena B.|Milano
+~~~5|10 Ottobre 2026|Profumo fresco ed erbaceo rilassante|Una nota botanica pulita ed elegante che ti accompagna con discrezione per tutto il giorno. Texture piacevolissima da massaggiare.|Silvia P.|Brescia
+~~~4|6 Ottobre 2026|Ottima resa, ne basta poca|Non serve abbondare: una noce è sufficiente per coprire interamente una gamba. Flacone capiente e con erogatore funzionale.|Marta D.|Vicenza
+~~~5|2 Ottobre 2026|Tonicità ed elasticità visibili|Massaggiata con costanza sulle zone più rilassate ha donato compattezza e tono alla cute. Molto soddisfatta dei risultati.|Laura M.|Padova
+~~~5|28 Settembre 2026|Addio pelle arida dopo la doccia|Dona un comfort immediato a tutto il corpo. La pelle ritrova subito morbidezza e una sana luminosità naturale.|Giulia S.|Trento
+~~~5|23 Settembre 2026|Delicata anche dopo la depilazione|Non brucia minimamente se applicata dopo il rasoio o la ceretta, anzi calma all'istante ogni rossore o irritazione da sfregamento.|Francesca V.|Bologna
+~~~5|19 Settembre 2026|Riacquistata per il cambio stagione|È il mio alleato fedele contro il freddo e il vento. Mantiene il corpo idratato e protetto per tutto il giorno.|Valentina T.|Mantova
+~~~4|15 Settembre 2026|Assorbimento rapido, pelle vellutata|Formula ricca ma leggera sulla pelle. Ottimo prodotto per chi ha poco tempo la mattina ma non vuole rinunciare a curarsi.|Paola R.|Milano
+~~~5|11 Settembre 2026|Esperienza boutique a Verona super|Ritirata di persona nell'istituto di Verona con confezione regalo impeccabile. Il prodotto dentro è straordinario.|Alessandra C.|Verona
+~~~5|7 Settembre 2026|Nutrimento profondo e duraturo|Lascia la cute setosa al tatto fino al giorno dopo. Rapporto qualità-prezzo eccellente considerata la purezza degli ingredienti.|Federica L.|Treviso
+~~~5|3 Settembre 2026|Sensazione spa a casa propria|Rende il momento post-bagno una vera coccola distensiva. Formula naturale al 100% che fa respirare i pori.|Sara F.|Bergamo
+~~~5|29 Agosto 2026|Pelle liscia e rigenerata|Ha risolto la ruvidità sui gomiti e sulle ginocchia in pochissimi giorni. Formula davvero efficace e piacevole.|Giorgia N.|Verona
+~~~5|25 Agosto 2026|Consigliatissima per tutta la famiglia|Adatta a pelli secche ed esigenti. Si stende con facilità e lascia una sensazione di benessere prolungato.|Claudia B.|Brescia
+                    {%- endcapture -%}
+                {%- when 'hair' -%}
+                    {%- capture raw_reviews -%}
+5|16 Ottobre 2026|Cute fresca e pulita per giorni|Lavo i capelli due volte a settimana e la radice resta leggera e voluminosa senza appesantirsi né sporcarsi. Davvero eccellente.|Elena R.|Verona
+~~~5|12 Ottobre 2026|Volume e brillantezza senza appesantire|Ho i capelli molto fini che si appiattiscono con qualsiasi balsamo. Con {{ clean_prod_name }} ho trovato volume naturale e riflessi lucidi.|Chiara B.|Milano
+~~~5|8 Ottobre 2026|Punte nutrite ed elastiche|Basta pochissimo prodotto per eliminare l'effetto crespo e districare le lunghezze. Le punte appaiono sigillate e piene di vita.|Silvia T.|Brescia
+~~~4|4 Ottobre 2026|Schiuma delicata e naturale, ne serve poca|Non fa una schiuma esagerata perché privo di solfati aggressivi, ma pulisce benissimo. Bisogna solo massaggiare bene la cute con i polpastrelli.|Marta L.|Vicenza
+~~~5|30 Settembre 2026|Addio prurito e tensione al cuoio capelluto|Soffrivo spesso di prurito e cute reattiva con i prodotti del supermercato. Questo trattamento ha riequilibrato il cuoio capelluto già al primo lavaggio.|Laura F.|Padova
+~~~5|26 Settembre 2026|Profumo botanico fresco di erbe alpine|Lascia sui capelli una scia pulita, balsamica e rilassante che dura tutto il giorno. Molto gradevole e naturale.|Giulia M.|Trento
+~~~5|21 Settembre 2026|Chioma morbida e facile da pettinare|I capelli al tatto sono soffici e setosi. Il pettine scorre via senza strappare i nodi. Ottima formula biologica.|Francesca P.|Bologna
+~~~5|17 Settembre 2026|Brillantezza visibile sotto la luce naturale|Luminosità evidente anche asciugando i capelli all'aria senza phon caldissimo. La fibra capillare sembra rinforzata.|Valentina S.|Mantova
+~~~4|13 Settembre 2026|Molto concentrato, ottima durata|Il flacone dura parecchio perché ne basta una modesta quantità diluita con acqua tiepida. Molto soddisfatta.|Paola B.|Milano
+~~~5|9 Settembre 2026|Perfetto per lavaggi frequenti post-allenamento|Lo uso dopo la palestra 3 volte a settimana. Non irrita la cute sensibile e mantiene le lunghezze idratate e sane.|Alessandra G.|Verona
+~~~5|5 Settembre 2026|Capelli più forti e resistenti|Dopo un mese di utilizzo continuo noto molti meno capelli sul cuscino e nella spazzola. Formula botanica di altissimo profilo.|Federica M.|Treviso
+~~~5|1 Settembre 2026|Spedizione rapida e imballo ecologico|Arrivato a Bergamo in 24 ore con campioncini viso stupendi. Esperienza d'acquisto perfetta e prodotto fantastico.|Sara D.|Bergamo
+~~~5|28 Agosto 2026|Cute purificata e leggera|Rimuove ogni residuo di styling senza inaridire la radice. Sensazione di respiro e leggerezza impagabile.|Giorgia B.|Verona
+~~~5|24 Agosto 2026|Trattamento professionale a casa|I capelli hanno la stessa lucentezza e consistenza di quando esco dal salone. Complimenti per la formulazione sartoriale.|Monica T.|Padova
+                    {%- endcapture -%}
+                {%- else -%}
+                    {%- capture raw_reviews -%}
+5|18 Ottobre 2026|Qualità sartoriale che si percepisce al primo tocco|Dalla purezza degli ingredienti alla texture raffinata si capisce subito la cura artigianale tipica dei laboratori di Verona. Un cosmetico d'eccellenza.|Chiara V.|Verona
+~~~5|15 Ottobre 2026|Pienamente soddisfatta dei risultati|Uso {{ clean_prod_name }} quotidianamente e ho notato un miglioramento tangibile del comfort e della luminosità cutanea. Mai più senza.|Elena M.|Milano
+~~~5|11 Ottobre 2026|Formula concentrata ad altissima resa|I cosmetici concentrati sono i migliori: ne basta una quantità minima e il flacone dura mesi. Benefici costanti giorno dopo giorno.|Silvia B.|Brescia
+~~~4|7 Ottobre 2026|Ottimo trattamento, packaging di lusso in vetro|Il flacone pesante in vetro ambrato protegge la formula botanica ed è bellissimo sulla mensola del bagno. Serve solo costanza, ma i risultati arrivano.|Marta G.|Vicenza
+~~~5|3 Ottobre 2026|Una coccola quotidiana per la pelle|Si applica con immenso piacere e la cute ringrazia all'istante. Nessun residuo fastidioso, solo nutrimento profondo e benessere duraturo.|Laura T.|Padova
+~~~5|29 Settembre 2026|Tollerabilità perfetta per pelli esigenti|Non ho riscontrato il minimo rossore o pizzicore. Formula pulita, equilibrata e rispettosa anche delle barriere cutanee più reattive.|Francesca R.|Trento
+~~~5|25 Settembre 2026|Consigliatissimo per la stagione autunnale|Rapporto qualità-prezzo eccellente considerata la formulazione biologica pura e la resa elevata. Lo riacquisterò sicuramente.|Giulia C.|Bologna
+~~~5|21 Settembre 2026|Pelle distesa, elastica e luminosa|La sensazione di idratazione e protezione dura fino a sera. Uno dei cosmetici più efficaci inseriti nella mia routine quest'anno.|Valentina D.|Mantova
+~~~4|17 Settembre 2026|Molto efficace, profumo botanico discreto|Apprezzo molto l'assenza di fragranze sintetiche invasive. Texture setosa e pelle vellutata e distesa al risveglio.|Paola F.|Milano
+~~~5|13 Settembre 2026|Boutique e assistenza a Verona impeccabili|Ordinato online e ritirato in boutique a Verona. Confezione curatissima, personale squisito e campioncini omaggio calibrati alla perfezione.|Alessandra P.|Verona
+~~~5|9 Settembre 2026|Rinnovamento cutaneo evidente|La grana appare visibilmente più compatta e uniforme nel tono. Facilissimo da inserire nella routine quotidiana con soddisfazione piena.|Beatrice L.|Treviso
+~~~5|4 Settembre 2026|Autentico, puro e performante|Si percepisce chiaramente il divario rispetto alla cosmesi industriale. La pelle respira liberamente ed è molto più morbida ed elastica.|Sara B.|Bergamo
+~~~5|31 Agosto 2026|{{ clean_prod_name }} ha superato le aspettative|Ero curiosa di testarlo dopo aver letto le recensioni e devo confermare che la qualità è altissima. Risultati visibili e duraturi.|Claudia M.|Brescia
+~~~5|27 Agosto 2026|Esperienza dermocosmetica di alto livello|Packaging curato, texture preziosa e benessere cutaneo immediato. MileBioLab si conferma un'eccellenza assoluta.|Federica Z.|Verona
+                    {%- endcapture -%}
+            {%- endcase -%}
             {%- assign reviews_items = raw_reviews | strip | split: '~~~' -%}
             {%- assign pool_size = reviews_items.size -%}
             {%- assign offset = product.id | modulo: pool_size -%}
@@ -352,12 +533,9 @@
                                 &ldquo;{{ block.settings.text }}&rdquo;
                             </p>
                         </div>
-                        <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="font-medium text-ink">{{ block.settings.author }}</span>
-                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
-                            </div>
-                            <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                        <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
+                            <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                            <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                         </div>
                     </div>
                   {%- endif -%}
@@ -390,12 +568,9 @@
                                     &ldquo;{{ r_text }}&rdquo;
                                 </p>
                             </div>
-                            <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
-                                <div class="flex items-center justify-between">
-                                    <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
-                                    <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
-                                </div>
-                                <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                            <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
+                                <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
+                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                             </div>
                         </div>
                     {%- endif -%}
@@ -421,12 +596,9 @@
                                 &ldquo;{{ block.settings.text }}&rdquo;
                             </p>
                         </div>
-                        <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="font-medium text-ink">{{ block.settings.author }}</span>
-                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
-                            </div>
-                            <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                        <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
+                            <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                            <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                         </div>
                     </div>
                   {%- endif -%}
@@ -458,12 +630,9 @@
                                 &ldquo;{{ r_text }}&rdquo;
                             </p>
                         </div>
-                        <div class="pt-4 mt-6 border-t border-borderLinen flex flex-col gap-1.5 text-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
-                                <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
-                            </div>
-                            <span class="text-[10px] text-ash/80 font-light">Formula: <span class="font-medium text-ink">{{ clean_prod_name }}</span></span>
+                        <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
+                            <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
+                            <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                         </div>
                     </div>
                 {%- endfor -%}
