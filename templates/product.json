@@ -133,6 +133,22 @@
     },
     "product-reviews": {
       "type": "product-reviews",
+      "blocks": {
+        "review_Rr6tm9": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "provaaaa",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Scrivi qui la recensione..."
+          }
+        }
+      },
+      "block_order": [
+        "review_Rr6tm9"
+      ],
       "settings": {
         "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
         "overall_score": "4.9",
