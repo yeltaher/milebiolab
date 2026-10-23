@@ -1,6 +1,238 @@
+{% doc %}
+  @prompt
+    vorrei inserire una scriscis con una collezione e dettagli
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-strip-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 28px;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-collection-strip__inner-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: minmax(100px, 180px) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-collection-strip__media-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: {{ block.settings.border_color }};
+  }
+
+  .ai-collection-strip__media-{{ ai_gen_id }} img,
+  .ai-collection-strip__media-{{ ai_gen_id }} svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-collection-strip__eyebrow-{{ ai_gen_id }} {
+    margin: 0 0 8px;
+    color: {{ block.settings.accent_color }};
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .ai-collection-strip__title-{{ ai_gen_id }} {
+    margin: 0 0 8px;
+    color: {{ block.settings.text_color }};
+    font-family: inherit;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .ai-collection-strip__description-{{ ai_gen_id }} {
+    max-width: 620px;
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .ai-collection-strip__description-{{ ai_gen_id }} p {
+    margin: 0;
+  }
+
+  .ai-collection-strip__link-{{ ai_gen_id }} {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border: 1px solid {{ block.settings.accent_color }};
+    color: {{ block.settings.text_color }};
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ai-collection-strip__link-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.accent_color }};
+    color: #ffffff;
+  }
+
+  .ai-collection-strip__link-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid {{ block.settings.text_color }};
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-strip-{{ ai_gen_id }} {
+      padding: 18px;
+    }
+
+    .ai-collection-strip__inner-{{ ai_gen_id }} {
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .ai-collection-strip__link-{{ ai_gen_id }} {
+      grid-column: 1 / -1;
+      justify-self: stretch;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-collection-strip-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-collection-strip__inner-{{ ai_gen_id }}">
+    <div class="ai-collection-strip__media-{{ ai_gen_id }}">
+      {% if block.settings.collection != blank and block.settings.collection.image != blank %}
+        <img
+          src="{{ block.settings.collection.image | image_url: width: 500 }}"
+          alt="{{ block.settings.collection.image.alt | default: block.settings.collection.title | escape }}"
+          loading="lazy"
+          width="{{ block.settings.collection.image.width }}"
+          height="{{ block.settings.collection.image.height }}"
+        >
+      {% else %}
+        {{ 'collection-apparel-1' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+
+    <div class="ai-collection-strip__content-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}
+        <p class="ai-collection-strip__eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow | escape }}</p>
+      {% endif %}
+      <h2 class="ai-collection-strip__title-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          {{ block.settings.heading | escape }}
+        {% elsif block.settings.collection != blank %}
+          {{ block.settings.collection.title | escape }}
+        {% else %}
+          {{ 'Scopri la collezione' }}
+        {% endif %}
+      </h2>
+      {% if block.settings.details != blank %}
+        <div class="ai-collection-strip__description-{{ ai_gen_id }}">{{ block.settings.details }}</div>
+      {% elsif block.settings.collection != blank and block.settings.collection.description != blank %}
+        <div class="ai-collection-strip__description-{{ ai_gen_id }}">{{ block.settings.collection.description }}</div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.collection != blank %}
+      <a class="ai-collection-strip__link-{{ ai_gen_id }}" href="{{ block.settings.collection.url }}">
+        {{ block.settings.button_label | escape }}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Fascia collezione",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collezione"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Testo introduttivo",
+      "default": "I rituali MILE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titolo alternativo"
+    },
+    {
+      "type": "richtext",
+      "id": "details",
+      "label": "Dettagli",
+      "default": "<p>Una selezione essenziale per prenderti cura della tua pelle, ogni giorno.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Testo del pulsante",
+      "default": "Scopri la collezione"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Larghezza desktop",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Stile"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Sfondo",
+      "default": "#F7F5F0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Testo",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accento",
+      "default": "#4A5340"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bordo",
+      "default": "#EDE5DB"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fascia collezione"
+    }
+  ],
+  "tag": null,
+  "class": "collection-strip-block"
+}
 {% endschema %}
