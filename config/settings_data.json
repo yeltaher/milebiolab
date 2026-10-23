@@ -20,6 +20,14 @@
     "verona_address": "Via Torricelle, 2c, 37128 Verona (VR) in Lebestetik Beauty & Spa",
     "pickup_hours": "Lunedì - Sabato 09:30 - 19:30",
     "pickup_phone": "+39 045 800 1234",
+    "drawer_coupon_label": "Codice Sconto Riservato Club Mile:",
+    "drawer_coupon_code": "MILE10",
+    "drawer_coupon_terms": "Valido su tutti i rituali viso e trattamenti barriera.",
+    "drawer_privilege_label": "Privilegio Fedeltà:",
+    "drawer_privilege_value": "10% Riservato • Campioni Deluxe",
+    "drawer_pickup_label": "Sede di Ritiro:",
+    "drawer_pickup_address": "Via Torricelle, 2c • Verona in Lebestetik",
+    "drawer_account_btn_text": "Apri Pagina Account Completa →",
     "sections": {
       "header": {
         "type": "header",
@@ -62,7 +70,7 @@
           "col3_hours": "Lun – Sab: 09:30 – 19:30 su APPUNTAMENTO WHATSAPP (chiuso Mercoledi)",
           "menu_2": "",
           "newsletter_title": "Privilege Club",
-          "newsletter_desc": "Iscriviti per ricevereofferte speciali e il 10% di benvenuto con codice MILE10.",
+          "newsletter_desc": "Iscriviti per ricevereofferte speciali e il 10% di benvenuto.",
           "newsletter_button_text": "Iscriviti",
           "newsletter_note": "Trattamento riservato • Disiscrizione con un click",
           "payment_title": "Pagamenti Sicuri & Certificati:",
@@ -175,15 +183,7 @@
         }
       }
     },
-    "content_for_index": [],
-    "drawer_coupon_label": "Codice Sconto Riservato Club Mile:",
-    "drawer_coupon_code": "MILE10",
-    "drawer_coupon_terms": "Valido su tutti i rituali viso e trattamenti barriera.",
-    "drawer_privilege_label": "Privilegio Fedeltà:",
-    "drawer_privilege_value": "10% Riservato • Campioni Deluxe",
-    "drawer_pickup_label": "Sede di Ritiro:",
-    "drawer_pickup_address": "Via Torricelle, 2c • Verona in Lebestetik",
-    "drawer_account_btn_text": "Apri Pagina Account Completa →"
+    "content_for_index": []
   },
   "presets": {
     "Default": {
