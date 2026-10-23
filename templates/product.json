@@ -46,6 +46,8 @@
         "routine_card_1": {
           "type": "routine_card",
           "settings": {
+            "target_product": "",
+            "product": "",
             "step": "STEP 01 • DETERSIONE PURIFICANTE",
             "title": "",
             "subtitle": "",
@@ -55,6 +57,8 @@
         "routine_card_2": {
           "type": "routine_card",
           "settings": {
+            "target_product": "",
+            "product": "",
             "step": "STEP 02 • BOOSTER ATTIVO",
             "title": "",
             "subtitle": "",
@@ -64,6 +68,8 @@
         "routine_card_3": {
           "type": "routine_card",
           "settings": {
+            "target_product": "",
+            "product": "",
             "step": "STEP 03 • BARRIERA CELLULARE",
             "title": "",
             "subtitle": "",
@@ -83,12 +89,21 @@
         "routine_card_3"
       ],
       "settings": {
-        "show_press": false,
+        "show_founder": true,
         "founder_tag": "FILOSOFIA DELLA FONDATRICE",
         "founder_quote": "La nostra missione a Verona è unire la potenza dei fitocomplessi puri alla precisione dell'analisi dermocosmetica personalizzata.",
         "founder_text": "Guidiamo la fitocosmesi ad alte prestazioni attraverso una rigorosa ricerca botanica ed evidenze scientifiche. Ogni nostro lotto è calibrato con precisione sartoriale per rigenerare la fisiologia cutanea nella nostra boutique e cabina dermo-specialistica di Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
         "founder_name": "Milena Tacchella",
-        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona"
+        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona",
+        "show_press": false,
+        "press_tag": "RICONOSCIMENTI DELLA CRITICA INTERNAZIONALE",
+        "press_items": "GALA, BRIGITTE, GLAMOUR, VOGUE, ELLE",
+        "press_quote": "L'apice della fitoterapia di lusso che ridefinisce lo standard della cura della pelle contemporanea.",
+        "press_source": "Vogue Italia",
+        "show_routine": true,
+        "routine_tag": "RITUALE COMPLETO SINERGICO",
+        "routine_title": "Completa la tua Routine",
+        "routine_subtitle": "Formulazioni complementari studiate per amplificare l'assorbimento degli attivi e prolungare la luminosità."
       }
     },
     "local-pickup": {
@@ -117,7 +132,7 @@
         "eyebrow": "OPINIONI VERIFICATE • CLUB MILE",
         "overall_score": "4.9",
         "total_reviews": "321",
-        "repurchase_badge": "98% delle clienti riacquista entro 60 giorni",
+        "repurchase_badge": "82% delle clienti riacquista entro 90 giorni",
         "pct_5": 92,
         "pct_4": 6,
         "pct_3": 0,
