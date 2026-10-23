@@ -38,6 +38,31 @@
         "item_5": ""
       }
     },
+    "17927672840772904d": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_e049a42_g66GGd": {
+          "type": "ai_gen_block_e049a42",
+          "settings": {
+            "collection": "box-ritual",
+            "eyebrow": "Idee Regalo",
+            "heading": "Scopri le Box RITUALI",
+            "details": "<p>Le nostre Box Rituali nascono per trasformare i gesti quotidiani in un rituale, attraverso il potere autentico della natura</p>",
+            "button_label": "Scopri la collezione",
+            "desktop_width_percent": 100,
+            "background_color": "#F7F5F0",
+            "text_color": "#706B67",
+            "accent_color": "#4A5340",
+            "border_color": "#EDE5DB"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e049a42_g66GGd"
+      ],
+      "settings": {}
+    },
     "trust-icon-bar": {
       "type": "trust-icon-bar",
       "settings": {
@@ -263,31 +288,6 @@
         "coupon_badge": "🎁 Coupon Sconto 15% con codice MILE15",
         "card_note": "Algoritmo Dermocosmetico Milebiolab • Basato sui protocolli clinici dell'Istituto di Verona"
       }
-    },
-    "17927672840772904d": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_e049a42_g66GGd": {
-          "type": "ai_gen_block_e049a42",
-          "settings": {
-            "collection": "box-ritual",
-            "eyebrow": "Idee Regalo",
-            "heading": "Scopri le Box RITUALI",
-            "details": "<p>Le nostre Box Rituali nascono per trasformare i gesti quotidiani in un rituale, attraverso il potere autentico della natura</p>",
-            "button_label": "Scopri la collezione",
-            "desktop_width_percent": 100,
-            "background_color": "#F7F5F0",
-            "text_color": "#1A1A1A",
-            "accent_color": "#4A5340",
-            "border_color": "#EDE5DB"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_e049a42_g66GGd"
-      ],
-      "settings": {}
     }
   },
   "order": [

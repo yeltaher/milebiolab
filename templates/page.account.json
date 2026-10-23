@@ -1,10 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page-account",
+      "blocks": {
+        "protocol_1": {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 01 • Detersione",
+            "title": "Latte Detergente & Tonico Quotidiano",
+            "description": "Latte detergente lenitivo con fieno greco e camomilla bio.",
+            "product": "",
+            "link": "/collections/all"
+          }
+        },
+        "protocol_2": {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 02 • Siero",
+            "title": "Siero Concentrato all'Acido Ialuronico Puro",
+            "description": "Siero con 5 pesi molecolari di acido ialuronico puro.",
+            "product": "",
+            "link": "/collections/all"
+          }
+        },
+        "protocol_3": {
+          "type": "protocol_card",
+          "settings": {
+            "step_tag": "Step 03 • Crema",
+            "title": "Crema Riparatrice Cellulare Suprema",
+            "description": "Crema cellulare con staminali di stella alpina.",
+            "product": "",
+            "link": "/collections/all"
+          }
+        },
+        "privilege_1": {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "✨",
+            "text": "10% di sconto continuativo su tutte le formule"
+          }
+        },
+        "privilege_2": {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🌿",
+            "text": "Campioni omaggio deluxe in ogni ordine"
+          }
+        },
+        "privilege_3": {
+          "type": "privilege_item",
+          "settings": {
+            "icon_emoji": "🏛️",
+            "text": "Invito prioritario alle giornate di cabina"
+          }
+        },
+        "experience_1": {
+          "type": "experience_card",
+          "disabled": true,
+          "settings": {
+            "badge": "Esperienza in Cabina",
+            "title": "Check-up Cutaneo Digitale Visia",
+            "description": "Analisi multispettrale della barriera cutanea riservata ai membri del Club.",
+            "cta_text": "Prenota con Concierge",
+            "cta_url": "https://wa.me/390458001234"
+          }
+        }
+      },
+      "block_order": [
+        "protocol_1",
+        "protocol_2",
+        "protocol_3",
+        "privilege_1",
+        "privilege_2",
+        "privilege_3",
+        "experience_1"
+      ],
       "settings": {
         "hero_badge": "Club Mile Privilège",
-        "hero_tagline": "Sede Privilegiata: Corso Cavour 18, Verona",
+        "hero_tagline": "",
         "show_coupon_box": true,
         "coupon_code": "MILE10",
         "coupon_label": "Codice Riservato 10%",
@@ -34,76 +116,7 @@
         "guest_desc": "Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privilège.",
         "guest_login_btn": "Accedi al Tuo Profilo",
         "guest_register_btn": "Registrati con il 10% di Sconto"
-      },
-      "blocks": {
-        "protocol_1": {
-          "type": "protocol_card",
-          "settings": {
-            "step_tag": "Step 01 • Detersione",
-            "title": "Latte Detergente & Tonico Quotidiano",
-            "description": "Latte detergente lenitivo con fieno greco e camomilla bio.",
-            "link": "/collections/all"
-          }
-        },
-        "protocol_2": {
-          "type": "protocol_card",
-          "settings": {
-            "step_tag": "Step 02 • Siero",
-            "title": "Siero Concentrato all'Acido Ialuronico Puro",
-            "description": "Siero con 5 pesi molecolari di acido ialuronico puro.",
-            "link": "/collections/all"
-          }
-        },
-        "protocol_3": {
-          "type": "protocol_card",
-          "settings": {
-            "step_tag": "Step 03 • Crema",
-            "title": "Crema Riparatrice Cellulare Suprema",
-            "description": "Crema cellulare con staminali di stella alpina.",
-            "link": "/collections/all"
-          }
-        },
-        "privilege_1": {
-          "type": "privilege_item",
-          "settings": {
-            "icon_emoji": "✨",
-            "text": "10% di sconto continuativo su tutte le formule"
-          }
-        },
-        "privilege_2": {
-          "type": "privilege_item",
-          "settings": {
-            "icon_emoji": "🌿",
-            "text": "Campioni omaggio deluxe in ogni ordine"
-          }
-        },
-        "privilege_3": {
-          "type": "privilege_item",
-          "settings": {
-            "icon_emoji": "🏛️",
-            "text": "Invito prioritario alle giornate di cabina"
-          }
-        },
-        "experience_1": {
-          "type": "experience_card",
-          "settings": {
-            "badge": "Esperienza in Cabina",
-            "title": "Check-up Cutaneo Digitale Visia",
-            "description": "Analisi multispettrale della barriera cutanea riservata ai membri del Club.",
-            "cta_text": "Prenota con Concierge",
-            "cta_url": "https://wa.me/390458001234"
-          }
-        }
-      },
-      "block_order": [
-        "protocol_1",
-        "protocol_2",
-        "protocol_3",
-        "privilege_1",
-        "privilege_2",
-        "privilege_3",
-        "experience_1"
-      ]
+      }
     }
   },
   "order": [
