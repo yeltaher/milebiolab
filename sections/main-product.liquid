@@ -468,11 +468,40 @@
     </section>
     {%- endif -%}
 
-    <!-- 11. Sezione Cross-Sell "IDEAL FOR YOUR SKIN..." -->
+    <!-- 11. Sezione Cross-Sell "IDEAL FOR YOUR SKIN / ROUTINE COMPLETA" -->
     {%- if section.settings.show_routine -%}
+    {%- assign current_tags_str = product.tags | join: ' ' | downcase -%}
+    {%- assign current_text = product.title | append: ' ' | append: product.type | append: ' ' | append: current_tags_str | downcase -%}
+    {%- assign current_dept = 'face' -%}
+    {%- if current_text contains 'hair' or current_text contains 'capell' or current_text contains 'shampoo' or current_text contains 'scalp' -%}
+      {%- assign current_dept = 'hair' -%}
+    {%- elsif current_text contains 'body wash' or current_text contains 'bagnodoccia' or current_text contains 'bagnoschiuma' or current_text contains 'olio corpo' or current_text contains 'body oil' or current_text contains 'corpo' or current_text contains 'body' -%}
+      {%- assign current_dept = 'body' -%}
+    {%- endif -%}
+
+    {%- assign is_cleanser = false -%}
+    {%- if current_text contains 'detergente' or current_text contains 'cleanser' or current_text contains 'latte' or current_text contains 'oil-to-milk' or current_text contains 'tonico' or current_text contains 'mousse' -%}
+      {%- assign is_cleanser = true -%}
+    {%- endif -%}
+
+    {%- assign is_serum = false -%}
+    {%- if current_text contains 'siero' or current_text contains 'serum' or current_text contains 'booster' or current_text contains 'boost' or current_text contains 'ialuronico' or current_text contains 'gel ha' -%}
+      {%- assign is_serum = true -%}
+    {%- endif -%}
+
+    {%- assign is_cream = false -%}
+    {%- if current_text contains 'crema' or current_text contains 'cream' or current_text contains 'unicho' or current_text contains 'burro' or current_text contains 'lifting' or current_text contains 'repair' -%}
+      {%- assign is_cream = true -%}
+    {%- endif -%}
+
+    {%- assign is_peeling = false -%}
+    {%- if current_text contains 'peeling' or current_text contains 'esfolia' or current_text contains 'scrub' or current_text contains 'radiance reset' -%}
+      {%- assign is_peeling = true -%}
+    {%- endif -%}
+
     {%- assign routine_blocks = section.blocks | where: 'type', 'routine_card' -%}
 
-    {%- comment -%} Check targeted routine blocks for this product {%- endcomment -%}
+    {%- comment -%} Priorita 1: Blocchi Manuali Mirati nel Theme Editor {%- endcomment -%}
     {%- assign targeted_routine_count = 0 -%}
     {%- for b in routine_blocks -%}
       {%- if b.settings.target_product != blank and b.settings.target_product.id == product.id -%}
@@ -480,22 +509,16 @@
       {%- endif -%}
     {%- endfor -%}
 
-    {%- comment -%} Check Metafields {%- endcomment -%}
-    {%- assign meta_routine_prods = product.metafields.shopify--discovery--product_recommendation.complementary_products.value | default: product.metafields.custom.routine_products.value | default: product.metafields.custom.routine.value -%}
+    {%- comment -%} Priorita 2: Metafields Personalizzati del Prodotto {%- endcomment -%}
+    {%- assign meta_routine_prods = product.metafields.custom.routine_products.value | default: product.metafields.custom.routine_products | default: product.metafields.shopify--discovery--product_recommendation.complementary_products.value | default: product.metafields.shopify--discovery--product_recommendation.complementary_products | default: product.metafields.custom.routine.value | default: product.metafields.custom.routine -%}
     {%- assign has_meta_routine = false -%}
-    {%- if meta_routine_prods != blank and meta_routine_prods.count > 0 or meta_routine_prods.size > 0 -%}
-      {%- assign has_meta_routine = true -%}
+    {%- if meta_routine_prods != blank -%}
+      {%- if meta_routine_prods.count > 0 or meta_routine_prods.size > 0 -%}
+        {%- assign has_meta_routine = true -%}
+      {%- endif -%}
     {%- endif -%}
 
-    {%- comment -%} Check Global blocks with assigned product {%- endcomment -%}
-    {%- assign global_routine_prods_count = 0 -%}
-    {%- for b in routine_blocks -%}
-      {%- if b.settings.target_product == blank and b.settings.product != blank -%}
-        {%- assign global_routine_prods_count = global_routine_prods_count | plus: 1 -%}
-      {%- endif -%}
-    {%- endfor -%}
-
-    {%- comment -%} Find Primary Collection for Dynamic Resolution {%- endcomment -%}
+    {%- comment -%} Identifica Collezione Primaria per Risoluzione Dinamica {%- endcomment -%}
     {%- assign target_col = product.collections.first -%}
     {%- for col in product.collections -%}
       {%- if col.handle != 'all' and col.handle != 'frontpage' -%}
@@ -503,14 +526,8 @@
         {%- break -%}
       {%- endif -%}
     {%- endfor -%}
-
-    {%- assign col_sibling_count = 0 -%}
-    {%- if target_col != blank -%}
-      {%- for p in target_col.products -%}
-        {%- if p.id != product.id -%}
-          {%- assign col_sibling_count = col_sibling_count | plus: 1 -%}
-        {%- endif -%}
-      {%- endfor -%}
+    {%- if target_col == blank and collections.all != blank -%}
+      {%- assign target_col = collections.all -%}
     {%- endif -%}
 
     <section class="py-24 bg-white border-b border-borderLinen">
@@ -540,7 +557,7 @@
                     {%- assign block_prod = block.settings.product -%}
                     {%- if block_prod != blank -%}
                       {%- assign card_title = block.settings.title | default: block_prod.title -%}
-                      {%- assign card_sub = block.settings.subtitle | default: block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                      {%- assign card_sub = block.settings.subtitle | default: block_prod.metafields.custom.subtitle.value | default: block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
                       {%- if block.settings.image != blank -%}
                         {%- assign card_img = block.settings.image | image_url: width: 800 -%}
                       {%- elsif block_prod.featured_image != blank -%}
@@ -572,7 +589,12 @@
                       {%- assign card_url = '#' -%}
                       {%- assign card_variant_id = '1' -%}
                     {%- endif -%}
-                    {%- assign card_step = block.settings.step | default: 'STEP ROUTINE' -%}
+                    {%- case routine_rendered_count -%}
+                      {%- when 1 -%}{%- assign def_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
+                      {%- when 2 -%}{%- assign def_step = 'STEP 02 • TRATTAMENTO & BOOSTER' -%}
+                      {%- else -%}{%- assign def_step = 'STEP 03 • BARRIERA CELLULARE & COMFORT' -%}
+                    {%- endcase -%}
+                    {%- assign card_step = block.settings.step | default: def_step -%}
 
                     <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
                       <div>
@@ -607,133 +629,25 @@
 
             {%- elsif has_meta_routine -%}
                 {%- for meta_prod in meta_routine_prods limit: 3 -%}
-                  {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
-                  {%- case forloop.index -%}
-                    {%- when 1 -%}{%- assign meta_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
-                    {%- when 2 -%}{%- assign meta_step = 'STEP 02 • BOOSTER & ATTIVO' -%}
-                    {%- else -%}{%- assign meta_step = 'STEP 03 • BARRIERA & COMFORT' -%}
-                  {%- endcase -%}
-                  {%- assign card_title = meta_prod.title -%}
-                  {%- assign card_sub = meta_prod.metafields.custom.subtitle | default: meta_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
-                  {%- if meta_prod.featured_image != blank -%}
-                    {%- assign card_img = meta_prod.featured_image | image_url: width: 800 -%}
-                  {%- else -%}
-                    {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
-                  {%- endif -%}
-                  {%- assign card_price_html = meta_prod.price | money -%}
-                  {%- assign card_price_num = meta_prod.price | divided_by: 100.0 -%}
-                  {%- assign card_url = meta_prod.url -%}
-                  {%- assign card_variant_id = meta_prod.selected_or_first_available_variant.id | default: meta_prod.variants.first.id -%}
-                  {%- assign card_step = meta_step -%}
-
-                  <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
-                    <div>
-                      <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
-                        <a href="{{ card_url }}" class="w-full h-full block">
-                          <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                        </a>
-                      </div>
-                      <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
-                      <h4 class="font-serif text-lg font-normal text-ink mb-1">
-                        <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
-                      </h4>
-                      <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                      <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
-                      <button type="button"
-                              onclick="quickAddProduct(this, event)"
-                              data-variant-id="{{ card_variant_id }}"
-                              data-product-title="{{ card_title | escape }}"
-                              data-product-price="{{ card_price_num }}"
-                              data-product-volume="{{ card_sub | escape }}"
-                              data-product-image="{{ card_img }}"
-                              data-product-step="{{ card_step | escape }}"
-                              class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
-                        + AGGIUNGI
-                      </button>
-                    </div>
-                  </div>
-                {%- endfor -%}
-
-            {%- elsif global_routine_prods_count > 0 -%}
-                {%- for block in routine_blocks -%}
-                  {%- if block.settings.target_product == blank and block.settings.product != blank and routine_rendered_count < 3 -%}
-                    {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
-                    {%- assign block_prod = block.settings.product -%}
-                    {%- assign card_title = block.settings.title | default: block_prod.title -%}
-                    {%- assign card_sub = block.settings.subtitle | default: block_prod.metafields.custom.subtitle | default: block_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
-                    {%- if block.settings.image != blank -%}
-                      {%- assign card_img = block.settings.image | image_url: width: 800 -%}
-                    {%- elsif block_prod.featured_image != blank -%}
-                      {%- assign card_img = block_prod.featured_image | image_url: width: 800 -%}
-                    {%- else -%}
-                      {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
-                    {%- endif -%}
-                    {%- if block.settings.price != blank -%}
-                      {%- assign card_price_val = block.settings.price -%}
-                      {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
-                      {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
-                    {%- else -%}
-                      {%- assign card_price_html = block_prod.price | money -%}
-                      {%- assign card_price_num = block_prod.price | divided_by: 100.0 -%}
-                    {%- endif -%}
-                    {%- assign card_url = block_prod.url -%}
-                    {%- assign card_variant_id = block_prod.selected_or_first_available_variant.id | default: block_prod.variants.first.id -%}
-                    {%- assign card_step = block.settings.step | default: 'STEP ROUTINE' -%}
-
-                    <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow" {{ block.shopify_attributes }}>
-                      <div>
-                        <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
-                          <a href="{{ card_url }}" class="w-full h-full block">
-                            <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                          </a>
-                        </div>
-                        <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
-                        <h4 class="font-serif text-lg font-normal text-ink mb-1">
-                          <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
-                        </h4>
-                        <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
-                      </div>
-                      <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                        <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
-                        <button type="button"
-                                onclick="quickAddProduct(this, event)"
-                                data-variant-id="{{ card_variant_id }}"
-                                data-product-title="{{ card_title | escape }}"
-                                data-product-price="{{ card_price_num }}"
-                                data-product-volume="{{ card_sub | escape }}"
-                                data-product-image="{{ card_img }}"
-                                data-product-step="{{ card_step | escape }}"
-                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
-                          + AGGIUNGI
-                        </button>
-                      </div>
-                    </div>
-                  {%- endif -%}
-                {%- endfor -%}
-
-            {%- elsif col_sibling_count >= 1 -%}
-                {%- for sib_prod in target_col.products -%}
-                  {%- if sib_prod.id != product.id and routine_rendered_count < 3 -%}
+                  {%- if meta_prod != blank and meta_prod.id != blank -%}
                     {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
                     {%- case routine_rendered_count -%}
-                      {%- when 1 -%}{%- assign sib_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
-                      {%- when 2 -%}{%- assign sib_step = 'STEP 02 • TRATTAMENTO SINERGICO' -%}
-                      {%- else -%}{%- assign sib_step = 'STEP 03 • BARRIERA & COMFORT' -%}
+                      {%- when 1 -%}{%- assign meta_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
+                      {%- when 2 -%}{%- assign meta_step = 'STEP 02 • TRATTAMENTO & BOOSTER' -%}
+                      {%- else -%}{%- assign meta_step = 'STEP 03 • BARRIERA CELLULARE & COMFORT' -%}
                     {%- endcase -%}
-                    {%- assign card_title = sib_prod.title -%}
-                    {%- assign card_sub = sib_prod.metafields.custom.subtitle | default: sib_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
-                    {%- if sib_prod.featured_image != blank -%}
-                      {%- assign card_img = sib_prod.featured_image | image_url: width: 800 -%}
+                    {%- assign card_title = meta_prod.title -%}
+                    {%- assign card_sub = meta_prod.metafields.custom.subtitle.value | default: meta_prod.metafields.custom.subtitle | default: meta_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                    {%- if meta_prod.featured_image != blank -%}
+                      {%- assign card_img = meta_prod.featured_image | image_url: width: 800 -%}
                     {%- else -%}
                       {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
                     {%- endif -%}
-                    {%- assign card_price_html = sib_prod.price | money -%}
-                    {%- assign card_price_num = sib_prod.price | divided_by: 100.0 -%}
-                    {%- assign card_url = sib_prod.url -%}
-                    {%- assign card_variant_id = sib_prod.selected_or_first_available_variant.id | default: sib_prod.variants.first.id -%}
-                    {%- assign card_step = sib_step -%}
+                    {%- assign card_price_html = meta_prod.price | money -%}
+                    {%- assign card_price_num = meta_prod.price | divided_by: 100.0 -%}
+                    {%- assign card_url = meta_prod.url -%}
+                    {%- assign card_variant_id = meta_prod.selected_or_first_available_variant.id | default: meta_prod.variants.first.id | default: meta_prod.id -%}
+                    {%- assign card_step = meta_step -%}
 
                     <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                       <div>
@@ -765,101 +679,612 @@
                     </div>
                   {%- endif -%}
                 {%- endfor -%}
-            {%- endif -%}
 
-            {%- comment -%} Safety Fallback: if fewer than 3 were rendered, fill up to 3 cards {%- endcomment -%}
-            {%- if routine_rendered_count < 3 -%}
-              {%- if routine_rendered_count < 1 -%}
+            {%- else -%}
+                {%- comment -%} Priorita 3: Fallback Dinamico Intelligente per Reparto e Sinergia Cosmetica {%- endcomment -%}
+                {%- assign slot_1_prod = nil -%}
+                {%- assign slot_2_prod = nil -%}
+                {%- assign slot_3_prod = nil -%}
+
+                {%- comment -%} Step Labels appropriati per Reparto e Ruolo Cosmetico {%- endcomment -%}
+                {%- if current_dept == 'hair' -%}
+                  {%- assign slot_1_step = 'STEP 01 • DETERSIONE CAPILLARE' -%}
+                  {%- assign slot_2_step = 'STEP 02 • TRATTAMENTO & MASCHERA' -%}
+                  {%- assign slot_3_step = 'STEP 03 • FINISHING & PROTEZIONE' -%}
+                {%- elsif current_dept == 'body' -%}
+                  {%- assign slot_1_step = 'STEP 01 • DETERSIONE CORPO' -%}
+                  {%- assign slot_2_step = 'STEP 02 • ESFOLIAZIONE CORPO' -%}
+                  {%- assign slot_3_step = 'STEP 03 • IDRATAZIONE & ELASTICITÀ' -%}
+                {%- else -%}
+                  {%- if is_cleanser -%}
+                    {%- assign slot_1_step = 'STEP 01 • ESFOLIAZIONE & RINNOVAMENTO' -%}
+                  {%- else -%}
+                    {%- assign slot_1_step = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
+                  {%- endif -%}
+                  {%- if is_serum -%}
+                    {%- assign slot_2_step = 'STEP 02 • POTENZIAMENTO ATTIVO' -%}
+                  {%- else -%}
+                    {%- assign slot_2_step = 'STEP 02 • TRATTAMENTO & BOOSTER' -%}
+                  {%- endif -%}
+                  {%- if is_cream -%}
+                    {%- assign slot_3_step = 'STEP 03 • NUTRIZIONE & PROTEZIONE' -%}
+                  {%- else -%}
+                    {%- assign slot_3_step = 'STEP 03 • BARRIERA CELLULARE & COMFORT' -%}
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- comment -%} Scansione 1: Matching Sinergico per Ruolo Cosmetico nella Collezione {%- endcomment -%}
+                {%- if target_col != blank and target_col.products.size > 0 -%}
+                  {%- for cand_p in target_col.products -%}
+                    {%- if cand_p.id != product.id -%}
+                      {%- assign cand_tags_str = cand_p.tags | join: ' ' | downcase -%}
+                      {%- assign cand_text = cand_p.title | append: ' ' | append: cand_p.type | append: ' ' | append: cand_tags_str | downcase -%}
+                      
+                      {%- assign cand_is_hair = false -%}
+                      {%- if cand_text contains 'hair' or cand_text contains 'capell' or cand_text contains 'shampoo' or cand_text contains 'scalp' -%}
+                        {%- assign cand_is_hair = true -%}
+                      {%- endif -%}
+
+                      {%- assign cand_is_body = false -%}
+                      {%- if cand_text contains 'body wash' or cand_text contains 'bagnodoccia' or cand_text contains 'bagnoschiuma' or cand_text contains 'olio corpo' or cand_text contains 'body oil' or cand_text contains 'corpo' or cand_text contains 'body' -%}
+                        {%- assign cand_is_body = true -%}
+                      {%- endif -%}
+
+                      {%- assign cand_dept = 'face' -%}
+                      {%- if cand_is_hair -%}
+                        {%- assign cand_dept = 'hair' -%}
+                      {%- elsif cand_is_body -%}
+                        {%- assign cand_dept = 'body' -%}
+                      {%- endif -%}
+
+                      {%- if cand_dept == current_dept -%}
+                        {%- if current_dept == 'face' -%}
+                          {%- assign cand_is_cleanser = false -%}
+                          {%- if cand_text contains 'detergente' or cand_text contains 'cleanser' or cand_text contains 'latte' or cand_text contains 'oil-to-milk' or cand_text contains 'tonico' or cand_text contains 'mousse' -%}
+                            {%- assign cand_is_cleanser = true -%}
+                          {%- endif -%}
+
+                          {%- assign cand_is_serum = false -%}
+                          {%- if cand_text contains 'siero' or cand_text contains 'serum' or cand_text contains 'booster' or cand_text contains 'boost' or cand_text contains 'ialuronico' or cand_text contains 'gel ha' -%}
+                            {%- assign cand_is_serum = true -%}
+                          {%- endif -%}
+
+                          {%- assign cand_is_cream = false -%}
+                          {%- if cand_text contains 'crema' or cand_text contains 'cream' or cand_text contains 'unicho' or cand_text contains 'burro' or cand_text contains 'lifting' or cand_text contains 'repair' -%}
+                            {%- assign cand_is_cream = true -%}
+                          {%- endif -%}
+
+                          {%- assign cand_is_peeling = false -%}
+                          {%- if cand_text contains 'peeling' or cand_text contains 'esfolia' or cand_text contains 'scrub' or cand_text contains 'radiance reset' -%}
+                            {%- assign cand_is_peeling = true -%}
+                          {%- endif -%}
+
+                          {%- if slot_1_prod == blank -%}
+                            {%- if is_cleanser == false and cand_is_cleanser -%}
+                              {%- assign slot_1_prod = cand_p -%}
+                            {%- elsif is_cleanser and cand_is_peeling -%}
+                              {%- assign slot_1_prod = cand_p -%}
+                            {%- endif -%}
+                          {%- endif -%}
+
+                          {%- if slot_2_prod == blank and cand_p.id != slot_1_prod.id -%}
+                            {%- if is_serum == false and cand_is_serum -%}
+                              {%- assign slot_2_prod = cand_p -%}
+                            {%- elsif is_serum and cand_is_peeling -%}
+                              {%- assign slot_2_prod = cand_p -%}
+                            {%- endif -%}
+                          {%- endif -%}
+
+                          {%- if slot_3_prod == blank and cand_p.id != slot_1_prod.id and cand_p.id != slot_2_prod.id -%}
+                            {%- if is_cream == false and cand_is_cream -%}
+                              {%- assign slot_3_prod = cand_p -%}
+                            {%- elsif is_cream and cand_text contains 'elisir' or cand_text contains 'olio' or cand_text contains 'oil' -%}
+                              {%- assign slot_3_prod = cand_p -%}
+                            {%- endif -%}
+                          {%- endif -%}
+
+                        {%- elsif current_dept == 'hair' -%}
+                          {%- if slot_1_prod == blank and cand_text contains 'shampoo' -%}
+                            {%- assign slot_1_prod = cand_p -%}
+                          {%- elsif slot_2_prod == blank and cand_p.id != slot_1_prod.id and cand_text contains 'maschera' or cand_text contains 'mask' or cand_text contains 'duo' -%}
+                            {%- assign slot_2_prod = cand_p -%}
+                          {%- elsif slot_3_prod == blank and cand_p.id != slot_1_prod.id and cand_p.id != slot_2_prod.id and cand_text contains 'olio' or cand_text contains 'oil' or cand_text contains 'spray' -%}
+                            {%- assign slot_3_prod = cand_p -%}
+                          {%- endif -%}
+
+                        {%- elsif current_dept == 'body' -%}
+                          {%- if slot_1_prod == blank and cand_text contains 'wash' or cand_text contains 'doccia' or cand_text contains 'schiuma' -%}
+                            {%- assign slot_1_prod = cand_p -%}
+                          {%- elsif slot_2_prod == blank and cand_p.id != slot_1_prod.id and cand_text contains 'scrub' or cand_text contains 'peeling' or cand_text contains 'esfolia' -%}
+                            {%- assign slot_2_prod = cand_p -%}
+                          {%- elsif slot_3_prod == blank and cand_p.id != slot_1_prod.id and cand_p.id != slot_2_prod.id and cand_text contains 'olio' or cand_text contains 'oil' or cand_text contains 'crema' or cand_text contains 'cream' -%}
+                            {%- assign slot_3_prod = cand_p -%}
+                          {%- endif -%}
+                        {%- endif -%}
+
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+
+                {%- comment -%} Scansione 2: Riempimento slot vacanti da prodotti rimanenti della stessa linea {%- endcomment -%}
+                {%- if slot_1_prod == blank or slot_2_prod == blank or slot_3_prod == blank -%}
+                  {%- if target_col != blank and target_col.products.size > 0 -%}
+                    {%- for cand_p in target_col.products -%}
+                      {%- if cand_p.id != product.id and cand_p.id != slot_1_prod.id and cand_p.id != slot_2_prod.id and cand_p.id != slot_3_prod.id -%}
+                        {%- assign cand_tags_str = cand_p.tags | join: ' ' | downcase -%}
+                        {%- assign cand_text = cand_p.title | append: ' ' | append: cand_p.type | append: ' ' | append: cand_tags_str | downcase -%}
+                        
+                        {%- assign cand_is_hair = false -%}
+                        {%- if cand_text contains 'hair' or cand_text contains 'capell' or cand_text contains 'shampoo' or cand_text contains 'scalp' -%}
+                          {%- assign cand_is_hair = true -%}
+                        {%- endif -%}
+
+                        {%- assign cand_is_body = false -%}
+                        {%- if cand_text contains 'body wash' or cand_text contains 'bagnodoccia' or cand_text contains 'bagnoschiuma' or cand_text contains 'olio corpo' or cand_text contains 'body oil' or cand_text contains 'corpo' or cand_text contains 'body' -%}
+                          {%- assign cand_is_body = true -%}
+                        {%- endif -%}
+
+                        {%- assign cand_dept = 'face' -%}
+                        {%- if cand_is_hair -%}
+                          {%- assign cand_dept = 'hair' -%}
+                        {%- elsif cand_is_body -%}
+                          {%- assign cand_dept = 'body' -%}
+                        {%- endif -%}
+
+                        {%- if cand_dept == current_dept -%}
+                          {%- if slot_1_prod == blank -%}
+                            {%- assign slot_1_prod = cand_p -%}
+                          {%- elsif slot_2_prod == blank -%}
+                            {%- assign slot_2_prod = cand_p -%}
+                          {%- elsif slot_3_prod == blank -%}
+                            {%- assign slot_3_prod = cand_p -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- comment -%} Scansione 3: Se ancora vacanti, cerca in collections.all dello stesso reparto {%- endcomment -%}
+                {%- if slot_1_prod == blank or slot_2_prod == blank or slot_3_prod == blank -%}
+                  {%- if collections.all != blank and collections.all.products.size > 0 -%}
+                    {%- for cand_p in collections.all.products -%}
+                      {%- if cand_p.id != product.id and cand_p.id != slot_1_prod.id and cand_p.id != slot_2_prod.id and cand_p.id != slot_3_prod.id -%}
+                        {%- assign cand_tags_str = cand_p.tags | join: ' ' | downcase -%}
+                        {%- assign cand_text = cand_p.title | append: ' ' | append: cand_p.type | append: ' ' | append: cand_tags_str | downcase -%}
+                        
+                        {%- assign cand_is_hair = false -%}
+                        {%- if cand_text contains 'hair' or cand_text contains 'capell' or cand_text contains 'shampoo' or cand_text contains 'scalp' -%}
+                          {%- assign cand_is_hair = true -%}
+                        {%- endif -%}
+
+                        {%- assign cand_is_body = false -%}
+                        {%- if cand_text contains 'body wash' or cand_text contains 'bagnodoccia' or cand_text contains 'bagnoschiuma' or cand_text contains 'olio corpo' or cand_text contains 'body oil' or cand_text contains 'corpo' or cand_text contains 'body' -%}
+                          {%- assign cand_is_body = true -%}
+                        {%- endif -%}
+
+                        {%- assign cand_dept = 'face' -%}
+                        {%- if cand_is_hair -%}
+                          {%- assign cand_dept = 'hair' -%}
+                        {%- elsif cand_is_body -%}
+                          {%- assign cand_dept = 'body' -%}
+                        {%- endif -%}
+
+                        {%- if cand_dept == current_dept -%}
+                          {%- if slot_1_prod == blank -%}
+                            {%- assign slot_1_prod = cand_p -%}
+                          {%- elsif slot_2_prod == blank -%}
+                            {%- assign slot_2_prod = cand_p -%}
+                          {%- elsif slot_3_prod == blank -%}
+                            {%- assign slot_3_prod = cand_p -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- comment -%} RENDERING SLOT 1 {%- endcomment -%}
+                {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                {%- if slot_1_prod != blank -%}
+                  {%- assign card_title = slot_1_prod.title -%}
+                  {%- assign card_sub = slot_1_prod.metafields.custom.subtitle.value | default: slot_1_prod.metafields.custom.subtitle | default: slot_1_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                  {%- if slot_1_prod.featured_image != blank -%}
+                    {%- assign card_img = slot_1_prod.featured_image | image_url: width: 800 -%}
+                  {%- else -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- endif -%}
+                  {%- assign card_price_html = slot_1_prod.price | money -%}
+                  {%- assign card_price_num = slot_1_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_url = slot_1_prod.url -%}
+                  {%- assign card_variant_id = slot_1_prod.selected_or_first_available_variant.id | default: slot_1_prod.variants.first.id | default: slot_1_prod.id -%}
+                  {%- assign card_step = slot_1_step -%}
+                {%- else -%}
+                  {%- if current_dept == 'hair' -%}
+                    {%- assign card_title = 'Shampoo Botanico Rivitalizzante' -%}
+                    {%- assign card_sub = "250 ml • Estratti d'alpeggio purificanti" -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 34,00' -%}
+                    {%- assign card_price_num = '34.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '101' -%}
+                    {%- assign card_step = slot_1_step -%}
+                  {%- elsif current_dept == 'body' -%}
+                    {%- assign card_title = 'Bagnodoccia Idratante Delicato' -%}
+                    {%- assign card_sub = '250 ml • Tensioattivi vegetali ultra-dolci' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 32,00' -%}
+                    {%- assign card_price_num = '32.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '201' -%}
+                    {%- assign card_step = slot_1_step -%}
+                  {%- else -%}
+                    {%- assign card_title = 'Detergente Lipofilo Purificante' -%}
+                    {%- assign card_sub = '150 ml • Rispetta la barriera idrolipidica' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 42,00' -%}
+                    {%- assign card_price_num = '42.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '1' -%}
+                    {%- assign card_step = slot_1_step -%}
+                  {%- endif -%}
+                {%- endif -%}
+
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                   <div>
                     <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
-                      <a href="#" class="w-full h-full block">
-                        <img src="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80" alt="Detergente Lipofilo Purificante" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                      <a href="{{ card_url }}" class="w-full h-full block">
+                        <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
                       </a>
                     </div>
-                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">STEP 01 • DETERSIONE PURIFICANTE</span>
+                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
                     <h4 class="font-serif text-lg font-normal text-ink mb-1">
-                      <a href="#" class="hover:text-amber transition-colors">Detergente Lipofilo Purificante</a>
+                      <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
                     </h4>
-                    <p class="text-xs text-ash mb-3">150 ml • Rispetta la barriera idrolipidica</p>
+                    <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
                   </div>
                   <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">&euro; 42,00</span>
+                    <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
-                            data-variant-id="1"
-                            data-product-title="Detergente Lipofilo Purificante"
-                            data-product-price="42.00"
-                            data-product-volume="150 ml • Rispetta la barriera idrolipidica"
-                            data-product-image="https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80"
-                            data-product-step="STEP 01 • DETERSIONE PURIFICANTE"
+                            data-variant-id="{{ card_variant_id }}"
+                            data-product-title="{{ card_title | escape }}"
+                            data-product-price="{{ card_price_num }}"
+                            data-product-volume="{{ card_sub | escape }}"
+                            data-product-image="{{ card_img }}"
+                            data-product-step="{{ card_step | escape }}"
                             class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
                       + AGGIUNGI
                     </button>
                   </div>
                 </div>
+
+                {%- comment -%} RENDERING SLOT 2 {%- endcomment -%}
+                {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                {%- if slot_2_prod != blank -%}
+                  {%- assign card_title = slot_2_prod.title -%}
+                  {%- assign card_sub = slot_2_prod.metafields.custom.subtitle.value | default: slot_2_prod.metafields.custom.subtitle | default: slot_2_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                  {%- if slot_2_prod.featured_image != blank -%}
+                    {%- assign card_img = slot_2_prod.featured_image | image_url: width: 800 -%}
+                  {%- else -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- endif -%}
+                  {%- assign card_price_html = slot_2_prod.price | money -%}
+                  {%- assign card_price_num = slot_2_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_url = slot_2_prod.url -%}
+                  {%- assign card_variant_id = slot_2_prod.selected_or_first_available_variant.id | default: slot_2_prod.variants.first.id | default: slot_2_prod.id -%}
+                  {%- assign card_step = slot_2_step -%}
+                {%- else -%}
+                  {%- if current_dept == 'hair' -%}
+                    {%- assign card_title = 'Maschera Riparatrice Rigenerante' -%}
+                    {%- assign card_sub = '200 ml • Proteine della seta e cheratina botanica' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 48,00' -%}
+                    {%- assign card_price_num = '48.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '102' -%}
+                    {%- assign card_step = slot_2_step -%}
+                  {%- elsif current_dept == 'body' -%}
+                    {%- assign card_title = 'Scrub Esfoliante Salino Corpo' -%}
+                    {%- assign card_sub = '200 ml • Cristalli alpini e oli essenziali' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 46,00' -%}
+                    {%- assign card_price_num = '46.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '202' -%}
+                    {%- assign card_step = slot_2_step -%}
+                  {%- else -%}
+                    {%- assign card_title = 'Siero Rigenerante Notturno' -%}
+                    {%- assign card_sub = '30 ml • Concentrato molecolare di bio-peptidi' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 94,00' -%}
+                    {%- assign card_price_num = '94.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '2' -%}
+                    {%- assign card_step = slot_2_step -%}
+                  {%- endif -%}
+                {%- endif -%}
+
+                <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
+                  <div>
+                    <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
+                      <a href="{{ card_url }}" class="w-full h-full block">
+                        <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                      </a>
+                    </div>
+                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
+                    <h4 class="font-serif text-lg font-normal text-ink mb-1">
+                      <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
+                    </h4>
+                    <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
+                    <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                    <button type="button"
+                            onclick="quickAddProduct(this, event)"
+                            data-variant-id="{{ card_variant_id }}"
+                            data-product-title="{{ card_title | escape }}"
+                            data-product-price="{{ card_price_num }}"
+                            data-product-volume="{{ card_sub | escape }}"
+                            data-product-image="{{ card_img }}"
+                            data-product-step="{{ card_step | escape }}"
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                      + AGGIUNGI
+                    </button>
+                  </div>
+                </div>
+
+                {%- comment -%} RENDERING SLOT 3 {%- endcomment -%}
+                {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
+                {%- if slot_3_prod != blank -%}
+                  {%- assign card_title = slot_3_prod.title -%}
+                  {%- assign card_sub = slot_3_prod.metafields.custom.subtitle.value | default: slot_3_prod.metafields.custom.subtitle | default: slot_3_prod.type | default: 'Trattamento Sinergico Consigliato' -%}
+                  {%- if slot_3_prod.featured_image != blank -%}
+                    {%- assign card_img = slot_3_prod.featured_image | image_url: width: 800 -%}
+                  {%- else -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- endif -%}
+                  {%- assign card_price_html = slot_3_prod.price | money -%}
+                  {%- assign card_price_num = slot_3_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_url = slot_3_prod.url -%}
+                  {%- assign card_variant_id = slot_3_prod.selected_or_first_available_variant.id | default: slot_3_prod.variants.first.id | default: slot_3_prod.id -%}
+                  {%- assign card_step = slot_3_step -%}
+                {%- else -%}
+                  {%- if current_dept == 'hair' -%}
+                    {%- assign card_title = 'Elisir Sublimatore Capelli' -%}
+                    {%- assign card_sub = '50 ml • Olio sublimante anti-crespo protettivo' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1608248597359-598d9b139269?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 52,00' -%}
+                    {%- assign card_price_num = '52.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '103' -%}
+                    {%- assign card_step = slot_3_step -%}
+                  {%- elsif current_dept == 'body' -%}
+                    {%- assign card_title = 'Olio Corpo Nutriente Sublime' -%}
+                    {%- assign card_sub = '100 ml • Oli preziosi elasticizzanti e vellutanti' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1608248597359-598d9b139269?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 58,00' -%}
+                    {%- assign card_price_num = '58.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '203' -%}
+                    {%- assign card_step = slot_3_step -%}
+                  {%- else -%}
+                    {%- assign card_title = 'Elisir Botanico Viso e Collo' -%}
+                    {%- assign card_sub = '50 ml • Fitocomplessi montani antiossidanti' -%}
+                    {%- assign card_img = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
+                    {%- assign card_price_html = '&euro; 86,00' -%}
+                    {%- assign card_price_num = '86.00' -%}
+                    {%- assign card_url = '#' -%}
+                    {%- assign card_variant_id = '3' -%}
+                    {%- assign card_step = slot_3_step -%}
+                  {%- endif -%}
+                {%- endif -%}
+
+                <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
+                  <div>
+                    <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
+                      <a href="{{ card_url }}" class="w-full h-full block">
+                        <img src="{{ card_img }}" alt="{{ card_title | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                      </a>
+                    </div>
+                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ card_step }}</span>
+                    <h4 class="font-serif text-lg font-normal text-ink mb-1">
+                      <a href="{{ card_url }}" class="hover:text-amber transition-colors">{{ card_title }}</a>
+                    </h4>
+                    <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
+                    <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                    <button type="button"
+                            onclick="quickAddProduct(this, event)"
+                            data-variant-id="{{ card_variant_id }}"
+                            data-product-title="{{ card_title | escape }}"
+                            data-product-price="{{ card_price_num }}"
+                            data-product-volume="{{ card_sub | escape }}"
+                            data-product-image="{{ card_img }}"
+                            data-product-step="{{ card_step | escape }}"
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                      + AGGIUNGI
+                    </button>
+                  </div>
+                </div>
+            {%- endif -%}
+
+            {%- comment -%} Priorita 4: Safety Fallback di Boutique se Targeted o Metafields hanno fornito < 3 prodotti {%- endcomment -%}
+            {%- if routine_rendered_count < 3 -%}
+              {%- if routine_rendered_count < 1 -%}
+                {%- if current_dept == 'hair' -%}
+                  {%- assign fb_title_1 = 'Shampoo Botanico Rivitalizzante' -%}
+                  {%- assign fb_sub_1 = "250 ml • Estratti d'alpeggio purificanti" -%}
+                  {%- assign fb_img_1 = 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_1 = '&euro; 34,00' -%}
+                  {%- assign fb_price_num_1 = '34.00' -%}
+                  {%- assign fb_var_id_1 = '101' -%}
+                  {%- assign fb_step_1 = 'STEP 01 • DETERSIONE CAPILLARE' -%}
+                {%- elsif current_dept == 'body' -%}
+                  {%- assign fb_title_1 = 'Bagnodoccia Idratante Delicato' -%}
+                  {%- assign fb_sub_1 = '250 ml • Tensioattivi vegetali ultra-dolci' -%}
+                  {%- assign fb_img_1 = 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_1 = '&euro; 32,00' -%}
+                  {%- assign fb_price_num_1 = '32.00' -%}
+                  {%- assign fb_var_id_1 = '201' -%}
+                  {%- assign fb_step_1 = 'STEP 01 • DETERSIONE CORPO' -%}
+                {%- else -%}
+                  {%- assign fb_title_1 = 'Detergente Lipofilo Purificante' -%}
+                  {%- assign fb_sub_1 = '150 ml • Rispetta la barriera idrolipidica' -%}
+                  {%- assign fb_img_1 = 'https://images.unsplash.com/photo-1552046122-03184de85e08?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_1 = '&euro; 42,00' -%}
+                  {%- assign fb_price_num_1 = '42.00' -%}
+                  {%- assign fb_var_id_1 = '1' -%}
+                  {%- assign fb_step_1 = 'STEP 01 • PREPARAZIONE & DETERSIONE' -%}
+                {%- endif -%}
+
+                <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
+                  <div>
+                    <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
+                      <a href="#" class="w-full h-full block">
+                        <img src="{{ fb_img_1 }}" alt="{{ fb_title_1 | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                      </a>
+                    </div>
+                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ fb_step_1 }}</span>
+                    <h4 class="font-serif text-lg font-normal text-ink mb-1">
+                      <a href="#" class="hover:text-amber transition-colors">{{ fb_title_1 }}</a>
+                    </h4>
+                    <p class="text-xs text-ash mb-3">{{ fb_sub_1 }}</p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
+                    <span class="font-serif text-base text-ink">{{ fb_price_html_1 }}</span>
+                    <button type="button"
+                            onclick="quickAddProduct(this, event)"
+                            data-variant-id="{{ fb_var_id_1 }}"
+                            data-product-title="{{ fb_title_1 | escape }}"
+                            data-product-price="{{ fb_price_num_1 }}"
+                            data-product-volume="{{ fb_sub_1 | escape }}"
+                            data-product-image="{{ fb_img_1 }}"
+                            data-product-step="{{ fb_step_1 | escape }}"
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                      + AGGIUNGI
+                    </button>
+                  </div>
+                </div>
+                {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
               {%- endif -%}
 
               {%- if routine_rendered_count < 2 -%}
+                {%- if current_dept == 'hair' -%}
+                  {%- assign fb_title_2 = 'Maschera Riparatrice Rigenerante' -%}
+                  {%- assign fb_sub_2 = '200 ml • Proteine della seta e cheratina botanica' -%}
+                  {%- assign fb_img_2 = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_2 = '&euro; 48,00' -%}
+                  {%- assign fb_price_num_2 = '48.00' -%}
+                  {%- assign fb_var_id_2 = '102' -%}
+                  {%- assign fb_step_2 = 'STEP 02 • TRATTAMENTO & MASCHERA' -%}
+                {%- elsif current_dept == 'body' -%}
+                  {%- assign fb_title_2 = 'Scrub Esfoliante Salino Corpo' -%}
+                  {%- assign fb_sub_2 = '200 ml • Cristalli alpini e oli essenziali' -%}
+                  {%- assign fb_img_2 = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_2 = '&euro; 46,00' -%}
+                  {%- assign fb_price_num_2 = '46.00' -%}
+                  {%- assign fb_var_id_2 = '202' -%}
+                  {%- assign fb_step_2 = 'STEP 02 • ESFOLIAZIONE CORPO' -%}
+                {%- else -%}
+                  {%- assign fb_title_2 = 'Siero Rigenerante Notturno' -%}
+                  {%- assign fb_sub_2 = '30 ml • Concentrato molecolare di bio-peptidi' -%}
+                  {%- assign fb_img_2 = 'https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_2 = '&euro; 94,00' -%}
+                  {%- assign fb_price_num_2 = '94.00' -%}
+                  {%- assign fb_var_id_2 = '2' -%}
+                  {%- assign fb_step_2 = 'STEP 02 • TRATTAMENTO & BOOSTER' -%}
+                {%- endif -%}
+
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                   <div>
                     <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
                       <a href="#" class="w-full h-full block">
-                        <img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80" alt="Siero Rigenerante Notturno" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        <img src="{{ fb_img_2 }}" alt="{{ fb_title_2 | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
                       </a>
                     </div>
-                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">STEP 02 • BOOSTER ATTIVO</span>
+                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ fb_step_2 }}</span>
                     <h4 class="font-serif text-lg font-normal text-ink mb-1">
-                      <a href="#" class="hover:text-amber transition-colors">Siero Rigenerante Notturno</a>
+                      <a href="#" class="hover:text-amber transition-colors">{{ fb_title_2 }}</a>
                     </h4>
-                    <p class="text-xs text-ash mb-3">30 ml • Concentrato molecolare di bio-peptidi</p>
+                    <p class="text-xs text-ash mb-3">{{ fb_sub_2 }}</p>
                   </div>
                   <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">&euro; 94,00</span>
+                    <span class="font-serif text-base text-ink">{{ fb_price_html_2 }}</span>
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
-                            data-variant-id="2"
-                            data-product-title="Siero Rigenerante Notturno"
-                            data-product-price="94.00"
-                            data-product-volume="30 ml • Concentrato molecolare di bio-peptidi"
-                            data-product-image="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80"
-                            data-product-step="STEP 02 • BOOSTER ATTIVO"
+                            data-variant-id="{{ fb_var_id_2 }}"
+                            data-product-title="{{ fb_title_2 | escape }}"
+                            data-product-price="{{ fb_price_num_2 }}"
+                            data-product-volume="{{ fb_sub_2 | escape }}"
+                            data-product-image="{{ fb_img_2 }}"
+                            data-product-step="{{ fb_step_2 | escape }}"
                             class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
                       + AGGIUNGI
                     </button>
                   </div>
                 </div>
+                {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
               {%- endif -%}
 
               {%- if routine_rendered_count < 3 -%}
+                {%- if current_dept == 'hair' -%}
+                  {%- assign fb_title_3 = 'Elisir Sublimatore Capelli' -%}
+                  {%- assign fb_sub_3 = '50 ml • Olio sublimante anti-crespo protettivo' -%}
+                  {%- assign fb_img_3 = 'https://images.unsplash.com/photo-1608248597359-598d9b139269?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_3 = '&euro; 52,00' -%}
+                  {%- assign fb_price_num_3 = '52.00' -%}
+                  {%- assign fb_var_id_3 = '103' -%}
+                  {%- assign fb_step_3 = 'STEP 03 • FINISHING & PROTEZIONE' -%}
+                {%- elsif current_dept == 'body' -%}
+                  {%- assign fb_title_3 = 'Olio Corpo Nutriente Sublime' -%}
+                  {%- assign fb_sub_3 = '100 ml • Oli preziosi elasticizzanti e vellutanti' -%}
+                  {%- assign fb_img_3 = 'https://images.unsplash.com/photo-1608248597359-598d9b139269?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_3 = '&euro; 58,00' -%}
+                  {%- assign fb_price_num_3 = '58.00' -%}
+                  {%- assign fb_var_id_3 = '203' -%}
+                  {%- assign fb_step_3 = 'STEP 03 • IDRATAZIONE & ELASTICITÀ' -%}
+                {%- else -%}
+                  {%- assign fb_title_3 = 'Elisir Botanico Viso e Collo' -%}
+                  {%- assign fb_sub_3 = '50 ml • Fitocomplessi montani antiossidanti' -%}
+                  {%- assign fb_img_3 = 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80' -%}
+                  {%- assign fb_price_html_3 = '&euro; 86,00' -%}
+                  {%- assign fb_price_num_3 = '86.00' -%}
+                  {%- assign fb_var_id_3 = '3' -%}
+                  {%- assign fb_step_3 = 'STEP 03 • BARRIERA CELLULARE & COMFORT' -%}
+                {%- endif -%}
+
                 <div class="bg-linen p-5 border border-borderLinen flex flex-col justify-between hover:shadow-lg transition-shadow">
                   <div>
                     <div class="aspect-square bg-white mb-4 overflow-hidden border border-borderLinen flex items-center justify-center p-2">
                       <a href="#" class="w-full h-full block">
-                        <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80" alt="Elisir Botanico Viso e Collo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        <img src="{{ fb_img_3 }}" alt="{{ fb_title_3 | escape }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
                       </a>
                     </div>
-                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">STEP 03 • BARRIERA CELLULARE</span>
+                    <span class="text-[9px] uppercase tracking-wider text-amber font-semibold block mb-1">{{ fb_step_3 }}</span>
                     <h4 class="font-serif text-lg font-normal text-ink mb-1">
-                      <a href="#" class="hover:text-amber transition-colors">Elisir Botanico Viso e Collo</a>
+                      <a href="#" class="hover:text-amber transition-colors">{{ fb_title_3 }}</a>
                     </h4>
-                    <p class="text-xs text-ash mb-3">50 ml • Fitocomplessi montani antiossidanti</p>
+                    <p class="text-xs text-ash mb-3">{{ fb_sub_3 }}</p>
                   </div>
                   <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">&euro; 86,00</span>
+                    <span class="font-serif text-base text-ink">{{ fb_price_html_3 }}</span>
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
-                            data-variant-id="3"
-                            data-product-title="Elisir Botanico Viso e Collo"
-                            data-product-price="86.00"
-                            data-product-volume="50 ml • Fitocomplessi montani antiossidanti"
-                            data-product-image="https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=800&q=80"
-                            data-product-step="STEP 03 • BARRIERA CELLULARE"
+                            data-variant-id="{{ fb_var_id_3 }}"
+                            data-product-title="{{ fb_title_3 | escape }}"
+                            data-product-price="{{ fb_price_num_3 }}"
+                            data-product-volume="{{ fb_sub_3 | escape }}"
+                            data-product-image="{{ fb_img_3 }}"
+                            data-product-step="{{ fb_step_3 | escape }}"
                             class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
                       + AGGIUNGI
                     </button>
                   </div>
                 </div>
+                {%- assign routine_rendered_count = routine_rendered_count | plus: 1 -%}
               {%- endif -%}
             {%- endif -%}
             </div>
