@@ -90,6 +90,7 @@
       ],
       "settings": {
         "show_founder": true,
+        "founder_image": "shopify://shop_images/1791299679257.jpg",
         "founder_tag": "FILOSOFIA MILE",
         "founder_quote": "Scegliere la Natura come alleata è un gesto  d' amore verso se stessi",
         "founder_text": "Eliminare il superfluo per affidarvi alla Natura, nostra migliora alleata, da tempi immemori. Ninte ingredienti inutili, solo formule pulite e delicate che capiscono i bisogni della tua pelle e la coccolano esattamente come merita. Semplice, Vera, Vicina a Te.",
@@ -105,6 +106,28 @@
         "routine_title": "Completa la tua Routine",
         "routine_subtitle": "Formulazioni complementari studiate per amplificare l'assorbimento degli attivi e prolungare la luminosità."
       }
+    },
+    "1792764547881b5f8f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_f469f31_Gp9yCw": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "image_1": "shopify://shop_images/1792311803129.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1791299679257.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_f469f31_Gp9yCw"
+      ],
+      "settings": {}
     },
     "local-pickup": {
       "type": "local-pickup-verona",
@@ -150,28 +173,6 @@
     },
     "17927644461cb882ad": {
       "type": "_blocks",
-      "settings": {}
-    },
-    "1792764547881b5f8f": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_f469f31_Gp9yCw": {
-          "type": "ai_gen_block_f469f31",
-          "settings": {
-            "image_1": "shopify://shop_images/1792311803129.jpg",
-            "link_1": "",
-            "image_2": "shopify://shop_images/1791299679257.jpg",
-            "link_2": "",
-            "desktop_width_percent": 100,
-            "image_ratio": "square",
-            "gap": 40
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_f469f31_Gp9yCw"
-      ],
       "settings": {}
     }
   },
