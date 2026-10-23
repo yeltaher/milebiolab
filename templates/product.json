@@ -109,24 +109,6 @@
     },
     "1792764547881b5f8f": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_f469f31_Gp9yCw": {
-          "type": "ai_gen_block_f469f31",
-          "settings": {
-            "image_1": "shopify://shop_images/1792311803129.jpg",
-            "link_1": "",
-            "image_2": "shopify://shop_images/1791299679257.jpg",
-            "link_2": "",
-            "desktop_width_percent": 100,
-            "image_ratio": "square",
-            "gap": 40
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_f469f31_Gp9yCw"
-      ],
       "settings": {}
     },
     "local-pickup": {
