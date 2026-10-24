@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_T8wpdk": {
+        "review_e3b3Yg": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Sonia B. • Bologna",
-            "date": "04 Settembre 2026",
+            "author": "Martina S. • Verona",
+            "date": "06 Settembre 2026",
             "rating": 5,
-            "title": "Super!",
-            "text": "Non ha quel profumo finto di profumeria, sa di erbe e natura. La texture è ricca, primordiale davvero, ma si fonde a contatto con il calore della pelle. La lascia vellutata e idratata/nutrita, morbida per ore. Dopo il massaggio il colore della pelle cambia, si ravviva! Ottimo investimento."
+            "title": "Sparita la crosta lattea",
+            "text": "Il mio neonato di due mesi aveva la testa piena di crosticina lattea. Ho massaggiato un po' di questo burro prima del bagnetto, l'ho lasciato agire dieci minuti e poi ho passato la spazzolina morbida. È venuta via tutta con qualche applicazione senza arrossare la cute. Delicatissimo."
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_T8wpdk": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Sonia B. • Bologna",
+            "date": "04 Settembre 2026",
+            "rating": 5,
+            "title": "Super!",
+            "text": "Non ha quel profumo finto di profumeria, sa di erbe e natura. La texture è ricca, primordiale davvero, ma si fonde a contatto con il calore della pelle. La lascia vellutata e idratata/nutrita, morbida per ore. Dopo il massaggio il colore della pelle cambia, si ravviva! Ottimo investimento."
           }
         },
         "review_pGQcU8": {
@@ -808,8 +819,9 @@
         }
       },
       "block_order": [
-        "review_T8wpdk",
+        "review_e3b3Yg",
         "review_ApBnAY",
+        "review_T8wpdk",
         "review_pGQcU8",
         "review_wGT3DD",
         "review_7i7JnE",
