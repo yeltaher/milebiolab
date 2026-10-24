@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_6aeKwM": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Irene L. • Parma",
+            "date": "20 Ottobre 2025",
+            "rating": 5,
+            "title": "burro per l'inverno",
+            "text": "Per me questo burro per la mia pelle soprattutto i inverno è fantastico! Lo uso sulla pelle umida. Si stende in un attimo e lascia un'idratazione che mi dura fino a sera. Non sento più la pelle secca."
+          }
+        },
         "review_ExXcqa": {
           "type": "review",
           "settings": {
@@ -477,6 +488,7 @@
         }
       },
       "block_order": [
+        "review_6aeKwM",
         "review_ExXcqa",
         "review_FxLV8i",
         "review_89NjhW",
