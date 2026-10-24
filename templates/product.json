@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_FrVijD": {
+        "review_qNkUny": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Serena G. • Reggio Emilia",
-            "date": "27 Giugno 2026",
+            "author": "Zoe I. • Rovigo",
+            "date": "09 Agosto 2026",
             "rating": 5,
-            "title": "Riequilibra la pelle stressata in due giorni",
-            "text": "È un porto sicuro per la mia pelle. Sono pigra e non uso prodotti cosmetici e quando la mia cute fa i capricci a causa dello stress e si riempie di macchie secche e rosse uso solo Unicho 21. Nel giro di due giorni torno in equilibrio."
+            "title": "Il re indiscusso dei prodotti multifunzione",
+            "text": "Per me è il re dei burri multifunzione. Lo ritengo un acquisto intelligente: lo compri per una cosa e finisci per usarlo per altre cento. Dalla cura dei miei piedi al viso. Ingredienti spettacolari. Per Mile: Servirebbe una confezione più grande... :)"
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_FrVijD": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Serena G. • Reggio Emilia",
+            "date": "27 Giugno 2026",
+            "rating": 5,
+            "title": "Riequilibra la pelle stressata in due giorni",
+            "text": "È un porto sicuro per la mia pelle. Sono pigra e non uso prodotti cosmetici e quando la mia cute fa i capricci a causa dello stress e si riempie di macchie secche e rosse uso solo Unicho 21. Nel giro di due giorni torno in equilibrio."
           }
         },
         "review_tVD6tR": {
@@ -731,8 +742,9 @@
         }
       },
       "block_order": [
-        "review_FrVijD",
+        "review_qNkUny",
         "review_ApBnAY",
+        "review_FrVijD",
         "review_tVD6tR",
         "review_L9TpLA",
         "review_F7krbd",
