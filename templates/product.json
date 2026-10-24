@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_dYXKBP": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Patrizia G. • Trento",
+            "date": "16 Gennaio 2026",
+            "rating": 5,
+            "title": "Un nutrimento profondo senza eguali",
+            "text": "È super nutriente, il suo profumo è una bomba. Ha una consistenza ricca ma stabile. Si sente che non ci sono oli di scarto o paraffina dentro."
+          }
+        },
         "review_kqggWc": {
           "type": "review",
           "settings": {
@@ -543,6 +554,7 @@
         }
       },
       "block_order": [
+        "review_dYXKBP",
         "review_kqggWc",
         "review_ajjRFj",
         "review_nENzkw",
