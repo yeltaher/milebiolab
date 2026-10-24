@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_dxi8Qh": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Teresa S. • Rovereto",
+            "date": "05 Aprile 2026",
+            "rating": 5,
+            "title": "Ammorbidisce tantissimo le cicatrici",
+            "text": "L'ho usato come cicatrizzante post intervento su consiglio del medico. Ho applicato il prodotto su una cicatrice dopo che si sono chiusi i tessuti. Il burro ha ammorbidito il cordone e il segno che ora è quasi invisibile."
+          }
+        },
         "review_WkU9Dp": {
           "type": "review",
           "settings": {
@@ -587,6 +598,7 @@
         }
       },
       "block_order": [
+        "review_dxi8Qh",
         "review_WkU9Dp",
         "review_mA9UyU",
         "review_cybyRe",
