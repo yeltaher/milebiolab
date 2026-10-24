@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_ApBnAY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ornella E. • Bressanone",
+            "date": "24 Ottobre 2026",
+            "rating": 5,
+            "title": "Attenua visibilmente i rossori della couperose",
+            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
         "review_hrETKk": {
           "type": "review",
           "settings": {
@@ -154,17 +165,6 @@
             "rating": 5,
             "title": "Calma il prurito delle esantemiche",
             "text": "Mio figlio ha preso la sesta malattia ed era pieno di puntini che gli davano un fastidio tremendo. Usandolo io per il viso ed essendo naturale ho pensato di applicarglielo, lo ha aiutato tantissimo a non grattarsi, rinfrescando e calmando l'irritazione cutanea in modo del tutto naturale."
-          }
-        },
-        "review_ApBnAY": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Ornella E. • Bressanone",
-            "date": "24 Ottobre 2026",
-            "rating": 5,
-            "title": "Attenua visibilmente i rossori della couperose",
-            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
           }
         },
         "review_7fhAh4": {
@@ -863,9 +863,9 @@
         }
       },
       "block_order": [
+        "review_ApBnAY",
         "review_hrETKk",
         "review_ExwX4m",
-        "review_ApBnAY",
         "review_7fhAh4",
         "review_eHrKi4",
         "review_e3b3Yg",
