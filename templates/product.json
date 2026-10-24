@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_kEWyh4": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Carmen F. • Verona",
+            "date": "16 Maggio 2026",
+            "rating": 5,
+            "title": "Una farmacia naturale sempre a casa",
+            "text": "Per me l'iperico fa miracoli. Chi conosce le proprietà dell' iperico sa che sulla pelle lesa è magico. Trovarlo inserito in una base di burri così ricca e senza acqua o sostanze chimiche rende questo prodotto il mio farmaco naturale preferito."
+          }
+        },
         "review_L9TpLA": {
           "type": "review",
           "settings": {
@@ -653,6 +664,7 @@
         }
       },
       "block_order": [
+        "review_kEWyh4",
         "review_L9TpLA",
         "review_F7krbd",
         "review_44cKwg",
