@@ -134,6 +134,138 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_G6ypz6": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Laura R. • Verona",
+            "date": "12 Settembre 2026",
+            "rating": 5,
+            "title": "Io Adoro questi Prodotti",
+            "text": "Piano piano prendero' tutto . Mai piu' senza!"
+          }
+        },
+        "review_b6mU7R": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Laura R. • Verona",
+            "date": "03 Settembre 2024",
+            "rating": 5,
+            "title": "Aiuta a rimarginare i graffi",
+            "text": "Lo uso anche per curare le escoriazioni da gioco di mio figlio. Torna sempre a casa con le ginocchia sbucciate. Dopo aver disinfettato, metto un velo di Unicho 21. Lo aiuta a rimarginare in fretta senza lasciare il segno della crosta scura."
+          }
+        },
+        "review_m7ED7V": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ilaria C. • Firenze",
+            "date": "30 Agosto 2024",
+            "rating": 5,
+            "title": "Sostituisce tanti prodotti in borsa",
+            "text": "Lo consiglio vivamente a tutte le neomamme. Mi sostituisce dieci prodotti diversi in borsa. Lo uso per il mio viso e come burrocacao, sul mio bimbo sul viso e per il cambio e su qualsiasi zona secca. Pratico e con ingredienti top. Brava Mile!"
+          }
+        },
+        "review_cdnetL": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Giorgia T. • Verona",
+            "date": "28 Agosto 2024",
+            "rating": 5,
+            "title": "Un rimedio per tutta la famiglia",
+            "text": "Acquistato per i miei nipotini. Hanno la pelle delicatissima e si scottano o si irritano per un niente. Con questo burro a casa mia risolviamo ogni piccolo problema cutaneo in mezza giornata."
+          }
+        },
+        "review_f4fhGY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Federica G. • Torino",
+            "date": "10 Agosto 2024",
+            "rating": 5,
+            "title": "irritazioni da sudore",
+            "text": "Con questo burro ho detto addio alle irritazioni da sudore nei bambini. D'estate mio figlio si arrossa sempre nelle pieghe del collo e dietro le ginocchia per via del caldo. Questo prodotto crea uno strato protettivo che evita lo sfregamento. Ottimo."
+          }
+        },
+        "review_94BbeG": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Elena S. • Verona",
+            "date": "20 Giugno 2024",
+            "rating": 5,
+            "title": "Eccezionale in gravidanza e allattamento",
+            "text": "È stato eccezionale per me sia in gravidanza che ora. L'ho usato sul pancione fino al nono mese per prevenirle le smagliature e adesso lo sto applicando sui capezzoli durante l'allattamento. Avendo rosa mosqueta e olio di mandorle mantiene l'elasticità al massimo. E il bello è che non devo sciacquarlo prima che il bimbo si attacchi perché è sicuro.ne..."
+          }
+        },
+        "review_Aaddz3": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Daniela M. • Bologna",
+            "date": "13 Giugno 2024",
+            "rating": 4,
+            "title": "Molto protettivo contro il vento",
+            "text": "Il prodotto è ottimo, ma ci mette un po' ad assorbirsi...forse ne uso troppo. L'ho preso per le guance screpolate dal vento del mio bimbo quando andiamo sul passeggino. Funziona benissimo e fa da barriera. Unica cosa, essendo un burro puro, devo massaggiare un po' se no lascia il viso lucido, ma protegge da dio."
+          }
+        },
+        "review_EcJ9jP": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Camilla Z. • Verona",
+            "date": "12 Giungo 2024",
+            "rating": 5,
+            "title": "Perfetto per il massaggio neonatale",
+            "text": "Lo trovo perfetto per le crostine in testa e il massaggio della mia piccola Sole. Lo scaldo tra le mani e lo applico dopo il bagnetto. Ha rimosso delicatamente anche le ultime crostine lattee sulla testa. Ha un profumo delicatissimo, quasi impercettibile, perfetto per i neonati."
+          }
+        },
+        "review_BJ6TUN": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Arianna B. • Verona",
+            "date": "08 Giugno 2024",
+            "rating": 5,
+            "title": "Cambio pannolino e non solo...",
+            "text": "Ho salvato il sederino del mio bimbo! Lo uso a ogni cambio pannolino da una settimana. Il mio piccolo aveva un eritema pazzesco che non passava con nessuna crema allo zinco. Questo burro, con calendula e iperico, ha sfiammato tutto in una notte. Sapere che è 100% naturale mi fa stare super tranquilla."
+          }
+        },
+        "review_6hf7Kp": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Beatrice F. • Milano",
+            "date": "29 Maggio 2024",
+            "rating": 5,
+            "title": "Fantastico per l'eritema da pannolino",
+            "text": "Per me è una manna contro la dermatite atopica. Mio figlio di 3 anni ne soffre da quando è nato. Questa sferzata di idratazione a base di karité, baobab e olio di lino gli toglie il prurito e non lo fa grattare. La pelle non è più ruvida come prima, lo ricomprerò sicuramente."
+          }
+        },
+        "review_GQmNnh": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Marco B. • Verona",
+            "date": "19 Maggio 2024",
+            "rating": 5,
+            "title": "Secchezza",
+            "text": "Addio a secchezza e desquamazione!\nHo sempre sofferto di pelle secchissima su gomiti, ginocchia e talloni, soprattutto in inverno. Questo prodotto ha risolto il problema in tre giorni. Il mix di burri che nutre in profondità dove le normali creme falliscono. Lo uso anche sulle mani screpolate dal freddo e sui piedi.  Un toccasana per tutta la famiglia."
+          }
+        },
+        "review_T6LHGV": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Donatella F. Verona",
+            "date": "12 Maggio 2024",
+            "rating": 5,
+            "title": "Viso, Nutrimento e Antiage",
+            "text": "Uso questo burro sul viso tutte le sere come ultimo step della skincare routine. Avendo una pelle matura che tende a segnarsi, cercavo qualcosa di profondamente nutriente. La formula è pazzesca: all'interno ci sono oli nobili come Argan, Rosa Mosqueta, Avocado e Germe di Grano che rigenerano la pelle durante la notte. Al mattino il viso è rimpolpato, liscio e le rughe di disidratazione sono visibilmente attenuate. Ne basta pochissimo, si scalda tra le mani e diventa un olio setoso che si assorbe magnificamente. Mai più senza!"
+          }
+        },
         "review_6fAyKy": {
           "type": "review",
           "settings": {
@@ -180,6 +312,18 @@
         }
       },
       "block_order": [
+        "review_G6ypz6",
+        "review_b6mU7R",
+        "review_m7ED7V",
+        "review_cdnetL",
+        "review_f4fhGY",
+        "review_94BbeG",
+        "review_Aaddz3",
+        "review_EcJ9jP",
+        "review_BJ6TUN",
+        "review_6hf7Kp",
+        "review_GQmNnh",
+        "review_T6LHGV",
         "review_6fAyKy",
         "review_PeyUCL",
         "review_8bwkG8",
