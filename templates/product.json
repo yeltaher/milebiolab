@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_xe8FD8": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Rita L. • Torino",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Fantastico per prevenire le piaghe da decubito",
+            "text": "Mio padre è costretto a letto da molti mesi. Usiamo questo burro per massaggiare i punti di pressione (talloni, osso sacro) due volte al giorno. Mantiene la pelle elastica e resistente, evitando la formazione di piaghe dolorose. Un vero aiuto."
+          }
+        },
         "review_UkWYha": {
           "type": "review",
           "settings": {
@@ -874,6 +885,7 @@
         }
       },
       "block_order": [
+        "review_xe8FD8",
         "review_UkWYha",
         "review_ApBnAY",
         "review_hrETKk",
