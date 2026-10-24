@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_ka4EnB": {
+          "type": "review",
+          "settings": {
+            "target_product": "aha-peeling-concentrate",
+            "author": "Ilaria C. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Trattamento Immancabile",
+            "text": "Lo utilizzo 3 volte a settimana per rimuovere tutto cio' che si accumula sulla pelle, per farla respirare e assorbire meglio i prodotti che applico dopo: siero e crema ai Peptidi di questa linea che sono ottimi."
+          }
+        },
         "review_YJGkfE": {
           "type": "review",
           "settings": {
@@ -1017,6 +1028,7 @@
         }
       },
       "block_order": [
+        "review_ka4EnB",
         "review_YJGkfE",
         "review_nmLLyL",
         "review_UkgdtB",
