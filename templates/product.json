@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_KzEzeb": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-purifying-face-wash",
+            "author": "Federica G. • Verona",
+            "date": "10 Ottobre 2026",
+            "rating": 5,
+            "title": "Cercavo un detergente viso semplice, efficace e con un buon INCI naturale per mio figlio. Questo è perfetto.  Promosso a pieni voti.",
+            "text": "Scrivi qui la recensione..."
+          }
+        },
         "review_3fe9bd": {
           "type": "review",
           "settings": {
@@ -1084,6 +1095,7 @@
         }
       },
       "block_order": [
+        "review_KzEzeb",
         "review_3fe9bd",
         "review_YxYECb",
         "review_biKGxP",
