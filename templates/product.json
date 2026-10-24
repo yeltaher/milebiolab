@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_7fhAh4": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Beatrice P. • Padova",
+            "date": "13 Settembre 2026",
+            "rating": 5,
+            "title": "Cura la dermatite da pannolino in un attimo",
+            "text": "Quando spuntano i dentini, la pipì diventa acida e il sederino si infiamma tantissimo. Le solite paste allo zinco facevano un pastone bianco difficile da lavare. Questo burro invece si assorbe, sfiamma l'eritema grazie a tutti gli oli e burri naturali ripara la pelle velocemente e la protegge."
+          }
+        },
         "review_eHrKi4": {
           "type": "review",
           "settings": {
@@ -830,6 +841,7 @@
         }
       },
       "block_order": [
+        "review_7fhAh4",
         "review_eHrKi4",
         "review_ApBnAY",
         "review_e3b3Yg",
