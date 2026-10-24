@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_WkU9Dp": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Sonia R. • Verona",
+            "date": "13 Marzo 2026",
+            "rating": 5,
+            "title": "Ottimo dopobarba per pelli sensibili",
+            "text": "Mio marito me lo ruba e lo usa come dopobarba per la sua pelle reattiva. Si irrita tantissimo quando si rade sul collo, con follicolite e bruciori. Un velo invisibile di questo burro gli calma tutto.  Il suo profumo è buonissimo."
+          }
+        },
         "review_mA9UyU": {
           "type": "review",
           "settings": {
@@ -576,6 +587,7 @@
         }
       },
       "block_order": [
+        "review_WkU9Dp",
         "review_mA9UyU",
         "review_cybyRe",
         "review_dYXKBP",
