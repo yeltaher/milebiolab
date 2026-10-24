@@ -134,6 +134,28 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_44cKwg": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Alice V. • Verona",
+            "date": "20 Maggio 2026",
+            "rating": 5,
+            "title": "rossori da sfregamento",
+            "text": "Potente effetto lenitivo per le irritazioni da mascherina. Per lavoro devo portarla molte ore e mi venivano dermatiti da sfregamento sul naso e sulle guance. Questo burro crea uno scudo e ripara la pelle lesa."
+          }
+        },
+        "review_CNRjeg": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Viviana U. • Ferrara",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo per gli sfregamenti da sport",
+            "text": "Lo trovo un ottimo prodotto globale e antinfiammatorio naturale. Lo uso specialmente sulle irritazioni da sfregamento nell'interno coscia quando vado a correre. Lenisce lo sfregamento e mi ripara la pelle irritata durante la notte."
+          }
+        },
         "review_FhxkBE": {
           "type": "review",
           "settings": {
@@ -609,6 +631,8 @@
         }
       },
       "block_order": [
+        "review_44cKwg",
+        "review_CNRjeg",
         "review_FhxkBE",
         "review_dxi8Qh",
         "review_WkU9Dp",
