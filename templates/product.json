@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_E9KqNj": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Giorgia M. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "La mia pelle disidratata",
+            "text": "Ho iniziato a usare questo burro primordiale al posto della solita crema notte e la differenza è incredibile, nutre tantissimo senza appesantire. Al mattino la pelle è elastica, compatta e ha un aspetto sano e riposato che non vedevo da anni."
+          }
+        },
         "review_yWzf8H": {
           "type": "review",
           "settings": {
@@ -940,6 +951,7 @@
         }
       },
       "block_order": [
+        "review_E9KqNj",
         "review_yWzf8H",
         "review_igMULT",
         "review_XGThVH",
