@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_YxYECb": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-purifying-face-wash",
+            "author": "Jessica M. • Verona",
+            "date": "29 Settembre 2026",
+            "rating": 5,
+            "title": "Pulizia profonda ma senza pelle che tira!",
+            "text": "Ho la pelle mista che si lucida subito sulla fronte, ma molti detergenti per pelli grasse mi lasciavano il viso secco e che tirava da morire. Questo pulisce benissimo e i tensioattivi delicati lasciano il viso morbidissimo. Stra-consigliato!"
+          }
+        },
         "review_biKGxP": {
           "type": "review",
           "settings": {
@@ -1062,6 +1073,7 @@
         }
       },
       "block_order": [
+        "review_YxYECb",
         "review_biKGxP",
         "review_8ne7UY",
         "review_xbjw8V",
