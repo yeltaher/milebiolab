@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_wt66yV": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Elena M. • Verona",
+            "date": "13 Agosto 2026",
+            "rating": 5,
+            "title": "Il mio segreto pre trucco",
+            "text": "Ho la pelle del viso talmente secca che ogni fondotinta mi metteva in evidenza le pellicine. Adesso ne scaldo una quantità minuscola tra le dita e con acqua lavo via tutto lasciando poi solo un leggero velo di burro che picchietto sulle zone critiche prima del trucco. Sostituisce qualsiasi primer costoso. Il trucco resta perfetto e la pelle non tira."
+          }
+        },
         "review_qNkUny": {
           "type": "review",
           "settings": {
@@ -742,6 +753,7 @@
         }
       },
       "block_order": [
+        "review_wt66yV",
         "review_qNkUny",
         "review_ApBnAY",
         "review_FrVijD",
