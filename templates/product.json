@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_UkWYha": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Anna T. • Verona",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "elasticità alla pelle sottile di mia mamma",
+            "text": "Mia mamma ha 85 anni e la pelle talmente sottile che sembra carta velina, si rompe per un niente. Questo burro le ha ridato spessore e idratazione. Non ha più quella desquamazione continua e lpruriti vari."
+          }
+        },
         "review_ApBnAY": {
           "type": "review",
           "settings": {
@@ -863,6 +874,7 @@
         }
       },
       "block_order": [
+        "review_UkWYha",
         "review_ApBnAY",
         "review_hrETKk",
         "review_ExwX4m",
