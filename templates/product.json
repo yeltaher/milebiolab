@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_tVD6tR": {
+        "review_FrVijD": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Nome Cognome",
-            "date": "16 Giugno 2026",
+            "author": "Serena G. • Reggio Emilia",
+            "date": "27 Giugno 2026",
             "rating": 5,
-            "title": "Lo provo per tutto",
-            "text": "Lo uso da anni su viso e quando mi scorro, taglio o per le punture di insetto. L'ho scoperto recentemente come ottimo struccante. Ho provato a usarlo per rimuovere il trucco sciogliendone un po' sul viso e poi bagnandolo con acqua. Non solo strucca perfettamente, ma mi lascia la pelle idratata."
+            "title": "Riequilibra la pelle stressata in due giorni",
+            "text": "È un porto sicuro per la mia pelle. Sono pigra e non uso prodotti cosmetici e quando la mia cute fa i capricci a causa dello stress e si riempie di macchie secche e rosse uso solo Unicho 21. Nel giro di due giorni torno in equilibrio."
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_tVD6tR": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Nome Cognome",
+            "date": "16 Giugno 2026",
+            "rating": 5,
+            "title": "Lo provo per tutto",
+            "text": "Lo uso da anni su viso e quando mi scorro, taglio o per le punture di insetto. L'ho scoperto recentemente come ottimo struccante. Ho provato a usarlo per rimuovere il trucco sciogliendone un po' sul viso e poi bagnandolo con acqua. Non solo strucca perfettamente, ma mi lascia la pelle idratata."
           }
         },
         "review_L9TpLA": {
@@ -720,8 +731,9 @@
         }
       },
       "block_order": [
-        "review_tVD6tR",
+        "review_FrVijD",
         "review_ApBnAY",
+        "review_tVD6tR",
         "review_L9TpLA",
         "review_F7krbd",
         "review_zFpRAV",
