@@ -137,7 +137,7 @@
         "review_tFrnzt": {
           "type": "review",
           "settings": {
-            "target_product": "",
+            "target_product": "unicho-21-burro-primordiale-50ml",
             "author": "Chiara R. • Cremona",
             "date": "21 Ottobre 2026",
             "rating": 5,
@@ -167,17 +167,6 @@
             "text": "Ho fatto un trattamento viso esfoliante dal medico estetico e avevo la pelle che cascava a pezzi e bruciava. Questo burro, ordinato su consiglio di un' amica, ha accelerato la rigenerazione della pelle in modo incredibile!"
           }
         },
-        "review_ApBnAY": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Ornella E. • Bressanone",
-            "date": "24 Ottobre 2026",
-            "rating": 5,
-            "title": "Attenua visibilmente i rossori della couperose",
-            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
-          }
-        },
         "review_E9KqNj": {
           "type": "review",
           "settings": {
@@ -198,6 +187,17 @@
             "rating": 5,
             "title": "Rossore da sfregamento sotto il seno",
             "text": "86. D'estate, col caldo e il sudore, la zona sotto il ferretto del reggiseno mi si infiammava sempre creando una piaghetta dolorosa. Mettendo un velo di questo burro la mattina la pelle resta protetta dallo sfregamento per tutto il giorno."
+          }
+        },
+        "review_ApBnAY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ornella E. • Bressanone",
+            "date": "24 Ottobre 2026",
+            "rating": 5,
+            "title": "Attenua visibilmente i rossori della couperose",
+            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
           }
         },
         "review_XGThVH": {
@@ -976,9 +976,9 @@
         "review_tFrnzt",
         "review_BaVXEB",
         "review_yWzf8H",
-        "review_ApBnAY",
         "review_E9KqNj",
         "review_igMULT",
+        "review_ApBnAY",
         "review_XGThVH",
         "review_VfM7Q6",
         "review_DNibN6",
