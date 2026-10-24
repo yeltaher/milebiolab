@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_cybyRe": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Rebecca P. • Pavia",
+            "date": "27 Gennaio 2026",
+            "rating": 5,
+            "title": "Eccezionale per la cura dei tatuaggi",
+            "text": "Mio figlio lo ha usato come prodotto per i tatuaggi. Gli è stato consigliato dal tatuatore per la guarigione dell'ultimo pezzo sulla schiena. Avendo tanti oli e burri sfiamma subito e aiuta la pelle a rigenerarsi veramente bene senza fare croste dure."
+          }
+        },
         "review_dYXKBP": {
           "type": "review",
           "settings": {
@@ -554,6 +565,7 @@
         }
       },
       "block_order": [
+        "review_cybyRe",
         "review_dYXKBP",
         "review_kqggWc",
         "review_ajjRFj",
