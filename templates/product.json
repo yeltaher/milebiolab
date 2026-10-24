@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_mA9UyU": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Sara Q. • Modena",
+            "date": "04 Febbario 2026",
+            "rating": 5,
+            "title": "Un vero miracolo sulle scottature",
+            "text": "Ha fatto un vero miracolo sulle mie scottature da cucina. Mi sono presa dentro alla teglia bollente del forno sul braccio. Ho messo subito Unicho 21 che mi ha evitato la bolla d'acqua e il rossore è sparito in pochissimo tempo.a Distanza di 15 giorni nemmeno un segno."
+          }
+        },
         "review_cybyRe": {
           "type": "review",
           "settings": {
@@ -565,6 +576,7 @@
         }
       },
       "block_order": [
+        "review_mA9UyU",
         "review_cybyRe",
         "review_dYXKBP",
         "review_kqggWc",
