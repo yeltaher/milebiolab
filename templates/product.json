@@ -134,23 +134,12 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_xe8FD8": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Rita L. • Torino",
-            "date": "02 Ottobre 2026",
-            "rating": 5,
-            "title": "Fantastico per prevenire le piaghe da decubito",
-            "text": "Mio padre è costretto a letto da molti mesi. Usiamo questo burro per massaggiare i punti di pressione (talloni, osso sacro) due volte al giorno. Mantiene la pelle elastica e resistente, evitando la formazione di piaghe dolorose. Un vero aiuto."
-          }
-        },
         "review_UkWYha": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
             "author": "Anna T. • Verona",
-            "date": "12 Maggio 2026",
+            "date": "04 Ottobre 2026",
             "rating": 5,
             "title": "elasticità alla pelle sottile di mia mamma",
             "text": "Mia mamma ha 85 anni e la pelle talmente sottile che sembra carta velina, si rompe per un niente. Questo burro le ha ridato spessore e idratazione. Non ha più quella desquamazione continua e lpruriti vari."
@@ -165,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_xe8FD8": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Rita L. • Torino",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Fantastico per prevenire le piaghe da decubito",
+            "text": "Mio padre è costretto a letto da molti mesi. Usiamo questo burro per massaggiare i punti di pressione (talloni, osso sacro) due volte al giorno. Mantiene la pelle elastica e resistente, evitando la formazione di piaghe dolorose. Un vero aiuto."
           }
         },
         "review_hrETKk": {
@@ -885,9 +885,9 @@
         }
       },
       "block_order": [
-        "review_xe8FD8",
         "review_UkWYha",
         "review_ApBnAY",
+        "review_xe8FD8",
         "review_hrETKk",
         "review_ExwX4m",
         "review_7fhAh4",
