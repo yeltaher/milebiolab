@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_e3b3Yg": {
+        "review_eHrKi4": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Martina S. • Verona",
-            "date": "06 Settembre 2026",
+            "author": "Chiara R. • Verona",
+            "date": "10 Settembre 2026",
             "rating": 5,
-            "title": "Sparita la crosta lattea",
-            "text": "Il mio neonato di due mesi aveva la testa piena di crosticina lattea. Ho massaggiato un po' di questo burro prima del bagnetto, l'ho lasciato agire dieci minuti e poi ho passato la spazzolina morbida. È venuta via tutta con qualche applicazione senza arrossare la cute. Delicatissimo."
+            "title": "Il miglior alleato per le pieghette della pelle",
+            "text": "I neonati cicciottelli tendono ad arrossarsi nelle pieghe del collo, delle cosce e sotto le ascelle a causa del sudore e dello sfregamento. Questo burro crea un velo lubrificante e lenitivo che evita le piaghe."
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_e3b3Yg": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Martina S. • Verona",
+            "date": "06 Settembre 2026",
+            "rating": 5,
+            "title": "Sparita la crosta lattea",
+            "text": "Il mio neonato di due mesi aveva la testa piena di crosticina lattea. Ho massaggiato un po' di questo burro prima del bagnetto, l'ho lasciato agire dieci minuti e poi ho passato la spazzolina morbida. È venuta via tutta con qualche applicazione senza arrossare la cute. Delicatissimo."
           }
         },
         "review_T8wpdk": {
@@ -819,8 +830,9 @@
         }
       },
       "block_order": [
-        "review_e3b3Yg",
+        "review_eHrKi4",
         "review_ApBnAY",
+        "review_e3b3Yg",
         "review_T8wpdk",
         "review_pGQcU8",
         "review_wGT3DD",
