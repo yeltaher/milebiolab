@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_R78Yqt": {
+          "type": "review",
+          "settings": {
+            "target_product": "aha-peeling-concentrate",
+            "author": "Jessica M. • Verona",
+            "date": "01 Ottobre 2026",
+            "rating": 5,
+            "title": "Pelle liscissima e addio grana irregolare!",
+            "text": "Ho preso questo siero perché avevo la pelle del viso un po' spenta e con quelle fastidiose micro-crepette e rilievi sulla fronte. Avendo l'acido lattico all'inizio dell'INCI temevo potesse pizzicare troppo, invece è super delicato. Lo uso la sera tre volte a settimana e la mattina la pelle è liscia come quella di un bimbo. La pelle del viso non si secca per niente. Ottimo acquisto!"
+          }
+        },
         "review_tFrnzt": {
           "type": "review",
           "settings": {
@@ -973,6 +984,7 @@
         }
       },
       "block_order": [
+        "review_R78Yqt",
         "review_tFrnzt",
         "review_BaVXEB",
         "review_yWzf8H",
