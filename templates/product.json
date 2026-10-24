@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_xbjw8V": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-spot-care",
+            "author": "Alessia M. • Verona",
+            "date": "30 Settembre 2026",
+            "rating": 5,
+            "title": "Asciuga i brufoli senza seccare la pelle",
+            "text": "Lo uso come trattamento urto mirato appena vedo spuntare un brufolo. Ne metto una goccia precisa sopra la sera prima di dormire.  Il giorno dopo il brufolo è sgonfio e quasi sparito."
+          }
+        },
         "review_ka4EnB": {
           "type": "review",
           "settings": {
@@ -158,6 +169,7 @@
         },
         "review_nmLLyL": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "target_product": "aha-peeling-concentrate",
             "author": "Camilla Z. • Verona",
@@ -1028,6 +1040,7 @@
         }
       },
       "block_order": [
+        "review_xbjw8V",
         "review_ka4EnB",
         "review_YJGkfE",
         "review_nmLLyL",
