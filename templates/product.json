@@ -134,6 +134,28 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_T8wpdk": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Nome Cognome",
+            "date": "04 Settembre 2026",
+            "rating": 5,
+            "title": "Super!",
+            "text": "Non ha quel profumo finto di profumeria, sa di erbe e natura. La texture è ricca, primordiale davvero, ma si fonde a contatto con il calore della pelle. La lascia vellutata e idratata/nutrita, morbida per ore. Dopo il massaggio il colore della pelle cambia, si ravviva! Ottimo investimento."
+          }
+        },
+        "review_ApBnAY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ornella E. • Bressanone",
+            "date": "24 Ottobre 2026",
+            "rating": 5,
+            "title": "Attenua visibilmente i rossori della couperose",
+            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
         "review_pGQcU8": {
           "type": "review",
           "settings": {
@@ -154,17 +176,6 @@
             "rating": 5,
             "title": "Mi ha salvato le labbra",
             "text": "Le ho provate tutte: stick bio, vaselina, creme farmaceutiche. Avevo sempre le labbra spaccate con le ferite agli angoli della bocca. Questo prodotto ha risolto il problema. Lo uso tutte le mattina e le sere su viso e labbra. Super nutriente."
-          }
-        },
-        "review_ApBnAY": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Ornella E. • Bressanone",
-            "date": "24 Ottobre 2026",
-            "rating": 5,
-            "title": "Attenua visibilmente i rossori della couperose",
-            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
           }
         },
         "review_7i7JnE": {
@@ -797,9 +808,10 @@
         }
       },
       "block_order": [
+        "review_T8wpdk",
+        "review_ApBnAY",
         "review_pGQcU8",
         "review_wGT3DD",
-        "review_ApBnAY",
         "review_7i7JnE",
         "review_iqmKAL",
         "review_wt66yV",
