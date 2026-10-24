@@ -134,6 +134,28 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_ExXcqa": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Gloria Z. • Verona",
+            "date": "16 Agosto 2025",
+            "rating": 5,
+            "title": "desquamazione",
+            "text": "Mi dà un enorme sollievo per la psoriasi localizzata. Lo uso sulle placche secche che mi vengono dietro i gomiti e sulle ginocchia. Ovviamente so che non cura la patologia, ma mi toglie quel fastidioso prurito e la desquamazione meglio di tante creme."
+          }
+        },
+        "review_FxLV8i": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Francesca S. • Lecce",
+            "date": "09 Agosto 2025",
+            "rating": 5,
+            "title": "Risolto il problema dei gomiti ruvidi",
+            "text": "Ho risolto totalmente il problema dei gomiti ruvidi che non mi piacevano. Li avevo talmente secchi che grattavano contro i maglioni. Con questo burro la mia pelle è tornata liscia."
+          }
+        },
         "review_89NjhW": {
           "type": "review",
           "settings": {
@@ -455,6 +477,8 @@
         }
       },
       "block_order": [
+        "review_ExXcqa",
+        "review_FxLV8i",
         "review_89NjhW",
         "review_hQEHCK",
         "review_JnNYaa",
