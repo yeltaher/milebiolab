@@ -134,10 +134,21 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_pGQcU8": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Francesca L. • Verona",
+            "date": "01 Settembre 2026",
+            "rating": 5,
+            "title": "Schiarisce le macchie post-brufolo",
+            "text": "Ogni volta che mi viene un brufolo mi resta la macchietta scura per mesi. Da quando applico questo burro i segni spariscono nel giro di una settimana. Un mai più senza."
+          }
+        },
         "review_wGT3DD": {
           "type": "review",
           "settings": {
-            "target_product": "",
+            "target_product": "unicho-21-burro-primordiale-50ml",
             "author": "Michela G. • Firenze",
             "date": "26 Agosto 2026",
             "rating": 5,
@@ -786,6 +797,7 @@
         }
       },
       "block_order": [
+        "review_pGQcU8",
         "review_wGT3DD",
         "review_ApBnAY",
         "review_7i7JnE",
