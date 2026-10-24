@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_NjcBfr": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-purifying-face-wash",
+            "author": "Ilaria C. • Verona",
+            "date": "16 Ottobre 2026",
+            "rating": 5,
+            "title": "Regola il sebo in eccesso",
+            "text": "Ho una pelle decisamente grassa e questo detergente mi sta aiutando tantissimo a mantenere il viso opaco più a lungo durante la giornata."
+          }
+        },
         "review_KzEzeb": {
           "type": "review",
           "settings": {
@@ -1095,6 +1106,7 @@
         }
       },
       "block_order": [
+        "review_NjcBfr",
         "review_KzEzeb",
         "review_3fe9bd",
         "review_YxYECb",
