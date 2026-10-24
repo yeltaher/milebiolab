@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_hrETKk": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Deborah Z. • Vicenza",
+            "date": "30 Settembre 2026",
+            "rating": 5,
+            "title": "Sicuro al 100%, INCI perfetto",
+            "text": "Per me e i miei figli cerco solo prodotti senza chimica o conservanti. Questo burro ha una lista ingredienti che è un capolavoro: solo burri vegetali e oli curativi, tanti e racchiude tutte le proprietà necessarie per la pelle. Se il bimbo si mette le mani in bocca dopo averlo applicato non succede nulla."
+          }
+        },
         "review_ExwX4m": {
           "type": "review",
           "settings": {
@@ -852,6 +863,7 @@
         }
       },
       "block_order": [
+        "review_hrETKk",
         "review_ExwX4m",
         "review_ApBnAY",
         "review_7fhAh4",
