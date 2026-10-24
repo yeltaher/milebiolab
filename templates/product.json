@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_DNibN6": {
+        "review_VfM7Q6": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Teresa N. • Brescia",
-            "date": "16 Ottobre 2026",
+            "author": "Carmen T. • Verona",
+            "date": "20 Ottobre 2026",
             "rating": 5,
-            "title": "Mani spaccate dalle pulizie",
-            "text": "Uso molto i detersivi e alla mia età la pelle non si rigenera più come prima. Avevo le dita piene di taglietti dolorosi vicino alle unghie. Questo burro è super cicatrizzante. Lo metto la sera prima di dormire e la mattina le mani sono riparate."
+            "title": "SOS per la pelle reattiva che si arrossa con tutto",
+            "text": "Ho la pelle talmente sensibile che se c'è un po' di vento o se cambio detergente divento subito rossa come un peperone. Questo burro calma qualsiasi irritazione all'istante, toglie il bruciore e ripristina la barriera cutanea."
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_DNibN6": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Teresa N. • Brescia",
+            "date": "16 Ottobre 2026",
+            "rating": 5,
+            "title": "Mani spaccate dalle pulizie",
+            "text": "Uso molto i detersivi e alla mia età la pelle non si rigenera più come prima. Avevo le dita piene di taglietti dolorosi vicino alle unghie. Questo burro è super cicatrizzante. Lo metto la sera prima di dormire e la mattina le mani sono riparate."
           }
         },
         "review_UkWYha": {
@@ -896,8 +907,9 @@
         }
       },
       "block_order": [
-        "review_DNibN6",
+        "review_VfM7Q6",
         "review_ApBnAY",
+        "review_DNibN6",
         "review_UkWYha",
         "review_xe8FD8",
         "review_hrETKk",
