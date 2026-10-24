@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_3fe9bd": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-purifying-face-wash",
+            "author": "Serena F. • Verona",
+            "date": "04 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo per chi soffre di \"maskne\" o sfoghi da stress",
+            "text": "Questo gel detergente è super delicato ma fa un lavoro di pulizia pazzesco. Mi piace Molto."
+          }
+        },
         "review_YxYECb": {
           "type": "review",
           "settings": {
@@ -1073,6 +1084,7 @@
         }
       },
       "block_order": [
+        "review_3fe9bd",
         "review_YxYECb",
         "review_biKGxP",
         "review_8ne7UY",
