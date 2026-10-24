@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_nmLLyL": {
+          "type": "review",
+          "settings": {
+            "target_product": "aha-peeling-concentrate",
+            "author": "Camilla Z. • Verona",
+            "date": "07 Ottobre 2026",
+            "rating": 5,
+            "title": "Un siero illuminante",
+            "text": "La mia pelle reagisce malissimo all'acido glicolico, quindi ho voluto provare questo che usa l'acido lattico. Che dire, fantastico! Toglie quella patina grigia, il viso sembra riposato e rimpolpato. Lo straconsiglio se avete la pelle un po' sensibile come me."
+          }
+        },
         "review_UkgdtB": {
           "type": "review",
           "settings": {
@@ -995,6 +1006,7 @@
         }
       },
       "block_order": [
+        "review_nmLLyL",
         "review_UkgdtB",
         "review_R78Yqt",
         "review_tFrnzt",
