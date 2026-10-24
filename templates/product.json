@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_8ne7UY": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-spot-care",
+            "author": "Fabio T. • Verona",
+            "date": "03 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo",
+            "text": "Sul collo mi venivano sempre quei brutti brufoletti sottopelle rossi dopo essermi fatto la barba. Ho iniziato ad applicare questo siero direttamente sui puntini e dopo un po' metto il burro. Nel giro di qualche ora la zona si sfiamma del tutto."
+          }
+        },
         "review_xbjw8V": {
           "type": "review",
           "settings": {
@@ -1040,6 +1051,7 @@
         }
       },
       "block_order": [
+        "review_8ne7UY",
         "review_xbjw8V",
         "review_ka4EnB",
         "review_YJGkfE",
