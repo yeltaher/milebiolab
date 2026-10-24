@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_yWzf8H": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Agnese D. • Verona",
+            "date": "26 Ottobre 2026",
+            "rating": 5,
+            "title": "Ripara la pelle dopo un peeling chimico",
+            "text": "Ho fatto un trattamento viso esfoliante dal medico estetico e avevo la pelle che cascava a pezzi e bruciava. Questo burro, ordinato su consiglio di un' amica, ha accelerato la rigenerazione della pelle in modo incredibile!"
+          }
+        },
         "review_igMULT": {
           "type": "review",
           "settings": {
@@ -929,6 +940,7 @@
         }
       },
       "block_order": [
+        "review_yWzf8H",
         "review_igMULT",
         "review_XGThVH",
         "review_VfM7Q6",
