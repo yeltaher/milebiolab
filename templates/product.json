@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_biKGxP": {
+          "type": "review",
+          "settings": {
+            "target_product": "acne-spot-care",
+            "author": "Davide N. • Verona",
+            "date": "07 Ottobre 2026",
+            "rating": 5,
+            "title": "Sembra funzioni",
+            "text": "Ho sempre quei brufoli sottopelle enormi e dolorosi che non escono mai sa che tortura sia. Adesso appena sento quel tipico dolore al tatto sulla fronte o sulle guance, inizio a picchiettare questo siero più volte al giorno solo in quel punto. Al momento il brufolo si riassorbe prima ancora di diventare rosso e visibile."
+          }
+        },
         "review_8ne7UY": {
           "type": "review",
           "settings": {
@@ -1051,6 +1062,7 @@
         }
       },
       "block_order": [
+        "review_biKGxP",
         "review_8ne7UY",
         "review_xbjw8V",
         "review_ka4EnB",
