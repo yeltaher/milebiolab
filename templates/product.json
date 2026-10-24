@@ -134,6 +134,72 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_U8g8rR": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Nome Cognome",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Scrivi qui la recensione..."
+          }
+        },
+        "review_nGiMXj": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Barbara H. • Brescia",
+            "date": "17 Febbraio 2025",
+            "rating": 5,
+            "title": "Per chi come me ha la pelle molto matura",
+            "text": "Ho superato i 60 anni e la mia pelle si beve qualsiasi cosa. Questo è l'unico prodotto che mi fa sentire la pelle bene per tutta la giornata senza farmi sentire il viso secco dopo poche ore. Perfetto per pelli molto mature."
+          }
+        },
+        "review_HRDTEB": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Agnese U. • Verona",
+            "date": "20 Gennaio 2025",
+            "rating": 5,
+            "title": "Una consistenza ricca che si scioglie",
+            "text": "Sembra solido ma appena lo tocco si scioglie e diventa un olio pazzesco. Ne uso una quantità minuscola e lo spalmo sulla pelle umida. Lo trovo un ottimo investimento visto quanto fa bene alla pelle e quanto mi sta durando il barattolo."
+          }
+        },
+        "review_JnNYaa": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Martina V. • Padova",
+            "date": "14 Maggio 2025",
+            "rating": 5,
+            "title": "Ingredienti puri e sicuri",
+            "text": "Lo trovo incredibilmente delicato e puro. Niente siliconi, niente profumi sintetici, solo oli veri. Per la pelle dei bambini la ritengo l'unica scelta logica. Complimenti a chi l'ha formulato...."
+          }
+        },
+        "review_G7EkHg": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Cristina I. • Verona",
+            "date": "07 Gennaio 2025",
+            "rating": 5,
+            "title": "Regalo di Natale per famiglia",
+            "text": "Uso questo Burro da molto tempo e conosco Mile che è una perfezionista nel suo lavoro!! per varie esigenze della mia pelle, lo uso anche come sos! a Natale ho scelto di regalarlo alle persone care (mamma, sorella, suocera) che hanno apprezzato moltissimo! E' un prodotto proprio UNICO!!"
+          }
+        },
+        "review_aj8TgY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Valentina A. • Verona",
+            "date": "29 Dicembre 2024",
+            "rating": 5,
+            "title": "Pelle del collo molto più compatta",
+            "text": "Mi dona un'elasticità pazzesca. La combinazione di olio di baobab e mango dà una compattezza al mio viso incredibile. Lo trovo un trattamento urto anti-tempo fantastico anche per il collo e il decolleté."
+          }
+        },
         "review_hKtxaN": {
           "type": "review",
           "settings": {
@@ -154,17 +220,6 @@
             "rating": 5,
             "title": "Perfetto anche per uomo",
             "text": "Preso per mio marito, che ha 50 anni. Non ama le creme profumate da donna. Questo burro sa di ingredienti naturali, si assorbe bene se si usa la giusta quantità e gli toglie quella sensazione di pelle tirata tipica dell'età e dopo la barba."
-          }
-        },
-        "review_JnNYaa": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Martina V. • Padova",
-            "date": "14 Maggio 2025",
-            "rating": 5,
-            "title": "Ingredienti puri e sicuri",
-            "text": "Lo trovo incredibilmente delicato e puro. Niente siliconi, niente profumi sintetici, solo oli veri. Per la pelle dei bambini la ritengo l'unica scelta logica. Complimenti a chi l'ha formulato...."
           }
         },
         "review_4f7GxX": {
@@ -378,9 +433,14 @@
         }
       },
       "block_order": [
+        "review_U8g8rR",
+        "review_nGiMXj",
+        "review_HRDTEB",
+        "review_JnNYaa",
+        "review_G7EkHg",
+        "review_aj8TgY",
         "review_hKtxaN",
         "review_Xjj93L",
-        "review_JnNYaa",
         "review_4f7GxX",
         "review_DXaGGe",
         "review_pbU9VM",
