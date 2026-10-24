@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_7i7JnE": {
+        "review_wGT3DD": {
           "type": "review",
           "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Claudia V. • Verona",
+            "target_product": "",
+            "author": "Michela G. • Firenze",
             "date": "26 Agosto 2026",
             "rating": 5,
-            "title": "Ottimo per chi ha la pelle mista ma disidratata",
-            "text": "All'inizio avevo paura che mi facesse venire i brufoli essendo un burro. Invece l'olio di canapa e di neem tengono a bada le imperfezioni e l'olio di Jojoba blocca il sebo, mentre il  resto nutre la pelle. Ne basta pochissimo sul viso umido. La pelle ha smesso di produrre sebo in eccesso perché ora è idratata."
+            "title": "Mi ha salvato le labbra",
+            "text": "Le ho provate tutte: stick bio, vaselina, creme farmaceutiche. Avevo sempre le labbra spaccate con le ferite agli angoli della bocca. Questo prodotto ha risolto il problema. Lo uso tutte le mattina e le sere su viso e labbra. Super nutriente."
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_7i7JnE": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Claudia V. • Verona",
+            "date": "26 Agosto 2026",
+            "rating": 5,
+            "title": "Ottimo per chi ha la pelle mista ma disidratata",
+            "text": "All'inizio avevo paura che mi facesse venire i brufoli essendo un burro. Invece l'olio di canapa e di neem tengono a bada le imperfezioni e l'olio di Jojoba blocca il sebo, mentre il  resto nutre la pelle. Ne basta pochissimo sul viso umido. La pelle ha smesso di produrre sebo in eccesso perché ora è idratata."
           }
         },
         "review_iqmKAL": {
@@ -775,8 +786,9 @@
         }
       },
       "block_order": [
-        "review_7i7JnE",
+        "review_wGT3DD",
         "review_ApBnAY",
+        "review_7i7JnE",
         "review_iqmKAL",
         "review_wt66yV",
         "review_qNkUny",
