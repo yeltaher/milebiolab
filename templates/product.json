@@ -134,15 +134,81 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_G6ypz6": {
+        "review_hKtxaN": {
           "type": "review",
           "settings": {
-            "target_product": "",
-            "author": "Laura R. • Verona",
-            "date": "12 Settembre 2026",
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Tania E. • Genova",
+            "date": "27 Dicembre 2024",
             "rating": 5,
-            "title": "Io Adoro questi Prodotti",
-            "text": "Piano piano prendero' tutto . Mai piu' senza!"
+            "title": "rughette delle labbra",
+            "text": "Dico addio al contorno labbra segnato! Lo applico massaggiando bene sul codice a barre sopra la bocca. Ho notato che la pelle si è rimpolpata e il rossetto non mi sbava più nelle pieghette. Straconsigliato."
+          }
+        },
+        "review_Xjj93L": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Silvia D. • Verona",
+            "date": "10 Dicembre 2024",
+            "rating": 5,
+            "title": "Perfetto anche per uomo",
+            "text": "Preso per mio marito, che ha 50 anni. Non ama le creme profumate da donna. Questo burro sa di ingredienti naturali, si assorbe bene se si usa la giusta quantità e gli toglie quella sensazione di pelle tirata tipica dell'età e dopo la barba."
+          }
+        },
+        "review_JnNYaa": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Martina V. • Padova",
+            "date": "14 Maggio 2025",
+            "rating": 5,
+            "title": "Ingredienti puri e sicuri",
+            "text": "Lo trovo incredibilmente delicato e puro. Niente siliconi, niente profumi sintetici, solo oli veri. Per la pelle dei bambini la ritengo l'unica scelta logica. Complimenti a chi l'ha formulato...."
+          }
+        },
+        "review_4f7GxX": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Roberta O. • Venezia",
+            "date": "13 Novembre 2024",
+            "rating": 5,
+            "title": "Ha sostituito la mia crema notte",
+            "text": "Volevo ridurre i passaggi della mia skincare e questo burro mi sostituisce sia il siero che la crema notte. Ora pulisco il viso e applico solo un po di prodotto. Ha dentro tutto. Sento e vedo la pelle nutrita."
+          }
+        },
+        "review_DXaGGe": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Paola N. • Verona",
+            "date": "04 Novembre 2024",
+            "rating": 4,
+            "title": "Ottimo anche contorno occhi notturno",
+            "text": "Lo trovo molto ricco, ottimo per la notte. Per il giorno è troppo pesante per la mia pelle, ma come contorno occhi e trattamento serale è miracoloso. Mi ha disteso sensibilmente quelle maledette rughette d'espressione intorno agli occhi."
+          }
+        },
+        "review_pbU9VM": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Olivia L. • Roma",
+            "date": "20 Ottobre 2024",
+            "rating": 5,
+            "title": "Ideale per sigillare l'idratazione la sera",
+            "text": "È diventato il mio alleato preferito per fare lo 'slugging' in inverno. Per sigillare l'idratazione la sera questo burro è il re indiscusso. Sento la barriera cutanea ringraziare per il nutrimento profondo. Zero brufoli nonostante sia un burro, perché gli oli sono di altissima qualità."
+          }
+        },
+        "review_xAngaj": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Nadia P. • Verona",
+            "date": "13 Settembre 2024",
+            "rating": 5,
+            "title": "Trattamento d'urto antirughe fantastico",
+            "text": "Per me è un vero effetto urto contro le rughe  Ho la pelle del viso matura che tende a segnarsi. Uso Unicho 21 come maschera notturna due volte a settimana. Mi rimpolpa il viso da paura. La mattina ho la pelle che sembra di seta."
           }
         },
         "review_b6mU7R": {
@@ -312,7 +378,13 @@
         }
       },
       "block_order": [
-        "review_G6ypz6",
+        "review_hKtxaN",
+        "review_Xjj93L",
+        "review_JnNYaa",
+        "review_4f7GxX",
+        "review_DXaGGe",
+        "review_pbU9VM",
+        "review_xAngaj",
         "review_b6mU7R",
         "review_m7ED7V",
         "review_cdnetL",
