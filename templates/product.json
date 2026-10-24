@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_igMULT": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Valeria N. • Cremona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Rossore da sfregamento sotto il seno",
+            "text": "86. D'estate, col caldo e il sudore, la zona sotto il ferretto del reggiseno mi si infiammava sempre creando una piaghetta dolorosa. Mettendo un velo di questo burro la mattina la pelle resta protetta dallo sfregamento per tutto il giorno."
+          }
+        },
         "review_XGThVH": {
           "type": "review",
           "settings": {
@@ -918,6 +929,7 @@
         }
       },
       "block_order": [
+        "review_igMULT",
         "review_XGThVH",
         "review_VfM7Q6",
         "review_ApBnAY",
