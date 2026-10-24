@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_abdrKW": {
+        "review_zFpRAV": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Erika Z. • Verona",
-            "date": "3 Giugno 2026",
+            "author": "Gilda B. • Brescia",
+            "date": "28 Maggio 2026",
             "rating": 5,
-            "title": "Formulazione dermoaffine perfetta",
-            "text": "Sono un medico e trovo che sia una formulazione impeccabile. Controllo sempre l'INCI e questo prodotto è un capolavoro di dermoaffinità. Gli ingredienti sono scegli in modo scrupoloso per proprietà e hanno il potere di  ripristinare la barriera e le difese della mia pelle sensibile."
+            "title": "Barriera contro il gelo",
+            "text": "L'ho trovato perfetto per la secchezza da freddo in montagna. L'ho portato in settimana bianca e mi ha protetta dal gelo e dalle reazioni della pelle dovute allo sbalzo termico continuo tra dentro e fuori."
           }
         },
         "review_xcTMya": {
@@ -244,6 +244,17 @@
             "text": "Mio marito me lo ruba e lo usa come dopobarba per la sua pelle reattiva. Si irrita tantissimo quando si rade sul collo, con follicolite e bruciori. Un velo invisibile di questo burro gli calma tutto.  Il suo profumo è buonissimo."
           }
         },
+        "review_abdrKW": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Erika Z. • Verona",
+            "date": "3 Giugno 2026",
+            "rating": 5,
+            "title": "Formulazione dermoaffine perfetta",
+            "text": "Sono un medico e trovo che sia una formulazione impeccabile. Controllo sempre l'INCI e questo prodotto è un capolavoro di dermoaffinità. Gli ingredienti sono scegli in modo scrupoloso per proprietà e hanno il potere di  ripristinare la barriera e le difese della mia pelle sensibile."
+          }
+        },
         "review_mA9UyU": {
           "type": "review",
           "settings": {
@@ -257,6 +268,7 @@
         },
         "review_cybyRe": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
             "author": "Rebecca P. • Pavia",
@@ -686,7 +698,7 @@
         }
       },
       "block_order": [
-        "review_abdrKW",
+        "review_zFpRAV",
         "review_xcTMya",
         "review_kEWyh4",
         "review_L9TpLA",
@@ -696,6 +708,7 @@
         "review_CNRjeg",
         "review_dxi8Qh",
         "review_WkU9Dp",
+        "review_abdrKW",
         "review_mA9UyU",
         "review_cybyRe",
         "review_dYXKBP",
