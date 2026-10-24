@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_mTpQEa": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Lucia L. • Verona",
+            "date": "14 Ottobre 2025",
+            "rating": 5,
+            "title": "Ottimo contro la secchezza da cloro",
+            "text": "Lo uso post piscina. Il cloro mi distrugge la pelle, mi fa venire un prurito pazzesco sul tronco. Applico Unicho 21 subito dopo la doccia sul viso e le zone irritate sulla pelle umida e la mia pelle torna normale, nutrita e protetta!"
+          }
+        },
         "review_6aeKwM": {
           "type": "review",
           "settings": {
@@ -488,6 +499,7 @@
         }
       },
       "block_order": [
+        "review_mTpQEa",
         "review_6aeKwM",
         "review_ExXcqa",
         "review_FxLV8i",
