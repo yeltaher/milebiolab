@@ -134,6 +134,28 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_iqmKAL": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Alice T. • Torino",
+            "date": "17 Agosto 2026",
+            "rating": 5,
+            "title": "Anche come maschera urto per la notte",
+            "text": "Lo uso da circa un anno e per me è fondamentale averlo in casa. Adesso con il caldo, una volta alla settimana, quando vedo il viso stressato dal caldo, ne stendo uno strato leggermente più generoso e lo lascio agire come maschera notturna. La pelle se lo beve letteralmente. Ci sono dentro oli nobili pazzeschi e la mattina l'incarnato è luminosissimo, nutrito, e il colore della pelle è sano e sembra più abbronzato."
+          }
+        },
+        "review_ApBnAY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ornella E. • Bressanone",
+            "date": "24 Ottobre 2026",
+            "rating": 5,
+            "title": "Attenua visibilmente i rossori della couperose",
+            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
         "review_wt66yV": {
           "type": "review",
           "settings": {
@@ -154,17 +176,6 @@
             "rating": 5,
             "title": "Il re indiscusso dei prodotti multifunzione",
             "text": "Per me è il re dei burri multifunzione. Lo ritengo un acquisto intelligente: lo compri per una cosa e finisci per usarlo per altre cento. Dalla cura dei miei piedi al viso. Ingredienti spettacolari. Per Mile: Servirebbe una confezione più grande... :)"
-          }
-        },
-        "review_ApBnAY": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Ornella E. • Bressanone",
-            "date": "24 Ottobre 2026",
-            "rating": 5,
-            "title": "Attenua visibilmente i rossori della couperose",
-            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
           }
         },
         "review_FrVijD": {
@@ -753,9 +764,10 @@
         }
       },
       "block_order": [
+        "review_iqmKAL",
+        "review_ApBnAY",
         "review_wt66yV",
         "review_qNkUny",
-        "review_ApBnAY",
         "review_FrVijD",
         "review_tVD6tR",
         "review_L9TpLA",
