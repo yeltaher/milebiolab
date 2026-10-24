@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_xcTMya": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Donatella M. • Udine",
+            "date": "26 Maggio 2026",
+            "rating": 5,
+            "title": "Accelera la riparazione dei piccoli tagli",
+            "text": "Lo uso quotidianamenti sul viso e per le piccole abrasioni sulle mani. Facendo giardinaggio e lavoretti ho sempre le dita piene di taglietti. Questo burro accelera la riparazione della mia pelle in modo impressionante."
+          }
+        },
         "review_kEWyh4": {
           "type": "review",
           "settings": {
@@ -664,6 +675,7 @@
         }
       },
       "block_order": [
+        "review_xcTMya",
         "review_kEWyh4",
         "review_L9TpLA",
         "review_F7krbd",
