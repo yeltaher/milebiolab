@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_UkgdtB": {
+          "type": "review",
+          "settings": {
+            "target_product": "aha-peeling-concentrate",
+            "author": "Matteo B. • Milano",
+            "date": "03 Ottobre 2026",
+            "rating": 5,
+            "title": "Pori dilatati e i punti neri",
+            "text": "Da poco uso questo siero da due settimane principalmente sulla zona T (fronte, naso, mento). Ho notato un miglioramento pazzesco sui pori, che sembrano decisamente più stretti, e la pelle si lucida molto meno durante il giorno. Non unge, si assorbe in tre secondi netti e posso metterci sopra subito il burro"
+          }
+        },
         "review_R78Yqt": {
           "type": "review",
           "settings": {
@@ -984,6 +995,7 @@
         }
       },
       "block_order": [
+        "review_UkgdtB",
         "review_R78Yqt",
         "review_tFrnzt",
         "review_BaVXEB",
