@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_L9TpLA": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Nicola P. •  Verona",
+            "date": "09 Giugno 2026",
+            "rating": 5,
+            "title": "Emorroidi e altro",
+            "text": "Inizialmente preso per viso e barba ora ho una confezione solo per le zone intime, non ho più le emorroidi da quando lo applico localmente abitualmente."
+          }
+        },
         "review_F7krbd": {
           "type": "review",
           "settings": {
@@ -642,6 +653,7 @@
         }
       },
       "block_order": [
+        "review_L9TpLA",
         "review_F7krbd",
         "review_44cKwg",
         "review_FhxkBE",
