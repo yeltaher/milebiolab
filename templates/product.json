@@ -134,15 +134,48 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_89NjhW": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Deborah W. • Vicenza",
+            "date": "27 Luglio 2025",
+            "rating": 5,
+            "title": "Talloni morbidi in pochissimi giorni",
+            "text": "Ora ho talloni da sandalo perfetti. In estate i miei piedi diventano bianchi e crepati. Metto questo burro la sera, indosso i calzini di cotone e vado a dormire. In due giorni mi tornano morbidissimi."
+          }
+        },
+        "review_hQEHCK": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Elisa X. • Verona",
+            "date": "01 Luglio 2025",
+            "rating": 5,
+            "title": "Lenitivo perfetto dopo la ceretta",
+            "text": "Ottimo come post-depilazione gambe. Dopo la ceretta ho sempre le gambe secchissime con l'effetto 'pelle di serpente' e i puntini rossi. Questo burro mi lenisce all'istante, bagno la pelle e poi un po lo passo con le mani."
+          }
+        },
+        "review_JnNYaa": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Martina V. • Padova",
+            "date": "14 Maggio 2025",
+            "rating": 5,
+            "title": "Ingredienti puri e sicuri",
+            "text": "Lo trovo incredibilmente delicato e puro. Niente siliconi, niente profumi sintetici, solo oli veri. Per la pelle dei bambini la ritengo l'unica scelta logica. Complimenti a chi l'ha formulato...."
+          }
+        },
         "review_U8g8rR": {
           "type": "review",
           "settings": {
-            "target_product": "",
-            "author": "Nome Cognome",
-            "date": "12 Maggio 2026",
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Cecilia Q. • Verona",
+            "date": "23 Marzo 2025",
             "rating": 5,
-            "title": "Ottimo prodotto",
-            "text": "Scrivi qui la recensione..."
+            "title": "Ripara le mani spaccate dal freddo",
+            "text": "In famiglia lo usiamo per tutto, Ha sistemato le mani da muratore di mio marito, erano finalmente morbide! Lavora nei cantieri e d'inverno ha la pelle spaccata dal freddo, a volte col sangue. Questo burro è l'unica cosa che penetra la cute indurita e ripara le fessurazioni. Spettacolare."
           }
         },
         "review_nGiMXj": {
@@ -165,17 +198,6 @@
             "rating": 5,
             "title": "Una consistenza ricca che si scioglie",
             "text": "Sembra solido ma appena lo tocco si scioglie e diventa un olio pazzesco. Ne uso una quantità minuscola e lo spalmo sulla pelle umida. Lo trovo un ottimo investimento visto quanto fa bene alla pelle e quanto mi sta durando il barattolo."
-          }
-        },
-        "review_JnNYaa": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Martina V. • Padova",
-            "date": "14 Maggio 2025",
-            "rating": 5,
-            "title": "Ingredienti puri e sicuri",
-            "text": "Lo trovo incredibilmente delicato e puro. Niente siliconi, niente profumi sintetici, solo oli veri. Per la pelle dei bambini la ritengo l'unica scelta logica. Complimenti a chi l'ha formulato...."
           }
         },
         "review_G7EkHg": {
@@ -433,10 +455,12 @@
         }
       },
       "block_order": [
+        "review_89NjhW",
+        "review_hQEHCK",
+        "review_JnNYaa",
         "review_U8g8rR",
         "review_nGiMXj",
         "review_HRDTEB",
-        "review_JnNYaa",
         "review_G7EkHg",
         "review_aj8TgY",
         "review_hKtxaN",
