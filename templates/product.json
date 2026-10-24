@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_abdrKW": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Erika Z. • Verona",
+            "date": "3 Giugno 2026",
+            "rating": 5,
+            "title": "Formulazione dermoaffine perfetta",
+            "text": "Sono un medico e trovo che sia una formulazione impeccabile. Controllo sempre l'INCI e questo prodotto è un capolavoro di dermoaffinità. Gli ingredienti sono scegli in modo scrupoloso per proprietà e hanno il potere di  ripristinare la barriera e le difese della mia pelle sensibile."
+          }
+        },
         "review_xcTMya": {
           "type": "review",
           "settings": {
@@ -675,6 +686,7 @@
         }
       },
       "block_order": [
+        "review_abdrKW",
         "review_xcTMya",
         "review_kEWyh4",
         "review_L9TpLA",
