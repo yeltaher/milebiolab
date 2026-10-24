@@ -134,17 +134,6 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_E9KqNj": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Giorgia M. • Verona",
-            "date": "23 Ottobre 2026",
-            "rating": 5,
-            "title": "La mia pelle disidratata",
-            "text": "Ho iniziato a usare questo burro primordiale al posto della solita crema notte e la differenza è incredibile, nutre tantissimo senza appesantire. Al mattino la pelle è elastica, compatta e ha un aspetto sano e riposato che non vedevo da anni."
-          }
-        },
         "review_yWzf8H": {
           "type": "review",
           "settings": {
@@ -154,6 +143,28 @@
             "rating": 5,
             "title": "Ripara la pelle dopo un peeling chimico",
             "text": "Ho fatto un trattamento viso esfoliante dal medico estetico e avevo la pelle che cascava a pezzi e bruciava. Questo burro, ordinato su consiglio di un' amica, ha accelerato la rigenerazione della pelle in modo incredibile!"
+          }
+        },
+        "review_ApBnAY": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ornella E. • Bressanone",
+            "date": "24 Ottobre 2026",
+            "rating": 5,
+            "title": "Attenua visibilmente i rossori della couperose",
+            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_E9KqNj": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Giorgia M. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "La mia pelle disidratata",
+            "text": "Ho iniziato a usare questo burro primordiale al posto della solita crema notte e la differenza è incredibile, nutre tantissimo senza appesantire. Al mattino la pelle è elastica, compatta e ha un aspetto sano e riposato che non vedevo da anni."
           }
         },
         "review_igMULT": {
@@ -187,17 +198,6 @@
             "rating": 5,
             "title": "SOS per la pelle reattiva che si arrossa con tutto",
             "text": "Ho la pelle talmente sensibile che se c'è un po' di vento o se cambio detergente divento subito rossa come un peperone. Questo burro calma qualsiasi irritazione all'istante, toglie il bruciore e ripristina la barriera cutanea."
-          }
-        },
-        "review_ApBnAY": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Ornella E. • Bressanone",
-            "date": "24 Ottobre 2026",
-            "rating": 5,
-            "title": "Attenua visibilmente i rossori della couperose",
-            "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
           }
         },
         "review_DNibN6": {
@@ -951,12 +951,12 @@
         }
       },
       "block_order": [
-        "review_E9KqNj",
         "review_yWzf8H",
+        "review_ApBnAY",
+        "review_E9KqNj",
         "review_igMULT",
         "review_XGThVH",
         "review_VfM7Q6",
-        "review_ApBnAY",
         "review_DNibN6",
         "review_UkWYha",
         "review_xe8FD8",
