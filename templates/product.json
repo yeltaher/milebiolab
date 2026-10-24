@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_F7krbd": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Bianca N. • Trieste",
+            "date": "06 Giugno 2026",
+            "rating": 5,
+            "title": "Naso screpolato dal raffreddore",
+            "text": "Preso per il viso ma usato per vari fastidi della pelle. Quando sono ammalata, a forza di usare fazzoletti mi si spacca il naso. Questo burro cura la pelle in una notte senza bruciare, anzi mi dà subito sollievo."
+          }
+        },
         "review_44cKwg": {
           "type": "review",
           "settings": {
@@ -145,17 +156,6 @@
             "text": "Potente effetto lenitivo per le irritazioni da mascherina. Per lavoro devo portarla molte ore e mi venivano dermatiti da sfregamento sul naso e sulle guance. Questo burro crea uno scudo e ripara la pelle lesa."
           }
         },
-        "review_CNRjeg": {
-          "type": "review",
-          "settings": {
-            "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Viviana U. • Ferrara",
-            "date": "12 Maggio 2026",
-            "rating": 5,
-            "title": "Ottimo per gli sfregamenti da sport",
-            "text": "Lo trovo un ottimo prodotto globale e antinfiammatorio naturale. Lo uso specialmente sulle irritazioni da sfregamento nell'interno coscia quando vado a correre. Lenisce lo sfregamento e mi ripara la pelle irritata durante la notte."
-          }
-        },
         "review_FhxkBE": {
           "type": "review",
           "settings": {
@@ -165,6 +165,17 @@
             "rating": 5,
             "title": "Ha sfiammato subito l'eritema solare",
             "text": "Mi ha calmato l'eritema solare in modo incredibile. Sono tornata dal mare dell' Egitto con le spalle infuocate. Questo burro ha rinfrescato e sfiammato la mia pelle, impedendomi di sbucciarmi come un pomodoro. Un salvavita."
+          }
+        },
+        "review_CNRjeg": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Viviana U. • Ferrara",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo per gli sfregamenti da sport",
+            "text": "Lo trovo un ottimo prodotto globale e antinfiammatorio naturale. Lo uso specialmente sulle irritazioni da sfregamento nell'interno coscia quando vado a correre. Lenisce lo sfregamento e mi ripara la pelle irritata durante la notte."
           }
         },
         "review_dxi8Qh": {
@@ -631,9 +642,10 @@
         }
       },
       "block_order": [
+        "review_F7krbd",
         "review_44cKwg",
-        "review_CNRjeg",
         "review_FhxkBE",
+        "review_CNRjeg",
         "review_dxi8Qh",
         "review_WkU9Dp",
         "review_mA9UyU",
