@@ -134,6 +134,39 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_ajjRFj": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Patrizia O. • Milano",
+            "date": "05 DIcembre 2025",
+            "rating": 4,
+            "title": "Un gran buon prodotto ma ..",
+            "text": "Sicuramente una formula ricca e pura. La qualità si percepisce subito appena si apre il vasetto dal profumo alla morbidezza. Si puo' utilizzare per molte cose per questo io lo termino in un mese. Ci vorrebbe un formato piu' grande soprattutto per la famiglia."
+          }
+        },
+        "review_nENzkw": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Noemi N. • Verona",
+            "date": "22 Novembre 2025",
+            "rating": 5,
+            "title": "Ridona elasticità alla pelle anziana",
+            "text": "L'ho trovato perfetto per la pelle secca degli anziani. L'ho comprato anche per mia mamma che ha 80 anni e la pelle delle gambe sottile come carta velina. Le ha ridato elasticità e ha smesso di sentire quel fastidio da secchezza cronica. Lo usiamo come ha detto Mile sulla pelle umida."
+          }
+        },
+        "review_yqiYRf": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Marta M. • Bergamo",
+            "date": "16 Novembre 2025",
+            "rating": 5,
+            "title": "Unghie e cuticole sempre a posto",
+            "text": "Lo trovo meraviglioso per tante cose, ma sulle cuticole bordo unghie sempre secche è top!. Lo tengo sul comodino e prima di dormire lo passo sul viso e sulle unghie e sulle mani e mi risolve il problema."
+          }
+        },
         "review_mTpQEa": {
           "type": "review",
           "settings": {
@@ -499,6 +532,9 @@
         }
       },
       "block_order": [
+        "review_ajjRFj",
+        "review_nENzkw",
+        "review_yqiYRf",
         "review_mTpQEa",
         "review_6aeKwM",
         "review_ExXcqa",
