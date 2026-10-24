@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_tFrnzt": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Chiara R. • Cremona",
+            "date": "21 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Ne avevo sentito parlare bene, confermo qualità !"
+          }
+        },
         "review_BaVXEB": {
           "type": "review",
           "settings": {
@@ -962,6 +973,7 @@
         }
       },
       "block_order": [
+        "review_tFrnzt",
         "review_BaVXEB",
         "review_yWzf8H",
         "review_ApBnAY",
