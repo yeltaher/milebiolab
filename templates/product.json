@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_kqggWc": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Federica G. • Verona",
+            "date": "14 Dicembre 2025",
+            "rating": 5,
+            "title": "Ogni mamma per il suo bimbo dovrebbe usarlo",
+            "text": "Premetto che io sono per il naturale a prescindere. Ma non ci sono dubbi sull'efficacia di questo burro, pregiato a dir poco. Mantiene la pelle sana ed ha un potere cicatrizzante portentoso. Abbiamo 2 Vasi uno lo usiamo per il viso e l'altro per le zone del corpo e parti intime. L ho usato anche per cicatrizzare una ferita di 15 cm.  ora non si nota nemmeno e per il viso e le necessità dei miei figli."
+          }
+        },
         "review_ajjRFj": {
           "type": "review",
           "settings": {
@@ -532,6 +543,7 @@
         }
       },
       "block_order": [
+        "review_kqggWc",
         "review_ajjRFj",
         "review_nENzkw",
         "review_yqiYRf",
