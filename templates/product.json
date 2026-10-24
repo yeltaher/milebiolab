@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_BaVXEB": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Beatrice F. • Milano",
+            "date": "27 Ottobre 2026",
+            "rating": 5,
+            "title": "Manna dal cielo per la dermatite atopica",
+            "text": "Mio figlio di 3 anni soffre di dermatite atopica da quando è nato. Aveva sempre le pieghe delle braccia e dietro le ginocchia rosse, secche e con un prurito tremendo che lo faceva grattare fino a sanguinare. Questa emulsione naturale gli dà un sollievo immediato. Toglie quella fastidiosa sensazione di pelle ruvida a carta vetrata e calma l'irritazione, ci ha svoltato le giornate."
+          }
+        },
         "review_yWzf8H": {
           "type": "review",
           "settings": {
@@ -951,6 +962,7 @@
         }
       },
       "block_order": [
+        "review_BaVXEB",
         "review_yWzf8H",
         "review_ApBnAY",
         "review_E9KqNj",
