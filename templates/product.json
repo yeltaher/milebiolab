@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_FhxkBE": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Ursula T. • Bergamo",
+            "date": "19 Maggio 2026",
+            "rating": 5,
+            "title": "Ha sfiammato subito l'eritema solare",
+            "text": "Mi ha calmato l'eritema solare in modo incredibile. Sono tornata dal mare dell' Egitto con le spalle infuocate. Questo burro ha rinfrescato e sfiammato la mia pelle, impedendomi di sbucciarmi come un pomodoro. Un salvavita."
+          }
+        },
         "review_dxi8Qh": {
           "type": "review",
           "settings": {
@@ -598,6 +609,7 @@
         }
       },
       "block_order": [
+        "review_FhxkBE",
         "review_dxi8Qh",
         "review_WkU9Dp",
         "review_mA9UyU",
