@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_XGThVH": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Michela S. • Reggio Emilia",
+            "date": "21 Ottobre 2026",
+            "rating": 5,
+            "title": "scottatura da ferro da stiro",
+            "text": "Ovviamente lo uso per il viso ma mi sono scottata l'avambraccio mentre stiravo. Ho applicato subito un velo generoso di questo burro. La pelle non ha fatto la bolla e il giorno dopo era già in fase di guarigione avanzata. Un rimedio d'emergenza fantastico."
+          }
+        },
         "review_VfM7Q6": {
           "type": "review",
           "settings": {
@@ -907,6 +918,7 @@
         }
       },
       "block_order": [
+        "review_XGThVH",
         "review_VfM7Q6",
         "review_ApBnAY",
         "review_DNibN6",
