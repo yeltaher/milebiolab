@@ -956,6 +956,7 @@
     },
     "product-faq": {
       "type": "product-faq",
+      "disabled": true,
       "settings": {
         "tag": "CHIAREZZA E TRASPARENZA",
         "title": "Domande Frequenti",
