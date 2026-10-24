@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_YJGkfE": {
+          "type": "review",
+          "settings": {
+            "target_product": "aha-peeling-concentrate",
+            "author": "Paola R. • Verona",
+            "date": "14 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo esfoliante per pelle secca",
+            "text": "Questo siero rimuove le cellule morte in modo dolce, eliminando l'aspetto spento. La pelle è morbida già dalle prime applicazioni. Flacone comodo e contagocce preciso."
+          }
+        },
         "review_nmLLyL": {
           "type": "review",
           "settings": {
@@ -1006,6 +1017,7 @@
         }
       },
       "block_order": [
+        "review_YJGkfE",
         "review_nmLLyL",
         "review_UkgdtB",
         "review_R78Yqt",
