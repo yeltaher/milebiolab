@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_iqmKAL": {
+        "review_7i7JnE": {
           "type": "review",
           "settings": {
             "target_product": "unicho-21-burro-primordiale-50ml",
-            "author": "Alice T. • Torino",
-            "date": "17 Agosto 2026",
+            "author": "Claudia V. • Verona",
+            "date": "26 Agosto 2026",
             "rating": 5,
-            "title": "Anche come maschera urto per la notte",
-            "text": "Lo uso da circa un anno e per me è fondamentale averlo in casa. Adesso con il caldo, una volta alla settimana, quando vedo il viso stressato dal caldo, ne stendo uno strato leggermente più generoso e lo lascio agire come maschera notturna. La pelle se lo beve letteralmente. Ci sono dentro oli nobili pazzeschi e la mattina l'incarnato è luminosissimo, nutrito, e il colore della pelle è sano e sembra più abbronzato."
+            "title": "Ottimo per chi ha la pelle mista ma disidratata",
+            "text": "All'inizio avevo paura che mi facesse venire i brufoli essendo un burro. Invece l'olio di canapa e di neem tengono a bada le imperfezioni e l'olio di Jojoba blocca il sebo, mentre il  resto nutre la pelle. Ne basta pochissimo sul viso umido. La pelle ha smesso di produrre sebo in eccesso perché ora è idratata."
           }
         },
         "review_ApBnAY": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Attenua visibilmente i rossori della couperose",
             "text": "Lo considero una protezione perfetta per labbra e zone sensibili. Lo uso come balsamo protettivo per la bocca e per gli zigomi quando esco a camminare la mattina presto con temperature vicine allo zero. Non mi screpolo minimamente."
+          }
+        },
+        "review_iqmKAL": {
+          "type": "review",
+          "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
+            "author": "Alice T. • Torino",
+            "date": "17 Agosto 2026",
+            "rating": 5,
+            "title": "Anche come maschera urto per la notte",
+            "text": "Lo uso da circa un anno e per me è fondamentale averlo in casa. Adesso con il caldo, una volta alla settimana, quando vedo il viso stressato dal caldo, ne stendo uno strato leggermente più generoso e lo lascio agire come maschera notturna. La pelle se lo beve letteralmente. Ci sono dentro oli nobili pazzeschi e la mattina l'incarnato è luminosissimo, nutrito, e il colore della pelle è sano e sembra più abbronzato."
           }
         },
         "review_wt66yV": {
@@ -764,8 +775,9 @@
         }
       },
       "block_order": [
-        "review_iqmKAL",
+        "review_7i7JnE",
         "review_ApBnAY",
+        "review_iqmKAL",
         "review_wt66yV",
         "review_qNkUny",
         "review_FrVijD",
