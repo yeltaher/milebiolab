@@ -156,6 +156,17 @@
             "text": "La cosa che preferisco di questo siero è la luce che dona al viso appena lo stendi. Ha una leggerissima tonalità rosata dovuta a pigmenti naturali che cancella all'istante l'aspetto spento e grigio da stanchezza. Gli ingredienti fanno un lavoro fantastico per uniformare il colorito della mia pelle. Promosso a pieni voti!"
           }
         },
+        "review_kwKfnP": {
+          "type": "review",
+          "settings": {
+            "target_product": "hydrating-serum",
+            "author": "Daniela M. • Bologna",
+            "date": "18 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo scudo contro lo smog",
+            "text": "Lavoro in centro e la mia pelle risente tantissimo dell'inquinamento. Ho voluto provare questo siero perché consigliato perchè contiene un fermento marino anti-inquinamento. Devo dire che dopo due settimane vedo la pelle molto più pulita, compatta e meno soggetta a sfoghi da stress."
+          }
+        },
         "review_aqGa4j": {
           "type": "review",
           "settings": {
@@ -1515,6 +1526,7 @@
       "block_order": [
         "review_99PNgH",
         "review_3fjJLP",
+        "review_kwKfnP",
         "review_aqGa4j",
         "review_WjaL9t",
         "review_qPmnh4",
