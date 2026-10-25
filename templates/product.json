@@ -145,6 +145,17 @@
             "text": "Questa crema è pazzesca. Ha una texture ricca ma che si assorbe magnificamente senza lasciare il viso unto. La cosa che amo di più è che ha una leggerissima tonalità rosata naturale che cancella all'istante il colorito grigio e spento della mattina. La pelle resta idratata e morbida per tutto il giorno."
           }
         },
+        "review_cidNeK": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-ageless-am-pm-cream",
+            "author": "Beatrice F. • Milano",
+            "date": "22 Ottobre 2026",
+            "rating": 5,
+            "title": "Effetto lifting sulle rughe che si nota sul serio",
+            "text": "Cercavo una crema efficace per le prime rughette d'espressione sulla fronte e intorno alla bocca. Questa formula con peptidi funziona davvero: dopo due settimane di utilizzo costante la mia pelle sembra molto più distesa, compatta e soda. Il viso ha un aspetto decisamente più fresco e riposato."
+          }
+        },
         "review_mLf3mt": {
           "type": "review",
           "settings": {
@@ -1767,6 +1778,7 @@
       },
       "block_order": [
         "review_F9HTKk",
+        "review_cidNeK",
         "review_mLf3mt",
         "review_WH8pbA",
         "review_eaDaaW",
