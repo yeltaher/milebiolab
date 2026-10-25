@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_ehRXtT": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Ilaria C. • Firenze",
+            "date": "12 Settembre 2026",
+            "rating": 5,
+            "title": "mattina appena sveglia",
+            "text": "Ne metto qualche goccia sul viso la mattina e la sera. Il flacone dura molto vita perché ne basta poco per idratare tutto il viso e il collo."
+          }
+        },
         "review_GpMnLy": {
           "type": "review",
           "settings": {
@@ -1194,6 +1205,7 @@
         }
       },
       "block_order": [
+        "review_ehRXtT",
         "review_GpMnLy",
         "review_R6eLgH",
         "review_Q4JxCk",
