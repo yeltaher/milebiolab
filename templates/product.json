@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_mLf3mt": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Francesca R. • Bologna",
+            "date": "12 Settembre 2026",
+            "rating": 5,
+            "title": "Rughette di espressione levigate",
+            "text": "Le zampette di gallina da disidratazione sono attenuate. Lo metto anche sul contorno labbra la sera con ottimi risultati."
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1612,6 +1623,7 @@
         }
       },
       "block_order": [
+        "review_mLf3mt",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
