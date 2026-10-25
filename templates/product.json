@@ -134,15 +134,15 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_C8ataf": {
+        "review_aqGa4j": {
           "type": "review",
           "settings": {
-            "target_product": "sun-protection-spf50-stick-no-tint-1",
-            "author": "Felicia F • Biella",
-            "date": "20 Settembre 2026",
-            "rating": 5,
-            "title": "Ottimo, Grazie",
-            "text": "Grazie perchè hai creato un solare che protegge e non fa male alla pelle. Io e i miei bambini ti ringraziano. Spero di riuscire a venire presto a Verona per passare a trovarti."
+            "target_product": "sun-protection-spf50-stick-with-tint-1",
+            "author": "Federica G. • Torino",
+            "date": "10 Ottobre 2026",
+            "rating": 4,
+            "title": "Comodo, tascabile e ideale come burrocacao solare",
+            "text": "Lo uso principalmente sulle labbra e sul contorno occhi, che sono le mie zone più delicate. La texture è bella ricca ma scorre bene sulla pelle. Mi piace il fatto che non contenga siliconi o plastiche, ma solo ingredienti bio e vitamina E. Unica nota: d'inverno va scaldato un attimo sulla mano prima di passarlo perché le cere naturali tendono a indurirsi col freddo."
           }
         },
         "review_eCnKrR": {
@@ -154,6 +154,17 @@
             "rating": 5,
             "title": "Molto Valido",
             "text": "Usato per vacanze a settembre, mi aha protetto il viso perfettamente, e mi sono abbronzata molto."
+          }
+        },
+        "review_C8ataf": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Felicia F • Biella",
+            "date": "20 Settembre 2026",
+            "rating": 5,
+            "title": "Ottimo, Grazie",
+            "text": "Grazie perchè hai creato un solare che protegge e non fa male alla pelle. Io e i miei bambini ti ringraziano. Spero di riuscire a venire presto a Verona per passare a trovarti."
           }
         },
         "review_NiUEG8": {
@@ -1381,8 +1392,9 @@
         }
       },
       "block_order": [
-        "review_C8ataf",
+        "review_aqGa4j",
         "review_eCnKrR",
+        "review_C8ataf",
         "review_NiUEG8",
         "review_NjwwpK",
         "review_p9c3XW",
