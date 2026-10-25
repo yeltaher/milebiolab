@@ -211,6 +211,17 @@
             "text": "Ah beh che dire, comodo, sicuro per la pelle di tutti, profumo che non ha nulla a che vedere con i soliti solari chimici."
           }
         },
+        "review_WJ3LFw": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Sara Emma V • Verona",
+            "date": "26 Agosto 2026",
+            "rating": 5,
+            "title": "Macchie solari",
+            "text": "L' ho acquistato per coprire e pèroteggere le macchie solari finchè le tratto con il prodotto sempre di questa linea per ridurle. Non sembra affatto un solare ma un cosmetico, protegge benne e non mi scotto."
+          }
+        },
         "review_WQCEmb": {
           "type": "review",
           "settings": {
@@ -1355,6 +1366,7 @@
         "review_BwCULE",
         "review_LA4qLH",
         "review_PN3qPk",
+        "review_WJ3LFw",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
