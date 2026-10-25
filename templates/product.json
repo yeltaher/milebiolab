@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_C8ataf": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Felicia F • Biella",
+            "date": "20 Settembre 2026",
+            "rating": 5,
+            "title": "Ottimo, Grazie",
+            "text": "Grazie perchè hai creato un solare che protegge e non fa male alla pelle. Io e i miei bambini ti ringraziano. Spero di riuscire a venire presto a Verona per passare a trovarti."
+          }
+        },
         "review_NiUEG8": {
           "type": "review",
           "settings": {
@@ -220,17 +231,6 @@
             "rating": 5,
             "title": "Super Prodotto",
             "text": "Complimenti, davvero efficace e sicuro anche per la pelle dei bambini!"
-          }
-        },
-        "review_C8ataf": {
-          "type": "review",
-          "settings": {
-            "target_product": "sun-protection-spf50-stick-no-tint-1",
-            "author": "Felicia F • Biella",
-            "date": "20 Settembre 2026",
-            "rating": 5,
-            "title": "Ottimo, Grazie",
-            "text": "Grazie perchè hai creato un solare che protegge e non fa male alla pelle. Io e i miei bambini ti ringraziano. Spero di riuscire a venire presto a Verona per passare a trovarti."
           }
         },
         "review_WQCEmb": {
@@ -1370,6 +1370,7 @@
         }
       },
       "block_order": [
+        "review_C8ataf",
         "review_NiUEG8",
         "review_NjwwpK",
         "review_p9c3XW",
@@ -1378,7 +1379,6 @@
         "review_LA4qLH",
         "review_PN3qPk",
         "review_WJ3LFw",
-        "review_C8ataf",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
