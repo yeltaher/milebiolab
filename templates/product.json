@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_WQCEmb": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Francesca M. • Verona",
+            "date": "13 Ottobre 2026",
+            "rating": 5,
+            "title": "Buono!",
+            "text": "E' un buon siero idratante fa quello per cui è stato creato."
+          }
+        },
         "review_gLTTEa": {
           "type": "review",
           "settings": {
@@ -1260,6 +1271,7 @@
         }
       },
       "block_order": [
+        "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
         "review_DLj7p9",
