@@ -189,6 +189,17 @@
             "text": "Finalmente un solare che fa bene alla pelle. lascia la pelle morbida e protetta."
           }
         },
+        "review_LA4qLH": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Camilla B. • Bergamo",
+            "date": "27 Agosto 2026",
+            "rating": 5,
+            "title": "Non vedevo l'ora uscisse",
+            "text": "Stavo aspettando questo prodotto. Mile lo aveva promesso e finalmente arrivato, acquistato messo! Top"
+          }
+        },
         "review_WQCEmb": {
           "type": "review",
           "settings": {
@@ -1331,6 +1342,7 @@
         "review_p9c3XW",
         "review_wHtJCj",
         "review_BwCULE",
+        "review_LA4qLH",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
