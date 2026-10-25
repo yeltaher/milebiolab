@@ -156,6 +156,17 @@
             "text": "Ho una cicatrice recente vicino al sopracciglio e il dermatologo mi ha detto di non prendere assolutamente sole. Questo stick è la salvezza: lo applico localmente in un secondo, crea un blocco fisico ai raggi UV e poi uso il burro Unicho cosi aiuto la pelle a rigenerarsi. L'ho preso un po' colorato per nascondere un po' il rossore della cicatrice."
           }
         },
+        "review_dFBUTz": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-with-tint-1",
+            "author": "Ilaria C. • Roma",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Zero ingredienti nocivi",
+            "text": "Controllo sempre che i solari siano sicuri per la pelle e per l'ambiente (coral reef friendly). Questo stick ha un INCI pulitissimo. Non unge in modo fastidioso e non mi ha fatto uscire nemmeno un brufolo nonostante la consistenza protettiva. Promosso."
+          }
+        },
         "review_eCnKrR": {
           "type": "review",
           "settings": {
@@ -1405,6 +1416,7 @@
       "block_order": [
         "review_aqGa4j",
         "review_qPmnh4",
+        "review_dFBUTz",
         "review_eCnKrR",
         "review_C8ataf",
         "review_NiUEG8",
