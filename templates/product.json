@@ -222,6 +222,17 @@
             "text": "Complimenti, davvero efficace e sicuro anche per la pelle dei bambini!"
           }
         },
+        "review_C8ataf": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Enrica D • Verona",
+            "date": "20 Settembre 2026",
+            "rating": 5,
+            "title": "Proteggo senza fare male alla pelle",
+            "text": "Finalmente un solare fatto bene, naturale con filtri fisici. Mi protegge bene perchè ho una pelle molto chiara e so che non mi fa male. il suo profumo è leggerissimo."
+          }
+        },
         "review_WQCEmb": {
           "type": "review",
           "settings": {
@@ -1367,6 +1378,7 @@
         "review_LA4qLH",
         "review_PN3qPk",
         "review_WJ3LFw",
+        "review_C8ataf",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
