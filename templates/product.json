@@ -167,6 +167,17 @@
             "text": "Lavoro in centro e la mia pelle risente tantissimo dell'inquinamento. Ho voluto provare questo siero perché consigliato perchè contiene un fermento marino anti-inquinamento. Devo dire che dopo due settimane vedo la pelle molto più pulita, compatta e meno soggetta a sfoghi da stress."
           }
         },
+        "review_4RF7Ti": {
+          "type": "review",
+          "settings": {
+            "target_product": "hydrating-serum",
+            "author": "Elisa S. • Verona",
+            "date": "18 Ottobre 2026",
+            "rating": 5,
+            "title": "Rughette da disidratazione visibilmente distese",
+            "text": "Questo siero contiene acido ialuronico che penetra bene in profondità e l'effetto tensore si nota. La pelle al tatto è decisamente più morbida ed elastica, sembra che ripari la barriera cutanea."
+          }
+        },
         "review_aqGa4j": {
           "type": "review",
           "settings": {
@@ -1527,6 +1538,7 @@
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
+        "review_4RF7Ti",
         "review_aqGa4j",
         "review_WjaL9t",
         "review_qPmnh4",
