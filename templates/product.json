@@ -134,17 +134,6 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
-        "review_p9c3XW": {
-          "type": "review",
-          "settings": {
-            "target_product": "sun-protection-spf50-stick-no-tint-1",
-            "author": "Camilla Z. • Verona",
-            "date": "31 Agosto 2026",
-            "rating": 5,
-            "title": "Perfetto sulle macchie del viso e per i bambini",
-            "text": "Lo tengo sempre in borsa. Lo uso io sugli zigomi e sopra il labbro dove ho tendenza alle macchie solari (melasma), e lo passo al volo sul viso e sulle orecchie del mio bimbo quando siamo al parco/piscina. È sicuro al 100% e naturalissimo!"
-          }
-        },
         "review_NiUEG8": {
           "type": "review",
           "settings": {
@@ -165,6 +154,17 @@
             "rating": 5,
             "title": "Super protettivo contro il vento e il sole in montagna",
             "text": "Usato e portato una settimana in montagna e usato costantemente sulle labbra e sul viso. Protegge dal sole forte d'alta quota e fa una barriera pazzesca contro il vento freddo. Ha un profumo leggero e piacevole di vaniglia naturale. Non si screpola ed è super resistente."
+          }
+        },
+        "review_p9c3XW": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Camilla Z. • Verona",
+            "date": "31 Agosto 2026",
+            "rating": 5,
+            "title": "Perfetto sulle macchie del viso e per i bambini",
+            "text": "Lo tengo sempre in borsa. Lo uso io sugli zigomi e sopra il labbro dove ho tendenza alle macchie solari (melasma), e lo passo al volo sul viso e sulle orecchie del mio bimbo quando siamo al parco/piscina. È sicuro al 100% e naturalissimo!"
           }
         },
         "review_wHtJCj": {
@@ -1315,9 +1315,9 @@
         }
       },
       "block_order": [
-        "review_p9c3XW",
         "review_NiUEG8",
         "review_NjwwpK",
+        "review_p9c3XW",
         "review_wHtJCj",
         "review_WQCEmb",
         "review_gLTTEa",
