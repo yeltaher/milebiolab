@@ -139,10 +139,21 @@
           "settings": {
             "target_product": "peptide-age-defying-eye-cream",
             "author": "Francesca R. • Bologna",
-            "date": "12 Settembre 2026",
+            "date": "12 Ottobre 2026",
             "rating": 5,
             "title": "Rughette di espressione levigate",
             "text": "Le zampette di gallina da disidratazione sono attenuate. Lo metto anche sul contorno labbra la sera con ottimi risultati."
+          }
+        },
+        "review_WH8pbA": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Giulia C. • Trento",
+            "date": "08 Ottobre 2026",
+            "rating": 5,
+            "title": "Peptide Eye Focus Longevity mi ha conquistata",
+            "text": "Texture sofisticata: fresca come un gel ma nutriente come un balsamo. Si assorbe in fretta lasciando la zona perioculare distesa e vellutata."
           }
         },
         "review_99PNgH": {
@@ -1624,6 +1635,7 @@
       },
       "block_order": [
         "review_mLf3mt",
+        "review_WH8pbA",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
