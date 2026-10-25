@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_9G7UYh": {
+          "type": "review",
+          "settings": {
+            "target_product": "pigment-perfecting-serum",
+            "author": "Arianna B. • Verona",
+            "date": "25 Settembre 2026",
+            "rating": 5,
+            "title": "Consistenza fluida che si assorbe subito",
+            "text": "Texture a metà tra una crema leggera e un siero, idrata tantissimo ma non unge assolutamente. Ne bastano tre erogazioni per tutto il viso e il collo. Ha un profumo leggero buonissimo e lascia la pelle idratata per tutto il giorno. Lo uso come base prima del fondotinta Mile e poi la sera."
+          }
+        },
         "review_34gAMr": {
           "type": "review",
           "settings": {
@@ -1139,6 +1150,7 @@
         }
       },
       "block_order": [
+        "review_9G7UYh",
         "review_34gAMr",
         "review_zDx9Tx",
         "review_h6PRCE",
