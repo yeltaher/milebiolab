@@ -145,6 +145,17 @@
             "text": "Lo uso principalmente sulle labbra e sul contorno occhi, che sono le mie zone più delicate. La texture è bella ricca ma scorre bene sulla pelle. Mi piace il fatto che non contenga siliconi o plastiche, ma solo ingredienti bio e vitamina E. Unica nota: d'inverno va scaldato un attimo sulla mano prima di passarlo perché le cere naturali tendono a indurirsi col freddo."
           }
         },
+        "review_qPmnh4": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-with-tint-1",
+            "author": "Giorgia T. • Verona",
+            "date": "06 Ottobre 2026",
+            "rating": 4,
+            "title": "Protezione totale per le mie cicatrici",
+            "text": "Ho una cicatrice recente vicino al sopracciglio e il dermatologo mi ha detto di non prendere assolutamente sole. Questo stick è la salvezza: lo applico localmente in un secondo, crea un blocco fisico ai raggi UV e poi uso il burro Unicho cosi aiuto la pelle a rigenerarsi. L'ho preso un po' colorato per nascondere un po' il rossore della cicatrice."
+          }
+        },
         "review_eCnKrR": {
           "type": "review",
           "settings": {
@@ -1393,6 +1404,7 @@
       },
       "block_order": [
         "review_aqGa4j",
+        "review_qPmnh4",
         "review_eCnKrR",
         "review_C8ataf",
         "review_NiUEG8",
