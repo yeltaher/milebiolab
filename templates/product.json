@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_Q4JxCk": {
+          "type": "review",
+          "settings": {
+            "target_product": "pigment-perfecting-serum",
+            "author": "Giorgia T. • Verona",
+            "date": "15 Ottobre 2026",
+            "rating": 5,
+            "title": "Preso per uniformare l'incarnato",
+            "text": "Ho sempre avuto un colorito un po' disomogeneo, con zone più arrossate e altre spente e alcune macchioline. Lo uso la mattina e serada 2 settimane e ho notato che il viso ha un colore molto più uniforme e radioso. Lo applico la mattina prima del trucco sempre di quasta linea e poi la sera."
+          }
+        },
         "review_7bBfYE": {
           "type": "review",
           "settings": {
@@ -1161,6 +1172,7 @@
         }
       },
       "block_order": [
+        "review_Q4JxCk",
         "review_7bBfYE",
         "review_9G7UYh",
         "review_34gAMr",
