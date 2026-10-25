@@ -145,6 +145,17 @@
             "text": "Questo stick è una rivoluzione: ha una leggera tonalità beige data da pigmenti minerali naturali che si adatta all'incarnato e uniforma pure le imperfezioni. Lo uso sul viso quando vado a correre, resiste al sudore e non fa bruciare gli occhi per niente."
           }
         },
+        "review_p9c3XW": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Camilla Z. • Verona",
+            "date": "31 Agosto 2026",
+            "rating": 5,
+            "title": "Perfetto sulle macchie del viso e per i bambini",
+            "text": "Lo tengo sempre in borsa. Lo uso io sugli zigomi e sopra il labbro dove ho tendenza alle macchie solari (melasma), e lo passo al volo sul viso e sulle orecchie del mio bimbo quando siamo al parco/piscina. È sicuro al 100% e naturalissimo!"
+          }
+        },
         "review_WQCEmb": {
           "type": "review",
           "settings": {
@@ -1283,6 +1294,7 @@
       },
       "block_order": [
         "review_wHtJCj",
+        "review_p9c3XW",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
