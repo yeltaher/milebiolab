@@ -145,6 +145,17 @@
             "text": "Grazie perchè hai creato un solare che protegge e non fa male alla pelle. Io e i miei bambini ti ringraziano. Spero di riuscire a venire presto a Verona per passare a trovarti."
           }
         },
+        "review_eCnKrR": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Felicia F • Biella",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Molto Valido",
+            "text": "Usato per vacanze a settembre, mi aha protetto il viso perfettamente, e mi sono abbronzata molto."
+          }
+        },
         "review_NiUEG8": {
           "type": "review",
           "settings": {
@@ -1371,6 +1382,7 @@
       },
       "block_order": [
         "review_C8ataf",
+        "review_eCnKrR",
         "review_NiUEG8",
         "review_NjwwpK",
         "review_p9c3XW",
