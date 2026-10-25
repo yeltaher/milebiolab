@@ -156,6 +156,17 @@
             "text": "Texture sofisticata: fresca come un gel ma nutriente come un balsamo. Si assorbe in fretta lasciando la zona perioculare distesa e vellutata."
           }
         },
+        "review_eaDaaW": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Paola F. • Milano",
+            "date": "03 Ottobre 2026",
+            "rating": 4,
+            "title": "Formula ricca ma leggera",
+            "text": "Non gonfia la palpebra durante la notte, cosa che mi succedeva spesso con altri prodotti occhi troppo pesanti. Risveglio fresco"
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1636,6 +1647,7 @@
       "block_order": [
         "review_mLf3mt",
         "review_WH8pbA",
+        "review_eaDaaW",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
