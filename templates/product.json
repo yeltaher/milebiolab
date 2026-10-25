@@ -189,6 +189,17 @@
             "text": "Flacone con dosatore comodissimo per evitare contaminazioni. La purezza degli estratti botanici fa davvero la differenza"
           }
         },
+        "review_3tkNtn": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Elena M. • Milano",
+            "date": "25 Settembre 2026",
+            "rating": 5,
+            "title": "Zero bruciore per occhi iper-sensibili",
+            "text": "Porto le lenti a contatto tutto il giorno e quasi tutte le creme occhi mi facevano lacrimare. Questo trattamento è delicatissimo, zero fastidi o arrossamenti."
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1672,6 +1683,7 @@
         "review_eaDaaW",
         "review_TXBkK7",
         "review_bJBTmp",
+        "review_3tkNtn",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
