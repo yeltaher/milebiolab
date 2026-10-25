@@ -178,6 +178,17 @@
             "text": "Consigliatomi durante una visita al centro benessere di Verona. Risultati tangibili fin dalle prime applicazioni: pelle più soda e compatta"
           }
         },
+        "review_bJBTmp": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Sara D. • Bergamo",
+            "date": "27 Settembre 2026",
+            "rating": 5,
+            "title": "Qualità certificata",
+            "text": "Flacone con dosatore comodissimo per evitare contaminazioni. La purezza degli estratti botanici fa davvero la differenza"
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1660,6 +1671,7 @@
         "review_WH8pbA",
         "review_eaDaaW",
         "review_TXBkK7",
+        "review_bJBTmp",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
