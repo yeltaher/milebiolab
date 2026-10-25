@@ -178,6 +178,17 @@
             "text": "Questo stick è una rivoluzione: ha una leggera tonalità beige data da pigmenti minerali naturali che si adatta all'incarnato e uniforma pure le imperfezioni. Lo uso sul viso quando vado a correre, resiste al sudore e non fa bruciare gli occhi per niente."
           }
         },
+        "review_BwCULE": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Melissa B. • Vicenza",
+            "date": "28 Agosto 2026",
+            "rating": 5,
+            "title": "Adoro!",
+            "text": "Finalmente un solare che fa bene alla pelle. lascia la pelle morbida e protetta."
+          }
+        },
         "review_WQCEmb": {
           "type": "review",
           "settings": {
@@ -1319,6 +1330,7 @@
         "review_NjwwpK",
         "review_p9c3XW",
         "review_wHtJCj",
+        "review_BwCULE",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
