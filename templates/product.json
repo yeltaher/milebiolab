@@ -200,6 +200,17 @@
             "text": "Questa formula è pazzesca: aloe biologica al primo posto, rosa, betaina e vitamina E. Zero robaccia chimica o petrolati. La mia pelle mista ringrazia, è idratata nei punti giusti e le zone secche vicino alla bocca sono sparite."
           }
         },
+        "review_ciqHdV": {
+          "type": "review",
+          "settings": {
+            "target_product": "hydrating-serum",
+            "author": "Laura R. • Verona",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Un profumo paradisiaco",
+            "text": "Ha una profumazione naturale dovuta agli oli essenziali che è qualcosa di meraviglioso. Lo applico mattino e sera massaggiando bene su viso e decolleté e mi rilassa tantissimo. Al mattino mi sveglio con la pelle distesa, riposata e super idratata. Ottimo packaging col dispenser."
+          }
+        },
         "review_aqGa4j": {
           "type": "review",
           "settings": {
@@ -1563,6 +1574,7 @@
         "review_4RF7Ti",
         "review_JdyeyD",
         "review_4KLrYW",
+        "review_ciqHdV",
         "review_aqGa4j",
         "review_WjaL9t",
         "review_qPmnh4",
