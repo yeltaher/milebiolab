@@ -145,6 +145,17 @@
             "text": "Lo uso principalmente sulle labbra e sul contorno occhi, che sono le mie zone più delicate. La texture è bella ricca ma scorre bene sulla pelle. Mi piace il fatto che non contenga siliconi o plastiche, ma solo ingredienti bio e vitamina E. Unica nota: d'inverno va scaldato un attimo sulla mano prima di passarlo perché le cere naturali tendono a indurirsi col freddo."
           }
         },
+        "review_WjaL9t": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-with-tint-1",
+            "author": "Arianna B. • Verona",
+            "date": "10 Ottobre 2026",
+            "rating": 5,
+            "title": "Copre i rossori e protegge senza scia bianca",
+            "text": "Chi usa i solari minerali sa quanto sia odioso l'effetto fantasma. Questo stick è pazzesco perché ha un pigmento leggermente colorato che si fonde subito con la pelle. Lo passo sulle zone critiche e, oltre a dare una protezione totale, uniforma i rossori e le piccole imperfezioni come se fosse un correttore leggero. Lo adoro!"
+          }
+        },
         "review_qPmnh4": {
           "type": "review",
           "settings": {
@@ -179,6 +190,17 @@
           }
         },
         "review_ktrjMV": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-with-tint-1",
+            "author": "Martina V. • Padova",
+            "date": "30 Settembre 2026",
+            "rating": 5,
+            "title": "Per bimbi e mamme",
+            "text": "Ho questo colorato per me e quello neutro per i bimbi. I filtri minerali sono gli unici consigliati e soprattutto per i più piccoli perché non penetrano nella pelle ma creano uno scudo in superficie. Lo uso sulla mia bimba di 8 mesi per le passeggiate sotto il sole. Zero arrossamenti, zero profumi sintetici fastidiosi. La pelle resta protetta, morbida e idratata. Lo consiglio a tutte le mamme."
+          }
+        },
+        "review_dnycjL": {
           "type": "review",
           "settings": {
             "target_product": "sun-protection-spf50-stick-with-tint-1",
@@ -1437,10 +1459,12 @@
       },
       "block_order": [
         "review_aqGa4j",
+        "review_WjaL9t",
         "review_qPmnh4",
         "review_dFBUTz",
         "review_y9riJt",
         "review_ktrjMV",
+        "review_dnycjL",
         "review_eCnKrR",
         "review_C8ataf",
         "review_NiUEG8",
