@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_zDx9Tx": {
+          "type": "review",
+          "settings": {
+            "target_product": "sensitive-skin-oil-to-milk-cleanser",
+            "author": "Camilla Z. • Verona",
+            "date": "22 Settembre 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto davvero!",
+            "text": "E' si anche questo super promosso!"
+          }
+        },
         "review_h6PRCE": {
           "type": "review",
           "settings": {
@@ -1117,6 +1128,7 @@
         }
       },
       "block_order": [
+        "review_zDx9Tx",
         "review_h6PRCE",
         "review_NjcBfr",
         "review_KzEzeb",
