@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_zND8yT": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Martina V. • Padova",
+            "date": "18 Settembre 2026",
+            "rating": 5,
+            "title": "Un idratante eccezionale",
+            "text": "Lo metto sul viso prima del burro Unicho. È talmente idratante che la pelle rimane così sino a sera. Non fa sudare il viso e si assorbe subito."
+          }
+        },
         "review_ehRXtT": {
           "type": "review",
           "settings": {
@@ -1205,6 +1216,7 @@
         }
       },
       "block_order": [
+        "review_zND8yT",
         "review_ehRXtT",
         "review_GpMnLy",
         "review_R6eLgH",
