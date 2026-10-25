@@ -200,6 +200,17 @@
             "text": "Porto le lenti a contatto tutto il giorno e quasi tutte le creme occhi mi facevano lacrimare. Questo trattamento è delicatissimo, zero fastidi o arrossamenti."
           }
         },
+        "review_WCFbpF": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Beatrice F. • Milano",
+            "date": "18 Settembre 2026",
+            "rating": 5,
+            "title": "Effetto lifting sulle rughette pazzesco",
+            "text": "Cercavo un prodotto efficace per le zampe di gallina che iniziavano a vedersi. Questo contorno occhi funziona sul serio: dopo due settimane la pelle della zona perioculare sembra molto più distesa, soda e rimpolpata."
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1684,6 +1695,7 @@
         "review_TXBkK7",
         "review_bJBTmp",
         "review_3tkNtn",
+        "review_WCFbpF",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
