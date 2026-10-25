@@ -222,6 +222,17 @@
             "text": "Una formula ricca e pulitissima, senza siliconi che danno solo un finto effetto liscio temporaneo. Questo prodotto cura la pelle sul serio a lungo termine. La zona perioculare  è visibilmente più sana e i segni sono visibilmente ridotti."
           }
         },
+        "review_kdnyqm": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Laura R. • Verona",
+            "date": "12 Settembre 2026",
+            "rating": 5,
+            "title": "Lo uso anche per il contorno labbra",
+            "text": "Visto che ha una formula così rigenerante e rimpolpante, oltre che sugli occhi lo applico anche sul contorno labbra per prevenire le rughette d'espressione (il codice a barre). Funziona benissimo, idrata la pelle in profondità e la mantiene elastica."
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1708,6 +1719,7 @@
         "review_3tkNtn",
         "review_WCFbpF",
         "review_dfzPzw",
+        "review_kdnyqm",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
