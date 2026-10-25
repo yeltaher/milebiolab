@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_34gAMr": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Giorgia T. • Verona",
+            "date": "27 Settembre 2026",
+            "rating": 5,
+            "title": "Ingredienti puliti e tanta sicurezza sulla pelle",
+            "text": "Da quando guardo gli INCI cerco solo prodotti con formule così ben fatte. Oli vegetali, estratti bio, vitamina E e nessun conservante aggressivo o silicone. Il fatto che sia dermatologicamente testato mi dà quella sicurezza in più. Ottimi oprodotti."
+          }
+        },
         "review_zDx9Tx": {
           "type": "review",
           "settings": {
@@ -1128,6 +1139,7 @@
         }
       },
       "block_order": [
+        "review_34gAMr",
         "review_zDx9Tx",
         "review_h6PRCE",
         "review_NjcBfr",
