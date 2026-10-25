@@ -211,6 +211,17 @@
             "text": "Cercavo un prodotto efficace per le zampe di gallina che iniziavano a vedersi. Questo contorno occhi funziona sul serio: dopo due settimane la pelle della zona perioculare sembra molto più distesa, soda e rimpolpata."
           }
         },
+        "review_dfzPzw": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "author": "Giorgia T. • Verona",
+            "date": "18 Settembre 2026",
+            "rating": 5,
+            "title": "INCI eccezionale pieno di attivi",
+            "text": "Una formula ricca e pulitissima, senza siliconi che danno solo un finto effetto liscio temporaneo. Questo prodotto cura la pelle sul serio a lungo termine. La zona perioculare  è visibilmente più sana e i segni sono visibilmente ridotti."
+          }
+        },
         "review_99PNgH": {
           "type": "review",
           "settings": {
@@ -1696,6 +1707,7 @@
         "review_bJBTmp",
         "review_3tkNtn",
         "review_WCFbpF",
+        "review_dfzPzw",
         "review_99PNgH",
         "review_3fjJLP",
         "review_kwKfnP",
