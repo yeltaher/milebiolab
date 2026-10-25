@@ -222,6 +222,17 @@
             "text": "Per la mia pelle normale/mista questo siero in crema è perfetto, tanto che non ho nemmeno bisogno di metterci sopra la crema idratante. Disseta la pelle e non mi ha fatto uscire nemmeno un punto nero, formula leggerissima."
           }
         },
+        "review_4HtNiP": {
+          "type": "review",
+          "settings": {
+            "target_product": "hydrating-serum",
+            "author": "Silvia P. • Roma",
+            "date": "16 Settembre 2026",
+            "rating": 5,
+            "title": "Idratazione profonda che dura tutto il giorno",
+            "text": "Questo siero mantiene la pelle morbida e protetta da mattina a sera. Non sento mai la faccia tirare, nemmeno se sto tutto il giorno in un ambiente piuttosto secco."
+          }
+        },
         "review_aqGa4j": {
           "type": "review",
           "settings": {
@@ -1587,6 +1598,7 @@
         "review_4KLrYW",
         "review_ciqHdV",
         "review_JYPBgD",
+        "review_4HtNiP",
         "review_aqGa4j",
         "review_WjaL9t",
         "review_qPmnh4",
