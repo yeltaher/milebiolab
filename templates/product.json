@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_RezH6C": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Elena S. • Verona",
+            "date": "25 Settembre 2026",
+            "rating": 5,
+            "title": "Molto buono questo acido jaluronico",
+            "text": "Questo prodotto contiene acido ialuronico idrolizzato che penetra più in profondità rispetto a quello normale. Ho piccole rughette d'espressione da disidratazione si distendono subito e il viso acquista un bell'aspetto sano."
+          }
+        },
         "review_zND8yT": {
           "type": "review",
           "settings": {
@@ -1216,6 +1227,7 @@
         }
       },
       "block_order": [
+        "review_RezH6C",
         "review_zND8yT",
         "review_ehRXtT",
         "review_GpMnLy",
