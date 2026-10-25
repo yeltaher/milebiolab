@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_99PNgH": {
+          "type": "review",
+          "settings": {
+            "target_product": "hydrating-serum",
+            "author": "Arianna B. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Toglie la sensazione di pelle tirata",
+            "text": "Questo siero è una meraviglia per la mia pelle secca. Non è acquoso, ha una texture fluida quasi come una cremina leggera che si fonde subito con la pelle. Si sente che è natuirale perché dà una freschezza e un'idratazione profonde. Lo metto la mattina e il viso mi resta morbido tutto il giorno."
+          }
+        },
         "review_aqGa4j": {
           "type": "review",
           "settings": {
@@ -1491,6 +1502,7 @@
         }
       },
       "block_order": [
+        "review_99PNgH",
         "review_aqGa4j",
         "review_WjaL9t",
         "review_qPmnh4",
