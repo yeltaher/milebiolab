@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_gLTTEa": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Nome Cognome",
+            "date": "05 Ottobre 2026",
+            "rating": 5,
+            "title": "Pratico, rinfrescante e perfetto dopo lo sport",
+            "text": "Lo tengo sempre nella borsa della palestra. Dopo la doccia, quando ho il viso accaldato dallo sforzo fisico, questo gel rinfresca la pelle togliendo i rossori nel giro di un minuto. Il dispenser è comodissimo e non fa sprecare nemmeno una goccia di prodotto."
+          }
+        },
         "review_MMxrEW": {
           "type": "review",
           "settings": {
@@ -1249,6 +1260,7 @@
         }
       },
       "block_order": [
+        "review_gLTTEa",
         "review_MMxrEW",
         "review_DLj7p9",
         "review_RezH6C",
