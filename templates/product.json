@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_GpMnLy": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Giorgia T. • Verona",
+            "date": "08 settembre 2026",
+            "rating": 5,
+            "title": "Ingredienti bio fantastici e formula pulita",
+            "text": "Adoro il fatto che il primo ingrediente dell'INCI sia il succo di aloe biologico e non l'acqua generica. Ci sono dentro estratti ottimi come tè bianco e salvia biologici e nessun silicone o parabene. La mia pelle reattiva lo adora e non ho avuto mezza reazione negativa. Ha una profumazione naturale delicatissima e piacevole."
+          }
+        },
         "review_R6eLgH": {
           "type": "review",
           "settings": {
@@ -1183,6 +1194,7 @@
         }
       },
       "block_order": [
+        "review_GpMnLy",
         "review_R6eLgH",
         "review_Q4JxCk",
         "review_7bBfYE",
