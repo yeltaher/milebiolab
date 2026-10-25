@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_MMxrEW": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Arianna B. • Verona",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Consistenza in gel fantastica e super idratante!",
+            "text": "Adoro la texture di questo siero in gel. E' un gel fresco che penetra subito. Ne basta una goccia per parte per lasciare la pelle rimpolpata e morbidissima."
+          }
+        },
         "review_DLj7p9": {
           "type": "review",
           "settings": {
@@ -1238,6 +1249,7 @@
         }
       },
       "block_order": [
+        "review_MMxrEW",
         "review_DLj7p9",
         "review_RezH6C",
         "review_zND8yT",
