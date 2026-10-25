@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_DLj7p9": {
+          "type": "review",
+          "settings": {
+            "target_product": "double-hydration-boost-gel-ha",
+            "author": "Nome Cognome",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Scrivi qui la recensione..."
+          }
+        },
         "review_RezH6C": {
           "type": "review",
           "settings": {
@@ -1227,6 +1238,7 @@
         }
       },
       "block_order": [
+        "review_DLj7p9",
         "review_RezH6C",
         "review_zND8yT",
         "review_ehRXtT",
