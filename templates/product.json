@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_R6eLgH": {
+          "type": "review",
+          "settings": {
+            "target_product": "pigment-perfecting-serum",
+            "author": "Martina V. • Padova",
+            "date": "18 Ottobre 2026",
+            "rating": 5,
+            "title": "Promossa a pieni voti",
+            "text": "Questo marchio è una garanzia. La pelle risponde benissimo, è luminosa, idratata e le piccole discromie si stanno attenuando veramente giorno dopo giorno."
+          }
+        },
         "review_Q4JxCk": {
           "type": "review",
           "settings": {
@@ -1172,6 +1183,7 @@
         }
       },
       "block_order": [
+        "review_R6eLgH",
         "review_Q4JxCk",
         "review_7bBfYE",
         "review_9G7UYh",
