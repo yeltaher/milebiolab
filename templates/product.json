@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_F9HTKk": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-ageless-am-pm-cream",
+            "author": "Arianna B. • Verona",
+            "date": "25 Ottobre 2026",
+            "rating": 5,
+            "title": "Pelle rimpolpata",
+            "text": "Questa crema è pazzesca. Ha una texture ricca ma che si assorbe magnificamente senza lasciare il viso unto. La cosa che amo di più è che ha una leggerissima tonalità rosata naturale che cancella all'istante il colorito grigio e spento della mattina. La pelle resta idratata e morbida per tutto il giorno."
+          }
+        },
         "review_mLf3mt": {
           "type": "review",
           "settings": {
@@ -1755,6 +1766,7 @@
         }
       },
       "block_order": [
+        "review_F9HTKk",
         "review_mLf3mt",
         "review_WH8pbA",
         "review_eaDaaW",
