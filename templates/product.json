@@ -200,6 +200,17 @@
             "text": "Stavo aspettando questo prodotto. Mile lo aveva promesso e finalmente arrivato, acquistato messo! Top"
           }
         },
+        "review_PN3qPk": {
+          "type": "review",
+          "settings": {
+            "target_product": "sun-protection-spf50-stick-no-tint-1",
+            "author": "Sara Emma V • Verona",
+            "date": "27 Agosto 2026",
+            "rating": 5,
+            "title": "Lo aspettavo!",
+            "text": "Ah beh che dire, comodo, sicuro per la pelle di tutti, profumo che non ha nulla a che vedere con i soliti solari chimici."
+          }
+        },
         "review_WQCEmb": {
           "type": "review",
           "settings": {
@@ -1343,6 +1354,7 @@
         "review_wHtJCj",
         "review_BwCULE",
         "review_LA4qLH",
+        "review_PN3qPk",
         "review_WQCEmb",
         "review_gLTTEa",
         "review_MMxrEW",
