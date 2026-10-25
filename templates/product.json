@@ -134,6 +134,17 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_7bBfYE": {
+          "type": "review",
+          "settings": {
+            "target_product": "pigment-perfecting-serum",
+            "author": "Elena S. • Verona",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Luminosità per la pelle spenta",
+            "text": "D'inverno il mio viso diventa grigio e spento. Questo siero dona subito un aspetto sano e radioso. La formula ha un INCI pulitissimo incredibile che sia 100% naturale e pieno di ingredienti bio."
+          }
+        },
         "review_9G7UYh": {
           "type": "review",
           "settings": {
@@ -1150,6 +1161,7 @@
         }
       },
       "block_order": [
+        "review_7bBfYE",
         "review_9G7UYh",
         "review_34gAMr",
         "review_zDx9Tx",
