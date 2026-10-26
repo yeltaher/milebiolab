@@ -134,6 +134,116 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_XDxpdN": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Francesca N. • Mantova",
+            "date": "22 Ottobre 2026",
+            "rating": 5,
+            "title": "Texture leggera ma potente",
+            "text": "Si nota la differenza tra un prodotto da farmacia comune e questa formula botanica concentrata. Leviga la grana in modo visibile, ammorbidisce e tonifica."
+          }
+        },
+        "review_3a6m38": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Valentina M. • Bologna",
+            "date": "22 Ottobre 2026",
+            "rating": 5,
+            "title": "Riacquisto confermato",
+            "text": "È già il mio secondo flacone. Non posso più iniziare la giornata senza questo booster di idratazione  e tonificazione, la mia pelle è cambiata"
+          }
+        },
+        "review_hYmzTJ": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Paola G. • Milano",
+            "date": "20 Ottobre 2026",
+            "rating": 5,
+            "title": "Molto piacevole, assorbimento immediato",
+            "text": "Formula purissima, corposa, ricca di attivi. La pelle al tatto è vellutata ed elastica. Flacone pratico."
+          }
+        },
+        "review_QBKpam": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Alessandra V. • Verona",
+            "date": "19 Ottobre 2026",
+            "rating": 5,
+            "title": "Consigliato nell'istituto a Verona",
+            "text": "Provato a Verona su consiglio di Milena per riparare la mia pelle dopo l'estate e ridurre i segni. Risultati visibili dal 5 giorno di applicazione"
+          }
+        },
+        "review_Re38Jn": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Federica D. • Treviso",
+            "date": "19 Ottobre 2026",
+            "rating": 5,
+            "title": "Comfort totale per tutto il giorno",
+            "text": "Da quando lo uso mattino e sera insieme all' altro gel idratante non ho piu' nessuna sensazione di pelle che tira. Mantiene la pelle morbida e compatta, anche il colorito è migliorato"
+          }
+        },
+        "review_99ThiN": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Sara B. • Verona",
+            "date": "17 Ottobre 2026",
+            "rating": 5,
+            "title": "Pelle distesa e ricaricata",
+            "text": "Ho già notato che le piccole linee d'espressione attorno agli occhi e sulle guance appaiono meno evidenti. Ottimo prodotto naturale!"
+          }
+        },
+        "review_w8kHRy": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Claudia R. • Verona",
+            "date": "15 Ottobre 2026",
+            "rating": 5,
+            "title": "Effetto rimpolpante visibile",
+            "text": "La texture mi piace moltissimo, profumo botanico quasi impercettibile e idratazione e morbidezza della pelle profonda continua. Da provare assolutamente."
+          }
+        },
+        "review_BwBkyK": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Elena S. • Verona",
+            "date": "13 Ottobre 2026",
+            "rating": 5,
+            "title": "Rughette da disidratazione rimpolpate",
+            "text": "Avevo la fronte segnata dopo l'estate. Dopo una settimana di utilizzo mattina e sera la pelle è visibilmente rimpolpata e soda."
+          }
+        },
+        "review_KbJxFd": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Veronica T. • Verona",
+            "date": "12 Ottobre 2026",
+            "rating": 5,
+            "title": "Buonissimo Siero",
+            "text": "E' veramente un siero ricco di attivi botanici e peptide che agiscono sulla pelle non piu' giovane come la mia. Penetra in profondità senza lasciare i pallini dei \"finti Cosmetici\" complimenti!"
+          }
+        },
+        "review_EpgMHt": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Nome Cognome",
+            "date": "12 Maggio 2026",
+            "rating": 5,
+            "title": "Ottimo prodotto",
+            "text": "Scrivi qui la recensione..."
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -1777,6 +1887,16 @@
         }
       },
       "block_order": [
+        "review_XDxpdN",
+        "review_3a6m38",
+        "review_hYmzTJ",
+        "review_QBKpam",
+        "review_Re38Jn",
+        "review_99ThiN",
+        "review_w8kHRy",
+        "review_BwBkyK",
+        "review_KbJxFd",
+        "review_EpgMHt",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
