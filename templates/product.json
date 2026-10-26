@@ -134,6 +134,171 @@
     "product-reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_79FzwP": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Alessia M. • Verona",
+            "date": "25 Ottobre 2026",
+            "rating": 5,
+            "title": "Finalmente uno struccante che non brucia gli occhi!",
+            "text": "1. Ho gli occhi strasensibili che lacrimano con qualsiasi cosa. Questo bifasico è pazzesco: strucca benissimo anche il mascara waterproof senza bisogno di sfregare e non mi fa bruciare minimamente gli occhi. Il fatto che sia senza profumo per me è un valore aggiunto enorme."
+          }
+        },
+        "review_Pqr96m": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Barbara F. • Milano",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Scioglie il trucco in tre secondi",
+            "text": "Basta agitare bene il flacone per unire le due fasi, metterne un po' sul dischetto e appoggiarlo sull'occhio per qualche secondo. Viene via tutto, anche il trucco più pesante e a lunga tenuta. Lascia la pelle del contorno occhi morbidissima grazie all'aloe e all'acido ialuronico."
+          }
+        },
+        "review_MQAJhR": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Cristina Z. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Addio occhi appannati dopo lo struccaggio",
+            "text": "Odiavo i soliti bifasici perché mi lasciavano quella fastidiosa patina oleosa sugli occhi che mi faceva vedere appannato per mezz'ora. Questo usa oli leggeri naturali dal cocco che si risciacquano benissimo. Pulisce a fondo e lascia la pelle fresca, idratata e pulita."
+          }
+        },
+        "review_cfrA6m": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Deborah M. • Bologna",
+            "date": "20 Ottobre 2026",
+            "rating": 5,
+            "title": "Formula bio senza profumo eccezionale",
+            "text": "Controllo sempre gli INCI e questo prodotto ha una formula pulitissima: succo d'aloe al posto dell'acqua, estratti bio di camomilla e olivello spinoso che non conoscevo e zero profumazioni sintetiche o siliconi. La mia pelle ringrazia. È delicatissimo ma strucca sul serio."
+          }
+        },
+        "review_T4UnD6": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Elisa S. • Verona",
+            "date": "16 Ottobre 2026",
+            "rating": 5,
+            "title": "Perfetto per chi porta le lenti a contatto",
+            "text": "Portando le lenti tutto il giorno, la sera ho gli occhi spesso stanchi e irritati. Questo struccante è di una delicatezza incredibile, non crea fastidi o arrossamenti e rispetta la zona oculare. Sfiamma la pelle grazie alla camomilla e idrata tantissimo. Promosso."
+          }
+        },
+        "review_GbxYDi": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Ilaria C. • Firenze",
+            "date": "12 Ottobre 2026",
+            "rating": 5,
+            "title": "Consistenza idratante e per nulla pesante",
+            "text": "La texture è bilanciata benissimo: la parte acquosa all'aloe smorza l'olio rendendolo fluido e piacevole da massaggiare. Rimuove il trucco dalle labbra e dagli occhi senza seccare la pelle. Ne basta davvero poco su un dischetto di cotone umido, dura un sacco."
+          }
+        },
+        "review_96XbYd": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Luisa R. • Verona",
+            "date": "07 Ottobre 2026",
+            "rating": 5,
+            "title": "Ha un colore naturale bellissimo e strucca benissimo",
+            "text": "Questo colore aranciato/rosato stupendo che ho scoperto essere dato dall'estratto naturale di paprika, quindi zero coloranti finti. È un prodotto genuino, fresco e super efficace. Toglie anche il rossetto e mascara."
+          }
+        },
+        "review_xcPcUh": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Michela V. • Padova",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo struccante occhi quotidiano delicato",
+            "text": "Un bifasico davvero ben riuscito. La combinazione di ingredienti biologici e l'assenza di profumo lo rendono il re degli struccanti per pelli problematiche. Lascia la zona perioculare distesa e idratata. Lo ricomprerò sicuramente."
+          }
+        },
+        "review_Tm6Gjr": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Noemi N. • Verona",
+            "date": "30 Settembre 2026",
+            "rating": 5,
+            "title": "Non irrita la pelle sottile del contorno occhi",
+            "text": "Ho la pelle intorno agli occhi molto sottile e secca che tende a esfoliarsi se uso prodotti aggressivi. Questo bifasico con olio di girasole e camomilla è emolliente, nutre la pelle mentre rimuove il trucco e previene le irritazioni da sfregamento. Eccellente."
+          }
+        },
+        "review_33zc9F": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Rebecca M. • Verona",
+            "date": "27 Settembre 2026",
+            "rating": 5,
+            "title": "Strucca senza aggredire le ciglia",
+            "text": "Con altri struccanti strofinavo così tanto che mi cadevano sempre un sacco di ciglia. Con questo siero bifasico il mascara si scioglie da solo in un attimo, proteggendo le ciglia e mantenendole morbide grazie alla formula con cui è stato fatto."
+          }
+        },
+        "review_VeVrmj": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Silvia B. • Verona",
+            "date": "25 Settembre 2026",
+            "rating": 5,
+            "title": "Ottimo detergente lenitivo",
+            "text": "La mia pelle reagisce praticamente a tutto diventando rossa e calda. Questo struccante bifasico è l'unico che posso usare sul viso in totale tranquillità. Pulisce la pelle a fondo rispettandola. Consigliatissimo."
+          }
+        },
+        "review_R3MTDV": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Alice F. • Verona",
+            "date": "22 Settembre 2026",
+            "rating": 5,
+            "title": "Una formula di altissima qualità",
+            "text": "Controllando l'INCI si capisce subito il valore del prodotto: niente oli minerali o paraffina liquida che occludono i pori. La pelle respira benissimo e non mi è uscito nessun grano di miglio o brufoletto"
+          }
+        },
+        "review_XUjzkx": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Giulia V. • Verona",
+            "date": "12 Settembre 2026",
+            "rating": 5,
+            "title": "Toglie tutto tutto",
+            "text": "Non ho mai tolto così tanto sporco dalla mia pelle, incredibile!"
+          }
+        },
+        "review_KcPmNV": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Paola N. • Verona",
+            "date": "09 Settembre 2026",
+            "rating": 5,
+            "title": "Ideale per il primo step della pulizia serale",
+            "text": "Trovo che sia il miglior bifasico bio in circolazione.Perfetto per chi ha poco tempo."
+          }
+        },
+        "review_EJ6FWU": {
+          "type": "review",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "author": "Paola N. • Verona",
+            "date": "09 Settembre 2026",
+            "rating": 5,
+            "title": "Ideale per il primo step della pulizia serale",
+            "text": "Trovo che sia il miglior bifasico bio in circolazione.Perfetto per chi ha poco tempo."
+          }
+        },
         "review_XDxpdN": {
           "type": "review",
           "settings": {
@@ -1909,6 +2074,21 @@
         }
       },
       "block_order": [
+        "review_79FzwP",
+        "review_Pqr96m",
+        "review_MQAJhR",
+        "review_cfrA6m",
+        "review_T4UnD6",
+        "review_GbxYDi",
+        "review_96XbYd",
+        "review_xcPcUh",
+        "review_Tm6Gjr",
+        "review_33zc9F",
+        "review_VeVrmj",
+        "review_R3MTDV",
+        "review_XUjzkx",
+        "review_KcPmNV",
+        "review_EJ6FWU",
         "review_XDxpdN",
         "review_3a6m38",
         "review_hYmzTJ",
