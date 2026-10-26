@@ -233,6 +233,28 @@
             "text": "E' veramente un siero ricco di attivi botanici e peptide che agiscono sulla pelle non piu' giovane come la mia. Penetra in profondità senza lasciare i pallini dei \"finti Cosmetici\" complimenti!"
           }
         },
+        "review_Gp68DY": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Federica P. • Verona",
+            "date": "09 Ottobre 2026",
+            "rating": 5,
+            "title": "Ha un colore rosato fantastico che illumina subito",
+            "text": "La cosa che mi ha stupito di più è che il siero non è bianco o trasparente, ma ha un leggerissimo colorito rosato dovuto alla formula. Quando lo stendi sul viso cancella all'istante quella patina grigia da stanchezza. Dona una luce bellissima e sana."
+          }
+        },
+        "review_cnCMx9": {
+          "type": "review",
+          "settings": {
+            "target_product": "peptide-anti-aging-serum",
+            "author": "Elena R. • Verona",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Super delicato, non fa bruciare la pelle",
+            "text": "Molti sieri anti-età con attivi forti mi facevano arrossare il viso o mi davano una sensazione di pizzicore. Questo invece è di una delicatezza incredibile. L'aloe al primo posto dell'INCI calma la mia pelle reattiva mentre i peptidi lavorano sulle rughe. Veramente un ottimo prodotto bio."
+          }
+        },
         "review_EpgMHt": {
           "type": "review",
           "settings": {
@@ -1896,6 +1918,8 @@
         "review_w8kHRy",
         "review_BwBkyK",
         "review_KbJxFd",
+        "review_Gp68DY",
+        "review_cnCMx9",
         "review_EpgMHt",
         "review_F9HTKk",
         "review_cidNeK",
