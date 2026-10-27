@@ -189,9 +189,15 @@
                 {%- if product.type != blank and product.type != 'Trattamento Biomimetico' -%}
                   <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type }}</p>
                 {%- endif -%}
+                {%- assign p_title_lower = product.title | downcase -%}
+                {%- assign p_handle_lower = product.handle | downcase -%}
                 <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-2">
                   <span>★★★★★</span>
-                  <span class="text-[#7A7265] font-sans text-[11px]">4.92 ({{ forloop.index | times: 28 | plus: 65 }})</span>
+                  {%- if p_title_lower contains 'unicho' or p_handle_lower contains 'unicho' or p_title_lower contains 'burro primordiale' -%}
+                    <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 28 recensioni)</span>
+                  {%- else -%}
+                    <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
@@ -241,7 +247,7 @@
               <p class="text-xs text-[#7A7265] mb-2 italic">Balsamo-olio trasformante con fito-lipidi rigeneranti</p>
               <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
                 <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">4.91 (142)</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
@@ -294,7 +300,7 @@
               <p class="text-xs text-[#7A7265] mb-2 italic">Emulsione idratante rigenerante</p>
               <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
                 <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">4.95 (98)</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
@@ -347,7 +353,7 @@
               <p class="text-xs text-[#7A7265] mb-2 italic">Elisir intensivo antiossidante</p>
               <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
                 <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">5.00 (65)</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
@@ -400,7 +406,7 @@
               <p class="text-xs text-[#7A7265] mb-2 italic">Gel purificante con idrolato di rosa</p>
               <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
                 <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">4.88 (112)</span>
+                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
               </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">

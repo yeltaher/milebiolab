@@ -477,6 +477,7 @@ function openCartDrawer() {
     drawer.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
     drawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('cart-drawer-open');
     document.body.style.overflow = 'hidden';
   }
   renderCartDrawer();
@@ -490,6 +491,7 @@ function closeCartDrawer() {
     drawer.classList.remove('active');
     overlay.setAttribute('aria-hidden', 'true');
     drawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('cart-drawer-open');
     document.body.style.overflow = '';
   }
 }
@@ -1817,7 +1819,6 @@ function renderAccordionDescription(container) {
     const sortedActives = [...VALID_ACTIVES].sort((a, b) => b.length - a.length);
 
     function isValidActiveCandidate(rawName, valNum) {
-      // Regola 1: Soglia Percentuale Attivi (0.1% - 30%)
       if (isNaN(valNum) || valNum <= 0 || valNum > 30) {
         return null;
       }
@@ -1827,13 +1828,11 @@ function renderAccordionDescription(container) {
 
       const lower = rawName.toLowerCase();
 
-      // Regola 3: Blocklist Parole senza Senso
       const isBlocked = NONSENSE_BLOCKLIST.some(word => lower.includes(word.toLowerCase()));
       if (isBlocked) {
         return null;
       }
 
-      // Regola 2: Allowlist Cosmetica Positiva
       for (const act of sortedActives) {
         let isMatch = false;
         if (act.length <= 4) {
@@ -1881,7 +1880,6 @@ function renderAccordionDescription(container) {
 
     const bulletList = document.getElementById('pdp-bullet-list') || document.querySelector('.pdp-bullet-list, [data-pdp-bullet-list]');
     if (bulletList) {
-      // Naturality badge injection or update
       if (naturalBadgeText) {
         let existingBadge = bulletList.querySelector('.pdp-auto-natural-badge');
         if (!existingBadge) {
@@ -1906,7 +1904,6 @@ function renderAccordionDescription(container) {
         }
       }
 
-      // Clean up any stale or non-compliant auto active badges
       const existingActiveBadges = bulletList.querySelectorAll('.pdp-auto-active-badge');
       existingActiveBadges.forEach(badge => {
         const text = badge.textContent || '';
@@ -1916,7 +1913,6 @@ function renderAccordionDescription(container) {
         }
       });
 
-      // Active ingredient percentage badges injection
       ingredientBadges.forEach(ingText => {
         const alreadyPresent = Array.from(bulletList.children).some(child =>
           child.textContent.toLowerCase().includes(ingText.toLowerCase())
@@ -1961,7 +1957,7 @@ function renderAccordionDescription(container) {
       { en: /the science of/i, it: "La Scienza del" },
       { en: /^(?:how to use|application ritual|modo d'uso|modalit[aà] d'uso|modi d'uso|come si usa|directions|how to apply|modalit[aà] d'uso e applicazione|modo d'uso e applicazione)$/i, it: "Rituale di Applicazione" },
       { en: /^(?:ingredients?|full inci|inci|ingredienti(\s*[/–-]\s*inci)?|principi attivi|ingredienti e certificazioni)$/i, it: "Principi Attivi & INCI Completo" },
-      { en: /^(?:clinical results|risultati clinici|studi clinici)$/i, it: "Risultati Clinici & Efficacia" },
+      { en: /^(?:clinical results|risultati clinici|studi clinici|risultati|efficacia)$/i, it: "Risultati Clinici & Efficacia" },
       { en: /hydrating (?:and|&) radiac?e|sublimating conditioner/i, it: "Idratazione e Sublimazione di Luminosità" },
       { en: /hair nourishment|deep repair/i, it: "Nutrizione e Riparazione Capillare" },
       { en: /^benefits$|^benefici$/i, it: "Benefici e Risultati" }
@@ -1975,22 +1971,140 @@ function renderAccordionDescription(container) {
         h = h.replace(item.en, item.it);
       }
     }
-    return h;
+    return h.charAt(0).toUpperCase() + h.slice(1);
+  }
+
+  // Helper: Format HTML content preserving bold tags, italics, spans, lists, and line breaks
+  function formatContentHtml(html) {
+    if (!html || typeof html !== 'string') return '';
+    let trimmed = html.trim();
+    if (!trimmed) return '';
+
+    // If trimmed is wrapped entirely in <p>...</p> or <div>...</div> and has <br>,
+    // unwrap the outer container before splitting to prevent malformed nested <p> tags
+    if (/(?:<br\s*\/?>|\r?\n)/i.test(trimmed)) {
+      if (/^<p\b[^>]*>([\s\S]*?)<\/p>$/i.test(trimmed)) {
+        trimmed = trimmed.replace(/^<p\b[^>]*>([\s\S]*?)<\/p>$/i, '$1').trim();
+      } else if (/^<div\b[^>]*>([\s\S]*?)<\/div>$/i.test(trimmed)) {
+        trimmed = trimmed.replace(/^<div\b[^>]*>([\s\S]*?)<\/div>$/i, '$1').trim();
+      }
+    }
+
+    // If it contains newlines or <br>, convert to structured paragraphs while keeping all inner formatting
+    if (/(?:<br\s*\/?>|\r?\n)/i.test(trimmed)) {
+      const parts = trimmed.split(/(?:<br\s*\/?>\s*)+|(?:\r?\n\s*)+/i);
+      const out = [];
+      parts.forEach(part => {
+        let p = part.trim();
+        if (!p) return;
+        if (/^<(?:p|div|ul|ol|table|blockquote)\b/i.test(p)) {
+          out.push(p);
+        } else {
+          out.push(`<p class="mb-2 leading-relaxed">${p}</p>`);
+        }
+      });
+      if (out.length > 0) return out.join('');
+    }
+
+    if (/^<(?:p|div|ul|ol|table|blockquote)\b/i.test(trimmed)) {
+      return trimmed;
+    }
+    return `<p class="mb-2 leading-relaxed">${trimmed}</p>`;
   }
 
   // 3. Robust HTML DOM parsing for Accordions & Overview
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = rawHtml;
 
+  // Unpack single wrapping containers (e.g. metafield-rich_text_field or single parent div/section)
+  while (
+    tempDiv.children.length === 1 &&
+    ['DIV', 'SECTION', 'ARTICLE', 'MAIN'].includes(tempDiv.children[0].tagName)
+  ) {
+    tempDiv.innerHTML = tempDiv.children[0].innerHTML;
+  }
+
+  // Flatten nested container divs that contain block children
+  let flattened = true;
+  while (flattened) {
+    flattened = false;
+    const children = Array.from(tempDiv.children);
+    for (const child of children) {
+      if (['DIV', 'SECTION', 'ARTICLE'].includes(child.tagName)) {
+        if (child.querySelector('p, h2, h3, h4, h5, h6, ul, ol, div')) {
+          while (child.firstChild) {
+            tempDiv.insertBefore(child.firstChild, child);
+          }
+          tempDiv.removeChild(child);
+          flattened = true;
+          break;
+        }
+      }
+    }
+  }
+
+  // Split any P or DIV tags that contain double <br> or headings after <br>
+  Array.from(tempDiv.children).forEach(child => {
+    if (['P', 'DIV'].includes(child.tagName)) {
+      const inner = child.innerHTML;
+      if (/(?:<br\s*\/?>\s*){2,}/i.test(inner) || /<br\s*\/?>\s*<(?:strong|b|span|h\d)\b/i.test(inner)) {
+        const parts = inner.split(/(?:<br\s*\/?>\s*){2,}|(?=<br\s*\/?>\s*<(?:strong|b|span|h\d)\b)/i);
+        if (parts.length > 1) {
+          const fragment = document.createDocumentFragment();
+          parts.forEach(part => {
+            const cleanPart = part.replace(/^<br\s*\/?>\s*/i, '').trim();
+            if (cleanPart) {
+              const newP = document.createElement('p');
+              newP.innerHTML = cleanPart;
+              fragment.appendChild(newP);
+            }
+          });
+          if (fragment.children.length > 0) {
+            tempDiv.replaceChild(fragment, child);
+          }
+        }
+      }
+    }
+  });
+
+  // If no block tags exist at all, split rawHtml by <br>
+  if (tempDiv.querySelectorAll('p, div, h2, h3, h4, h5, h6, ul, ol').length === 0) {
+    const parts = rawHtml.split(/<br\s*\/?>/gi);
+    tempDiv.innerHTML = '';
+    parts.forEach(part => {
+      let pTrimmed = part.trim();
+      if (!pTrimmed) return;
+      let d = document.createElement('p');
+      d.innerHTML = pTrimmed;
+      if (d.textContent.trim() || d.querySelector('img')) {
+        tempDiv.appendChild(d);
+      }
+    });
+  }
+
   let volumeHtml = '';
   let sections = [];
   let currentSection = null;
 
-  const SECTION_KEYWORD_REGEX = /^(?:la scienza|the science|benefic|benefit|\d+\s+benefic|modo d'uso|modalit[aà] d'uso|modi d'uso|rituale di applicazione|rituale d'uso|rituale\s*:|applicazion|how to use|directions|come si usa|come applicare|how to apply|ingredient|inci|full inci|principi attivi|attivi chiave|attivi\s*:|composizione|risultati clinici|clinical results|texture|sensazion|tipo di pelle|skin type|adatto a|consigli d'uso|avvertenz|precauzion)/i;
+  const SECTION_KEYWORDS = [
+    "modo d'uso", "modalità d'uso", "modalita d'uso", "modi d'uso", "rituale",
+    "applicazione", "come si usa", "come applicare", "how to use", "directions", "how to apply",
+    "principi attivi", "attivi chiave", "attivi", "ingredienti", "ingrediente", "inci", "full inci", "formula", "composizione",
+    "benefici", "beneficio", "benefit", "risultati", "risultato", "clinical results", "efficacia", "azione",
+    "texture", "sensazione", "sensazioni", "la scienza", "the science",
+    "consigli", "consigli d'uso", "avvertenze", "avvertenza", "precauzioni",
+    "caratteristiche", "adatto a", "tipo di pelle", "skin type"
+  ];
 
   function startsWithSectionKeyword(str) {
     if (!str || typeof str !== 'string') return false;
-    return SECTION_KEYWORD_REGEX.test(str.trim());
+    const clean = str.trim().toLowerCase().replace(/^[:\s\-–*•]+/, '');
+    return SECTION_KEYWORDS.some(kw => {
+      if (clean === kw || clean.startsWith(kw + ':') || clean.startsWith(kw + ' ') || clean.startsWith(kw + ' -') || clean.startsWith(kw + ' –')) {
+        return true;
+      }
+      return clean.startsWith(kw);
+    });
   }
 
   function isVolumeOrFormatString(str) {
@@ -2011,43 +2125,83 @@ function renderAccordionDescription(container) {
       if (hText.length > 2) {
         return {
           title: hText.replace(/:\s*$/, '').trim(),
-          inlineContent: ''
+          inlineContentHtml: ''
         };
       }
       return null;
     }
 
-    // 2. Paragraphs or Divs with Strong or B
+    // 2. Paragraphs or Divs with Strong or B (or bold styled spans)
     if (tag === 'P' || tag === 'DIV') {
-      const strongEl = el.querySelector('strong, b');
+      const strongEl = el.querySelector('strong, b, span[style*="font-weight: bold"], span[style*="font-weight: 700"], span[style*="font-weight: 600"]');
       if (strongEl) {
-        const firstNonEmptyChild = Array.from(el.childNodes).find(n => (n.textContent || '').trim().length > 0);
-        const isLeading = firstNonEmptyChild === strongEl || (firstNonEmptyChild && strongEl.contains(firstNonEmptyChild));
+        let prevText = '';
+        let curr = strongEl.previousSibling;
+        while (curr) {
+          prevText = (curr.textContent || '') + prevText;
+          curr = curr.previousSibling;
+        }
+        let parent = strongEl.parentElement;
+        while (parent && parent !== el) {
+          let pSib = parent.previousSibling;
+          while (pSib) {
+            prevText = (pSib.textContent || '') + prevText;
+            pSib = pSib.previousSibling;
+          }
+          parent = parent.parentElement;
+        }
+        const isLeading = prevText.trim().replace(/^[:\s\-–*•]+/, '').length === 0;
 
         if (isLeading) {
           const strongText = strongEl.textContent.trim();
-          const restText = el.textContent.replace(strongEl.textContent, '').trim();
+          const totalText = el.textContent.trim();
+          const restText = totalText.replace(strongText, '').trim();
 
           const hasColon = strongText.endsWith(':') || restText.startsWith(':') || strongText.indexOf(':') > 0;
-          const isEntireBold = (restText.length === 0);
-          const isDominantBold = (strongText.length >= el.textContent.trim().length * 0.6);
+          const isEntireBold = (restText.length === 0) && strongText.length <= 80;
+          const isDominantBold = (strongText.length >= totalText.length * 0.6) && strongText.length <= 80;
           const isSectionKw = startsWithSectionKeyword(strongText);
-          const isVolFormat = isVolumeOrFormatString(strongText) || isVolumeOrFormatString(el.textContent);
+          const isVolFormat = isVolumeOrFormatString(strongText) || isVolumeOrFormatString(totalText);
 
           if (strongText.length > 2 && (isEntireBold || hasColon || isDominantBold || isSectionKw || isVolFormat)) {
             let titlePart = strongText;
-            let inlineFromStrong = '';
-            const colonInStrong = strongText.indexOf(':');
-            if (restText.length > 0 && colonInStrong > 0 && colonInStrong < strongText.length - 1) {
-              titlePart = strongText.substring(0, colonInStrong).trim();
-              inlineFromStrong = strongText.substring(colonInStrong + 1).trim();
-            }
+            let inlineContentHtml = '';
 
-            const combinedInline = (inlineFromStrong ? inlineFromStrong + ' ' : '') + restText.replace(/^[:\s\-–]+/, '').trim();
+            const colonInStrong = strongText.indexOf(':');
+            if (colonInStrong > 0 && colonInStrong < strongText.length - 1 && !isSectionKw) {
+              titlePart = strongText.substring(0, colonInStrong).trim();
+              const clone = el.cloneNode(true);
+              const clonedStrong = clone.querySelector('strong, b, span[style*="font-weight: bold"], span[style*="font-weight: 700"], span[style*="font-weight: 600"]');
+              if (clonedStrong) {
+                clonedStrong.innerHTML = clonedStrong.innerHTML.replace(/^[^:]*:\s*/, '');
+              }
+              inlineContentHtml = clone.innerHTML.trim();
+            } else {
+              if (colonInStrong > 0 && isSectionKw && colonInStrong < strongText.length - 1) {
+                titlePart = strongText.substring(0, colonInStrong).trim();
+                const clone = el.cloneNode(true);
+                const clonedStrong = clone.querySelector('strong, b, span[style*="font-weight: bold"], span[style*="font-weight: 700"], span[style*="font-weight: 600"]');
+                if (clonedStrong) {
+                  clonedStrong.innerHTML = clonedStrong.innerHTML.replace(/^[^:]*:\s*/, '');
+                }
+                inlineContentHtml = clone.innerHTML.trim();
+              } else {
+                titlePart = strongText.replace(/:\s*$/, '').trim();
+                const clone = el.cloneNode(true);
+                const clonedStrong = clone.querySelector('strong, b, span[style*="font-weight: bold"], span[style*="font-weight: 700"], span[style*="font-weight: 600"]');
+                if (clonedStrong) {
+                  clonedStrong.remove();
+                }
+                let rem = clone.innerHTML.trim();
+                rem = rem.replace(/^[:\s\-–&nbsp;]+/, '').trim();
+                rem = rem.replace(/^(?:<br\s*\/?>)+/i, '').trim();
+                inlineContentHtml = rem;
+              }
+            }
 
             return {
               title: titlePart.replace(/:\s*$/, '').trim(),
-              inlineContent: combinedInline.trim()
+              inlineContentHtml: inlineContentHtml
             };
           }
         }
@@ -2056,40 +2210,36 @@ function renderAccordionDescription(container) {
       // 3. Paragraphs or Divs WITHOUT Strong (plain text)
       const plainText = el.textContent.trim();
       if (plainText.length > 2) {
-        // Case A: Volume/Format plain text (e.g., "(145ml)", "Formato: 145ml", "145ml")
         if (isVolumeOrFormatString(plainText) && plainText.length <= 80) {
           return {
             title: plainText.replace(/:\s*$/, '').trim(),
-            inlineContent: ''
+            inlineContentHtml: ''
           };
         }
 
-        // Case B: Text ends with ':' and is <= 65 chars
         if (plainText.endsWith(':') && plainText.length <= 65) {
           return {
             title: plainText.replace(/:\s*$/, '').trim(),
-            inlineContent: ''
+            inlineContentHtml: ''
           };
         }
 
-        // Case C: Text starts with a known section keyword followed by ':'
         const colonIdx = plainText.indexOf(':');
         if (colonIdx > 0 && colonIdx <= 55) {
           const candidate = plainText.substring(0, colonIdx).trim();
-          const remainder = plainText.substring(colonIdx + 1).trim();
           if (startsWithSectionKeyword(candidate) && candidate.length > 2) {
+            const remainderHtml = el.innerHTML.replace(/^[^:]*:\s*/, '').trim();
             return {
               title: candidate,
-              inlineContent: remainder
+              inlineContentHtml: remainderHtml
             };
           }
         }
 
-        // Case D: Heading with section keyword <= 65 chars
         if (startsWithSectionKeyword(plainText) && plainText.length <= 65) {
           return {
             title: plainText.replace(/:\s*$/, '').trim(),
-            inlineContent: ''
+            inlineContentHtml: ''
           };
         }
       }
@@ -2101,7 +2251,7 @@ function renderAccordionDescription(container) {
       if (txt.length > 2) {
         return {
           title: txt.replace(/:\s*$/, '').trim(),
-          inlineContent: ''
+          inlineContentHtml: ''
         };
       }
     }
@@ -2109,34 +2259,21 @@ function renderAccordionDescription(container) {
     return null;
   }
 
-  let childNodes = Array.from(tempDiv.childNodes);
-  const blockTags = tempDiv.querySelectorAll('p, div, h2, h3, h4, h5, ul');
-  if (blockTags.length === 0) {
-    const parts = rawHtml.split(/<br\s*\/?>/gi);
-    parts.forEach(part => {
-      let pTrimmed = part.trim();
-      if (!pTrimmed) return;
-      let d = document.createElement('p');
-      d.innerHTML = pTrimmed;
-      if (d.textContent.trim() || d.querySelector('img')) {
-        tempDiv.appendChild(d);
-      }
-    });
-    childNodes = Array.from(tempDiv.children);
-  }
+  const childNodes = Array.from(tempDiv.childNodes);
 
   childNodes.forEach(node => {
     if (node.nodeType === Node.TEXT_NODE) {
       const txt = node.textContent.trim();
       if (!txt) return;
+      const formatted = formatContentHtml(txt);
       if (!currentSection) {
         currentSection = {
           title: 'Panoramica del Trattamento',
-          content: `<p class="mb-2 leading-relaxed">${txt}</p>`
+          content: formatted
         };
         sections.push(currentSection);
       } else {
-        currentSection.content += `<p class="mb-2 leading-relaxed">${txt}</p>`;
+        currentSection.content += formatted;
       }
       return;
     }
@@ -2145,27 +2282,19 @@ function renderAccordionDescription(container) {
 
     const headingCheck = isHeadingElement(node);
     if (headingCheck) {
-      let rawHeadingTitle = '';
-      let inlineContent = '';
-      if (typeof headingCheck === 'object') {
-        rawHeadingTitle = headingCheck.title;
-        inlineContent = headingCheck.inlineContent;
-      } else {
-        rawHeadingTitle = headingCheck;
-      }
+      let rawHeadingTitle = headingCheck.title;
+      let inlineContentHtml = headingCheck.inlineContentHtml || '';
 
       // FILTER 1: CERTIFICATIONS & PERCENTAGES MUST NEVER CREATE ACCORDIONS
-      // (e.g., "ECOCERT COSMOS NATURAL - 98% NATURALE", "COSMOS NATURAL", "98% NATURALE")
       const isCertOrPct = /ecocert|cosmos|\b\d{1,3}\s*%/i.test(rawHeadingTitle);
       if (isCertOrPct) {
         return;
       }
 
       // FILTER 2: VOLUME / FORMAT / SIZE HEADINGS MUST NEVER CREATE ACCORDIONS
-      // (e.g., "145ml", "Formato: 145ml", "Detergente Viso Illuminante Naturale (145ml)", etc.)
       const isVolumeOrFormat = isVolumeOrFormatString(rawHeadingTitle);
       if (isVolumeOrFormat) {
-        const fullVolText = rawHeadingTitle + (inlineContent ? ` — ${inlineContent}` : '');
+        const fullVolText = rawHeadingTitle + (inlineContentHtml ? ` — ${inlineContentHtml}` : '');
         if (!volumeHtml) {
           volumeHtml = `<p class="font-semibold text-ink uppercase tracking-wider text-[11px] mb-3 leading-relaxed">${fullVolText}</p>`;
         }
@@ -2176,7 +2305,7 @@ function renderAccordionDescription(container) {
 
       currentSection = {
         title: title,
-        content: inlineContent ? `<p class="mb-2 leading-relaxed">${inlineContent}</p>` : ''
+        content: inlineContentHtml ? formatContentHtml(inlineContentHtml) : ''
       };
       sections.push(currentSection);
     } else {
@@ -2194,14 +2323,16 @@ function renderAccordionDescription(container) {
         return;
       }
 
+      const formattedNodeHtml = formatContentHtml(nodeHtml);
+
       if (!currentSection) {
         currentSection = {
           title: 'Panoramica del Trattamento',
-          content: nodeHtml
+          content: formattedNodeHtml
         };
         sections.push(currentSection);
       } else {
-        currentSection.content += nodeHtml;
+        currentSection.content += formattedNodeHtml;
       }
     }
   });
@@ -2219,7 +2350,7 @@ function renderAccordionDescription(container) {
     if (rawHtml.trim()) {
       sections.push({
         title: 'Panoramica del Trattamento',
-        content: rawHtml
+        content: formatContentHtml(rawHtml)
       });
     } else {
       rendered.innerHTML = volumeHtml || '';
@@ -2254,6 +2385,87 @@ function renderAccordionDescription(container) {
   raw.style.display = 'none';
 }
 window.renderAccordionDescription = renderAccordionDescription;
+
+// Render locally submitted user reviews stored in localStorage
+function renderUserReviews(productId) {
+  if (!productId) return;
+  const storageKey = 'mile_user_reviews_' + productId;
+  let userReviews = [];
+  try {
+    const raw = localStorage.getItem(storageKey);
+    if (raw) userReviews = JSON.parse(raw);
+  } catch (e) {
+    userReviews = [];
+  }
+  if (!Array.isArray(userReviews) || userReviews.length === 0) return;
+
+  const container = document.getElementById('reviews-grid-container');
+  if (!container) return;
+
+  const existingInjected = container.querySelectorAll('.user-local-review-card');
+  existingInjected.forEach(el => el.remove());
+
+  userReviews.slice().reverse().forEach(rev => {
+    const card = document.createElement('div');
+    card.className = 'user-local-review-card bg-linen p-6 border border-sage/50 flex flex-col justify-between transition-all duration-500 shadow-xs';
+
+    let starsHtml = '';
+    const ratingNum = parseInt(rev.rating, 10) || 5;
+    for (let i = 1; i <= ratingNum; i++) starsHtml += '&starf;';
+    for (let i = ratingNum + 1; i <= 5; i++) starsHtml += '<span class="text-ash/40">&starf;</span>';
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+      });
+    }
+
+    card.innerHTML = `
+      <div>
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+          <div class="text-amber text-xs tracking-wider">${starsHtml}</div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold text-white bg-sage px-2 py-0.5 rounded-xs">
+              &bull; La tua recensione &bull; In approvazione
+            </span>
+            <span class="text-[10px] text-ash">${escapeHtml(rev.date)}</span>
+          </div>
+        </div>
+        <h4 class="font-serif text-base font-semibold text-ink mb-2">${escapeHtml(rev.title)}</h4>
+        <p class="text-xs text-ash leading-relaxed font-light">
+          &ldquo;${escapeHtml(rev.body)}&rdquo;
+        </p>
+      </div>
+      <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
+        <span class="font-medium text-ink">${escapeHtml(rev.author || 'Tu')}</span>
+        <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
+      </div>
+    `;
+    container.insertBefore(card, container.firstChild);
+  });
+
+  const topReviewsText = document.getElementById('pdp-top-reviews-summary');
+  if (topReviewsText) {
+    const curMatch = topReviewsText.textContent.match(/(\d+(?:\.\d+)?)\/5\s*(?:·|•|&middot;)?\s*(\d+)\s*recension/i);
+    if (curMatch) {
+      const baseScore = parseFloat(curMatch[1]);
+      const baseCount = parseInt(curMatch[2], 10);
+      const newCount = baseCount + userReviews.length;
+      topReviewsText.innerHTML = `${baseScore.toFixed(1)}/5 &middot; ${newCount} ${newCount === 1 ? 'recensione' : 'recensioni'}`;
+    }
+  }
+
+  const totalCountEl = document.getElementById('reviews-total-count-display');
+  if (totalCountEl) {
+    const curTotal = parseInt(totalCountEl.dataset.baseCount, 10) || 0;
+    const finalTotal = curTotal + userReviews.length;
+    totalCountEl.textContent = finalTotal === 1
+      ? 'Basato su 1 recensione certificata da acquirente reale'
+      : `Basato su ${finalTotal} recensioni certificate da acquirenti reali`;
+  }
+}
+window.renderUserReviews = renderUserReviews;
 
 // ============================================================================
 // 11. SEAMLESS CUSTOMER AUTHENTICATION & ACCOUNT DRAWER STATE MANAGEMENT

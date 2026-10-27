@@ -91,6 +91,11 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
@@ -98,6 +103,13 @@ body {
   font-size: 0.95rem;
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body.cart-drawer-open {
+  overflow: hidden !important;
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1576,7 +1588,7 @@ button {
 .cart-drawer {
   position: fixed;
   top: 0;
-  right: -520px;
+  right: 0;
   width: 100%;
   max-width: 480px;
   height: 100vh;
@@ -1585,10 +1597,12 @@ button {
   box-shadow: -10px 0 40px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
-  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-x: hidden;
 }
 .cart-drawer.active {
-  right: 0;
+  transform: translateX(0);
 }
 
 .cart-drawer-header {
@@ -2907,7 +2921,7 @@ button {
 .wishlist-drawer {
   position: fixed;
   top: 0;
-  right: -520px;
+  right: 0;
   width: 100%;
   max-width: 480px;
   height: 100vh;
@@ -2916,18 +2930,20 @@ button {
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-x: hidden;
 }
 
 .wishlist-drawer.active {
-  right: 0;
+  transform: translateX(0);
 }
 
 /* Account Drawer */
 .account-drawer {
   position: fixed;
   top: 0;
-  right: -520px;
+  right: 0;
   width: 100%;
   max-width: 460px;
   height: 100vh;
@@ -2936,11 +2952,13 @@ button {
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-x: hidden;
 }
 
 .account-drawer.active {
-  right: 0;
+  transform: translateX(0);
 }
 
 .wishlist-drawer-header {

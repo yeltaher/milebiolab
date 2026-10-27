@@ -42,6 +42,7 @@
   assign empty_orders_desc = section.settings.empty_orders_desc | default: "Il tuo percorso di bellezza botanica non ha ancora registrato ordini. Inizia oggi con i nostri protocolli raccomandati."
   assign empty_orders_cta = section.settings.empty_orders_cta | default: "Inizia lo Shopping Botanico →"
 
+  assign show_protocols = section.settings.show_protocols | default: false
   assign protocols_badge = section.settings.protocols_badge | default: "Consulenza Personalizzata"
   assign protocols_title = section.settings.protocols_title | default: "I Tuoi Protocolli Consigliati"
 
@@ -52,6 +53,7 @@
   assign flagship_whatsapp_number = section.settings.flagship_whatsapp_number | default: "+39 045 800 1234"
   assign flagship_whatsapp_link = section.settings.flagship_whatsapp_link | default: "https://wa.me/390458001234"
 
+  assign show_privileges = section.settings.show_privileges | default: false
   assign privileges_title = section.settings.privileges_title | default: "I Tuoi Privilegi Attivi"
 
   assign guest_badge = section.settings.guest_badge | default: "Area Riservata Club Mile"
@@ -243,6 +245,7 @@
             {% endif %}
           </div>
 
+          {% if show_protocols %}
           <!-- I Tuoi Protocolli Consigliati (Dynamic Blocks or Fallback) -->
           <div class="bg-white border border-[#E5E0D8] p-6 sm:p-8 shadow-sm">
             <div class="pb-4 border-b border-[#E5E0D8] mb-6">
@@ -309,6 +312,7 @@
               {%- endunless -%}
             </div>
           </div>
+          {% endif %}
 
           <!-- Dynamic Experience Cards (Blocchi Esperienza in Cabina) -->
           {%- if section.blocks != blank -%}
@@ -367,6 +371,7 @@
             </div>
           </div>
 
+          {% if show_privileges %}
           <!-- Privilegi Fedeltà (Dynamic Blocks or Fallback) -->
           <div class="bg-white border border-[#E5E0D8] p-6 shadow-sm space-y-3">
             <h3 class="font-serif text-xl text-[#1A1A1A] font-normal pb-3 border-b border-[#E5E0D8]">{{ privileges_title }}</h3>
@@ -408,6 +413,7 @@
               {%- endunless -%}
             </ul>
           </div>
+          {% endif %}
 
         </div>
 

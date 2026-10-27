@@ -504,13 +504,13 @@
             
             <div class="lg:col-span-4 text-center lg:text-left lg:border-r border-borderLinen lg:pr-12">
                 <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.eyebrow | default: "OPINIONI VERIFICATE • CLUB MILE" }}</span>
-                <div class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ overall_score_val }}</div>
+                <div id="reviews-overall-score-display" class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ overall_score_val }}</div>
                 <div class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
-                <p class="text-xs text-ash">
+                <p id="reviews-total-count-display" data-base-count="{{ real_total }}" class="text-xs text-ash">
                   {%- if real_total == 0 -%}
                     Nessuna recensione ancora presente
                   {%- elsif real_total == 1 -%}
-                    Basato su 1 recensione certificata da acquirenti reali
+                    Basato su 1 recensione certificata da acquirente reale
                   {%- else -%}
                     Basato su {{ real_total }} recensioni certificate da acquirenti reali
                   {%- endif -%}
@@ -716,14 +716,15 @@
                 {% if customer %}
                     {% form 'contact', id: 'ProductReviewForm', class: 'space-y-4 text-left' %}
                         <input type="hidden" name="contact[type]" value="review">
-                        <input type="hidden" name="contact[product]" value="{{ product.title }}">
+                        <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
+                        <input type="hidden" name="contact[subject]" value="[Nuova Recensione Club Mile] {{ product.title | escape }}">
                         <input type="hidden" name="contact[email]" value="{{ customer.email }}">
                         <input type="hidden" name="contact[name]" value="{{ customer.name }}">
                         {{ form.errors | default_errors }}
                         
                         {% if form.posted_successfully? %}
                             <div class="bg-sage/10 text-sage p-4 text-xs text-center border border-sage/20 mb-4">
-                                Grazie per la tua recensione! Sarà visibile dopo l'approvazione.
+                                Grazie per la tua recensione! È stata inviata al nostro team di Verona per la convalida ufficiale ed è ora visibile per il tuo profilo.
                             </div>
                         {% endif %}
                         
@@ -777,6 +778,71 @@
   syncTopReviews();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', syncTopReviews);
+  }
+})();
+
+// Real-time Local Reviews & Form Submission Handler
+(function() {
+  var prodId = "{{ product.id }}";
+  
+  var form = document.getElementById('ProductReviewForm');
+  if (form) {
+    form.addEventListener('submit', function() {
+      try {
+        var titleInput = form.querySelector('[name="contact[title]"]');
+        var ratingInput = form.querySelector('[name="contact[rating]"]');
+        var bodyInput = form.querySelector('[name="contact[body]"]');
+        var authorName = "{{ customer.name | default: '' | escape }}";
+        if (!authorName) {
+          try {
+            var localCust = JSON.parse(localStorage.getItem('mile_customer'));
+            if (localCust && localCust.first_name) {
+              authorName = localCust.first_name + (localCust.last_name ? ' ' + localCust.last_name : '');
+            }
+          } catch (e) {}
+        }
+        if (!authorName) authorName = 'Cliente Verificata';
+        
+        var nameInput = form.querySelector('[name="contact[name]"]');
+        if (nameInput && !nameInput.value) {
+          nameInput.value = authorName;
+        }
+        
+        var dateFormatted = new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+        
+        var newReview = {
+          rating: ratingInput ? ratingInput.value : '5',
+          title: titleInput ? titleInput.value : '',
+          body: bodyInput ? bodyInput.value : '',
+          author: authorName,
+          date: dateFormatted,
+          timestamp: Date.now()
+        };
+
+        var key = 'mile_user_reviews_' + prodId;
+        var existing = [];
+        try {
+          var raw = localStorage.getItem(key);
+          if (raw) existing = JSON.parse(raw);
+        } catch (err) {}
+        if (!Array.isArray(existing)) existing = [];
+        existing.push(newReview);
+        localStorage.setItem(key, JSON.stringify(existing));
+      } catch (e) {
+        console.warn('Could not save user review to localStorage:', e);
+      }
+    });
+  }
+
+  function runRenderReviews() {
+    if (typeof window.renderUserReviews === 'function') {
+      window.renderUserReviews(prodId);
+    }
+  }
+
+  runRenderReviews();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runRenderReviews);
   }
 })();
 

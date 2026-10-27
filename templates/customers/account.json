@@ -42,7 +42,9 @@
         "guest_title": "Benvenuto nel Club",
         "guest_desc": "Accedi al tuo profilo per visualizzare lo storico ordini, gestire gli indirizzi di spedizione a Verona e sbloccare i vantaggi esclusivi Club Privilège.",
         "guest_login_btn": "Accedi al Tuo Profilo",
-        "guest_register_btn": "Registrati con il 10% di Sconto"
+        "guest_register_btn": "Registrati con il 10% di Sconto",
+        "show_protocols": false,
+        "show_privileges": false
       },
       "blocks": {
         "protocol_1": {
