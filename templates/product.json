@@ -60,6 +60,29 @@
         "press_source": "Vogue Italia"
       }
     },
+    "blocks_gahLPp": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_f469f31_dmRFxh": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "image_1": "shopify://shop_images/1792311803129.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1790445155127.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_f469f31_dmRFxh"
+      ],
+      "name": "Striscia di immagini",
+      "settings": {}
+    },
     "product-routine": {
       "type": "product-routine",
       "blocks": {
@@ -2283,6 +2306,7 @@
   },
   "order": [
     "main-product",
+    "blocks_gahLPp",
     "product-routine",
     "product-reviews",
     "product-founder",
