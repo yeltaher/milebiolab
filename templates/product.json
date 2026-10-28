@@ -42,7 +42,38 @@
         "buy_buttons_RpQVMq": {
           "type": "buy_buttons",
           "settings": {}
-        },
+        }
+      },
+      "block_order": [
+        "title_HFhjc7",
+        "bullet_list_4RYLbY",
+        "subtitle_xHjxQ6",
+        "description_XzghRk",
+        "price_YQjBcF",
+        "buy_buttons_RpQVMq"
+      ],
+      "settings": {
+        "show_press": false,
+        "press_tag": "RICONOSCIMENTI DELLA CRITICA INTERNAZIONALE",
+        "press_items": "GALA, BRIGITTE, GLAMOUR, VOGUE, ELLE",
+        "press_quote": "L'apice della fitoterapia di lusso che ridefinisce lo standard della cura della pelle contemporanea.",
+        "press_source": "Vogue Italia"
+      }
+    },
+    "product-founder": {
+      "type": "product-founder",
+      "settings": {
+        "founder_image": "shopify://shop_images/1791299679257.jpg",
+        "founder_tag": "FILOSOFIA MILE",
+        "founder_quote": "Scegliere la Natura come alleata è un gesto  d' amore verso se stessi",
+        "founder_text": "Eliminare il superfluo per affidarvi alla Natura, nostra migliora alleata, da tempi immemori. Niente ingredienti inutili, solo formule pulite e delicate che capiscono i bisogni della tua pelle e la coccolano esattamente come merita. Semplice, Vera, Vicina a Te.",
+        "founder_name": "Milena Tacchella",
+        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona"
+      }
+    },
+    "product-routine": {
+      "type": "product-routine",
+      "blocks": {
         "routine_card_1": {
           "type": "routine_card",
           "settings": {
@@ -78,57 +109,14 @@
         }
       },
       "block_order": [
-        "title_HFhjc7",
-        "bullet_list_4RYLbY",
-        "subtitle_xHjxQ6",
-        "description_XzghRk",
-        "price_YQjBcF",
-        "buy_buttons_RpQVMq",
         "routine_card_1",
         "routine_card_2",
         "routine_card_3"
       ],
       "settings": {
-        "show_founder": true,
-        "founder_image": "shopify://shop_images/1791299679257.jpg",
-        "founder_tag": "FILOSOFIA MILE",
-        "founder_quote": "Scegliere la Natura come alleata è un gesto  d' amore verso se stessi",
-        "founder_text": "Eliminare il superfluo per affidarvi alla Natura, nostra migliora alleata, da tempi immemori. Niente ingredienti inutili, solo formule pulite e delicate che capiscono i bisogni della tua pelle e la coccolano esattamente come merita. Semplice, Vera, Vicina a Te.",
-        "founder_name": "Milena Tacchella",
-        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona",
-        "show_press": false,
-        "press_tag": "RICONOSCIMENTI DELLA CRITICA INTERNAZIONALE",
-        "press_items": "GALA, BRIGITTE, GLAMOUR, VOGUE, ELLE",
-        "press_quote": "L'apice della fitoterapia di lusso che ridefinisce lo standard della cura della pelle contemporanea.",
-        "press_source": "Vogue Italia",
-        "show_routine": true,
         "routine_tag": "RITUALE COMPLETO SINERGICO",
         "routine_title": "Completa la tua Routine",
         "routine_subtitle": "Formulazioni complementari studiate per amplificare l'assorbimento degli attivi e prolungare la luminosità."
-      }
-    },
-    "1792764547881b5f8f": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "local-pickup": {
-      "type": "local-pickup-verona",
-      "disabled": true,
-      "settings": {
-        "tagline": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP",
-        "title": "L'Esperienza Esclusiva del Ritiro a Verona",
-        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro istituto di bellezza e benessere a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
-        "btn_text": "Scopri il Ritiro a Verona →",
-        "step1_title": "Pronto in 2 Ore Lavorative",
-        "step1_desc": "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge.",
-        "step2_title": "Consulenza Dermocosmetica Omaggio",
-        "step2_desc": "Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle con check-up Visia di 15 minuti senza alcun costo.",
-        "step3_title": "Set Campioncini Deluxe Personalizzati",
-        "step3_desc": "Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea.",
-        "card_title": "Istituto di Bellezza & Haute Cosmétique",
-        "card_address": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa",
-        "card_hours": "Lunedì – Sabato: 09:30 – 19:30 (SU APPUNTAMENTO - chiuso il mercoledì)",
-        "card_phone": "+39 045 8301811 • WhatsApp +39 342 1647585"
       }
     },
     "product-reviews": {
@@ -2272,17 +2260,33 @@
         "subtitle": "Tutto quello che desideri sapere sul prodotto."
       }
     },
-    "17927644461cb882ad": {
-      "type": "_blocks",
-      "settings": {}
+    "local-pickup": {
+      "type": "local-pickup-verona",
+      "disabled": true,
+      "settings": {
+        "tagline": "ISTITUTO MILEBIOLAB • VERONA FLAGSHIP",
+        "title": "L'Esperienza Esclusiva del Ritiro a Verona",
+        "description": "Non una semplice consegna, ma un momento di pura bellezza dedicato a te nel nostro istituto di bellezza e benessere a Verona in Via Torricelle, 2c in Lebestetik Beauty & Spa.",
+        "btn_text": "Scopri il Ritiro a Verona →",
+        "step1_title": "Pronto in 2 Ore Lavorative",
+        "step1_desc": "Acquista online e ricevi la notifica appena il tuo cofanetto è sigillato e pronto al banco concierge.",
+        "step2_title": "Consulenza Dermocosmetica Omaggio",
+        "step2_desc": "Al momento del ritiro, una nostra Beauty Specialist analizzerà la tua pelle con check-up Visia di 15 minuti senza alcun costo.",
+        "step3_title": "Set Campioncini Deluxe Personalizzati",
+        "step3_desc": "Due trattamenti in miniatura calibrati esattamente sulle esigenze della tua barriera cutanea.",
+        "card_title": "Istituto di Bellezza & Haute Cosmétique",
+        "card_address": "Via Torricelle, 2c • 37128 Verona (VR) in Lebestetik Beauty & Spa",
+        "card_hours": "Lunedì – Sabato: 09:30 – 19:30 (SU APPUNTAMENTO - chiuso il mercoledì)",
+        "card_phone": "+39 045 8301811 • WhatsApp +39 342 1647585"
+      }
     }
   },
   "order": [
     "main-product",
-    "1792764547881b5f8f",
-    "local-pickup",
+    "product-founder",
+    "product-routine",
     "product-reviews",
     "product-faq",
-    "17927644461cb882ad"
+    "local-pickup"
   ]
 }
