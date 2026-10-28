@@ -60,17 +60,6 @@
         "press_source": "Vogue Italia"
       }
     },
-    "product-founder": {
-      "type": "product-founder",
-      "settings": {
-        "founder_image": "shopify://shop_images/1791299679257.jpg",
-        "founder_tag": "FILOSOFIA MILE",
-        "founder_quote": "Scegliere la Natura come alleata è un gesto  d' amore verso se stessi",
-        "founder_text": "Eliminare il superfluo per affidarvi alla Natura, nostra migliora alleata, da tempi immemori. Niente ingredienti inutili, solo formule pulite e delicate che capiscono i bisogni della tua pelle e la coccolano esattamente come merita. Semplice, Vera, Vicina a Te.",
-        "founder_name": "Milena Tacchella",
-        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona"
-      }
-    },
     "product-routine": {
       "type": "product-routine",
       "blocks": {
@@ -2251,6 +2240,17 @@
         "pct_1": 0
       }
     },
+    "product-founder": {
+      "type": "product-founder",
+      "settings": {
+        "founder_image": "shopify://shop_images/1791299679257.jpg",
+        "founder_tag": "FILOSOFIA MILE",
+        "founder_quote": "Scegliere la Natura come alleata è un gesto  d' amore verso se stessi",
+        "founder_text": "Eliminare il superfluo per affidarvi alla Natura, nostra migliora alleata, da tempi immemori. Niente ingredienti inutili, solo formule pulite e delicate che capiscono i bisogni della tua pelle e la coccolano esattamente come merita. Semplice, Vera, Vicina a Te.",
+        "founder_name": "Milena Tacchella",
+        "founder_role": "Fondatrice & Dermo-Specialista • Mile Dermocosmesi Verona"
+      }
+    },
     "product-faq": {
       "type": "product-faq",
       "disabled": true,
@@ -2283,9 +2283,9 @@
   },
   "order": [
     "main-product",
-    "product-founder",
     "product-routine",
     "product-reviews",
+    "product-founder",
     "product-faq",
     "local-pickup"
   ]
