@@ -41,6 +41,27 @@
     "17927672840772904d": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_e4f11c6_KGcihb": {
+          "type": "ai_gen_block_e4f11c6",
+          "settings": {
+            "collection_image": "shopify://shop_images/1790803444536.jpg",
+            "image_alt": "Idee Regalo - I nostri Box Rituali per un regalo dedicato al benessere",
+            "description": "<p>REGALA NATURA E BENESSERE CON I NOSTRI - Box Rituali - per un regalo dedicato al benessere</p>",
+            "button_label": "Scopri la collezione",
+            "button_link": "shopify://collections/box-ritual",
+            "desktop_width_percent": 100,
+            "min_height": 180,
+            "padding": 52,
+            "background_color": "#F7F5F0",
+            "text_color": "#1A1A1A",
+            "border_color": "#EDE5DB",
+            "placeholder_color": "#FAF8F5",
+            "button_color": "#4A5340",
+            "button_hover_color": "#1A1A1A",
+            "button_text_color": "#FFFFFF"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_e049a42_g66GGd": {
           "type": "ai_gen_block_e049a42",
           "settings": {
@@ -50,15 +71,16 @@
             "details": "<p>Le nostre Box Rituali nascono per trasformare i gesti quotidiani in un rituale, attraverso il potere autentico della natura</p>",
             "button_label": "Scopri la collezione",
             "desktop_width_percent": 100,
-            "background_color": "#F7F5F0",
-            "text_color": "#706B67",
-            "accent_color": "#4A5340",
-            "border_color": "#EDE5DB"
+            "background_color": "#f7f5f0",
+            "text_color": "#706b67",
+            "accent_color": "#4a5340",
+            "border_color": "#ede5db"
           },
           "blocks": {}
         }
       },
       "block_order": [
+        "ai_gen_block_e4f11c6_KGcihb",
         "ai_gen_block_e049a42_g66GGd"
       ],
       "settings": {}
