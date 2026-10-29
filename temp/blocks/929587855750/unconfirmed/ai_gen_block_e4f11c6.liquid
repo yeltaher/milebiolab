@@ -1,6 +1,293 @@
+{% doc %}
+  @prompt
+    crea una striscia divisa in 3 parti uguali con immagine collezione,pagina descrizione , pulsante
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-strip-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__inner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__image,
+  .ai-collection-strip-{{ ai_gen_id }}__description,
+  .ai-collection-strip-{{ ai_gen_id }}__action {
+    min-width: 0;
+    min-height: {{ block.settings.min_height }}px;
+    padding: {{ block.settings.padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__image {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__image img,
+  .ai-collection-strip-{{ ai_gen_id }}__placeholder svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: {{ block.settings.min_height }}px;
+    object-fit: cover;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__placeholder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: {{ block.settings.min_height }}px;
+    background: {{ block.settings.placeholder_color }};
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__placeholder svg {
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__empty-note {
+    position: absolute;
+    inset: auto 12px 12px;
+    padding: 8px 10px;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__description {
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__description p {
+    margin: 0;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__action {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 24px;
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: 1px solid {{ block.settings.button_color }};
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__button:hover {
+    background: {{ block.settings.button_hover_color }};
+    border-color: {{ block.settings.button_hover_color }};
+    color: {{ block.settings.button_text_color }};
+  }
+
+  .ai-collection-strip-{{ ai_gen_id }}__button:focus-visible {
+    outline: 2px solid {{ block.settings.text_color }};
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-strip-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-collection-strip-{{ ai_gen_id }}__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-collection-strip-{{ ai_gen_id }}__image,
+    .ai-collection-strip-{{ ai_gen_id }}__description,
+    .ai-collection-strip-{{ ai_gen_id }}__action {
+      min-height: auto;
+    }
+
+    .ai-collection-strip-{{ ai_gen_id }}__image img,
+    .ai-collection-strip-{{ ai_gen_id }}__placeholder,
+    .ai-collection-strip-{{ ai_gen_id }}__placeholder svg {
+      min-height: 220px;
+      max-height: 320px;
+    }
+
+    .ai-collection-strip-{{ ai_gen_id }}__description,
+    .ai-collection-strip-{{ ai_gen_id }}__action {
+      padding: 24px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-collection-strip-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-collection-strip-{{ ai_gen_id }}__inner">
+    <div class="ai-collection-strip-{{ ai_gen_id }}__image">
+      {% if block.settings.collection_image != blank %}
+        <img
+          src="{{ block.settings.collection_image | image_url: width: 1200 }}"
+          alt="{{ block.settings.collection_image.alt | default: block.settings.image_alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.collection_image.width }}"
+          height="{{ block.settings.collection_image.height }}"
+        >
+      {% else %}
+        <div class="ai-collection-strip-{{ ai_gen_id }}__placeholder">
+          {{ 'collection-apparel-1' | placeholder_svg_tag }}
+          <span class="ai-collection-strip-{{ ai_gen_id }}__empty-note">Aggiungi l’immagine della collezione</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="ai-collection-strip-{{ ai_gen_id }}__description">
+      {{ block.settings.description }}
+    </div>
+    <div class="ai-collection-strip-{{ ai_gen_id }}__action">
+      {% if block.settings.button_label != blank %}
+        {% if block.settings.button_link != blank %}
+          <a class="ai-collection-strip-{{ ai_gen_id }}__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>
+        {% else %}
+          <span class="ai-collection-strip-{{ ai_gen_id }}__button">{{ block.settings.button_label | escape }}</span>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Striscia in tre parti",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenuti"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image",
+      "label": "Immagine collezione"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Testo alternativo",
+      "default": "Immagine della collezione"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrizione",
+      "default": "<p>Scopri la collezione e trova il rituale più adatto alla tua pelle.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Testo pulsante",
+      "default": "Scopri la collezione"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link pulsante"
+    },
+    {
+      "type": "header",
+      "content": "Stile"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Larghezza desktop",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Altezza minima",
+      "min": 120,
+      "max": 360,
+      "step": 20,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Spaziatura interna",
+      "min": 12,
+      "max": 52,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Sfondo",
+      "default": "#F7F5F0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Testo",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bordo",
+      "default": "#EDE5DB"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Sfondo segnaposto",
+      "default": "#FAF8F5"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Pulsante",
+      "default": "#4A5340"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Pulsante al passaggio",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Testo pulsante",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Striscia in tre parti"
+    }
+  ],
+  "tag": null,
+  "class": "collection-strip-block"
+}
 {% endschema %}
