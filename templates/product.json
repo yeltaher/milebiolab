@@ -318,6 +318,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_U4H94r": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "moisturising-conditioner",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/20570.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Hydrating_and_Radiace_-_Sublimating_Conditioner_4.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -352,6 +367,7 @@
         "ai_gen_block_f469f31_n8xKaN",
         "ai_gen_block_f469f31_GYJMzz",
         "ai_gen_block_f469f31_JgtxcW",
+        "ai_gen_block_f469f31_U4H94r",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
