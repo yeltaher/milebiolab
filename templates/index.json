@@ -137,7 +137,7 @@
             "heading_size": 36,
             "line_width": 50,
             "padding_vertical": 60,
-            "padding_mobile": 40,
+            "padding_mobile": 50,
             "alignment": "center",
             "background": "#F7F5F0",
             "text_color": "#1A1A1A",
