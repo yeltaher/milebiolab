@@ -1,6 +1,113 @@
+{% doc %}
+  @prompt
+    crea una striscia diviso 3 una parte con immagine di un prodotto che verrà scontato, una parte con 3 decrizioni di varie misure del prodotto, la terza parte con il pulsante con importo personalizzato del prodotto scontato " aggiungi il prodotto al carrello", aggiungi Crea un conto alla rovescia con giorni, ore, minuti e secondi. Data e ora di scadenza, testo e colori devono essere modificabili. Alla scadenza nascondi il contatore. Adatta lo stile al tema e rendilo leggibile su mobile.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-countdown-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: {{ block.settings.padding }}px;
+    color: {{ block.settings.text_color }};
+    background-color: {{ block.settings.background_color }};
+    border: 1px solid {{ block.settings.border_color }};
+    text-align: {{ block.settings.alignment }};
+  }
+  .ai-countdown-{{ ai_gen_id }} * { box-sizing: border-box; }
+  .ai-countdown-{{ ai_gen_id }}__heading { margin: 0 0 8px; color: inherit; font-size: clamp(20px, 3vw, 30px); line-height: 1.25; }
+  .ai-countdown-{{ ai_gen_id }}__text { margin: 0 0 18px; line-height: 1.5; }
+  .ai-countdown-{{ ai_gen_id }}__units { display: flex; justify-content: {{ block.settings.justify }}; gap: clamp(8px, 2vw, 16px); }
+  .ai-countdown-{{ ai_gen_id }}__unit { min-width: 62px; padding: 12px 10px; background-color: {{ block.settings.unit_background }}; border: 1px solid {{ block.settings.border_color }}; text-align: center; }
+  .ai-countdown-{{ ai_gen_id }}__number { display: block; color: {{ block.settings.text_color }}; font-size: clamp(22px, 5vw, 34px); font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .ai-countdown-{{ ai_gen_id }}__label { display: block; margin-top: 5px; color: {{ block.settings.text_color }}; font-size: 12px; line-height: 1.2; }
+  @media screen and (max-width: 480px) {
+    .ai-countdown-{{ ai_gen_id }} { width: 100%; padding: {{ block.settings.mobile_padding }}px; }
+    .ai-countdown-{{ ai_gen_id }}__units { gap: 6px; }
+    .ai-countdown-{{ ai_gen_id }}__unit { min-width: 0; flex: 1 1 0; padding: 10px 4px; }
+    .ai-countdown-{{ ai_gen_id }}__number { font-size: clamp(20px, 7vw, 28px); }
+    .ai-countdown-{{ ai_gen_id }}__label { font-size: 11px; }
+  }
+{% endstyle %}
+
+<countdown-timer-{{ ai_gen_id }}
+  class="ai-countdown-{{ ai_gen_id }}"
+  data-deadline="{{ block.settings.deadline | escape }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-countdown-{{ ai_gen_id }}__content">
+    {% if block.settings.heading != blank %}<h2 class="ai-countdown-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% endif %}
+    {% if block.settings.text != blank %}<p class="ai-countdown-{{ ai_gen_id }}__text">{{ block.settings.text | escape }}</p>{% endif %}
+    <div class="ai-countdown-{{ ai_gen_id }}__units" role="timer" aria-label="Conto alla rovescia">
+      <div class="ai-countdown-{{ ai_gen_id }}__unit"><span class="ai-countdown-{{ ai_gen_id }}__number" data-days>00</span><span class="ai-countdown-{{ ai_gen_id }}__label">Giorni</span></div>
+      <div class="ai-countdown-{{ ai_gen_id }}__unit"><span class="ai-countdown-{{ ai_gen_id }}__number" data-hours>00</span><span class="ai-countdown-{{ ai_gen_id }}__label">Ore</span></div>
+      <div class="ai-countdown-{{ ai_gen_id }}__unit"><span class="ai-countdown-{{ ai_gen_id }}__number" data-minutes>00</span><span class="ai-countdown-{{ ai_gen_id }}__label">Minuti</span></div>
+      <div class="ai-countdown-{{ ai_gen_id }}__unit"><span class="ai-countdown-{{ ai_gen_id }}__number" data-seconds>00</span><span class="ai-countdown-{{ ai_gen_id }}__label">Secondi</span></div>
+    </div>
+  </div>
+</countdown-timer-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    const elementName = 'countdown-timer-{{ ai_gen_id }}';
+    if (customElements.get(elementName)) return;
+    class CountdownTimer{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.timer = this.querySelector('[role="timer"]');
+        this.deadline = new Date(this.dataset.deadline).getTime();
+        if (!Number.isFinite(this.deadline) || this.deadline <= Date.now()) {
+          this.hidden = true;
+          return;
+        }
+        this.update();
+        this.interval = window.setInterval(() => this.update(), 1000);
+      }
+      disconnectedCallback() {
+        if (this.interval) window.clearInterval(this.interval);
+      }
+      update() {
+        const remaining = this.deadline - Date.now();
+        if (remaining <= 0) {
+          window.clearInterval(this.interval);
+          this.hidden = true;
+          return;
+        }
+        const days = Math.floor(remaining / 86400000);
+        const hours = Math.floor((remaining % 86400000) / 3600000);
+        const minutes = Math.floor((remaining % 3600000) / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        this.querySelector('[data-days]').textContent = String(days).padStart(2, '0');
+        this.querySelector('[data-hours]').textContent = String(hours).padStart(2, '0');
+        this.querySelector('[data-minutes]').textContent = String(minutes).padStart(2, '0');
+        this.querySelector('[data-seconds]').textContent = String(seconds).padStart(2, '0');
+      }
+    }
+    customElements.define(elementName, CountdownTimer{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Conto alla rovescia",
+  "settings": [
+    { "type": "text", "id": "deadline", "label": "Scadenza (ISO 8601)", "default": "2027-12-31T23:59:59+01:00" },
+    { "type": "text", "id": "heading", "label": "Titolo", "default": "L’offerta termina tra" },
+    { "type": "text", "id": "text", "label": "Testo", "default": "Approfitta dell’offerta prima della scadenza." },
+    { "type": "select", "id": "alignment", "label": "Allineamento testo", "options": [{ "value": "left", "label": "Sinistra" }, { "value": "center", "label": "Centro" }, { "value": "right", "label": "Destra" }], "default": "center" },
+    { "type": "select", "id": "justify", "label": "Allineamento contatore", "options": [{ "value": "flex-start", "label": "Sinistra" }, { "value": "center", "label": "Centro" }, { "value": "flex-end", "label": "Destra" }], "default": "center" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Larghezza desktop", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "padding", "label": "Spaziatura interna", "min": 10, "max": 50, "step": 5, "unit": "px", "default": 25 },
+    { "type": "range", "id": "mobile_padding", "label": "Spaziatura mobile", "min": 5, "max": 25, "step": 5, "unit": "px", "default": 10 },
+    { "type": "header", "content": "Colori" },
+    { "type": "color", "id": "background_color", "label": "Sfondo", "default": "#F7F5F0" },
+    { "type": "color", "id": "unit_background", "label": "Sfondo unità", "default": "#FAF8F5" },
+    { "type": "color", "id": "text_color", "label": "Testo e numeri", "default": "#1A1A1A" },
+    { "type": "color", "id": "border_color", "label": "Bordo", "default": "#EDE5DB" }
+  ],
+  "presets": [{ "name": "Conto alla rovescia" }],
+  "tag": null,
+  "class": "countdown-timer-block"
+}
 {% endschema %}
