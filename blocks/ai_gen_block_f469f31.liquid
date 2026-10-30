@@ -4,108 +4,174 @@
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
-{% style %}
-  .ai-image-strip-{{ ai_gen_id }} {
-    display: block;
-    width: {{ block.settings.desktop_width_percent }}%;
-    max-width: 100%;
-  }
+{% liquid
+  assign target_product = block.settings.target_product
+  assign target_list = block.settings.target_product_list
 
-  .ai-image-strip-{{ ai_gen_id }}__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: {{ block.settings.gap }}px;
-  }
+  assign is_assigned = false
+  if target_product != blank
+    assign is_assigned = true
+  endif
+  if target_list != blank and target_list.count > 0
+    assign is_assigned = true
+  endif
 
-  .ai-image-strip-{{ ai_gen_id }}__item {
-    display: block;
-    overflow: hidden;
-    background: #F7F5F0;
-    aspect-ratio: {% if block.settings.image_ratio == 'square' %}1 / 1{% elsif block.settings.image_ratio == 'portrait' %}4 / 5{% else %}auto{% endif %};
-  }
+  assign show_block = true
+  if is_assigned
+    assign show_block = false
 
-  .ai-image-strip-{{ ai_gen_id }}__item img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    {% if block.settings.image_ratio == 'natural' %}
-      height: auto;
-    {% else %}
-      object-fit: cover;
-    {% endif %}
-  }
+    if target_product != blank
+      if target_product.id == product.id or target_product.handle == product.handle or target_product == product.handle
+        assign show_block = true
+      endif
+    endif
 
-  .ai-image-strip-{{ ai_gen_id }}__placeholder {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    min-height: 160px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: #4A5340;
-    background: #F7F5F0;
-    text-align: center;
-    padding: 16px;
-  }
+    if show_block == false and target_list != blank
+      for p in target_list
+        if p.id == product.id or p.handle == product.handle or p == product.handle
+          assign show_block = true
+          break
+        endif
+      endfor
+    endif
+  endif
+%}
 
-  .ai-image-strip-{{ ai_gen_id }}__placeholder svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    max-height: 240px;
-    color: #6B7565;
-  }
-
-  .ai-image-strip-{{ ai_gen_id }}__placeholder span {
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .ai-image-strip-{{ ai_gen_id }}__link:focus-visible {
-    outline: 2px solid #4A5340;
-    outline-offset: 3px;
-  }
-
-  @media screen and (max-width: 749px) {
+{% if show_block %}
+  {% style %}
     .ai-image-strip-{{ ai_gen_id }} {
-      width: 100%;
+      display: block;
+      width: {{ block.settings.desktop_width_percent }}%;
+      max-width: 100%;
     }
 
     .ai-image-strip-{{ ai_gen_id }}__grid {
-      gap: {{ block.settings.gap | times: 0.6 }}px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: {{ block.settings.gap }}px;
     }
-  }
-{% endstyle %}
 
-<div class="ai-image-strip-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  <div class="ai-image-strip-{{ ai_gen_id }}__grid">
-    {% for i in (1..2) %}
-      {% liquid
-        assign image_key = 'image_' | append: i
-        assign link_key = 'link_' | append: i
-        assign image = block.settings[image_key]
-        assign image_link = block.settings[link_key]
-      %}
-      {% if image_link != blank %}<a class="ai-image-strip-{{ ai_gen_id }}__item ai-image-strip-{{ ai_gen_id }}__link" href="{{ image_link }}" aria-label="{{ image.alt | default: 'Scopri l’immagine' | escape }}">{% else %}<div class="ai-image-strip-{{ ai_gen_id }}__item">{% endif %}
-        {% if image != blank %}
-          <img src="{{ image | image_url: width: 1200 }}" alt="{{ image.alt | escape }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}">
-        {% else %}
-          <div class="ai-image-strip-{{ ai_gen_id }}__placeholder">
-            {{ 'image' | placeholder_svg_tag }}
-            <span>Aggiungi l’immagine {{ i }} nelle impostazioni del blocco</span>
-          </div>
-        {% endif %}
-      {% if image_link != blank %}</a>{% else %}</div>{% endif %}
-    {% endfor %}
+    .ai-image-strip-{{ ai_gen_id }}__item {
+      display: block;
+      overflow: hidden;
+      background: #F7F5F0;
+      aspect-ratio: {% if block.settings.image_ratio == 'square' %}1 / 1{% elsif block.settings.image_ratio == 'portrait' %}4 / 5{% else %}auto{% endif %};
+    }
+
+    .ai-image-strip-{{ ai_gen_id }}__item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      {% if block.settings.image_ratio == 'natural' %}
+        height: auto;
+      {% else %}
+        object-fit: cover;
+      {% endif %}
+    }
+
+    .ai-image-strip-{{ ai_gen_id }}__placeholder {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      min-height: 160px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #4A5340;
+      background: #F7F5F0;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .ai-image-strip-{{ ai_gen_id }}__placeholder svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 240px;
+      color: #6B7565;
+    }
+
+    .ai-image-strip-{{ ai_gen_id }}__placeholder span {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .ai-image-strip-{{ ai_gen_id }}__link:focus-visible {
+      outline: 2px solid #4A5340;
+      outline-offset: 3px;
+    }
+
+    @media screen and (max-width: 749px) {
+      .ai-image-strip-{{ ai_gen_id }} {
+        width: 100%;
+      }
+
+      .ai-image-strip-{{ ai_gen_id }}__grid {
+        gap: {{ block.settings.gap | times: 0.6 }}px;
+      }
+    }
+  {% endstyle %}
+
+  <div class="ai-image-strip-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+    <div class="ai-image-strip-{{ ai_gen_id }}__grid">
+      {% for i in (1..2) %}
+        {% liquid
+          assign image_key = 'image_' | append: i
+          assign link_key = 'link_' | append: i
+          assign image = block.settings[image_key]
+          assign image_link = block.settings[link_key]
+        %}
+        {% if image_link != blank %}<a class="ai-image-strip-{{ ai_gen_id }}__item ai-image-strip-{{ ai_gen_id }}__link" href="{{ image_link }}" aria-label="{{ image.alt | default: 'Scopri l’immagine' | escape }}">{% else %}<div class="ai-image-strip-{{ ai_gen_id }}__item">{% endif %}
+          {% if image != blank %}
+            <img src="{{ image | image_url: width: 1200 }}" alt="{{ image.alt | escape }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}">
+          {% else %}
+            <div class="ai-image-strip-{{ ai_gen_id }}__placeholder">
+              {{ 'image' | placeholder_svg_tag }}
+              <span>Aggiungi l’immagine {{ i }} nelle impostazioni del blocco</span>
+            </div>
+          {% endif %}
+        {% if image_link != blank %}</a>{% else %}</div>{% endif %}
+      {% endfor %}
+    </div>
   </div>
-</div>
+{% elsif request.design_mode %}
+  {% capture target_name %}
+    {% if target_product.title != blank %}
+      {{ target_product.title }}
+    {% elsif target_product != blank %}
+      {{ target_product }}
+    {% elsif target_list != blank and target_list.first != blank %}
+      {{ target_list.first.title | default: target_list.first }}
+    {% else %}
+      Prodotto Assegnato
+    {% endif %}
+  {% endcapture %}
+  <div class="ai-image-strip-admin-notice" style="margin: 1.5rem 0; padding: 1.25rem 1.5rem; border: 2px dashed rgba(122, 114, 101, 0.45); background: #F7F5F0; border-radius: 4px; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #4A5340; font-size: 13px; line-height: 1.5;" {{ block.shopify_attributes }}>
+    🌿 <strong>Striscia di Immagini:</strong> assegnata a <strong>{{ target_name | strip }}</strong>. <span style="color: #7A7265; display: inline-block; margin-left: 4px;">(Nascosta su questo prodotto nello storefront)</span>
+  </div>
+{% endif %}
 
 {% schema %}
 {
   "name": "Striscia di immagini",
   "settings": [
+    {
+      "type": "header",
+      "content": "Assegnazione Prodotto"
+    },
+    {
+      "type": "product",
+      "id": "target_product",
+      "label": "Mostra solo su questo prodotto",
+      "info": "Seleziona il prodotto specifico (es. Unicho 21) a cui associare questa striscia. Se vuoto, controlla la lista sotto o mostra su tutti."
+    },
+    {
+      "type": "product_list",
+      "id": "target_product_list",
+      "label": "Oppure seleziona più prodotti",
+      "limit": 10
+    },
     {
       "type": "header",
       "content": "Immagini"

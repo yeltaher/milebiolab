@@ -77,12 +77,41 @@
                   {% unless item.variant.title contains 'Default' %}
                     <div class="text-xs text-[#7A7265] mt-0.5">{{ item.variant.title }} &bull; Milebiolab Haute Couture</div>
                   {% endunless %}
-                  <div class="text-xs font-semibold text-[#1A1A1A] mt-1">{{ item.price | money }}</div>
+                  {%- assign item_compare_at = item.variant.compare_at_price | default: 0 -%}
+                  {%- if item_compare_at == 0 and item.properties['_compare_at_price'] -%}
+                    {%- assign item_compare_at = item.properties['_compare_at_price'] | times: 100 -%}
+                  {%- endif -%}
+                  {%- assign is_routine_bundle = false -%}
+                  {%- if item.properties['_bundle'] == 'routine_15' or item.properties['bundle'] == 'routine_15' -%}
+                    {%- assign is_routine_bundle = true -%}
+                    {%- if item_compare_at == 0 or item_compare_at <= item.final_price -%}
+                      {%- assign item_compare_at = item.final_price -%}
+                    {%- endif -%}
+                    {%- assign display_unit_price = item.final_price | times: 0.85 | round -%}
+                    {%- assign display_line_price = item.final_line_price | times: 0.85 | round -%}
+                  {%- else -%}
+                    {%- assign display_unit_price = item.final_price -%}
+                    {%- assign display_line_price = item.final_line_price | default: item.line_price -%}
+                  {%- endif -%}
+
+                  <div class="text-xs font-semibold text-[#1A1A1A] mt-1 flex items-baseline gap-1.5">
+                    <span>{{ display_unit_price | money }}</span>
+                    {% if item_compare_at > display_unit_price %}
+                      <span class="line-through text-[#7A7265] text-xs font-normal ml-1.5">{{ item_compare_at | money }}</span>
+                    {% endif %}
+                    {% if is_routine_bundle %}
+                      <span class="text-[10px] bg-[#5C6B56]/10 text-[#5C6B56] px-1.5 py-0.5 rounded font-mono font-medium ml-1">-15% Routine</span>
+                    {% endif %}
+                  </div>
                 </div>
                 <div class="flex flex-col items-end gap-2 shrink-0">
                   <!-- Prezzo Totale Riga -->
-                  <div class="text-xs font-semibold text-[#1A1A1A]">
-                    {{ item.final_line_price | default: item.line_price | money }}
+                  <div class="text-xs font-semibold text-[#1A1A1A] flex items-baseline justify-end gap-1.5">
+                    <span>{{ display_line_price | money }}</span>
+                    {% if item_compare_at > display_unit_price %}
+                      {% assign line_compare_at = item_compare_at | times: item.quantity %}
+                      <span class="line-through text-[#7A7265] text-xs font-normal ml-1.5">{{ line_compare_at | money }}</span>
+                    {% endif %}
                   </div>
 
                   <!-- Selettore Quantità (- / Qty / +) -->
@@ -145,10 +174,22 @@
       <div class="lg:col-span-5 bg-white border border-[#E5E0D8] p-6 shadow-xs sticky top-28">
         <h3 class="font-serif text-xl mb-4 border-b border-[#E5E0D8] pb-3 text-[#1A1A1A]">{{ section.settings.heading_summary | default: "Riepilogo Ordine" }}</h3>
         
+        {%- assign cart_calc_total = 0 -%}
+        {%- assign has_bundle_cart = false -%}
+        {%- for cart_item in cart.items -%}
+          {%- if cart_item.properties['_bundle'] == 'routine_15' or cart_item.properties['bundle'] == 'routine_15' -%}
+            {%- assign has_bundle_cart = true -%}
+            {%- assign discounted_line = cart_item.final_line_price | times: 0.85 | round -%}
+            {%- assign cart_calc_total = cart_calc_total | plus: discounted_line -%}
+          {%- else -%}
+            {%- assign cart_calc_total = cart_calc_total | plus: cart_item.final_line_price -%}
+          {%- endif -%}
+        {%- endfor -%}
+
         <div class="space-y-3 text-xs mb-6">
           <div class="flex justify-between">
             <span class="text-[#7A7265]">Subtotale</span>
-            <span class="font-semibold text-[#1A1A1A]" id="cart-summary-subtotal">{{ cart.total_price | money | default: '€ 170,00' }}</span>
+            <span class="font-semibold text-[#1A1A1A]" id="cart-summary-subtotal">{% if has_bundle_cart %}{{ cart_calc_total | money }}{% else %}{{ cart.total_price | money | default: '€ 170,00' }}{% endif %}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-[#7A7265]">Spedizione espressa / Ritiro Verona</span>
@@ -156,7 +197,7 @@
           </div>
           <div class="flex justify-between border-t border-[#E5E0D8] pt-3 text-sm font-semibold">
             <span>Totale (IVA inclusa)</span>
-            <span class="text-[#1A1A1A]" id="cart-summary-total">{{ cart.total_price | money | default: '€ 170,00' }}</span>
+            <span class="text-[#1A1A1A]" id="cart-summary-total">{% if has_bundle_cart %}{{ cart_calc_total | money }}{% else %}{{ cart.total_price | money | default: '€ 170,00' }}{% endif %}</span>
           </div>
         </div>
 
@@ -212,7 +253,7 @@
           {% endif %}
         </div>
 
-        <a href="{{ routes.cart_url }}/checkout" class="w-full bg-[#1A1A1A] text-white py-4 px-6 text-xs uppercase tracking-[0.22em] font-semibold hover:bg-[#5C6B56] transition-all text-center flex items-center justify-center luxury-interactive shadow-md mb-4">
+        <a href="{{ routes.cart_url }}/checkout{% if has_bundle_cart %}?discount=ROUTINE15{% endif %}" id="cart-page-checkout-btn" class="w-full bg-[#1A1A1A] text-white py-4 px-6 text-xs uppercase tracking-[0.22em] font-semibold hover:bg-[#5C6B56] transition-all text-center flex items-center justify-center luxury-interactive shadow-md mb-4">
           {{ section.settings.checkout_btn_text | default: "Procedi al Checkout Sicuro" }}
         </a>
 

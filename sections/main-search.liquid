@@ -45,7 +45,12 @@
                 <a href="{{ item.url }}" class="font-serif text-base text-[#1A1A1A] font-medium hover:text-[#C8A878] transition-colors block">{{ item.title }}</a>
               </div>
               <div class="mt-4 pt-3 border-t border-[#E5E0D8] flex items-center justify-between">
-                <span class="font-serif text-base font-semibold text-[#555E6B]">{{ item.price | money }}</span>
+                <div class="flex items-baseline gap-2">
+                  <span class="font-serif text-base font-semibold text-[#1A1A1A]">{{ item.price | money }}</span>
+                  {% if item.compare_at_price > item.price %}
+                    <span class="text-xs text-[#7A7265] line-through font-normal">{{ item.compare_at_price | money }}</span>
+                  {% endif %}
+                </div>
                 <a href="{{ item.url }}" class="bg-[#1A1A1A] text-white px-3 py-1.5 text-[9px] uppercase tracking-widest font-semibold hover:bg-[#5C6B56] transition-colors">Vedi</a>
               </div>
             </div>

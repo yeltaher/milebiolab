@@ -367,13 +367,50 @@
                   if (typeof addRoutineBundleToCart === 'function') addRoutineBundleToCart();
                   return;
                 }
+                var discountCode = {{ section.settings.bundle_discount_code | default: 'ROUTINE15' | json }};
+                window.mileBundleDiscountCode = discountCode;
+                try {
+                  localStorage.setItem('mile_bundle_discount_code', discountCode);
+                } catch(e) {}
+
+                // Pre-activate discount in Shopify session so checkout has 15% discount applied
+                try {
+                  fetch('/discount/' + encodeURIComponent(discountCode));
+                } catch(e) {}
+
                 var addUrl = (window.routes && window.routes.cart_add_url) ? window.routes.cart_add_url : '/cart/add.js';
                 try {
                   var payload = {
                     items: items.map(function(item) {
-                      return { id: item.id, quantity: 1 };
+                      var numPrice = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+                      return {
+                        id: item.id,
+                        quantity: 1,
+                        properties: {
+                          'step': item.step,
+                          '_bundle': 'routine_15',
+                          '_bundle_discount': '15%',
+                          '_compare_at_price': numPrice.toFixed(2)
+                        }
+                      };
                     })
                   };
+
+                  // Cache compare at prices in memory and localStorage
+                  window.mileComparePrices = window.mileComparePrices || {};
+                  items.forEach(function(item) {
+                    var numPrice = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+                    window.mileComparePrices[item.id] = numPrice;
+                  });
+                  try {
+                    var cMap = JSON.parse(localStorage.getItem('mile_variant_compare_prices') || '{}');
+                    items.forEach(function(item) {
+                      var numPrice = typeof item.price === 'number' ? item.price : parseFloat(item.price);
+                      cMap[item.id] = numPrice;
+                    });
+                    localStorage.setItem('mile_variant_compare_prices', JSON.stringify(cMap));
+                  } catch(e) {}
+
                   var res = await fetch(addUrl, {
                     method: 'POST',
                     headers: {
@@ -390,9 +427,23 @@
                     openCartDrawer();
                   }
                 } catch (e) {
+                  console.warn('Shopify Cart add items failed, falling back to local cart:', e);
                   if (typeof addToCart === 'function') {
                     items.forEach(function(item) {
-                      addToCart(item);
+                      var origPrice = typeof item.price === 'number' ? item.price : (parseFloat(item.price) || 0);
+                      var discountedPrice = Math.round(origPrice * 0.85 * 100) / 100;
+                      var bundleItem = Object.assign({}, item, {
+                        price: discountedPrice,
+                        compare_at_price: origPrice,
+                        is_bundle: true,
+                        properties: {
+                          'step': item.step,
+                          '_bundle': 'routine_15',
+                          '_bundle_discount': '15%',
+                          '_compare_at_price': origPrice.toFixed(2)
+                        }
+                      });
+                      addToCart(bundleItem);
                     });
                   } else if (typeof addRoutineBundleToCart === 'function') {
                     addRoutineBundleToCart();
@@ -488,6 +539,13 @@
       "id": "bundle_btn_text",
       "label": "Testo Pulsante Carrello",
       "default": "Aggiungi la Routine Completa al Carrello (-15%) →"
+    },
+    {
+      "type": "text",
+      "id": "bundle_discount_code",
+      "label": "Codice Sconto Shopify per il Bundle",
+      "default": "ROUTINE15",
+      "info": "Codice sconto da applicare al checkout quando si aggiunge l'intera routine al carrello."
     }
   ],
   "blocks": [

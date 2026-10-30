@@ -246,16 +246,57 @@ async function fetchShopifyCart() {
     const data = await res.json();
     if (data && Array.isArray(data.items)) {
       if (data.items.length > 0) {
-        MilebiolabState.cart = data.items.map(item => ({
-          id: item.id || item.variant_id,
-          key: item.key,
-          title: translateProductTitleToItalian(item.product_title || item.title),
-          step: (item.properties && item.properties['step']) || 'RITUALE BOTANICO',
-          price: (item.price / 100),
-          volume: item.variant_title || 'Formato Originale',
-          qty: item.quantity,
-          image: item.featured_image ? (item.featured_image.url || item.featured_image) : (item.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80')
-        }));
+        const localCompareMap = (() => {
+          try {
+            return JSON.parse(localStorage.getItem('mile_variant_compare_prices') || '{}');
+          } catch(e) { return {}; }
+        })();
+        window.mileComparePrices = Object.assign({}, localCompareMap, window.mileComparePrices || {});
+
+        MilebiolabState.cart = data.items.map(item => {
+          const itemId = item.id || item.variant_id;
+          const isBundle = item.properties && (
+            item.properties['_bundle'] === 'routine_15' ||
+            item.properties['bundle'] === 'routine_15' ||
+            item.properties['_bundle_discount'] === '15%'
+          );
+
+          const rawPrice = item.price / 100;
+          let finalPrice = rawPrice;
+
+          // Lookup compare_at_price
+          let compPrice = (item.compare_at_price ? (item.compare_at_price / 100) : 0) ||
+                          (item.properties && item.properties['_compare_at_price'] ? parseFloat(item.properties['_compare_at_price']) : 0) ||
+                          (window.mileComparePrices && window.mileComparePrices[itemId] ? parseFloat(window.mileComparePrices[itemId]) : 0) ||
+                          (item.original_price > item.price ? (item.original_price / 100) : 0);
+
+          if (isBundle) {
+            compPrice = compPrice > rawPrice ? compPrice : rawPrice;
+            finalPrice = Math.round(rawPrice * 0.85 * 100) / 100;
+          }
+
+          if (compPrice > finalPrice) {
+            window.mileComparePrices[itemId] = compPrice;
+          }
+
+          return {
+            id: itemId,
+            key: item.key,
+            title: translateProductTitleToItalian(item.product_title || item.title),
+            step: (item.properties && item.properties['step']) || (isBundle ? 'ROUTINE COMPLETA (-15%)' : 'RITUALE BOTANICO'),
+            price: finalPrice,
+            compare_at_price: compPrice > finalPrice ? compPrice : 0,
+            volume: item.variant_title || 'Formato Originale',
+            qty: item.quantity,
+            image: item.featured_image ? (item.featured_image.url || item.featured_image) : (item.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'),
+            properties: item.properties || {},
+            is_bundle: isBundle
+          };
+        });
+
+        try {
+          localStorage.setItem('mile_variant_compare_prices', JSON.stringify(window.mileComparePrices));
+        } catch(e) {}
       } else {
         MilebiolabState.cart = [];
       }
@@ -283,10 +324,13 @@ async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
       id: cleanId || Date.now(),
       title: (itemData && itemData.title) ? translateProductTitleToItalian(itemData.title) : 'Prodotto MileBioLab',
       price: (itemData && typeof itemData.price === 'number') ? itemData.price : (parseFloat(itemData && itemData.price) || 75.00),
+      compare_at_price: (itemData && itemData.compare_at_price) ? parseFloat(itemData.compare_at_price) : 0,
       volume: (itemData && itemData.volume) || '50 ml',
       step: (itemData && itemData.step) || 'RITUALE BOTANICO',
       qty: qty || 1,
-      image: (itemData && itemData.image) || ''
+      image: (itemData && itemData.image) || '',
+      properties: (itemData && itemData.properties) || {},
+      is_bundle: (itemData && itemData.is_bundle) || false
     };
     const existing = MilebiolabState.cart.find(i => i.id == fallbackItem.id || (fallbackItem.title && i.title === fallbackItem.title));
     if (existing) {
@@ -310,6 +354,22 @@ async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
       };
       if (itemData && itemData.properties) {
         payload.properties = itemData.properties;
+      }
+      if (itemData && itemData.compare_at_price) {
+        const cVal = parseFloat(itemData.compare_at_price);
+        if (cVal > (itemData.price || 0)) {
+          if (!payload.properties) payload.properties = {};
+          if (!payload.properties['_compare_at_price']) {
+            payload.properties['_compare_at_price'] = cVal.toFixed(2);
+          }
+          window.mileComparePrices = window.mileComparePrices || {};
+          window.mileComparePrices[cleanId] = cVal;
+          try {
+            const map = JSON.parse(localStorage.getItem('mile_variant_compare_prices') || '{}');
+            map[cleanId] = cVal;
+            localStorage.setItem('mile_variant_compare_prices', JSON.stringify(map));
+          } catch(e) {}
+        }
       }
       const res = await fetch(addUrl, {
         method: 'POST',
@@ -411,6 +471,29 @@ function renderCartDrawer() {
       totalQty += item.qty;
       subtotal += item.price * item.qty;
 
+      const isDiscounted = (item.compare_at_price && item.compare_at_price > item.price) ||
+                           (item.original_price && item.original_price > item.price) ||
+                           (item.compare_price && item.compare_price > item.price);
+
+      const compareVal = item.compare_at_price || item.original_price || item.compare_price || 0;
+
+      let priceHtml = '';
+      if (isDiscounted && compareVal > item.price) {
+        priceHtml = `
+          <div class="cart-item-price flex items-baseline gap-2">
+            <span class="cart-item-current-price font-semibold text-[#1A1A1A]">€ ${item.price.toFixed(2).replace('.', ',')}</span>
+            <span class="cart-item-compare-price text-xs text-[#7A7265] line-through font-normal">€ ${compareVal.toFixed(2).replace('.', ',')}</span>
+            ${item.is_bundle ? '<span class="text-[10px] bg-[#5C6B56]/10 text-[#5C6B56] px-1.5 py-0.5 rounded font-mono font-medium">-15% Routine</span>' : ''}
+          </div>
+        `;
+      } else {
+        priceHtml = `
+          <div class="cart-item-price">
+            <span class="cart-item-current-price font-semibold text-[#1A1A1A]">€ ${item.price.toFixed(2).replace('.', ',')}</span>
+          </div>
+        `;
+      }
+
       const itemEl = document.createElement('div');
       itemEl.className = 'cart-item';
       itemEl.innerHTML = `
@@ -418,7 +501,7 @@ function renderCartDrawer() {
         <div class="cart-item-details">
           <span class="cart-item-step">${item.step || 'RITUALE BOTANICO'}</span>
           <h4 class="cart-item-title">${translateProductTitleToItalian(item.title)}</h4>
-          <div class="cart-item-price">€ ${item.price.toFixed(2).replace('.', ',')}</div>
+          ${priceHtml}
           <div class="cart-item-meta">${item.volume} • Milebiolab Haute Couture</div>
           <div class="cart-item-qty">
             <button class="qty-btn" type="button" onclick="updateCartItemQty('${item.key || item.id}', -1)" aria-label="Riduci">-</button>
@@ -454,6 +537,34 @@ function renderCartDrawer() {
     } else {
       const remaining = (threshold - subtotal).toFixed(2).replace('.', ',');
       progressText.innerHTML = `🌿 Aggiungi ancora <strong>€ ${remaining}</strong> per la <em>Spedizione Gratuita</em> e i <em>3 Campioncini Omaggio</em>!`;
+    }
+  }
+
+  // Update checkout buttons with discount if routine bundle is present
+  const hasBundleItem = MilebiolabState.cart.some(item =>
+    item.is_bundle ||
+    (item.properties && item.properties['_bundle'] === 'routine_15') ||
+    (item.id && String(item.id).indexOf('bundle') !== -1)
+  );
+  const bundleDiscountCode = window.mileBundleDiscountCode ||
+                             localStorage.getItem('mile_bundle_discount_code') ||
+                             'ROUTINE15';
+
+  const checkoutBtn = document.getElementById('cart-drawer-checkout-btn');
+  if (checkoutBtn) {
+    if (hasBundleItem) {
+      checkoutBtn.setAttribute('href', `/checkout?discount=${encodeURIComponent(bundleDiscountCode)}`);
+    } else {
+      checkoutBtn.setAttribute('href', '/checkout');
+    }
+  }
+
+  const pageCheckoutBtn = document.getElementById('cart-page-checkout-btn');
+  if (pageCheckoutBtn) {
+    if (hasBundleItem) {
+      pageCheckoutBtn.setAttribute('href', `/checkout?discount=${encodeURIComponent(bundleDiscountCode)}`);
+    } else {
+      pageCheckoutBtn.setAttribute('href', '/checkout');
     }
   }
 }
@@ -562,11 +673,13 @@ function quickAddProduct(btn, event) {
   const volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume || '50 ml';
   const image = btn.getAttribute('data-product-image') || btn.dataset.productImage || '';
   const step = btn.getAttribute('data-product-step') || btn.dataset.productStep || 'RITUALE BOTANICO';
+  const comparePrice = parseFloat(btn.getAttribute('data-product-compare-price') || btn.dataset.productComparePrice) || 0;
 
   const itemData = {
     id: variantId,
     title: title,
     price: price,
+    compare_at_price: comparePrice > price ? comparePrice : 0,
     volume: volume,
     step: step,
     qty: 1,
@@ -667,33 +780,59 @@ function addToCartMock(title, price, image, volume, step) {
 }
 
 function addRoutineBundleToCart() {
-  // Adds 3 items with 15% discount
+  const discountCode = window.mileBundleDiscountCode || localStorage.getItem('mile_bundle_discount_code') || 'ROUTINE15';
+  try {
+    localStorage.setItem('mile_bundle_discount_code', discountCode);
+    fetch('/discount/' + encodeURIComponent(discountCode));
+  } catch(e) {}
+
   addToCart({
     id: 'bundle-01-reset',
     title: 'Latte Detergente & Tonico Quotidiano',
     step: '01 PURIFICAZIONE • ROUTINE COMPLETA (-15%)',
     price: 32.30, // 38 - 15%
+    compare_at_price: 38.00,
     volume: '200 ml',
     qty: 1,
-    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80'
+    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=200&q=80',
+    is_bundle: true,
+    properties: {
+      '_bundle': 'routine_15',
+      '_bundle_discount': '15%',
+      '_compare_at_price': '38.00'
+    }
   });
   addToCart({
     id: 'bundle-02-concentrate',
     title: "Siero Concentrato all'Acido Ialuronico Puro",
     step: '02 CONCENTRATO • ROUTINE COMPLETA (-15%)',
     price: 73.10, // 86 - 15%
+    compare_at_price: 86.00,
     volume: '30 ml',
     qty: 1,
-    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80'
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=200&q=80',
+    is_bundle: true,
+    properties: {
+      '_bundle': 'routine_15',
+      '_bundle_discount': '15%',
+      '_compare_at_price': '86.00'
+    }
   });
   addToCart({
     id: 'bundle-03-hydrate',
     title: 'Crema Riparatrice Cellulare Suprema',
     step: '03 IDRATAZIONE • ROUTINE COMPLETA (-15%)',
     price: 71.40, // 84 - 15%
+    compare_at_price: 84.00,
     volume: '50 ml',
     qty: 1,
-    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'
+    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80',
+    is_bundle: true,
+    properties: {
+      '_bundle': 'routine_15',
+      '_bundle_discount': '15%',
+      '_compare_at_price': '84.00'
+    }
   });
 }
 

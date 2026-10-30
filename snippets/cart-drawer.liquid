@@ -102,7 +102,7 @@
       IVA inclusa. Spedizione sicura e tracciata in tutta Italia.
     </p>
 
-    <a href="{{ routes.cart_url }}/checkout" id="cart-drawer-checkout-btn" onclick="window.location.href='/checkout';" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem; cursor: pointer; position: relative; z-index: 10;">
+    <a href="{{ routes.cart_url }}/checkout" id="cart-drawer-checkout-btn" onclick="window.location.href=this.getAttribute('href') || '/checkout';" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem; cursor: pointer; position: relative; z-index: 10;">
       <span>Procedi al Checkout Sicuro</span>
       <span>&bull;</span>
       <span id="cart-checkout-price">€ 110,00</span>

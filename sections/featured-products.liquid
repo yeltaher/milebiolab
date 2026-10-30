@@ -162,6 +162,7 @@
                             data-variant-id="{{ card_variant_id }}"
                             data-product-title="{{ product.title | escape }}"
                             data-product-price="{{ product.price | divided_by: 100.0 | default: 75.00 }}"
+                             data-product-compare-price="{{ product.compare_at_price | default: 0 | divided_by: 100.0 }}"
                             data-product-volume="{{ product.variants.first.title | escape | default: '50 ml' }}"
                             data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 400 }}{% endif %}"
                             class="text-[10px] uppercase tracking-[0.15em] bg-white text-[#1A1A1A] px-4 py-2.5 font-semibold hover:bg-[#C8A878] hover:text-white transition-all duration-300 w-full text-center shadow-md cursor-pointer">
@@ -173,6 +174,7 @@
                     data-wishlist-id="{{ product.id }}"
                     data-product-title="{{ product.title | escape }}"
                     data-product-price="{{ product.price | divided_by: 100.0 }}"
+                    data-product-compare-price="{{ product.compare_at_price | default: 0 | divided_by: 100.0 }}"
                     data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 300 }}{% endif %}"
                     data-product-volume="{{ product.variants.first.title | escape | default: '50 ml' }}"
                     class="card-wishlist-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5E0D8] flex items-center justify-center text-[#1A1A1A] hover:text-red-600 hover:scale-110 transition-all z-20 cursor-pointer shadow-xs"
@@ -184,7 +186,12 @@
                   <h3 class="font-serif text-lg text-[#1A1A1A] font-medium leading-snug">
                     <a href="{{ product.url }}" class="hover:text-[#C8A878] transition-colors line-clamp-2">{{ product.title }}</a>
                   </h3>
-                  <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">{{ product.price | money }}</span>
+                  <div class="text-right shrink-0">
+                    <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">{{ product.price | money }}</span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="block text-xs text-[#7A7265] line-through font-normal">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
+                  </div>
                 </div>
                 {%- if product.type != blank and product.type != 'Trattamento Biomimetico' -%}
                   <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type }}</p>

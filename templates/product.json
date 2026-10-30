@@ -66,6 +66,7 @@
         "ai_gen_block_f469f31_dmRFxh": {
           "type": "ai_gen_block_f469f31",
           "settings": {
+            "target_product": "unicho-21-burro-primordiale-50ml",
             "image_1": "shopify://shop_images/1792311803129.jpg",
             "link_1": "",
             "image_2": "shopify://shop_images/1790445155127.jpg",

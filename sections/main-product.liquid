@@ -200,7 +200,7 @@
                                 {% unless product.has_only_default_variant %}
                                     {% for variant in product.variants %}
                                         <button type="button"
-                                                onclick="selectFormat('{{ variant.id }}', {{ variant.price | divided_by: 100.0 }}, '{{ variant.title | escape }}', this, '{{ variant.price | money }}', '+{{ variant.price | divided_by: 100 }}', '{{ variant.id }}')"
+                                                onclick="selectFormat('{{ variant.id }}', {{ variant.price | divided_by: 100.0 }}, '{{ variant.title | escape }}', this, '{{ variant.price | money }}', '+{{ variant.price | divided_by: 100 }}', '{{ variant.id }}', {{ variant.compare_at_price | default: 0 | divided_by: 100.0 }}, '{{ variant.compare_at_price | money }}')"
                                                 class="format-pill {% if variant.id == product.selected_or_first_available_variant.id %}bg-black text-white{% else %}border border-black/40 text-black hover:border-black bg-transparent{% endif %} min-h-[42px] px-3.5 py-1.5 text-xs font-bold tracking-wider transition-all luxury-interactive flex items-center justify-center">
                                             {{ variant.title }}
                                         </button>
@@ -212,6 +212,7 @@
                                         data-product-id="{{ product.id }}"
                                         data-product-title="{{ clean_pdp_title | default: product.title | default: section.settings.product_title | escape }}"
                                         data-product-price="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 | default: 84.00 }}"
+                                        data-product-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: 0 | divided_by: 100.0 }}"
                                         data-product-image="{{ product.featured_media | image_url: width: 300 }}"
                                         class="min-h-[42px] min-w-[42px] flex items-center justify-center p-1.5 text-black hover:opacity-70 transition-transform active:scale-90 ml-1 luxury-interactive"
                                         aria-label="Aggiungi alla lista desideri">
@@ -220,12 +221,17 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="text-right flex items-center justify-end">
-                                <span id="product-price" class="text-[13px] sm:text-sm font-normal tracking-normal text-[#555E6B] select-none">
+                            <div id="product-price-container" class="flex items-baseline gap-2 justify-end">
+                                <span id="product-price" class="text-base sm:text-lg font-bold tracking-normal text-[#1A1A1A] select-none">
                                     {% if product.selected_or_first_available_variant.price %}
                                         {{ product.selected_or_first_available_variant.price | money }}
                                     {% else %}
                                         76,00 &euro;
+                                    {% endif %}
+                                </span>
+                                <span id="product-compare-price" class="text-xs sm:text-sm font-normal text-[#7A7265] line-through select-none {% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}hidden{% endunless %}">
+                                    {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                                        {{ product.selected_or_first_available_variant.compare_at_price | money }}
                                     {% endif %}
                                 </span>
                             </div>
@@ -344,7 +350,7 @@
                     {%- when 'buy_buttons' -%}
                         <div class="mb-4" {{ block.shopify_attributes }}>
                             <button id="add-to-cart-btn"
-                                    type="submit"
+                                    type="submit" data-product-price="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}" data-product-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: 0 | divided_by: 100.0 }}"
                                     class="w-full bg-black text-white py-4 px-6 min-h-[50px] rounded-none text-xs uppercase tracking-[0.22em] font-semibold hover:bg-[#222222] active:bg-[#333333] transition-all text-center flex items-center justify-center luxury-interactive">
                                 AGGIUNGI AL CARRELLO
                             </button>
@@ -618,10 +624,20 @@
   let currentFormat = '{{ product.selected_or_first_available_variant.id | default: "default" }}';
   let currentFormatLabel = '{{ product.selected_or_first_available_variant.title | escape | default: "Default Title" }}';
 
-  function selectFormat(formatId, price, label, el, unitPrice, loyaltyPts, variantId) {
+  let currentComparePrice = {{ product.selected_or_first_available_variant.compare_at_price | default: 0 | divided_by: 100.0 }};
+
+  window.mileComparePrices = window.mileComparePrices || {};
+  {% for v in product.variants %}
+    {% if v.compare_at_price > v.price %}
+      window.mileComparePrices['{{ v.id }}'] = {{ v.compare_at_price | divided_by: 100.0 }};
+    {% endif %}
+  {% endfor %}
+
+  function selectFormat(formatId, price, label, el, unitPrice, loyaltyPts, variantId, comparePrice, comparePriceFormatted) {
     currentPrice = price;
     currentFormat = formatId;
     currentFormatLabel = label;
+    currentComparePrice = (typeof comparePrice === 'number') ? comparePrice : (parseFloat(comparePrice) || 0);
 
     if (variantId) {
       const varInput = document.getElementById('selected-variant-id');
@@ -631,6 +647,28 @@
     const prodPriceEl = document.getElementById('product-price');
     if (prodPriceEl) {
       prodPriceEl.innerHTML = (typeof price === 'number') ? price.toFixed(2).replace('.', ',') + ' &euro;' : price;
+    }
+
+    const compPriceEl = document.getElementById('product-compare-price');
+    if (compPriceEl) {
+      if (currentComparePrice > currentPrice) {
+        compPriceEl.innerHTML = comparePriceFormatted || (currentComparePrice.toFixed(2).replace('.', ',') + ' &euro;');
+        compPriceEl.classList.remove('hidden');
+      } else {
+        compPriceEl.classList.add('hidden');
+        compPriceEl.innerHTML = '';
+      }
+    }
+
+    const wishBtn = document.getElementById('wishlist-btn');
+    if (wishBtn) {
+      wishBtn.setAttribute('data-product-price', currentPrice);
+      wishBtn.setAttribute('data-product-compare-price', currentComparePrice);
+    }
+    const atcBtn = document.getElementById('add-to-cart-btn');
+    if (atcBtn) {
+      atcBtn.setAttribute('data-product-price', currentPrice);
+      atcBtn.setAttribute('data-product-compare-price', currentComparePrice);
     }
 
     const unitPriceEl = document.getElementById('unit-price-display');
@@ -709,17 +747,24 @@
           btn.classList.add('bg-[#5C6B56]');
         }
 
+        const itemPayload = {
+          id: variantId,
+          title: {{ clean_pdp_title | default: product.title | default: section.settings.product_title | json }},
+          price: currentPrice,
+          compare_at_price: currentComparePrice,
+          volume: currentFormatLabel,
+          qty: 1,
+          image: '{{ product.featured_media | image_url: width: 300 }}'
+        };
+        if (currentComparePrice > currentPrice) {
+          itemPayload.properties = {
+            '_compare_at_price': currentComparePrice.toFixed(2)
+          };
+        }
         if (typeof window.addShopifyCartItem === 'function') {
-          window.addShopifyCartItem(variantId, 1);
+          window.addShopifyCartItem(variantId, 1, itemPayload);
         } else if (typeof addToCart === 'function') {
-          addToCart({
-            id: variantId,
-            title: {{ clean_pdp_title | default: product.title | default: section.settings.product_title | json }},
-            price: currentPrice,
-            volume: currentFormatLabel,
-            qty: 1,
-            image: '{{ product.featured_media | image_url: width: 300 }}'
-          });
+          addToCart(itemPayload);
         }
 
         setTimeout(() => {
