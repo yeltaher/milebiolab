@@ -108,6 +108,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_kAndQp": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/WhatsAppImage2026-09-26at19.02.28_1.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/WhatsAppImage2026-09-26at19.02.28.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -128,6 +143,7 @@
         "ai_gen_block_f469f31_dmRFxh",
         "ai_gen_block_f469f31_cX967p",
         "ai_gen_block_f469f31_7bjBXr",
+        "ai_gen_block_f469f31_kAndQp",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
