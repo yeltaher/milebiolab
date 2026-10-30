@@ -378,6 +378,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_mrG8aX": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "keratin-volume-boost-shampoo",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1790504122368.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1790503849433.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -416,6 +431,7 @@
         "ai_gen_block_f469f31_M8KrPC",
         "ai_gen_block_f469f31_AaqNXt",
         "ai_gen_block_f469f31_J6rxpM",
+        "ai_gen_block_f469f31_mrG8aX",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
