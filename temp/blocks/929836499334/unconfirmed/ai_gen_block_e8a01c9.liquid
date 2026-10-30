@@ -1,6 +1,129 @@
+{% doc %}
+  @prompt
+    crea una striscia diviso 3 una parte con immagine di un prodotto che verrà scontato, una parte con 3 decrizioni di varie misure del prodotto, la terza parte con il pulsante con importo personalizzato del prodotto scontato " aggiungi il prodotto al carrello"
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-promo-strip-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    box-sizing: border-box;
+    color: {{ block.settings.text_color }};
+    background: {{ block.settings.background_color }};
+    border: 1px solid {{ block.settings.border_color }};
+    padding: {{ block.settings.padding }}px;
+  }
+  .ai-promo-strip-{{ ai_gen_id }} *,
+  .ai-promo-strip-{{ ai_gen_id }} *::before,
+  .ai-promo-strip-{{ ai_gen_id }} *::after { box-sizing: border-box; }
+  .ai-promo-strip-{{ ai_gen_id }}__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, .9fr);
+    gap: 24px;
+    align-items: center;
+  }
+  .ai-promo-strip-{{ ai_gen_id }}__media { position: relative; overflow: hidden; background: {{ block.settings.image_background }}; }
+  .ai-promo-strip-{{ ai_gen_id }}__media img,
+  .ai-promo-strip-{{ ai_gen_id }}__placeholder svg { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  .ai-promo-strip-{{ ai_gen_id }}__placeholder { position: relative; }
+  .ai-promo-strip-{{ ai_gen_id }}__placeholder svg { color: {{ block.settings.text_color }}; }
+  .ai-promo-strip-{{ ai_gen_id }}__empty { position: absolute; bottom: 12px; left: 12px; right: 12px; padding: 8px; text-align: center; font-size: 13px; background: {{ block.settings.background_color }}; }
+  .ai-promo-strip-{{ ai_gen_id }}__details { display: grid; gap: 12px; }
+  .ai-promo-strip-{{ ai_gen_id }}__title { margin: 0; color: {{ block.settings.text_color }}; font-size: clamp(20px, 2vw, 28px); line-height: 1.2; }
+  .ai-promo-strip-{{ ai_gen_id }}__description { margin: 0; line-height: 1.55; }
+  .ai-promo-strip-{{ ai_gen_id }}__points { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .ai-promo-strip-{{ ai_gen_id }}__point { padding: 10px 12px; border-left: 2px solid {{ block.settings.accent_color }}; background: {{ block.settings.detail_background }}; line-height: 1.45; }
+  .ai-promo-strip-{{ ai_gen_id }}__purchase { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .ai-promo-strip-{{ ai_gen_id }}__price { margin: 0; font-size: 25px; font-weight: 600; }
+  .ai-promo-strip-{{ ai_gen_id }}__compare { margin-left: 8px; font-size: 15px; font-weight: 400; opacity: .75; text-decoration: line-through; }
+  .ai-promo-strip-{{ ai_gen_id }}__button { display: inline-flex; justify-content: center; align-items: center; width: 100%; min-height: 48px; padding: 12px 16px; border: 0; background: {{ block.settings.button_color }}; color: {{ block.settings.button_text_color }}; font: inherit; font-weight: 600; text-align: center; cursor: pointer; }
+  .ai-promo-strip-{{ ai_gen_id }}__button:hover { background: {{ block.settings.button_hover_color }}; }
+  .ai-promo-strip-{{ ai_gen_id }}__button:focus-visible { outline: 2px solid {{ block.settings.text_color }}; outline-offset: 3px; }
+  .ai-promo-strip-{{ ai_gen_id }}__error { margin: 0; color: {{ block.settings.text_color }}; }
+  @media screen and (max-width: 749px) {
+    .ai-promo-strip-{{ ai_gen_id }} { width: 100%; }
+    .ai-promo-strip-{{ ai_gen_id }}__grid { grid-template-columns: 1fr; gap: 18px; }
+    .ai-promo-strip-{{ ai_gen_id }}__media { max-width: 360px; width: 100%; margin: 0 auto; }
+  }
+{% endstyle %}
+
+<div class="ai-promo-strip-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% assign promo_product = block.settings.product %}
+  {% if promo_product != blank %}
+    {% assign promo_variant = promo_product.selected_or_first_available_variant %}
+    <div class="ai-promo-strip-{{ ai_gen_id }}__grid">
+      <div class="ai-promo-strip-{{ ai_gen_id }}__media">
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.image.alt | default: promo_product.title | escape }}" loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+        {% elsif promo_product.featured_image != blank %}
+          <img src="{{ promo_product.featured_image | image_url: width: 900 }}" alt="{{ promo_product.featured_image.alt | default: promo_product.title | escape }}" loading="lazy" width="{{ promo_product.featured_image.width }}" height="{{ promo_product.featured_image.height }}">
+        {% else %}
+          <div class="ai-promo-strip-{{ ai_gen_id }}__placeholder">
+            {{ 'product-apparel-1' | placeholder_svg_tag }}
+            <div class="ai-promo-strip-{{ ai_gen_id }}__empty">Seleziona un prodotto o aggiungi un’immagine</div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="ai-promo-strip-{{ ai_gen_id }}__details">
+        {% if block.settings.heading != blank %}<h2 class="ai-promo-strip-{{ ai_gen_id }}__title">{{ block.settings.heading | escape }}</h2>{% else %}<h2 class="ai-promo-strip-{{ ai_gen_id }}__title">{{ promo_product.title | escape }}</h2>{% endif %}
+        {% if block.settings.description != blank %}<p class="ai-promo-strip-{{ ai_gen_id }}__description">{{ block.settings.description | escape | newline_to_br }}</p>{% endif %}
+        <ul class="ai-promo-strip-{{ ai_gen_id }}__points">
+          {% if block.settings.detail_one != blank %}<li class="ai-promo-strip-{{ ai_gen_id }}__point">{{ block.settings.detail_one | escape }}</li>{% endif %}
+          {% if block.settings.detail_two != blank %}<li class="ai-promo-strip-{{ ai_gen_id }}__point">{{ block.settings.detail_two | escape }}</li>{% endif %}
+          {% if block.settings.detail_three != blank %}<li class="ai-promo-strip-{{ ai_gen_id }}__point">{{ block.settings.detail_three | escape }}</li>{% endif %}
+        </ul>
+      </div>
+      <div class="ai-promo-strip-{{ ai_gen_id }}__purchase">
+        {% if promo_variant.compare_at_price > promo_variant.price %}
+          <p class="ai-promo-strip-{{ ai_gen_id }}__price">{{ promo_variant.price | money }}<span class="ai-promo-strip-{{ ai_gen_id }}__compare">{{ promo_variant.compare_at_price | money }}</span></p>
+        {% else %}
+          <p class="ai-promo-strip-{{ ai_gen_id }}__price">{{ promo_variant.price | money }}</p>
+        {% endif %}
+        {% form 'product', promo_product, class: 'ai-promo-strip-form' %}
+          <input type="hidden" name="id" value="{{ promo_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" name="add" class="ai-promo-strip-{{ ai_gen_id }}__button" {% unless promo_variant.available %}disabled{% endunless %}>
+            {% if promo_variant.available %}{{ block.settings.button_label | escape }}{% else %}Esaurito{% endif %}
+          </button>
+          {% if form.errors %}<p class="ai-promo-strip-{{ ai_gen_id }}__error" role="alert">{{ form.errors | default_errors }}</p>{% endif %}
+        {% endform %}
+      </div>
+    </div>
+  {% else %}
+    <div class="ai-promo-strip-{{ ai_gen_id }}__details"><h2 class="ai-promo-strip-{{ ai_gen_id }}__title">Aggiungi un prodotto</h2><p class="ai-promo-strip-{{ ai_gen_id }}__description">Seleziona un prodotto nelle impostazioni del blocco per mostrare immagine, dettagli e prezzo aggiornato.</p></div>
+  {% endif %}
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Striscia prodotto promo",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Prodotto" },
+    { "type": "image_picker", "id": "image", "label": "Immagine personalizzata" },
+    { "type": "text", "id": "heading", "label": "Titolo", "default": "Offerta speciale" },
+    { "type": "textarea", "id": "description", "label": "Descrizione", "default": "Scopri il prodotto e i suoi punti di forza." },
+    { "type": "header", "content": "Dettagli prodotto" },
+    { "type": "text", "id": "detail_one", "label": "Dettaglio 1", "default": "Formato e quantità" },
+    { "type": "text", "id": "detail_two", "label": "Dettaglio 2", "default": "Beneficio principale" },
+    { "type": "text", "id": "detail_three", "label": "Dettaglio 3", "default": "Modalità d’uso" },
+    { "type": "text", "id": "button_label", "label": "Testo pulsante", "default": "Aggiungi il prodotto al carrello" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Larghezza desktop", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "padding", "label": "Spaziatura interna", "min": 10, "max": 50, "step": 5, "unit": "px", "default": 25 },
+    { "type": "header", "content": "Stile" },
+    { "type": "color", "id": "background_color", "label": "Sfondo", "default": "#F7F5F0" },
+    { "type": "color", "id": "detail_background", "label": "Sfondo dettagli", "default": "#FAF8F5" },
+    { "type": "color", "id": "text_color", "label": "Testo", "default": "#1A1A1A" },
+    { "type": "color", "id": "border_color", "label": "Bordo", "default": "#EDE5DB" },
+    { "type": "color", "id": "image_background", "label": "Sfondo immagine", "default": "#FAF8F5" },
+    { "type": "color", "id": "accent_color", "label": "Accento", "default": "#6B7565" },
+    { "type": "color", "id": "button_color", "label": "Pulsante", "default": "#4A5340" },
+    { "type": "color", "id": "button_hover_color", "label": "Pulsante al passaggio", "default": "#1A1A1A" },
+    { "type": "color", "id": "button_text_color", "label": "Testo pulsante", "default": "#FFFFFF" }
+  ],
+  "presets": [{ "name": "Striscia prodotto promo" }],
+  "tag": null,
+  "class": "promo-strip-block"
+}
 {% endschema %}
