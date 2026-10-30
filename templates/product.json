@@ -198,6 +198,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_MKFg67": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "gloss-shampoo-smoky-green-vetiver",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Gemini-Generated_Image_g2c85vg2c85vg2c8.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Gemini-Generated_Image_st63q0st63q0st63.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -224,6 +239,7 @@
         "ai_gen_block_f469f31_yQCK6K",
         "ai_gen_block_f469f31_4jTiaC",
         "ai_gen_block_f469f31_x3EykJ",
+        "ai_gen_block_f469f31_MKFg67",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
