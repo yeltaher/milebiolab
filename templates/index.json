@@ -38,10 +38,10 @@
         "item_5": ""
       }
     },
-    "17927672840772904d": {
+    "blocks_g9adUC": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_e4f11c6_KGcihb": {
+        "ai_gen_block_e4f11c6_e8gq8q": {
           "type": "ai_gen_block_e4f11c6",
           "settings": {
             "collection_image": "shopify://shop_images/20507.jpg",
@@ -61,7 +61,17 @@
             "button_text_color": "#ffffff"
           },
           "blocks": {}
-        },
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e4f11c6_e8gq8q"
+      ],
+      "name": "Striscia in tre parti",
+      "settings": {}
+    },
+    "17927672840772904d": {
+      "type": "_blocks",
+      "blocks": {
         "ai_gen_block_e049a42_g66GGd": {
           "type": "ai_gen_block_e049a42",
           "settings": {
@@ -80,7 +90,6 @@
         }
       },
       "block_order": [
-        "ai_gen_block_e4f11c6_KGcihb",
         "ai_gen_block_e049a42_g66GGd"
       ],
       "settings": {}
@@ -315,8 +324,9 @@
   "order": [
     "hero-splendor",
     "ticker-marquee",
-    "17927672840772904d",
+    "blocks_g9adUC",
     "trust-icon-bar",
+    "17927672840772904d",
     "featured-products",
     "routine-steps",
     "ugc-gallery",
