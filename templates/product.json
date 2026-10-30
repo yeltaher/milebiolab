@@ -123,6 +123,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_d64Jxf": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "the-ultimate-hydration-duo",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Hyaluronic_moisture_Infusion_duo_Longevity_Face_Mile_02.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Hyaluronic_moisture_Infusion_duo_Longevity_Face_Mile.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -144,6 +159,7 @@
         "ai_gen_block_f469f31_cX967p",
         "ai_gen_block_f469f31_7bjBXr",
         "ai_gen_block_f469f31_kAndQp",
+        "ai_gen_block_f469f31_d64Jxf",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
