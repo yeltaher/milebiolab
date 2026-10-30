@@ -31,9 +31,9 @@
     "ticker-marquee": {
       "type": "ticker-marquee",
       "settings": {
-        "item_1": "✦ RITIRO IN ISTITUTO LEBESTETIK A VERONA",
-        "item_2": "✦ SPEDIZIONE STANDARD GRATUITA DA €75 IN TUTTA ITALIA",
-        "item_3": "✦ formule PER TUTTA LA FAMIGLIA",
+        "item_1": "✦ 98-99- 100% VERA COSMESI NATURALE",
+        "item_2": "✦ SPEDIZIONE GRATUITA DA €75 IN TUTTA ITALIA",
+        "item_3": "✦ formule naturali PER TUTTA LA FAMIGLIA",
         "item_4": "✦ 98-99- 100% VERA COSMESI NATURALE",
         "item_5": ""
       }
@@ -69,6 +69,19 @@
       "name": "Striscia in tre parti",
       "settings": {}
     },
+    "trust-icon-bar": {
+      "type": "trust-icon-bar",
+      "settings": {
+        "item_1_title": "Purezza e Sostenibilità",
+        "item_1_sub": "Formule senza OGM per la massima purezza. Packaging riciclabile e spedizioni in imballaggi riciclati",
+        "item_2_title": "Cosmos Naturale ECOCERT",
+        "item_2_sub": "Ogni formula soddisfa gli standard internazionalmente riconosciuti con almeno il 95% di ingredienti naturali",
+        "item_3_title": "Ingredienti Origine Vegetale",
+        "item_3_sub": "Il 95% dei nostri ingredienti per la cura della pelle a base vegetale proviene da agricoltura biologica certificata",
+        "item_4_title": "FDA Compliant",
+        "item_4_sub": "Pienamente conforme alle normative UE (notifica CPNP), Regno Unito e Stati Uniti (registrazione FDA)"
+      }
+    },
     "17927672840772904d": {
       "type": "_blocks",
       "blocks": {
@@ -93,19 +106,6 @@
         "ai_gen_block_e049a42_g66GGd"
       ],
       "settings": {}
-    },
-    "trust-icon-bar": {
-      "type": "trust-icon-bar",
-      "settings": {
-        "item_1_title": "Purezza e Sostenibilità",
-        "item_1_sub": "Formule senza OGM per la massima purezza. Packaging riciclabile e spedizioni in imballaggi riciclati",
-        "item_2_title": "Cosmos Naturale ECOCERT",
-        "item_2_sub": "Ogni formula soddisfa gli standard internazionalmente riconosciuti con almeno il 95% di ingredienti naturali",
-        "item_3_title": "Ingredienti Origine Vegetale",
-        "item_3_sub": "Il 95% dei nostri ingredienti per la cura della pelle a base vegetale proviene da agricoltura biologica certificata",
-        "item_4_title": "FDA Compliant",
-        "item_4_sub": "Pienamente conforme alle normative UE (notifica CPNP), Regno Unito e Stati Uniti (registrazione FDA)"
-      }
     },
     "featured-products": {
       "type": "featured-products",
@@ -319,6 +319,45 @@
         "coupon_badge": "🎁 Coupon Sconto 15% con codice MILE15",
         "card_note": "Algoritmo Dermocosmetico Milebiolab • Basato sui protocolli clinici dell'Istituto di Verona"
       }
+    },
+    "1793372234ef85e9e1": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_baff0e0_UM6fP4": {
+          "type": "ai_gen_block_baff0e0",
+          "settings": {
+            "product": "acne-spot-care",
+            "heading": "IL PROTAGONISTA DELLA SETTIMANA",
+            "description": "Pezzo esclusivo - immancabile per la tua routine",
+            "detail_one": "Formato e quantità",
+            "detail_two": "Beneficio principale",
+            "detail_three": "Modalità d’uso",
+            "button_label": "Aggiungi il prodotto al carrello",
+            "countdown_enabled": true,
+            "deadline": "2027-12-31T23:59:59+01:00",
+            "countdown_heading": "L’offerta termina tra",
+            "countdown_text": "Approfitta dell’offerta prima della scadenza.",
+            "desktop_width_percent": 100,
+            "padding": 25,
+            "background_color": "#F7F5F0",
+            "detail_background": "#FAF8F5",
+            "text_color": "#1A1A1A",
+            "border_color": "#EDE5DB",
+            "image_background": "#FAF8F5",
+            "accent_color": "#4A5340",
+            "button_color": "#4A5340",
+            "button_hover_color": "#1A1A1A",
+            "button_text_color": "#FFFFFF",
+            "timer_background": "#FAF8F5",
+            "timer_text_color": "#1A1A1A"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_baff0e0_UM6fP4"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -334,6 +373,7 @@
     "collections-list",
     "editorial-quote-press",
     "local-pickup-verona",
-    "skin-quiz-banner"
+    "skin-quiz-banner",
+    "1793372234ef85e9e1"
   ]
 }
