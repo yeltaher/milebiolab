@@ -77,10 +77,26 @@
             "gap": 20
           },
           "blocks": {}
+        },
+        "ai_gen_block_f469f31_PJKibi": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "biphasic-make-up-remover-fragrance-free",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1790365760399_jpg.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1790365774363_jpg.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_f469f31_dmRFxh"
+        "ai_gen_block_f469f31_dmRFxh",
+        "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
       "settings": {}
