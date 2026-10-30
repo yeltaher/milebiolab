@@ -196,15 +196,9 @@
                 {%- if product.type != blank and product.type != 'Trattamento Biomimetico' -%}
                   <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type }}</p>
                 {%- endif -%}
-                {%- assign p_title_lower = product.title | downcase -%}
-                {%- assign p_handle_lower = product.handle | downcase -%}
                 <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-2">
                   <span>★★★★★</span>
-                  {%- if p_title_lower contains 'unicho' or p_handle_lower contains 'unicho' or p_title_lower contains 'burro primordiale' -%}
-                    <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 28 recensioni)</span>
-                  {%- else -%}
-                    <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
-                  {%- endif -%}
+                  <span class="text-[#7A7265] font-sans text-[11px]">{% render 'product-review-summary', product: product, format: 'card' %}</span>
                 </div>
               </div>
             </div>
