@@ -228,6 +228,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_TCH3aM": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "acne-purifying-face-wash",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1792319559352.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1792319758399.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -256,6 +271,7 @@
         "ai_gen_block_f469f31_x3EykJ",
         "ai_gen_block_f469f31_MKFg67",
         "ai_gen_block_f469f31_mcfAFB",
+        "ai_gen_block_f469f31_TCH3aM",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
