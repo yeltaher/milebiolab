@@ -35,7 +35,7 @@
           "show_announcement": true,
           "announcement_text": "Ottieni il 10% di sconto sul tuo primo ordine  • Spedizione gratuita da € 75",
           "announcement_link_text": "Acquista Ora",
-          "announcement_link": "",
+          "announcement_link": "shopify://collections",
           "brand_name": "MILE",
           "brand_payoff": "DERMOCOSMESI • VERONA • PURE PERFORMANCE",
           "menu": "",
