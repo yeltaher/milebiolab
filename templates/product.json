@@ -78,6 +78,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_cX967p": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "hand-body-wash-patchouli-amber-vanilla",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1791904508790.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1791904219201.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -96,6 +111,7 @@
       },
       "block_order": [
         "ai_gen_block_f469f31_dmRFxh",
+        "ai_gen_block_f469f31_cX967p",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
