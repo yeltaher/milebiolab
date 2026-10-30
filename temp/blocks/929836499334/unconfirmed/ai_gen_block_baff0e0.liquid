@@ -1,6 +1,155 @@
+{% doc %}
+  @prompt
+    crea una striscia diviso 3 una parte con immagine di un prodotto che verrà scontato, una parte con 3 decrizioni di varie misure del prodotto, la terza parte con il pulsante con importo personalizzato del prodotto scontato " aggiungi il prodotto al carrello", aggiungi Crea un conto alla rovescia con giorni, ore, minuti e secondi. Data e ora di scadenza, testo e colori devono essere modificabili. Alla scadenza nascondi il contatore. Adatta lo stile al tema e rendilo leggibile su mobile., crea una striscia diviso 3 una parte con immagine di un prodotto che verrà scontato, una parte con 3 decrizioni di varie misure del prodotto, la terza parte con il pulsante con importo personalizzato del prodotto scontato " aggiungi il prodotto al carrello Crea un conto alla rovescia con giorni, ore, minuti e secondi. Data e ora di scadenza, testo e colori devono essere modificabili. Alla scadenza nascondi il contatore. Adatta lo stile al tema e rendilo leggibile su mobile.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-promo-{{ ai_gen_id }} { display:block; width:{{ block.settings.desktop_width_percent }}%; max-width:100%; box-sizing:border-box; color:{{ block.settings.text_color }}; background:{{ block.settings.background_color }}; border:1px solid {{ block.settings.border_color }}; padding:{{ block.settings.padding }}px; }
+  .ai-promo-{{ ai_gen_id }} *, .ai-promo-{{ ai_gen_id }} *::before, .ai-promo-{{ ai_gen_id }} *::after { box-sizing:border-box; }
+  .ai-promo-{{ ai_gen_id }}__grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,.9fr); gap:24px; align-items:center; }
+  .ai-promo-{{ ai_gen_id }}__media { position:relative; overflow:hidden; background:{{ block.settings.image_background }}; }
+  .ai-promo-{{ ai_gen_id }}__media img, .ai-promo-{{ ai_gen_id }}__placeholder svg { display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
+  .ai-promo-{{ ai_gen_id }}__placeholder { position:relative; }
+  .ai-promo-{{ ai_gen_id }}__placeholder svg { color:{{ block.settings.text_color }}; }
+  .ai-promo-{{ ai_gen_id }}__empty { position:absolute; bottom:12px; left:12px; right:12px; padding:8px; text-align:center; font-size:13px; background:{{ block.settings.background_color }}; }
+  .ai-promo-{{ ai_gen_id }}__details { display:grid; gap:12px; }
+  .ai-promo-{{ ai_gen_id }}__title { margin:0; color:inherit; font-size:clamp(20px,2vw,28px); line-height:1.2; }
+  .ai-promo-{{ ai_gen_id }}__description { margin:0; line-height:1.55; }
+  .ai-promo-{{ ai_gen_id }}__points { display:grid; gap:10px; margin:0; padding:0; list-style:none; }
+  .ai-promo-{{ ai_gen_id }}__point { padding:10px 12px; border-left:2px solid {{ block.settings.accent_color }}; background:{{ block.settings.detail_background }}; line-height:1.45; }
+  .ai-promo-{{ ai_gen_id }}__purchase { display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
+  .ai-promo-{{ ai_gen_id }}__price { margin:0; font-size:25px; font-weight:600; }
+  .ai-promo-{{ ai_gen_id }}__compare { margin-left:8px; font-size:15px; font-weight:400; opacity:.75; text-decoration:line-through; }
+  .ai-promo-{{ ai_gen_id }}__button { display:inline-flex; justify-content:center; align-items:center; width:100%; min-height:48px; padding:12px 16px; border:0; background:{{ block.settings.button_color }}; color:{{ block.settings.button_text_color }}; font:inherit; font-weight:600; text-align:center; cursor:pointer; }
+  .ai-promo-{{ ai_gen_id }}__button:hover { background:{{ block.settings.button_hover_color }}; }
+  .ai-promo-{{ ai_gen_id }}__button:focus-visible { outline:2px solid {{ block.settings.text_color }}; outline-offset:3px; }
+  .ai-promo-{{ ai_gen_id }}__error { margin:0; color:inherit; }
+  .ai-promo-{{ ai_gen_id }}__timer { margin:0 0 22px; padding:16px; background:{{ block.settings.timer_background }}; color:{{ block.settings.timer_text_color }}; border:1px solid {{ block.settings.border_color }}; text-align:center; }
+  .ai-promo-{{ ai_gen_id }}__timer[hidden] { display:none; }
+  .ai-promo-{{ ai_gen_id }}__timer-heading { margin:0 0 12px; color:inherit; font-size:clamp(17px,2vw,22px); }
+  .ai-promo-{{ ai_gen_id }}__timer-copy { margin:0 0 12px; line-height:1.45; }
+  .ai-promo-{{ ai_gen_id }}__clock { display:flex; justify-content:center; gap:clamp(8px,2vw,16px); }
+  .ai-promo-{{ ai_gen_id }}__time-unit { min-width:58px; padding:8px; border:1px solid {{ block.settings.timer_text_color }}; }
+  .ai-promo-{{ ai_gen_id }}__time-number { display:block; font-size:clamp(21px,4vw,30px); font-weight:600; line-height:1.15; font-variant-numeric:tabular-nums; }
+  .ai-promo-{{ ai_gen_id }}__time-label { display:block; margin-top:4px; font-size:12px; }
+  @media screen and (max-width:749px) {
+    .ai-promo-{{ ai_gen_id }} { width:100%; }
+    .ai-promo-{{ ai_gen_id }}__grid { grid-template-columns:minmax(0,1fr); gap:18px; }
+    .ai-promo-{{ ai_gen_id }}__media { width:100%; max-width:360px; margin:0 auto; }
+    .ai-promo-{{ ai_gen_id }}__timer { padding:12px 8px; margin-bottom:18px; }
+    .ai-promo-{{ ai_gen_id }}__clock { gap:6px; }
+    .ai-promo-{{ ai_gen_id }}__time-unit { min-width:0; flex:1 1 0; padding:8px 4px; }
+    .ai-promo-{{ ai_gen_id }}__time-label { font-size:11px; }
+  }
+{% endstyle %}
+
+<promo-countdown-{{ ai_gen_id }} class="ai-promo-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.countdown_enabled %}
+    <div class="ai-promo-{{ ai_gen_id }}__timer" data-deadline="{{ block.settings.deadline | escape }}" {% if block.settings.countdown_heading == blank and block.settings.countdown_text == blank %}aria-label="Conto alla rovescia"{% endif %}>
+      {% if block.settings.countdown_heading != blank %}<h2 class="ai-promo-{{ ai_gen_id }}__timer-heading">{{ block.settings.countdown_heading | escape }}</h2>{% endif %}
+      {% if block.settings.countdown_text != blank %}<p class="ai-promo-{{ ai_gen_id }}__timer-copy">{{ block.settings.countdown_text | escape }}</p>{% endif %}
+      <div class="ai-promo-{{ ai_gen_id }}__clock" role="timer" aria-label="Conto alla rovescia">
+        <div class="ai-promo-{{ ai_gen_id }}__time-unit"><span class="ai-promo-{{ ai_gen_id }}__time-number" data-days>00</span><span class="ai-promo-{{ ai_gen_id }}__time-label">Giorni</span></div>
+        <div class="ai-promo-{{ ai_gen_id }}__time-unit"><span class="ai-promo-{{ ai_gen_id }}__time-number" data-hours>00</span><span class="ai-promo-{{ ai_gen_id }}__time-label">Ore</span></div>
+        <div class="ai-promo-{{ ai_gen_id }}__time-unit"><span class="ai-promo-{{ ai_gen_id }}__time-number" data-minutes>00</span><span class="ai-promo-{{ ai_gen_id }}__time-label">Minuti</span></div>
+        <div class="ai-promo-{{ ai_gen_id }}__time-unit"><span class="ai-promo-{{ ai_gen_id }}__time-number" data-seconds>00</span><span class="ai-promo-{{ ai_gen_id }}__time-label">Secondi</span></div>
+      </div>
+    </div>
+  {% endif %}
+  {% assign promo_product = block.settings.product %}
+  {% if promo_product != blank %}
+    {% assign promo_variant = promo_product.selected_or_first_available_variant %}
+    <div class="ai-promo-{{ ai_gen_id }}__grid">
+      <div class="ai-promo-{{ ai_gen_id }}__media">
+        {% if block.settings.image != blank %}<img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.image.alt | default: promo_product.title | escape }}" loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+        {% elsif promo_product.featured_image != blank %}<img src="{{ promo_product.featured_image | image_url: width: 900 }}" alt="{{ promo_product.featured_image.alt | default: promo_product.title | escape }}" loading="lazy" width="{{ promo_product.featured_image.width }}" height="{{ promo_product.featured_image.height }}">
+        {% else %}<div class="ai-promo-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}<div class="ai-promo-{{ ai_gen_id }}__empty">Seleziona un prodotto o aggiungi un’immagine</div></div>{% endif %}
+      </div>
+      <div class="ai-promo-{{ ai_gen_id }}__details">
+        {% if block.settings.heading != blank %}<h2 class="ai-promo-{{ ai_gen_id }}__title">{{ block.settings.heading | escape }}</h2>{% else %}<h2 class="ai-promo-{{ ai_gen_id }}__title">{{ promo_product.title | escape }}</h2>{% endif %}
+        {% if block.settings.description != blank %}<p class="ai-promo-{{ ai_gen_id }}__description">{{ block.settings.description | escape | newline_to_br }}</p>{% endif %}
+        <ul class="ai-promo-{{ ai_gen_id }}__points">
+          {% if block.settings.detail_one != blank %}<li class="ai-promo-{{ ai_gen_id }}__point">{{ block.settings.detail_one | escape }}</li>{% endif %}
+          {% if block.settings.detail_two != blank %}<li class="ai-promo-{{ ai_gen_id }}__point">{{ block.settings.detail_two | escape }}</li>{% endif %}
+          {% if block.settings.detail_three != blank %}<li class="ai-promo-{{ ai_gen_id }}__point">{{ block.settings.detail_three | escape }}</li>{% endif %}
+        </ul>
+      </div>
+      <div class="ai-promo-{{ ai_gen_id }}__purchase">
+        {% if promo_variant.compare_at_price > promo_variant.price %}<p class="ai-promo-{{ ai_gen_id }}__price">{{ promo_variant.price | money }}<span class="ai-promo-{{ ai_gen_id }}__compare">{{ promo_variant.compare_at_price | money }}</span></p>{% else %}<p class="ai-promo-{{ ai_gen_id }}__price">{{ promo_variant.price | money }}</p>{% endif %}
+        {% form 'product', promo_product, class: 'ai-promo-strip-form' %}
+          <input type="hidden" name="id" value="{{ promo_variant.id }}"><input type="hidden" name="quantity" value="1">
+          <button type="submit" name="add" class="ai-promo-{{ ai_gen_id }}__button" {% unless promo_variant.available %}disabled{% endunless %}>{% if promo_variant.available %}{{ block.settings.button_label | escape }}{% else %}Esaurito{% endif %}</button>
+          {% if form.errors %}<p class="ai-promo-{{ ai_gen_id }}__error" role="alert">{{ form.errors | default_errors }}</p>{% endif %}
+        {% endform %}
+      </div>
+    </div>
+  {% else %}
+    <div class="ai-promo-{{ ai_gen_id }}__details"><h2 class="ai-promo-{{ ai_gen_id }}__title">Aggiungi un prodotto</h2><p class="ai-promo-{{ ai_gen_id }}__description">Seleziona un prodotto nelle impostazioni del blocco per mostrare immagine, dettagli e prezzo aggiornato.</p></div>
+  {% endif %}
+</promo-countdown-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    const tagName = 'promo-countdown-{{ ai_gen_id }}';
+    if (customElements.get(tagName)) return;
+    class PromoCountdown{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.timer = this.querySelector('[data-deadline]');
+        if (!this.timer) return;
+        this.deadline = new Date(this.timer.dataset.deadline).getTime();
+        if (!Number.isFinite(this.deadline) || this.deadline <= Date.now()) { this.timer.hidden = true; return; }
+        this.updateCountdown();
+        this.interval = window.setInterval(() => this.updateCountdown(), 1000);
+      }
+      disconnectedCallback() { if (this.interval) window.clearInterval(this.interval); }
+      updateCountdown() {
+        const remaining = this.deadline - Date.now();
+        if (remaining <= 0) { window.clearInterval(this.interval); this.timer.hidden = true; return; }
+        this.timer.querySelector('[data-days]').textContent = String(Math.floor(remaining / 86400000)).padStart(2, '0');
+        this.timer.querySelector('[data-hours]').textContent = String(Math.floor((remaining % 86400000) / 3600000)).padStart(2, '0');
+        this.timer.querySelector('[data-minutes]').textContent = String(Math.floor((remaining % 3600000) / 60000)).padStart(2, '0');
+        this.timer.querySelector('[data-seconds]').textContent = String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0');
+      }
+    }
+    customElements.define(tagName, PromoCountdown{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Striscia promo con timer",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Prodotto" },
+    { "type": "image_picker", "id": "image", "label": "Immagine personalizzata" },
+    { "type": "text", "id": "heading", "label": "Titolo prodotto", "default": "Offerta speciale" },
+    { "type": "textarea", "id": "description", "label": "Descrizione prodotto", "default": "Scopri il prodotto e i suoi punti di forza." },
+    { "type": "header", "content": "Dettagli prodotto" },
+    { "type": "text", "id": "detail_one", "label": "Dettaglio 1", "default": "Formato e quantità" },
+    { "type": "text", "id": "detail_two", "label": "Dettaglio 2", "default": "Beneficio principale" },
+    { "type": "text", "id": "detail_three", "label": "Dettaglio 3", "default": "Modalità d’uso" },
+    { "type": "text", "id": "button_label", "label": "Testo pulsante", "default": "Aggiungi il prodotto al carrello" },
+    { "type": "checkbox", "id": "countdown_enabled", "label": "Mostra conto alla rovescia", "default": true },
+    { "type": "text", "id": "deadline", "label": "Scadenza ISO 8601", "default": "2027-12-31T23:59:59+01:00" },
+    { "type": "text", "id": "countdown_heading", "label": "Titolo timer", "default": "L’offerta termina tra" },
+    { "type": "text", "id": "countdown_text", "label": "Testo timer", "default": "Approfitta dell’offerta prima della scadenza." },
+    { "type": "range", "id": "desktop_width_percent", "label": "Larghezza desktop", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "padding", "label": "Spaziatura interna", "min": 10, "max": 50, "step": 5, "unit": "px", "default": 25 },
+    { "type": "header", "content": "Colori e stile" },
+    { "type": "color", "id": "background_color", "label": "Sfondo", "default": "#F7F5F0" },
+    { "type": "color", "id": "detail_background", "label": "Sfondo dettagli", "default": "#FAF8F5" },
+    { "type": "color", "id": "text_color", "label": "Testo prodotto", "default": "#1A1A1A" },
+    { "type": "color", "id": "border_color", "label": "Bordo", "default": "#EDE5DB" },
+    { "type": "color", "id": "image_background", "label": "Sfondo immagine", "default": "#FAF8F5" },
+    { "type": "color", "id": "accent_color", "label": "Accento dettagli", "default": "#4A5340" },
+    { "type": "color", "id": "button_color", "label": "Pulsante", "default": "#4A5340" },
+    { "type": "color", "id": "button_hover_color", "label": "Pulsante al passaggio", "default": "#1A1A1A" },
+    { "type": "color", "id": "button_text_color", "label": "Testo pulsante", "default": "#FFFFFF" },
+    { "type": "color", "id": "timer_background", "label": "Sfondo timer", "default": "#FAF8F5" },
+    { "type": "color", "id": "timer_text_color", "label": "Testo timer", "default": "#1A1A1A" }
+  ],
+  "presets": [{ "name": "Striscia promo con timer" }],
+  "tag": null,
+  "class": "promo-strip-block"
+}
 {% endschema %}
