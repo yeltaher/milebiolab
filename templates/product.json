@@ -73,8 +73,8 @@
             "image_2": "shopify://shop_images/1790365760399_jpg.jpg",
             "link_2": "",
             "desktop_width_percent": 100,
-            "image_ratio": "natural",
-            "gap": 24
+            "image_ratio": "square",
+            "gap": 36
           },
           "blocks": {}
         }
