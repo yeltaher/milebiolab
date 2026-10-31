@@ -113,7 +113,7 @@
 
     <div class="flex-1 overflow-y-auto p-6 sm:p-7">
       
-      <!-- ============================================ -->
+            <!-- ============================================ -->
       <!-- TAB PANE 1: ACCEDI                           -->
       <!-- ============================================ -->
       <div id="account-drawer-pane-login" class="space-y-6">
@@ -122,51 +122,79 @@
           <div class="mb-5">
             <span class="text-[10px] font-mono tracking-widest uppercase text-[#7A7265] block mb-1">Bentornato nel Club</span>
             <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-snug">
-              Accedi al Tuo Profilo On-Site
+              Accedi al Tuo Profilo
             </h4>
             <p class="text-xs text-[#7A7265] mt-1 leading-relaxed">
-              Inserisci la tua email e il tuo nome per accedere istantaneamente al profilo on-site.
+              Inserisci la tua email e la tua password per accedere ai tuoi ordini e privilegi.
             </p>
           </div>
 
-          <!-- Email & Name Input & Luxury Login Button -->
-          <div class="space-y-4">
+          {% form 'customer_login', id: 'DrawerCustomerLoginForm', class: 'space-y-4', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
+            {% if form.errors %}
+              <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
             <div>
               <label for="DrawerLoginEmail" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
                 Indirizzo Email <span class="text-[#5C6B56]">*</span>
               </label>
-              <input
-                type="email"
-                id="DrawerLoginEmail"
-                autocomplete="email"
-                placeholder="es. maria.rossi@email.com"
-                class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-              >
+              <input type="email" name="customer[email]" id="DrawerLoginEmail" required autocomplete="email" placeholder="es. maria.rossi@email.com" class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors">
             </div>
-
             <div>
-              <label for="DrawerLoginName" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-                Il tuo Nome <span class="text-[#5C6B56]">*</span>
-              </label>
-              <input
-                type="text"
-                id="DrawerLoginName"
-                placeholder="es. Maria"
-                class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-              >
+              <div class="flex items-center justify-between mb-1">
+                <label for="DrawerLoginPassword" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A]">
+                  Password <span class="text-[#5C6B56]">*</span>
+                </label>
+                <button type="button" onclick="togglePasswordVisibility('DrawerLoginPassword', this)" class="text-[10px] text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer bg-transparent border-0">
+                  Mostra
+                </button>
+              </div>
+              <input type="password" name="customer[password]" id="DrawerLoginPassword" required autocomplete="current-password" placeholder="••••••••" class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs sm:text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors">
+              <div class="text-right mt-1.5">
+                <button type="button" onclick="toggleDrawerRecoverForm(true)" class="text-[11px] text-[#7A7265] hover:text-[#1A1A1A] underline cursor-pointer bg-transparent border-0 p-0">
+                  Password dimenticata?
+                </button>
+              </div>
             </div>
-
-            <div class="pt-2">
-              <button
-                type="button"
-                id="DrawerLoginSubmitBtn"
-                onclick="handleOnsiteLogin()"
-                class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-              >
+            <div class="pt-1">
+              <button type="submit" class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
                 <span>Accedi al Tuo Profilo</span>
                 <span class="text-[#C8A878]">&rarr;</span>
               </button>
             </div>
+          {% endform %}
+
+          <!-- Form di Recupero Password inline nel Drawer -->
+          <div id="DrawerRecoverPasswordView" class="hidden space-y-4">
+            <div class="mb-4">
+              <h4 class="font-serif text-xl text-[#1A1A1A] font-normal">Reimposta Password</h4>
+              <p class="text-xs text-[#7A7265] mt-1 leading-relaxed">
+                Inserisci la tua email. Ti invieremo un link sicuro per impostare una nuova password.
+              </p>
+            </div>
+            {% form 'recover_customer_password', id: 'DrawerCustomerRecoverForm', class: 'space-y-4' %}
+              {% if form.posted_successfully? %}
+                <div class="p-3 bg-[#FAF8F5] border border-[#5C6B56]/40 text-[#5C6B56] text-xs">
+                  Email inviata! Controlla la tua casella di posta per reimpostare la password.
+                </div>
+              {% endif %}
+              <div>
+                <label for="DrawerRecoverEmail" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
+                  Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                </label>
+                <input type="email" name="email" id="DrawerRecoverEmail" required placeholder="tua@email.com" class="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors">
+              </div>
+              <button type="submit" class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3 px-4 text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer">
+                Invia Link di Recupero
+              </button>
+              <div class="text-center pt-2">
+                <button type="button" onclick="toggleDrawerRecoverForm(false)" class="text-xs text-[#7A7265] hover:text-[#1A1A1A] underline bg-transparent border-0 cursor-pointer">
+                  &larr; Torna ad Accedi
+                </button>
+              </div>
+            {% endform %}
           </div>
 
           <div class="mt-6 pt-5 border-t border-[#E5E0D8] text-center">
@@ -201,8 +229,15 @@
           </p>
         </div>
 
-        {% form 'customer', id: 'RegisterDrawerForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
-          <input type="hidden" name="contact[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
+        {% form 'create_customer', id: 'RegisterDrawerForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+          <input type="hidden" name="return_to" value="/pages/account">
+          <input type="hidden" name="customer[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
+
+          {% if form.errors %}
+            <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
 
           <div id="DrawerRegisterFormFields" class="space-y-3.5">
             <div class="grid grid-cols-2 gap-3">
@@ -212,7 +247,7 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[first_name]"
+                  name="customer[first_name]"
                   id="DrawerRegisterFirstName"
                   required
                   placeholder="Maria"
@@ -225,7 +260,7 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[last_name]"
+                  name="customer[last_name]"
                   id="DrawerRegisterLastName"
                   required
                   placeholder="Rossi"
@@ -240,12 +275,37 @@
               </label>
               <input
                 type="email"
-                name="contact[email]"
+                name="customer[email]"
                 id="DrawerRegisterEmail"
                 required
+                autocomplete="email"
                 placeholder="es. maria.rossi@email.com"
                 class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
               >
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="DrawerRegisterPassword" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A]">
+                  Crea Password <span class="text-[#5C6B56]">*</span>
+                </label>
+                <button type="button" onclick="togglePasswordVisibility('DrawerRegisterPassword', this)" class="text-[10px] text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer bg-transparent border-0">
+                  Mostra
+                </button>
+              </div>
+              <input
+                type="password"
+                name="customer[password]"
+                id="DrawerRegisterPassword"
+                required
+                minlength="6"
+                autocomplete="new-password"
+                placeholder="Almeno 6 caratteri"
+                class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+              >
+              <p class="text-[10px] text-[#7A7265] mt-1">
+                Minimo 6 caratteri. Ti servirà per accedere ai tuoi ordini e privilegi.
+              </p>
             </div>
 
             <div>
@@ -254,7 +314,7 @@
               </label>
               <input
                 type="tel"
-                name="contact[phone]"
+                name="customer[note][Telefono]"
                 id="DrawerRegisterPhone"
                 placeholder="+39 333 1234567"
                 class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
@@ -290,57 +350,9 @@
                 id="DrawerRegisterSubmitBtn"
                 class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>Unisciti al Club Mile (-10%)</span>
+                <span>Crea Account & Unisciti al Club (-10%)</span>
                 <span class="text-[#C8A878]">&rarr;</span>
               </button>
-            </div>
-          </div>
-
-          <!-- In-place JS dynamic success state container (if submitted via AJAX) -->
-          <div id="DrawerRegisterJsSuccess" class="hidden py-4 text-center space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#5C6B56]/30 text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
-              ISCRIZIONE COMPLETATA
-            </div>
-
-            <div class="w-12 h-12 mx-auto rounded-full bg-[#5C6B56]/10 flex items-center justify-center text-[#5C6B56]">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-            </div>
-
-            <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-tight">
-              Benvenuto nel Club Mile
-            </h4>
-
-            <p class="text-xs text-[#7A7265] leading-relaxed">
-              Il tuo profilo è attivo. Utilizza il codice sconto sottostante per il tuo primo ordine.
-            </p>
-
-            <!-- Box con codice sconto MILE10 e pulsante copia -->
-            <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Il tuo codice riservato:</span>
-              <div class="flex items-center justify-center gap-2">
-                <span id="DrawerDiscountCodeJs" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8]">
-                  MILE10
-                </span>
-                <button
-                  type="button"
-                  onclick="copyDiscountCode('DrawerDiscountCodeJs', this)"
-                  class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
-                >
-                  Copia
-                </button>
-              </div>
-            </div>
-
-            <div class="pt-2 space-y-2.5">
-              <a href="/pages/account" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm">
-                Vai alla Tua Pagina Profilo &rarr;
-              </a>
-              <a href="/collections/all" class="block w-full py-2.5 px-4 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors">
-                Oppure Esplora il Catalogo &rarr;
-              </a>
             </div>
           </div>
 
@@ -490,102 +502,49 @@
     }
   }
 
-  function handleOnsiteLogin() {
-    var emailInput = document.getElementById('DrawerLoginEmail');
-    var nameInput = document.getElementById('DrawerLoginName');
-    var email = emailInput ? emailInput.value.trim() : '';
-    var name = nameInput ? nameInput.value.trim() : 'Membro Club';
-
-    if (!email) {
-      alert('Inserisci un indirizzo email valido.');
-      if (emailInput) emailInput.focus();
-      return;
+  function togglePasswordVisibility(inputId, btn) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    if (input.type === 'password') {
+      input.type = 'text';
+      if (btn) btn.textContent = 'Nascondi';
+    } else {
+      input.type = 'password';
+      if (btn) btn.textContent = 'Mostra';
     }
+  }
 
-    try {
-      localStorage.setItem('mile_customer', JSON.stringify({
-        first_name: name || email.split('@')[0],
-        last_name: '',
-        email: email
-      }));
-    } catch(err) { console.error(err); }
-
-    if (typeof window.renderCustomerAuthState === 'function') {
-      window.renderCustomerAuthState();
+  function toggleDrawerRecoverForm(show) {
+    var loginForm = document.getElementById('DrawerCustomerLoginForm');
+    var recoverView = document.getElementById('DrawerRecoverPasswordView');
+    if (loginForm && recoverView) {
+      if (show) {
+        loginForm.classList.add('hidden');
+        recoverView.classList.remove('hidden');
+      } else {
+        loginForm.classList.remove('hidden');
+        recoverView.classList.add('hidden');
+      }
     }
-
-    closeAccountDrawer();
-    window.location.href = '/pages/account';
   }
 
   document.addEventListener('DOMContentLoaded', function() {
     var regForm = document.getElementById('RegisterDrawerForm');
     if (regForm) {
-      regForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var firstNameInput = document.getElementById('DrawerRegisterFirstName');
-        var lastNameInput = document.getElementById('DrawerRegisterLastName');
-        var emailInput = document.getElementById('DrawerRegisterEmail');
-        
-        var firstName = firstNameInput ? firstNameInput.value : 'Cliente';
-        var lastName = lastNameInput ? lastNameInput.value : '';
-        var email = emailInput ? emailInput.value : '';
-
+      regForm.addEventListener('submit', function() {
         var submitBtn = document.getElementById('DrawerRegisterSubmitBtn');
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Iscrizione in corso...</span>';
         }
-
-        var formData = new FormData(regForm);
-        fetch(regForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-          }
-        }).then(function() {
-          try {
-            localStorage.setItem('mile_customer', JSON.stringify({
-              first_name: firstName,
-              last_name: lastName,
-              email: email
-            }));
-          } catch(err) { console.error(err); }
-
-          if (typeof window.renderCustomerAuthState === 'function') {
-            window.renderCustomerAuthState();
-          }
-
-          var fieldsEl = document.getElementById('DrawerRegisterFormFields');
-          var jsSuccessEl = document.getElementById('DrawerRegisterJsSuccess');
-          var promoCardEl = document.getElementById('DrawerRegisterPromoCard');
-          var switchEl = document.getElementById('DrawerRegisterLoginSwitch');
-          if (fieldsEl) fieldsEl.classList.add('hidden');
-          if (promoCardEl) promoCardEl.classList.add('hidden');
-          if (switchEl) switchEl.classList.add('hidden');
-          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
-        }).catch(function() {
-          try {
-            localStorage.setItem('mile_customer', JSON.stringify({
-              first_name: firstName,
-              last_name: lastName,
-              email: email
-            }));
-          } catch(err) {}
-          if (typeof window.renderCustomerAuthState === 'function') {
-            window.renderCustomerAuthState();
-          }
-          var fieldsEl = document.getElementById('DrawerRegisterFormFields');
-          var jsSuccessEl = document.getElementById('DrawerRegisterJsSuccess');
-          var promoCardEl = document.getElementById('DrawerRegisterPromoCard');
-          var switchEl = document.getElementById('DrawerRegisterLoginSwitch');
-          if (fieldsEl) fieldsEl.classList.add('hidden');
-          if (promoCardEl) promoCardEl.classList.add('hidden');
-          if (switchEl) switchEl.classList.add('hidden');
-          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
-        });
       });
+    }
+
+    var hash = window.location.hash.toLowerCase();
+    if (hash === '#recover') {
+      if (typeof openAccountDrawer === 'function') openAccountDrawer();
+      switchAccountDrawerTab('login');
+      toggleDrawerRecoverForm(true);
     }
   });
 
@@ -593,5 +552,6 @@
   window.closeAccountDrawer = closeAccountDrawer;
   window.switchAccountDrawerTab = switchAccountDrawerTab;
   window.copyDiscountCode = copyDiscountCode;
-  window.handleOnsiteLogin = handleOnsiteLogin;
+  window.togglePasswordVisibility = togglePasswordVisibility;
+  window.toggleDrawerRecoverForm = toggleDrawerRecoverForm;
 </script>
