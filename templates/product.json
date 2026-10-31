@@ -603,6 +603,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_QkYdp6": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "rosemary-hair-scalp-strengthening-oil",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1790522428134.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1790522346761.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -656,6 +671,7 @@
         "ai_gen_block_f469f31_tPFQMF",
         "ai_gen_block_f469f31_LyK6mV",
         "ai_gen_block_f469f31_UBWrJ4",
+        "ai_gen_block_f469f31_QkYdp6",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
