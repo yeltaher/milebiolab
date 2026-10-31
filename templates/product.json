@@ -588,6 +588,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_UBWrJ4": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "silk-skin-body-serum-woody-amber-leather",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Gemini-Generated_Image_egeag2egeag2egea.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Gemini-Generated_Image_q8nbfcq8nbfcq8nb.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -640,6 +655,7 @@
         "ai_gen_block_f469f31_d4RgYn",
         "ai_gen_block_f469f31_tPFQMF",
         "ai_gen_block_f469f31_LyK6mV",
+        "ai_gen_block_f469f31_UBWrJ4",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
