@@ -483,6 +483,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_RWmdfQ": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "radiant-glow-facial-wash",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Jy99vuCj7-VYm0Xr3Thf2iikxO03JR3I.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1790439207570_e9146ff7-ab1e-4b18-83e6-af0137ba16c7.png",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -528,6 +543,7 @@
         "ai_gen_block_f469f31_gwWrpj",
         "ai_gen_block_f469f31_yWV4ir",
         "ai_gen_block_f469f31_KKMfdL",
+        "ai_gen_block_f469f31_RWmdfQ",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
