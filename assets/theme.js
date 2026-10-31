@@ -2525,6 +2525,85 @@ function renderAccordionDescription(container) {
 }
 window.renderAccordionDescription = renderAccordionDescription;
 
+// Helper to standardize and format review authors: "Nome I. • Città" (es. "Beatrice F. • Milano", "Milena T. • Verona")
+function formatReviewAuthor(rawAuthor, optionalCity) {
+  var authorStr = rawAuthor ? String(rawAuthor).trim() : '';
+  if (!authorStr) authorStr = 'Cliente Verificata';
+
+  // 1. Replace corrupted or alternative bullet characters
+  var cleaned = authorStr
+    .replace(/[\uFFFD\u2022\u00B7]|&bull;|&middot;/g, ' • ')
+    .replace(/\s+-\s+/g, ' • ');
+
+  var nameStr = '';
+  var cityStr = '';
+
+  if (cleaned.indexOf('•') !== -1) {
+    var parts = cleaned.split('•');
+    nameStr = parts[0].trim();
+    cityStr = parts.slice(1).join('•').trim();
+  } else {
+    // Check if author has embedded city: e.g. "Donatella F. Verona", "Sara Emma V Verona", "Rossella. Verona"
+    var m1 = cleaned.match(/^(.+?\s+[A-Za-z]\.?)\s+([A-Z][a-zA-Z\s'-]+)$/);
+    var m2 = cleaned.match(/^([A-Za-z]+)\.\s+([A-Z][a-zA-Z\s'-]+)$/);
+    if (m1) {
+      nameStr = m1[1].trim();
+      cityStr = m1[2].trim();
+    } else if (m2) {
+      nameStr = m2[1].trim();
+      cityStr = m2[2].trim();
+    } else {
+      nameStr = cleaned;
+      cityStr = '';
+    }
+  }
+
+  if (optionalCity && String(optionalCity).trim()) {
+    cityStr = String(optionalCity).trim();
+  }
+
+  // Normalize City
+  if (!cityStr) {
+    cityStr = 'Verona';
+  } else {
+    var cityWords = cityStr.split(/\s+/).filter(Boolean).map(function(w) {
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    });
+    cityStr = cityWords.length > 0 ? cityWords.join(' ') : 'Verona';
+  }
+
+  // Normalize Name
+  nameStr = nameStr.replace(/\s+/g, ' ').trim();
+  var tokens = nameStr ? nameStr.split(' ') : [];
+
+  var namePart = '';
+  if (tokens.length === 0) {
+    namePart = 'Cliente M.';
+  } else if (tokens.length === 1) {
+    var single = tokens[0].replace(/\.+$/, '');
+    var low = single.toLowerCase();
+    if (low === 'milena') {
+      namePart = 'Milena T.';
+    } else if (low === 'cliente' || low === 'tu') {
+      namePart = 'Cliente M.';
+    } else if (low === 'rossella') {
+      namePart = 'Rossella M.';
+    } else {
+      namePart = (single.charAt(0).toUpperCase() + single.slice(1).toLowerCase()) + ' M.';
+    }
+  } else {
+    var firstTokens = tokens.slice(0, -1).map(function(t) {
+      return t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+    });
+    var lastTok = tokens[tokens.length - 1];
+    var initial = lastTok.charAt(0).toUpperCase() + '.';
+    namePart = firstTokens.join(' ') + ' ' + initial;
+  }
+
+  return namePart + ' • ' + cityStr;
+}
+window.formatReviewAuthor = formatReviewAuthor;
+
 // Render locally submitted user reviews stored in localStorage
 function renderUserReviews(productId) {
   if (!productId) return;
@@ -2577,7 +2656,7 @@ function renderUserReviews(productId) {
         </p>
       </div>
       <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-        <span class="font-medium text-ink">${escapeHtml(rev.author || 'Tu')}</span>
+        <span class="font-medium text-ink">${escapeHtml(formatReviewAuthor(rev.author))}</span>
         <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
       </div>
     `;

@@ -595,7 +595,37 @@
                             </p>
                         </div>
                         <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-                            <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                            {%- assign raw_b_author = block.settings.author | default: 'Cliente M. • Verona' -%}
+                            {%- assign clean_b_author = raw_b_author | replace: '�', ' • ' | replace: '&bull;', ' • ' | replace: '  ', ' ' | strip -%}
+                            {%- if clean_b_author contains '•' -%}
+                              {%- assign b_parts = clean_b_author | split: '•' -%}
+                              {%- assign b_name = b_parts[0] | strip -%}
+                              {%- assign b_city = b_parts[1] | strip | default: 'Verona' -%}
+                            {%- elsif clean_b_author contains ' Verona' -%}
+                              {%- assign b_name = clean_b_author | remove: ' Verona' | strip -%}
+                              {%- assign b_city = 'Verona' -%}
+                            {%- else -%}
+                              {%- assign b_name = clean_b_author | strip -%}
+                              {%- assign b_city = 'Verona' -%}
+                            {%- endif -%}
+                            {%- assign last_char = b_name | slice: -1, 1 -%}
+                            {%- if last_char != '.' and last_char != ' ' -%}
+                              {%- assign name_words = b_name | split: ' ' -%}
+                              {%- assign last_word = name_words | last -%}
+                              {%- if last_word.size == 1 -%}
+                                {%- assign b_name = b_name | append: '.' -%}
+                              {%- elsif name_words.size > 1 -%}
+                                {%- assign first_toks = '' -%}
+                                {%- for w in name_words -%}
+                                  {%- unless forloop.last -%}
+                                    {%- assign first_toks = first_toks | append: w | append: ' ' -%}
+                                  {%- endunless -%}
+                                {%- endfor -%}
+                                {%- assign initial_char = last_word | slice: 0, 1 -%}
+                                {%- assign b_name = first_toks | append: initial_char | append: '.' -%}
+                              {%- endif -%}
+                            {%- endif -%}
+                            <span class="font-medium text-ink">{{ b_name }} &bull; {{ b_city }}</span>
                             <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                         </div>
                     </div>
@@ -658,7 +688,37 @@
                             </p>
                         </div>
                         <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-                            <span class="font-medium text-ink">{{ block.settings.author }}</span>
+                            {%- assign raw_b_author = block.settings.author | default: 'Cliente M. • Verona' -%}
+                            {%- assign clean_b_author = raw_b_author | replace: '�', ' • ' | replace: '&bull;', ' • ' | replace: '  ', ' ' | strip -%}
+                            {%- if clean_b_author contains '•' -%}
+                              {%- assign b_parts = clean_b_author | split: '•' -%}
+                              {%- assign b_name = b_parts[0] | strip -%}
+                              {%- assign b_city = b_parts[1] | strip | default: 'Verona' -%}
+                            {%- elsif clean_b_author contains ' Verona' -%}
+                              {%- assign b_name = clean_b_author | remove: ' Verona' | strip -%}
+                              {%- assign b_city = 'Verona' -%}
+                            {%- else -%}
+                              {%- assign b_name = clean_b_author | strip -%}
+                              {%- assign b_city = 'Verona' -%}
+                            {%- endif -%}
+                            {%- assign last_char = b_name | slice: -1, 1 -%}
+                            {%- if last_char != '.' and last_char != ' ' -%}
+                              {%- assign name_words = b_name | split: ' ' -%}
+                              {%- assign last_word = name_words | last -%}
+                              {%- if last_word.size == 1 -%}
+                                {%- assign b_name = b_name | append: '.' -%}
+                              {%- elsif name_words.size > 1 -%}
+                                {%- assign first_toks = '' -%}
+                                {%- for w in name_words -%}
+                                  {%- unless forloop.last -%}
+                                    {%- assign first_toks = first_toks | append: w | append: ' ' -%}
+                                  {%- endunless -%}
+                                {%- endfor -%}
+                                {%- assign initial_char = last_word | slice: 0, 1 -%}
+                                {%- assign b_name = first_toks | append: initial_char | append: '.' -%}
+                              {%- endif -%}
+                            {%- endif -%}
+                            <span class="font-medium text-ink">{{ b_name }} &bull; {{ b_city }}</span>
                             <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                         </div>
                     </div>
@@ -726,29 +786,36 @@
                     {% endif %}
                     
                     {% if customer %}
+                        {%- assign cust_first = customer.first_name | default: 'Cliente' -%}
+                        {%- assign cust_initial = customer.last_name | slice: 0 | default: 'M' -%}
+                        {%- assign cust_city = customer.default_address.city | default: 'Verona' -%}
                         <input type="hidden" name="contact[email]" value="{{ customer.email }}">
-                        <input type="hidden" name="contact[name]" value="{{ customer.name }}">
-                        <div class="p-3 bg-linen border border-borderLinen text-xs flex items-center justify-between text-ink mb-2">
-                            <span>✨ Connessa come <strong>{{ customer.name }}</strong> ({{ customer.email }})</span>
+                        <input type="hidden" name="contact[name]" id="ReviewCustomerFormattedName" value="{{ cust_first }} {{ cust_initial }}. • {{ cust_city }}">
+                        <div class="p-3 bg-linen border border-borderLinen text-xs flex items-center justify-between text-ink mb-3">
+                            <span>✨ Recensione a nome di: <strong><span id="ReviewCustomerPreviewName">{{ cust_first }} {{ cust_initial }}.</span> &bull; <span id="ReviewCustomerPreviewCity">{{ cust_city }}</span></strong></span>
                             <span class="text-[10px] text-sage font-medium tracking-wider uppercase">&check; Membro Club Mile</span>
+                        </div>
+                        <div class="mb-4 max-w-xs">
+                            <label for="ReviewCustomerCityInput" class="block text-[10px] uppercase tracking-wider text-ash mb-1">La Tua Citt&agrave; *</label>
+                            <input type="text" id="ReviewCustomerCityInput" name="contact[city]" value="{{ cust_city }}" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
                         </div>
                     {% else %}
                         <div id="ReviewUserGreetingBadge" class="hidden p-3 bg-linen border border-borderLinen text-xs items-center justify-between text-ink mb-2">
-                            <span>✨ Connessa come <strong id="ReviewUserGreetingName"></strong></span>
+                            <span>✨ Recensione a nome di: <strong id="ReviewUserGreetingName"></strong></span>
                             <span class="text-[10px] text-sage font-medium tracking-wider uppercase">&check; Membro Club Mile</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                                 <label for="ReviewAuthorNameInput" class="block text-[10px] uppercase tracking-wider text-ash mb-1">Nome e Cognome / Iniziali *</label>
-                                <input type="text" id="ReviewAuthorNameInput" name="contact[name]" placeholder="Es. Chiara M." class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
+                                <input type="text" id="ReviewAuthorNameInput" name="contact[name]" placeholder="Es. Beatrice F." class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
                             </div>
                             <div>
                                 <label for="ReviewAuthorEmailInput" class="block text-[10px] uppercase tracking-wider text-ash mb-1">Email *</label>
                                 <input type="email" id="ReviewAuthorEmailInput" name="contact[email]" placeholder="tua@email.it" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
                             </div>
                             <div>
-                                <label for="ReviewAuthorCityInput" class="block text-[10px] uppercase tracking-wider text-ash mb-1">Citt&agrave; (opzionale)</label>
-                                <input type="text" id="ReviewAuthorCityInput" name="contact[city]" placeholder="Es. Verona" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink">
+                                <label for="ReviewAuthorCityInput" class="block text-[10px] uppercase tracking-wider text-ash mb-1">La Tua Citt&agrave; *</label>
+                                <input type="text" id="ReviewAuthorCityInput" name="contact[city]" placeholder="Es. Verona" value="Verona" class="w-full border border-borderLinen bg-white px-3 py-2 text-xs focus:outline-none focus:border-ink" required>
                             </div>
                         </div>
                         <p class="text-[11px] text-ash mt-1">Sei già registrata al Beauty Club? <a href="/pages/accedi" onclick="if(window.openAccountDrawer){openAccountDrawer(); return false;}" class="underline text-ink hover:text-amber font-medium">Accedi qui</a> per collegare il tuo profilo.</p>
@@ -808,6 +875,18 @@
   // Pre-populate user info from localStorage if client logged in via drawer
   function initReviewUserAuth() {
     {% if customer %}
+      var custCityInput = document.getElementById('ReviewCustomerCityInput');
+      var custPreviewCity = document.getElementById('ReviewCustomerPreviewCity');
+      var custHiddenName = document.getElementById('ReviewCustomerFormattedName');
+      if (custCityInput) {
+        custCityInput.addEventListener('input', function() {
+          var cVal = custCityInput.value.trim() || 'Verona';
+          if (custPreviewCity) custPreviewCity.textContent = cVal;
+          if (custHiddenName && typeof window.formatReviewAuthor === 'function') {
+            custHiddenName.value = window.formatReviewAuthor("{{ customer.first_name | default: 'Cliente' }} {{ customer.last_name | slice: 0 | default: 'M' }}.", cVal);
+          }
+        });
+      }
       return;
     {% else %}
       try {
@@ -821,9 +900,11 @@
         var fullName = (firstName + ' ' + lastName).trim();
         if (!fullName && cust.name) fullName = cust.name.trim();
         var email = cust.email || '';
+        var city = cust.city || (cust.default_address && cust.default_address.city) || 'Verona';
 
         var nameInput = document.getElementById('ReviewAuthorNameInput');
         var emailInput = document.getElementById('ReviewAuthorEmailInput');
+        var cityInput = document.getElementById('ReviewAuthorCityInput');
 
         if (nameInput && !nameInput.value && fullName) {
           nameInput.value = fullName;
@@ -831,12 +912,18 @@
         if (emailInput && !emailInput.value && email) {
           emailInput.value = email;
         }
+        if (cityInput && (!cityInput.value || cityInput.value === 'Verona') && city) {
+          cityInput.value = city;
+        }
 
         var badge = document.getElementById('ReviewUserGreetingBadge');
         var greetingName = document.getElementById('ReviewUserGreetingName');
         if (badge && (fullName || email)) {
           if (greetingName) {
-            greetingName.textContent = fullName || email;
+            var formattedPreview = typeof window.formatReviewAuthor === 'function'
+              ? window.formatReviewAuthor(fullName || email, city)
+              : (fullName || email);
+            greetingName.textContent = formattedPreview;
           }
           badge.classList.remove('hidden');
           badge.classList.add('flex');
@@ -870,42 +957,42 @@
         var bodyInput = form.querySelector('[name="contact[body]"]');
 
         var nameInput = document.getElementById('ReviewAuthorNameInput') || form.querySelector('[name="contact[name]"]');
-        var cityInput = document.getElementById('ReviewAuthorCityInput') || form.querySelector('[name="contact[city]"]');
+        var cityInput = document.getElementById('ReviewCustomerCityInput') || document.getElementById('ReviewAuthorCityInput') || form.querySelector('[name="contact[city]"]');
 
-        var authorName = '';
+        var rawAuthor = '';
         if (nameInput && nameInput.value && nameInput.value.trim()) {
-          authorName = nameInput.value.trim();
+          rawAuthor = nameInput.value.trim();
         }
 
         {% if customer %}
-          if (!authorName) {
-            authorName = "{{ customer.name | escape }}";
+          if (!rawAuthor || rawAuthor.indexOf('•') === -1) {
+            rawAuthor = "{{ customer.first_name | default: 'Cliente' }} {{ customer.last_name | slice: 0 | default: 'M' }}.";
           }
         {% endif %}
 
-        if (!authorName) {
+        if (!rawAuthor) {
           try {
             var localCust = JSON.parse(localStorage.getItem('mile_customer'));
             if (localCust) {
               var fName = localCust.first_name || '';
               var lName = localCust.last_name || '';
-              authorName = (fName + ' ' + lName).trim() || localCust.name || '';
+              rawAuthor = (fName + ' ' + lName).trim() || localCust.name || '';
             }
           } catch (e) {}
         }
 
-        if (!authorName) {
-          authorName = 'Cliente Verificata';
+        if (!rawAuthor) {
+          rawAuthor = 'Cliente Verificata';
         }
 
-        var cityVal = cityInput && cityInput.value ? cityInput.value.trim() : '';
-        var combinedAuthor = authorName;
-        if (cityVal && authorName.indexOf('•') === -1) {
-          combinedAuthor = authorName + ' • ' + cityVal;
-        }
+        var cityVal = cityInput && cityInput.value ? cityInput.value.trim() : 'Verona';
 
-        if (nameInput && !nameInput.value) {
-          nameInput.value = authorName;
+        var formattedAuthor = typeof window.formatReviewAuthor === 'function'
+          ? window.formatReviewAuthor(rawAuthor, cityVal)
+          : (rawAuthor + ' • ' + cityVal);
+
+        if (nameInput) {
+          nameInput.value = formattedAuthor;
         }
         
         var now = new Date();
@@ -916,7 +1003,7 @@
           rating: ratingInput ? ratingInput.value : '5',
           title: titleInput ? titleInput.value : '',
           body: bodyInput ? bodyInput.value : '',
-          author: combinedAuthor,
+          author: formattedAuthor,
           date: dateFormatted,
           timestamp: Date.now()
         };
