@@ -543,6 +543,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_d4RgYn": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "aha-peeling-concentrate",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1792335394527.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1792335636497.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -592,6 +607,7 @@
         "ai_gen_block_f469f31_U8g3J4",
         "ai_gen_block_f469f31_cbBWUw",
         "ai_gen_block_f469f31_Bzm7UU",
+        "ai_gen_block_f469f31_d4RgYn",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
