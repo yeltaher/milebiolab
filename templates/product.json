@@ -558,6 +558,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_tPFQMF": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "hydrating-serum",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Radiance_Deep_HYDRATION_SERUM_Longevity_3.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Radiance_Deep_HYDRATION_SERUM_Longevity_5.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -608,6 +623,7 @@
         "ai_gen_block_f469f31_cbBWUw",
         "ai_gen_block_f469f31_Bzm7UU",
         "ai_gen_block_f469f31_d4RgYn",
+        "ai_gen_block_f469f31_tPFQMF",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
