@@ -167,7 +167,7 @@
             </button>
           </div>
 
-          <!-- PANE 1: ACCEDI (CUSTOMER LOGIN) -->
+          <!-- PANE 1: ACCEDI (NEW CUSTOMER ACCOUNTS - PASSWORDLESS) -->
           <div id="auth-page-pane-login" class="block" role="tabpanel">
             
             <div id="PageLoginFormView">
@@ -175,71 +175,49 @@
                 <span class="text-[11px] font-mono tracking-widest uppercase text-[#7A7265] block mb-1">Bentornato nel tuo Spazio</span>
                 <h1 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Accedi al Profilo</h1>
                 <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
-                  Inserisci le tue credenziali per visualizzare i tuoi ordini, gestire gli indirizzi e sbloccare i tuoi privilegi esclusivi Club Mile.
+                  Gestisci il tuo profilo riservato, monitora i tuoi ordini e accedi ai tuoi trattamenti esclusivi.
                 </p>
               </div>
 
-              {% form 'customer_login', id: 'PageCustomerLoginForm', class: 'space-y-5', novalidate: 'novalidate' %}
-                <input type="hidden" name="return_to" value="/pages/account">
+              <!-- Info Box Nuovi Account Senza Password -->
+              <div class="mb-6 p-5 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
+                <div class="flex items-center gap-2 text-[#5C6B56] font-semibold text-xs uppercase tracking-wider">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                  Accesso Sicuro Senza Password
+                </div>
+                <p class="text-xs sm:text-sm text-[#7A7265] leading-relaxed">
+                  Accesso sicuro senza password tramite codice di verifica via email, Shop Pay o Google.
+                </p>
+              </div>
 
-                {% if form.errors %}
-                  <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
-                    <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>
-                    {{ form.errors | default_errors }}
-                  </div>
-                {% endif %}
-
+              <div class="space-y-5">
                 <div>
                   <label for="PageCustomerEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                    Indirizzo Email <span class="text-[#5C6B56]">*</span>
+                    Indirizzo Email
                   </label>
                   <input
                     type="email"
-                    name="customer[email]"
                     id="PageCustomerEmail"
-                    required
                     autocomplete="email"
                     placeholder="es. maria.rossi@email.com"
                     class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                   >
-                </div>
-
-                <div>
-                  <div class="flex items-center justify-between mb-1.5">
-                    <label for="PageCustomerPassword" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A]">
-                      Password <span class="text-[#5C6B56]">*</span>
-                    </label>
-                    <button type="button" onclick="togglePasswordVisibility('PageCustomerPassword', this)" class="text-[11px] text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer bg-transparent border-0">
-                      Mostra
-                    </button>
-                  </div>
-                  <input
-                    type="password"
-                    name="customer[password]"
-                    id="PageCustomerPassword"
-                    required
-                    autocomplete="current-password"
-                    placeholder="••••••••"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                  >
-                  <div class="text-right mt-1.5">
-                    <button type="button" onclick="togglePageRecover(true)" class="text-xs text-[#7A7265] hover:text-[#1A1A1A] underline cursor-pointer bg-transparent border-0 p-0">
-                      Password dimenticata?
-                    </button>
-                  </div>
+                  <p class="text-[11px] text-[#7A7265] mt-1.5 leading-relaxed">
+                    Nessuna password da ricordare: riceverai un codice istantaneo di verifica a 6 cifre via email, oppure accedi con 1-click tramite Shop Pay o Google.
+                  </p>
                 </div>
 
                 <div class="pt-2">
-                  <button
-                    type="submit"
+                  <a
+                    href="{{ routes.account_login_url }}"
                     id="PageLoginSubmitBtn"
-                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
                   >
-                    <span>Accedi al Tuo Profilo</span>
+                    <span>Accedi con Email o Shop Pay</span>
                     <span class="text-[#C8A878]">&rarr;</span>
-                  </button>
+                  </a>
                 </div>
-              {% endform %}
+              </div>
 
               <!-- Switch to Register Link -->
               <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center">
@@ -256,73 +234,13 @@
               </div>
             </div>
 
-            <!-- Form di Recupero Password inline nella Pagina -->
-            <div id="PageRecoverPasswordView" class="hidden space-y-5">
-              <div class="mb-6">
-                <span class="text-[11px] font-mono tracking-widest uppercase text-[#7A7265] block mb-1">Recupero Credenziali</span>
-                <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal">Reimposta Password</h2>
-                <p class="text-xs sm:text-sm text-[#7A7265] mt-1.5 leading-relaxed">
-                  Inserisci l'indirizzo email associato al tuo profilo. Ti invieremo un link sicuro per reimpostare la tua password.
-                </p>
-              </div>
-
-              {% form 'recover_customer_password', id: 'PageCustomerRecoverForm', class: 'space-y-5' %}
-                {% if form.posted_successfully? %}
-                  <div class="p-4 bg-[#FAF8F5] border border-[#5C6B56]/40 text-[#5C6B56] text-xs sm:text-sm">
-                    Email inviata con successo! Controlla la tua casella di posta per reimpostare la password.
-                  </div>
-                {% endif %}
-
-                {% if form.errors %}
-                  <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
-                    {{ form.errors | default_errors }}
-                  </div>
-                {% endif %}
-
-                <div>
-                  <label for="PageRecoverEmail" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1.5">
-                    Indirizzo Email <span class="text-[#5C6B56]">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="PageRecoverEmail"
-                    required
-                    autocomplete="email"
-                    placeholder="es. maria.rossi@email.com"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                  >
-                </div>
-
-                <div class="pt-2">
-                  <button
-                    type="submit"
-                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer"
-                  >
-                    Invia Link di Reimpostazione
-                  </button>
-                </div>
-
-                <div class="text-center pt-3">
-                  <button
-                    type="button"
-                    onclick="togglePageRecover(false)"
-                    class="text-xs text-[#7A7265] hover:text-[#1A1A1A] underline bg-transparent border-0 cursor-pointer"
-                  >
-                    &larr; Torna ad Accedi
-                  </button>
-                </div>
-              {% endform %}
-            </div>
-
           </div>
 
           <!-- PANE 2: REGISTRATI (UNISCITI AL CLUB MILE) -->
           <div id="auth-page-pane-register" class="hidden" role="tabpanel">
             
-            {% form 'create_customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
-              <input type="hidden" name="return_to" value="/pages/account">
-              <input type="hidden" name="customer[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
+            {% form 'customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
+              <input type="hidden" name="contact[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
 
               {% if form.posted_successfully? %}
                 <!-- SCHERMATA TRIONFALE DI BENVENUTO NEL CLUB MILE (SERVER-SIDE) -->
@@ -364,7 +282,10 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="{{ routes.account_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="{{ routes.account_login_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <p class="text-[11px] text-[#7A7265] leading-relaxed">
+                      Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
+                    </p>
                     <a href="{{ routes.all_products_collection_url }}" class="block w-full py-4 px-6 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
                       Inizia a Esplorare i Prodotti &rarr;
                     </a>
@@ -394,7 +315,7 @@
                       </label>
                       <input
                         type="text"
-                        name="customer[first_name]"
+                        name="contact[first_name]"
                         id="PageRegisterFirstName"
                         required
                         placeholder="Maria"
@@ -407,7 +328,7 @@
                       </label>
                       <input
                         type="text"
-                        name="customer[last_name]"
+                        name="contact[last_name]"
                         id="PageRegisterLastName"
                         required
                         placeholder="Rossi"
@@ -422,37 +343,12 @@
                     </label>
                     <input
                       type="email"
-                      name="customer[email]"
+                      name="contact[email]"
                       id="PageRegisterEmail"
                       required
-                      autocomplete="email"
                       placeholder="es. maria.rossi@email.com"
                       class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                     >
-                  </div>
-
-                  <div>
-                    <div class="flex items-center justify-between mb-1.5">
-                      <label for="PageRegisterPassword" class="block text-xs uppercase tracking-wider font-semibold text-[#1A1A1A]">
-                        Crea Password <span class="text-[#5C6B56]">*</span>
-                      </label>
-                      <button type="button" onclick="togglePasswordVisibility('PageRegisterPassword', this)" class="text-[11px] text-[#7A7265] hover:text-[#1A1A1A] transition-colors cursor-pointer bg-transparent border-0">
-                        Mostra
-                      </button>
-                    </div>
-                    <input
-                      type="password"
-                      name="customer[password]"
-                      id="PageRegisterPassword"
-                      required
-                      minlength="6"
-                      autocomplete="new-password"
-                      placeholder="Almeno 6 caratteri"
-                      class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                    >
-                    <p class="text-[11px] text-[#7A7265] mt-1.5">
-                      Minimo 6 caratteri. Ti servirà per accedere ai tuoi ordini e privilegi.
-                    </p>
                   </div>
 
                   <div>
@@ -492,6 +388,55 @@
                   </div>
                 </div>
 
+                <!-- In-place JS dynamic success state container (if submitted via AJAX) -->
+                <div id="PageRegisterJsSuccess" class="hidden py-8 text-center space-y-6">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#5C6B56]/30 text-[11px] font-mono tracking-wider uppercase text-[#5C6B56]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+                    ISCRIZIONE COMPLETATA
+                  </div>
+
+                  <div class="w-16 h-16 mx-auto rounded-full bg-[#5C6B56]/10 flex items-center justify-center text-[#5C6B56]">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+
+                  <h2 class="font-serif text-3xl sm:text-4xl text-[#1A1A1A] font-normal leading-tight">
+                    Benvenuto nel Club Mile
+                  </h2>
+
+                  <p class="text-sm text-[#7A7265] max-w-md mx-auto leading-relaxed">
+                    Il tuo profilo è attivo. Riceverai un'email di benvenuto e il 10% di sconto sul tuo primo ordine.
+                  </p>
+
+                  <!-- Box con codice sconto MILE10 e pulsante copia -->
+                  <div class="p-6 bg-[#FAF8F5] border border-[#E5E0D8] max-w-md mx-auto space-y-3">
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">Il tuo codice di benvenuto riservato:</span>
+                    <div class="flex items-center justify-center gap-3">
+                      <span id="PageDiscountCodeJs" class="font-mono text-xl font-bold tracking-widest text-[#1A1A1A] bg-white px-6 py-2.5 border border-[#E5E0D8]">
+                        MILE10
+                      </span>
+                      <button
+                        type="button"
+                        onclick="copyDiscountCode('PageDiscountCodeJs', this)"
+                        class="px-5 py-2.5 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+                      >
+                        Copia
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="pt-4 max-w-md mx-auto space-y-2.5">
+                    <a href="{{ routes.account_login_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <p class="text-[11px] text-[#7A7265] leading-relaxed">
+                      Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
+                    </p>
+                    <a href="{{ routes.all_products_collection_url }}" class="block w-full py-4 px-6 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+                      Inizia a Esplorare i Prodotti &rarr;
+                    </a>
+                  </div>
+                </div>
+
                 <!-- Switch to Login -->
                 <div class="mt-8 pt-6 border-t border-[#E5E0D8] text-center" id="PageRegisterLoginSwitch">
                   <p class="text-xs sm:text-sm text-[#7A7265] mb-3">
@@ -509,7 +454,8 @@
             {% endform %}
 
           </div>
-{% endif %}
+
+        {% endif %}
 
       </div>
 
@@ -579,57 +525,104 @@
     }
   }
 
-  function togglePasswordVisibility(inputId, btn) {
-    var input = document.getElementById(inputId);
-    if (!input) return;
-    if (input.type === 'password') {
-      input.type = 'text';
-      if (btn) btn.textContent = 'Nascondi';
-    } else {
-      input.type = 'password';
-      if (btn) btn.textContent = 'Mostra';
-    }
-  }
-
   function togglePageRecover(showRecover) {
-    var loginView = document.getElementById('PageLoginFormView');
-    var recoverView = document.getElementById('PageRecoverPasswordView');
-    if (loginView && recoverView) {
-      if (showRecover) {
-        loginView.classList.add('hidden');
-        recoverView.classList.remove('hidden');
-      } else {
-        loginView.classList.remove('hidden');
-        recoverView.classList.add('hidden');
-      }
+    if (showRecover) {
+      window.location.href = '{{ routes.account_login_url }}';
     }
   }
 
   document.addEventListener('DOMContentLoaded', function() {
+    // Handle Enter key on email field
+    var pageEmail = document.getElementById('PageCustomerEmail');
+    if (pageEmail) {
+      pageEmail.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          window.location.href = '{{ routes.account_login_url }}';
+        }
+      });
+    }
+
+    // AJAX registration form handling
     var pageRegForm = document.getElementById('PageRegisterCustomerForm');
     if (pageRegForm) {
-      pageRegForm.addEventListener('submit', function() {
+      pageRegForm.addEventListener('submit', function(e) {
+        e.preventDefault();
         var submitBtn = document.getElementById('PageRegisterSubmitBtn');
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Creazione account in corso...</span>';
         }
+        var formData = new FormData(pageRegForm);
+        fetch(pageRegForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+          }
+        }).then(function() {
+          var firstName = (document.getElementById('PageRegisterFirstName') || {}).value || '';
+          var lastName = (document.getElementById('PageRegisterLastName') || {}).value || '';
+          var email = (document.getElementById('PageRegisterEmail') || {}).value || '';
+          if (email) {
+            try {
+              localStorage.setItem('mile_customer', JSON.stringify({
+                first_name: firstName || 'Membro Club',
+                last_name: lastName || '',
+                email: email
+              }));
+            } catch(e) {}
+            if (typeof window.renderCustomerAuthState === 'function') {
+              window.renderCustomerAuthState();
+            }
+          }
+          var fieldsEl = document.getElementById('PageRegisterFormFields');
+          var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
+          var switchEl = document.getElementById('PageRegisterLoginSwitch');
+          var introEl = document.getElementById('PageRegisterIntro');
+          if (fieldsEl) fieldsEl.classList.add('hidden');
+          if (switchEl) switchEl.classList.add('hidden');
+          if (introEl) introEl.classList.add('hidden');
+          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
+        }).catch(function() {
+          var firstName = (document.getElementById('PageRegisterFirstName') || {}).value || '';
+          var lastName = (document.getElementById('PageRegisterLastName') || {}).value || '';
+          var email = (document.getElementById('PageRegisterEmail') || {}).value || '';
+          if (email) {
+            try {
+              localStorage.setItem('mile_customer', JSON.stringify({
+                first_name: firstName || 'Membro Club',
+                last_name: lastName || '',
+                email: email
+              }));
+            } catch(e) {}
+            if (typeof window.renderCustomerAuthState === 'function') {
+              window.renderCustomerAuthState();
+            }
+          }
+          var fieldsEl = document.getElementById('PageRegisterFormFields');
+          var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
+          var switchEl = document.getElementById('PageRegisterLoginSwitch');
+          var introEl = document.getElementById('PageRegisterIntro');
+          if (fieldsEl) fieldsEl.classList.add('hidden');
+          if (switchEl) switchEl.classList.add('hidden');
+          if (introEl) introEl.classList.add('hidden');
+          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
+        });
       });
     }
 
     // Handle URL hashes and query parameters
     var hash = window.location.hash.toLowerCase();
-    if (hash === '#register' || hash === '#signup' || hash === '#registrati' || hash === '#pageregistercustomerform' || window.location.search.indexOf('customer_posted=true') !== -1) {
+    if (hash === '#register' || hash === '#signup' || hash === '#registrati' || hash === '#pageregistercustomerform' || hash === '#contact_form' || window.location.search.indexOf('customer_posted=true') !== -1) {
       switchAuthPageTab('register');
     } else if (hash === '#recover') {
-      switchAuthPageTab('login');
-      togglePageRecover(true);
+      window.location.href = '{{ routes.account_login_url }}';
     }
   });
 
   window.switchAuthPageTab = switchAuthPageTab;
   window.copyDiscountCode = copyDiscountCode;
-  window.togglePasswordVisibility = togglePasswordVisibility;
   window.togglePageRecover = togglePageRecover;
 </script>
 

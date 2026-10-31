@@ -2691,7 +2691,17 @@ window.renderUserReviews = renderUserReviews;
 
 function renderCustomerAuthState() {
   try {
-    const isDesignMode = Boolean(window.Shopify && window.Shopify.designMode);
+    // Sanificazione automatica: elimina tassativamente qualsiasi dato residuo dei test passati
+    try {
+      const rawCust = localStorage.getItem('mile_customer');
+      if (rawCust) {
+        const parsed = JSON.parse(rawCust);
+        if (parsed && (parsed.email === 'milesolegirasole@libero.it' || parsed.first_name === 'Milena')) {
+          localStorage.removeItem('mile_customer');
+        }
+      }
+    } catch (e) {}
+
     let customer = null;
     try {
       const rawCustomer = localStorage.getItem('mile_customer');
@@ -2700,20 +2710,48 @@ function renderCustomerAuthState() {
       }
     } catch (e) {}
 
-    if (isDesignMode && (!customer || !customer.first_name)) {
-      customer = {
-        first_name: 'Milena',
-        last_name: 'Tacchella',
-        email: 'milesolegirasole@libero.it'
-      };
-    }
-
-    if (!customer || !customer.first_name) return;
-
-    // 1. Update Header Greeting
     const headerGreeting = document.getElementById('header-customer-greeting');
     const headerIndicator = document.getElementById('header-customer-indicator');
+    const mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
+    const loggedInView = document.getElementById('DrawerCustomerLoggedInView');
+    const guestView = document.getElementById('DrawerCustomerGuestView');
+    const pageLoggedInView = document.getElementById('PageAccountLoggedInView');
+    const pageGuestView = document.getElementById('PageAccountGuestView');
+
+    // Se nessun cliente è autenticato
+    if (!customer || !customer.first_name) {
+      if (headerGreeting) {
+        if (!headerGreeting.getAttribute('data-default-text')) {
+          headerGreeting.setAttribute('data-default-text', headerGreeting.innerText.startsWith('🟢') ? 'Accedi / Registrati' : headerGreeting.innerText);
+        }
+        headerGreeting.innerText = headerGreeting.getAttribute('data-default-text') || 'Accedi / Registrati';
+      }
+      if (headerIndicator) {
+        headerIndicator.classList.add('hidden');
+      }
+      if (mobileGreeting) {
+        mobileGreeting.innerHTML = 'Club Mile &bull; Accedi o Registrati';
+      }
+      if (loggedInView && guestView) {
+        loggedInView.classList.add('hidden');
+        loggedInView.classList.remove('flex');
+        guestView.classList.remove('hidden');
+        guestView.classList.add('flex');
+      }
+      if (pageLoggedInView && pageGuestView) {
+        pageLoggedInView.classList.add('hidden');
+        pageLoggedInView.classList.remove('block');
+        pageGuestView.classList.remove('hidden');
+        pageGuestView.classList.add('block');
+      }
+      return;
+    }
+
+    // Se cliente autenticato (dati reali dell'utente)
     if (headerGreeting) {
+      if (!headerGreeting.getAttribute('data-default-text')) {
+        headerGreeting.setAttribute('data-default-text', headerGreeting.innerText);
+      }
       headerGreeting.innerText = '🟢 Ciao, ' + customer.first_name;
     }
     if (headerIndicator) {
@@ -2721,15 +2759,11 @@ function renderCustomerAuthState() {
     }
 
     // 2. Update Mobile Menu Greeting
-    const mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
     if (mobileGreeting) {
       mobileGreeting.innerText = '🟢 Ciao, ' + customer.first_name + ' (Profilo)';
     }
 
     // 3. Update Account Drawer Views (Switch from Guest View to Logged In Profile View)
-    const loggedInView = document.getElementById('DrawerCustomerLoggedInView');
-    const guestView = document.getElementById('DrawerCustomerGuestView');
-
     if (loggedInView && guestView) {
       loggedInView.classList.remove('hidden');
       loggedInView.classList.add('flex');
@@ -2750,8 +2784,6 @@ function renderCustomerAuthState() {
     }
 
     // 5. Update Full Page Account View (if on /pages/account or /account)
-    const pageLoggedInView = document.getElementById('PageAccountLoggedInView');
-    const pageGuestView = document.getElementById('PageAccountGuestView');
     if (pageLoggedInView && pageGuestView) {
       pageLoggedInView.classList.remove('hidden');
       pageLoggedInView.classList.add('block');
