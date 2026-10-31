@@ -453,6 +453,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_yWV4ir": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "sensitive-skin-oil-to-milk-cleanser-sample-sachet",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/20489.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/20486.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -496,6 +511,7 @@
         "ai_gen_block_f469f31_z7VPBT",
         "ai_gen_block_f469f31_HJh9JY",
         "ai_gen_block_f469f31_gwWrpj",
+        "ai_gen_block_f469f31_yWV4ir",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
