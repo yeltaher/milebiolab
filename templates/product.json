@@ -498,6 +498,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_U8g3J4": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "peptide-age-defying-eye-cream",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Gemini-Generated_Image_1ppnm1ppnm1ppnm1-3.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Gemini-Generated_Image_1ppnm1ppnm1ppnm1-5.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_PJKibi": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -544,6 +559,7 @@
         "ai_gen_block_f469f31_yWV4ir",
         "ai_gen_block_f469f31_KKMfdL",
         "ai_gen_block_f469f31_RWmdfQ",
+        "ai_gen_block_f469f31_U8g3J4",
         "ai_gen_block_f469f31_PJKibi"
       ],
       "name": "Striscia di immagini",
