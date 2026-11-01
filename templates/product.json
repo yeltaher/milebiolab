@@ -198,6 +198,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_AnXenN": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "matte-lipstick-dusty-rose",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/1791832028838.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/1791831911525.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_cX967p": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -764,6 +779,7 @@
         "ai_gen_block_f469f31_XUKePT",
         "ai_gen_block_f469f31_aNYPjN",
         "ai_gen_block_f469f31_xP7NPF",
+        "ai_gen_block_f469f31_AnXenN",
         "ai_gen_block_f469f31_cX967p",
         "ai_gen_block_f469f31_7bjBXr",
         "ai_gen_block_f469f31_kAndQp",
