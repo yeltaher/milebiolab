@@ -213,6 +213,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_Mmjp39": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "matte-lipstick-terracotta-nude",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/Velvet_Oasis_Matte_Lipstik_-_Nude_Terracotta_1f-4e96-ba56-e2e6bf53f371.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/Velvet_Oasis_Matte_Lipstik_-_Nude_Terracotta_3.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_cX967p": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -780,6 +795,7 @@
         "ai_gen_block_f469f31_aNYPjN",
         "ai_gen_block_f469f31_xP7NPF",
         "ai_gen_block_f469f31_AnXenN",
+        "ai_gen_block_f469f31_Mmjp39",
         "ai_gen_block_f469f31_cX967p",
         "ai_gen_block_f469f31_7bjBXr",
         "ai_gen_block_f469f31_kAndQp",
