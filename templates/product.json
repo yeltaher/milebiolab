@@ -93,6 +93,21 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_dnwfK4": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "vitamin-c-serum",
+            "target_product_list": [],
+            "image_1": "shopify://shop_images/20603.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/20605.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_Um7ymL": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -802,6 +817,7 @@
       "block_order": [
         "ai_gen_block_f469f31_dmRFxh",
         "ai_gen_block_f469f31_rmcGmg",
+        "ai_gen_block_f469f31_dnwfK4",
         "ai_gen_block_f469f31_Um7ymL",
         "ai_gen_block_f469f31_w7m97t",
         "ai_gen_block_f469f31_RVRJ6Q",
