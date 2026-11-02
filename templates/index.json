@@ -92,7 +92,7 @@
             "button_label": "Aggiungi il prodotto al carrello",
             "countdown_enabled": true,
             "deadline": "2026-11-15T23:59:59+01:00",
-            "countdown_heading": "L’offerta termina tra",
+            "countdown_heading": "PROMOZIONE DEL MESE - termina tra",
             "countdown_text": "Approfitta dell’offerta prima della scadenza.",
             "desktop_width_percent": 100,
             "padding": 25,
