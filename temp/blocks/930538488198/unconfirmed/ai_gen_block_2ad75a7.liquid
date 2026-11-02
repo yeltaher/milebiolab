@@ -1,6 +1,211 @@
+{% doc %}
+  @prompt
+    CRea una striscia divisa in 3 parti uguali , la prima con la foto collezione, la seconda con 3 campi testo di cui la prima piu piccola poi una piu grande e la terza per la spegazione, nel terzo blocco il tasto scopri collezione 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-strip-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin-inline: auto;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-collection-strip__inner-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    min-height: 280px;
+  }
+
+  .ai-collection-strip__image-{{ ai_gen_id }},
+  .ai-collection-strip__image-placeholder-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .ai-collection-strip__image-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    background: {{ block.settings.placeholder_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-collection-strip__image-placeholder-{{ ai_gen_id }} svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 360px;
+  }
+
+  .ai-collection-strip__empty-{{ ai_gen_id }} {
+    position: absolute;
+    inset: auto 12px 12px;
+    padding: 8px 10px;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .ai-collection-strip__titles-{{ ai_gen_id }},
+  .ai-collection-strip__description-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(20px, 4vw, 48px);
+  }
+
+  .ai-collection-strip__eyebrow-{{ ai_gen_id }} {
+    margin: 0 0 12px;
+    color: {{ block.settings.accent_color }};
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .ai-collection-strip__title-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.text_color }};
+    font-size: clamp(24px, 3vw, {{ block.settings.heading_size }}px);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .ai-collection-strip__description-{{ ai_gen_id }} p {
+    margin: 0 0 22px;
+    color: {{ block.settings.text_color }};
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .ai-collection-strip__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 46px;
+    padding: 12px 22px;
+    border: 1px solid {{ block.settings.button_color }};
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ai-collection-strip__button-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.button_text_color }};
+    color: {{ block.settings.button_color }};
+  }
+
+  .ai-collection-strip__button-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid {{ block.settings.accent_color }};
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-strip-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-collection-strip__inner-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-collection-strip__image-{{ ai_gen_id }},
+    .ai-collection-strip__image-placeholder-{{ ai_gen_id }} {
+      min-height: 230px;
+      max-height: 360px;
+    }
+
+    .ai-collection-strip__titles-{{ ai_gen_id }},
+    .ai-collection-strip__description-{{ ai_gen_id }} {
+      padding: 26px 22px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-collection-strip-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-collection-strip__inner-{{ ai_gen_id }}">
+    <div>
+      {% if block.settings.collection_image != blank %}
+        <img
+          class="ai-collection-strip__image-{{ ai_gen_id }}"
+          src="{{ block.settings.collection_image | image_url: width: 1200 }}"
+          alt="{{ block.settings.collection_image.alt | default: block.settings.main_title | escape }}"
+          loading="lazy"
+          width="{{ block.settings.collection_image.width }}"
+          height="{{ block.settings.collection_image.height }}"
+        >
+      {% else %}
+        <div class="ai-collection-strip__image-placeholder-{{ ai_gen_id }}">
+          {{ 'collection-apparel-1' | placeholder_svg_tag }}
+          <span class="ai-collection-strip__empty-{{ ai_gen_id }}">Aggiungi l’immagine della collezione</span>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-collection-strip__titles-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}
+        <p class="ai-collection-strip__eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow | escape }}</p>
+      {% endif %}
+      {% if block.settings.small_title != blank %}
+        <p class="ai-collection-strip__eyebrow-{{ ai_gen_id }}">{{ block.settings.small_title | escape }}</p>
+      {% endif %}
+      {% if block.settings.main_title != blank %}
+        <h2 class="ai-collection-strip__title-{{ ai_gen_id }}">{{ block.settings.main_title | escape }}</h2>
+      {% endif %}
+    </div>
+
+    <div class="ai-collection-strip__description-{{ ai_gen_id }}">
+      {% if block.settings.description != blank %}
+        <div>{{ block.settings.description }}</div>
+      {% endif %}
+      {% if block.settings.collection_link != blank %}
+        <a class="ai-collection-strip__button-{{ ai_gen_id }}" href="{{ block.settings.collection_link }}">
+          {{ block.settings.button_label | escape }}
+        </a>
+      {% else %}
+        <span class="ai-collection-strip__button-{{ ai_gen_id }}" aria-disabled="true">{{ block.settings.button_label | escape }}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Striscia collezione",
+  "settings": [
+    { "type": "image_picker", "id": "collection_image", "label": "Immagine collezione" },
+    { "type": "text", "id": "eyebrow", "label": "Testo introduttivo", "default": "RITUALI MILE" },
+    { "type": "text", "id": "small_title", "label": "Titolo piccolo", "default": "Scopri la linea" },
+    { "type": "text", "id": "main_title", "label": "Titolo principale", "default": "La cura essenziale della pelle" },
+    { "type": "richtext", "id": "description", "label": "Descrizione", "default": "<p>Formule selezionate e gesti quotidiani per una pelle dall’aspetto sano e luminoso.</p>" },
+    { "type": "text", "id": "button_label", "label": "Testo pulsante", "default": "Scopri la collezione" },
+    { "type": "url", "id": "collection_link", "label": "Link collezione" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Larghezza desktop", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "heading_size", "label": "Dimensione titolo", "min": 24, "max": 48, "step": 2, "unit": "px", "default": 36 },
+    { "type": "color", "id": "background_color", "label": "Sfondo", "default": "#F7F5F0" },
+    { "type": "color", "id": "text_color", "label": "Testo", "default": "#1A1A1A" },
+    { "type": "color", "id": "accent_color", "label": "Accento", "default": "#4A5340" },
+    { "type": "color", "id": "button_color", "label": "Pulsante", "default": "#4A5340" },
+    { "type": "color", "id": "button_text_color", "label": "Testo pulsante", "default": "#FFFFFF" },
+    { "type": "color", "id": "placeholder_color", "label": "Sfondo immagine mancante", "default": "#EDE5DB" }
+  ],
+  "presets": [
+    { "name": "Striscia collezione" }
+  ],
+  "tag": null,
+  "class": "collection-strip-block"
+}
 {% endschema %}
