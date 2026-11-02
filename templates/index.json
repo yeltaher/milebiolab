@@ -226,29 +226,11 @@
             "placeholder_color": "#EDE5DB"
           },
           "blocks": {}
-        },
-        "ai_gen_block_e049a42_g66GGd": {
-          "type": "ai_gen_block_e049a42",
-          "name": "FASCIA MONODOSE",
-          "settings": {
-            "collection": "monodose-prodotti",
-            "eyebrow": "La tua Bellezza sempre con te, ovunque tu vada",
-            "heading": "I nostri esclusivi prodotti in formato monodose: semplice, tascabile, pratico.",
-            "details": "<p>Perfetti per provare un nuovo prodotto e travare la combinazione ideale per la tua pelle, per chi non vuole rinunciare alla purezza neanche in movimento: in borsa, in aereo o nel weekend fuori porta.</p>",
-            "button_label": "Scopri la collezione",
-            "desktop_width_percent": 100,
-            "background_color": "#f7f5f0",
-            "text_color": "#706b67",
-            "accent_color": "#4a5340",
-            "border_color": "#ede5db"
-          },
-          "blocks": {}
         }
       },
       "block_order": [
         "ai_gen_block_b92942b_bQgwXB",
-        "ai_gen_block_2ad75a7_NiGpEc",
-        "ai_gen_block_e049a42_g66GGd"
+        "ai_gen_block_2ad75a7_NiGpEc"
       ],
       "settings": {}
     },
