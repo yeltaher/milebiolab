@@ -139,9 +139,9 @@
             "padding_vertical": 60,
             "padding_mobile": 50,
             "alignment": "center",
-            "background": "#F7F5F0",
-            "text_color": "#1A1A1A",
-            "accent_color": "#4A5340"
+            "background": "#f7f5f0",
+            "text_color": "#1a1a1a",
+            "accent_color": "#4a5340"
           },
           "blocks": {}
         }
@@ -185,8 +185,51 @@
     "17927672840772904d": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_b92942b_bQgwXB": {
+          "type": "ai_gen_block_b92942b",
+          "settings": {
+            "show_ornament": true,
+            "ornament_character": "✦",
+            "eyebrow": "SONO ARRIVATI I PRODOTTI MONODOSE",
+            "heading": "EFFICACE, TASCABILE, PRATICO",
+            "body": "",
+            "desktop_width_percent": 100,
+            "content_width": 800,
+            "heading_size": 36,
+            "line_width": 50,
+            "padding_vertical": 60,
+            "padding_mobile": 50,
+            "alignment": "center",
+            "background": "#f7f5f0",
+            "text_color": "#1a1a1a",
+            "accent_color": "#4a5340"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2ad75a7_NiGpEc": {
+          "type": "ai_gen_block_2ad75a7",
+          "settings": {
+            "collection_image": "shopify://shop_images/20510.jpg",
+            "eyebrow": "La tua Bellezza sempre con te",
+            "small_title": "OVUNQUE TU VADA",
+            "main_title": "I nostri esclusivi prodotti in formato monodose",
+            "description": "<p>Perfetti per provare un nuovo prodotto e travare la combinazione ideale per la tua pelle, per chi non vuole rinunciare alla purezza neanche in movimento: in borsa, in aereo o nel weekend fuori porta.</p>",
+            "button_label": "Scopri la collezione",
+            "collection_link": "shopify://collections/monodose-prodotti",
+            "desktop_width_percent": 100,
+            "heading_size": 36,
+            "background_color": "#F7F5F0",
+            "text_color": "#1A1A1A",
+            "accent_color": "#4A5340",
+            "button_color": "#4A5340",
+            "button_text_color": "#FFFFFF",
+            "placeholder_color": "#EDE5DB"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_e049a42_g66GGd": {
           "type": "ai_gen_block_e049a42",
+          "name": "FASCIA MONODOSE",
           "settings": {
             "collection": "monodose-prodotti",
             "eyebrow": "La tua Bellezza sempre con te, ovunque tu vada",
@@ -203,6 +246,8 @@
         }
       },
       "block_order": [
+        "ai_gen_block_b92942b_bQgwXB",
+        "ai_gen_block_2ad75a7_NiGpEc",
         "ai_gen_block_e049a42_g66GGd"
       ],
       "settings": {}
@@ -277,7 +322,8 @@
         "bundle_desc": "Set base pelli sensibili e reattive con Sensitive Skin Balm - Hyaluronic Boost Gel - Unicho21 Burro Primordiale, indicato per tutti i tipi di pelle.",
         "bundle_compare_price": "169,90",
         "bundle_price": "144,42",
-        "bundle_btn_text": "Aggiungi la Routine Completa al Carrello (-15%) →"
+        "bundle_btn_text": "Aggiungi la Routine Completa al Carrello (-15%) →",
+        "bundle_discount_code": "ROUTINE15"
       }
     },
     "ugc-gallery": {
