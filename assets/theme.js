@@ -2691,118 +2691,84 @@ window.renderUserReviews = renderUserReviews;
 
 function renderCustomerAuthState() {
   try {
-    // Sanificazione automatica: elimina tassativamente qualsiasi dato residuo dei test passati
+    // Bonifica completa: rimuove qualsiasi dato legacy o mock da localStorage
     try {
-      const rawCust = localStorage.getItem('mile_customer');
-      if (rawCust) {
-        const parsed = JSON.parse(rawCust);
-        if (parsed && (parsed.email === 'milesolegirasole@libero.it' || parsed.first_name === 'Milena')) {
-          localStorage.removeItem('mile_customer');
-        }
-      }
+      localStorage.removeItem('mile_customer');
     } catch (e) {}
-
-    let customer = null;
-    try {
-      const rawCustomer = localStorage.getItem('mile_customer');
-      if (rawCustomer) {
-        customer = JSON.parse(rawCustomer);
-      }
-    } catch (e) {}
-
-    const headerGreeting = document.getElementById('header-customer-greeting');
-    const headerIndicator = document.getElementById('header-customer-indicator');
-    const mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
-    const loggedInView = document.getElementById('DrawerCustomerLoggedInView');
-    const guestView = document.getElementById('DrawerCustomerGuestView');
-    const pageLoggedInView = document.getElementById('PageAccountLoggedInView');
-    const pageGuestView = document.getElementById('PageAccountGuestView');
-
-    // Se nessun cliente è autenticato
-    if (!customer || !customer.first_name) {
-      if (headerGreeting) {
-        if (!headerGreeting.getAttribute('data-default-text')) {
-          headerGreeting.setAttribute('data-default-text', headerGreeting.innerText.startsWith('🟢') ? 'Accedi / Registrati' : headerGreeting.innerText);
-        }
-        headerGreeting.innerText = headerGreeting.getAttribute('data-default-text') || 'Accedi / Registrati';
-      }
-      if (headerIndicator) {
-        headerIndicator.classList.add('hidden');
-      }
-      if (mobileGreeting) {
-        mobileGreeting.innerHTML = 'Club Mile &bull; Accedi o Registrati';
-      }
-      if (loggedInView && guestView) {
-        loggedInView.classList.add('hidden');
-        loggedInView.classList.remove('flex');
-        guestView.classList.remove('hidden');
-        guestView.classList.add('flex');
-      }
-      if (pageLoggedInView && pageGuestView) {
-        pageLoggedInView.classList.add('hidden');
-        pageLoggedInView.classList.remove('block');
-        pageGuestView.classList.remove('hidden');
-        pageGuestView.classList.add('block');
-      }
-      return;
-    }
-
-    // Se cliente autenticato (dati reali dell'utente)
-    if (headerGreeting) {
-      if (!headerGreeting.getAttribute('data-default-text')) {
-        headerGreeting.setAttribute('data-default-text', headerGreeting.innerText);
-      }
-      headerGreeting.innerText = '🟢 Ciao, ' + customer.first_name;
-    }
-    if (headerIndicator) {
-      headerIndicator.classList.remove('hidden');
-    }
-
-    // 2. Update Mobile Menu Greeting
-    if (mobileGreeting) {
-      mobileGreeting.innerText = '🟢 Ciao, ' + customer.first_name + ' (Profilo)';
-    }
-
-    // 3. Update Account Drawer Views (Switch from Guest View to Logged In Profile View)
-    if (loggedInView && guestView) {
-      loggedInView.classList.remove('hidden');
-      loggedInView.classList.add('flex');
-      guestView.classList.remove('flex');
-      guestView.classList.add('hidden');
-    }
-
-    // 4. Update Drawer Profile Details
-    const nameEl = document.getElementById('DrawerCustomerGreetingName');
-    const emailEl = document.getElementById('DrawerCustomerEmail');
-    const avatarEl = document.getElementById('DrawerCustomerAvatar');
-
-    if (nameEl) nameEl.innerText = customer.first_name;
-    if (emailEl) emailEl.innerText = customer.email || 'Club Mile Member';
-    if (avatarEl) {
-      const initials = (customer.first_name.charAt(0) + (customer.last_name ? customer.last_name.charAt(0) : '')).toUpperCase();
-      avatarEl.innerText = initials || 'MC';
-    }
-
-    // 5. Update Full Page Account View (if on /pages/account or /account)
-    if (pageLoggedInView && pageGuestView) {
-      pageLoggedInView.classList.remove('hidden');
-      pageLoggedInView.classList.add('block');
-      pageGuestView.classList.remove('block');
-      pageGuestView.classList.add('hidden');
-    }
-
-    const pageGreetingName = document.getElementById('PageAccountGreetingName');
-    const pageEmail = document.getElementById('PageAccountEmail');
-    const pageAvatar = document.getElementById('PageAccountAvatar');
-
-    if (pageGreetingName) pageGreetingName.innerText = customer.first_name;
-    if (pageEmail) pageEmail.innerText = customer.email || 'member@milebiolab.it';
-    if (pageAvatar) {
-      const initials = (customer.first_name.charAt(0) + (customer.last_name ? customer.last_name.charAt(0) : '')).toUpperCase();
-      pageAvatar.innerText = initials || 'MC';
-    }
   } catch (err) {
-    console.error('Error rendering customer auth state:', err);
+    console.error('Error in renderCustomerAuthState:', err);
+  }
+}
+
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPassword = input.type === 'password';
+  input.type = isPassword ? 'text' : 'password';
+  if (btn) {
+    btn.setAttribute('aria-label', isPassword ? 'Nascondi password' : 'Mostra password');
+    const eye = btn.querySelector('.password-eye-icon');
+    const eyeSlash = btn.querySelector('.password-eye-slash-icon');
+    if (eye && eyeSlash) {
+      if (isPassword) {
+        eye.classList.add('hidden');
+        eyeSlash.classList.remove('hidden');
+      } else {
+        eye.classList.remove('hidden');
+        eyeSlash.classList.add('hidden');
+      }
+    } else {
+      btn.innerText = isPassword ? 'Nascondi' : 'Mostra';
+    }
+  }
+}
+
+function toggleDrawerRecoverForm(show) {
+  const loginForm = document.getElementById('DrawerCustomerLoginForm');
+  const recoverForm = document.getElementById('DrawerRecoverForm');
+  const loginIntro = document.getElementById('DrawerLoginIntro');
+  const recoverIntro = document.getElementById('DrawerRecoverIntro');
+
+  if (show) {
+    if (loginForm) loginForm.classList.add('hidden');
+    if (recoverForm) recoverForm.classList.remove('hidden');
+    if (loginIntro) loginIntro.classList.add('hidden');
+    if (recoverIntro) recoverIntro.classList.remove('hidden');
+  } else {
+    if (recoverForm) recoverForm.classList.add('hidden');
+    if (loginForm) loginForm.classList.remove('hidden');
+    if (recoverIntro) recoverIntro.classList.add('hidden');
+    if (loginIntro) loginIntro.classList.remove('hidden');
+  }
+}
+
+function switchAccountDrawerTab(tabName) {
+  const loginTabBtn = document.getElementById('account-tab-btn-login');
+  const registerTabBtn = document.getElementById('account-tab-btn-register');
+  const loginPane = document.getElementById('account-drawer-pane-login');
+  const registerPane = document.getElementById('account-drawer-pane-register');
+
+  if (!loginTabBtn || !registerTabBtn || !loginPane || !registerPane) return;
+
+  if (tabName === 'login') {
+    loginTabBtn.classList.add('border-[#1A1A1A]', 'text-[#1A1A1A]', 'bg-white');
+    loginTabBtn.classList.remove('border-transparent', 'text-[#7A7265]', 'bg-[#FAF8F5]/60');
+
+    registerTabBtn.classList.remove('border-[#1A1A1A]', 'text-[#1A1A1A]', 'bg-white');
+    registerTabBtn.classList.add('border-transparent', 'text-[#7A7265]', 'bg-[#FAF8F5]/60');
+
+    loginPane.classList.remove('hidden');
+    registerPane.classList.add('hidden');
+    toggleDrawerRecoverForm(false);
+  } else {
+    registerTabBtn.classList.add('border-[#1A1A1A]', 'text-[#1A1A1A]', 'bg-white');
+    registerTabBtn.classList.remove('border-transparent', 'text-[#7A7265]', 'bg-[#FAF8F5]/60');
+
+    loginTabBtn.classList.remove('border-[#1A1A1A]', 'text-[#1A1A1A]', 'bg-white');
+    loginTabBtn.classList.add('border-transparent', 'text-[#7A7265]', 'bg-[#FAF8F5]/60');
+
+    registerPane.classList.remove('hidden');
+    loginPane.classList.add('hidden');
   }
 }
 
@@ -2820,6 +2786,9 @@ window.openCartDrawer = openCartDrawer;
 window.closeCartDrawer = closeCartDrawer;
 window.renderCustomerAuthState = renderCustomerAuthState;
 window.logoutCustomerSession = logoutCustomerSession;
+window.togglePasswordVisibility = togglePasswordVisibility;
+window.toggleDrawerRecoverForm = toggleDrawerRecoverForm;
+window.switchAccountDrawerTab = switchAccountDrawerTab;
 
 // Auto-run on DOM ready
 document.addEventListener('DOMContentLoaded', () => {

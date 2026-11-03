@@ -79,14 +79,13 @@
           <span class="text-[#1A1A1A] font-semibold">Club Mile &bull; Dashboard Profilo On-Site</span>
         </nav>
 
-        <button
-          type="button"
-          onclick="logoutCustomerSession()"
+        <a
+          href="{{ routes.account_logout_url }}"
           class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#9E2A2B] hover:underline font-semibold bg-transparent border-0 cursor-pointer self-start sm:self-auto"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
           <span>Disconnettiti dal Profilo</span>
-        </button>
+        </a>
       </div>
 
       <!-- Hero Profile Card -->
@@ -221,7 +220,7 @@
                           {{ order.financial_status_label }}
                         </span>
                       </div>
-                      <p class="text-xs text-[#7A7265]">Data: {{ order.created_at | date: "%d/%m/%Y" }} &bull; Totale: <strong class="font-mono text-[#1A1A1A]">{{ order.total_price | money }}</strong></p>
+                      <p class="text-xs text-[#7A7265]">Data: {{ order.created_at | date: "%d/%m/%Y" }} &bull; Totale: <strong class="font-mono text-[#1A1A1A]">{{ order.total_price | money }}</strong> &bull; <span class="text-[#5C6B56] font-semibold">+{{ order.total_price | divided_by: 100 }} Beauty Punti accumulati</span></p>
                     </div>
                     <a href="{{ order.customer_url }}" class="text-xs uppercase tracking-widest text-[#5C6B56] hover:underline font-semibold">Dettagli &rarr;</a>
                   </div>

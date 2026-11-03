@@ -561,21 +561,7 @@
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
           }
         }).then(function() {
-          var firstName = (document.getElementById('PageRegisterFirstName') || {}).value || '';
-          var lastName = (document.getElementById('PageRegisterLastName') || {}).value || '';
-          var email = (document.getElementById('PageRegisterEmail') || {}).value || '';
-          if (email) {
-            try {
-              localStorage.setItem('mile_customer', JSON.stringify({
-                first_name: firstName || 'Membro Club',
-                last_name: lastName || '',
-                email: email
-              }));
-            } catch(e) {}
-            if (typeof window.renderCustomerAuthState === 'function') {
-              window.renderCustomerAuthState();
-            }
-          }
+          // No localStorage mock: authentic state handled natively by Shopify
           var fieldsEl = document.getElementById('PageRegisterFormFields');
           var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
           var switchEl = document.getElementById('PageRegisterLoginSwitch');
@@ -585,21 +571,7 @@
           if (introEl) introEl.classList.add('hidden');
           if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
         }).catch(function() {
-          var firstName = (document.getElementById('PageRegisterFirstName') || {}).value || '';
-          var lastName = (document.getElementById('PageRegisterLastName') || {}).value || '';
-          var email = (document.getElementById('PageRegisterEmail') || {}).value || '';
-          if (email) {
-            try {
-              localStorage.setItem('mile_customer', JSON.stringify({
-                first_name: firstName || 'Membro Club',
-                last_name: lastName || '',
-                email: email
-              }));
-            } catch(e) {}
-            if (typeof window.renderCustomerAuthState === 'function') {
-              window.renderCustomerAuthState();
-            }
-          }
+          // No localStorage mock: authentic state handled natively by Shopify
           var fieldsEl = document.getElementById('PageRegisterFormFields');
           var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
           var switchEl = document.getElementById('PageRegisterLoginSwitch');

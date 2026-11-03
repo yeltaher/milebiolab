@@ -318,6 +318,7 @@
                             </script>
                         </div>
                     {%- when 'loyalty_points' -%}
+                        {% assign p_points = product.selected_or_first_available_variant.price | divided_by: 100 %}
                         <div class="flex items-center justify-between text-xs text-[#1A1A1A] pt-1 mb-2" {{ block.shopify_attributes }}>
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4 text-ink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -327,7 +328,7 @@
                                 <span class="font-normal text-[11px] sm:text-xs">Oltre 900 clienti soddisfatti</span>
                             </div>
                             <div id="loyalty-points" class="font-medium text-[11px] sm:text-xs text-[#1A1A1A]">
-                                {{ block.settings.text }} <a href="/pages/programma-fedelta" class="underline text-[#7A7265] hover:text-[#C8A878] ml-1 text-[10px]">Info Beauty Club</a>
+                                +<span id="loyalty-pts-val">{{ p_points }}</span> Beauty Punti (1€ = 1 Punto) <a href="/pages/programma-fedelta" class="underline text-[#7A7265] hover:text-[#C8A878] ml-1 text-[10px]">Info Beauty Club</a>
                             </div>
                         </div>
 
@@ -670,8 +671,12 @@
       unitPriceEl.innerHTML = 'SC061 ' + unitPrice;
     }
 
+    const loyaltyValEl = document.getElementById('loyalty-pts-val');
     const loyaltyEl = document.getElementById('loyalty-points');
-    if (loyaltyEl && loyaltyPts) {
+    if (loyaltyValEl) {
+      const pts = loyaltyPts ? String(loyaltyPts).replace('+', '').trim() : Math.floor(price);
+      loyaltyValEl.innerText = pts;
+    } else if (loyaltyEl && loyaltyPts) {
       loyaltyEl.innerHTML = loyaltyPts + ' Beauty Punti (1€ = 1 Punto) <a href="/pages/programma-fedelta" class="underline text-[#7A7265] hover:text-[#C8A878] ml-1 text-[10px]">Info Beauty Club</a>';
     }
 

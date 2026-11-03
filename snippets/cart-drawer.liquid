@@ -56,7 +56,7 @@
         {% assign customer_points = customer.total_spent | divided_by: 100 | plus: 20 %}
         <div class="flex items-center justify-between text-xs text-[#1A1A1A] font-medium">
           <span>Il tuo saldo punti:</span>
-          <span class="font-bold text-[#5C6B56] font-mono">{{ customer_points }} Beauty Punti</span>
+          <span class="font-bold text-[#5C6B56] font-mono">{{ customer_points }} Beauty Punti (1€ = 1 Punto)</span>
         </div>
 
         {% if customer_points >= 100 %}
@@ -86,10 +86,10 @@
       {% else %}
         <div class="text-[11px] text-[#1A1A1A] leading-relaxed">
           <p>
-            ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+{{ cart.total_price | divided_by: 100 }} Beauty Punti</strong>.
+            ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+{{ cart.total_price | divided_by: 100 }} Beauty Punti (1€ = 1 Punto)</strong>.
           </p>
           <p class="mt-1 text-[#7A7265]">
-            <a href="/pages/accedi#register" class="text-[#1A1A1A] underline font-semibold hover:text-[#C8A878]">Accedi o Registrati</a> per ricevere <strong>20 punti di benvenuto subito</strong>!
+            <button type="button" onclick="closeCartDrawer(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#1A1A1A] underline font-semibold hover:text-[#C8A878] bg-transparent border-0 p-0 cursor-pointer">Accedi o Registrati</button> per ricevere <strong>20 punti di benvenuto subito</strong>!
           </p>
         </div>
       {% endif %}
