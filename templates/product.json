@@ -1173,6 +1173,17 @@
             "text": "La crema fa esattamente quello che promette: la secchezza sparisce già dopo due applicazioni. È davvero molto nutriente, quindi la consiglio soprattutto per la sera o per le zone criticamente secche come gomiti e ginocchia."
           }
         },
+        "review_fLKrUM": {
+          "type": "review",
+          "settings": {
+            "target_product": "5-urea-2-panthenol-body-cream",
+            "author": "Barbara M. • Verona",
+            "date": "01 Ottobre 2026",
+            "rating": 5,
+            "title": "Addio pelle che tira sul corpo",
+            "text": "La uso tutte le sere come coccola idratante. Ho la pelle molto secca e sensibile, e molte creme ricche mi risultano pesanti. Questa invece lenisce subito, idrata a fondo e lascia una scia agrumata deliziosa che sa di pulito."
+          }
+        },
         "review_w8kHRy": {
           "type": "review",
           "settings": {
@@ -3026,6 +3037,7 @@
         "review_99ThiN",
         "review_Aw43zK",
         "review_GUXGGC",
+        "review_fLKrUM",
         "review_w8kHRy",
         "review_BwBkyK",
         "review_KbJxFd",
