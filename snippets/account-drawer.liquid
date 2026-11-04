@@ -17,6 +17,32 @@
     <!-- ======================================================== -->
     <!-- STATE A: CUSTOMER LOGGED IN (METODO TRADIZIONALE REALE) -->
     <!-- ======================================================== -->
+    {%- liquid
+      assign greeting_name = customer.first_name
+      if greeting_name == blank and customer.email != blank
+        assign email_prefix = customer.email | split: '@' | first | replace: '.', ' ' | replace: '_', ' ' | replace: '-', ' '
+        assign greeting_name = email_prefix | capitalize
+      endif
+      if greeting_name == blank
+        assign greeting_name = 'Membro Club'
+      endif
+
+      assign avatar_initials = ''
+      if customer.first_name != blank
+        assign first_char = customer.first_name | slice: 0
+        assign last_char = ''
+        if customer.last_name != blank
+          assign last_char = customer.last_name | slice: 0
+        endif
+        assign avatar_initials = first_char | append: last_char | upcase
+      endif
+      if avatar_initials == blank and customer.email != blank
+        assign avatar_initials = customer.email | slice: 0 | upcase
+      endif
+      if avatar_initials == blank
+        assign avatar_initials = 'MC'
+      endif
+    -%}
     <div id="DrawerCustomerLoggedInView" class="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col justify-between">
       <div>
         <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56] mb-4">
@@ -27,13 +53,16 @@
         <!-- Avatar Monogramma con Iniziali & Dati Reali -->
         <div class="flex items-center gap-3.5 mb-5">
           <div id="DrawerCustomerAvatar" class="w-12 h-12 rounded-full bg-[#1A1A1A] text-white font-serif flex items-center justify-center text-lg tracking-wider font-semibold">
-            {{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}
+            {{ avatar_initials }}
           </div>
           <div>
             <h4 class="font-serif text-2xl text-[#1A1A1A] mb-0.5 font-normal">
-              Bentornato, <span class="italic text-[#5C6B56]" id="DrawerCustomerGreetingName">{{ customer.first_name | default: 'Membro' }}</span>
+              Bentornato, <span class="italic text-[#5C6B56]" id="DrawerCustomerGreetingName">{{ greeting_name }}</span>
             </h4>
             <p class="text-xs text-[#7A7265]" id="DrawerCustomerEmail">{{ customer.email }}</p>
+            {% if customer.first_name == blank %}
+              <a href="{{ routes.account_addresses_url }}" class="text-[11px] text-[#5C6B56] hover:underline block mt-0.5">Completa profilo &rarr;</a>
+            {% endif %}
           </div>
         </div>
 
@@ -189,6 +218,7 @@
 
           <!-- Modulo Login Nativo Shopify -->
           {% form 'customer_login', id: 'DrawerCustomerLoginForm', class: 'space-y-4', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
             {% if form.errors %}
               <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
                 <strong class="block font-medium mb-0.5">Errore di accesso:</strong>
@@ -363,6 +393,7 @@
 
           <!-- Modulo Nativo Shopify di Registrazione Cliente -->
           {% form 'create_customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
             <input type="hidden" name="customer[tags]" value="club_mile, welcome_20">
 
             {% if form.errors %}

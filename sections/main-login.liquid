@@ -105,6 +105,7 @@
           </div>
 
           {% form 'customer_login', class: 'space-y-5', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
             {% if form.errors %}
               <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm rounded-none">
                 <strong class="block font-medium mb-1">Si &egrave; verificato un errore:</strong>

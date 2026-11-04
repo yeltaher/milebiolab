@@ -96,6 +96,8 @@
           </div>
 
           {% form 'create_customer', class: 'space-y-5', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
+            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20">
             {% if form.errors %}
               <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
                 <strong class="block font-medium mb-1">Si &egrave; verificato un errore durante la registrazione:</strong>
