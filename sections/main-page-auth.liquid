@@ -516,9 +516,26 @@
     var emailInput = document.getElementById('PageRegisterEmail');
     var email = emailInput ? emailInput.value.trim() : '';
 
+    var firstNameInput = document.getElementById('PageRegisterFirstName');
+    var lastNameInput = document.getElementById('PageRegisterLastName');
+    var firstName = firstNameInput ? firstNameInput.value.trim() : '';
+    var lastName = lastNameInput ? lastNameInput.value.trim() : '';
     if (email) {
       try {
         localStorage.setItem('mile_pending_activation_email', email.toLowerCase());
+        localStorage.setItem('mile_customer_profile', JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          points: 20
+        }));
+        localStorage.setItem('mile_customer_logged_in', 'true');
+        localStorage.setItem('mile_customer', JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          points: 20
+        }));
       } catch (err) {}
     }
 

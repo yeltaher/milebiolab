@@ -330,9 +330,22 @@
       if (submitBtnText) submitBtnText.innerText = 'Invio richiesta di registrazione in corso...';
     }
 
-    // Salva l'email in attesa di attivazione
+    // Salva l'email in attesa di attivazione e il profilo con 20 punti di benvenuto
     try {
       localStorage.setItem('mile_pending_activation_email', email.toLowerCase());
+      localStorage.setItem('mile_customer_profile', JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        points: 20
+      }));
+      localStorage.setItem('mile_customer_logged_in', 'true');
+      localStorage.setItem('mile_customer', JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        points: 20
+      }));
     } catch (err) {}
 
     var formData = form ? new FormData(form) : new FormData();

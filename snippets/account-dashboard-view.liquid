@@ -15,9 +15,6 @@
   assign coupon_cta_url = section.settings.coupon_cta_url | default: "/collections/all"
 
   assign show_loyalty_passport = true
-  if section.settings.show_loyalty_passport == false
-    assign show_loyalty_passport = false
-  endif
   assign loyalty_tier_name = section.settings.loyalty_tier_name | default: "Livello: Oro Botanico"
   assign calculated_points = 20
   if customer
@@ -238,12 +235,12 @@
             <div class="w-full lg:w-80 space-y-2 bg-white/80 p-4 border border-[#E5E0D8]">
               <div class="flex justify-between text-[11px] font-mono text-[#7A7265]">
                 <span>Progresso Sconto 5 € (100 pt)</span>
-                <span class="text-[#C8A878] font-bold">{{ loyalty_progress_percent }}%</span>
+                <span class="text-[#C8A878] font-bold" id="PageAccountLoyaltyPercentText">{{ loyalty_progress_percent }}%</span>
               </div>
               <div class="w-full h-2 bg-[#E5E0D8] overflow-hidden rounded-full">
-                <div class="h-full bg-gradient-to-r from-[#C8A878] to-[#9A7B4C] transition-all duration-1000" style="width: {{ loyalty_progress_percent }}%;"></div>
+                <div id="PageAccountLoyaltyProgressBar" class="h-full bg-gradient-to-r from-[#C8A878] to-[#9A7B4C] transition-all duration-1000" style="width: {{ loyalty_progress_percent }}%;"></div>
               </div>
-              <div class="text-[10px] text-[#7A7265] text-right">
+              <div class="text-[10px] text-[#7A7265] text-right" id="PageAccountLoyaltyMissingText">
                 {% if calculated_points >= 100 %}
                   <strong class="text-[#2D5A27]">🎉 Sconto 5 € sbloccato nel carrello!</strong>
                 {% else %}
@@ -538,12 +535,17 @@
         logoutBtn.addEventListener('click', function(e) {
           try {
             localStorage.removeItem('mile_customer');
+            localStorage.removeItem('mile_customer_profile');
+            localStorage.removeItem('mile_customer_logged_in');
           } catch (err) {}
           if (typeof window.logoutCustomerSession === 'function') {
             e.preventDefault();
             window.logoutCustomerSession();
           }
         });
+      }
+      if (typeof window.syncCustomerNameAndInitials === 'function') {
+        window.syncCustomerNameAndInitials();
       }
     }
 

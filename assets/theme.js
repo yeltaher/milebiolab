@@ -238,6 +238,65 @@ function initBeforeAfterSlider() {
    ========================================================================== */
 const CART_STORAGE_KEY = 'splendor_cart_state';
 
+function mapShopifyCartItems(items) {
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return [];
+  }
+  const localCompareMap = (() => {
+    try {
+      return JSON.parse(localStorage.getItem('mile_variant_compare_prices') || '{}');
+    } catch(e) { return {}; }
+  })();
+  window.mileComparePrices = Object.assign({}, localCompareMap, window.mileComparePrices || {});
+
+  const mapped = items.map(item => {
+    const itemId = item.id || item.variant_id;
+    const isBundle = item.properties && (
+      item.properties['_bundle'] === 'routine_15' ||
+      item.properties['bundle'] === 'routine_15' ||
+      item.properties['_bundle_discount'] === '15%'
+    );
+
+    const rawPrice = item.price / 100;
+    let finalPrice = rawPrice;
+
+    // Lookup compare_at_price
+    let compPrice = (item.compare_at_price ? (item.compare_at_price / 100) : 0) ||
+                    (item.properties && item.properties['_compare_at_price'] ? parseFloat(item.properties['_compare_at_price']) : 0) ||
+                    (window.mileComparePrices && window.mileComparePrices[itemId] ? parseFloat(window.mileComparePrices[itemId]) : 0) ||
+                    (item.original_price > item.price ? (item.original_price / 100) : 0);
+
+    if (isBundle) {
+      compPrice = compPrice > rawPrice ? compPrice : rawPrice;
+      finalPrice = Math.round(rawPrice * 0.85 * 100) / 100;
+    }
+
+    if (compPrice > finalPrice) {
+      window.mileComparePrices[itemId] = compPrice;
+    }
+
+    return {
+      id: itemId,
+      key: item.key,
+      title: translateProductTitleToItalian(item.product_title || item.title),
+      step: (item.properties && item.properties['step']) || (isBundle ? 'ROUTINE COMPLETA (-15%)' : 'RITUALE BOTANICO'),
+      price: finalPrice,
+      compare_at_price: compPrice > finalPrice ? compPrice : 0,
+      volume: item.variant_title || 'Formato Originale',
+      qty: item.quantity,
+      image: item.featured_image ? (item.featured_image.url || item.featured_image) : (item.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'),
+      properties: item.properties || {},
+      is_bundle: isBundle
+    };
+  });
+
+  try {
+    localStorage.setItem('mile_variant_compare_prices', JSON.stringify(window.mileComparePrices));
+  } catch(e) {}
+
+  return mapped;
+}
+
 // Fetch real Shopify Cart
 async function fetchShopifyCart() {
   const cartUrl = (window.routes && window.routes.cart_url) ? window.routes.cart_url : '/cart.js';
@@ -248,61 +307,7 @@ async function fetchShopifyCart() {
     if (!res.ok) throw new Error('Shopify cart endpoint error');
     const data = await res.json();
     if (data && Array.isArray(data.items)) {
-      if (data.items.length > 0) {
-        const localCompareMap = (() => {
-          try {
-            return JSON.parse(localStorage.getItem('mile_variant_compare_prices') || '{}');
-          } catch(e) { return {}; }
-        })();
-        window.mileComparePrices = Object.assign({}, localCompareMap, window.mileComparePrices || {});
-
-        MilebiolabState.cart = data.items.map(item => {
-          const itemId = item.id || item.variant_id;
-          const isBundle = item.properties && (
-            item.properties['_bundle'] === 'routine_15' ||
-            item.properties['bundle'] === 'routine_15' ||
-            item.properties['_bundle_discount'] === '15%'
-          );
-
-          const rawPrice = item.price / 100;
-          let finalPrice = rawPrice;
-
-          // Lookup compare_at_price
-          let compPrice = (item.compare_at_price ? (item.compare_at_price / 100) : 0) ||
-                          (item.properties && item.properties['_compare_at_price'] ? parseFloat(item.properties['_compare_at_price']) : 0) ||
-                          (window.mileComparePrices && window.mileComparePrices[itemId] ? parseFloat(window.mileComparePrices[itemId]) : 0) ||
-                          (item.original_price > item.price ? (item.original_price / 100) : 0);
-
-          if (isBundle) {
-            compPrice = compPrice > rawPrice ? compPrice : rawPrice;
-            finalPrice = Math.round(rawPrice * 0.85 * 100) / 100;
-          }
-
-          if (compPrice > finalPrice) {
-            window.mileComparePrices[itemId] = compPrice;
-          }
-
-          return {
-            id: itemId,
-            key: item.key,
-            title: translateProductTitleToItalian(item.product_title || item.title),
-            step: (item.properties && item.properties['step']) || (isBundle ? 'ROUTINE COMPLETA (-15%)' : 'RITUALE BOTANICO'),
-            price: finalPrice,
-            compare_at_price: compPrice > finalPrice ? compPrice : 0,
-            volume: item.variant_title || 'Formato Originale',
-            qty: item.quantity,
-            image: item.featured_image ? (item.featured_image.url || item.featured_image) : (item.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'),
-            properties: item.properties || {},
-            is_bundle: isBundle
-          };
-        });
-
-        try {
-          localStorage.setItem('mile_variant_compare_prices', JSON.stringify(window.mileComparePrices));
-        } catch(e) {}
-      } else {
-        MilebiolabState.cart = [];
-      }
+      MilebiolabState.cart = mapShopifyCartItems(data.items);
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
       } catch (e) {}
@@ -410,20 +415,17 @@ async function changeShopifyCartQty(itemKeyOrId, newQty) {
       })
     });
     if (!res.ok) throw new Error('Change cart API returned ' + res.status);
-    await fetchShopifyCart();
-    return true;
-  } catch (err) {
-    const item = MilebiolabState.cart.find(i => i.id == itemKeyOrId || i.key == itemKeyOrId);
-    if (item) {
-      item.qty = newQty;
-      if (item.qty <= 0) {
-        MilebiolabState.cart = MilebiolabState.cart.filter(i => i !== item);
-      }
+    const cartData = await res.json();
+    if (cartData && Array.isArray(cartData.items)) {
+      MilebiolabState.cart = mapShopifyCartItems(cartData.items);
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
       } catch (e) {}
       renderCartDrawer();
     }
+    return true;
+  } catch (err) {
+    console.warn('Shopify Cart change error, maintaining optimistic cart state:', err);
     return false;
   }
 }
@@ -574,15 +576,7 @@ function renderCartDrawer() {
   // Dynamic Beauty Club Mile loyalty points for current order (1€ = 1 Punto)
   const orderEarnedPoints = Math.max(0, Math.floor(subtotal));
 
-  // 1. Update specific numeric elements (order earned points)
-  const numericPtsEls = document.querySelectorAll(
-    '#cart-drawer-pts-val, #cart-drawer-customer-pts-val, #cart-page-pts-val, #cart-page-customer-pts-val, .cart-drawer-pts-val'
-  );
-  numericPtsEls.forEach(el => {
-    el.textContent = orderEarnedPoints;
-  });
-
-  // 2. Update earned points container phrase if present
+  // 1. Aggiorna o crea il contenitore #cart-drawer-earned-points preservando i nodi interni
   const earnedPointsContainer = document.getElementById('cart-drawer-earned-points');
   if (earnedPointsContainer) {
     const innerVal = earnedPointsContainer.querySelector('#cart-drawer-pts-val, .cart-drawer-pts-val');
@@ -593,18 +587,40 @@ function renderCartDrawer() {
     }
   }
 
-  // 3. Update all points elements matching selector list (#cart-drawer-pts-val, #cart-drawer-earned-points, .cart-drawer-order-points)
-  const allOrderPointsEls = document.querySelectorAll(
-    '#cart-drawer-pts-val, #cart-drawer-earned-points, .cart-drawer-order-points'
+  // 2. Aggiorna o crea il contenitore #cart-page-earned-points preservando i nodi interni
+  const pageEarnedPointsContainer = document.getElementById('cart-page-earned-points');
+  if (pageEarnedPointsContainer) {
+    const pageInnerVal = pageEarnedPointsContainer.querySelector('#cart-page-pts-val, .cart-drawer-pts-val');
+    if (pageInnerVal) {
+      pageInnerVal.textContent = orderEarnedPoints;
+    } else {
+      pageEarnedPointsContainer.innerHTML = `+<span id="cart-page-pts-val" class="cart-drawer-pts-val">${orderEarnedPoints}</span> Beauty Punti (1€ = 1 Punto)`;
+    }
+  }
+
+  // 3. Aggiorna con precisione tutti gli elementi numerici per i punti carrello
+  const numericPtsEls = document.querySelectorAll(
+    '#cart-drawer-pts-val, #cart-drawer-customer-pts-val, #cart-page-pts-val, #cart-page-customer-pts-val, .cart-drawer-pts-val'
   );
+  numericPtsEls.forEach(el => {
+    el.textContent = orderEarnedPoints;
+  });
+
+  // 4. Aggiorna eventuali container generici .cart-drawer-order-points senza distruggere i figli
+  const allOrderPointsEls = document.querySelectorAll('.cart-drawer-order-points');
   allOrderPointsEls.forEach(el => {
-    if (el.id === 'cart-drawer-pts-val' || el.id === 'cart-drawer-customer-pts-val' || el.classList.contains('cart-drawer-pts-val')) {
-      el.textContent = orderEarnedPoints;
-    } else if (el.querySelector('#cart-drawer-pts-val, #cart-drawer-customer-pts-val, .cart-drawer-pts-val')) {
-      // Child element was already updated above
+    if (el.id === 'cart-drawer-earned-points' || el.id === 'cart-page-earned-points') {
       return;
-    } else if (el.id === 'cart-drawer-earned-points' || (el.id && el.id.includes('earned-points')) || el.textContent.includes('Beauty Punti')) {
-      el.textContent = `+${orderEarnedPoints} Beauty Punti (1€ = 1 Punto)`;
+    }
+    if (el.classList.contains('cart-drawer-pts-val') || el.id === 'cart-drawer-pts-val' || el.id === 'cart-drawer-customer-pts-val') {
+      el.textContent = orderEarnedPoints;
+      return;
+    }
+    const childVal = el.querySelector('#cart-drawer-pts-val, #cart-drawer-customer-pts-val, #cart-page-pts-val, #cart-page-customer-pts-val, .cart-drawer-pts-val');
+    if (childVal) {
+      childVal.textContent = orderEarnedPoints;
+    } else if (el.textContent && el.textContent.includes('Beauty Punti')) {
+      el.innerHTML = `+<span class="cart-drawer-pts-val">${orderEarnedPoints}</span> Beauty Punti (1€ = 1 Punto)`;
     } else {
       el.textContent = orderEarnedPoints;
     }
@@ -777,18 +793,28 @@ function updateCartItemQty(id, delta) {
   const item = MilebiolabState.cart.find(i => i.id == id || i.key == id);
   if (!item) return;
 
-  const newQty = item.qty + delta;
-  if (item.key || typeof item.id === 'number' || (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
-    changeShopifyCartQty(item.key || item.id, newQty);
-  } else {
-    item.qty = newQty;
-    if (item.qty <= 0) {
-      MilebiolabState.cart = MilebiolabState.cart.filter(i => i.id !== id && i.key !== id);
-    }
-    try {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
-    } catch (e) {}
-    renderCartDrawer();
+  const targetKeyOrId = item.key || item.id;
+  const isShopifyItem = item.key || typeof item.id === 'number' || (!isNaN(Number(item.id)) && Number(item.id) > 100);
+
+  // 1. Aggiornamento OTTIMISTICO immediato
+  item.qty += delta;
+  const newQty = item.qty;
+
+  if (item.qty <= 0) {
+    MilebiolabState.cart = MilebiolabState.cart.filter(i => i !== item && i.id != id && i.key != id);
+  }
+
+  // 2. Salva subito in localStorage
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+  } catch (e) {}
+
+  // 3. Esegui IMMEDIATAMENTE renderCartDrawer() (0ms di attesa)
+  renderCartDrawer();
+
+  // 4. In background, sincronizza con Shopify se elemento Shopify
+  if (isShopifyItem) {
+    changeShopifyCartQty(targetKeyOrId, Math.max(0, newQty));
   }
 }
 
@@ -796,14 +822,23 @@ function removeCartItem(id) {
   const item = MilebiolabState.cart.find(i => i.id == id || i.key == id);
   if (!item) return;
 
-  if (item.key || typeof item.id === 'number' || (!isNaN(Number(item.id)) && Number(item.id) > 100)) {
-    changeShopifyCartQty(item.key || item.id, 0);
-  } else {
-    MilebiolabState.cart = MilebiolabState.cart.filter(i => i.id !== id && i.key !== id);
-    try {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
-    } catch (e) {}
-    renderCartDrawer();
+  const targetKeyOrId = item.key || item.id;
+  const isShopifyItem = item.key || typeof item.id === 'number' || (!isNaN(Number(item.id)) && Number(item.id) > 100);
+
+  // 1. Aggiornamento OTTIMISTICO immediato: rimuovi subito da MilebiolabState.cart
+  MilebiolabState.cart = MilebiolabState.cart.filter(i => i !== item && i.id != id && i.key != id);
+
+  // 2. Salva subito in localStorage
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(MilebiolabState.cart));
+  } catch (e) {}
+
+  // 3. Esegui IMMEDIATAMENTE renderCartDrawer()
+  renderCartDrawer();
+
+  // 4. In background, invia la chiamata changeShopifyCartQty(item.key || item.id, 0)
+  if (isShopifyItem) {
+    changeShopifyCartQty(targetKeyOrId, 0);
   }
 }
 if (typeof window !== 'undefined') {
@@ -2868,6 +2903,146 @@ if (!window.renderUserReviews) {
 // 11. SEAMLESS CUSTOMER AUTHENTICATION & ACCOUNT DRAWER STATE MANAGEMENT
 // ============================================================================
 
+function syncCustomerNameAndInitials() {
+  try {
+    let profile = null;
+    const profileRaw = localStorage.getItem('mile_customer_profile') || localStorage.getItem('mile_customer');
+    if (profileRaw) {
+      try {
+        profile = JSON.parse(profileRaw);
+      } catch (e) {}
+    }
+
+    const isClientLoggedIn = (
+      localStorage.getItem('mile_customer_logged_in') === 'true' ||
+      localStorage.getItem('mile_customer_logged_in') === '1' ||
+      Boolean(profile)
+    );
+
+    const isLiquidLoggedIn = (
+      (window.ShopifyThemeConfig && window.ShopifyThemeConfig.customerLoggedIn === true) ||
+      (document.body && document.body.classList.contains('customer-logged-in'))
+    );
+
+    // Se l'utente è loggato on-site o registrato (o autenticato Liquid)
+    if (isClientLoggedIn || isLiquidLoggedIn) {
+      // Calcola i punti del cliente (default 20 se nuovo iscritto, o i punti salvati nel profilo)
+      let points = 20;
+      if (profile && typeof profile.points === 'number') {
+        points = profile.points;
+      } else if (profile && profile.points && !isNaN(Number(profile.points))) {
+        points = Number(profile.points);
+      } else if (profile && typeof profile.total_spent === 'number') {
+        points = Math.floor(profile.total_spent / 100) + 20;
+      } else if (window.ShopifyThemeConfig && typeof window.ShopifyThemeConfig.customerTotalSpent === 'number') {
+        points = Math.floor(window.ShopifyThemeConfig.customerTotalSpent / 100) + 20;
+      }
+
+      // Aggiorna #PageAccountHeroPoints con "${points} Beauty Punti Attivi"
+      const heroPointsEl = document.getElementById('PageAccountHeroPoints');
+      if (heroPointsEl) {
+        heroPointsEl.textContent = `${points} Beauty Punti Attivi`;
+      }
+
+      // Aggiorna #PageAccountLoyaltyPoints con "${points} Beauty Punti Attivi (1€ = 1 Punto)"
+      const loyaltyPointsEl = document.getElementById('PageAccountLoyaltyPoints');
+      if (loyaltyPointsEl) {
+        loyaltyPointsEl.textContent = `${points} Beauty Punti Attivi (1€ = 1 Punto)`;
+      }
+
+      // Calcola progress = Math.min(100, points)
+      const progress = Math.min(100, Math.max(0, points));
+
+      // Aggiorna la barra PageAccountLoyaltyProgressBar con style.width = progress + '%'
+      const progressBar = document.getElementById('PageAccountLoyaltyProgressBar');
+      if (progressBar) {
+        progressBar.style.width = progress + '%';
+      }
+
+      // Aggiorna PageAccountLoyaltyPercentText con progress + '%'
+      const percentText = document.getElementById('PageAccountLoyaltyPercentText');
+      if (percentText) {
+        percentText.textContent = progress + '%';
+      }
+
+      // Aggiorna PageAccountLoyaltyMissingText
+      const missingText = document.getElementById('PageAccountLoyaltyMissingText');
+      if (missingText) {
+        if (points >= 100) {
+          missingText.innerHTML = '<strong class="text-[#2D5A27]">🎉 Sconto 5 € sbloccato nel carrello!</strong>';
+        } else {
+          missingText.textContent = 'Mancano ' + (100 - points) + ' punti a 5 € di sconto';
+        }
+      }
+
+      // Sincronizza nome, iniziali ed email nei vari header, drawer e account page
+      let firstName = (profile && profile.first_name) ? profile.first_name.trim() : '';
+      let lastName = (profile && profile.last_name) ? profile.last_name.trim() : '';
+      let email = (profile && profile.email) ? profile.email.trim() : '';
+
+      if (!firstName && window.ShopifyThemeConfig && window.ShopifyThemeConfig.customerFirstName) {
+        firstName = window.ShopifyThemeConfig.customerFirstName.trim();
+        lastName = (window.ShopifyThemeConfig.customerLastName || '').trim();
+        email = window.ShopifyThemeConfig.customerEmail || '';
+      }
+
+      if (firstName) {
+        const initials = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();
+        document.querySelectorAll('#PageAccountGreetingName, #DrawerCustomerGreetingName, .customer-greeting-name').forEach(el => {
+          el.textContent = firstName;
+        });
+        document.querySelectorAll('#PageAccountAvatar, #DrawerCustomerAvatar').forEach(el => {
+          el.textContent = initials;
+        });
+      }
+
+      if (email) {
+        document.querySelectorAll('#PageAccountEmail, #DrawerCustomerEmail').forEach(el => {
+          if (el.textContent.indexOf('@') === -1 || el.textContent === 'Membro Club Mile') {
+            el.textContent = email;
+          }
+        });
+      }
+
+      // Assicura che la dashboard pagina account sia in modalità LoggedIn
+      const pageLoggedIn = document.getElementById('PageAccountLoggedInView');
+      const pageGuest = document.getElementById('PageAccountGuestView');
+      if (pageLoggedIn && pageGuest) {
+        pageLoggedIn.classList.remove('hidden');
+        pageLoggedIn.classList.add('block');
+        pageGuest.classList.add('hidden');
+        pageGuest.classList.remove('block');
+      }
+
+      // Assicura che il drawer account mostri la vista LoggedIn se non è in successo registrazione
+      const drawerLoggedIn = document.getElementById('DrawerCustomerLoggedInView');
+      const drawerGuest = document.getElementById('DrawerCustomerGuestView');
+      const successView = document.getElementById('DrawerRegisterSuccessView');
+      const isShowingSuccess = successView && !successView.classList.contains('hidden');
+      if (drawerLoggedIn && drawerGuest && !isShowingSuccess) {
+        drawerLoggedIn.classList.remove('hidden');
+        drawerLoggedIn.classList.add('flex');
+        drawerGuest.classList.add('hidden');
+        drawerGuest.classList.remove('flex');
+      }
+
+      // Header indicator e saluto
+      const headerIndicator = document.getElementById('header-customer-indicator');
+      if (headerIndicator) headerIndicator.classList.remove('hidden');
+      const headerGreeting = document.getElementById('header-customer-greeting');
+      if (headerGreeting && firstName) {
+        headerGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span>';
+      }
+      const mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
+      if (mobileGreeting && firstName) {
+        mobileGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span> (Profilo)';
+      }
+    }
+  } catch (err) {
+    console.error('Error in syncCustomerNameAndInitials:', err);
+  }
+}
+
 function renderCustomerAuthState() {
   try {
     var isLiquidCustomerLoggedIn = false;
@@ -2877,11 +3052,19 @@ function renderCustomerAuthState() {
       isLiquidCustomerLoggedIn = true;
     }
 
-    // Se l'utente NON è autenticato su Shopify Liquid:
-    // Nessun login immediato o fittizio consentito!
-    if (!isLiquidCustomerLoggedIn) {
+    var isClientLoggedIn = (
+      localStorage.getItem('mile_customer_logged_in') === 'true' ||
+      localStorage.getItem('mile_customer_logged_in') === '1' ||
+      Boolean(localStorage.getItem('mile_customer_profile')) ||
+      Boolean(localStorage.getItem('mile_customer'))
+    );
+
+    // Se l'utente NON è autenticato né su Shopify Liquid né on-site:
+    if (!isLiquidCustomerLoggedIn && !isClientLoggedIn) {
       try {
         localStorage.removeItem('mile_customer');
+        localStorage.removeItem('mile_customer_profile');
+        localStorage.removeItem('mile_customer_logged_in');
       } catch (e) {}
 
       // Assicura che la dashboard pagina account sia in modalità Guest
@@ -2913,75 +3096,8 @@ function renderCustomerAuthState() {
       return;
     }
 
-    // Se l'utente è autenticato su Shopify Liquid: arricchisci i saluti con il vero nome
-    var firstName = '';
-    var lastName = '';
-    var email = '';
-
-    if (window.ShopifyThemeConfig && window.ShopifyThemeConfig.customerFirstName) {
-      firstName = window.ShopifyThemeConfig.customerFirstName.trim();
-      lastName = (window.ShopifyThemeConfig.customerLastName || '').trim();
-      email = window.ShopifyThemeConfig.customerEmail || '';
-    } else {
-      var rawCustomer = localStorage.getItem('mile_customer');
-      if (rawCustomer) {
-        try {
-          var localCustomer = JSON.parse(rawCustomer);
-          if (localCustomer && localCustomer.first_name) {
-            firstName = localCustomer.first_name.trim();
-            lastName = (localCustomer.last_name || '').trim();
-            email = localCustomer.email || '';
-          }
-        } catch (e) {}
-      }
-    }
-
-    if (firstName) {
-      var initials = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();
-
-      // 1. Aggiorna tutti i selettori di saluto
-      var greetingSelectors = ['#PageAccountGreetingName', '#DrawerCustomerGreetingName', '.customer-greeting-name'];
-      greetingSelectors.forEach(function(sel) {
-        document.querySelectorAll(sel).forEach(function(el) {
-          el.textContent = firstName;
-        });
-      });
-
-      // 2. Aggiorna gli avatar monogramma
-      var avatarSelectors = ['#PageAccountAvatar', '#DrawerCustomerAvatar'];
-      avatarSelectors.forEach(function(sel) {
-        document.querySelectorAll(sel).forEach(function(el) {
-          el.textContent = initials;
-        });
-      });
-
-      // 3. Aggiorna gli elementi email se vuoti
-      if (email) {
-        var emailSelectors = ['#PageAccountEmail', '#DrawerCustomerEmail'];
-        emailSelectors.forEach(function(sel) {
-          document.querySelectorAll(sel).forEach(function(el) {
-            if (el.textContent.indexOf('@') === -1) {
-              el.textContent = email;
-            }
-          });
-        });
-      }
-
-      // 4. Header: indicatore verde e saluto con nome
-      var headerGreeting = document.getElementById('header-customer-greeting');
-      var headerIndicator = document.getElementById('header-customer-indicator');
-      if (headerGreeting) {
-        headerGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span>';
-      }
-      if (headerIndicator) {
-        headerIndicator.classList.remove('hidden');
-      }
-
-      var mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
-      if (mobileGreeting) {
-        mobileGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span> (Profilo)';
-      }
-    }
+    // Se l'utente è autenticato su Shopify Liquid o on-site: sincronizza dettagli e punti
+    syncCustomerNameAndInitials();
   } catch (err) {
     console.error('Error in renderCustomerAuthState:', err);
   }
@@ -3063,6 +3179,8 @@ function switchAccountDrawerTab(tabName) {
 function logoutCustomerSession() {
   try {
     localStorage.removeItem('mile_customer');
+    localStorage.removeItem('mile_customer_profile');
+    localStorage.removeItem('mile_customer_logged_in');
     sessionStorage.clear();
   } catch (err) {}
 
@@ -3074,6 +3192,7 @@ function logoutCustomerSession() {
 window.openCartDrawer = openCartDrawer;
 window.closeCartDrawer = closeCartDrawer;
 window.renderCustomerAuthState = renderCustomerAuthState;
+window.syncCustomerNameAndInitials = syncCustomerNameAndInitials;
 window.logoutCustomerSession = logoutCustomerSession;
 window.togglePasswordVisibility = togglePasswordVisibility;
 window.toggleDrawerRecoverForm = toggleDrawerRecoverForm;
@@ -3082,12 +3201,14 @@ window.switchAccountDrawerTab = switchAccountDrawerTab;
 // Auto-run on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   renderCustomerAuthState();
+  syncCustomerNameAndInitials();
   initWishlist();
   document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
 });
 
 // Also run immediately
 renderCustomerAuthState();
+syncCustomerNameAndInitials();
 initWishlist();
 if (document.readyState === 'interactive' || document.readyState === 'complete') {
   document.querySelectorAll('.product-description-container').forEach(c => renderAccordionDescription(c));
