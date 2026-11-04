@@ -2760,10 +2760,104 @@ window.renderUserReviews = renderUserReviews;
 
 function renderCustomerAuthState() {
   try {
-    // Bonifica completa: rimuove qualsiasi dato legacy o mock da localStorage
+    var rawCustomer = localStorage.getItem('mile_customer');
+    if (!rawCustomer) return;
+
+    var localCustomer = null;
     try {
-      localStorage.removeItem('mile_customer');
-    } catch (e) {}
+      localCustomer = JSON.parse(rawCustomer);
+    } catch (e) {
+      localCustomer = null;
+    }
+
+    if (!localCustomer || !localCustomer.first_name) return;
+
+    var firstName = localCustomer.first_name.trim();
+    var lastName = (localCustomer.last_name || '').trim();
+    var initials = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();
+    var email = localCustomer.email || '';
+
+    // 1. Aggiorna tutti i selettori di saluto con il vero nome (sovrascrive email prefix o 'Membro')
+    var greetingSelectors = ['#PageAccountGreetingName', '#DrawerCustomerGreetingName', '.customer-greeting-name'];
+    greetingSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.textContent = firstName;
+      });
+    });
+
+    // 2. Aggiorna gli avatar monogramma con le iniziali reali (es. YE)
+    var avatarSelectors = ['#PageAccountAvatar', '#DrawerCustomerAvatar'];
+    avatarSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.textContent = initials;
+      });
+    });
+
+    // 3. Aggiorna gli elementi email
+    var emailSelectors = ['#PageAccountEmail', '#DrawerCustomerEmail'];
+    emailSelectors.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.textContent = email;
+      });
+    });
+
+    // 4. Header Desktop: indicatore verde e saluto con nome reale
+    var headerGreeting = document.getElementById('header-customer-greeting');
+    var headerIndicator = document.getElementById('header-customer-indicator');
+    if (headerGreeting) {
+      headerGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span>';
+    }
+    if (headerIndicator) {
+      headerIndicator.classList.remove('hidden');
+    }
+
+    // Header Mobile: saluto con nome reale
+    var mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
+    if (mobileGreeting) {
+      mobileGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span> (Profilo)';
+    }
+
+    // 5. Drawer: mostra vista autenticata se presente e se non sta mostrando il messaggio di successo
+    var successView = document.getElementById('DrawerRegisterSuccessView');
+    var isShowingSuccess = successView && !successView.classList.contains('hidden');
+
+    var drawerLoggedIn = document.getElementById('DrawerCustomerLoggedInView');
+    var drawerGuest = document.getElementById('DrawerCustomerGuestView');
+    if (drawerLoggedIn && drawerGuest && !isShowingSuccess) {
+      drawerGuest.classList.add('hidden');
+      drawerGuest.classList.remove('flex');
+      drawerLoggedIn.classList.remove('hidden');
+      drawerLoggedIn.classList.add('flex');
+    }
+
+    // 6. Pagina Account: mostra dashboard se presente, nascondi guest view
+    var pageLoggedIn = document.getElementById('PageAccountLoggedInView');
+    var pageGuest = document.getElementById('PageAccountGuestView');
+    if (pageLoggedIn && pageGuest) {
+      pageGuest.classList.add('hidden');
+      pageGuest.classList.remove('block');
+      pageLoggedIn.classList.remove('hidden');
+      pageLoggedIn.classList.add('block');
+    }
+
+    // 7. Aggiorna saldi punti se elementi presenti
+    if (localCustomer.points) {
+      var drawerPoints = document.getElementById('DrawerCustomerPointsText');
+      if (drawerPoints) {
+        drawerPoints.textContent = localCustomer.points + ' Beauty Punti Attivi';
+      }
+      var pagePoints = document.getElementById('PageAccountLoyaltyPoints');
+      if (pagePoints) {
+        pagePoints.textContent = localCustomer.points + ' Beauty Punti Attivi (1€ = 1 Punto)';
+      }
+    }
+
+    // 8. Cart Drawer Loyalty Sync per clienti con profilo localCustomer
+    var cartLoyaltyPrompt = document.getElementById('cart-drawer-loyalty-prompt');
+    if (cartLoyaltyPrompt) {
+      var pts = localCustomer.points || 20;
+      cartLoyaltyPrompt.innerHTML = '<span class="text-[#5C6B56] font-medium">🟢 Ciao, <strong class="text-[#1A1A1A]">' + firstName + '</strong>! Saldo: <strong class="font-mono text-[#5C6B56]">' + pts + ' Beauty Punti Attivi</strong></span>';
+    }
   } catch (err) {
     console.error('Error in renderCustomerAuthState:', err);
   }

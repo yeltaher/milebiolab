@@ -95,9 +95,8 @@
             </p>
           </div>
 
-          {% form 'create_customer', class: 'space-y-5', novalidate: 'novalidate' %}
-            <input type="hidden" name="return_to" value="/pages/account">
-            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20">
+          {% form 'customer', id: 'MainRegisterCustomerForm', class: 'space-y-5', novalidate: 'novalidate' %}
+            <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
             {% if form.errors %}
               <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
                 <strong class="block font-medium mb-1">Si &egrave; verificato un errore durante la registrazione:</strong>
@@ -113,7 +112,7 @@
                 </label>
                 <input
                   type="text"
-                  name="customer[first_name]"
+                  name="contact[first_name]"
                   id="RegisterFirstName"
                   autocomplete="given-name"
                   required
@@ -129,7 +128,7 @@
                 </label>
                 <input
                   type="text"
-                  name="customer[last_name]"
+                  name="contact[last_name]"
                   id="RegisterLastName"
                   autocomplete="family-name"
                   required
@@ -147,7 +146,7 @@
               </label>
               <input
                 type="email"
-                name="customer[email]"
+                name="contact[email]"
                 id="RegisterEmail"
                 autocomplete="email"
                 autocorrect="off"
@@ -167,7 +166,7 @@
               </label>
               <input
                 type="password"
-                name="customer[password]"
+                name="customer[note][password]"
                 id="RegisterPassword"
                 autocomplete="new-password"
                 required
@@ -185,6 +184,7 @@
               <label class="flex items-start gap-2.5 text-xs text-ash cursor-pointer">
                 <input
                   type="checkbox"
+                  id="RegisterPrivacyCheckbox"
                   required
                   class="mt-0.5 accent-[#5C6B56] cursor-pointer"
                   checked
@@ -199,9 +199,10 @@
             <div class="pt-2">
               <button
                 type="submit"
+                id="RegisterSubmitBtn"
                 class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
               >
-                <span>{{ section.settings.submit_btn_text | default: "Crea Account Club Mile" }}</span>
+                <span id="RegisterSubmitBtnText">{{ section.settings.submit_btn_text | default: "Crea Account Club Mile" }}</span>
                 <span class="text-amber">&rarr;</span>
               </button>
             </div>
@@ -226,6 +227,89 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function() {
+    function initMainRegisterForm() {
+      var form = document.getElementById('MainRegisterCustomerForm');
+      if (!form || form.dataset.listenerAttached) return;
+      form.dataset.listenerAttached = 'true';
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var firstNameInput = document.getElementById('RegisterFirstName');
+        var lastNameInput = document.getElementById('RegisterLastName');
+        var emailInput = document.getElementById('RegisterEmail');
+        var privacyCheckbox = document.getElementById('RegisterPrivacyCheckbox');
+        var submitBtn = document.getElementById('RegisterSubmitBtn');
+        var submitBtnText = document.getElementById('RegisterSubmitBtnText');
+
+        var firstName = firstNameInput ? firstNameInput.value.trim() : '';
+        var lastName = lastNameInput ? lastNameInput.value.trim() : '';
+        var email = emailInput ? emailInput.value.trim() : '';
+
+        if (!firstName || !lastName || !email) {
+          alert('Compila tutti i campi obbligatori per procedere.');
+          return;
+        }
+        if (privacyCheckbox && !privacyCheckbox.checked) {
+          alert('Accetta la privacy policy per completare la registrazione.');
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          if (submitBtnText) submitBtnText.innerText = 'Creazione profilo in corso...';
+        }
+
+        var customerData = {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          points: 20,
+          orders_count: 0,
+          tier: 'Club Mile Privilège',
+          discount_code: 'MILE10',
+          registered_at: new Date().toISOString()
+        };
+
+        try {
+          localStorage.setItem('mile_customer', JSON.stringify(customerData));
+        } catch (err) {
+          console.warn('LocalStorage error:', err);
+        }
+
+        var redirected = false;
+        function doRedirect() {
+          if (!redirected) {
+            redirected = true;
+            window.location.href = '/pages/account';
+          }
+        }
+
+        var formData = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          body: formData
+        }).catch(function(err) {
+          console.warn('Shopify background customer creation notice:', err);
+        }).finally(function() {
+          doRedirect();
+        });
+
+        // Safety timeout in case network request hangs
+        setTimeout(doRedirect, 900);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMainRegisterForm);
+    } else {
+      initMainRegisterForm();
+    }
+  })();
+</script>
 
 {% schema %}
 {

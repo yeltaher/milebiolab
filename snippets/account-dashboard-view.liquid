@@ -106,6 +106,8 @@
 
         <a
           href="{{ routes.account_logout_url }}"
+          id="PageAccountLogoutBtn"
+          onclick="if(window.logoutCustomerSession){ window.logoutCustomerSession(); return false; }"
           class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#9E2A2B] hover:underline font-semibold bg-transparent border-0 cursor-pointer self-start sm:self-auto"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -128,7 +130,7 @@
             <div>
               <div class="flex flex-wrap items-center gap-3">
                 <h1 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#1A1A1A] font-normal">
-                  Bentornato, <span class="italic text-[#5C6B56]" id="PageAccountGreetingName">{{ greeting_name }}</span>
+                  Bentornato, <span class="italic text-[#5C6B56] customer-greeting-name" id="PageAccountGreetingName">{{ greeting_name }}</span>
                 </h1>
                 <span class="inline-block px-2.5 py-0.5 text-[10px] uppercase font-bold tracking-widest bg-[#C8A878]/15 text-[#1A1A1A] border border-[#C8A878]/30">
                   {{ hero_badge }}
@@ -189,7 +191,7 @@
                 </span>
                 <span class="text-xs font-serif text-[#1A1A1A] font-medium">&bull; {{ loyalty_tier_name }}</span>
               </div>
-              <h3 class="font-serif text-xl sm:text-2xl text-[#1A1A1A] font-normal">
+              <h3 class="font-serif text-xl sm:text-2xl text-[#1A1A1A] font-normal" id="PageAccountLoyaltyPoints">
                 {{ loyalty_points }}
               </h3>
               <p class="text-xs text-[#7A7265] italic">
@@ -490,3 +492,84 @@
 
   </div>
 </div>
+
+<script>
+  (function() {
+    function hydratePageAccountDashboard() {
+      try {
+        var rawCustomer = localStorage.getItem('mile_customer');
+        if (!rawCustomer) return;
+        var localCustomer = JSON.parse(rawCustomer);
+        if (!localCustomer) return;
+
+        var loggedInView = document.getElementById('PageAccountLoggedInView');
+        var guestView = document.getElementById('PageAccountGuestView');
+
+        // Se l'utente non è autenticato a livello server Liquid, inverti le classi
+        if (loggedInView && guestView) {
+          guestView.classList.add('hidden');
+          guestView.classList.remove('block');
+          loggedInView.classList.remove('hidden');
+          loggedInView.classList.add('block');
+        }
+
+        // Saluto con Nome Reale
+        if (localCustomer.first_name) {
+          var greetingEls = document.querySelectorAll('#PageAccountGreetingName, .customer-greeting-name');
+          greetingEls.forEach(function(el) {
+            el.textContent = localCustomer.first_name;
+          });
+        }
+
+        // Avatar Monogramma con Iniziali Reali
+        if (localCustomer.first_name) {
+          var initials = (localCustomer.first_name.charAt(0) + (localCustomer.last_name ? localCustomer.last_name.charAt(0) : '')).toUpperCase();
+          var avatarEl = document.getElementById('PageAccountAvatar');
+          if (avatarEl) avatarEl.textContent = initials;
+        }
+
+        // Email del profilo
+        if (localCustomer.email) {
+          var emailEl = document.getElementById('PageAccountEmail');
+          if (emailEl) emailEl.textContent = localCustomer.email;
+        }
+
+        // Saldo Beauty Punti
+        if (localCustomer.points) {
+          var pointsEl = document.getElementById('PageAccountLoyaltyPoints');
+          if (pointsEl) {
+            pointsEl.textContent = localCustomer.points + ' Beauty Punti Attivi (1€ = 1 Punto)';
+          }
+        }
+      } catch (err) {
+        console.warn('Dashboard hydration error:', err);
+      }
+    }
+
+    // Gestione click su Disconnettiti dal Profilo
+    function setupLogoutHandler() {
+      var logoutBtn = document.getElementById('PageAccountLogoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+          try {
+            localStorage.removeItem('mile_customer');
+          } catch (err) {}
+          if (typeof window.logoutCustomerSession === 'function') {
+            e.preventDefault();
+            window.logoutCustomerSession();
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        hydratePageAccountDashboard();
+        setupLogoutHandler();
+      });
+    } else {
+      hydratePageAccountDashboard();
+      setupLogoutHandler();
+    }
+  })();
+</script>

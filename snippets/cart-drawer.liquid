@@ -92,7 +92,7 @@
           <p>
             ✨ Con questo ordine accumulerai <span id="cart-drawer-earned-points" class="cart-drawer-order-points font-mono text-[#5C6B56] font-bold">+<span id="cart-drawer-pts-val" class="cart-drawer-pts-val">{{ cart.total_price | divided_by: 100 }}</span> Beauty Punti (1€ = 1 Punto)</span>.
           </p>
-          <p class="mt-1 text-[#7A7265]">
+          <p class="mt-1 text-[#7A7265]" id="cart-drawer-loyalty-prompt">
             <button type="button" onclick="closeCartDrawer(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#1A1A1A] underline font-semibold hover:text-[#C8A878] bg-transparent border-0 p-0 cursor-pointer">Accedi o Registrati</button> per ricevere <strong>20 punti di benvenuto subito</strong>!
           </p>
         </div>

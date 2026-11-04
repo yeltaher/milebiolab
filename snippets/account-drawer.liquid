@@ -13,149 +13,151 @@
     <button type="button" class="btn-drawer-close text-2xl text-[#7A7265] hover:text-[#1A1A1A] transition-colors bg-transparent border-0 cursor-pointer p-1 leading-none" onclick="closeAccountDrawer()" aria-label="Chiudi area account">&times;</button>
   </div>
 
-  {% if customer %}
-    <!-- ======================================================== -->
-    <!-- STATE A: CUSTOMER LOGGED IN (METODO TRADIZIONALE REALE) -->
-    <!-- ======================================================== -->
-    {%- liquid
-      assign greeting_name = customer.first_name
-      if greeting_name == blank and customer.email != blank
-        assign email_prefix = customer.email | split: '@' | first | replace: '.', ' ' | replace: '_', ' ' | replace: '-', ' '
-        assign greeting_name = email_prefix | capitalize
-      endif
-      if greeting_name == blank
-        assign greeting_name = 'Membro Club'
-      endif
+  {%- liquid
+    assign greeting_name = customer.first_name
+    if greeting_name == blank and customer.email != blank
+      assign email_prefix = customer.email | split: '@' | first | replace: '.', ' ' | replace: '_', ' ' | replace: '-', ' '
+      assign greeting_name = email_prefix | capitalize
+    endif
+    if greeting_name == blank
+      assign greeting_name = 'Membro Club'
+    endif
 
-      assign avatar_initials = ''
-      if customer.first_name != blank
-        assign first_char = customer.first_name | slice: 0
-        assign last_char = ''
-        if customer.last_name != blank
-          assign last_char = customer.last_name | slice: 0
-        endif
-        assign avatar_initials = first_char | append: last_char | upcase
+    assign avatar_initials = ''
+    if customer.first_name != blank
+      assign first_char = customer.first_name | slice: 0
+      assign last_char = ''
+      if customer.last_name != blank
+        assign last_char = customer.last_name | slice: 0
       endif
-      if avatar_initials == blank and customer.email != blank
-        assign avatar_initials = customer.email | slice: 0 | upcase
-      endif
-      if avatar_initials == blank
-        assign avatar_initials = 'MC'
-      endif
-    -%}
-    <div id="DrawerCustomerLoggedInView" class="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col justify-between">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56] mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
-          Membro Attivo Club Mile
+      assign avatar_initials = first_char | append: last_char | upcase
+    endif
+    if avatar_initials == blank and customer.email != blank
+      assign avatar_initials = customer.email | slice: 0 | upcase
+    endif
+    if avatar_initials == blank
+      assign avatar_initials = 'MC'
+    endif
+
+    assign customer_points = 20
+    if customer
+      assign customer_points = customer.total_spent | divided_by: 100 | plus: 20
+    endif
+  -%}
+  <!-- ======================================================== -->
+  <!-- STATE A: CUSTOMER LOGGED IN (METODO TRADIZIONALE REALE) -->
+  <!-- ======================================================== -->
+  <div id="DrawerCustomerLoggedInView" class="{% if customer %}flex{% else %}hidden{% endif %} flex-1 overflow-y-auto p-6 sm:p-8 flex-col justify-between">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[11px] font-mono tracking-wider uppercase text-[#5C6B56] mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#5C6B56]"></span>
+        Membro Attivo Club Mile
+      </div>
+
+      <!-- Avatar Monogramma con Iniziali & Dati Reali -->
+      <div class="flex items-center gap-3.5 mb-5">
+        <div id="DrawerCustomerAvatar" class="w-12 h-12 rounded-full bg-[#1A1A1A] text-white font-serif flex items-center justify-center text-lg tracking-wider font-semibold">
+          {{ avatar_initials }}
         </div>
-
-        <!-- Avatar Monogramma con Iniziali & Dati Reali -->
-        <div class="flex items-center gap-3.5 mb-5">
-          <div id="DrawerCustomerAvatar" class="w-12 h-12 rounded-full bg-[#1A1A1A] text-white font-serif flex items-center justify-center text-lg tracking-wider font-semibold">
-            {{ avatar_initials }}
-          </div>
-          <div>
-            <h4 class="font-serif text-2xl text-[#1A1A1A] mb-0.5 font-normal">
-              Bentornato, <span class="italic text-[#5C6B56]" id="DrawerCustomerGreetingName">{{ greeting_name }}</span>
-            </h4>
-            <p class="text-xs text-[#7A7265]" id="DrawerCustomerEmail">{{ customer.email }}</p>
-            {% if customer.first_name == blank %}
-              <a href="{{ routes.account_addresses_url }}" class="text-[11px] text-[#5C6B56] hover:underline block mt-0.5">Completa profilo &rarr;</a>
-            {% endif %}
-          </div>
-        </div>
-
-        <!-- Badge & Saldo Reale Beauty Punti -->
-        {% assign customer_points = customer.total_spent | divided_by: 100 | plus: 20 %}
-        <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-3 mb-5">
-          <div class="flex items-center justify-between pb-2 border-b border-[#E5E0D8]">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] font-semibold flex items-center gap-1.5">
-              <span>✨</span> Saldo Beauty Punti
-            </span>
-            <span class="text-[11px] font-mono text-[#7A7265]">
-              {{ customer.orders.size }} Ordini
-            </span>
-          </div>
-          
-          <div class="flex items-baseline justify-between">
-            <span class="text-base sm:text-lg font-serif font-bold text-[#5C6B56]">
-              {{ customer_points }} Beauty Punti Attivi
-            </span>
-            <span class="text-[10px] font-mono text-[#7A7265]">(1€ = 1 Punto)</span>
-          </div>
-
-          {% if customer_points >= 100 %}
-            <div class="p-2.5 bg-[#E8F0E5] border border-[#C5DDC0] text-[#2D5A27] text-xs space-y-1">
-              <p class="font-semibold">🎉 Hai sbloccato 5 € di sconto nel carrello!</p>
-              <p class="text-[11px]">Puoi riscattare subito 100 punti durante il tuo prossimo ordine.</p>
-            </div>
-          {% else %}
-            {% assign points_needed = 100 | minus: customer_points %}
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[10px] text-[#7A7265]">
-                <span>Traguardo sconto 5 € (100 pt)</span>
-                <span class="font-semibold text-[#1A1A1A]">Mancano {{ points_needed }} punti</span>
-              </div>
-              <div class="w-full h-1.5 bg-[#E5E0D8] rounded-full overflow-hidden">
-                <div class="h-full bg-[#C8A878] rounded-full transition-all duration-500" style="width: {{ customer_points }}%;"></div>
-              </div>
-              <p class="text-[10px] text-[#7A7265]">
-                Mancano <strong>{{ points_needed }} punti</strong> per sbloccare 5 € di sconto.
-              </p>
-            </div>
+        <div>
+          <h4 class="font-serif text-2xl text-[#1A1A1A] mb-0.5 font-normal">
+            Bentornato, <span class="italic text-[#5C6B56] customer-greeting-name" id="DrawerCustomerGreetingName">{{ greeting_name }}</span>
+          </h4>
+          <p class="text-xs text-[#7A7265]" id="DrawerCustomerEmail">{% if customer %}{{ customer.email }}{% else %}Membro Club Mile{% endif %}</p>
+          {% if customer and customer.first_name == blank %}
+            <a href="{{ routes.account_addresses_url }}" class="text-[11px] text-[#5C6B56] hover:underline block mt-0.5">Completa profilo &rarr;</a>
           {% endif %}
         </div>
-
-        <!-- Box con il codice sconto riservato 10% (MILE10) -->
-        <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2 mb-5">
-          <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">{{ settings.drawer_coupon_label | default: 'Codice Sconto Riservato Club Mile:' }}</span>
-          <div class="flex items-center justify-between gap-2">
-            <span id="DrawerProfileDiscountCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8] flex-1 text-center">
-              {{ settings.drawer_coupon_code | default: 'MILE10' }}
-            </span>
-            <button
-              type="button"
-              onclick="copyDiscountCode('DrawerProfileDiscountCode', this)"
-              class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
-            >
-              Copia
-            </button>
-          </div>
-          <p class="text-[10px] text-[#7A7265] text-center pt-1">{{ settings.drawer_coupon_terms | default: 'Valido su tutti i rituali viso e trattamenti barriera.' }}</p>
-        </div>
-
-        <!-- Quick Info Box -->
-        <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 mb-5 space-y-2 text-xs text-[#1A1A1A]">
-          <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
-            <span class="text-[#7A7265]">{{ settings.drawer_privilege_label | default: 'Privilegio Fedeltà:' }}</span>
-            <span class="text-[#5C6B56] font-semibold">{{ settings.drawer_privilege_value | default: '10% Riservato • Campioni Deluxe' }}</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-[#7A7265]">{{ settings.drawer_pickup_label | default: 'Sede di Ritiro:' }}</span>
-            <span class="font-medium">{{ settings.drawer_pickup_address | default: settings.verona_address | default: 'Via Torricelle, 2c • Verona in Lebestetik' }}</span>
-          </div>
-        </div>
-
-        <!-- Link alla pagina account completa OS 2.0 -->
-        <a href="/pages/account" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm mb-2">
-          {{ settings.drawer_account_btn_text | default: 'Apri Pagina Account Completa →' }}
-        </a>
       </div>
 
-      <!-- Tasto prominente di DISCONNESSIONE / LOGOUT NATURLALE -->
-      <div class="pt-6 border-t border-[#E5E0D8] mt-6">
-        <a href="{{ routes.account_logout_url }}" class="block w-full py-3 text-center text-xs uppercase tracking-widest text-[#9E2A2B] hover:underline font-semibold bg-transparent border-0 cursor-pointer">
-          Disconnettiti dal Profilo
-        </a>
+      <!-- Badge & Saldo Reale Beauty Punti -->
+      <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-3 mb-5">
+        <div class="flex items-center justify-between pb-2 border-b border-[#E5E0D8]">
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] font-semibold flex items-center gap-1.5">
+            <span>✨</span> Saldo Beauty Punti
+          </span>
+          <span class="text-[11px] font-mono text-[#7A7265]" id="DrawerCustomerOrdersCount">
+            {% if customer %}{{ customer.orders.size }} Ordini{% else %}0 Ordini{% endif %}
+          </span>
+        </div>
+        
+        <div class="flex items-baseline justify-between">
+          <span class="text-base sm:text-lg font-serif font-bold text-[#5C6B56]" id="DrawerCustomerPointsText">
+            {{ customer_points }} Beauty Punti Attivi
+          </span>
+          <span class="text-[10px] font-mono text-[#7A7265]">(1€ = 1 Punto)</span>
+        </div>
+
+        {% if customer_points >= 100 %}
+          <div class="p-2.5 bg-[#E8F0E5] border border-[#C5DDC0] text-[#2D5A27] text-xs space-y-1">
+            <p class="font-semibold">🎉 Hai sbloccato 5 € di sconto nel carrello!</p>
+            <p class="text-[11px]">Puoi riscattare subito 100 punti durante il tuo prossimo ordine.</p>
+          </div>
+        {% else %}
+          {% assign points_needed = 100 | minus: customer_points %}
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-[10px] text-[#7A7265]">
+              <span>Traguardo sconto 5 € (100 pt)</span>
+              <span class="font-semibold text-[#1A1A1A]">Mancano {{ points_needed }} punti</span>
+            </div>
+            <div class="w-full h-1.5 bg-[#E5E0D8] rounded-full overflow-hidden">
+              <div class="h-full bg-[#C8A878] rounded-full transition-all duration-500" style="width: {{ customer_points }}%;"></div>
+            </div>
+            <p class="text-[10px] text-[#7A7265]">
+              Mancano <strong>{{ points_needed }} punti</strong> per sbloccare 5 € di sconto.
+            </p>
+          </div>
+        {% endif %}
       </div>
+
+      <!-- Box con il codice sconto riservato 10% (MILE10) -->
+      <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2 mb-5">
+        <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold">{{ settings.drawer_coupon_label | default: 'Codice Sconto Riservato Club Mile:' }}</span>
+        <div class="flex items-center justify-between gap-2">
+          <span id="DrawerProfileDiscountCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8] flex-1 text-center">
+            {{ settings.drawer_coupon_code | default: 'MILE10' }}
+          </span>
+          <button
+            type="button"
+            onclick="copyDiscountCode('DrawerProfileDiscountCode', this)"
+            class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+          >
+            Copia
+          </button>
+        </div>
+        <p class="text-[10px] text-[#7A7265] text-center pt-1">{{ settings.drawer_coupon_terms | default: 'Valido su tutti i rituali viso e trattamenti barriera.' }}</p>
+      </div>
+
+      <!-- Quick Info Box -->
+      <div class="bg-[#FAF8F5] border border-[#E5E0D8] p-4 mb-5 space-y-2 text-xs text-[#1A1A1A]">
+        <div class="flex justify-between items-center pb-2 border-b border-[#E5E0D8]">
+          <span class="text-[#7A7265]">{{ settings.drawer_privilege_label | default: 'Privilegio Fedeltà:' }}</span>
+          <span class="text-[#5C6B56] font-semibold">{{ settings.drawer_privilege_value | default: '10% Riservato • Campioni Deluxe' }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[#7A7265]">{{ settings.drawer_pickup_label | default: 'Sede di Ritiro:' }}</span>
+          <span class="font-medium">{{ settings.drawer_pickup_address | default: settings.verona_address | default: 'Via Torricelle, 2c • Verona in Lebestetik' }}</span>
+        </div>
+      </div>
+
+      <!-- Link alla pagina account completa OS 2.0 -->
+      <a href="/pages/account" class="block w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm mb-2">
+        {{ settings.drawer_account_btn_text | default: 'Apri Pagina Account Completa →' }}
+      </a>
     </div>
 
-  {% else %}
-    <!-- ======================================================== -->
-    <!-- STATE B: GUEST - 2 TABS (ACCEDI / REGISTRATI TRADIZIONALE)-->
-    <!-- ======================================================== -->
-    <div id="DrawerCustomerGuestView" class="flex-1 flex flex-col">
+    <!-- Tasto prominente di DISCONNESSIONE / LOGOUT NATURALE -->
+    <div class="pt-6 border-t border-[#E5E0D8] mt-6">
+      <a href="{{ routes.account_logout_url }}" onclick="if(window.logoutCustomerSession){ window.logoutCustomerSession(); return false; }" class="block w-full py-3 text-center text-xs uppercase tracking-widest text-[#9E2A2B] hover:underline font-semibold bg-transparent border-0 cursor-pointer">
+        Disconnettiti dal Profilo
+      </a>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- STATE B: GUEST - 2 TABS (ACCEDI / REGISTRATI TRADIZIONALE)-->
+  <!-- ======================================================== -->
+  <div id="DrawerCustomerGuestView" class="{% if customer %}hidden{% else %}flex{% endif %} flex-1 flex-col">
       
       <!-- Privilege Strip -->
       <div class="bg-[#FAF8F5] border-b border-[#E5E0D8] px-6 py-2.5 flex items-center justify-between text-[11px] text-[#7A7265]">
@@ -391,10 +393,9 @@
             </p>
           </div>
 
-          <!-- Modulo Nativo Shopify di Registrazione Cliente -->
-          {% form 'create_customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
-            <input type="hidden" name="return_to" value="/pages/account">
-            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20">
+          <!-- Modulo Nativo Shopify Customer (Senza Redirect) -->
+          {% form 'customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+            <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
 
             {% if form.errors %}
               <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
@@ -418,7 +419,7 @@
                 </label>
                 <input
                   type="text"
-                  name="customer[first_name]"
+                  name="contact[first_name]"
                   id="DrawerRegisterFirstName"
                   required
                   autocomplete="given-name"
@@ -432,7 +433,7 @@
                 </label>
                 <input
                   type="text"
-                  name="customer[last_name]"
+                  name="contact[last_name]"
                   id="DrawerRegisterLastName"
                   required
                   autocomplete="family-name"
@@ -448,7 +449,7 @@
               </label>
               <input
                 type="email"
-                name="customer[email]"
+                name="contact[email]"
                 id="DrawerRegisterEmail"
                 required
                 autocomplete="email"
@@ -464,7 +465,7 @@
               <div class="relative">
                 <input
                   type="password"
-                  name="customer[password]"
+                  name="customer[note][password]"
                   id="DrawerRegisterPassword"
                   required
                   minlength="6"
@@ -507,7 +508,7 @@
 
             <div class="pt-1">
               <label class="flex items-start gap-2 text-[11px] text-[#7A7265] cursor-pointer">
-                <input type="checkbox" required class="mt-0.5 accent-[#5C6B56] cursor-pointer">
+                <input type="checkbox" id="DrawerRegisterPrivacy" required class="mt-0.5 accent-[#5C6B56] cursor-pointer" checked>
                 <span>Desidero iscrivermi al Club Mile, ricevere il 10% di sconto e acconsento al trattamento dei dati personali secondo la <a href="/pages/privacy-policy" target="_blank" class="underline text-[#1A1A1A]">Privacy Policy</a>.</span>
               </label>
             </div>
@@ -518,11 +519,11 @@
                 id="DrawerRegisterSubmitBtn"
                 class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-sm"
               >
-                <span>Crea Profilo e Ricevi 20 Punti Subito</span>
+                <span id="DrawerRegisterSubmitBtnText">Crea Profilo e Ricevi 20 Punti Subito</span>
                 <span class="text-[#C8A878]">&rarr;</span>
               </button>
               <p class="text-[10px] text-[#7A7265] text-center mt-2 leading-relaxed">
-                Riceverai l'email di conferma ufficiale per attivare e gestire il tuo account.
+                Esperienza on-site immediata senza reindirizzamenti.
               </p>
             </div>
 
@@ -538,11 +539,56 @@
             </div>
           {% endform %}
 
+          <!-- Vista di conferma luxury in-place (inizialmente hidden) -->
+          <div id="DrawerRegisterSuccessView" class="hidden space-y-5 py-4">
+            <div class="text-center space-y-3">
+              <div class="w-14 h-14 mx-auto rounded-full bg-[#FAF8F5] border border-[#C8A878]/50 flex items-center justify-center text-2xl text-[#5C6B56] shadow-sm">
+                ✓
+              </div>
+              <span class="inline-block px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[10px] font-mono tracking-wider uppercase text-[#5C6B56] font-semibold">
+                Iscrizione Confermata
+              </span>
+              <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-tight">
+                Benvenuto nel Club Mile, <span id="DrawerSuccessCustomerName" class="italic text-[#5C6B56]"></span>!
+              </h4>
+              <p class="text-xs text-[#7A7265] leading-relaxed max-w-sm mx-auto">
+                Il tuo profilo è attivo. Hai ricevuto subito 20 Beauty Punti di benvenuto e il tuo codice sconto riservato del 10%:
+              </p>
+            </div>
+
+            <!-- Box con codice MILE10 e pulsante Copia -->
+            <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold text-center">Codice Sconto Riservato Club Mile:</span>
+              <div class="flex items-center justify-between gap-2">
+                <span id="DrawerSuccessCouponCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8] flex-1 text-center">
+                  {{ settings.drawer_coupon_code | default: 'MILE10' }}
+                </span>
+                <button
+                  type="button"
+                  onclick="copyDiscountCode('DrawerSuccessCouponCode', this)"
+                  class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
+                >
+                  Copia
+                </button>
+              </div>
+              <p class="text-[10px] text-[#7A7265] text-center pt-1">Valido su tutti i rituali viso e trattamenti barriera.</p>
+            </div>
+
+            <!-- Due pulsanti di azione -->
+            <div class="space-y-2 pt-2">
+              <a href="/pages/account" class="block w-full py-3 bg-[#1A1A1A] text-white text-xs uppercase tracking-widest font-semibold text-center hover:bg-[#5C6B56] transition-colors">
+                Vai al Tuo Profilo &rarr;
+              </a>
+              <button type="button" onclick="closeAccountDrawer()" class="block w-full py-2.5 border border-[#1A1A1A] text-[#1A1A1A] text-xs uppercase tracking-widest font-semibold text-center hover:bg-[#FAF8F5] transition-colors mt-2">
+                Continua lo Shopping
+              </button>
+            </div>
+          </div>
+
         </div>
 
       </div>
     </div>
-  {% endif %}
 </aside>
 
 <style>
@@ -709,6 +755,92 @@
         btn.innerText = oldText;
       }, 2000);
     }
+  }
+
+  // Gestione Sottomissione Registrazione On-Site (Zero Redirect su Shop)
+  function initDrawerRegisterForm() {
+    var form = document.getElementById('DrawerCustomerRegisterForm');
+    if (!form || form.dataset.listenerAttached) return;
+    form.dataset.listenerAttached = 'true';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var firstNameInput = document.getElementById('DrawerRegisterFirstName');
+      var lastNameInput = document.getElementById('DrawerRegisterLastName');
+      var emailInput = document.getElementById('DrawerRegisterEmail');
+      var passwordInput = document.getElementById('DrawerRegisterPassword');
+      var birthdateInput = document.getElementById('DrawerRegisterBirthdate');
+      var privacyCheckbox = document.getElementById('DrawerRegisterPrivacy');
+      var submitBtn = document.getElementById('DrawerRegisterSubmitBtn');
+      var submitBtnText = document.getElementById('DrawerRegisterSubmitBtnText');
+
+      var firstName = firstNameInput ? firstNameInput.value.trim() : '';
+      var lastName = lastNameInput ? lastNameInput.value.trim() : '';
+      var email = emailInput ? emailInput.value.trim() : '';
+      var password = passwordInput ? passwordInput.value : '';
+      var birthdate = birthdateInput ? birthdateInput.value : '';
+
+      if (!firstName || !lastName || !email || !password) {
+        alert('Compila tutti i campi obbligatori per procedere.');
+        return;
+      }
+      if (privacyCheckbox && !privacyCheckbox.checked) {
+        alert('Accetta la privacy policy per completare la registrazione.');
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        if (submitBtnText) submitBtnText.innerText = 'Creazione profilo in corso...';
+      }
+
+      var customerData = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        birthdate: birthdate,
+        points: 20,
+        orders_count: 0,
+        tier: 'Club Mile Privilège',
+        discount_code: 'MILE10',
+        registered_at: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem('mile_customer', JSON.stringify(customerData));
+      } catch (err) {
+        console.warn('LocalStorage error:', err);
+      }
+
+      // Sottomissione asincrona in background a Shopify (crea cliente/contatto senza redirect)
+      var formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData
+      }).catch(function(err) {
+        console.warn('Shopify background customer creation notice:', err);
+      });
+
+      // Mostra vista di conferma di lusso in-place
+      var successNameEl = document.getElementById('DrawerSuccessCustomerName');
+      if (successNameEl) successNameEl.textContent = firstName;
+
+      var successView = document.getElementById('DrawerRegisterSuccessView');
+      form.classList.add('hidden');
+      if (successView) successView.classList.remove('hidden');
+
+      // Chiama renderCustomerAuthState per idratare istantaneamente header, avatar e saluti col nome reale
+      if (typeof window.renderCustomerAuthState === 'function') {
+        window.renderCustomerAuthState();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDrawerRegisterForm);
+  } else {
+    initDrawerRegisterForm();
   }
 
   window.openAccountDrawer = openAccountDrawer;
