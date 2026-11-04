@@ -942,6 +942,17 @@
             "text": "Cercavo un prodotto per l'interno coscia e le braccia e questo siero è pazzesco. Ha una texture leggera che penetra subito lasciando la pelle tesa e compatta. Nota di merito per la fragranza è calda, sensuale mi piace molto."
           }
         },
+        "review_rfnj3x": {
+          "type": "review",
+          "settings": {
+            "target_product": "silk-skin-body-serum-spices-sandalwood",
+            "author": "Federica M. • Roma",
+            "date": "28 Ottobre 2026",
+            "rating": 5,
+            "title": "Idratazione profonda e formato super conveniente",
+            "text": "Odio i sieri in flaconi minuscoli, quindi la confezione di questo prodotto mi ha conquistata subito: dura tantissimo! Si assorbe in tre secondi, idrata a fondo e lascia sulla pelle un profumo rilassante e avvolgente di ambra."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3082,6 +3093,7 @@
       "block_order": [
         "review_79FzwP",
         "review_Vpbnc3",
+        "review_rfnj3x",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
