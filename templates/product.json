@@ -1272,6 +1272,17 @@
             "text": "Acquistato sotto consiglio del mio dermatologo che mi ha suggerito di passare a tensioattivi più dolci. Pulisce a fondo senza irritare. Ormai in famiglia usiamo solo questo sia per le mani che per il corpo l'altro alla menta e cedro."
           }
         },
+        "review_WWCAkb": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Alessia C. • Verona",
+            "date": "11 Ottobre 2026",
+            "rating": 5,
+            "title": "Buona formula",
+            "text": "Il sapone in sé è molto buono, lascia la pelle morbida e l'estratto di mirtillo biologico si sente nella qualità della formula. INCI impeccabile."
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -2936,6 +2947,7 @@
         "review_nibQfB",
         "review_pEUe4C",
         "review_VpidiX",
+        "review_WWCAkb",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
