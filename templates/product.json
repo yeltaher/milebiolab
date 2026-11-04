@@ -1195,6 +1195,17 @@
             "text": "Ha un aroma aromatico e legnoso, con un tocco di patchouli e rosmarino che lo rende perfetto sia per me che per il mio compagno. È molto efficace anche durante i mesi estivi. Il formato da 50 ml dura più di quanto pensassi."
           }
         },
+        "review_FNHjJC": {
+          "type": "review",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "author": "Alessandra N. • Lecce",
+            "date": "04 Ottobre 2026",
+            "rating": 5,
+            "title": "Niente più irritazioni da sfregamento",
+            "text": "Soffro spesso di ghiandole infiammate con i deodoranti tradizionali. Da quando uso questo roll-on non ho più avuto alcun fastidio. Idrata la pelle e la rinfresca grazie all'olio di eucalipto. Un ottimo prodotto curativo."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3358,6 +3369,7 @@
         "review_ACYzhM",
         "review_KNhWxE",
         "review_gLkxNM",
+        "review_FNHjJC",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
