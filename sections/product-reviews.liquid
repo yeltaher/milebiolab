@@ -1,14 +1,9 @@
 <section id="reviews" class="py-20 bg-white border-y border-borderLinen">
     <!-- Hidden Judge.me Headless Bridge for 1-Click Moderation (Approva/Rifiuta) -->
-    <div id="judgeme-headless-bridge" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;" aria-hidden="true">
+    <div id="judgeme-headless-bridge" style="position: absolute; left: -9999px; top: -9999px; width: 300px; height: 300px; pointer-events: none; overflow: hidden;" aria-hidden="true">
       {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', product: product %}
     </div>
     <style>
-      #judgeme-headless-bridge,
-      #judgeme-headless-bridge * {
-        max-height: 0 !important;
-        opacity: 0 !important;
-      }
       .jdgm-notification,
       .jdgm-modal-overlay,
       .jdgm-write-rev-modal {
@@ -351,7 +346,6 @@
                     <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
                     <input type="hidden" name="contact[recipient]" value="info@miledermocosmesi.it">
                     <input type="hidden" name="contact[subject]" value="[Nuova Recensione Club Mile - info@miledermocosmesi.it] {{ product.title | escape }}">
-                    <input type="hidden" name="contact[moderazione]" value="Per approvare o rifiutare questa recensione usa i tasti Approva/Rifiuta nell'email di Judge.me oppure visita: https://admin.shopify.com/store/mile/apps/judge-me/reviews">
                     {{ form.errors | default_errors }}
                     
                     {% if form.posted_successfully? %}
@@ -795,50 +789,44 @@
         if (prodId) saveToStorage('mile_user_reviews_' + prodId);
         if (prodHandle && prodHandle !== prodId) saveToStorage('mile_user_reviews_' + prodHandle);
 
-        // Submit form asynchronously in background so Shopify receives contact form notification
+        // Invio diretto all'API di Judge.me per moderazione ufficiale 1-click (Approva/Rifiuta)
         try {
-          fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json, text/javascript, */*' }
-          }).catch(function(err) {
-            console.log('Background Shopify contact notification completed');
-          });
-        } catch (postErr) {}
+          var jdgmData = new FormData();
+          var shopDomain = (window.jdgm && typeof window.jdgm.shopDomain === 'function' ? window.jdgm.shopDomain() : '') 
+                           || (window.jdgmSettings && window.jdgmSettings.shopDomain ? window.jdgmSettings.shopDomain : '') 
+                           || '{{ shop.permanent_domain }}';
+          var apiHost = (window.jdgm && window.jdgm.API_HOST) ? window.jdgm.API_HOST : 'https://api.judge.me';
 
-        // Headless Judge.me Bridge Synchronization for 1-Click Moderation (Approva/Rifiuta)
-        try {
-          var jdgmBridge = document.getElementById('judgeme-headless-bridge');
-          if (jdgmBridge) {
-            var writeBtn = jdgmBridge.querySelector('.jdgm-write-rev-link, [data-action="write-review"], .jdgm-widget-actions-wrapper a');
-            if (writeBtn) writeBtn.click();
-            setTimeout(function() {
-              var jName = jdgmBridge.querySelector('input[name="reviewer_name"], input[name="name"], .jdgm-form__reviewer-name-input');
-              var jEmail = jdgmBridge.querySelector('input[name="reviewer_email"], input[name="email"], .jdgm-form__reviewer-email-input');
-              var jTitle = jdgmBridge.querySelector('input[name="title"], .jdgm-form__title-input');
-              var jBody = jdgmBridge.querySelector('textarea[name="body"], .jdgm-form__body-input');
-              
-              if (jName) jName.value = newReview.author;
-              if (jEmail && emailInput && emailInput.value) jEmail.value = emailInput.value.trim();
-              if (jTitle) jTitle.value = newReview.title;
-              if (jBody) jBody.value = newReview.body;
-              
-              var targetRating = parseInt(newReview.rating, 10) || 5;
-              var stars = jdgmBridge.querySelectorAll('.jdgm-form__rating .jdgm-star, .jdgm-write-rev-modal .jdgm-star');
-              if (stars && stars.length >= targetRating) {
-                var starEl = stars[targetRating - 1];
-                if (starEl) starEl.click();
-              }
-              
-              var jSubmit = jdgmBridge.querySelector('.jdgm-submit-rev, input[type="submit"], button[type="submit"]');
-              if (jSubmit) {
-                jSubmit.click();
-                console.log('Recensione sincronizzata con Judge.me per moderazione Approva/Rifiuta');
-              }
-            }, 350);
+          jdgmData.append('shop_domain', shopDomain);
+          jdgmData.append('platform', 'shopify');
+          jdgmData.append('id', prodId);
+          jdgmData.append('product_id', prodId);
+          jdgmData.append('name', newReview.author);
+          jdgmData.append('reviewer_name', newReview.author);
+          if (emailInput && emailInput.value) {
+            jdgmData.append('email', emailInput.value.trim());
+            jdgmData.append('reviewer_email', emailInput.value.trim());
           }
-        } catch (jdgmErr) {
-          console.log('Judge.me bridge notice:', jdgmErr);
+          jdgmData.append('rating', newReview.rating);
+          jdgmData.append('score', newReview.rating);
+          jdgmData.append('title', newReview.title);
+          jdgmData.append('review_title', newReview.title);
+          jdgmData.append('body', newReview.body);
+          jdgmData.append('review_body', newReview.body);
+          jdgmData.append('url', shopDomain);
+
+          fetch(apiHost + '/api/v1/reviews', {
+            method: 'POST',
+            body: jdgmData
+          }).then(function(res) {
+            return res.json();
+          }).then(function(data) {
+            console.log('✅ Recensione inviata a Judge.me con successo:', data);
+          }).catch(function(err) {
+            console.warn('Judge.me notice:', err);
+          });
+        } catch (errJdgm) {
+          console.warn('Judge.me execution error:', errJdgm);
         }
 
         // Show banner of success in-place
