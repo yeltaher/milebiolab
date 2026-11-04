@@ -3,106 +3,19 @@
         
         <div id="botanical-fallback-reviews">
         
-        {%- assign prod_title_lower = product.title | downcase -%}
-        {%- assign prod_handle_lower = product.handle | downcase -%}
-        {%- assign check_text = product.title | append: ' ' | append: product.type | append: ' ' | append: product.tags | downcase -%}
-        {%- assign check_text_padded = ' ' | append: check_text | append: ' ' -%}
+        {%- comment -%}
+          MILEBIOLAB STRICT PRODUCT REVIEWS SELECTION
+          Reviews are strictly rendered ONLY if:
+          1. Explicitly assigned via block.settings.target_product == product.handle / product.id
+          2. Explicitly assigned via product.metafields.custom.reviews
+          3. Submitted by verified clients via review form (stored locally in client session)
+          NO generic category fallback is permitted under any circumstances.
+        {%- endcomment -%}
 
-        {%- assign is_unicho = false -%}
-        {%- if prod_handle_lower contains 'unicho' or prod_title_lower contains 'unicho' or check_text contains 'burro primordiale' -%}
-          {%- assign is_unicho = true -%}
-        {%- endif -%}
-
-        {%- assign is_hair = false -%}
-        {%- if check_text contains 'capell' or check_text contains 'hair' or check_text contains 'shampoo' or check_text contains 'cute' or check_text contains 'scalp' -%}
-          {%- assign is_hair = true -%}
-        {%- endif -%}
-
-        {%- assign is_body_oil = false -%}
-        {%- if check_text contains 'olio corpo' or check_text contains 'body oil' -%}
-          {%- assign is_body_oil = true -%}
-        {%- elsif check_text contains 'corpo' or check_text contains 'body' -%}
-          {%- if check_text contains 'olio' or check_text contains 'oil' or check_text contains 'elisir' or check_text contains 'balsamo' -%}
-            {%- assign is_body_oil = true -%}
-          {%- endif -%}
-        {%- endif -%}
-
-        {%- assign is_body_general = false -%}
-        {%- if check_text contains 'corpo' or check_text contains 'body' -%}
-          {%- assign is_body_general = true -%}
-        {%- endif -%}
-
-        {%- assign is_face_cream = false -%}
-        {%- if check_text contains 'crema' or check_text contains 'cream' or check_text contains 'creme' or check_text contains 'lifting' or check_text contains 'emulsione' or check_text contains 'emulsion' or check_text contains 'fluid' or check_text contains 'fluido' or check_text contains 'notte' or check_text contains 'giorno' or check_text contains 'night' or check_text contains 'day' or check_text contains 'repair' or check_text contains 'anti-age' or check_text contains 'antirughe' or check_text contains 'cellular' -%}
-          {%- unless is_body_general -%}
-            {%- assign is_face_cream = true -%}
-          {%- endunless -%}
-        {%- endif -%}
-
-        {%- assign is_cleanser_purifying = false -%}
-        {%- if check_text contains 'purificante' or check_text contains 'purifying' or check_text contains 'pelli impure' or check_text contains 'sebo' or check_text contains 'acne' or check_text contains 'opacizz' -%}
-          {%- unless is_hair -%}
-            {%- assign is_cleanser_purifying = true -%}
-          {%- endunless -%}
-        {%- endif -%}
-
-        {%- assign is_cleanser_gentle = false -%}
-        {%- if check_text contains 'detergente' or check_text contains 'cleanser' or check_text contains 'cleansing' or check_text contains 'latte' or check_text contains 'oil-to-milk' or check_text contains 'tonico' or check_text contains 'toner' or check_text contains 'mousse' or check_text contains 'strucc' -%}
-          {%- unless is_hair -%}
-            {%- assign is_cleanser_gentle = true -%}
-          {%- endunless -%}
-        {%- endif -%}
-
-        {%- assign is_serum_hyaluronic = false -%}
-        {%- if check_text contains 'hyaluron' or check_text contains 'ialuronico' or check_text_padded contains ' ha ' or check_text contains 'idratante gel' or check_text contains 'double hydration' -%}
-          {%- assign is_serum_hyaluronic = true -%}
-        {%- elsif check_text contains 'boost' -%}
-          {%- unless check_text contains 'booster' -%}
-            {%- assign is_serum_hyaluronic = true -%}
-          {%- endunless -%}
-        {%- endif -%}
-
-        {%- assign prod_cat = 'boutique_skincare' -%}
-        {%- if is_unicho -%}
-          {%- assign prod_cat = 'unicho' -%}
-        {%- elsif check_text contains 'mask' or check_text contains 'maschera' -%}
-          {%- assign prod_cat = 'mask' -%}
-        {%- elsif check_text contains 'body wash' or check_text contains 'wash' or check_text contains 'doccia' or check_text contains 'shower' or check_text contains 'bagnodoccia' or check_text contains 'bagnoschiuma' -%}
-          {%- assign prod_cat = 'body_wash' -%}
-        {%- elsif is_body_oil -%}
-          {%- assign prod_cat = 'body_oil' -%}
-        {%- elsif check_text contains 'eye' or check_text contains 'occhi' or check_text contains 'occhiaie' or check_text contains 'sguardo' -%}
-          {%- assign prod_cat = 'eye' -%}
-        {%- elsif check_text contains 'peeling' or check_text contains 'peel' or check_text contains 'micro peeling' or check_text contains 'radiance reset' or check_text contains 'scrub' or check_text contains 'esfolia' or check_text contains 'enzym' or check_text contains 'fruit acid' or check_text contains 'aha' or check_text contains 'bha' -%}
-          {%- assign prod_cat = 'peeling' -%}
-        {%- elsif is_cleanser_purifying -%}
-          {%- assign prod_cat = 'cleanser_purifying' -%}
-        {%- elsif is_cleanser_gentle -%}
-          {%- assign prod_cat = 'cleanser_gentle' -%}
-        {%- elsif is_serum_hyaluronic -%}
-          {%- assign prod_cat = 'serum_hyaluronic' -%}
-        {%- elsif check_text contains 'siero' or check_text contains 'serum' or check_text contains 'booster' or check_text contains 'concentrato' or check_text contains 'concentrate' or check_text contains 'elisir' or check_text contains 'elixir' or check_text contains 'peptidi' or check_text contains 'vitamina' or check_text contains 'attivo' -%}
-          {%- assign prod_cat = 'serum_active' -%}
-        {%- elsif is_face_cream -%}
-          {%- assign prod_cat = 'cream_face' -%}
-        {%- elsif is_body_general -%}
-          {%- assign prod_cat = 'body_general' -%}
-        {%- elsif is_hair -%}
-          {%- assign prod_cat = 'hair' -%}
-        {%- else -%}
-          {%- assign prod_cat = 'boutique_skincare' -%}
-        {%- endif -%}
-
-        {%- assign clean_prod_name = product.title | split: ' - ' | first | split: ' • ' | first | strip -%}
-
-        {%- comment -%} Check targeted and global manual blocks {%- endcomment -%}
         {%- assign targeted_blocks_count = 0 -%}
-        {%- assign global_blocks_count = 0 -%}
         {%- for block in section.blocks -%}
           {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
             {%- assign targeted_blocks_count = targeted_blocks_count | plus: 1 -%}
-          {%- elsif block.settings.target_product == blank -%}
-            {%- assign global_blocks_count = global_blocks_count | plus: 1 -%}
           {%- endif -%}
         {%- endfor -%}
 
@@ -118,289 +31,11 @@
 
         {%- assign use_targeted_blocks = false -%}
         {%- assign use_metafield_reviews = false -%}
-        {%- assign use_global_blocks = false -%}
-        {%- assign use_category_fallback = false -%}
 
         {%- if targeted_blocks_count > 0 -%}
           {%- assign use_targeted_blocks = true -%}
         {%- elsif has_metafield_reviews -%}
           {%- assign use_metafield_reviews = true -%}
-        {%- elsif global_blocks_count > 0 -%}
-          {%- assign use_global_blocks = true -%}
-        {%- endif -%}
-
-        {%- comment -%} Prepare Pool of Authentic Reviews if No Manual Blocks {%- endcomment -%}
-        {%- if use_category_fallback -%}
-            {%- case prod_cat -%}
-                {%- when 'unicho' -%}
-                    {%- capture raw_reviews -%}
-5|19 Ottobre 2026|Una coccola prima di dormire|La texture all'inizio sembra un burro solido, ma appena lo scaldi tra i polpastrelli diventa un olio morbidissimo. Lo metto la sera e al mattino la pelle è morbidissima e non tira per niente.|Chiara V.|Verona
-~~~5|16 Ottobre 2026|Salva la pelle col freddo|Qui a Trento la mattina fa già freddo e il vento mi secca subito gli zigomi. Ne metto una puntina la sera: zero pellicine, guance idratate e lisce. Mai più senza.|Elena M.|Trento
-~~~4|12 Ottobre 2026|Nutre tanto, bisogna solo capire la quantità|All'inizio ne ho preso troppo ed è rimasto un po' lucido, poi ho capito che basta letteralmente la punta di un dito. Scaldato qualche secondo si scioglie benissimo e la notte fa il suo lavoro. Vasetto in vetro pesante ma molto elegante.|Silvia B.|Milano
-~~~5|9 Ottobre 2026|Ne basta una punta minima|Ce l'ho da due mesi e il barattolo sembra ancora nuovo. Ne basta pochissimo, lo scaldo tra le dita e lo stendo su viso e collo. Il profumo naturale di erbe svanisce subito, cosa che apprezzo molto.|Marta G.|Vicenza
-~~~5|6 Ottobre 2026|Preso su consiglio di un'amica|Me lo aveva fatto provare un'amica di Verona che va spesso in cabina da Milena. Aveva ragione lei: la sensazione di comfort la sera è impagabile. Al risveglio la fronte non è unta ma solo compatta.|Laura T.|Brescia
-~~~5|2 Ottobre 2026|Texture sorprendente|Nel vasetto sembra duro come una cera, poi a contatto con il calore della pelle si fonde istantaneamente. Lo uso anche sulle labbra e sulle cuticole la sera prima di mettermi a letto.|Francesca R.|Padova
-~~~5|29 Settembre 2026|La mia salvezza serale|Ho la pelle molto secca e reattiva che spesso pizzica con i normali trattamenti. Questo burro è delicatissimo, mi calma subito ogni rossore e la mattina mi sveglio con la pelle rilassata e distesa.|Giulia C.|Verona
-~~~4|24 Settembre 2026|Prodotto valido, comoda una spatolina|La qualità degli ingredienti si sente subito, è davvero puro. Do 4 stelle solo perché avrei gradito una piccola spatolina di legno o ceramica nella scatola per prelevarlo senza usare le unghie, ma per il resto è impeccabile.|Paola F.|Mantova
-~~~5|20 Settembre 2026|Il vasetto dura una vita|Lo sto usando da fine agosto praticamente tutte le sere e non sono nemmeno a un quarto. Scaldato bene tra le mani si stende con facilità. Vale assolutamente ogni centesimo speso.|Valentina D.|Bologna
-~~~5|17 Settembre 2026|Addio sensazione di pelle che tira|Lavoro spesso all'aria aperta e tra sbalzi termici e aria condizionata la mia pelle soffriva sempre. Questo burro la sera è diventato irrinunciabile. Mi lascia il viso vellutato come nessun'altra crema.|Alessandra P.|Treviso
-~~~5|13 Settembre 2026|Profumo pulito e naturale|Odio le creme con profumi chimici forti che restano sul cuscino. Questo ha solo una nota vegetale leggerissima che scompare subito. Idratazione profonda e risveglio con la pelle riposata.|Beatrice L.|Milano
-~~~5|10 Settembre 2026|Ottimo anche per le mani e gomiti|Oltre al viso, quando mi avanza un po' di prodotto sulle dita lo passo sulle nocche delle mani o sui gomiti screpolati. Il giorno dopo sono morbidissimi. È un vero multiuso da tenere sul comodino.|Giorgia M.|Verona
-~~~5|5 Settembre 2026|Provato dopo la gravidanza|Cercavo un prodotto con ingredienti davvero puliti per nutrire la pelle del viso e del décolleté dopo il parto. È fantastico, idrata a fondo e lascia una luminosità sana senza sembrare unti.|Roberta S.|Bergamo
-~~~5|1 Settembre 2026|Molto soddisfatta|All'inizio ero scettica sul formato burro, temevo mi otturasse i pori. In realtà si assorbe gradualmente nella notte e non ho avuto mezza imperfezione, solo pelle molto più elastica e morbida.|Cristina N.|Monza
-~~~5|27 Agosto 2026|Una garanzia|È il mio secondo vasetto. Il primo mi è durato quasi cinque mesi usandolo tutti i giorni. Quando la pelle è stressata o stanca la rimette in sesto in una sola notte.|Sara B.|Verona
-~~~5|22 Agosto 2026|Fantastico dopo il sole|Tornata dalle vacanze avevo il viso spento e secco per il sole e la salsedine. Tre sere di Unicho 21 e la pelle ha ripreso tono ed elasticità senza desquamarsi. Consigliatissimo.|Federica T.|Venezia
-~~~5|18 Agosto 2026|Consigliato da Milena a Verona|Sono stata all'istituto a Verona per una consulenza e Milena mi ha consigliato di inserirlo la sera. È stata una svolta per le mie guance arrossate. Spedizione rapida e confezione curata nei dettagli.|Anna Maria Z.|Vicenza
-~~~5|14 Agosto 2026|Si fonde all'istante|La consistenza è speciale: basta toccarlo con i polpastrelli tiepidi e scivola via come seta. Nessuna sensazione di pesantezza. Al mattino la pelle sembra aver bevuto.|Claudia R.|Brescia
-~~~5|9 Agosto 2026|Pelle morbida come non mai|Ho quasi 50 anni e la pelle matura tende ad asciugarsi velocemente. Questo burro la mantiene nutrita fino alla doccia del mattino. Non serve metterne quintali, ne basta proprio un velo.|Monica V.|Milano
-~~~5|4 Agosto 2026|Finalmente qualcosa che funziona|Ho provato decine di oli e creme dense senza mai trovare la quadra. Con questo mi sveglio senza le classiche pieghe da cuscino sul viso e con una pelle uniforme e distesa.|Ilaria F.|Padova
-~~~5|29 Luglio 2026|Ottimo acquisto|Packaging raffinato, pesante in vetro ambrato che si vede essere di qualità. Il prodotto dentro è ancora meglio: nutriente, concentrato e autentico. Lo ricomprerò sicuramente.|Serena P.|Reggio Emilia
-~~~5|24 Luglio 2026|La sera è diventato un rito|Prendo un pizzico dal barattolo, lo scaldo 3 secondi tra i palmi e lo respiro prima di tamponarlo sul viso. È rilassante e fa benissimo alla pelle stressata dal lavoro e dallo smog.|Elisa G.|Verona
-~~~5|19 Luglio 2026|Mai più senza d'inverno|Ho sempre sofferto il passaggio di stagione con la pelle che si spella sul naso e ai lati della bocca. Con Unicho applicato la sera ho risolto completamente il problema.|Michela D.|Rovereto
-~~~5|14 Luglio 2026|Puro nutrimento|Si sente che non ci sono siliconi o riempitivi sintetici dentro. È denso il giusto e la pelle lo assorbe durante la notte ringraziando. Davvero un prodotto di altissimo livello.|Barbara C.|Cremona
-~~~5|8 Luglio 2026|Dura tantissimo|Pensavo che 50ml fossero pochi per il prezzo, invece considerando che ne serve una punta minuscola per tutto il viso credo mi durerà almeno sei mesi. Ottimo rapporto qualità/durata.|Stefania L.|Verona
-~~~5|2 Luglio 2026|Delicato sugli occhi|Lo stendo anche sul contorno occhi la sera picchiettando piano con l'anulare e non mi ha mai dato il minimo bruciore o gonfiore. La mattina lo sguardo è fresco e riposato.|Daniela M.|Piacenza
-~~~5|26 Giugno 2026|Piacevole sorpresa|Ero abituata a creme fluide e avevo paura dell'effetto unto. Invece si fonde completamente e lascia la cute vellutata. Per me è promosso a pieni voti.|Simona B.|Ferrara
-~~~5|20 Giugno 2026|Una coccola vera|Lo applico dopo il siero la sera come sigillo finale. Da quando lo uso non ho più quella sensazione di aridità al risveglio. Ottimo prodotto, fatto con cura artigianale.|Nicoletta R.|Mantova
-                    {%- endcapture -%}
-                {%- when 'mask' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Effetto spa immediato sul divano|Aderisce come una seconda pelle e non scivola neanche se ti alzi a preparare una tisana. Dopo venti minuti di posa il viso è disteso e rimpolpato. Una meraviglia.|Chiara M.|Verona
-~~~5|15 Ottobre 2026|Una bomba di idratazione|La bio-cellulosa fa davvero la differenza rispetto alle solite maschere in tessuto che si asciugano subito. Questa resta freschissima e lascia la pelle radiosa per giorni.|Elena S.|Milano
-~~~5|12 Ottobre 2026|Il siero nella busta dura per giorni|La maschera è ricchissima di attivo. Tutto il siero che avanza nella confezione lo applico su collo, décolleté e braccia. Mai provata una maschera così generosa.|Silvia P.|Brescia
-~~~4|8 Ottobre 2026|Ottima aderenza, profumo delicato|Si adatta perfettamente ai contorni del viso senza fare bolle d'aria. L'ho tenuta 20 minuti e la pelle ha bevuto tutto. Unica pecca: vorrei la confezione multipla da 5 pezzi!|Laura V.|Vicenza
-~~~5|5 Ottobre 2026|La mia salvezza pre-evento|L'ho fatta la mattina prima di un matrimonio a Verona. Trucco perfetto per tutto il giorno, zero pellicine e incarnato che sembrava di porcellana. Consigliatissima.|Giulia C.|Verona
-~~~5|1 Ottobre 2026|Niente a che vedere con le solite maschere|{{ clean_prod_name }} è di un altro livello. Fresca, decongestionante, placa subito i rossori da freddo. Dopo la posa non serve risciacquare, si massaggia il residuo ed è seta.|Marta R.|Padova
-~~~5|27 Settembre 2026|Freschezza pura|Tenuta in frigo 10 minuti prima di applicarla: sensazione di benessere totale. Ha sgonfiato il viso e cancellato la stanchezza di una settimana intensa di lavoro.|Francesca B.|Trento
-~~~5|23 Settembre 2026|Rinnovamento visibile|La grana della pelle il giorno dopo è compatta e luminosa. Anche le rughette attorno alla bocca sembrano stirate. La qualità della cellulosa naturale si sente tutta.|Valentina M.|Bologna
-~~~4|19 Settembre 2026|Pelle dissetata a fondo|Ho la pelle mista ma disidratata. Questa maschera non ingrassa la zona T ma disseta le guance in modo profondo. Molto comoda da aprire e applicare.|Paola G.|Milano
-~~~5|14 Settembre 2026|Una coccola domenicale|La domenica sera è il mio rito irrinunciabile. 20 minuti di relax con {{ clean_prod_name }} e inizio la settimana con il viso riposato e luminoso.|Alessandra T.|Treviso
-~~~5|10 Settembre 2026|Consigliata da Milena|Presa durante il check-up cutaneo nell'istituto di Verona. Milena mi ha detto di farla ogni due settimane per sostenere la barriera e la differenza è incredibile.|Beatrice F.|Verona
-~~~5|6 Settembre 2026|Non cola e non tira|Di solito le maschere in foglio gocciolano sul collo o si seccano tirando la cute. Questa aderisce perfettamente e rilascia idratazione costante.|Sara B.|Bergamo
-~~~5|2 Settembre 2026|Incarnato uniforme|Toglie quel colorito spento tipico del rientro in città. La pelle appare riposata come dopo un weekend in montagna.|Federica D.|Mantova
-~~~5|28 Agosto 2026|Idratazione duratura|I benefici non svaniscono dopo poche ore ma durano per 3-4 giorni. Texture e qualità degli estratti botanici davvero impeccabili.|Giorgia M.|Vicenza
-                    {%- endcapture -%}
-                {%- when 'body_wash' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|La doccia diventa una vera spa|La fragranza botanica naturale riempie il bagno con il vapore dell'acqua calda. Schiuma finissima e delicata che rispetta la barriera cutanea. Fantastico.|Chiara V.|Verona
-~~~5|15 Ottobre 2026|Non lascia la pelle che tira|Con i bagnoschiuma classici dovevo correre a mettere la crema appena uscita dalla doccia. Con questo detergente corpo la pelle resta morbida ed elastica già al risciacquo.|Elena B.|Milano
-~~~5|11 Ottobre 2026|Basta una noce sulla spugna|Concentratissimo, ne metto pochissimo sulla spugna e crea una schiuma morbida e cremosa. Il flacone dura molto più dei normali bagnodoccia.|Silvia M.|Brescia
-~~~4|7 Ottobre 2026|Delicatissimo ma lava benissimo|Deterge a fondo senza aggredire o lasciare residui scivolosi sul fondo della doccia. Profumo di erbe di montagna molto naturale e raffinato.|Marta C.|Vicenza
-~~~5|3 Ottobre 2026|Ideale dopo la palestra|Faccio nuoto e palestra tre volte a settimana: la pelle soffriva tantissimo per il cloro. Da quando uso {{ clean_prod_name }} zero prurito e cute sempre nutrita.|Laura T.|Padova
-~~~5|29 Settembre 2026|Profumazione aromatica stupenda|Ha un profumo fresco, pulito ed energizzante che ti rimette al mondo al mattino. Si sciacqua con estrema facilità e non appiccica.|Francesca R.|Trento
-~~~5|25 Settembre 2026|Pelle vellutata e idratata|Si sente subito che non ci sono tensioattivi aggressivi o siliconi. La cute esce dalla doccia distesa e confortevole.|Giulia F.|Verona
-~~~5|21 Settembre 2026|Tutta la famiglia lo adora|Lo usa anche mio marito che ha la pelle delicata e si arrossa facilmente. Mai una reazione, solo una sensazione di pulito vero e naturale.|Valentina D.|Bologna
-~~~4|17 Settembre 2026|Ottima formula, erogatore comodo|Il dosatore è pratico sotto la doccia e non spreca prodotto. Lascia una scia botanica piacevole che dura un paio d'ore.|Paola S.|Milano
-~~~5|13 Settembre 2026|Sensazione di freschezza duratura|È il terzo flacone che ordino. Per me la doccia della sera con questo prodotto è diventata un momento irrinunciabile di decompressione.|Alessandra P.|Verona
-~~~5|9 Settembre 2026|Addio secchezza da docce frequenti|Lavandomi tutti i giorni per via dello sport temevo di rovinare la pelle. {{ clean_prod_name }} mantiene l'idratazione intatta e la grana cutanea morbida.|Beatrice L.|Treviso
-~~~5|5 Settembre 2026|Risciacquo rapido e pulito|Non lascia quella sgradevole sensazione di pellicola viscida sulla pelle. Solo pulizia autentica e pelle setosa.|Sara B.|Bergamo
-~~~5|1 Settembre 2026|Consigliato dall'istituto a Verona|Comprato dopo una consulenza in boutique. Confezione curatissima, arrivato con campioncini viso stupendi. Prodotto corpo di livello superiore.|Federica T.|Mantova
-~~~5|27 Agosto 2026|Una coccola quotidiana|Texture fluida ma densa al punto giusto, schiuma soffice che lava con dolcezza. Molto soddisfatta dell'acquisto.|Giorgia G.|Brescia
-                    {%- endcapture -%}
-                {%- when 'body_oil' -%}
-                    {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Finish satinato a rapido assorbimento|Lo massaggio subito dopo la doccia sulla pelle ancora bagnata: si fonde all'istante e permette di vestirsi subito senza ungere le calze o i vestiti.|Chiara G.|Verona
-~~~5|13 Ottobre 2026|Elasticità straordinaria sulle gambe|Avevo le gambe secche che si squamavano con i primi freddi. {{ clean_prod_name }} ha ripristinato l'elasticità in soli tre giorni. Risultato pazzesco.|Elena B.|Milano
-~~~5|9 Ottobre 2026|Profumo botanico rilassante|Una miscela aromatica avvolgente che ricorda un trattamento professionale in baita d'alta quota. La sera prima di dormire rilassa corpo e mente.|Silvia P.|Brescia
-~~~4|5 Ottobre 2026|Ottimo, la chiave è stenderlo a pelle umida|Se lo mettete a pelle umida ne bastano poche gocce e penetra in profondità senza lasciare residui unti. Flacone elegante in vetro pesante.|Marta D.|Vicenza
-~~~5|1 Ottobre 2026|Pelle nutrita e luminosa|Dona al corpo una luminosità naturale sana, soprattutto su braccia, spalle e gambe. Non unge minimamente l'accappatoio.|Laura M.|Padova
-~~~5|27 Settembre 2026|Pelle tonica e setosa|Lo uso regolarmente massaggiando dal basso verso l'alto. La pelle appare più compatta, distesa e incredibilmente morbida al tatto.|Giulia S.|Trento
-~~~5|23 Settembre 2026|Ottimo anche per le punte dei capelli|Quando me ne resta un goccio sui palmi lo passo sulle punte dei capelli asciutti: elimina il crespo e dona brillantezza. Un vero elisir multitasking.|Francesca V.|Bologna
-~~~5|19 Settembre 2026|Riacquistato più volte|È ormai un punto fermo della mia routine corpo. Ingredienti vegetali purissimi, zero paraffina o riempitivi economici. Si sente la qualità sartoriale.|Valentina T.|Mantova
-~~~4|15 Settembre 2026|Texture preziosa|Olio pregiato che si assorbe con un breve massaggio. Do 4 stelle solo perché il flacone in vetro sotto la doccia richiede attenzione, ma la formula è da 5 lode.|Paola R.|Milano
-~~~5|11 Settembre 2026|Salva la pelle post-estate|Rientrata dalle vacanze al mare con la pelle secca e disidratata. Con questo olio corpo ho evitato la desquamazione mantenendo l'abbronzatura uniforme.|Alessandra C.|Verona
-~~~5|7 Settembre 2026|Morbidezza infinita|La sensazione di velluto dura per 24 ore intere. Non serve riapplicare nulla fino alla doccia successiva.|Federica L.|Treviso
-~~~5|2 Settembre 2026|Trattamento rigenerante|Texture vellutata e fragranza sublime. Da quando lo applico ho dimenticato cosa significhi avere la pelle delle gambe arida.|Sara F.|Bergamo
-~~~5|28 Agosto 2026|Consulenza top a Verona|Me lo ha fatto provare Milena durante il ritiro del mio ordine in boutique. Amore a prima vista: nutre senza appesantire.|Claudia R.|Verona
-~~~5|24 Agosto 2026|Puro lusso quotidiano|{{ clean_prod_name }} vale ogni centesimo: la resa è altissima e lascia la pelle compatta, liscia e piacevolmente profumata.|Serena B.|Modena
-                    {%- endcapture -%}
-                {%- when 'eye' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Sguardo riposato e borse decongestionate|Lo applico la mattina picchiettando con i polpastrelli: sgonfia visibilmente il contorno occhi in dieci minuti. La sensazione di freschezza è immediata.|Chiara T.|Verona
-~~~5|15 Ottobre 2026|Zero bruciore per occhi iper-sensibili|Porto le lenti a contatto tutto il giorno e quasi tutte le creme occhi mi facevano lacrimare. Questo trattamento è delicatissimo, zero fastidi o arrossamenti.|Elena M.|Milano
-~~~5|12 Ottobre 2026|Il correttore non va nelle pieghette|Idrata a fondo senza essere unto. Quando applico il correttore sopra scorre liscio e resta uniforme per tutta la giornata lavorativa.|Silvia B.|Brescia
-~~~4|8 Ottobre 2026|Molto efficace, ne basta mezzo chicco di riso|Ne basta una quantità infinitesimale per entrambi gli occhi. Se ne mettete troppo ci mette di più ad assorbirsi, dosato bene è impeccabile.|Marta G.|Vicenza
-~~~5|4 Ottobre 2026|Occhiaie visibilmente schiarite|Dopo due settimane di utilizzo costante mattino e sera il colorito scuro sotto gli occhi si è attenuato parecchio. Sguardo decisamente più fresco e aperto.|Laura P.|Padova
-~~~5|30 Settembre 2026|{{ clean_prod_name }} mi ha conquistata|Texture sofisticata: fresca come un gel ma nutriente come un balsamo. Si assorbe in fretta lasciando la zona perioculare distesa e vellutata.|Giulia C.|Trento
-~~~5|26 Settembre 2026|Rughette di espressione levigate|Le zampette di gallina da disidratazione sono attenuate. Lo metto anche sul contorno labbra la sera con ottimi risultati.|Francesca R.|Bologna
-~~~5|22 Settembre 2026|Salva le notti insonni|Tra lavoro e bambini dormo poco, ma questo trattamento occhi cancella i segni della stanchezza. Non potrei più farne a meno la mattina.|Valentina S.|Mantova
-~~~4|18 Settembre 2026|Formula ricca ma leggera|Non gonfia la palpebra durante la notte, cosa che mi succedeva spesso con altri prodotti occhi troppo pesanti. Risveglio fresco.|Paola F.|Milano
-~~~5|14 Settembre 2026|Rinnovamento dello sguardo|Consigliatomi durante una visita alla boutique di Verona. Risultati tangibili fin dalle prime applicazioni: pelle più soda e compatta.|Alessandra V.|Verona
-~~~5|10 Settembre 2026|Idratazione per tutto il giorno|Lavorando 8 ore davanti allo schermo il contorno occhi tendeva a tirare. Con questo trattamento rimane morbido e confortevole fino a sera.|Beatrice M.|Treviso
-~~~5|6 Settembre 2026|Qualità certificata|Flacone con dosatore comodissimo per evitare contaminazioni. La purezza degli estratti botanici fa davvero la differenza.|Sara D.|Bergamo
-~~~5|2 Settembre 2026|Distende e rinfresca|Al mattino sembra una tazza di caffè per il contorno occhi. Decongestiona rapidamente e illumina la zona perioculare.|Federica B.|Vicenza
-~~~5|28 Agosto 2026|Mai più senza|Ho 46 anni e ho provato i migliori contorno occhi sul mercato. Questo è tra i più bilanciati in assoluto per resa, delicatezza ed efficacia.|Monica R.|Verona
-                    {%- endcapture -%}
-                {%- when 'peeling' -%}
-                    {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Pelle liscia come il vetro senza graffiare|Ero abituata ai vecchi scrub con granuli che mi irritavano la pelle sensibile. Questo peeling enzimatico leviga perfettamente senza la minima abrasione.|Elena P.|Brescia
-~~~5|14 Ottobre 2026|Pori visibilmente purificati|Lo applico la domenica sera dopo la detersione. La grana della pelle si affina visibilmente e i pori sulla zona a T appaiono molto più puliti e stretti.|Marta V.|Verona
-~~~5|10 Ottobre 2026|La crema dopo penetra il doppio|Rimuove tutte le cellule morte e il grigiore urbano. Subito dopo averlo risciacquato con acqua fresca, il siero e la crema vengono assorbiti all'istante.|Chiara L.|Milano
-~~~4|6 Ottobre 2026|Delicato, basta rispettare i minuti di posa|Durante i minuti di posa si avverte un leggerissimo formicolio, segno che gli acidi della frutta stanno lavorando. Al risciacquo viso morbidissimo e zero arrossamenti.|Silvia F.|Vicenza
-~~~5|2 Ottobre 2026|Incarnato radioso e compatto|{{ clean_prod_name }} è una garanzia di luminosità. Dopo tre settimane di applicazione costante una volta a settimana, le macchioline da sole sono meno visibili.|Giulia B.|Padova
-~~~5|28 Settembre 2026|Effetto pulizia viso professionale|Sembra di aver appena fatto una seduta di dermo-esfoliazione in istituto. La pelle torna a respirare e l'incarnato è uniforme e trasparente.|Laura R.|Trento
-~~~5|23 Settembre 2026|Risciacquo rapido e pelle setosa|Non cola durante la posa e si rimuove con un panno in microfibra umido o acqua tiepida in pochissimi secondi. Texture piacevolissima.|Francesca S.|Bologna
-~~~5|19 Settembre 2026|Ottima resa, dura mesi|Basta uno strato sottile e uniforme per fare tutto il viso e il collo. Il tubetto dura tantissimo tempo usandolo settimanalmente.|Valentina C.|Mantova
-~~~4|15 Settembre 2026|Molto efficace sulle discromie|Ha uniformato la texture del mio mento e della fronte. Consigliatissimo, attenzione solo a non stenderlo troppo vicino agli occhi.|Beatrice G.|Milano
-~~~5|11 Settembre 2026|Addio pellicine e grigiore|Con i cambi di stagione mi ritrovavo sempre con la pelle ruvida. Questo peeling chimico-enzimatico risolve tutto senza arrossare.|Sara M.|Verona
-~~~5|7 Settembre 2026|Luminosità istantanea|Il mattino seguente all'applicazione mi hanno chiesto se fossi stata in vacanza. Il viso irradia una freschezza naturale impagabile.|Giorgia T.|Treviso
-~~~5|3 Settembre 2026|Formula botanica impeccabile|Profumo naturale pulito, zero residui chimici. Si sente la ricerca sui complessi di frutta ed enzimi attivi.|Federica B.|Bergamo
-~~~5|29 Agosto 2026|Consulenza azzeccatissima a Verona|Me lo ha suggerito Milena per preparare la pelle prima del cambio di stagione. È stato l'acquisto migliore dell'anno per la mia routine.|Alessandra M.|Verona
-~~~5|25 Agosto 2026|Esfoliazione sartoriale|Delicato sui rossori ma implacabile sulla grana ispessita. Lascia una sensazione di pulito profondo e pelle soffice al tocco.|Claudia V.|Vicenza
-                    {%- endcapture -%}
-                {%- when 'cleanser_purifying' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Pulisce a fondo senza seccare le guance|Spesso i detergenti per pelli miste sgrassano troppo e peggiorano la situazione. Questo purifica i pori ma lascia le guance idratate e morbide.|Elena R.|Verona
-~~~5|15 Ottobre 2026|Zona T opacizzata per tutto il giorno|Lo uso la mattina prima di uscire: la fronte e il naso rimangono asciutti e privi di lucidità fino a sera senza dover riapplicare cipria.|Chiara M.|Milano
-~~~5|11 Ottobre 2026|Imperfezioni visibilmente ridotte|Dopo due settimane di utilizzo costante mattina e sera i brufoletti sul mento si sono sfiammati e non ne sono comparsi di nuovi. Fantastico.|Silvia T.|Brescia
-~~~4|7 Ottobre 2026|Ottima formula purificante, ne serve poca|Fa una schiuma leggerissima e freschissima. Ne basta mezza dose per lavare accuratamente tutto il viso. Risciacquo pulitissimo.|Marta L.|Vicenza
-~~~5|3 Ottobre 2026|Pori liberi e grana affinata|I punti neri sul naso si sono ridotti notevolmente. La sensazione di pulito fresco dopo il lavaggio è impagabile.|Laura F.|Padova
-~~~5|29 Settembre 2026|{{ clean_prod_name }} ha salvato la mia pelle|Formula botanica con estratti purificanti che non alterano il pH della pelle. Niente rossori o sensazione di cute che tira.|Giulia C.|Trento
-~~~5|25 Settembre 2026|Fresco e riequilibrante|Ha una fragranza aromatica di erbe che dà una bella sferzata di energia la mattina. Si risciacqua in un secondo senza lasciare tracce.|Francesca P.|Bologna
-~~~5|21 Settembre 2026|Addio effetto unto a metà giornata|Prima a metà pomeriggio la fronte luccicava sempre. Con questo detergente purificante la produzione di sebo si è normalizzata.|Valentina S.|Mantova
-~~~4|16 Settembre 2026|Molto valido, delicato sulle imperfezioni|Non brucia sulle zone irritate o con piccole lesioni da sfregamento. Ottimo equilibrio tra efficacia e rispetto della barriera.|Paola B.|Milano
-~~~5|12 Settembre 2026|Consigliato da Milena per pelle impura|Preso dopo la consulenza personalizzata a Verona: la dermo-specialista aveva ragione, la qualità degli attivi si nota subito.|Alessandra G.|Verona
-~~~5|8 Settembre 2026|Pelle che respira|Rimuove sebo in eccesso, sudore e smog della città con una delicatezza sorprendente. Promosso a pieni voti.|Federica M.|Treviso
-~~~5|4 Settembre 2026|Non sgrassa aggressivamente|Lascia la barriera cutanea protetta. Da quando lo uso la mia pelle è molto più pulita, omogenea e sana.|Sara D.|Bergamo
-~~~5|30 Agosto 2026|Texture in gel fresca e piacevole|A contatto con l'acqua forma un'emulsione sottile che cattura ogni impurità. Flacone elegante che dura a lungo.|Giorgia R.|Verona
-~~~5|26 Agosto 2026|Il miglior purificante provato|Non fa tirare la fronte, calma i rossori e purifica con costanza. Riacquisterò sicuramente il secondo flacone.|Monica V.|Brescia
-                    {%- endcapture -%}
-                {%- when 'cleanser_gentle' -%}
-                    {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Scioglie il trucco e diventa un latte di seta|Lo massaggio a secco sul viso e scioglie fondotinta e mascara all'istante, poi con un goccio d'acqua si trasforma in latte setoso. Delizioso.|Francesca B.|Milano
-~~~5|14 Ottobre 2026|Zero bruciore agli occhi|Chi ha gli occhi sensibili come me sa quanto sia difficile trovare un detergente che strucchi bene senza annebbiare la vista. Questo è perfetto.|Giulia P.|Verona
-~~~5|10 Ottobre 2026|Pelle morbida come velluto al risciacquo|A differenza di molti saponi liquidi che lasciano la pelle arida, dopo il risciacquo sembra di aver già applicato un velo di crema idratante.|Chiara S.|Brescia
-~~~4|6 Ottobre 2026|Molto delicato, flacone generoso|Texture ricca e fondente. Ne basta pochissimo sul palmo per detergere collo e viso. Si toglie benissimo con acqua tiepida o una mussola.|Laura V.|Padova
-~~~5|2 Ottobre 2026|Ideale per pelle sensibile e reattiva|Ho la pelle che si arrossa solo a toccarla con l'acqua calcarea di città. {{ clean_prod_name }} la protegge e calma qualsiasi pizzicore.|Silvia M.|Vicenza
-~~~5|28 Settembre 2026|Un rito serale rilassante|Il massaggio serale con questo latte detergente mi toglie di dosso la stanchezza della giornata. Profumo naturale pulito e discreto.|Marta C.|Trento
-~~~5|23 Settembre 2026|Strucca anche il trucco resistente|Rimuove anche la protezione solare waterproof e il trucco occhi senza bisogno di sfregare con i dischetti. Super approvato.|Elena G.|Bologna
-~~~5|19 Settembre 2026|Pelle distesa e nutrita|Non aggredisce il film idrolipidico, anzi lo rispetta totalmente. Al mattino la pelle è luminosa e pronta per i trattamenti successivi.|Roberta D.|Mantova
-~~~4|15 Settembre 2026|Ottima consistenza fluida ma corposa|Molto piacevole al tatto. Se usato con un dischetto lavabile in bambù lascia il viso liscio e pulito in un attimo.|Valentina R.|Milano
-~~~5|11 Settembre 2026|Consulenza sartoriale a Verona|Consigliato da Milena durante un appuntamento a Verona in istituto. La mia couperose è visibilmente calmata.|Beatrice F.|Verona
-~~~5|7 Settembre 2026|Niente residui oleosi|Si risciacqua con estrema facilità lasciando solo una sensazione di morbidezza assoluta. Zero patine grasse sul viso.|Sara T.|Treviso
-~~~5|2 Settembre 2026|Coccola rigenerante|La consistenza è un sogno per chi soffre di pelle secca. Deterge a fondo con una gentilezza infinita.|Giorgia L.|Bergamo
-~~~5|28 Agosto 2026|Qualità botanica superiore|Si sente la purezza degli oli e degli estratti vegetali. Nessun tensioattivo chimico, solo benessere cutaneo.|Federica C.|Padova
-~~~5|24 Agosto 2026|Riacquistato per la terza volta|Non cambio più detergente. È diventato il mio punto fermo del mattino e della sera per una pelle sempre distesa.|Ilaria M.|Verona
-                    {%- endcapture -%}
-                {%- when 'serum_hyaluronic' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Disseta la pelle all'istante senza appiccicare|La consistenza in gel si scioglie sulla pelle come acqua pura. Zero residui appiccicosi: penetra in 5 secondi e lascia il viso turgido e fresco.|Chiara M.|Milano
-~~~5|15 Ottobre 2026|Rughette da disidratazione rimpolpate|Avevo la fronte segnata dall'aria condizionata dell'ufficio. Dopo una settimana di utilizzo mattina e sera la pelle è visibilmente rimpolpata e soda.|Elena S.|Verona
-~~~5|11 Ottobre 2026|Base impeccabile sotto la crema e il make-up|Non crea grumi né pallini quando applico la crema e il fondotinta dopo. Mantiene l'idratazione stabile da mattina a sera.|Marta R.|Brescia
-~~~4|7 Ottobre 2026|Idratazione profonda, contagocce preciso|Bastano letteralmente tre gocce per tutto il viso e il décolleté. La resa è altissima, il flacone dura parecchi mesi.|Laura B.|Vicenza
-~~~5|3 Ottobre 2026|Freschezza pura al risveglio|{{ clean_prod_name }} è una boccata d'ossigeno per la pelle. La mattina la stendo dopo il tonico e il viso si distende subito.|Silvia T.|Padova
-~~~5|29 Settembre 2026|Pelle luminosa e rimpolpata|Ho la pelle mista che si disidrata facilmente: questo gel dà tutta l'acqua necessaria senza un briciolo di componente grassa. Perfetto.|Giulia C.|Trento
-~~~5|24 Settembre 2026|Texture leggera ma potente|Si nota la differenza tra un acido ialuronico da farmacia comune e questa formula botanica concentrata. Leviga la grana in modo visibile.|Francesca N.|Mantova
-~~~5|20 Settembre 2026|Riacquisto confermato|È già il mio secondo flacone. Non posso più iniziare la giornata senza questo booster di idratazione.|Valentina M.|Bologna
-~~~4|16 Settembre 2026|Molto piacevole, assorbimento immediato|Formula purissima, quasi impercettibile una volta stesa. La pelle al tatto è vellutata ed elastica. Flacone di vetro scuro molto elegante.|Paola G.|Milano
-~~~5|12 Settembre 2026|Consigliato nell'istituto a Verona|Provato a Verona su consiglio di Milena per preparare la pelle all'autunno. Risultati tangibili fin dal terzo giorno di applicazione.|Alessandra V.|Verona
-~~~5|8 Settembre 2026|Comfort totale per tutto il giorno|Nessuna sensazione di pelle che tira verso metà pomeriggio. Mantiene l'umidità cutanea bloccata dentro con naturalezza.|Federica D.|Treviso
-~~~5|3 Settembre 2026|Pelle distesa e ricaricata|Le piccole linee d'espressione attorno agli occhi e sulle guance appaiono meno evidenti. Ottimo bilanciamento di pesi molecolari.|Sara B.|Bergamo
-~~~5|29 Agosto 2026|Incredibile leggerezza|Sembra di non avere nulla addosso, eppure la pelle resta idratata come dopo un trattamento professionale in cabina.|Giorgia M.|Vicenza
-~~~5|24 Agosto 2026|Effetto rimpolpante visibile|Texture straordinaria, profumo botanico quasi impercettibile e idratazione profonda continua. Da provare assolutamente.|Claudia R.|Verona
-                    {%- endcapture -%}
-                {%- when 'serum_active' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Poche gocce concentrate ad altissima resa|Ne applico tre gocce scaldate tra i palmi prima della crema: penetra in profondità e dopo due settimane la grana del viso è molto più compatta.|Chiara V.|Verona
-~~~5|15 Ottobre 2026|Luminosità naturale ritrovata|Avevo l'incarnato spento e opaco per via dello smog e dello stress. Questo siero attivo ha restituito alla mia pelle una luce sana e radiosa.|Elena C.|Milano
-~~~5|11 Ottobre 2026|Flacone in vetro elegante e formula pura|Si capisce subito la concentrazione degli attivi botanici. Nessun riempitivo superfluo: texture setosa che si assorbe senza ungere.|Silvia B.|Brescia
-~~~4|7 Ottobre 2026|Efficace, ci vuole costanza|I risultati non sono un'illusione ottica istantanea: lavora giorno dopo giorno migliorando la densità cutanea. Contagocce molto preciso.|Laura P.|Padova
-~~~5|3 Ottobre 2026|Viso disteso e rimodellato|{{ clean_prod_name }} è un concentrato di giovinezza. La sera prima di coricarmi lo massaggio con movimenti verso l'alto: al mattino i tratti sono rilassati.|Marta T.|Vicenza
-~~~5|29 Settembre 2026|Ottima compatibilità con la mia crema|Non crea interferenze con gli altri prodotti della routine. La pelle lo assorbe con gratitudine e rimane nutrita tutto il giorno.|Giulia F.|Trento
-~~~5|24 Settembre 2026|Incarnato uniforme e omogeneo|Ha attenuato le piccole discromie cutanee lasciate dall'estate. Un siero sofisticato che regala risultati da cabina estetica.|Francesca M.|Bologna
-~~~5|20 Settembre 2026|Texture vellutata e piacevole|Scivola benissimo durante il massaggio e non appiccica per nulla. Ottima sensazione di freschezza e tonicità immediata.|Valentina D.|Mantova
-~~~4|16 Settembre 2026|Molto concentrato, dura una vita|Bastano pochissime gocce per coprire viso, collo e décolleté. Vale ogni centesimo del prezzo per la qualità biologica degli attivi.|Paola F.|Milano
-~~~5|12 Settembre 2026|Consulenza speciale a Verona|Acquistato in boutique a Verona dopo un'analisi approfondita della mia cute. Non potrei essere più soddisfatta della scelta.|Alessandra P.|Verona
-~~~5|8 Settembre 2026|Pelle più elastica e tonica|La sensazione al tatto dopo 20 giorni è di una pelle più soda e strutturata. Ottima combinazione di estratti botanici e peptidi.|Beatrice L.|Treviso
-~~~5|4 Settembre 2026|Formula impeccabile|Nessuna reazione strana, solo pelle rinata e splendente. Una vera chicca nella mia beauty routine quotidiana.|Sara B.|Bergamo
-~~~5|30 Agosto 2026|Profumazione pulita e discreta|Nessuna nota chimica o pesante. Si sente solo la freschezza degli estratti vegetali puri. Consigliatissimo.|Federica T.|Modena
-~~~5|25 Agosto 2026|Effetto booster visibile|Da quando lo uso mi sento dire spesso che ho la pelle riposata e luminosa. Un siero che mantiene tutte le promesse.|Ilaria C.|Verona
-                    {%- endcapture -%}
-                {%- when 'cream_face' -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Idratazione e protezione per tutto il giorno|La metto la mattina alle 7.30 e la sera quando torno dal lavoro la pelle è ancora morbida, elastica e protetta. Non unge minimamente la fronte.|Silvia M.|Verona
-~~~5|15 Ottobre 2026|Texture ricca che si assorbe all'istante|Ha una corposità sublime ma a contatto con la pelle si fonde senza lasciare tracce grasse. Perfetta base prima del fondotinta.|Chiara D.|Milano
-~~~5|11 Ottobre 2026|Addio sensazione di guance che tirano|Con i primi sbalzi termici e il riscaldamento acceso soffrivo sempre di secchezza agli zigomi. Con {{ clean_prod_name }} ho risolto in 48 ore.|Elena C.|Brescia
-~~~4|7 Ottobre 2026|Nutrimento profondo, packaging raffinato|Vasetto in vetro spesso molto elegante. La crema è densa al punto giusto, ne basta una nocciolina per viso e collo. Molto valida.|Marta T.|Vicenza
-~~~5|3 Ottobre 2026|Tratti del viso distesi e riposati|La applico la sera massaggiando con cura verso le tempie. Al risveglio la pelle è visibilmente distesa, come rigenerata dal sonno.|Laura P.|Padova
-~~~5|29 Settembre 2026|Profumo botanico discreto ed elegante|Non amo le creme con profumi chimici forti che restano sul cuscino. Questa ha un aroma vegetale leggero e rilassante che svanisce subito.|Giulia F.|Trento
-~~~5|25 Settembre 2026|Comfort duraturo in ogni stagione|Protegge la barriera cutanea senza occludere i pori. La pelle respira liberamente per tutta la giornata.|Francesca B.|Mantova
-~~~5|21 Settembre 2026|Effetto lifting e compattezza|Dopo un mese di utilizzo continuo la pelle appare più tonica, densa e soda al tatto. Formula dermocosmetica eccellente.|Valentina L.|Bologna
-~~~4|17 Settembre 2026|Molto confortevole, ottima resa|Basta prelevarne un velo sottile. Si fonde con facilità e lascia la cute vellutata e morbida fino alla sera.|Paola S.|Milano
-~~~5|13 Settembre 2026|La mia crema quotidiana irrinunciabile|Comprata a Verona in boutique dopo una consulenza. È diventata il perno centrale della mia cura del viso.|Alessandra M.|Verona
-~~~5|9 Settembre 2026|Delicata per pelli sensibili|Nessun rossore, pizzicore o irritazione. Massima tollerabilità cutanea ed efficacia antirughe tangibile.|Federica N.|Treviso
-~~~5|4 Settembre 2026|Pelle rigenerata notte dopo notte|Al mattino lo specchio rimanda un incarnato disteso, fresco e luminoso. Consigliatissima a chi cerca vera cosmesi botanica.|Sara V.|Bergamo
-~~~5|30 Agosto 2026|Nutrimento senza pesantezza|Adatta sia per il giorno che per la notte. Lascia un tocco asciutto e setoso molto piacevole.|Claudia G.|Vicenza
-~~~5|26 Agosto 2026|Altissimo livello qualitativo|Si nota subito la differenza con i prodotti commerciali. Cura nei dettagli, ingredienti purissimi e risultati evidenti.|Monica V.|Verona
-                    {%- endcapture -%}
-                {%- when 'body_general' -%}
-                    {%- capture raw_reviews -%}
-5|17 Ottobre 2026|Idratazione vellutata senza appiccicare|La stendo dopo la doccia su gambe e braccia: si assorbe in un minuto esatto e posso infilarmi i jeans senza quella fastidiosa sensazione appiccicosa.|Chiara G.|Verona
-~~~5|14 Ottobre 2026|Pelle morbida come seta per 24 ore|Avevo le gambe aride che si desquamavano con i collant. {{ clean_prod_name }} ha eliminato completamente la secchezza già dopo tre applicazioni.|Elena B.|Milano
-~~~5|10 Ottobre 2026|Profumo fresco ed erbaceo rilassante|Una nota botanica pulita ed elegante che ti accompagna con discrezione per tutto il giorno. Texture piacevolissima da massaggiare.|Silvia P.|Brescia
-~~~4|6 Ottobre 2026|Ottima resa, ne basta poca|Non serve abbondare: una noce è sufficiente per coprire interamente una gamba. Flacone capiente e con erogatore funzionale.|Marta D.|Vicenza
-~~~5|2 Ottobre 2026|Tonicità ed elasticità visibili|Massaggiata con costanza sulle zone più rilassate ha donato compattezza e tono alla cute. Molto soddisfatta dei risultati.|Laura M.|Padova
-~~~5|28 Settembre 2026|Addio pelle arida dopo la doccia|Dona un comfort immediato a tutto il corpo. La pelle ritrova subito morbidezza e una sana luminosità naturale.|Giulia S.|Trento
-~~~5|23 Settembre 2026|Delicata anche dopo la depilazione|Non brucia minimamente se applicata dopo il rasoio o la ceretta, anzi calma all'istante ogni rossore o irritazione da sfregamento.|Francesca V.|Bologna
-~~~5|19 Settembre 2026|Riacquistata per il cambio stagione|È il mio alleato fedele contro il freddo e il vento. Mantiene il corpo idratato e protetto per tutto il giorno.|Valentina T.|Mantova
-~~~4|15 Settembre 2026|Assorbimento rapido, pelle vellutata|Formula ricca ma leggera sulla pelle. Ottimo prodotto per chi ha poco tempo la mattina ma non vuole rinunciare a curarsi.|Paola R.|Milano
-~~~5|11 Settembre 2026|Esperienza boutique a Verona super|Ritirata di persona nell'istituto di Verona con confezione regalo impeccabile. Il prodotto dentro è straordinario.|Alessandra C.|Verona
-~~~5|7 Settembre 2026|Nutrimento profondo e duraturo|Lascia la cute setosa al tatto fino al giorno dopo. Rapporto qualità-prezzo eccellente considerata la purezza degli ingredienti.|Federica L.|Treviso
-~~~5|3 Settembre 2026|Sensazione spa a casa propria|Rende il momento post-bagno una vera coccola distensiva. Formula naturale al 100% che fa respirare i pori.|Sara F.|Bergamo
-~~~5|29 Agosto 2026|Pelle liscia e rigenerata|Ha risolto la ruvidità sui gomiti e sulle ginocchia in pochissimi giorni. Formula davvero efficace e piacevole.|Giorgia N.|Verona
-~~~5|25 Agosto 2026|Consigliatissima per tutta la famiglia|Adatta a pelli secche ed esigenti. Si stende con facilità e lascia una sensazione di benessere prolungato.|Claudia B.|Brescia
-                    {%- endcapture -%}
-                {%- when 'hair' -%}
-                    {%- capture raw_reviews -%}
-5|16 Ottobre 2026|Cute fresca e pulita per giorni|Lavo i capelli due volte a settimana e la radice resta leggera e voluminosa senza appesantirsi né sporcarsi. Davvero eccellente.|Elena R.|Verona
-~~~5|12 Ottobre 2026|Volume e brillantezza senza appesantire|Ho i capelli molto fini che si appiattiscono con qualsiasi balsamo. Con {{ clean_prod_name }} ho trovato volume naturale e riflessi lucidi.|Chiara B.|Milano
-~~~5|8 Ottobre 2026|Punte nutrite ed elastiche|Basta pochissimo prodotto per eliminare l'effetto crespo e districare le lunghezze. Le punte appaiono sigillate e piene di vita.|Silvia T.|Brescia
-~~~4|4 Ottobre 2026|Schiuma delicata e naturale, ne serve poca|Non fa una schiuma esagerata perché privo di solfati aggressivi, ma pulisce benissimo. Bisogna solo massaggiare bene la cute con i polpastrelli.|Marta L.|Vicenza
-~~~5|30 Settembre 2026|Addio prurito e tensione al cuoio capelluto|Soffrivo spesso di prurito e cute reattiva con i prodotti del supermercato. Questo trattamento ha riequilibrato il cuoio capelluto già al primo lavaggio.|Laura F.|Padova
-~~~5|26 Settembre 2026|Profumo botanico fresco di erbe alpine|Lascia sui capelli una scia pulita, balsamica e rilassante che dura tutto il giorno. Molto gradevole e naturale.|Giulia M.|Trento
-~~~5|21 Settembre 2026|Chioma morbida e facile da pettinare|I capelli al tatto sono soffici e setosi. Il pettine scorre via senza strappare i nodi. Ottima formula biologica.|Francesca P.|Bologna
-~~~5|17 Settembre 2026|Brillantezza visibile sotto la luce naturale|Luminosità evidente anche asciugando i capelli all'aria senza phon caldissimo. La fibra capillare sembra rinforzata.|Valentina S.|Mantova
-~~~4|13 Settembre 2026|Molto concentrato, ottima durata|Il flacone dura parecchio perché ne basta una modesta quantità diluita con acqua tiepida. Molto soddisfatta.|Paola B.|Milano
-~~~5|9 Settembre 2026|Perfetto per lavaggi frequenti post-allenamento|Lo uso dopo la palestra 3 volte a settimana. Non irrita la cute sensibile e mantiene le lunghezze idratate e sane.|Alessandra G.|Verona
-~~~5|5 Settembre 2026|Capelli più forti e resistenti|Dopo un mese di utilizzo continuo noto molti meno capelli sul cuscino e nella spazzola. Formula botanica di altissimo profilo.|Federica M.|Treviso
-~~~5|1 Settembre 2026|Spedizione rapida e imballo ecologico|Arrivato a Bergamo in 24 ore con campioncini viso stupendi. Esperienza d'acquisto perfetta e prodotto fantastico.|Sara D.|Bergamo
-~~~5|28 Agosto 2026|Cute purificata e leggera|Rimuove ogni residuo di styling senza inaridire la radice. Sensazione di respiro e leggerezza impagabile.|Giorgia B.|Verona
-~~~5|24 Agosto 2026|Trattamento professionale a casa|I capelli hanno la stessa lucentezza e consistenza di quando esco dal salone. Complimenti per la formulazione sartoriale.|Monica T.|Padova
-                    {%- endcapture -%}
-                {%- else -%}
-                    {%- capture raw_reviews -%}
-5|18 Ottobre 2026|Qualità sartoriale che si percepisce al primo tocco|Dalla purezza degli ingredienti alla texture raffinata si capisce subito la cura artigianale tipica dei laboratori di Verona. Un cosmetico d'eccellenza.|Chiara V.|Verona
-~~~5|15 Ottobre 2026|Pienamente soddisfatta dei risultati|Uso {{ clean_prod_name }} quotidianamente e ho notato un miglioramento tangibile del comfort e della luminosità cutanea. Mai più senza.|Elena M.|Milano
-~~~5|11 Ottobre 2026|Formula concentrata ad altissima resa|I cosmetici concentrati sono i migliori: ne basta una quantità minima e il flacone dura mesi. Benefici costanti giorno dopo giorno.|Silvia B.|Brescia
-~~~4|7 Ottobre 2026|Ottimo trattamento, packaging di lusso in vetro|Il flacone pesante in vetro ambrato protegge la formula botanica ed è bellissimo sulla mensola del bagno. Serve solo costanza, ma i risultati arrivano.|Marta G.|Vicenza
-~~~5|3 Ottobre 2026|Una coccola quotidiana per la pelle|Si applica con immenso piacere e la cute ringrazia all'istante. Nessun residuo fastidioso, solo nutrimento profondo e benessere duraturo.|Laura T.|Padova
-~~~5|29 Settembre 2026|Tollerabilità perfetta per pelli esigenti|Non ho riscontrato il minimo rossore o pizzicore. Formula pulita, equilibrata e rispettosa anche delle barriere cutanee più reattive.|Francesca R.|Trento
-~~~5|25 Settembre 2026|Consigliatissimo per la stagione autunnale|Rapporto qualità-prezzo eccellente considerata la formulazione biologica pura e la resa elevata. Lo riacquisterò sicuramente.|Giulia C.|Bologna
-~~~5|21 Settembre 2026|Pelle distesa, elastica e luminosa|La sensazione di idratazione e protezione dura fino a sera. Uno dei cosmetici più efficaci inseriti nella mia routine quest'anno.|Valentina D.|Mantova
-~~~4|17 Settembre 2026|Molto efficace, profumo botanico discreto|Apprezzo molto l'assenza di fragranze sintetiche invasive. Texture setosa e pelle vellutata e distesa al risveglio.|Paola F.|Milano
-~~~5|13 Settembre 2026|Boutique e assistenza a Verona impeccabili|Ordinato online e ritirato in boutique a Verona. Confezione curatissima, personale squisito e campioncini omaggio calibrati alla perfezione.|Alessandra P.|Verona
-~~~5|9 Settembre 2026|Rinnovamento cutaneo evidente|La grana appare visibilmente più compatta e uniforme nel tono. Facilissimo da inserire nella routine quotidiana con soddisfazione piena.|Beatrice L.|Treviso
-~~~5|4 Settembre 2026|Autentico, puro e performante|Si percepisce chiaramente il divario rispetto alla cosmesi industriale. La pelle respira liberamente ed è molto più morbida ed elastica.|Sara B.|Bergamo
-~~~5|31 Agosto 2026|{{ clean_prod_name }} ha superato le aspettative|Ero curiosa di testarlo dopo aver letto le recensioni e devo confermare che la qualità è altissima. Risultati visibili e duraturi.|Claudia M.|Brescia
-~~~5|27 Agosto 2026|Esperienza dermocosmetica di alto livello|Packaging curato, texture preziosa e benessere cutaneo immediato. MileBioLab si conferma un'eccellenza assoluta.|Federica Z.|Verona
-                    {%- endcapture -%}
-            {%- endcase -%}
-            {%- assign reviews_items = raw_reviews | strip | split: '~~~' -%}
-            {%- assign pool_size = reviews_items.size -%}
-            {%- assign offset = product.id | modulo: pool_size -%}
-            {%- assign rotated_reviews = '' -%}
-            {%- for i in (0..pool_size) -%}
-              {%- if i < pool_size -%}
-                {%- assign actual_i = i | plus: offset | modulo: pool_size -%}
-                {%- assign item = reviews_items[actual_i] -%}
-                {%- if forloop.first -%}
-                  {%- assign rotated_reviews = item -%}
-                {%- else -%}
-                  {%- assign rotated_reviews = rotated_reviews | append: '~~~' | append: item -%}
-                {%- endif -%}
-              {%- endif -%}
-            {%- endfor -%}
-            {%- assign final_reviews = rotated_reviews | split: '~~~' -%}
         {%- endif -%}
 
         {%- comment -%} Real Mathematical Calculation of Review Statistics {%- endcomment -%}
@@ -435,29 +70,6 @@
                 {%- endif -%}
               {%- endif -%}
             {%- endfor -%}
-        {%- elsif use_global_blocks -%}
-            {%- for block in section.blocks -%}
-              {%- if block.settings.target_product == blank -%}
-                {%- assign r_val = block.settings.rating | plus: 0 -%}
-                {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
-                {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
-                {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
-                {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
-                {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
-                {%- endif -%}
-              {%- endif -%}
-            {%- endfor -%}
-        {%- elsif use_category_fallback -%}
-            {%- for item in final_reviews -%}
-              {%- assign parts = item | split: '|' -%}
-              {%- assign r_val = parts[0] | strip | plus: 0 -%}
-              {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
-              {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
-              {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
-              {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
-              {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
-              {%- endif -%}
-            {%- endfor -%}
         {%- endif -%}
 
         {%- assign real_total = c_5 | plus: c_4 | plus: c_3 | plus: c_2 | plus: c_1 -%}
@@ -489,7 +101,7 @@
             {%- assign repurchase_badge_val = repurchase_rate | append: '% delle clienti consiglia o riacquista questo rituale' -%}
             {%- assign total_reviews_val = real_total -%}
         {%- else -%}
-            {%- assign overall_score_val = "5.0" -%}
+            {%- assign overall_score_val = "0.0" -%}
             {%- assign total_reviews_val = 0 -%}
             {%- assign repurchase_badge_val = "" -%}
             {%- assign pct_5_val = 0 -%}
@@ -504,21 +116,27 @@
             
             <div class="lg:col-span-4 text-center lg:text-left lg:border-r border-borderLinen lg:pr-12">
                 <span class="text-xs uppercase tracking-[0.25em] text-amber font-semibold block mb-2">{{ section.settings.eyebrow | default: "OPINIONI VERIFICATE • CLUB MILE" }}</span>
-                <div id="reviews-overall-score-display" data-base-score="{{ overall_score_val }}" class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ overall_score_val }}</div>
-                <div class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
-                <p id="reviews-total-count-display" data-base-count="{{ real_total }}" class="text-xs text-ash">
-                  {%- if real_total == 0 -%}
-                    Nessuna recensione ancora presente
-                  {%- elsif real_total == 1 -%}
-                    Basato su 1 recensione certificata da acquirente reale
-                  {%- else -%}
-                    Basato su {{ real_total }} recensioni certificate da acquirenti reali
+                {%- if real_total > 0 -%}
+                  <div id="reviews-overall-score-display" data-base-score="{{ overall_score_val }}" class="font-serif text-6xl text-ink font-normal leading-none mb-3">{{ overall_score_val }}</div>
+                  <div id="reviews-stars-display" class="text-amber text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
+                  <p id="reviews-total-count-display" data-base-count="{{ real_total }}" class="text-xs text-ash">
+                    {%- if real_total == 1 -%}
+                      Basato su 1 recensione certificata da acquirente reale
+                    {%- else -%}
+                      Basato su {{ real_total }} recensioni certificate da acquirenti reali
+                    {%- endif -%}
+                  </p>
+                  {%- if repurchase_badge_val != blank -%}
+                  <div class="mt-4 inline-block bg-linen px-3 py-1.5 text-xs text-sage font-medium border border-borderLinen">
+                      {{ repurchase_badge_val }}
+                  </div>
                   {%- endif -%}
-                </p>
-                {%- if repurchase_badge_val != blank -%}
-                <div class="mt-4 inline-block bg-linen px-3 py-1.5 text-xs text-sage font-medium border border-borderLinen">
-                    {{ repurchase_badge_val }}
-                </div>
+                {%- else -%}
+                  <div id="reviews-overall-score-display" data-base-score="0" class="font-serif text-2xl sm:text-3xl text-ink font-normal leading-tight mb-3">Nessuna recensione ancora presente</div>
+                  <div id="reviews-stars-display" class="text-ash/30 text-lg tracking-wider mb-2">&starf;&starf;&starf;&starf;&starf;</div>
+                  <p id="reviews-total-count-display" data-base-count="0" class="text-xs text-ash">
+                    Nessuna recensione ancora presente
+                  </p>
                 {%- endif -%}
             </div>
 
@@ -528,7 +146,7 @@
                 <div class="flex items-center gap-4">
                     <span class="w-16 text-ash">5 Stelle</span>
                     <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink h-full rounded-full" style="width: {{ pct_5_val }}%;"></div>
+                        <div class="bg-ink h-full rounded-full transition-all duration-500" style="width: {{ pct_5_val }}%;"></div>
                     </div>
                     <span class="w-12 text-right font-medium text-ink">{{ pct_5_val }}%</span>
                 </div>
@@ -536,7 +154,7 @@
                 <div class="flex items-center gap-4">
                     <span class="w-16 text-ash">4 Stelle</span>
                     <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/60 h-full rounded-full" style="width: {{ pct_4_val }}%;"></div>
+                        <div class="bg-ink/60 h-full rounded-full transition-all duration-500" style="width: {{ pct_4_val }}%;"></div>
                     </div>
                     <span class="w-12 text-right font-medium text-ink">{{ pct_4_val }}%</span>
                 </div>
@@ -544,7 +162,7 @@
                 <div class="flex items-center gap-4">
                     <span class="w-16 text-ash">3 Stelle</span>
                     <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/40 h-full rounded-full" style="width: {{ pct_3_val }}%;"></div>
+                        <div class="bg-ink/40 h-full rounded-full transition-all duration-500" style="width: {{ pct_3_val }}%;"></div>
                     </div>
                     <span class="w-12 text-right font-medium text-ink">{{ pct_3_val }}%</span>
                 </div>
@@ -552,7 +170,7 @@
                 <div class="flex items-center gap-4">
                     <span class="w-16 text-ash">2 Stelle</span>
                     <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/20 h-full rounded-full" style="width: {{ pct_2_val }}%;"></div>
+                        <div class="bg-ink/20 h-full rounded-full transition-all duration-500" style="width: {{ pct_2_val }}%;"></div>
                     </div>
                     <span class="w-12 text-right font-medium text-ink">{{ pct_2_val }}%</span>
                 </div>
@@ -560,7 +178,7 @@
                 <div class="flex items-center gap-4">
                     <span class="w-16 text-ash">1 Stella</span>
                     <div class="flex-1 h-2.5 bg-linen rounded-full overflow-hidden">
-                        <div class="bg-ink/20 h-full rounded-full" style="width: {{ pct_1_val }}%;"></div>
+                        <div class="bg-ink/20 h-full rounded-full transition-all duration-500" style="width: {{ pct_1_val }}%;"></div>
                     </div>
                     <span class="w-12 text-right font-medium text-ink">{{ pct_1_val }}%</span>
                 </div>
@@ -596,7 +214,7 @@
                         </div>
                         <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
                             {%- assign raw_b_author = block.settings.author | default: 'Cliente M. • Verona' -%}
-                            {%- assign clean_b_author = raw_b_author | replace: '�', ' • ' | replace: '&bull;', ' • ' | replace: '  ', ' ' | strip -%}
+                            {%- assign clean_b_author = raw_b_author | replace: '&bull;', ' • ' | replace: '  ', ' ' | strip -%}
                             {%- if clean_b_author contains '•' -%}
                               {%- assign b_parts = clean_b_author | split: '•' -%}
                               {%- assign b_name = b_parts[0] | strip -%}
@@ -666,112 +284,20 @@
                         </div>
                     {%- endif -%}
                 {%- endfor -%}
-            {%- elsif use_global_blocks -%}
-                {%- for block in section.blocks -%}
-                  {%- if block.settings.target_product == blank -%}
-                    {%- assign rendered_count = rendered_count | plus: 1 -%}
-                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <div class="text-amber text-xs tracking-wider">
-                                    {%- for i in (1..block.settings.rating) -%}&starf;{%- endfor -%}
-                                    {%- if block.settings.rating < 5 -%}
-                                        {%- assign empty_stars = 5 | minus: block.settings.rating -%}
-                                        {%- for i in (1..empty_stars) -%}<span class="text-ash/40">&starf;</span>{%- endfor -%}
-                                    {%- endif -%}
-                                </div>
-                                <span class="text-[10px] text-ash">{{ block.settings.date }}</span>
-                            </div>
-                            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ block.settings.title }}</h4>
-                            <p class="text-xs text-ash leading-relaxed font-light">
-                                &ldquo;{{ block.settings.text }}&rdquo;
-                            </p>
-                        </div>
-                        <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-                            {%- assign raw_b_author = block.settings.author | default: 'Cliente M. • Verona' -%}
-                            {%- assign clean_b_author = raw_b_author | replace: '�', ' • ' | replace: '&bull;', ' • ' | replace: '  ', ' ' | strip -%}
-                            {%- if clean_b_author contains '•' -%}
-                              {%- assign b_parts = clean_b_author | split: '•' -%}
-                              {%- assign b_name = b_parts[0] | strip -%}
-                              {%- assign b_city = b_parts[1] | strip | default: 'Verona' -%}
-                            {%- elsif clean_b_author contains ' Verona' -%}
-                              {%- assign b_name = clean_b_author | remove: ' Verona' | strip -%}
-                              {%- assign b_city = 'Verona' -%}
-                            {%- else -%}
-                              {%- assign b_name = clean_b_author | strip -%}
-                              {%- assign b_city = 'Verona' -%}
-                            {%- endif -%}
-                            {%- assign last_char = b_name | slice: -1, 1 -%}
-                            {%- if last_char != '.' and last_char != ' ' -%}
-                              {%- assign name_words = b_name | split: ' ' -%}
-                              {%- assign last_word = name_words | last -%}
-                              {%- if last_word.size == 1 -%}
-                                {%- assign b_name = b_name | append: '.' -%}
-                              {%- elsif name_words.size > 1 -%}
-                                {%- assign first_toks = '' -%}
-                                {%- for w in name_words -%}
-                                  {%- unless forloop.last -%}
-                                    {%- assign first_toks = first_toks | append: w | append: ' ' -%}
-                                  {%- endunless -%}
-                                {%- endfor -%}
-                                {%- assign initial_char = last_word | slice: 0, 1 -%}
-                                {%- assign b_name = first_toks | append: initial_char | append: '.' -%}
-                              {%- endif -%}
-                            {%- endif -%}
-                            <span class="font-medium text-ink">{{ b_name }} &bull; {{ b_city }}</span>
-                            <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
-                        </div>
-                    </div>
-                  {%- endif -%}
-                {%- endfor -%}
-            {%- elsif use_category_fallback -%}
-                {%- for item in final_reviews -%}
-                    {%- assign parts = item | split: '|' -%}
-                    {%- assign r_rating = parts[0] | strip | plus: 0 -%}
-                    {%- assign r_date = parts[1] | strip -%}
-                    {%- assign r_title = parts[2] | strip -%}
-                    {%- assign r_text = parts[3] | strip -%}
-                    {%- assign r_author = parts[4] | strip -%}
-                    {%- assign r_city = parts[5] | strip -%}
-                    {%- assign rendered_count = rendered_count | plus: 1 -%}
-                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <div class="text-amber text-xs tracking-wider">
-                                    {%- for i in (1..r_rating) -%}&starf;{%- endfor -%}
-                                    {%- if r_rating < 5 -%}
-                                        {%- assign empty_stars = 5 | minus: r_rating -%}
-                                        {%- for i in (1..empty_stars) -%}<span class="text-ash/40">&starf;</span>{%- endfor -%}
-                                    {%- endif -%}
-                                </div>
-                                <span class="text-[10px] text-ash">{{ r_date }}</span>
-                            </div>
-                            <h4 class="font-serif text-base font-semibold text-ink mb-2">{{ r_title }}</h4>
-                            <p class="text-xs text-ash leading-relaxed font-light">
-                                &ldquo;{{ r_text }}&rdquo;
-                            </p>
-                        </div>
-                        <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-                            <span class="font-medium text-ink">{{ r_author }}{% if r_city != blank %} &bull; {{ r_city }}{% endif %}</span>
-                            <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
-                        </div>
-                    </div>
-                {%- endfor -%}
             {%- endif -%}
         </div>
 
-        {%- if rendered_count == 0 -%}
-            <div class="text-center py-12 px-6 bg-[#FAF8F5] border border-borderLinen my-4">
-                <div class="text-[#C8A878] text-sm mb-3">★★★★★</div>
-                <h3 class="font-serif text-lg text-ink font-medium mb-2">Nessuna recensione ancora presente</h3>
-                <p class="text-xs text-ash max-w-md mx-auto mb-6 font-light leading-relaxed">
-                    Hai provato questo rituale fitoterapico? Condividi la tua esperienza e aiuta altre clienti a scoprire la sua efficacia.
-                </p>
-                <a href="#ProductReviewForm" onclick="var f=document.getElementById('ProductReviewForm'); if(f){f.scrollIntoView({behavior:'smooth'});}" class="inline-flex items-center justify-center px-6 py-2.5 border border-ink text-ink text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-ink hover:text-white transition-all duration-300">
-                    Scrivi la prima recensione
-                </a>
-            </div>
-        {%- endif -%}
+        <!-- Empty State Container -->
+        <div id="reviews-empty-state" class="{% if rendered_count > 0 %}hidden{% endif %} text-center py-12 px-6 bg-[#FAF8F5] border border-borderLinen my-4">
+            <div class="text-[#C8A878] text-sm mb-3">★★★★★</div>
+            <h3 class="font-serif text-lg text-ink font-medium mb-2">Nessuna recensione ancora presente</h3>
+            <p class="text-xs text-ash max-w-md mx-auto mb-6 font-light leading-relaxed">
+                Nessuna recensione ancora presente. Hai provato questo rituale/prodotto? Condividi la tua esperienza e aiuta altre clienti a scoprire la sua efficacia.
+            </p>
+            <a href="#ProductReviewForm" onclick="var f=document.getElementById('ProductReviewForm'); if(f){f.scrollIntoView({behavior:'smooth'});}" class="inline-flex items-center justify-center px-6 py-2.5 border border-ink text-ink text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-ink hover:text-white transition-all duration-300">
+                Scrivi la prima recensione
+            </a>
+        </div>
 
         {%- if rendered_count > 6 -%}
             <div class="mt-12 text-center" id="show-more-reviews-wrap">
@@ -1033,66 +559,80 @@
     var oldCards = container.querySelectorAll('.user-local-review-card');
     oldCards.forEach(function(c) { c.remove(); });
 
-    if (!userReviews || userReviews.length === 0) return;
-
-    // Insert cards in reverse chronological order (newest first)
-    userReviews.slice().reverse().forEach(function(rev) {
-      var card = document.createElement('div');
-      card.className = 'user-local-review-card bg-[#FAF8F5] p-6 border border-[#5C6B56]/50 flex flex-col justify-between transition-all duration-500 shadow-xs mb-4';
-
-      var ratingNum = parseInt(rev.rating, 10) || 5;
-      var starsHtml = '';
-      for (var i = 1; i <= ratingNum; i++) starsHtml += '&starf;';
-      for (var j = ratingNum + 1; j <= 5; j++) starsHtml += '<span class="text-[#7A7265]/40">&starf;</span>';
-
-      function escapeHtml(str) {
-        if (!str) return '';
-        return String(str).replace(/[&<>"']/g, function(m) {
-          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
-        });
-      }
-
-      var authorDisplay = escapeHtml(window.formatReviewAuthor(rev.author));
-
-      card.innerHTML = `
-        <div>
-          <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
-            <div class="text-[#C8A878] text-xs tracking-wider">${starsHtml}</div>
-            <div class="flex items-center gap-2">
-              <span class="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold text-white bg-[#5C6B56] px-2 py-0.5 rounded-xs">
-                &bull; La tua recensione &bull; In approvazione
-              </span>
-              <span class="text-[10px] text-[#7A7265]">${escapeHtml(rev.date)}</span>
-            </div>
-          </div>
-          <h4 class="font-serif text-base font-semibold text-[#1A1A1A] mb-2">${escapeHtml(rev.title)}</h4>
-          <p class="text-xs text-[#7A7265] leading-relaxed font-light">
-            &ldquo;${escapeHtml(rev.body)}&rdquo;
-          </p>
-        </div>
-        <div class="pt-4 mt-6 border-t border-[#E5E0D8] flex items-center justify-between text-xs">
-          <span class="font-medium text-[#1A1A1A]">${authorDisplay}</span>
-          <span class="text-[#5C6B56] text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
-        </div>
-      `;
-
-      container.insertBefore(card, container.firstChild);
-    });
-
-    // Recalculate totals and average score
-    var totalCountEl = document.getElementById('reviews-total-count-display');
     var baseCount = {{ real_total }};
+    var totalCountEl = document.getElementById('reviews-total-count-display');
     if (totalCountEl) {
       var rawBase = totalCountEl.getAttribute('data-base-count');
       if (rawBase !== null && rawBase !== '') {
         baseCount = parseInt(rawBase, 10) || 0;
       }
-      var finalTotal = baseCount + userReviews.length;
+    }
+    var finalTotal = baseCount + (userReviews ? userReviews.length : 0);
+
+    // Toggle empty state visibility
+    var emptyState = document.getElementById('reviews-empty-state');
+    if (emptyState) {
+      if (finalTotal > 0) {
+        emptyState.classList.add('hidden');
+      } else {
+        emptyState.classList.remove('hidden');
+      }
+    }
+
+    if (userReviews && userReviews.length > 0) {
+      // Insert cards in reverse chronological order (newest first)
+      userReviews.slice().reverse().forEach(function(rev) {
+        var card = document.createElement('div');
+        card.className = 'user-local-review-card bg-[#FAF8F5] p-6 border border-[#5C6B56]/50 flex flex-col justify-between transition-all duration-500 shadow-xs mb-4';
+
+        var ratingNum = parseInt(rev.rating, 10) || 5;
+        var starsHtml = '';
+        for (var i = 1; i <= ratingNum; i++) starsHtml += '&starf;';
+        for (var j = ratingNum + 1; j <= 5; j++) starsHtml += '<span class="text-[#7A7265]/40">&starf;</span>';
+
+        function escapeHtml(str) {
+          if (!str) return '';
+          return String(str).replace(/[&<>"']/g, function(m) {
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+          });
+        }
+
+        var authorDisplay = escapeHtml(window.formatReviewAuthor(rev.author));
+
+        card.innerHTML = `
+          <div>
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+              <div class="text-[#C8A878] text-xs tracking-wider">${starsHtml}</div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold text-white bg-[#5C6B56] px-2 py-0.5 rounded-xs">
+                  &bull; La tua recensione &bull; In approvazione
+                </span>
+                <span class="text-[10px] text-[#7A7265]">${escapeHtml(rev.date)}</span>
+              </div>
+            </div>
+            <h4 class="font-serif text-base font-semibold text-[#1A1A1A] mb-2">${escapeHtml(rev.title)}</h4>
+            <p class="text-xs text-[#7A7265] leading-relaxed font-light">
+              &ldquo;${escapeHtml(rev.body)}&rdquo;
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-[#E5E0D8] flex items-center justify-between text-xs">
+            <span class="font-medium text-[#1A1A1A]">${authorDisplay}</span>
+            <span class="text-[#5C6B56] text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
+          </div>
+        `;
+
+        container.insertBefore(card, container.firstChild);
+      });
+    }
+
+    // Recalculate totals and average score
+    if (totalCountEl) {
       totalCountEl.textContent = finalTotal === 0 ? 'Nessuna recensione ancora presente' : (finalTotal === 1 ? 'Basato su 1 recensione certificata da acquirente reale' : 'Basato su ' + finalTotal + ' recensioni certificate da acquirenti reali');
     }
 
     var scoreDisplayEl = document.getElementById('reviews-overall-score-display');
-    var baseScore = parseFloat("{{ overall_score_val }}") || 5.0;
+    var starsDisplayEl = document.getElementById('reviews-stars-display');
+    var baseScore = parseFloat("{{ overall_score_val }}") || 0.0;
     if (scoreDisplayEl) {
       var rawBaseScore = scoreDisplayEl.getAttribute('data-base-score');
       if (rawBaseScore !== null && rawBaseScore !== '') {
@@ -1100,20 +640,40 @@
       }
     }
 
-    var finalCount = baseCount + userReviews.length;
-    var sumUserRatings = userReviews.reduce(function(acc, r) {
+    var sumUserRatings = userReviews ? userReviews.reduce(function(acc, r) {
       return acc + (parseFloat(r.rating) || 5);
-    }, 0);
-    var newAvgScore = finalCount > 0 ? ((baseScore * baseCount + sumUserRatings) / finalCount).toFixed(1) : baseScore.toFixed(1);
+    }, 0) : 0;
 
-    if (scoreDisplayEl) {
-      scoreDisplayEl.textContent = newAvgScore;
+    if (finalTotal > 0) {
+      var newAvgScore = baseCount > 0 
+        ? ((baseScore * baseCount + sumUserRatings) / finalTotal).toFixed(1)
+        : (sumUserRatings / userReviews.length).toFixed(1);
+
+      if (scoreDisplayEl) {
+        scoreDisplayEl.className = 'font-serif text-6xl text-ink font-normal leading-none mb-3';
+        scoreDisplayEl.textContent = newAvgScore;
+      }
+      if (starsDisplayEl) {
+        starsDisplayEl.className = 'text-amber text-lg tracking-wider mb-2';
+      }
+    } else {
+      if (scoreDisplayEl) {
+        scoreDisplayEl.className = 'font-serif text-2xl sm:text-3xl text-ink font-normal leading-tight mb-3';
+        scoreDisplayEl.textContent = 'Nessuna recensione ancora presente';
+      }
+      if (starsDisplayEl) {
+        starsDisplayEl.className = 'text-ash/30 text-lg tracking-wider mb-2';
+      }
     }
 
     var topReviewsText = document.getElementById('pdp-top-reviews-summary');
     if (topReviewsText) {
-      var countLabel = finalCount === 1 ? '1 recensione' : finalCount + ' recensioni';
-      if (finalCount > 0) { topReviewsText.innerHTML = newAvgScore + '/5 &middot; ' + countLabel; } else { topReviewsText.innerHTML = 'Nessuna recensione'; }
+      if (finalTotal > 0) {
+        var countLabel = finalTotal === 1 ? '1 recensione' : finalTotal + ' recensioni';
+        topReviewsText.innerHTML = newAvgScore + '/5 &middot; ' + countLabel;
+      } else {
+        topReviewsText.innerHTML = 'Nessuna recensione';
+      }
     }
   }
 
@@ -1384,7 +944,7 @@ function showMoreReviews(btn) {
           "type": "product",
           "id": "target_product",
           "label": "Mostra solo per questo Prodotto",
-          "info": "Seleziona il prodotto a cui assegnare la recensione. Se vuoto, compare su tutti i prodotti."
+          "info": "Seleziona il prodotto a cui assegnare la recensione. La recensione viene mostrata esclusivamente per questo prodotto."
         },
         {
           "type": "text",
