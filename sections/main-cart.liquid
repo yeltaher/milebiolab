@@ -217,6 +217,10 @@
               <span class="font-bold text-[#5C6B56] font-mono text-sm">{{ customer_points }} Beauty Punti (1€ = 1 Punto)</span>
             </div>
 
+            <p class="mt-2 text-xs text-[#1A1A1A] leading-relaxed">
+              ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+<span id="cart-page-customer-pts-val" class="cart-drawer-order-points cart-drawer-pts-val">{{ cart.total_price | divided_by: 100 }}</span> Beauty Punti (1€ = 1 Punto)</strong>.
+            </p>
+
             {% if customer_points >= 100 %}
               <div class="mt-3 pt-2.5 border-t border-[#E5E0D8]/60 space-y-2">
                 <p class="text-xs text-[#5C6B56] leading-relaxed">
@@ -244,7 +248,7 @@
           {% else %}
             <div class="text-xs text-[#1A1A1A] leading-relaxed">
               <p>
-                ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+{{ cart.total_price | divided_by: 100 }} Beauty Punti (1€ = 1 Punto)</strong>.
+                ✨ Con questo ordine accumulerai <span id="cart-page-earned-points" class="cart-drawer-order-points font-mono text-[#5C6B56] font-bold">+<span id="cart-page-pts-val" class="cart-drawer-pts-val">{{ cart.total_price | divided_by: 100 }}</span> Beauty Punti (1€ = 1 Punto)</span>.
               </p>
               <p class="mt-1 text-[#7A7265]">
                 <button type="button" onclick="if(window.openAccountDrawer) openAccountDrawer();" class="text-[#1A1A1A] underline font-semibold hover:text-[#C8A878] bg-transparent border-0 p-0 cursor-pointer">Accedi o Registrati</button> per ricevere <strong>20 punti di benvenuto subito</strong>!

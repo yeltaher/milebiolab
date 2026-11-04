@@ -105,6 +105,9 @@ const MilebiolabState = {
     }
   ]
 };
+if (typeof window !== 'undefined') {
+  window.MilebiolabState = MilebiolabState;
+}
 
 /* ==========================================================================
    1. ANNOUNCEMENT BAR ROTATING CAROUSEL
@@ -567,6 +570,65 @@ function renderCartDrawer() {
       pageCheckoutBtn.setAttribute('href', '/checkout');
     }
   }
+
+  // Dynamic Beauty Club Mile loyalty points for current order (1€ = 1 Punto)
+  const orderEarnedPoints = Math.max(0, Math.floor(subtotal));
+
+  // 1. Update specific numeric elements (order earned points)
+  const numericPtsEls = document.querySelectorAll(
+    '#cart-drawer-pts-val, #cart-drawer-customer-pts-val, #cart-page-pts-val, #cart-page-customer-pts-val, .cart-drawer-pts-val'
+  );
+  numericPtsEls.forEach(el => {
+    el.textContent = orderEarnedPoints;
+  });
+
+  // 2. Update earned points container phrase if present
+  const earnedPointsContainer = document.getElementById('cart-drawer-earned-points');
+  if (earnedPointsContainer) {
+    const innerVal = earnedPointsContainer.querySelector('#cart-drawer-pts-val, .cart-drawer-pts-val');
+    if (innerVal) {
+      innerVal.textContent = orderEarnedPoints;
+    } else {
+      earnedPointsContainer.innerHTML = `+<span id="cart-drawer-pts-val" class="cart-drawer-pts-val">${orderEarnedPoints}</span> Beauty Punti (1€ = 1 Punto)`;
+    }
+  }
+
+  // 3. Update all points elements matching selector list (#cart-drawer-pts-val, #cart-drawer-earned-points, .cart-drawer-order-points)
+  const allOrderPointsEls = document.querySelectorAll(
+    '#cart-drawer-pts-val, #cart-drawer-earned-points, .cart-drawer-order-points'
+  );
+  allOrderPointsEls.forEach(el => {
+    if (el.id === 'cart-drawer-pts-val' || el.id === 'cart-drawer-customer-pts-val' || el.classList.contains('cart-drawer-pts-val')) {
+      el.textContent = orderEarnedPoints;
+    } else if (el.querySelector('#cart-drawer-pts-val, #cart-drawer-customer-pts-val, .cart-drawer-pts-val')) {
+      // Child element was already updated above
+      return;
+    } else if (el.id === 'cart-drawer-earned-points' || (el.id && el.id.includes('earned-points')) || el.textContent.includes('Beauty Punti')) {
+      el.textContent = `+${orderEarnedPoints} Beauty Punti (1€ = 1 Punto)`;
+    } else {
+      el.textContent = orderEarnedPoints;
+    }
+  });
+
+  // 4. Manage visibility of loyalty widget, checkout buttons, and footer when cart is empty vs populated
+  const loyaltyWidgets = document.querySelectorAll('.cart-drawer .loyalty-cart-widget, .loyalty-cart-widget');
+  const viewCartBtn = document.getElementById('cart-drawer-view-cart-btn');
+  const subtotalRow = document.querySelector('.cart-drawer .cart-subtotal-row');
+  const drawerFooter = document.querySelector('.cart-drawer-footer');
+
+  if (totalQty === 0) {
+    loyaltyWidgets.forEach(w => { w.style.display = 'none'; });
+    if (checkoutBtn) checkoutBtn.style.display = 'none';
+    if (viewCartBtn) viewCartBtn.style.display = 'none';
+    if (subtotalRow) subtotalRow.style.display = 'none';
+    if (drawerFooter) drawerFooter.style.display = 'none';
+  } else {
+    loyaltyWidgets.forEach(w => { w.style.display = ''; });
+    if (checkoutBtn) checkoutBtn.style.display = '';
+    if (viewCartBtn) viewCartBtn.style.display = '';
+    if (subtotalRow) subtotalRow.style.display = '';
+    if (drawerFooter) drawerFooter.style.display = '';
+  }
 }
 
 function openCartDrawer() {
@@ -743,6 +805,13 @@ function removeCartItem(id) {
     } catch (e) {}
     renderCartDrawer();
   }
+}
+if (typeof window !== 'undefined') {
+  window.updateCartItemQty = updateCartItemQty;
+  window.removeCartItem = removeCartItem;
+  window.renderCartDrawer = renderCartDrawer;
+  window.openCartDrawer = openCartDrawer;
+  window.closeCartDrawer = closeCartDrawer;
 }
 
 function setDeliveryChoice(choice) {

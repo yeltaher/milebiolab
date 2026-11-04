@@ -59,6 +59,10 @@
           <span class="font-bold text-[#5C6B56] font-mono">{{ customer_points }} Beauty Punti (1€ = 1 Punto)</span>
         </div>
 
+        <p class="mt-1.5 text-[11px] text-[#1A1A1A] leading-tight">
+          ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+<span id="cart-drawer-customer-pts-val" class="cart-drawer-order-points cart-drawer-pts-val">{{ cart.total_price | divided_by: 100 }}</span> Beauty Punti (1€ = 1 Punto)</strong>.
+        </p>
+
         {% if customer_points >= 100 %}
           <div class="mt-2 pt-2 border-t border-[#E5E0D8]/60 space-y-1.5">
             <p class="text-[11px] text-[#5C6B56] leading-tight">
@@ -86,7 +90,7 @@
       {% else %}
         <div class="text-[11px] text-[#1A1A1A] leading-relaxed">
           <p>
-            ✨ Con questo ordine accumulerai <strong class="text-[#5C6B56] font-mono">+{{ cart.total_price | divided_by: 100 }} Beauty Punti (1€ = 1 Punto)</strong>.
+            ✨ Con questo ordine accumulerai <span id="cart-drawer-earned-points" class="cart-drawer-order-points font-mono text-[#5C6B56] font-bold">+<span id="cart-drawer-pts-val" class="cart-drawer-pts-val">{{ cart.total_price | divided_by: 100 }}</span> Beauty Punti (1€ = 1 Punto)</span>.
           </p>
           <p class="mt-1 text-[#7A7265]">
             <button type="button" onclick="closeCartDrawer(); if(window.openAccountDrawer) openAccountDrawer();" class="text-[#1A1A1A] underline font-semibold hover:text-[#C8A878] bg-transparent border-0 p-0 cursor-pointer">Accedi o Registrati</button> per ricevere <strong>20 punti di benvenuto subito</strong>!
@@ -96,7 +100,7 @@
     </div>
     <div class="cart-subtotal-row">
       <span>Subtotale</span>
-      <span class="subtotal-val" id="cart-subtotal-val">€ 170,00</span>
+      <span class="subtotal-val" id="cart-subtotal-val">{{ cart.total_price | money }}</span>
     </div>
     <p style="font-size: 0.74rem; color: var(--color-text-secondary); margin-bottom: 0.85rem;">
       IVA inclusa. Spedizione sicura e tracciata in tutta Italia.
@@ -105,7 +109,7 @@
     <a href="{{ routes.cart_url }}/checkout" id="cart-drawer-checkout-btn" onclick="window.location.href=this.getAttribute('href') || '/checkout';" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.84rem; padding: 1rem; cursor: pointer; position: relative; z-index: 10;">
       <span>Procedi al Checkout Sicuro</span>
       <span>&bull;</span>
-      <span id="cart-checkout-price">€ 110,00</span>
+      <span id="cart-checkout-price">{{ cart.total_price | money }}</span>
     </a>
 
     <a href="{{ routes.cart_url }}" id="cart-drawer-view-cart-btn" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.85rem; margin-top: 0.65rem; cursor: pointer; text-decoration: none; position: relative; z-index: 10;">
