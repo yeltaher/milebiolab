@@ -1,16 +1,6 @@
 <section id="reviews" class="py-20 bg-white border-y border-borderLinen">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         
-        {%- comment -%} Official Judge.me Review Widget with 1-click email approval {%- endcomment -%}
-        <div class="judgeme-review-widget-wrapper mb-12">
-            {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
-        </div>
-
-        {%- comment -%}
-          Curated Botanical Reviews Fallback
-          Displayed when Judge.me does not have reviews saved for this product yet.
-        {%- endcomment -%}
-        {%- if product.metafields.judgeme.badge == blank -%}
         <div id="botanical-fallback-reviews">
         
         {%- assign prod_title_lower = product.title | downcase -%}
@@ -109,7 +99,7 @@
         {%- assign targeted_blocks_count = 0 -%}
         {%- assign global_blocks_count = 0 -%}
         {%- for block in section.blocks -%}
-          {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+          {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
             {%- assign targeted_blocks_count = targeted_blocks_count | plus: 1 -%}
           {%- elsif block.settings.target_product == blank -%}
             {%- assign global_blocks_count = global_blocks_count | plus: 1 -%}
@@ -137,8 +127,6 @@
           {%- assign use_metafield_reviews = true -%}
         {%- elsif global_blocks_count > 0 -%}
           {%- assign use_global_blocks = true -%}
-        {%- else -%}
-          {%- assign use_category_fallback = true -%}
         {%- endif -%}
 
         {%- comment -%} Prepare Pool of Authentic Reviews if No Manual Blocks {%- endcomment -%}
@@ -424,7 +412,7 @@
 
         {%- if use_targeted_blocks -%}
             {%- for block in section.blocks -%}
-              {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+              {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
                 {%- assign r_val = block.settings.rating | plus: 0 -%}
                 {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
                 {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
@@ -587,7 +575,7 @@
 
             {%- if use_targeted_blocks -%}
                 {%- for block in section.blocks -%}
-                  {%- if block.settings.target_product != blank and block.settings.target_product.id == product.id -%}
+                  {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
                     {%- assign rendered_count = rendered_count | plus: 1 -%}
                     <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
                         <div>
@@ -772,6 +760,19 @@
             {%- endif -%}
         </div>
 
+        {%- if rendered_count == 0 -%}
+            <div class="text-center py-12 px-6 bg-[#FAF8F5] border border-borderLinen my-4">
+                <div class="text-[#C8A878] text-sm mb-3">★★★★★</div>
+                <h3 class="font-serif text-lg text-ink font-medium mb-2">Nessuna recensione ancora presente</h3>
+                <p class="text-xs text-ash max-w-md mx-auto mb-6 font-light leading-relaxed">
+                    Hai provato questo rituale fitoterapico? Condividi la tua esperienza e aiuta altre clienti a scoprire la sua efficacia.
+                </p>
+                <a href="#ProductReviewForm" onclick="var f=document.getElementById('ProductReviewForm'); if(f){f.scrollIntoView({behavior:'smooth'});}" class="inline-flex items-center justify-center px-6 py-2.5 border border-ink text-ink text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-ink hover:text-white transition-all duration-300">
+                    Scrivi la prima recensione
+                </a>
+            </div>
+        {%- endif -%}
+
         {%- if rendered_count > 6 -%}
             <div class="mt-12 text-center" id="show-more-reviews-wrap">
                 <button type="button" onclick="showMoreReviews(this)" class="inline-flex items-center justify-center px-8 py-3.5 border border-ink text-ink text-xs uppercase tracking-[0.2em] font-medium bg-transparent hover:bg-ink hover:text-white transition-all duration-300 shadow-xs luxury-interactive cursor-pointer">
@@ -786,18 +787,19 @@
                 <span class="text-xs uppercase tracking-[0.25em] text-ink font-semibold block mb-4">Lascia una recensione</span>
                 
                 <div id="ReviewFormSuccessMessage" class="hidden bg-[#FAF8F5] text-[#5C6B56] border border-[#5C6B56]/30 p-4 text-xs text-center mb-6 shadow-xs rounded-xs font-medium">
-                    ✨ Grazie per la tua recensione! È stata registrata e inviata al nostro team per la convalida.
+                    ✨ Grazie per la tua recensione! È stata registrata e inviata a info@miledermocosmesi.it per la moderazione del nostro team. Verrà pubblicata a seguito della verifica.
                 </div>
                 
                 {% form 'contact', id: 'ProductReviewForm', class: 'space-y-4 text-left' %}
                     <input type="hidden" name="contact[type]" value="review">
                     <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
-                    <input type="hidden" name="contact[subject]" value="[Nuova Recensione Club Mile] {{ product.title | escape }}">
+                    <input type="hidden" name="contact[recipient]" value="info@miledermocosmesi.it">
+                    <input type="hidden" name="contact[subject]" value="[Nuova Recensione Club Mile - info@miledermocosmesi.it] {{ product.title | escape }}">
                     {{ form.errors | default_errors }}
                     
                     {% if form.posted_successfully? %}
                         <div class="bg-sage/10 text-sage p-4 text-xs text-center border border-sage/20 mb-4">
-                            Grazie per la tua recensione! È stata inviata al nostro team di Verona per la convalida ufficiale ed è ora visibile per il tuo profilo.
+                            Grazie per la tua recensione! È stata inviata al nostro team (info@miledermocosmesi.it) per la moderazione e verrà pubblicata a seguito della verifica.
                         </div>
                     {% endif %}
                     
@@ -863,42 +865,23 @@
                 {% endform %}
             </div>
         </div>
-
         </div>
-        {%- endif -%}
     </div>
 </section>
 
-{%- if product.metafields.judgeme.badge == blank -%}
 <script>
-// Judge.me dynamic observer: hide botanical fallback if Judge.me loads reviews via client-side API
-(function() {
-  function checkAndHideFallback() {
-    var jdgmWidget = document.getElementById('judgeme_product_reviews');
-    var fallback = document.getElementById('botanical-fallback-reviews');
-    if (jdgmWidget && fallback) {
-      var reviews = jdgmWidget.querySelectorAll('.jdgm-rev, .jdgm-rev-widg__reviews .jdgm-rev');
-      if (reviews && reviews.length > 0) {
-        fallback.style.display = 'none';
-      }
-    }
-  }
-  var jdgmWidget = document.getElementById('judgeme_product_reviews');
-  if (jdgmWidget) {
-    checkAndHideFallback();
-    var observer = new MutationObserver(checkAndHideFallback);
-    observer.observe(jdgmWidget, { childList: true, subtree: true });
-  }
-})();
-
 (function() {
   function syncTopReviews() {
     var topReviewsText = document.getElementById('pdp-top-reviews-summary');
     if (topReviewsText) {
       var count = {{ total_reviews_val }};
       var score = "{{ overall_score_val }}";
-      var countLabel = count === 1 ? '1 recensione' : count + ' recensioni';
-      topReviewsText.innerHTML = score + '/5 &middot; ' + countLabel;
+      if (count > 0) {
+        var countLabel = count === 1 ? '1 recensione' : count + ' recensioni';
+        topReviewsText.innerHTML = score + '/5 &middot; ' + countLabel;
+      } else {
+        topReviewsText.innerHTML = 'Nessuna recensione';
+      }
     }
   }
   syncTopReviews();
@@ -1105,9 +1088,7 @@
         baseCount = parseInt(rawBase, 10) || 0;
       }
       var finalTotal = baseCount + userReviews.length;
-      totalCountEl.textContent = finalTotal === 1
-        ? 'Basato su 1 recensione certificata da acquirente reale'
-        : 'Basato su ' + finalTotal + ' recensioni certificate da acquirenti reali';
+      totalCountEl.textContent = finalTotal === 0 ? 'Nessuna recensione ancora presente' : (finalTotal === 1 ? 'Basato su 1 recensione certificata da acquirente reale' : 'Basato su ' + finalTotal + ' recensioni certificate da acquirenti reali');
     }
 
     var scoreDisplayEl = document.getElementById('reviews-overall-score-display');
@@ -1132,7 +1113,7 @@
     var topReviewsText = document.getElementById('pdp-top-reviews-summary');
     if (topReviewsText) {
       var countLabel = finalCount === 1 ? '1 recensione' : finalCount + ' recensioni';
-      topReviewsText.innerHTML = newAvgScore + '/5 &middot; ' + countLabel;
+      if (finalCount > 0) { topReviewsText.innerHTML = newAvgScore + '/5 &middot; ' + countLabel; } else { topReviewsText.innerHTML = 'Nessuna recensione'; }
     }
   }
 
@@ -1311,7 +1292,6 @@ function showMoreReviews(btn) {
     }
 }
 </script>
-{%- endif -%}
 
 {% schema %}
 {
