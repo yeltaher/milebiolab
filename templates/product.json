@@ -1008,6 +1008,17 @@
             "text": "La cosa migliore di questo siero è la velocità con cui si assorbe nonostante l'idratazione profonda. La pelle risulta istantaneamente più compatta e vellutata. La fragranza ambra e patchouli ricorda i trattamenti dei centri benessere di lusso."
           }
         },
+        "review_jBQDKn": {
+          "type": "review",
+          "settings": {
+            "target_product": "silk-skin-body-serum-woody-amber-leather",
+            "author": "Martina C. • Verona",
+            "date": "13 Ottobre 2026",
+            "rating": 5,
+            "title": "Un vero concentrato di elasticità e sensualità",
+            "text": "Soffro di pelle disidratata sul corpo. Questo siero penetra in profondità, rimpolpa e dona un bell'effetto tensore naturale. La profumazione all'ambra è calda, sensuale e persistente. Ottima la scelta del formato grande."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3154,6 +3165,7 @@
         "review_GkjYht",
         "review_igYwtp",
         "review_WpaLFC",
+        "review_jBQDKn",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
