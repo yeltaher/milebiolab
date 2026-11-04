@@ -1162,6 +1162,17 @@
             "text": "Ogni inverno la pelle delle mie gambe si desquama dal freddo. Questa crema è stata una vera rivelazione: ricca, nutriente ma si assorbe in un attimo senza lasciare la scia bianca. La pelle rimane morbida fino alla doccia successiva."
           }
         },
+        "review_JKzkb8": {
+          "type": "review",
+          "settings": {
+            "target_product": "5-urea-2-panthenol-body-cream",
+            "author": "Chiara B. • Torino",
+            "date": "31 Ottobre 2026",
+            "rating": 5,
+            "title": "La crema perfetta dal profumo pazzesco",
+            "text": "La usiamo sia io che  mio marito sul corpo dopo la doccia. È delicatissima, toglie la secchezza in un attimo e quel sentore fresco di agrumi piace tantissimo."
+          }
+        },
         "review_GUXGGC": {
           "type": "review",
           "settings": {
@@ -1173,6 +1184,17 @@
             "text": "La crema fa esattamente quello che promette: la secchezza sparisce già dopo due applicazioni. È davvero molto nutriente, quindi la consiglio soprattutto per la sera o per le zone criticamente secche come gomiti e ginocchia."
           }
         },
+        "review_A6tMWH": {
+          "type": "review",
+          "settings": {
+            "target_product": "5-urea-2-panthenol-body-cream",
+            "author": "Alice V. • Verona",
+            "date": "28 Ottobre 2026",
+            "rating": 5,
+            "title": "Mai più senza nel mio borsone della piscina",
+            "text": "l cloro mi distruggeva la pelle, lasciandomi una sensazione di prurito costante. Da quando applico questa crema subito dopo la doccia in piscina, la mia pelle è rinata. In più, cancella l'odore di cloro lasciando un profumo fresco agrumato fantastico."
+          }
+        },
         "review_fLKrUM": {
           "type": "review",
           "settings": {
@@ -1182,17 +1204,6 @@
             "rating": 5,
             "title": "Addio pelle che tira sul corpo",
             "text": "La uso tutte le sere come coccola idratante. Ho la pelle molto secca e sensibile, e molte creme ricche mi risultano pesanti. Questa invece lenisce subito, idrata a fondo e lascia una scia agrumata deliziosa che sa di pulito."
-          }
-        },
-        "review_JKzkb8": {
-          "type": "review",
-          "settings": {
-            "target_product": "5-urea-2-panthenol-body-cream",
-            "author": "Chiara B. • Torino",
-            "date": "31 Ottobre 2026",
-            "rating": 5,
-            "title": "La crema perfetta dal profumo pazzesco",
-            "text": "La usiamo sia io che  mio marito sul corpo dopo la doccia. È delicatissima, toglie la secchezza in un attimo e quel sentore fresco di agrumi piace tantissimo."
           }
         },
         "review_w8kHRy": {
@@ -3047,9 +3058,10 @@
         "review_Re38Jn",
         "review_99ThiN",
         "review_Aw43zK",
-        "review_GUXGGC",
-        "review_fLKrUM",
         "review_JKzkb8",
+        "review_GUXGGC",
+        "review_A6tMWH",
+        "review_fLKrUM",
         "review_w8kHRy",
         "review_BwBkyK",
         "review_KbJxFd",
