@@ -14,8 +14,10 @@
 
         {%- assign targeted_blocks_count = 0 -%}
         {%- for block in section.blocks -%}
-          {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
-            {%- assign targeted_blocks_count = targeted_blocks_count | plus: 1 -%}
+          {%- if block.settings.target_product != blank -%}
+            {%- if block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle -%}
+              {%- assign targeted_blocks_count = targeted_blocks_count | plus: 1 -%}
+            {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
 
@@ -47,13 +49,15 @@
 
         {%- if use_targeted_blocks -%}
             {%- for block in section.blocks -%}
-              {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
-                {%- assign r_val = block.settings.rating | plus: 0 -%}
-                {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
-                {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
-                {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
-                {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
-                {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
+              {%- if block.settings.target_product != blank -%}
+                {%- if block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle -%}
+                  {%- assign r_val = block.settings.rating | plus: 0 -%}
+                  {%- if r_val >= 5 -%}{%- assign c_5 = c_5 | plus: 1 -%}
+                  {%- elsif r_val == 4 -%}{%- assign c_4 = c_4 | plus: 1 -%}
+                  {%- elsif r_val == 3 -%}{%- assign c_3 = c_3 | plus: 1 -%}
+                  {%- elsif r_val == 2 -%}{%- assign c_2 = c_2 | plus: 1 -%}
+                  {%- elsif r_val <= 1 -%}{%- assign c_1 = c_1 | plus: 1 -%}
+                  {%- endif -%}
                 {%- endif -%}
               {%- endif -%}
             {%- endfor -%}
@@ -193,9 +197,10 @@
 
             {%- if use_targeted_blocks -%}
                 {%- for block in section.blocks -%}
-                  {%- if block.settings.target_product != blank and (block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle) -%}
-                    {%- assign rendered_count = rendered_count | plus: 1 -%}
-                    <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.target_product != blank -%}
+                    {%- if block.settings.target_product == product.handle or block.settings.target_product.id == product.id or block.settings.target_product.handle == product.handle -%}
+                      {%- assign rendered_count = rendered_count | plus: 1 -%}
+                      <div class="bg-linen p-6 border border-borderLinen flex flex-col justify-between transition-all duration-500 {% if rendered_count > 6 %}review-card-hidden hidden opacity-0 translate-y-2{% else %}flex{% endif %}" {{ block.shopify_attributes }}>
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <div class="text-amber text-xs tracking-wider">
@@ -247,6 +252,7 @@
                             <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Acquisto Verificato</span>
                         </div>
                     </div>
+                    {%- endif -%}
                   {%- endif -%}
                 {%- endfor -%}
             {%- elsif use_metafield_reviews -%}
