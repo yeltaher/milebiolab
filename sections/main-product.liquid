@@ -155,13 +155,8 @@
                     {%- when 'title' -%}
                         <div class="pt-1" {{ block.shopify_attributes }}>
                             <div class="flex items-center justify-between mb-2">
-                                <a href="#reviews" class="flex items-center gap-2 group">
-                                    <div class="flex items-center text-[#706E6B] text-[13px] tracking-[-1px]">
-                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                                    </div>
-                                    <span id="pdp-top-reviews-summary" class="text-xs text-[#706E6B] font-sans font-normal tracking-tight group-hover:text-ink transition-colors">
-                                        {%- render 'product-review-summary', product: product, format: 'pdp' -%}
-                                    </span>
+                                <a href="#reviews" class="flex items-center gap-2 group transition-opacity hover:opacity-85" onclick="var el=document.getElementById('reviews'); if(el){ el.scrollIntoView({behavior:'smooth'}); }">
+                                    {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', concierge_install: false, product: product %}
                                 </a>
                                 <div class="border border-black px-3 py-0.5 text-[11px] uppercase tracking-wider font-medium text-black">
                                     NOVITÀ

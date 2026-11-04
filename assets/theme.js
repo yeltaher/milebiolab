@@ -985,7 +985,16 @@ function openQuickView(productId) {
   document.getElementById('qv-product-step').textContent = product.step + ' • ' + product.category.toUpperCase();
   document.getElementById('qv-product-actives').textContent = product.actives;
   document.getElementById('qv-product-price').textContent = `€ ${product.price.toFixed(2).replace('.', ',')}`;
-  document.getElementById('qv-product-rating').innerHTML = `★★★★★ <span>(${product.reviews} recensioni)</span>`;
+  const qvRatingEl = document.getElementById('qv-product-rating');
+  if (qvRatingEl) {
+    if (product.reviews && parseInt(product.reviews, 10) > 0) {
+      qvRatingEl.innerHTML = `★★★★★ <span>(${product.reviews} recensioni)</span>`;
+      qvRatingEl.style.display = 'block';
+    } else {
+      qvRatingEl.innerHTML = '';
+      qvRatingEl.style.display = 'none';
+    }
+  }
 
   // Render Volume buttons
   const volumes = [

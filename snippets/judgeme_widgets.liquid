@@ -1,0 +1,210 @@
+{%- comment -%}
+  -----------------------------------------------------------------------------
+  Judge.me Official Widgets Snippet
+  Customized for MileBioLab - Splendor & Dr Joseph Luxury Aesthetic
+  Supports:
+    - judgeme_review_widget: Full reviews widget with 1-click email approval
+    - judgeme_preview_badge: Rating stars & count badge for PDP and cards
+  -----------------------------------------------------------------------------
+{%- endcomment -%}
+
+{%- case widget_type -%}
+  {%- when 'judgeme_review_widget' -%}
+    <div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-id='{{ product.id }}'>
+      {{ product.metafields.judgeme.widget }}
+    </div>
+
+  {%- when 'judgeme_preview_badge' -%}
+    <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+      {{ product.metafields.judgeme.badge }}
+    </div>
+
+  {%- else -%}
+    <div class='jdgm-widget' data-id='{{ product.id }}'>
+      {{ product.metafields.judgeme.badge }}
+    </div>
+{%- endcase -%}
+
+{%- comment -%} Asynchronous Judge.me script loader {%- endcomment -%}
+<script defer src="https://cdn.judge.me/assets/installed.js"></script>
+
+{%- comment -%} Coordinated Luxury Styling for Judge.me (Splendor Aesthetic) {%- endcomment -%}
+<style>
+  /* Judge.me Stars - Golden Splendor Amber (#C8A878) */
+  .jdgm-star,
+  .jdgm-star.jdgm--on,
+  .jdgm-star.jdgm--half,
+  .jdgm-widget .jdgm-star,
+  .jdgm-preview-badge .jdgm-star {
+    color: #C8A878 !important;
+  }
+  .jdgm-star.jdgm--off {
+    color: #E5E0D8 !important;
+  }
+
+  /* Judge.me Buttons - Haute Couture Minimal (#1A1A1A -> #5C6B56) */
+  .jdgm-write-rev-link,
+  .jdgm-submit-rev,
+  .jdgm-form-submit,
+  .jdgm-btn,
+  .jdgm-btn--primary,
+  .jdgm-paginate__load-more {
+    background-color: #1A1A1A !important;
+    color: #FFFFFF !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    border-radius: 0 !important;
+    border: 1px solid #1A1A1A !important;
+    padding: 12px 28px !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+  }
+  .jdgm-write-rev-link:hover,
+  .jdgm-submit-rev:hover,
+  .jdgm-form-submit:hover,
+  .jdgm-btn:hover,
+  .jdgm-btn--primary:hover,
+  .jdgm-paginate__load-more:hover {
+    background-color: #5C6B56 !important;
+    border-color: #5C6B56 !important;
+    color: #FFFFFF !important;
+  }
+
+  /* Verified Buyer Badge - Botanico Sage (#5C6B56) */
+  .jdgm-rev__badge,
+  .jdgm-rev__badge-wrapper,
+  .jdgm-rev__buyer-badge {
+    color: #5C6B56 !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .jdgm-rev__icon {
+    color: #5C6B56 !important;
+    fill: #5C6B56 !important;
+  }
+
+  /* Borders & Backgrounds - Linen & Off-White (#E5E0D8 & #FAF8F5) */
+  .jdgm-widget {
+    border-color: #E5E0D8 !important;
+  }
+  .jdgm-rev-widg {
+    background: transparent !important;
+    border: none !important;
+  }
+  .jdgm-rev-widg__summary {
+    border-bottom: 1px solid #E5E0D8 !important;
+    padding-bottom: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .jdgm-histogram__bar {
+    background-color: #FAF8F5 !important;
+    border: 1px solid #E5E0D8 !important;
+    border-radius: 9999px !important;
+  }
+  .jdgm-histogram__bar-content {
+    background-color: #1A1A1A !important;
+    border-radius: 9999px !important;
+  }
+  .jdgm-rev {
+    border-top: 1px solid #E5E0D8 !important;
+    border-bottom: none !important;
+    padding-top: 1.5rem !important;
+    margin-top: 1.5rem !important;
+    background: transparent !important;
+  }
+  .jdgm-form-wrapper,
+  .jdgm-form {
+    background-color: #FAF8F5 !important;
+    border: 1px solid #E5E0D8 !important;
+    border-radius: 0 !important;
+    padding: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .jdgm-form-input,
+  .jdgm-form-dropdown,
+  .jdgm-form textarea,
+  .jdgm-form select,
+  .jdgm-form input[type="text"],
+  .jdgm-form input[type="email"] {
+    border: 1px solid #E5E0D8 !important;
+    border-radius: 0 !important;
+    background-color: #FFFFFF !important;
+    color: #1A1A1A !important;
+    font-size: 12px !important;
+    padding: 10px 14px !important;
+  }
+  .jdgm-form-input:focus,
+  .jdgm-form textarea:focus,
+  .jdgm-form input:focus {
+    border-color: #1A1A1A !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Coordinated Typography */
+  /* Titles in Serif font */
+  .jdgm-rev-widg__title,
+  .jdgm-rev__title,
+  .jdgm-form__title,
+  .jdgm-widget h1,
+  .jdgm-widget h2,
+  .jdgm-widget h3,
+  .jdgm-widget h4 {
+    font-family: 'Playfair Display', Georgia, Cambria, 'Times New Roman', Times, serif !important;
+    font-weight: 600 !important;
+    color: #1A1A1A !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* Texts & meta in Sans font */
+  .jdgm-rev-widg,
+  .jdgm-rev__body,
+  .jdgm-rev__author,
+  .jdgm-rev__timestamp,
+  .jdgm-preview-badge,
+  .jdgm-widget,
+  .jdgm-subtab__name,
+  .jdgm-row-actions,
+  .jdgm-histogram__text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    color: #7A7265 !important;
+  }
+  .jdgm-rev__author {
+    color: #1A1A1A !important;
+    font-weight: 500 !important;
+  }
+  .jdgm-rev__timestamp {
+    color: #7A7265 !important;
+    font-size: 11px !important;
+  }
+
+  /* Preview Badge styling */
+  .jdgm-preview-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    line-height: 1 !important;
+  }
+  .jdgm-prev-badge__stars {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 1px !important;
+  }
+  .jdgm-prev-badge__text {
+    font-size: 12px !important;
+    color: #706E6B !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+    transition: color 0.2s ease !important;
+  }
+</style>

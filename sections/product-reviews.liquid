@@ -1,6 +1,18 @@
 <section id="reviews" class="py-20 bg-white border-y border-borderLinen">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         
+        {%- comment -%} Official Judge.me Review Widget with 1-click email approval {%- endcomment -%}
+        <div class="judgeme-review-widget-wrapper mb-12">
+            {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+        </div>
+
+        {%- comment -%}
+          Curated Botanical Reviews Fallback
+          Displayed when Judge.me does not have reviews saved for this product yet.
+        {%- endcomment -%}
+        {%- if product.metafields.judgeme.badge == blank -%}
+        <div id="botanical-fallback-reviews">
+        
         {%- assign prod_title_lower = product.title | downcase -%}
         {%- assign prod_handle_lower = product.handle | downcase -%}
         {%- assign check_text = product.title | append: ' ' | append: product.type | append: ' ' | append: product.tags | downcase -%}
@@ -852,10 +864,33 @@
             </div>
         </div>
 
+        </div>
+        {%- endif -%}
     </div>
 </section>
 
+{%- if product.metafields.judgeme.badge == blank -%}
 <script>
+// Judge.me dynamic observer: hide botanical fallback if Judge.me loads reviews via client-side API
+(function() {
+  function checkAndHideFallback() {
+    var jdgmWidget = document.getElementById('judgeme_product_reviews');
+    var fallback = document.getElementById('botanical-fallback-reviews');
+    if (jdgmWidget && fallback) {
+      var reviews = jdgmWidget.querySelectorAll('.jdgm-rev, .jdgm-rev-widg__reviews .jdgm-rev');
+      if (reviews && reviews.length > 0) {
+        fallback.style.display = 'none';
+      }
+    }
+  }
+  var jdgmWidget = document.getElementById('judgeme_product_reviews');
+  if (jdgmWidget) {
+    checkAndHideFallback();
+    var observer = new MutationObserver(checkAndHideFallback);
+    observer.observe(jdgmWidget, { childList: true, subtree: true });
+  }
+})();
+
 (function() {
   function syncTopReviews() {
     var topReviewsText = document.getElementById('pdp-top-reviews-summary');
@@ -1276,6 +1311,7 @@ function showMoreReviews(btn) {
     }
 }
 </script>
+{%- endif -%}
 
 {% schema %}
 {

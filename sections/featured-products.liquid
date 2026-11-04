@@ -198,10 +198,14 @@
                 {%- if product.type != blank and product.type != 'Trattamento Biomimetico' -%}
                   <p class="text-xs text-[#7A7265] mb-2 italic">{{ product.type }}</p>
                 {%- endif -%}
-                <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-2">
-                  <span>★★★★★</span>
-                  <span class="text-[#7A7265] font-sans text-[11px]">{% render 'product-review-summary', product: product, format: 'card' %}</span>
-                </div>
+                {%- capture feat_rev_count -%}{% render 'product-review-summary', product: product, format: 'count' %}{%- endcapture -%}
+                {%- assign feat_rev_num = feat_rev_count | strip | plus: 0 -%}
+                {%- if feat_rev_num > 0 -%}
+                  <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-2">
+                    <span>★★★★★</span>
+                    <span class="text-[#7A7265] font-sans text-[11px]">{% render 'product-review-summary', product: product, format: 'card' %}</span>
+                  </div>
+                {%- endif -%}
               </div>
             </div>
           {% endfor %}
@@ -248,10 +252,6 @@
                 <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 76,00</span>
               </div>
               <p class="text-xs text-[#7A7265] mb-2 italic">Balsamo-olio trasformante con fito-lipidi rigeneranti</p>
-              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-                <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
-              </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">100 ml / Botanico</span>
@@ -301,10 +301,6 @@
                 <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 84,00</span>
               </div>
               <p class="text-xs text-[#7A7265] mb-2 italic">Emulsione idratante rigenerante</p>
-              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-                <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
-              </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">50 ml / Rigenerante</span>
@@ -354,10 +350,6 @@
                 <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 110,00</span>
               </div>
               <p class="text-xs text-[#7A7265] mb-2 italic">Elisir intensivo antiossidante</p>
-              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-                <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
-              </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">30 ml / Notturno</span>
@@ -407,10 +399,6 @@
                 <span class="text-sm font-semibold text-[#1A1A1A] whitespace-nowrap">€ 38,00</span>
               </div>
               <p class="text-xs text-[#7A7265] mb-2 italic">Gel purificante con idrolato di rosa</p>
-              <div class="flex items-center gap-1.5 text-xs text-[#C8A878] mb-3">
-                <span>★★★★★</span>
-                <span class="text-[#7A7265] font-sans text-[11px]">(4.9/5 &bull; 14 recensioni)</span>
-              </div>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-[#F5F2EB]">
               <span class="text-[10px] text-[#5C6B56] font-medium uppercase tracking-wider">200 ml / Quotidiano</span>
