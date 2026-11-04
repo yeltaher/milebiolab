@@ -1294,6 +1294,17 @@
             "text": "Lavoro in officina e mi lavo le mani tantissime volte al giorno. I saponi normali mi distruggevano la pelle, questo invece la rispetta grazie agli ingredienti naturali. Toglie lo sporco senza aggredire. Se costasse un filo meno sarebbe da 5 stelle piene."
           }
         },
+        "review_GXyUwM": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Elena B. • Verona",
+            "date": "08 Ottobre 2026",
+            "rating": 5,
+            "title": "Mai più senza! Pelle idratata e radiosa",
+            "text": "Dopo due settimane di utilizzo ho notato la pelle del corpo molto più compatta e meno secca . Un prodotto bio davvero ben formulato. Profumo top!"
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -2960,6 +2971,7 @@
         "review_VpidiX",
         "review_WWCAkb",
         "review_XYnmz7",
+        "review_GXyUwM",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
