@@ -114,7 +114,7 @@
     {{ content_for_header }}
   </head>
 
-  <body class="template-{{ template.name | handle }} theme-splendor-bespoke bg-linen text-ink font-sans antialiased">
+  <body class="template-{{ template.name | handle }} theme-splendor-bespoke bg-linen text-ink font-sans antialiased{% if customer %} customer-logged-in{% endif %}">
     <a class="skip-to-content-link visually-hidden" href="#MainContent">
       Vai al contenuto principale
     </a>
@@ -145,9 +145,6 @@
     <!-- Sticky Mobile & Scroll ATC Snippet Render -->
     {% render 'product-sticky-atc' %}
 
-    <!-- Scripts -->
-    {{ 'theme.js' | asset_url | script_tag }}
-
     <script>
       window.ShopifyThemeConfig = {
         themeName: "Mile Editorial Boutique",
@@ -155,8 +152,15 @@
         veronaPickupEnabled: true,
         boutiqueAddress: "Via Torricelle, 2c, 37128 Verona (VR) in Lebestetik Beauty & Spa",
         customerAccountsMode: "classic",
-        currency: "EUR"
+        currency: "EUR",
+        customerLoggedIn: {% if customer %}true{% else %}false{% endif %},
+        customerFirstName: {{ customer.first_name | json }},
+        customerLastName: {{ customer.last_name | json }},
+        customerEmail: {{ customer.email | json }}
       };
     </script>
+
+    <!-- Scripts -->
+    {{ 'theme.js' | asset_url | script_tag }}
   </body>
 </html>

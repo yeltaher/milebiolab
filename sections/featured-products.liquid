@@ -172,6 +172,8 @@
                   <button type="button"
                     onclick="toggleWishlistBtn(this, event)"
                     data-wishlist-id="{{ product.id }}"
+                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                    data-product-handle="{{ product.handle }}"
                     data-product-title="{{ product.title | escape }}"
                     data-product-price="{{ product.price | divided_by: 100.0 }}"
                     data-product-compare-price="{{ product.compare_at_price | default: 0 | divided_by: 100.0 }}"

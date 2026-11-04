@@ -204,6 +204,8 @@
                                 <button id="wishlist-btn" type="button"
                                         onclick="togglePdpWishlist(this)"
                                         data-product-id="{{ product.id }}"
+                                        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                                        data-product-handle="{{ product.handle }}"
                                         data-product-title="{{ clean_pdp_title | default: product.title | default: section.settings.product_title | escape }}"
                                         data-product-price="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 | default: 84.00 }}"
                                         data-product-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: 0 | divided_by: 100.0 }}"
@@ -659,6 +661,9 @@
     if (wishBtn) {
       wishBtn.setAttribute('data-product-price', currentPrice);
       wishBtn.setAttribute('data-product-compare-price', currentComparePrice);
+      if (variantId) {
+        wishBtn.setAttribute('data-variant-id', variantId);
+      }
     }
     const atcBtn = document.getElementById('add-to-cart-btn');
     if (atcBtn) {

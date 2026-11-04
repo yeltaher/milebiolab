@@ -14,26 +14,28 @@
   assign coupon_cta_text = section.settings.coupon_cta_text | default: "Esplora Formule"
   assign coupon_cta_url = section.settings.coupon_cta_url | default: "/collections/all"
 
-  assign show_loyalty_passport = false
-  if section.settings.show_loyalty_passport == true
-    assign show_loyalty_passport = true
+  assign show_loyalty_passport = true
+  if section.settings.show_loyalty_passport == false
+    assign show_loyalty_passport = false
   endif
   assign loyalty_tier_name = section.settings.loyalty_tier_name | default: "Livello: Oro Botanico"
-  assign loyalty_points = section.settings.loyalty_points | default: "120 Beauty Punti Attivi (1€ = 1 Punto)"
-  assign loyalty_progress_percent = section.settings.loyalty_progress_percent | default: 75
-  assign loyalty_next_reward = section.settings.loyalty_next_reward | default: "Hai accumulato oltre 100 punti! Puoi riscattare 5 € di sconto nel tuo carrello."
-
+  assign calculated_points = 20
   if customer
-    assign calculated_points = customer.total_spent | divided_by: 100 | plus: 20
+    assign customer_spent_euros = customer.total_spent | divided_by: 100
+    assign calculated_points = customer_spent_euros | plus: 20
     assign loyalty_points = calculated_points | append: " Beauty Punti Attivi (1€ = 1 Punto)"
     if calculated_points >= 100
       assign loyalty_next_reward = "Hai accumulato oltre 100 punti! Puoi riscattare 5 € di sconto immediato nel carrello con l'opzione 'Usa i miei punti'."
       assign loyalty_progress_percent = 100
     else
       assign missing_pts = 100 | minus: calculated_points
-      assign loyalty_next_reward = "A soli " | append: missing_pts | append: " punti per sbloccare 5 € di sconto immediato nel tuo prossimo carrello."
+      assign loyalty_next_reward = "A soli " | append: missing_pts | append: " punti per sbloccare 5 € di sconto immediato nel tuo prossimo carrello (100 punti = 5 €)."
       assign loyalty_progress_percent = calculated_points
     endif
+  else
+    assign loyalty_points = section.settings.loyalty_points | default: "20 Beauty Punti Attivi (1€ = 1 Punto)"
+    assign loyalty_progress_percent = 20
+    assign loyalty_next_reward = "A soli 80 punti per sbloccare 5 € di sconto immediato nel tuo carrello (100 punti = 5 €)."
   endif
 
   assign greeting_name = customer.first_name
@@ -145,6 +147,13 @@
                   {{ hero_tagline }}
                 </span>
               </p>
+              
+              <!-- Saldo Beauty Punti Pillola Elegante Hero Card -->
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FAF8F5] border border-[#C8A878]/50 text-xs font-medium text-[#1A1A1A] mt-2">
+                <span class="text-[#C8A878]">✨</span>
+                <span>Saldo: <strong class="font-mono text-[#5C6B56]" id="PageAccountHeroPoints">{{ calculated_points | default: 20 }} Beauty Punti Attivi</strong> (1€ = 1 Punto)</span>
+              </div>
+
               {% if customer and customer.first_name == blank %}
                 <a href="{{ routes.account_addresses_url }}" class="text-[11px] text-[#5C6B56] hover:underline block mt-1">Completa il tuo profilo (Nome e Indirizzo di Spedizione) &rarr;</a>
               {% endif %}
@@ -184,7 +193,7 @@
           </div>
 
           <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div class="space-y-2 max-w-xl">
+            <div class="space-y-3 max-w-xl">
               <div class="flex items-center gap-2">
                 <span class="inline-block px-2 py-0.5 text-[9px] uppercase font-mono tracking-widest bg-[#C8A878] text-white font-semibold">
                   Passaporto Botanico VIP
@@ -197,6 +206,27 @@
               <p class="text-xs text-[#7A7265] italic">
                 {{ loyalty_next_reward }}
               </p>
+
+              <!-- Regole per accumulare ulteriori punti e riscattare sconti -->
+              <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-[#7A7265] border-t border-[#E5E0D8]/60 mt-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[#5C6B56] font-semibold">🎁 20 Punti</span>
+                  <span>di benvenuto all'iscrizione</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[#5C6B56] font-semibold">🛍️ 1 € = 1 Punto</span>
+                  <span>su ogni tuo ordine</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[#5C6B56] font-semibold">🎯 100 Punti</span>
+                  <span>= 5 € di sconto immediato</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[#5C6B56] font-semibold">🎂 50 Punti</span>
+                  <span>in omaggio al compleanno</span>
+                </div>
+              </div>
+
               <div class="pt-1">
                 <a href="/pages/programma-fedelta" class="text-[11px] text-[#5C6B56] hover:text-[#C8A878] font-medium underline inline-flex items-center gap-1">
                   <span>Regolamento completo Beauty Club &amp; Vantaggi</span> &rarr;
@@ -207,13 +237,19 @@
             <!-- Progress Bar Barocca / Haute Couture -->
             <div class="w-full lg:w-80 space-y-2 bg-white/80 p-4 border border-[#E5E0D8]">
               <div class="flex justify-between text-[11px] font-mono text-[#7A7265]">
-                <span>Progresso Livello</span>
+                <span>Progresso Sconto 5 € (100 pt)</span>
                 <span class="text-[#C8A878] font-bold">{{ loyalty_progress_percent }}%</span>
               </div>
               <div class="w-full h-2 bg-[#E5E0D8] overflow-hidden rounded-full">
                 <div class="h-full bg-gradient-to-r from-[#C8A878] to-[#9A7B4C] transition-all duration-1000" style="width: {{ loyalty_progress_percent }}%;"></div>
               </div>
-              <div class="text-[10px] text-[#7A7265] text-right">Prossimo traguardo: Diamante Botanico</div>
+              <div class="text-[10px] text-[#7A7265] text-right">
+                {% if calculated_points >= 100 %}
+                  <strong class="text-[#2D5A27]">🎉 Sconto 5 € sbloccato nel carrello!</strong>
+                {% else %}
+                  Mancano {{ 100 | minus: calculated_points }} punti a 5 € di sconto
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>
@@ -495,57 +531,6 @@
 
 <script>
   (function() {
-    function hydratePageAccountDashboard() {
-      try {
-        var rawCustomer = localStorage.getItem('mile_customer');
-        if (!rawCustomer) return;
-        var localCustomer = JSON.parse(rawCustomer);
-        if (!localCustomer) return;
-
-        var loggedInView = document.getElementById('PageAccountLoggedInView');
-        var guestView = document.getElementById('PageAccountGuestView');
-
-        // Se l'utente non è autenticato a livello server Liquid, inverti le classi
-        if (loggedInView && guestView) {
-          guestView.classList.add('hidden');
-          guestView.classList.remove('block');
-          loggedInView.classList.remove('hidden');
-          loggedInView.classList.add('block');
-        }
-
-        // Saluto con Nome Reale
-        if (localCustomer.first_name) {
-          var greetingEls = document.querySelectorAll('#PageAccountGreetingName, .customer-greeting-name');
-          greetingEls.forEach(function(el) {
-            el.textContent = localCustomer.first_name;
-          });
-        }
-
-        // Avatar Monogramma con Iniziali Reali
-        if (localCustomer.first_name) {
-          var initials = (localCustomer.first_name.charAt(0) + (localCustomer.last_name ? localCustomer.last_name.charAt(0) : '')).toUpperCase();
-          var avatarEl = document.getElementById('PageAccountAvatar');
-          if (avatarEl) avatarEl.textContent = initials;
-        }
-
-        // Email del profilo
-        if (localCustomer.email) {
-          var emailEl = document.getElementById('PageAccountEmail');
-          if (emailEl) emailEl.textContent = localCustomer.email;
-        }
-
-        // Saldo Beauty Punti
-        if (localCustomer.points) {
-          var pointsEl = document.getElementById('PageAccountLoyaltyPoints');
-          if (pointsEl) {
-            pointsEl.textContent = localCustomer.points + ' Beauty Punti Attivi (1€ = 1 Punto)';
-          }
-        }
-      } catch (err) {
-        console.warn('Dashboard hydration error:', err);
-      }
-    }
-
     // Gestione click su Disconnettiti dal Profilo
     function setupLogoutHandler() {
       var logoutBtn = document.getElementById('PageAccountLogoutBtn');
@@ -563,12 +548,8 @@
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        hydratePageAccountDashboard();
-        setupLogoutHandler();
-      });
+      document.addEventListener('DOMContentLoaded', setupLogoutHandler);
     } else {
-      hydratePageAccountDashboard();
       setupLogoutHandler();
     }
   })();

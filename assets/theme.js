@@ -346,7 +346,7 @@ async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
     } catch (e) {}
     renderCartDrawer();
     openCartDrawer();
-    return false;
+    return true;
   };
 
   if (cleanId && !isNaN(Number(cleanId)) && Number(cleanId) > 100) {
@@ -1610,14 +1610,16 @@ function updateWishlistUI() {
   renderWishlistDrawer();
 }
 
-function toggleWishlistItem(id, title, price, image, volume, btn) {
+function toggleWishlistItem(id, title, price, image, volume, btn, variantId, handle) {
   if (id && typeof id === 'object' && id.nodeType === 1) {
     btn = id;
-    id = btn.getAttribute('data-wishlist-id') || btn.dataset.wishlistId;
+    id = btn.getAttribute('data-wishlist-id') || btn.getAttribute('data-product-id') || btn.dataset.wishlistId || btn.dataset.productId;
     title = btn.getAttribute('data-product-title') || btn.dataset.productTitle;
     price = btn.getAttribute('data-product-price') || btn.dataset.productPrice;
     image = btn.getAttribute('data-product-image') || btn.dataset.productImage;
     volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume;
+    variantId = btn.getAttribute('data-variant-id') || btn.getAttribute('data-wishlist-variant-id') || btn.dataset.variantId || btn.dataset.wishlistVariantId;
+    handle = btn.getAttribute('data-product-handle') || btn.dataset.productHandle;
   }
 
   const cleanId = String(id || '').trim();
@@ -1639,8 +1641,13 @@ function toggleWishlistItem(id, title, price, image, volume, btn) {
     showToast('Rimosso dai preferiti: ' + (title || 'Prodotto'));
   } else {
     const parsedPrice = (typeof price === 'number') ? price : (parseFloat(price) || 0);
+    const cleanVariantId = (variantId && variantId !== 'null' && variantId !== 'undefined') ? String(variantId).trim() : null;
+    const cleanHandle = (handle && handle !== 'null' && handle !== 'undefined') ? String(handle).trim() : null;
+
     MilebiolabState.wishlist.push({
       id: cleanId,
+      variantId: cleanVariantId,
+      handle: cleanHandle,
       title: title || 'Prodotto MileBioLab',
       price: parsedPrice,
       image: image || '',
@@ -1663,12 +1670,14 @@ function toggleWishlistBtn(btn, event) {
     if (typeof event.stopPropagation === 'function') event.stopPropagation();
   }
   if (!btn) return;
-  const id = btn.getAttribute('data-wishlist-id') || btn.dataset.wishlistId;
+  const id = btn.getAttribute('data-wishlist-id') || btn.getAttribute('data-product-id') || btn.dataset.wishlistId || btn.dataset.productId;
   const title = btn.getAttribute('data-product-title') || btn.dataset.productTitle || 'Prodotto MileBioLab';
   const price = parseFloat(btn.getAttribute('data-product-price') || btn.dataset.productPrice) || 0;
   const image = btn.getAttribute('data-product-image') || btn.dataset.productImage || '';
   const volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume || '50 ml';
-  toggleWishlistItem(id, title, price, image, volume, btn);
+  const variantId = btn.getAttribute('data-variant-id') || btn.getAttribute('data-wishlist-variant-id') || btn.dataset.variantId || btn.dataset.wishlistVariantId;
+  const handle = btn.getAttribute('data-product-handle') || btn.dataset.productHandle;
+  toggleWishlistItem(id, title, price, image, volume, btn, variantId, handle);
 }
 
 window.toggleWishlistBtn = toggleWishlistBtn;
@@ -1677,15 +1686,17 @@ function togglePdpWishlist(btn) {
   const targetBtn = btn || document.getElementById('wishlist-btn');
   if (!targetBtn) return;
 
-  const id = targetBtn.getAttribute('data-product-id') || targetBtn.dataset.productId;
+  const id = targetBtn.getAttribute('data-product-id') || targetBtn.getAttribute('data-wishlist-id') || targetBtn.dataset.productId;
   const title = targetBtn.getAttribute('data-product-title') || targetBtn.dataset.productTitle || (document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : 'Prodotto MileBioLab');
   const price = targetBtn.getAttribute('data-product-price') || targetBtn.dataset.productPrice || 84.00;
   const image = targetBtn.getAttribute('data-product-image') || targetBtn.dataset.productImage || '';
   const volume = (typeof currentFormatLabel !== 'undefined' && currentFormatLabel)
     ? currentFormatLabel
     : (MilebiolabState.pdp && MilebiolabState.pdp.selectedVolume ? MilebiolabState.pdp.selectedVolume : '50 ml');
+  const variantId = targetBtn.getAttribute('data-variant-id') || targetBtn.dataset.variantId || (document.getElementById('selected-variant-id') ? document.getElementById('selected-variant-id').value : null);
+  const handle = targetBtn.getAttribute('data-product-handle') || targetBtn.dataset.productHandle;
 
-  toggleWishlistItem(id, title, price, image, volume, targetBtn);
+  toggleWishlistItem(id, title, price, image, volume, targetBtn, variantId, handle);
 }
 
 function openWishlistDrawer() {
@@ -1790,37 +1801,105 @@ function removeWishlistItem(id) {
   }
 }
 
-function addWishlistItemToCart(id) {
+async function resolveWishlistVariantId(item) {
+  if (!item) return null;
+
+  // 1. Check if variantId is already saved and valid (> 100)
+  const vId = item.variantId || item.variant_id;
+  if (vId && !isNaN(Number(vId)) && Number(vId) > 100) {
+    return String(vId);
+  }
+
+  // 2. Resolve via product handle using Shopify public endpoint
+  if (item.handle) {
+    try {
+      const res = await fetch(`/products/${encodeURIComponent(item.handle)}.js`);
+      if (res.ok) {
+        const prodData = await res.json();
+        if (prodData && prodData.variants && prodData.variants.length > 0) {
+          if (item.volume) {
+            const cleanVol = String(item.volume).trim().toLowerCase();
+            const matched = prodData.variants.find(v => v.title && v.title.trim().toLowerCase() === cleanVol);
+            if (matched && matched.id) {
+              item.variantId = String(matched.id);
+              saveWishlist();
+              return String(matched.id);
+            }
+          }
+          const availVar = prodData.variants.find(v => v.available) || prodData.variants[0];
+          if (availVar && availVar.id) {
+            item.variantId = String(availVar.id);
+            saveWishlist();
+            return String(availVar.id);
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Could not fetch product variants for handle:', item.handle, err);
+    }
+  }
+
+  // 3. Check PDP button if on matching page
+  const pdpWishBtn = document.getElementById('wishlist-btn');
+  if (pdpWishBtn) {
+    const pdpProdId = pdpWishBtn.getAttribute('data-product-id');
+    const pdpVarId = pdpWishBtn.getAttribute('data-variant-id') || (document.getElementById('selected-variant-id') ? document.getElementById('selected-variant-id').value : null);
+    if ((pdpProdId === String(item.id) || String(item.id).indexOf('fallback') === -1) && pdpVarId) {
+      item.variantId = String(pdpVarId);
+      saveWishlist();
+      return String(pdpVarId);
+    }
+  }
+
+  return item.variantId || item.id;
+}
+
+async function addWishlistItemToCart(id) {
   const cleanId = String(id || '').trim();
   const item = MilebiolabState.wishlist.find(i => String(i.id) === cleanId);
-  if (item) {
-    if (window.addShopifyCartItem) {
-      addShopifyCartItem(item.id, 1, item);
-    } else if (typeof addToCart === 'function') {
-      addToCart({
-        id: item.id,
-        title: item.title,
-        step: 'PREFERITI WISHLIST',
-        price: item.price,
-        volume: item.volume || '50 ml',
-        qty: 1,
-        image: item.image
-      });
-    }
+  if (!item) return;
+
+  const resolvedVariantId = await resolveWishlistVariantId(item);
+  let success = false;
+
+  if (window.addShopifyCartItem) {
+    success = await addShopifyCartItem(resolvedVariantId, 1, item);
+  } else if (typeof addToCart === 'function') {
+    addToCart({
+      id: resolvedVariantId,
+      title: item.title,
+      step: 'PREFERITI WISHLIST',
+      price: item.price,
+      volume: item.volume || '50 ml',
+      qty: 1,
+      image: item.image
+    });
+    success = true;
+  }
+
+  // Remove from wishlist ONLY after addition to cart succeeded!
+  if (success !== false) {
     removeWishlistItem(id);
     closeWishlistDrawer();
     openCartDrawer();
+  } else {
+    showToast('Impossibile aggiungere al carrello in questo momento.');
   }
 }
 
-function addAllWishlistToCart() {
+async function addAllWishlistToCart() {
   if (!MilebiolabState.wishlist || MilebiolabState.wishlist.length === 0) return;
-  MilebiolabState.wishlist.forEach(item => {
+  const itemsToAdd = [...MilebiolabState.wishlist];
+  const successfullyAddedIds = [];
+
+  for (const item of itemsToAdd) {
+    const resolvedVariantId = await resolveWishlistVariantId(item);
+    let success = false;
     if (window.addShopifyCartItem) {
-      addShopifyCartItem(item.id, 1, item);
+      success = await addShopifyCartItem(resolvedVariantId, 1, item);
     } else if (typeof addToCart === 'function') {
       addToCart({
-        id: item.id,
+        id: resolvedVariantId,
         title: item.title,
         step: 'PREFERITI WISHLIST',
         price: item.price,
@@ -1828,13 +1907,22 @@ function addAllWishlistToCart() {
         qty: 1,
         image: item.image
       });
+      success = true;
     }
-  });
-  MilebiolabState.wishlist = [];
-  saveWishlist();
-  closeWishlistDrawer();
-  openCartDrawer();
-  showToast('Tutti i preferiti sono stati aggiunti al carrello! ✨');
+    if (success !== false) {
+      successfullyAddedIds.push(item.id);
+    }
+  }
+
+  if (successfullyAddedIds.length > 0) {
+    MilebiolabState.wishlist = MilebiolabState.wishlist.filter(item => !successfullyAddedIds.includes(item.id));
+    saveWishlist();
+    closeWishlistDrawer();
+    openCartDrawer();
+    showToast('Tutti i preferiti sono stati aggiunti al carrello! ✨');
+  } else {
+    showToast('Impossibile aggiungere i preferiti al carrello.');
+  }
 }
 
 function clearWishlist() {
@@ -2674,16 +2762,34 @@ function formatReviewAuthor(rawAuthor, optionalCity) {
 window.formatReviewAuthor = formatReviewAuthor;
 
 // Render locally submitted user reviews stored in localStorage
-function renderUserReviews(productId) {
-  if (!productId) return;
-  const storageKey = 'mile_user_reviews_' + productId;
+function renderUserReviews(productId, productHandle) {
+  const pId = productId || (document.getElementById('ProductReviewForm') ? (document.getElementById('ProductReviewForm').querySelector('[name="product-id"]')?.value) : null);
+  const pHandle = productHandle || (window.location.pathname.includes('/products/') ? window.location.pathname.split('/products/')[1].split('/')[0].split('?')[0] : null);
+
   let userReviews = [];
-  try {
-    const raw = localStorage.getItem(storageKey);
-    if (raw) userReviews = JSON.parse(raw);
-  } catch (e) {
-    userReviews = [];
-  }
+  const seen = {};
+  const addKey = (k) => {
+    if (!k) return;
+    try {
+      const raw = localStorage.getItem(k);
+      if (raw) {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) {
+          arr.forEach(item => {
+            const dedupe = (item.title || '') + '|' + (item.body || '') + '|' + (item.author || '');
+            if (!seen[dedupe]) {
+              seen[dedupe] = true;
+              userReviews.push(item);
+            }
+          });
+        }
+      }
+    } catch(e) {}
+  };
+
+  if (pId) addKey('mile_user_reviews_' + pId);
+  if (pHandle && pHandle !== pId) addKey('mile_user_reviews_' + pHandle);
+
   if (!Array.isArray(userReviews) || userReviews.length === 0) return;
 
   const container = document.getElementById('reviews-grid-container');
@@ -2694,12 +2800,12 @@ function renderUserReviews(productId) {
 
   userReviews.slice().reverse().forEach(rev => {
     const card = document.createElement('div');
-    card.className = 'user-local-review-card bg-linen p-6 border border-sage/50 flex flex-col justify-between transition-all duration-500 shadow-xs';
+    card.className = 'user-local-review-card bg-[#FAF8F5] p-6 border border-[#5C6B56]/50 flex flex-col justify-between transition-all duration-500 shadow-xs mb-4';
 
     let starsHtml = '';
     const ratingNum = parseInt(rev.rating, 10) || 5;
     for (let i = 1; i <= ratingNum; i++) starsHtml += '&starf;';
-    for (let i = ratingNum + 1; i <= 5; i++) starsHtml += '<span class="text-ash/40">&starf;</span>';
+    for (let i = ratingNum + 1; i <= 5; i++) starsHtml += '<span class="text-[#7A7265]/40">&starf;</span>';
 
     function escapeHtml(str) {
       if (!str) return '';
@@ -2708,25 +2814,27 @@ function renderUserReviews(productId) {
       });
     }
 
+    const authorDisplay = escapeHtml((typeof formatReviewAuthor === 'function') ? formatReviewAuthor(rev.author) : rev.author);
+
     card.innerHTML = `
       <div>
         <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
-          <div class="text-amber text-xs tracking-wider">${starsHtml}</div>
+          <div class="text-[#C8A878] text-xs tracking-wider">${starsHtml}</div>
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold text-white bg-sage px-2 py-0.5 rounded-xs">
+            <span class="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold text-white bg-[#5C6B56] px-2 py-0.5 rounded-xs">
               &bull; La tua recensione &bull; In approvazione
             </span>
-            <span class="text-[10px] text-ash">${escapeHtml(rev.date)}</span>
+            <span class="text-[10px] text-[#7A7265]">${escapeHtml(rev.date)}</span>
           </div>
         </div>
-        <h4 class="font-serif text-base font-semibold text-ink mb-2">${escapeHtml(rev.title)}</h4>
-        <p class="text-xs text-ash leading-relaxed font-light">
+        <h4 class="font-serif text-base font-semibold text-[#1A1A1A] mb-2">${escapeHtml(rev.title)}</h4>
+        <p class="text-xs text-[#7A7265] leading-relaxed font-light">
           &ldquo;${escapeHtml(rev.body)}&rdquo;
         </p>
       </div>
-      <div class="pt-4 mt-6 border-t border-borderLinen flex items-center justify-between text-xs">
-        <span class="font-medium text-ink">${escapeHtml(formatReviewAuthor(rev.author))}</span>
-        <span class="text-sage text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
+      <div class="pt-4 mt-6 border-t border-[#E5E0D8] flex items-center justify-between text-xs">
+        <span class="font-medium text-[#1A1A1A]">${authorDisplay}</span>
+        <span class="text-[#5C6B56] text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
       </div>
     `;
     container.insertBefore(card, container.firstChild);
@@ -2752,7 +2860,9 @@ function renderUserReviews(productId) {
       : `Basato su ${finalTotal} recensioni certificate da acquirenti reali`;
   }
 }
-window.renderUserReviews = renderUserReviews;
+if (!window.renderUserReviews) {
+  window.renderUserReviews = renderUserReviews;
+}
 
 // ============================================================================
 // 11. SEAMLESS CUSTOMER AUTHENTICATION & ACCOUNT DRAWER STATE MANAGEMENT
@@ -2760,103 +2870,117 @@ window.renderUserReviews = renderUserReviews;
 
 function renderCustomerAuthState() {
   try {
-    var rawCustomer = localStorage.getItem('mile_customer');
-    if (!rawCustomer) return;
-
-    var localCustomer = null;
-    try {
-      localCustomer = JSON.parse(rawCustomer);
-    } catch (e) {
-      localCustomer = null;
+    var isLiquidCustomerLoggedIn = false;
+    if (window.ShopifyThemeConfig && window.ShopifyThemeConfig.customerLoggedIn === true) {
+      isLiquidCustomerLoggedIn = true;
+    } else if (document.body && document.body.classList.contains('customer-logged-in')) {
+      isLiquidCustomerLoggedIn = true;
     }
 
-    if (!localCustomer || !localCustomer.first_name) return;
+    // Se l'utente NON è autenticato su Shopify Liquid:
+    // Nessun login immediato o fittizio consentito!
+    if (!isLiquidCustomerLoggedIn) {
+      try {
+        localStorage.removeItem('mile_customer');
+      } catch (e) {}
 
-    var firstName = localCustomer.first_name.trim();
-    var lastName = (localCustomer.last_name || '').trim();
-    var initials = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();
-    var email = localCustomer.email || '';
-
-    // 1. Aggiorna tutti i selettori di saluto con il vero nome (sovrascrive email prefix o 'Membro')
-    var greetingSelectors = ['#PageAccountGreetingName', '#DrawerCustomerGreetingName', '.customer-greeting-name'];
-    greetingSelectors.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(el) {
-        el.textContent = firstName;
-      });
-    });
-
-    // 2. Aggiorna gli avatar monogramma con le iniziali reali (es. YE)
-    var avatarSelectors = ['#PageAccountAvatar', '#DrawerCustomerAvatar'];
-    avatarSelectors.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(el) {
-        el.textContent = initials;
-      });
-    });
-
-    // 3. Aggiorna gli elementi email
-    var emailSelectors = ['#PageAccountEmail', '#DrawerCustomerEmail'];
-    emailSelectors.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(el) {
-        el.textContent = email;
-      });
-    });
-
-    // 4. Header Desktop: indicatore verde e saluto con nome reale
-    var headerGreeting = document.getElementById('header-customer-greeting');
-    var headerIndicator = document.getElementById('header-customer-indicator');
-    if (headerGreeting) {
-      headerGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span>';
-    }
-    if (headerIndicator) {
-      headerIndicator.classList.remove('hidden');
-    }
-
-    // Header Mobile: saluto con nome reale
-    var mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
-    if (mobileGreeting) {
-      mobileGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span> (Profilo)';
-    }
-
-    // 5. Drawer: mostra vista autenticata se presente e se non sta mostrando il messaggio di successo
-    var successView = document.getElementById('DrawerRegisterSuccessView');
-    var isShowingSuccess = successView && !successView.classList.contains('hidden');
-
-    var drawerLoggedIn = document.getElementById('DrawerCustomerLoggedInView');
-    var drawerGuest = document.getElementById('DrawerCustomerGuestView');
-    if (drawerLoggedIn && drawerGuest && !isShowingSuccess) {
-      drawerGuest.classList.add('hidden');
-      drawerGuest.classList.remove('flex');
-      drawerLoggedIn.classList.remove('hidden');
-      drawerLoggedIn.classList.add('flex');
-    }
-
-    // 6. Pagina Account: mostra dashboard se presente, nascondi guest view
-    var pageLoggedIn = document.getElementById('PageAccountLoggedInView');
-    var pageGuest = document.getElementById('PageAccountGuestView');
-    if (pageLoggedIn && pageGuest) {
-      pageGuest.classList.add('hidden');
-      pageGuest.classList.remove('block');
-      pageLoggedIn.classList.remove('hidden');
-      pageLoggedIn.classList.add('block');
-    }
-
-    // 7. Aggiorna saldi punti se elementi presenti
-    if (localCustomer.points) {
-      var drawerPoints = document.getElementById('DrawerCustomerPointsText');
-      if (drawerPoints) {
-        drawerPoints.textContent = localCustomer.points + ' Beauty Punti Attivi';
+      // Assicura che la dashboard pagina account sia in modalità Guest
+      var pageLoggedIn = document.getElementById('PageAccountLoggedInView');
+      var pageGuest = document.getElementById('PageAccountGuestView');
+      if (pageLoggedIn && pageGuest) {
+        pageLoggedIn.classList.add('hidden');
+        pageLoggedIn.classList.remove('block');
+        pageGuest.classList.remove('hidden');
+        pageGuest.classList.add('block');
       }
-      var pagePoints = document.getElementById('PageAccountLoyaltyPoints');
-      if (pagePoints) {
-        pagePoints.textContent = localCustomer.points + ' Beauty Punti Attivi (1€ = 1 Punto)';
+
+      // Assicura che l'account drawer sia in modalità Guest (tranne se sta mostrando la notifica di attivazione)
+      var successView = document.getElementById('DrawerRegisterSuccessView');
+      var isShowingSuccess = successView && !successView.classList.contains('hidden');
+      var drawerLoggedIn = document.getElementById('DrawerCustomerLoggedInView');
+      var drawerGuest = document.getElementById('DrawerCustomerGuestView');
+      if (drawerLoggedIn && drawerGuest && !isShowingSuccess) {
+        drawerLoggedIn.classList.add('hidden');
+        drawerLoggedIn.classList.remove('flex');
+        drawerGuest.classList.remove('hidden');
+        drawerGuest.classList.add('flex');
+      }
+
+      // Header: stato guest pulito
+      var headerIndicator = document.getElementById('header-customer-indicator');
+      if (headerIndicator) headerIndicator.classList.add('hidden');
+
+      return;
+    }
+
+    // Se l'utente è autenticato su Shopify Liquid: arricchisci i saluti con il vero nome
+    var firstName = '';
+    var lastName = '';
+    var email = '';
+
+    if (window.ShopifyThemeConfig && window.ShopifyThemeConfig.customerFirstName) {
+      firstName = window.ShopifyThemeConfig.customerFirstName.trim();
+      lastName = (window.ShopifyThemeConfig.customerLastName || '').trim();
+      email = window.ShopifyThemeConfig.customerEmail || '';
+    } else {
+      var rawCustomer = localStorage.getItem('mile_customer');
+      if (rawCustomer) {
+        try {
+          var localCustomer = JSON.parse(rawCustomer);
+          if (localCustomer && localCustomer.first_name) {
+            firstName = localCustomer.first_name.trim();
+            lastName = (localCustomer.last_name || '').trim();
+            email = localCustomer.email || '';
+          }
+        } catch (e) {}
       }
     }
 
-    // 8. Cart Drawer Loyalty Sync per clienti con profilo localCustomer
-    var cartLoyaltyPrompt = document.getElementById('cart-drawer-loyalty-prompt');
-    if (cartLoyaltyPrompt) {
-      var pts = localCustomer.points || 20;
-      cartLoyaltyPrompt.innerHTML = '<span class="text-[#5C6B56] font-medium">🟢 Ciao, <strong class="text-[#1A1A1A]">' + firstName + '</strong>! Saldo: <strong class="font-mono text-[#5C6B56]">' + pts + ' Beauty Punti Attivi</strong></span>';
+    if (firstName) {
+      var initials = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();
+
+      // 1. Aggiorna tutti i selettori di saluto
+      var greetingSelectors = ['#PageAccountGreetingName', '#DrawerCustomerGreetingName', '.customer-greeting-name'];
+      greetingSelectors.forEach(function(sel) {
+        document.querySelectorAll(sel).forEach(function(el) {
+          el.textContent = firstName;
+        });
+      });
+
+      // 2. Aggiorna gli avatar monogramma
+      var avatarSelectors = ['#PageAccountAvatar', '#DrawerCustomerAvatar'];
+      avatarSelectors.forEach(function(sel) {
+        document.querySelectorAll(sel).forEach(function(el) {
+          el.textContent = initials;
+        });
+      });
+
+      // 3. Aggiorna gli elementi email se vuoti
+      if (email) {
+        var emailSelectors = ['#PageAccountEmail', '#DrawerCustomerEmail'];
+        emailSelectors.forEach(function(sel) {
+          document.querySelectorAll(sel).forEach(function(el) {
+            if (el.textContent.indexOf('@') === -1) {
+              el.textContent = email;
+            }
+          });
+        });
+      }
+
+      // 4. Header: indicatore verde e saluto con nome
+      var headerGreeting = document.getElementById('header-customer-greeting');
+      var headerIndicator = document.getElementById('header-customer-indicator');
+      if (headerGreeting) {
+        headerGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span>';
+      }
+      if (headerIndicator) {
+        headerIndicator.classList.remove('hidden');
+      }
+
+      var mobileGreeting = document.getElementById('mobile-menu-customer-greeting');
+      if (mobileGreeting) {
+        mobileGreeting.innerHTML = '🟢 Ciao, <span class="customer-greeting-name">' + firstName + '</span> (Profilo)';
+      }
     }
   } catch (err) {
     console.error('Error in renderCustomerAuthState:', err);

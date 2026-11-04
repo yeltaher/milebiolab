@@ -393,9 +393,9 @@
             </p>
           </div>
 
-          <!-- Modulo Nativo Shopify Customer (Senza Redirect) -->
-          {% form 'customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
-            <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
+          <!-- Modulo Nativo Registrazione Cliente Shopify -->
+          {% form 'create_customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20, beauty_club">
 
             {% if form.errors %}
               <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
@@ -419,7 +419,7 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[first_name]"
+                  name="customer[first_name]"
                   id="DrawerRegisterFirstName"
                   required
                   autocomplete="given-name"
@@ -433,7 +433,7 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[last_name]"
+                  name="customer[last_name]"
                   id="DrawerRegisterLastName"
                   required
                   autocomplete="family-name"
@@ -449,7 +449,7 @@
               </label>
               <input
                 type="email"
-                name="contact[email]"
+                name="customer[email]"
                 id="DrawerRegisterEmail"
                 required
                 autocomplete="email"
@@ -465,7 +465,7 @@
               <div class="relative">
                 <input
                   type="password"
-                  name="customer[note][password]"
+                  name="customer[password]"
                   id="DrawerRegisterPassword"
                   required
                   minlength="6"
@@ -519,11 +519,11 @@
                 id="DrawerRegisterSubmitBtn"
                 class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-sm"
               >
-                <span id="DrawerRegisterSubmitBtnText">Crea Profilo e Ricevi 20 Punti Subito</span>
+                <span id="DrawerRegisterSubmitBtnText">Crea Profilo &amp; Invia Email di Attivazione</span>
                 <span class="text-[#C8A878]">&rarr;</span>
               </button>
               <p class="text-[10px] text-[#7A7265] text-center mt-2 leading-relaxed">
-                Esperienza on-site immediata senza reindirizzamenti.
+                Riceverai un'email ufficiale da Shopify per confermare e attivare il tuo profilo.
               </p>
             </div>
 
@@ -539,48 +539,49 @@
             </div>
           {% endform %}
 
-          <!-- Vista di conferma luxury in-place (inizialmente hidden) -->
-          <div id="DrawerRegisterSuccessView" class="hidden space-y-5 py-4">
+          <!-- Vista di conferma Attivazione Email Shopify in-place (inizialmente hidden) -->
+          <div id="DrawerRegisterSuccessView" class="hidden space-y-6 py-4">
             <div class="text-center space-y-3">
-              <div class="w-14 h-14 mx-auto rounded-full bg-[#FAF8F5] border border-[#C8A878]/50 flex items-center justify-center text-2xl text-[#5C6B56] shadow-sm">
-                ✓
+              <div class="w-16 h-16 mx-auto rounded-full bg-[#FAF8F5] border border-[#C8A878]/50 flex items-center justify-center text-3xl text-[#5C6B56] shadow-sm">
+                ✉️
               </div>
-              <span class="inline-block px-3 py-1 bg-[#FAF8F5] border border-[#E5E0D8] text-[10px] font-mono tracking-wider uppercase text-[#5C6B56] font-semibold">
-                Iscrizione Confermata
+              <span class="inline-block px-3 py-1 bg-[#FAF8F5] border border-[#C8A878]/40 text-[10px] font-mono tracking-wider uppercase text-[#5C6B56] font-semibold">
+                Email di Attivazione Inviata
               </span>
               <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-tight">
-                Benvenuto nel Club Mile, <span id="DrawerSuccessCustomerName" class="italic text-[#5C6B56]"></span>!
+                Controlla la tua Casella di Posta
               </h4>
               <p class="text-xs text-[#7A7265] leading-relaxed max-w-sm mx-auto">
-                Il tuo profilo è attivo. Hai ricevuto subito 20 Beauty Punti di benvenuto e il tuo codice sconto riservato del 10%:
+                Ti abbiamo inviato un'email all'indirizzo <strong id="DrawerActivationSentEmail" class="text-[#1A1A1A] font-medium font-mono"></strong>. Per motivi di sicurezza e per attivare il tuo profilo Club Mile (con <strong>20 Beauty Punti</strong> e il <strong>10% di sconto</strong>), apri l'email ricevuta da Shopify e clicca sul link di attivazione.
               </p>
             </div>
 
-            <!-- Box con codice MILE10 e pulsante Copia -->
-            <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-[#7A7265] block font-semibold text-center">Codice Sconto Riservato Club Mile:</span>
-              <div class="flex items-center justify-between gap-2">
-                <span id="DrawerSuccessCouponCode" class="font-mono text-base font-bold tracking-widest text-[#1A1A1A] bg-white px-4 py-2 border border-[#E5E0D8] flex-1 text-center">
-                  {{ settings.drawer_coupon_code | default: 'MILE10' }}
-                </span>
-                <button
-                  type="button"
-                  onclick="copyDiscountCode('DrawerSuccessCouponCode', this)"
-                  class="px-4 py-2 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer"
-                >
-                  Copia
-                </button>
+            <!-- Box Avviso Spam -->
+            <div class="p-4 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#7A7265] space-y-2">
+              <div class="flex items-center gap-2 font-medium text-[#1A1A1A]">
+                <span class="text-[#C8A878]">⚠️</span>
+                <span>Non hai ricevuto l'email?</span>
               </div>
-              <p class="text-[10px] text-[#7A7265] text-center pt-1">Valido su tutti i rituali viso e trattamenti barriera.</p>
+              <p class="text-[11px] leading-relaxed">
+                Controlla la cartella <strong>Spam</strong> o <strong>Promozioni</strong> della tua casella di posta, oppure attendi 2-3 minuti per la ricezione del messaggio ufficiale di Shopify.
+              </p>
             </div>
 
-            <!-- Due pulsanti di azione -->
-            <div class="space-y-2 pt-2">
-              <a href="/pages/account" class="block w-full py-3 bg-[#1A1A1A] text-white text-xs uppercase tracking-widest font-semibold text-center hover:bg-[#5C6B56] transition-colors">
-                Vai al Tuo Profilo &rarr;
-              </a>
-              <button type="button" onclick="closeAccountDrawer()" class="block w-full py-2.5 border border-[#1A1A1A] text-[#1A1A1A] text-xs uppercase tracking-widest font-semibold text-center hover:bg-[#FAF8F5] transition-colors mt-2">
-                Continua lo Shopping
+            <!-- Pulsanti di azione -->
+            <div class="space-y-2.5 pt-2">
+              <button
+                type="button"
+                onclick="switchAccountDrawerTab('login')"
+                class="block w-full py-3.5 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm cursor-pointer"
+              >
+                Accedi al Tuo Profilo &rarr;
+              </button>
+              <button
+                type="button"
+                onclick="closeAccountDrawer()"
+                class="block w-full py-3 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors cursor-pointer"
+              >
+                Ho Capito &bull; Chiudi
               </button>
             </div>
           </div>
@@ -757,7 +758,7 @@
     }
   }
 
-  // Gestione Sottomissione Registrazione On-Site (Zero Redirect su Shop)
+  // Gestione Sottomissione Registrazione con Invio Email di Attivazione da Shopify
   function initDrawerRegisterForm() {
     var form = document.getElementById('DrawerCustomerRegisterForm');
     if (!form || form.dataset.listenerAttached) return;
@@ -770,7 +771,6 @@
       var lastNameInput = document.getElementById('DrawerRegisterLastName');
       var emailInput = document.getElementById('DrawerRegisterEmail');
       var passwordInput = document.getElementById('DrawerRegisterPassword');
-      var birthdateInput = document.getElementById('DrawerRegisterBirthdate');
       var privacyCheckbox = document.getElementById('DrawerRegisterPrivacy');
       var submitBtn = document.getElementById('DrawerRegisterSubmitBtn');
       var submitBtnText = document.getElementById('DrawerRegisterSubmitBtnText');
@@ -779,10 +779,13 @@
       var lastName = lastNameInput ? lastNameInput.value.trim() : '';
       var email = emailInput ? emailInput.value.trim() : '';
       var password = passwordInput ? passwordInput.value : '';
-      var birthdate = birthdateInput ? birthdateInput.value : '';
 
       if (!firstName || !lastName || !email || !password) {
         alert('Compila tutti i campi obbligatori per procedere.');
+        return;
+      }
+      if (password.length < 6) {
+        alert('La password deve contenere almeno 6 caratteri.');
         return;
       }
       if (privacyCheckbox && !privacyCheckbox.checked) {
@@ -792,48 +795,42 @@
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        if (submitBtnText) submitBtnText.innerText = 'Creazione profilo in corso...';
+        if (submitBtnText) submitBtnText.innerText = 'Invio richiesta di attivazione...';
       }
 
-      var customerData = {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        birthdate: birthdate,
-        points: 20,
-        orders_count: 0,
-        tier: 'Club Mile Privilège',
-        discount_code: 'MILE10',
-        registered_at: new Date().toISOString()
-      };
-
-      try {
-        localStorage.setItem('mile_customer', JSON.stringify(customerData));
-      } catch (err) {
-        console.warn('LocalStorage error:', err);
-      }
-
-      // Sottomissione asincrona in background a Shopify (crea cliente/contatto senza redirect)
+      // IMPORTANTE: NON impostiamo mile_customer in localStorage!
+      // L'utente DEVE attivare il profilo tramite il link ricevuto nell'email inviata da Shopify.
       var formData = new FormData(form);
-      fetch(form.action, {
+      var postUrl = form.action || '/account';
+
+      fetch(postUrl, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        }
+      }).then(function(res) {
+        if (res.url && res.url.indexOf('/challenge') !== -1) {
+          window.location.href = res.url;
+          return;
+        }
+        return res.text();
+      }).then(function(html) {
+        var emailNotice = document.getElementById('DrawerActivationSentEmail');
+        if (emailNotice) emailNotice.textContent = email;
+
+        var successView = document.getElementById('DrawerRegisterSuccessView');
+        if (form) form.classList.add('hidden');
+        if (successView) successView.classList.remove('hidden');
       }).catch(function(err) {
-        console.warn('Shopify background customer creation notice:', err);
+        console.warn('Shopify registration notice:', err);
+        var emailNotice = document.getElementById('DrawerActivationSentEmail');
+        if (emailNotice) emailNotice.textContent = email;
+
+        var successView = document.getElementById('DrawerRegisterSuccessView');
+        if (form) form.classList.add('hidden');
+        if (successView) successView.classList.remove('hidden');
       });
-
-      // Mostra vista di conferma di lusso in-place
-      var successNameEl = document.getElementById('DrawerSuccessCustomerName');
-      if (successNameEl) successNameEl.textContent = firstName;
-
-      var successView = document.getElementById('DrawerRegisterSuccessView');
-      form.classList.add('hidden');
-      if (successView) successView.classList.remove('hidden');
-
-      // Chiama renderCustomerAuthState per idratare istantaneamente header, avatar e saluti col nome reale
-      if (typeof window.renderCustomerAuthState === 'function') {
-        window.renderCustomerAuthState();
-      }
     });
   }
 
