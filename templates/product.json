@@ -964,6 +964,17 @@
             "text": "l siero fa benissimo il suo dovere: la pelle appare decisamente più soda e idratata. La profumazione di ambra e patchouli è meravigliosa."
           }
         },
+        "review_VnqRgi": {
+          "type": "review",
+          "settings": {
+            "target_product": "silk-skin-body-serum-spices-sandalwood",
+            "author": "Erika V. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "La svolta per il mio corpo, adoro il maxi formato!",
+            "text": "Ho iniziato a usarlo su tutto il corpo per ridare tono ai tessuti. L'effetto è reale e l'idratazione dura giorni. Apprezzo tantissimo la bottiglia grande che permette di non rimanere a secco dopo due settimane. Il profumo orientale è una coccola pazzesca."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3106,6 +3117,7 @@
         "review_Vpbnc3",
         "review_rfnj3x",
         "review_KVGFwQ",
+        "review_VnqRgi",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
