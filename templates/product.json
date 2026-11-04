@@ -1129,6 +1129,17 @@
             "text": "Ho provato decine di deodoranti biologici ma mi facevano sempre irritazione o non funzionavano. Questo è perfetto: blocca i cattivi odori senza occludere i pori. Delicato e super approvato!"
           }
         },
+        "review_WTwY4w": {
+          "type": "review",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "author": "Silvia G. • Verona",
+            "date": "20 Ottobre 2026",
+            "rating": 1,
+            "title": "Buona efficacia ma profumo troppo erbaceo per me",
+            "text": "Dal punto di vista della durata e della delicatezza è da 5 stelle, non fa sudare acido e rispetta la pelle. Metto 4 stelle solo perché le note di eucalipto e rosmarino mi piacciono ma io preferisco i profumi più talcati o dolci."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3286,6 +3297,7 @@
         "review_bgCqeH",
         "review_HrVxbQ",
         "review_9tyGLF",
+        "review_WTwY4w",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
