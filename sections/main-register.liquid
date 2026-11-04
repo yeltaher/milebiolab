@@ -96,7 +96,7 @@
           </div>
 
           <!-- Modulo Registrazione On-Site Senza Redirect Shop -->
-          {% form 'customer', id: 'MainRegisterCustomerForm', class: 'space-y-5', novalidate: 'novalidate' %}
+          {% form 'customer', id: 'MainRegisterCustomerForm', class: 'space-y-5', novalidate: 'novalidate', onsubmit: 'handleMainRegister(event); return false;' %}
             <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
 
             {% if form.errors %}
@@ -119,7 +119,7 @@
                   autocomplete="given-name"
                   required
                   placeholder="Maria"
-                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
                 >
               </div>
 
@@ -134,7 +134,7 @@
                   autocomplete="family-name"
                   required
                   placeholder="Rossi"
-                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
                 >
               </div>
             </div>
@@ -153,7 +153,7 @@
                 autocapitalize="off"
                 required
                 placeholder="es. maria.rossi@email.com"
-                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
               >
             </div>
 
@@ -170,7 +170,7 @@
                 required
                 minlength="6"
                 placeholder="Almeno 6 caratteri"
-                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
               >
               <p class="text-[11px] text-ash mt-1">
                 La password deve contenere almeno 6 caratteri. Ti consigliamo di combinare lettere e numeri.
@@ -187,7 +187,7 @@
                 type="date"
                 name="customer[note][Data di Nascita]"
                 id="RegisterBirthdate"
-                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink focus:bg-white focus:border-sage focus:outline-none transition-colors"
               >
               <p class="text-[11px] text-ash mt-1">
                 Inserisci la tua data di nascita per ricevere automaticamente 50 Beauty Punti in omaggio nel giorno del tuo compleanno!
@@ -213,8 +213,9 @@
             <!-- Submit Button -->
             <div class="pt-2">
               <button
-                type="submit"
+                type="button"
                 id="RegisterSubmitBtn"
+                onclick="handleMainRegister(event)"
                 class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
               >
                 <span id="RegisterSubmitBtnText">{{ section.settings.submit_btn_text | default: "Crea Account Club Mile" }}</span>
@@ -291,82 +292,99 @@
 </div>
 
 <script>
+  window.handleMainRegister = function(e) {
+    if (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (typeof e.stopPropagation === 'function') e.stopPropagation();
+    }
+
+    var form = document.getElementById('MainRegisterCustomerForm');
+    var firstNameInput = document.getElementById('RegisterFirstName');
+    var lastNameInput = document.getElementById('RegisterLastName');
+    var emailInput = document.getElementById('RegisterEmail');
+    var passwordInput = document.getElementById('RegisterPassword');
+    var privacyCheckbox = document.getElementById('RegisterPrivacyCheckbox');
+    var submitBtn = document.getElementById('RegisterSubmitBtn');
+    var submitBtnText = document.getElementById('RegisterSubmitBtnText');
+
+    var firstName = firstNameInput ? firstNameInput.value.trim() : '';
+    var lastName = lastNameInput ? lastNameInput.value.trim() : '';
+    var email = emailInput ? emailInput.value.trim() : '';
+    var password = passwordInput ? passwordInput.value : '';
+
+    if (!firstName || !lastName || !email || !password) {
+      alert('Compila tutti i campi obbligatori per procedere.');
+      return false;
+    }
+    if (password.length < 6) {
+      alert('La password deve contenere almeno 6 caratteri.');
+      return false;
+    }
+    if (privacyCheckbox && !privacyCheckbox.checked) {
+      alert('Accetta la privacy policy per completare la registrazione.');
+      return false;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      if (submitBtnText) submitBtnText.innerText = 'Invio richiesta di registrazione in corso...';
+    }
+
+    // Salva l'email in attesa di attivazione
+    try {
+      localStorage.setItem('mile_pending_activation_email', email.toLowerCase());
+    } catch (err) {}
+
+    var formData = form ? new FormData(form) : new FormData();
+
+    fetch('/contact', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      }
+    }).then(function() {
+      var emailNotice = document.getElementById('MainRegisterSentEmail');
+      if (emailNotice) emailNotice.textContent = email;
+
+      var successView = document.getElementById('MainRegisterSuccessView');
+      var headerBlock = document.getElementById('MainRegisterHeaderBlock');
+      var promptBlock = document.getElementById('MainRegisterLoginPrompt');
+
+      if (form) form.classList.add('hidden');
+      if (headerBlock) headerBlock.classList.add('hidden');
+      if (promptBlock) promptBlock.classList.add('hidden');
+      if (successView) successView.classList.remove('hidden');
+    }).catch(function(err) {
+      console.warn('Registration contact notice:', err);
+      var emailNotice = document.getElementById('MainRegisterSentEmail');
+      if (emailNotice) emailNotice.textContent = email;
+
+      var successView = document.getElementById('MainRegisterSuccessView');
+      var headerBlock = document.getElementById('MainRegisterHeaderBlock');
+      var promptBlock = document.getElementById('MainRegisterLoginPrompt');
+
+      if (form) form.classList.add('hidden');
+      if (headerBlock) headerBlock.classList.add('hidden');
+      if (promptBlock) promptBlock.classList.add('hidden');
+      if (successView) successView.classList.remove('hidden');
+    });
+
+    return false;
+  };
+
   (function() {
     function initMainRegisterForm() {
       var form = document.getElementById('MainRegisterCustomerForm');
-      if (!form || form.dataset.listenerAttached) return;
-      form.dataset.listenerAttached = 'true';
-
+      if (!form) return;
+      form.onsubmit = function(e) {
+        return window.handleMainRegister(e);
+      };
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-
-        var firstNameInput = document.getElementById('RegisterFirstName');
-        var lastNameInput = document.getElementById('RegisterLastName');
-        var emailInput = document.getElementById('RegisterEmail');
-        var passwordInput = document.getElementById('RegisterPassword');
-        var privacyCheckbox = document.getElementById('RegisterPrivacyCheckbox');
-        var submitBtn = document.getElementById('RegisterSubmitBtn');
-        var submitBtnText = document.getElementById('RegisterSubmitBtnText');
-
-        var firstName = firstNameInput ? firstNameInput.value.trim() : '';
-        var lastName = lastNameInput ? lastNameInput.value.trim() : '';
-        var email = emailInput ? emailInput.value.trim() : '';
-        var password = passwordInput ? passwordInput.value : '';
-
-        if (!firstName || !lastName || !email || !password) {
-          alert('Compila tutti i campi obbligatori per procedere.');
-          return;
-        }
-        if (password.length < 6) {
-          alert('La password deve contenere almeno 6 caratteri.');
-          return;
-        }
-        if (privacyCheckbox && !privacyCheckbox.checked) {
-          alert('Accetta la privacy policy per completare la registrazione.');
-          return;
-        }
-
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          if (submitBtnText) submitBtnText.innerText = 'Invio richiesta di registrazione in corso...';
-        }
-
-        // Invio in background tramite /contact senza MAI dirottare il browser su shopify.com o shop.app
-        var formData = new FormData(form);
-
-        fetch('/contact', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-          }
-        }).then(function() {
-          var emailNotice = document.getElementById('MainRegisterSentEmail');
-          if (emailNotice) emailNotice.textContent = email;
-
-          var successView = document.getElementById('MainRegisterSuccessView');
-          var headerBlock = document.getElementById('MainRegisterHeaderBlock');
-          var promptBlock = document.getElementById('MainRegisterLoginPrompt');
-
-          if (form) form.classList.add('hidden');
-          if (headerBlock) headerBlock.classList.add('hidden');
-          if (promptBlock) promptBlock.classList.add('hidden');
-          if (successView) successView.classList.remove('hidden');
-        }).catch(function(err) {
-          console.warn('Registration contact notice:', err);
-          var emailNotice = document.getElementById('MainRegisterSentEmail');
-          if (emailNotice) emailNotice.textContent = email;
-
-          var successView = document.getElementById('MainRegisterSuccessView');
-          var headerBlock = document.getElementById('MainRegisterHeaderBlock');
-          var promptBlock = document.getElementById('MainRegisterLoginPrompt');
-
-          if (form) form.classList.add('hidden');
-          if (headerBlock) headerBlock.classList.add('hidden');
-          if (promptBlock) promptBlock.classList.add('hidden');
-          if (successView) successView.classList.remove('hidden');
-        });
-      });
+        e.stopPropagation();
+        return window.handleMainRegister(e);
+      }, true);
     }
 
     if (document.readyState === 'loading') {

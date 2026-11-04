@@ -3047,6 +3047,7 @@ function switchAccountDrawerTab(tabName) {
     loginPane.classList.remove('hidden');
     registerPane.classList.add('hidden');
     toggleDrawerRecoverForm(false);
+    if (typeof window.checkDrawerLoginEmailPending === 'function') window.checkDrawerLoginEmailPending();
   } else {
     registerTabBtn.classList.add('border-[#1A1A1A]', 'text-[#1A1A1A]', 'bg-white');
     registerTabBtn.classList.remove('border-transparent', 'text-[#7A7265]', 'bg-[#FAF8F5]/60');

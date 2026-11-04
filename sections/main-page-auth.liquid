@@ -179,6 +179,20 @@
                 </p>
               </div>
 
+                            <!-- Alert Account in Attesa di Attivazione -->
+              <div id="PageLoginPendingActivationNotice" class="hidden p-4 bg-[#FFF9E6] border border-[#E0C068] text-[#8A6D1C] text-xs space-y-1 mb-4">
+                <p class="font-semibold flex items-center gap-1.5">
+                  <span>⏳</span> Account in attesa di attivazione
+                </p>
+                <p class="text-[11px] leading-relaxed">
+                  Abbiamo inviato un'email a <strong id="PagePendingEmailText"></strong>. Per favore apri la tua casella di posta e clicca sul link di attivazione prima di effettuare l'accesso.
+                </p>
+                <p class="pt-1 text-[10px] text-[#8A6D1C]/80 flex items-center justify-between">
+                  <span>Hai già confermato dall'email?</span>
+                  <button type="button" onclick="clearPagePendingActivationNotice()" class="underline hover:text-[#1A1A1A] cursor-pointer">Sblocca accesso</button>
+                </p>
+              </div>
+
               <!-- Info Box Nuovi Account Senza Password -->
               <div class="mb-6 p-5 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
                 <div class="flex items-center gap-2 text-[#5C6B56] font-semibold text-xs uppercase tracking-wider">
@@ -200,7 +214,7 @@
                     id="PageCustomerEmail"
                     autocomplete="email"
                     placeholder="es. maria.rossi@email.com"
-                    class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                    oninput="checkPageLoginEmailPending()" onchange="checkPageLoginEmailPending()" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] placeholder-[#7A7265]/50 focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                   >
                   <p class="text-[11px] text-[#7A7265] mt-1.5 leading-relaxed">
                     Nessuna password da ricordare: riceverai un codice istantaneo di verifica a 6 cifre via email, oppure accedi con 1-click tramite Shop Pay o Google.
@@ -210,7 +224,7 @@
                 <div class="pt-2">
                   <a
                     href="/pages/account"
-                    onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }"
+                    onclick="if(checkPageLoginEmailPending()){ return false; } if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }"
                     id="PageLoginSubmitBtn"
                     class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                   >
@@ -240,7 +254,7 @@
           <!-- PANE 2: REGISTRATI (UNISCITI AL CLUB MILE) -->
           <div id="auth-page-pane-register" class="hidden" role="tabpanel">
             
-            {% form 'customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
+            {% form 'customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate', onsubmit: 'handlePageRegister(event); return false;' %}
               <input type="hidden" name="contact[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
 
               {% if form.posted_successfully? %}
@@ -283,7 +297,7 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="/pages/account" onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="/pages/account" onclick="if(checkPageLoginEmailPending()){ return false; } if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
                     <p class="text-[11px] text-[#7A7265] leading-relaxed">
                       Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
                     </p>
@@ -320,7 +334,7 @@
                         id="PageRegisterFirstName"
                         required
                         placeholder="Maria"
-                        class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                        onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                       >
                     </div>
                     <div>
@@ -333,7 +347,7 @@
                         id="PageRegisterLastName"
                         required
                         placeholder="Rossi"
-                        class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                        onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                       >
                     </div>
                   </div>
@@ -348,7 +362,7 @@
                       id="PageRegisterEmail"
                       required
                       placeholder="es. maria.rossi@email.com"
-                      class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                      onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                     >
                   </div>
 
@@ -361,7 +375,7 @@
                       type="date"
                       name="customer[note][Data di Nascita]"
                       id="PageRegisterBirthdate"
-                      class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                      onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                     >
                     <p class="text-[10px] text-[#7A7265] mt-1 leading-relaxed">
                       Inserisci la tua data di nascita per ricevere automaticamente 50 Beauty Punti in omaggio nel giorno del tuo compleanno!
@@ -379,8 +393,9 @@
 
                   <div class="pt-2">
                     <button
-                      type="submit"
+                      type="button"
                       id="PageRegisterSubmitBtn"
+                      onclick="handlePageRegister(event)"
                       class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Crea Account Club Mile (-10%)</span>
@@ -428,7 +443,7 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="/pages/account" onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="/pages/account" onclick="if(checkPageLoginEmailPending()){ return false; } if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
                     <p class="text-[11px] text-[#7A7265] leading-relaxed">
                       Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
                     </p>
@@ -465,6 +480,82 @@
 </div>
 
 <script>
+  function checkPageLoginEmailPending() {
+    var emailInput = document.getElementById('PageCustomerEmail');
+    var notice = document.getElementById('PageLoginPendingActivationNotice');
+    var noticeEmail = document.getElementById('PagePendingEmailText');
+    if (!emailInput || !notice) return false;
+
+    var email = emailInput.value.trim().toLowerCase();
+    var pendingEmail = (localStorage.getItem('mile_pending_activation_email') || '').trim().toLowerCase();
+
+    if (email && pendingEmail && email === pendingEmail) {
+      if (noticeEmail) noticeEmail.textContent = emailInput.value.trim();
+      notice.classList.remove('hidden');
+      return true;
+    } else {
+      notice.classList.add('hidden');
+      return false;
+    }
+  }
+
+  function clearPagePendingActivationNotice() {
+    try {
+      localStorage.removeItem('mile_pending_activation_email');
+    } catch (e) {}
+    var notice = document.getElementById('PageLoginPendingActivationNotice');
+    if (notice) notice.classList.add('hidden');
+  }
+
+  window.handlePageRegister = function(e) {
+    if (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (typeof e.stopPropagation === 'function') e.stopPropagation();
+    }
+    var form = document.getElementById('PageRegisterCustomerForm');
+    var emailInput = document.getElementById('PageRegisterEmail');
+    var email = emailInput ? emailInput.value.trim() : '';
+
+    if (email) {
+      try {
+        localStorage.setItem('mile_pending_activation_email', email.toLowerCase());
+      } catch (err) {}
+    }
+
+    var submitBtn = document.getElementById('PageRegisterSubmitBtn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Creazione account in corso...</span>';
+    }
+    var formData = form ? new FormData(form) : new FormData();
+    fetch('/contact', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      }
+    }).then(function() {
+      var fieldsEl = document.getElementById('PageRegisterFormFields');
+      var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
+      var switchEl = document.getElementById('PageRegisterLoginSwitch');
+      var introEl = document.getElementById('PageRegisterIntro');
+      if (fieldsEl) fieldsEl.classList.add('hidden');
+      if (switchEl) switchEl.classList.add('hidden');
+      if (introEl) introEl.classList.add('hidden');
+      if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
+    }).catch(function() {
+      var fieldsEl = document.getElementById('PageRegisterFormFields');
+      var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
+      var switchEl = document.getElementById('PageRegisterLoginSwitch');
+      var introEl = document.getElementById('PageRegisterIntro');
+      if (fieldsEl) fieldsEl.classList.add('hidden');
+      if (switchEl) switchEl.classList.add('hidden');
+      if (introEl) introEl.classList.add('hidden');
+      if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
+    });
+    return false;
+  };
+
   function switchAuthPageTab(tab) {
     var loginBtn = document.getElementById('auth-page-tab-btn-login');
     var registerBtn = document.getElementById('auth-page-tab-btn-register');
