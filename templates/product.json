@@ -1217,6 +1217,17 @@
             "text": "Spesso le creme per pelle secca sono pesanti e appiccicose. Questa invece nutre tantissimo ma dopo due minuti ci si può già vestire. Lascia la pelle vellutata e con un profumo fresco agrumato che dura per ore. La amo!"
           }
         },
+        "review_RUzaR8": {
+          "type": "review",
+          "settings": {
+            "target_product": "5-urea-2-panthenol-body-cream",
+            "author": "Marco P. • Brecia",
+            "date": "22 Ottobre 2026",
+            "rating": 5,
+            "title": "Ideale per chi fa molte docce frequenti",
+            "text": "Facendo molto sport mi lavo spesso e la pelle si stava seccando. Questa crema corpo risolve completamente il problema. È super idratante e l'odore fresco e agrumato è perfetto dopo un allenamento intenso per rinfrescarsi."
+          }
+        },
         "review_fLKrUM": {
           "type": "review",
           "settings": {
@@ -3085,6 +3096,7 @@
         "review_A6tMWH",
         "review_BQTGqW",
         "review_dwRp7q",
+        "review_RUzaR8",
         "review_fLKrUM",
         "review_w8kHRy",
         "review_BwBkyK",
