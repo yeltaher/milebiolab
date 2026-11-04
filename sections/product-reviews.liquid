@@ -338,7 +338,7 @@
                 <span class="text-xs uppercase tracking-[0.25em] text-ink font-semibold block mb-4">Lascia una recensione</span>
                 
                 <div id="ReviewFormSuccessMessage" class="hidden bg-[#FAF8F5] text-[#5C6B56] border border-[#5C6B56]/30 p-4 text-xs text-center mb-6 shadow-xs rounded-xs font-medium">
-                    ✨ Grazie per la tua recensione! È stata registrata e inviata a info@miledermocosmesi.it per la moderazione del nostro team. Verrà pubblicata a seguito della verifica.
+                    ✨ Grazie per la tua recensione! È stata pubblicata con successo.
                 </div>
                 
                 {% form 'contact', id: 'ProductReviewForm', class: 'space-y-4 text-left' %}
@@ -350,7 +350,7 @@
                     
                     {% if form.posted_successfully? %}
                         <div class="bg-sage/10 text-sage p-4 text-xs text-center border border-sage/20 mb-4">
-                            Grazie per la tua recensione! È stata inviata al nostro team (info@miledermocosmesi.it) per la moderazione e verrà pubblicata a seguito della verifica.
+                            ✨ Grazie per la tua recensione! È stata pubblicata con successo.
                         </div>
                     {% endif %}
                     
@@ -626,14 +626,9 @@
 
         card.innerHTML = `
           <div>
-            <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+            <div class="flex justify-between items-center mb-3">
               <div class="text-[#C8A878] text-xs tracking-wider">${starsHtml}</div>
-              <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider font-semibold text-white bg-[#5C6B56] px-2 py-0.5 rounded-xs">
-                  &bull; La tua recensione &bull; In approvazione
-                </span>
-                <span class="text-[10px] text-[#7A7265]">${escapeHtml(rev.date)}</span>
-              </div>
+              <span class="text-[10px] text-[#7A7265]">${escapeHtml(rev.date)}</span>
             </div>
             <h4 class="font-serif text-base font-semibold text-[#1A1A1A] mb-2">${escapeHtml(rev.title)}</h4>
             <p class="text-xs text-[#7A7265] leading-relaxed font-light">
@@ -844,7 +839,7 @@
         renderUserReviews(prodId, prodHandle);
 
         if (typeof window.showToast === 'function') {
-          window.showToast('✨ Grazie per la tua recensione! È stata registrata.');
+          window.showToast('✨ Grazie per la tua recensione! È stata pubblicata con successo.');
         }
       } catch (e) {
         console.warn('Could not save user review to localStorage:', e);
