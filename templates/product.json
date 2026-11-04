@@ -1239,6 +1239,17 @@
             "text": "Dal punto di vista della formula nulla da dire: gli ingredienti sono ottimi, biologici e rispettosi della pelle. Non mi ha dato nessuna irritazione. Se  amate come me le fragranze fresche ed energizzanti agrumate, è sicuramente il sapone perfetto per voi."
           }
         },
+        "review_nibQfB": {
+          "type": "review",
+          "settings": {
+            "target_product": "",
+            "author": "Giulia R. • Verona",
+            "date": "19 Ottobre 2026",
+            "rating": 5,
+            "title": "Una carezza per la pelle delicata",
+            "text": "Ho la pelle delle mani che si spacca facilmente con il freddo e cercavo un prodotto naturale senza solfati aggressivi. Questo sapone è fantastico: lava benissimo ma non aggredisce la barriera cutanea, lascia le mani idratate. Consigliatissimo!"
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -2900,6 +2911,7 @@
         "review_EpgMHt",
         "review_qDeYqh",
         "review_UfTegj",
+        "review_nibQfB",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
