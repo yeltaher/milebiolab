@@ -1327,6 +1327,17 @@
             "text": "Questo sapone non ha parabeni, siliconi o petrolati e schifezze varie, ma solo derivati green. Lava benissimo, rispetta l'ambiente e lascia un profumo fresco e pulito. Compratelo a occhi chiusi."
           }
         },
+        "review_LYkjPK": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Beatrice V. • Verona",
+            "date": "30 Settembre 2026",
+            "rating": 5,
+            "title": "Eccellente anche per la pelle dei bambini",
+            "text": "In casa cerchiamo di usare solo prodotti con ingredienti puliti. Questo sapone è talmente delicato che lo uso senza problemi anche i miei figli. Non brucia, non crea arrossamenti e lascia una bellissima sensazione di pulito e freschezza."
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -2996,6 +3007,7 @@
         "review_GXyUwM",
         "review_xBWK4r",
         "review_8JajNw",
+        "review_LYkjPK",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
