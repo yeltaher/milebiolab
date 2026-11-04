@@ -1096,6 +1096,17 @@
             "text": "Soffro sempre di bruciore se metto il deodorante dopo la depilazione. Questo roll-on è una svolta:  lenisce subito e lascia la pelle morbidissima. In più, tiene a bada i cattivi odori per tutto il giorno."
           }
         },
+        "review_bgCqeH": {
+          "type": "review",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "author": "Olivia C. • Verona",
+            "date": "24 Ottobre 2026",
+            "rating": 1,
+            "title": "Profumo balsamico pazzesco e zero macchie",
+            "text": "Ha una fragranza erbacea e fresca deliziosa, si sentono molto la lavanda e l'eucalipto. La cosa migliore è che non contiene sali d'alluminio ma funziona benissimo, e soprattutto non lascia quegli odiosi aloni gialli o bianchi sulle magliette."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3250,6 +3261,7 @@
         "review_gcBNxc",
         "review_kCp7iA",
         "review_CH4g3z",
+        "review_bgCqeH",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
