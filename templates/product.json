@@ -1217,6 +1217,17 @@
             "text": "Questo deodorante è formulato benissimo: aloe, olio di macadamia e attivi biotecnologici che contrastano i batteri del cattivo odore senza aggredire la pelle. Fragranza balsamica super gradevole."
           }
         },
+        "review_qQK49z": {
+          "type": "review",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "author": "Federico L. • Verona",
+            "date": "02 Ottobre 2026",
+            "rating": 5,
+            "title": "Perfetto per lo sport e la vita dinamica",
+            "text": "Lo applico la mattina dopo la doccia. Anche correndo tutto il giorno tra commissioni e lavoro, l'efficacia regge benissimo. Lascia una bella sensazione di pulito che sa di erbe officinali. Formato roll-on molto pratico."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3382,6 +3393,7 @@
         "review_gLkxNM",
         "review_FNHjJC",
         "review_C3qTjM",
+        "review_qQK49z",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
