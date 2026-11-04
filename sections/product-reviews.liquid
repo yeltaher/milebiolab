@@ -1,4 +1,28 @@
 <section id="reviews" class="py-20 bg-white border-y border-borderLinen">
+    <!-- Hidden Judge.me Headless Bridge for 1-Click Moderation (Approva/Rifiuta) -->
+    <div id="judgeme-headless-bridge" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;" aria-hidden="true">
+      {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', product: product %}
+    </div>
+    <style>
+      #judgeme-headless-bridge,
+      #judgeme-headless-bridge * {
+        max-height: 0 !important;
+        opacity: 0 !important;
+      }
+      .jdgm-notification,
+      .jdgm-modal-overlay,
+      .jdgm-write-rev-modal {
+        position: fixed !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        width: 1px !important;
+        height: 1px !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        z-index: -9999 !important;
+      }
+    </style>
+
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         
         <div id="botanical-fallback-reviews">
@@ -327,6 +351,7 @@
                     <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
                     <input type="hidden" name="contact[recipient]" value="info@miledermocosmesi.it">
                     <input type="hidden" name="contact[subject]" value="[Nuova Recensione Club Mile - info@miledermocosmesi.it] {{ product.title | escape }}">
+                    <input type="hidden" name="contact[moderazione]" value="Per approvare o rifiutare questa recensione usa i tasti Approva/Rifiuta nell'email di Judge.me oppure visita: https://admin.shopify.com/store/mile/apps/judge-me/reviews">
                     {{ form.errors | default_errors }}
                     
                     {% if form.posted_successfully? %}
@@ -695,6 +720,7 @@
         var bodyInput = form.querySelector('[name="contact[body]"]');
 
         var nameInput = document.getElementById('ReviewAuthorNameInput') || form.querySelector('[name="contact[name]"]');
+        var emailInput = document.getElementById('ReviewAuthorEmailInput') || form.querySelector('[name="contact[email]"]');
         var cityInput = document.getElementById('ReviewCustomerCityInput') || document.getElementById('ReviewAuthorCityInput') || form.querySelector('[name="contact[city]"]');
 
         var rawAuthor = '';
@@ -779,6 +805,41 @@
             console.log('Background Shopify contact notification completed');
           });
         } catch (postErr) {}
+
+        // Headless Judge.me Bridge Synchronization for 1-Click Moderation (Approva/Rifiuta)
+        try {
+          var jdgmBridge = document.getElementById('judgeme-headless-bridge');
+          if (jdgmBridge) {
+            var writeBtn = jdgmBridge.querySelector('.jdgm-write-rev-link, [data-action="write-review"], .jdgm-widget-actions-wrapper a');
+            if (writeBtn) writeBtn.click();
+            setTimeout(function() {
+              var jName = jdgmBridge.querySelector('input[name="reviewer_name"], input[name="name"], .jdgm-form__reviewer-name-input');
+              var jEmail = jdgmBridge.querySelector('input[name="reviewer_email"], input[name="email"], .jdgm-form__reviewer-email-input');
+              var jTitle = jdgmBridge.querySelector('input[name="title"], .jdgm-form__title-input');
+              var jBody = jdgmBridge.querySelector('textarea[name="body"], .jdgm-form__body-input');
+              
+              if (jName) jName.value = newReview.author;
+              if (jEmail && emailInput && emailInput.value) jEmail.value = emailInput.value.trim();
+              if (jTitle) jTitle.value = newReview.title;
+              if (jBody) jBody.value = newReview.body;
+              
+              var targetRating = parseInt(newReview.rating, 10) || 5;
+              var stars = jdgmBridge.querySelectorAll('.jdgm-form__rating .jdgm-star, .jdgm-write-rev-modal .jdgm-star');
+              if (stars && stars.length >= targetRating) {
+                var starEl = stars[targetRating - 1];
+                if (starEl) starEl.click();
+              }
+              
+              var jSubmit = jdgmBridge.querySelector('.jdgm-submit-rev, input[type="submit"], button[type="submit"]');
+              if (jSubmit) {
+                jSubmit.click();
+                console.log('Recensione sincronizzata con Judge.me per moderazione Approva/Rifiuta');
+              }
+            }, 350);
+          }
+        } catch (jdgmErr) {
+          console.log('Judge.me bridge notice:', jdgmErr);
+        }
 
         // Show banner of success in-place
         var successMsg = document.getElementById('ReviewFormSuccessMessage');
