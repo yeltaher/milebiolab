@@ -1162,6 +1162,17 @@
             "text": "Ogni inverno la pelle delle mie gambe si desquama dal freddo. Questa crema è stata una vera rivelazione: ricca, nutriente ma si assorbe in un attimo senza lasciare la scia bianca. La pelle rimane morbida fino alla doccia successiva."
           }
         },
+        "review_GUXGGC": {
+          "type": "review",
+          "settings": {
+            "target_product": "5-urea-2-panthenol-body-cream",
+            "author": "Federica M. • Roma",
+            "date": "01 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo potere idratante",
+            "text": "La crema fa esattamente quello che promette: la secchezza sparisce già dopo due applicazioni. È davvero molto nutriente, quindi la consiglio soprattutto per la sera o per le zone criticamente secche come gomiti e ginocchia."
+          }
+        },
         "review_w8kHRy": {
           "type": "review",
           "settings": {
@@ -3014,6 +3025,7 @@
         "review_Re38Jn",
         "review_99ThiN",
         "review_Aw43zK",
+        "review_GUXGGC",
         "review_w8kHRy",
         "review_BwBkyK",
         "review_KbJxFd",
