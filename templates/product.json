@@ -1305,6 +1305,17 @@
             "text": "Dopo due settimane di utilizzo ho notato la pelle del corpo molto più compatta e meno secca . Un prodotto bio davvero ben formulato. Profumo top!"
           }
         },
+        "review_xBWK4r": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Tommaso C. • Verona",
+            "date": "03 Ottobre 2026",
+            "rating": 5,
+            "title": "Fresco e rivitalizzante",
+            "text": "La profumazione è molto estiva e agrumata, ottima per la doccia dopo la palestra. Rinfresca subito. Ottimo anche come sapone mani per gli ospiti, fa un figurone."
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -2972,6 +2983,7 @@
         "review_WWCAkb",
         "review_XYnmz7",
         "review_GXyUwM",
+        "review_xBWK4r",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
