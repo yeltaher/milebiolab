@@ -1162,6 +1162,17 @@
             "text": "La confezione roll-on da 50 ml dura molto. Si stende bene, non è appiccicoso e si asciuga abbastanza in fretta. La formula biologica con aloe è una garanzia di delicatezza per l'uso quotidiano di tutti"
           }
         },
+        "review_ACYzhM": {
+          "type": "review",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "author": "Andrea P. • Genova",
+            "date": "13 Ottobre 2026",
+            "rating": 5,
+            "title": "Finalmente un deodorante bio che funziona davvero!",
+            "text": "Ero scettica sui deodoranti senza sali d'alluminio, ma questo mi ha fatto ricredere. Neutralizza gli odori in modo naturale senza bloccare la normale traspirazione della pelle. Ha una profumazione pulita e rilassante alla lavanda e menta."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3322,6 +3333,7 @@
         "review_WTwY4w",
         "review_Ee6fqW",
         "review_6zrVWq",
+        "review_ACYzhM",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
