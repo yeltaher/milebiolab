@@ -1217,17 +1217,6 @@
             "text": "Cercavo da tempo un sapone per le mani e per il corpo che non mi seccasse la pelle, soprattutto d'inverno. Questo prodotto è una bomba! Guardando gli ingredienti si vede subito che è di qualità: ha tensioattivi super delicati derivati dal cocco e mirtillo biologico. La pelle rimane morbidissima e non tira per niente. La profumazione è fresca, naturale e agrumata (si sente che deriva da veri oli essenziali e non da fragranze chimiche finte). Lo ricomprerò sicuramente, approvatissimo anche per chi ha la pelle sensibile!"
           }
         },
-        "review_pEUe4C": {
-          "type": "review",
-          "settings": {
-            "target_product": "hand-body-wash-grapefruit",
-            "author": "Chiara F. • Bologna",
-            "date": "19 Ottobre 2026",
-            "rating": 5,
-            "title": "Ottimo INCI, delicato fa poca schiuma",
-            "text": "Do 4 stelle perché sono abituata ai bagnoschiuma tradizionali che fanno tantissima schiuma, mentre questo ne fa una più leggera e cremosa. Però la pelle ringrazia: zero pruriti e zero secchezza. L'estratto di mirtillo biologico è un plus che adoro. Nel complesso ottimo."
-          }
-        },
         "review_qDeYqh": {
           "type": "review",
           "settings": {
@@ -1259,6 +1248,28 @@
             "rating": 5,
             "title": "Una carezza per la pelle delicata",
             "text": "Ho la pelle delle mani che si spacca facilmente con il freddo e cercavo un prodotto naturale senza solfati aggressivi. Questo sapone è fantastico: lava benissimo ma non aggredisce la barriera cutanea, lascia le mani idratate. Consigliatissimo!"
+          }
+        },
+        "review_pEUe4C": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Chiara F. • Bologna",
+            "date": "19 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo INCI, delicato fa poca schiuma",
+            "text": "Do 4 stelle perché sono abituata ai bagnoschiuma tradizionali che fanno tantissima schiuma, mentre questo ne fa una più leggera e cremosa. Però la pelle ringrazia: zero pruriti e zero secchezza. L'estratto di mirtillo biologico è un plus che adoro. Nel complesso ottimo."
+          }
+        },
+        "review_VpidiX": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Sonia L. • Verona",
+            "date": "14 Ottobre 2026",
+            "rating": 5,
+            "title": "Prodotto eccellente",
+            "text": "Acquistato sotto consiglio del mio dermatologo che mi ha suggerito di passare a tensioattivi più dolci. Pulisce a fondo senza irritare. Ormai in famiglia usiamo solo questo sia per le mani che per il corpo l'altro alla menta e cedro."
           }
         },
         "review_F9HTKk": {
@@ -2920,10 +2931,11 @@
         "review_Gp68DY",
         "review_cnCMx9",
         "review_EpgMHt",
-        "review_pEUe4C",
         "review_qDeYqh",
         "review_UfTegj",
         "review_nibQfB",
+        "review_pEUe4C",
+        "review_VpidiX",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
