@@ -1107,6 +1107,17 @@
             "text": "Ha una fragranza erbacea e fresca deliziosa, si sentono molto la lavanda e l'eucalipto. La cosa migliore è che non contiene sali d'alluminio ma funziona benissimo, e soprattutto non lascia quegli odiosi aloni gialli o bianchi sulle magliette."
           }
         },
+        "review_HrVxbQ": {
+          "type": "review",
+          "settings": {
+            "target_product": "aluminum-free-roll-on-deodorant",
+            "author": "Marco T. • Bologna",
+            "date": "21 Ottobre 2026",
+            "rating": 1,
+            "title": "Ottima formula ecobio, ma va riapplicato nelle giornate intense",
+            "text": "Perfetto per chi cerca un prodotto naturale senza alcool. Su di me dura tranquillamente 6ore; se faccio sport molto intenso preferisco dare una rinfrescata a metà giornata. Ottimo il formato roll-on da 50 ml, comodo da borsa."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3262,6 +3273,7 @@
         "review_kCp7iA",
         "review_CH4g3z",
         "review_bgCqeH",
+        "review_HrVxbQ",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
