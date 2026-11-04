@@ -953,6 +953,17 @@
             "text": "Odio i sieri in flaconi minuscoli, quindi la confezione di questo prodotto mi ha conquistata subito: dura tantissimo! Si assorbe in tre secondi, idrata a fondo e lascia sulla pelle un profumo rilassante e avvolgente di ambra."
           }
         },
+        "review_KVGFwQ": {
+          "type": "review",
+          "settings": {
+            "target_product": "silk-skin-body-serum-spices-sandalwood",
+            "author": "Sofia O. • Bologna",
+            "date": "25 Ottobre 2026",
+            "rating": 5,
+            "title": "profumazione top",
+            "text": "l siero fa benissimo il suo dovere: la pelle appare decisamente più soda e idratata. La profumazione di ambra e patchouli è meravigliosa."
+          }
+        },
         "review_Pqr96m": {
           "type": "review",
           "settings": {
@@ -3094,6 +3105,7 @@
         "review_79FzwP",
         "review_Vpbnc3",
         "review_rfnj3x",
+        "review_KVGFwQ",
         "review_Pqr96m",
         "review_MQAJhR",
         "review_cfrA6m",
