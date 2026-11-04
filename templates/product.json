@@ -1338,6 +1338,17 @@
             "text": "In casa cerchiamo di usare solo prodotti con ingredienti puliti. Questo sapone è talmente delicato che lo uso senza problemi anche i miei figli. Non brucia, non crea arrossamenti e lascia una bellissima sensazione di pulito e freschezza."
           }
         },
+        "review_k3zLUV": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Andrea M. • Trieste",
+            "date": "23 Settembre 2026",
+            "rating": 5,
+            "title": "Ottima consistenza e si risciacqua subito",
+            "text": "Cconsistenza fluida perfetta, lava benissimo e si risciacqua in un attimo senza lasciare residui. Ottimo anche il profumo agrumato naturale."
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -3008,6 +3019,7 @@
         "review_xBWK4r",
         "review_8JajNw",
         "review_LYkjPK",
+        "review_k3zLUV",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
