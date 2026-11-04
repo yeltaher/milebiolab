@@ -1316,6 +1316,17 @@
             "text": "La profumazione è molto estiva e agrumata, ottima per la doccia dopo la palestra. Rinfresca subito. Ottimo anche come sapone mani per gli ospiti, fa un figurone."
           }
         },
+        "review_8JajNw": {
+          "type": "review",
+          "settings": {
+            "target_product": "hand-body-wash-grapefruit",
+            "author": "Franca F. • Verona",
+            "date": "01 Ottobre 2026",
+            "rating": 5,
+            "title": "Finalmente un vero sapone naturale che funziona",
+            "text": "Questo sapone non ha parabeni, siliconi o petrolati e schifezze varie, ma solo derivati green. Lava benissimo, rispetta l'ambiente e lascia un profumo fresco e pulito. Compratelo a occhi chiusi."
+          }
+        },
         "review_F9HTKk": {
           "type": "review",
           "settings": {
@@ -2984,6 +2995,7 @@
         "review_XYnmz7",
         "review_GXyUwM",
         "review_xBWK4r",
+        "review_8JajNw",
         "review_F9HTKk",
         "review_cidNeK",
         "review_mLf3mt",
