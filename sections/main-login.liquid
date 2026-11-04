@@ -177,8 +177,9 @@
               {{ section.settings.register_prompt_text | default: "Non possiedi ancora un account Club Mile?" }}
             </p>
             <a
-              href="{{ routes.account_register_url }}"
-              class="inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold"
+              href="/pages/account"
+              onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('register'); return false; }"
+              class="inline-block px-6 py-3 border border-ink text-ink hover:bg-ink hover:text-white transition-colors text-xs uppercase tracking-widest font-semibold cursor-pointer"
             >
               {{ section.settings.register_link_text | default: "Crea un Nuovo Account • Ricevi il 10%" }}
             </a>
@@ -282,6 +283,20 @@
       var successEl = document.getElementById('ResetSuccess');
       if (successEl) successEl.classList.remove('hidden');
     {% endif %}
+
+    var loginForm = document.querySelector('#CustomerLoginForm form');
+    if (loginForm) {
+      loginForm.addEventListener('submit', function() {
+        var returnInput = loginForm.querySelector('input[name="return_to"]');
+        if (!returnInput) {
+          var input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'return_to';
+          input.value = '/pages/account';
+          loginForm.appendChild(input);
+        }
+      });
+    }
   });
 </script>
 

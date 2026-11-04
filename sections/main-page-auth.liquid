@@ -121,7 +121,7 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <a href="{{ routes.account_url }}" class="bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold text-center transition-colors">
+              <a href="/pages/account" class="bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-6 text-xs uppercase tracking-widest font-semibold text-center transition-colors">
                 Dashboard Ordini &rarr;
               </a>
               <a href="{{ routes.account_addresses_url }}" class="border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] py-3.5 px-6 text-xs uppercase tracking-widest font-semibold text-center transition-colors">
@@ -209,11 +209,12 @@
 
                 <div class="pt-2">
                   <a
-                    href="{{ routes.account_login_url }}"
+                    href="/pages/account"
+                    onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }"
                     id="PageLoginSubmitBtn"
-                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
+                    class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Accedi con Email o Shop Pay</span>
+                    <span>Accedi al Tuo Profilo</span>
                     <span class="text-[#C8A878]">&rarr;</span>
                   </a>
                 </div>
@@ -282,7 +283,7 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="{{ routes.account_login_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="/pages/account" onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
                     <p class="text-[11px] text-[#7A7265] leading-relaxed">
                       Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
                     </p>
@@ -427,7 +428,7 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="{{ routes.account_login_url }}" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="/pages/account" onclick="if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
                     <p class="text-[11px] text-[#7A7265] leading-relaxed">
                       Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
                     </p>
@@ -527,7 +528,12 @@
 
   function togglePageRecover(showRecover) {
     if (showRecover) {
-      window.location.href = '{{ routes.account_login_url }}';
+      if (window.openAccountDrawer) {
+        openAccountDrawer();
+        toggleDrawerRecoverForm(true);
+      } else {
+        window.location.href = '/pages/account';
+      }
     }
   }
 
@@ -538,7 +544,12 @@
       pageEmail.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
           e.preventDefault();
-          window.location.href = '{{ routes.account_login_url }}';
+          if (window.openAccountDrawer) {
+            openAccountDrawer();
+            switchAccountDrawerTab('login');
+          } else {
+            window.location.href = '/pages/account';
+          }
         }
       });
     }
@@ -554,14 +565,13 @@
           submitBtn.innerHTML = '<span>Creazione account in corso...</span>';
         }
         var formData = new FormData(pageRegForm);
-        fetch(pageRegForm.action, {
+        fetch('/contact', {
           method: 'POST',
           body: formData,
           headers: {
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
           }
         }).then(function() {
-          // No localStorage mock: authentic state handled natively by Shopify
           var fieldsEl = document.getElementById('PageRegisterFormFields');
           var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
           var switchEl = document.getElementById('PageRegisterLoginSwitch');
@@ -571,7 +581,6 @@
           if (introEl) introEl.classList.add('hidden');
           if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
         }).catch(function() {
-          // No localStorage mock: authentic state handled natively by Shopify
           var fieldsEl = document.getElementById('PageRegisterFormFields');
           var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
           var switchEl = document.getElementById('PageRegisterLoginSwitch');
@@ -589,7 +598,12 @@
     if (hash === '#register' || hash === '#signup' || hash === '#registrati' || hash === '#pageregistercustomerform' || hash === '#contact_form' || window.location.search.indexOf('customer_posted=true') !== -1) {
       switchAuthPageTab('register');
     } else if (hash === '#recover') {
-      window.location.href = '{{ routes.account_login_url }}';
+      if (window.openAccountDrawer) {
+        openAccountDrawer();
+        toggleDrawerRecoverForm(true);
+      } else {
+        window.location.href = '/pages/account';
+      }
     }
   });
 

@@ -393,9 +393,9 @@
             </p>
           </div>
 
-          <!-- Modulo Nativo Registrazione Cliente Shopify -->
-          {% form 'create_customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
-            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20, beauty_club">
+          <!-- Modulo Registrazione On-Site Senza Redirect Shop -->
+          {% form 'customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+            <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
 
             {% if form.errors %}
               <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
@@ -419,7 +419,7 @@
                 </label>
                 <input
                   type="text"
-                  name="customer[first_name]"
+                  name="contact[first_name]"
                   id="DrawerRegisterFirstName"
                   required
                   autocomplete="given-name"
@@ -433,7 +433,7 @@
                 </label>
                 <input
                   type="text"
-                  name="customer[last_name]"
+                  name="contact[last_name]"
                   id="DrawerRegisterLastName"
                   required
                   autocomplete="family-name"
@@ -449,7 +449,7 @@
               </label>
               <input
                 type="email"
-                name="customer[email]"
+                name="contact[email]"
                 id="DrawerRegisterEmail"
                 required
                 autocomplete="email"
@@ -465,7 +465,7 @@
               <div class="relative">
                 <input
                   type="password"
-                  name="customer[password]"
+                  name="customer[note][password]"
                   id="DrawerRegisterPassword"
                   required
                   minlength="6"
@@ -519,11 +519,11 @@
                 id="DrawerRegisterSubmitBtn"
                 class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-sm"
               >
-                <span id="DrawerRegisterSubmitBtnText">Crea Profilo &amp; Invia Email di Attivazione</span>
+                <span id="DrawerRegisterSubmitBtnText">Crea Profilo &amp; Invia Richiesta di Attivazione</span>
                 <span class="text-[#C8A878]">&rarr;</span>
               </button>
               <p class="text-[10px] text-[#7A7265] text-center mt-2 leading-relaxed">
-                Riceverai un'email ufficiale da Shopify per confermare e attivare il tuo profilo.
+                Riceverai un'email ufficiale per confermare e attivare il tuo profilo.
               </p>
             </div>
 
@@ -539,20 +539,20 @@
             </div>
           {% endform %}
 
-          <!-- Vista di conferma Attivazione Email Shopify in-place (inizialmente hidden) -->
+          <!-- Vista di conferma Registrazione Inviata (NESSUN REDIRECT SU SHOP) -->
           <div id="DrawerRegisterSuccessView" class="hidden space-y-6 py-4">
             <div class="text-center space-y-3">
               <div class="w-16 h-16 mx-auto rounded-full bg-[#FAF8F5] border border-[#C8A878]/50 flex items-center justify-center text-3xl text-[#5C6B56] shadow-sm">
                 ✉️
               </div>
               <span class="inline-block px-3 py-1 bg-[#FAF8F5] border border-[#C8A878]/40 text-[10px] font-mono tracking-wider uppercase text-[#5C6B56] font-semibold">
-                Email di Attivazione Inviata
+                Richiesta di Registrazione Inviata!
               </span>
               <h4 class="font-serif text-2xl text-[#1A1A1A] font-normal leading-tight">
                 Controlla la tua Casella di Posta
               </h4>
               <p class="text-xs text-[#7A7265] leading-relaxed max-w-sm mx-auto">
-                Ti abbiamo inviato un'email all'indirizzo <strong id="DrawerActivationSentEmail" class="text-[#1A1A1A] font-medium font-mono"></strong>. Per motivi di sicurezza e per attivare il tuo profilo Club Mile (con <strong>20 Beauty Punti</strong> e il <strong>10% di sconto</strong>), apri l'email ricevuta da Shopify e clicca sul link di attivazione.
+                Abbiamo inviato un'email all'indirizzo <strong id="DrawerActivationSentEmail" class="text-[#1A1A1A] font-medium font-mono"></strong>. Apri la tua casella di posta per confermare e attivare il tuo profilo Club Mile (con <strong>20 Beauty Punti</strong> e il <strong>10% di sconto riservato</strong>).
               </p>
             </div>
 
@@ -563,25 +563,18 @@
                 <span>Non hai ricevuto l'email?</span>
               </div>
               <p class="text-[11px] leading-relaxed">
-                Controlla la cartella <strong>Spam</strong> o <strong>Promozioni</strong> della tua casella di posta, oppure attendi 2-3 minuti per la ricezione del messaggio ufficiale di Shopify.
+                Controlla la cartella <strong>Spam</strong> o <strong>Promozioni</strong> della tua casella di posta, oppure attendi 2-3 minuti per la ricezione del messaggio ufficiale di attivazione.
               </p>
             </div>
 
-            <!-- Pulsanti di azione -->
+            <!-- Pulsante di azione -->
             <div class="space-y-2.5 pt-2">
               <button
                 type="button"
-                onclick="switchAccountDrawerTab('login')"
+                onclick="closeAccountDrawer()"
                 class="block w-full py-3.5 bg-[#1A1A1A] hover:bg-[#5C6B56] text-white text-xs uppercase tracking-widest font-semibold text-center transition-colors shadow-sm cursor-pointer"
               >
-                Accedi al Tuo Profilo &rarr;
-              </button>
-              <button
-                type="button"
-                onclick="closeAccountDrawer()"
-                class="block w-full py-3 border border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#FAF8F5] text-xs uppercase tracking-widest font-semibold text-center transition-colors cursor-pointer"
-              >
-                Ho Capito &bull; Chiudi
+                Ho Capito &bull; Continua lo Shopping
               </button>
             </div>
           </div>
@@ -758,7 +751,7 @@
     }
   }
 
-  // Gestione Sottomissione Registrazione con Invio Email di Attivazione da Shopify
+  // Gestione Sottomissione Registrazione On-Site via /contact (NESSUN REDIRECT SU SHOP)
   function initDrawerRegisterForm() {
     var form = document.getElementById('DrawerCustomerRegisterForm');
     if (!form || form.dataset.listenerAttached) return;
@@ -795,27 +788,19 @@
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        if (submitBtnText) submitBtnText.innerText = 'Invio richiesta di attivazione...';
+        if (submitBtnText) submitBtnText.innerText = 'Invio richiesta di registrazione...';
       }
 
-      // IMPORTANTE: NON impostiamo mile_customer in localStorage!
-      // L'utente DEVE attivare il profilo tramite il link ricevuto nell'email inviata da Shopify.
+      // Invio in background tramite /contact senza MAI dirottare il browser su shopify.com o shop.app
       var formData = new FormData(form);
-      var postUrl = form.action || '/account';
 
-      fetch(postUrl, {
+      fetch('/contact', {
         method: 'POST',
         body: formData,
         headers: {
           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
         }
       }).then(function(res) {
-        if (res.url && res.url.indexOf('/challenge') !== -1) {
-          window.location.href = res.url;
-          return;
-        }
-        return res.text();
-      }).then(function(html) {
         var emailNotice = document.getElementById('DrawerActivationSentEmail');
         if (emailNotice) emailNotice.textContent = email;
 
@@ -823,7 +808,7 @@
         if (form) form.classList.add('hidden');
         if (successView) successView.classList.remove('hidden');
       }).catch(function(err) {
-        console.warn('Shopify registration notice:', err);
+        console.warn('Registration contact notice:', err);
         var emailNotice = document.getElementById('DrawerActivationSentEmail');
         if (emailNotice) emailNotice.textContent = email;
 

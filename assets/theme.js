@@ -3062,9 +3062,10 @@ function switchAccountDrawerTab(tabName) {
 function logoutCustomerSession() {
   try {
     localStorage.removeItem('mile_customer');
+    sessionStorage.clear();
   } catch (err) {}
 
-  // Redirect to Shopify logout or root
+  // Redirect to Shopify logout pulendo completamente la sessione cliente
   window.location.href = '/account/logout';
 }
 
