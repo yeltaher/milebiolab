@@ -179,19 +179,7 @@
                 </p>
               </div>
 
-                            <!-- Alert Account in Attesa di Attivazione -->
-              <div id="PageLoginPendingActivationNotice" class="hidden p-4 bg-[#FFF9E6] border border-[#E0C068] text-[#8A6D1C] text-xs space-y-1 mb-4">
-                <p class="font-semibold flex items-center gap-1.5">
-                  <span>⏳</span> Account in attesa di attivazione
-                </p>
-                <p class="text-[11px] leading-relaxed">
-                  Abbiamo inviato un'email a <strong id="PagePendingEmailText"></strong>. Per favore apri la tua casella di posta e clicca sul link di attivazione prima di effettuare l'accesso.
-                </p>
-                <p class="pt-1 text-[10px] text-[#8A6D1C]/80 flex items-center justify-between">
-                  <span>Hai già confermato dall'email?</span>
-                  <button type="button" onclick="clearPagePendingActivationNotice()" class="underline hover:text-[#1A1A1A] cursor-pointer">Sblocca accesso</button>
-                </p>
-              </div>
+              
 
               <!-- Info Box Nuovi Account Senza Password -->
               <div class="mb-6 p-5 bg-[#FAF8F5] border border-[#E5E0D8] space-y-2">
@@ -224,7 +212,7 @@
                 <div class="pt-2">
                   <a
                     href="/pages/account"
-                    onclick="if(checkPageLoginEmailPending()){ return false; } if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }"
+                    onclick=" if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }"
                     id="PageLoginSubmitBtn"
                     class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                   >
@@ -297,7 +285,7 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="/pages/account" onclick="if(checkPageLoginEmailPending()){ return false; } if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="/pages/account" onclick=" if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
                     <p class="text-[11px] text-[#7A7265] leading-relaxed">
                       Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
                     </p>
@@ -443,7 +431,7 @@
                   </div>
 
                   <div class="pt-4 max-w-md mx-auto space-y-2.5">
-                    <a href="/pages/account" onclick="if(checkPageLoginEmailPending()){ return false; } if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
+                    <a href="/pages/account" onclick=" if(window.openAccountDrawer){ openAccountDrawer(); switchAccountDrawerTab('login'); return false; }" class="block w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold text-center transition-colors mb-2 cursor-pointer">Entra Subito nel Tuo Profilo &rarr;</a>
                     <p class="text-[11px] text-[#7A7265] leading-relaxed">
                       Riceverai un codice a 6 cifre via email per autenticarti istantaneamente senza password.
                     </p>
@@ -481,22 +469,7 @@
 
 <script>
   function checkPageLoginEmailPending() {
-    var emailInput = document.getElementById('PageCustomerEmail');
-    var notice = document.getElementById('PageLoginPendingActivationNotice');
-    var noticeEmail = document.getElementById('PagePendingEmailText');
-    if (!emailInput || !notice) return false;
-
-    var email = emailInput.value.trim().toLowerCase();
-    var pendingEmail = (localStorage.getItem('mile_pending_activation_email') || '').trim().toLowerCase();
-
-    if (email && pendingEmail && email === pendingEmail) {
-      if (noticeEmail) noticeEmail.textContent = emailInput.value.trim();
-      notice.classList.remove('hidden');
-      return true;
-    } else {
-      notice.classList.add('hidden');
-      return false;
-    }
+    return false;
   }
 
   function clearPagePendingActivationNotice() {
@@ -522,21 +495,20 @@
     var lastName = lastNameInput ? lastNameInput.value.trim() : '';
     if (email) {
       try {
-        localStorage.setItem('mile_pending_activation_email', email.toLowerCase());
-        localStorage.setItem('mile_customer_profile', JSON.stringify({
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          points: 20
-        }));
+        localStorage.removeItem('mile_pending_activation_email');
         localStorage.setItem('mile_customer_logged_in', 'true');
-        localStorage.setItem('mile_customer', JSON.stringify({
+        var profileData = {
           first_name: firstName,
           last_name: lastName,
           email: email,
           points: 20
-        }));
+        };
+        localStorage.setItem('mile_customer_profile', JSON.stringify(profileData));
+        localStorage.setItem('mile_customer', JSON.stringify(profileData));
       } catch (err) {}
+      if (typeof window.syncCustomerNameAndInitials === 'function') {
+        window.syncCustomerNameAndInitials();
+      }
     }
 
     var submitBtn = document.getElementById('PageRegisterSubmitBtn');

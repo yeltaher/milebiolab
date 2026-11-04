@@ -104,19 +104,7 @@
             <p>Ti abbiamo inviato un'email con il link sicuro per reimpostare la tua password.</p>
           </div>
 
-                    <!-- Alert Account in Attesa di Attivazione -->
-          <div id="MainLoginPendingActivationNotice" class="hidden p-4 bg-[#FFF9E6] border border-[#E0C068] text-[#8A6D1C] text-xs space-y-1 mb-4">
-            <p class="font-semibold flex items-center gap-1.5">
-              <span>⏳</span> Account in attesa di attivazione
-            </p>
-            <p class="text-[11px] leading-relaxed">
-              Abbiamo inviato un'email a <strong id="MainPendingEmailText"></strong>. Per favore apri la tua casella di posta e clicca sul link di attivazione prima di effettuare l'accesso.
-            </p>
-            <p class="pt-1 text-[10px] text-[#8A6D1C]/80 flex items-center justify-between">
-              <span>Hai già confermato dall'email?</span>
-              <button type="button" onclick="clearMainPendingActivationNotice()" class="underline hover:text-[#1A1A1A] cursor-pointer">Sblocca accesso</button>
-            </p>
-          </div>
+          
 
           {% form 'customer_login', id: 'CustomerLoginFormTag', class: 'space-y-5', novalidate: 'novalidate', onsubmit: 'return handleMainLoginSubmit(event)' %}
             <input type="hidden" name="return_to" value="/pages/account">
@@ -141,7 +129,7 @@
                 autocapitalize="off"
                 required
                 placeholder="es. maria.rossi@email.com"
-                oninput="checkMainLoginEmailPending()" onchange="checkMainLoginEmailPending()" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                 class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
                 {% if form.errors contains 'form' %}aria-invalid="true"{% endif %}
               >
             </div>
@@ -269,37 +257,28 @@
 
 <script>
   function checkMainLoginEmailPending() {
-    var emailInput = document.getElementById('CustomerEmail');
-    var notice = document.getElementById('MainLoginPendingActivationNotice');
-    var noticeEmail = document.getElementById('MainPendingEmailText');
-    if (!emailInput || !notice) return false;
-
-    var email = emailInput.value.trim().toLowerCase();
-    var pendingEmail = (localStorage.getItem('mile_pending_activation_email') || '').trim().toLowerCase();
-
-    if (email && pendingEmail && email === pendingEmail) {
-      if (noticeEmail) noticeEmail.textContent = emailInput.value.trim();
-      notice.classList.remove('hidden');
-      return true;
-    } else {
-      notice.classList.add('hidden');
-      return false;
-    }
+    return false;
   }
 
   function handleMainLoginSubmit(e) {
-    if (checkMainLoginEmailPending()) {
-      if (e) {
-        if (typeof e.preventDefault === 'function') e.preventDefault();
-        if (typeof e.stopPropagation === 'function') e.stopPropagation();
+    try {
+      localStorage.removeItem('mile_pending_activation_email');
+      var emailInput = document.getElementById('CustomerEmail');
+      var email = emailInput ? emailInput.value.trim() : '';
+      if (email) {
+        localStorage.setItem('mile_customer_logged_in', 'true');
+        var curProfileRaw = localStorage.getItem('mile_customer_profile');
+        var curProfile = null;
+        if (curProfileRaw) {
+          try { curProfile = JSON.parse(curProfileRaw); } catch(err){}
+        }
+        if (!curProfile || !curProfile.email || curProfile.email.toLowerCase() !== email.toLowerCase()) {
+          var newProfile = { email: email, points: 20 };
+          localStorage.setItem('mile_customer_profile', JSON.stringify(newProfile));
+          localStorage.setItem('mile_customer', JSON.stringify(newProfile));
+        }
       }
-      var notice = document.getElementById('MainLoginPendingActivationNotice');
-      if (notice) {
-        notice.classList.remove('hidden');
-        notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-      return false;
-    }
+    } catch(err) {}
     return true;
   }
 
