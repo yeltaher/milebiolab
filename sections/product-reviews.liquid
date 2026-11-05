@@ -541,37 +541,268 @@
   var prodId = "{{ product.id }}";
   var prodHandle = "{{ product.handle }}";
 
+  // Helper per formattazione data in italiano elegante (G Mese AAAA)
+  function formatJudgeMeDate(rawDateStr) {
+    var months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+    if (!rawDateStr) {
+      var now = new Date();
+      return now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    }
+    
+    var cleanStr = String(rawDateStr).trim();
+    for (var m = 0; m < months.length; m++) {
+      if (cleanStr.indexOf(months[m]) !== -1) return cleanStr;
+    }
+
+    if (/^\d+$/.test(cleanStr)) {
+      var ts = parseInt(cleanStr, 10);
+      if (cleanStr.length === 10) ts = ts * 1000;
+      var dTs = new Date(ts);
+      if (!isNaN(dTs.getTime())) {
+        return dTs.getDate() + ' ' + months[dTs.getMonth()] + ' ' + dTs.getFullYear();
+      }
+    }
+
+    var d = new Date(cleanStr);
+    if (isNaN(d.getTime())) {
+      var mIso = cleanStr.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+      if (mIso) {
+        d = new Date(parseInt(mIso[1], 10), parseInt(mIso[2], 10) - 1, parseInt(mIso[3], 10));
+      } else {
+        var mEu = cleanStr.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+        if (mEu) {
+          d = new Date(parseInt(mEu[3], 10), parseInt(mEu[2], 10) - 1, parseInt(mEu[1], 10));
+        }
+      }
+    }
+
+    if (!isNaN(d.getTime())) {
+      return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    return cleanStr;
+  }
+
+  // Helper per parsing di un elemento recensione .jdgm-rev di Judge.me
+  function parseJudgeMeReviewElement(revEl) {
+    if (!revEl) return null;
+
+    // 1. Punteggio / Rating
+    var rating = 5;
+    var rawScore = revEl.getAttribute('data-score');
+    if (!rawScore) {
+      var ratingEl = revEl.querySelector('.jdgm-rev__rating');
+      if (ratingEl) rawScore = ratingEl.getAttribute('data-score');
+    }
+    if (!rawScore) {
+      var onStars = revEl.querySelectorAll('.jdgm-star.jdgm--on');
+      if (onStars && onStars.length > 0) {
+        rawScore = onStars.length;
+      }
+    }
+    if (rawScore) {
+      var parsedScore = parseInt(rawScore, 10);
+      if (!isNaN(parsedScore) && parsedScore >= 1 && parsedScore <= 5) {
+        rating = parsedScore;
+      }
+    }
+
+    // 2. Titolo recensione
+    var titleEl = revEl.querySelector('.jdgm-rev__title');
+    var title = titleEl ? titleEl.textContent.trim() : 'Esperienza eccellente';
+    if (!title) title = 'Esperienza eccellente';
+
+    // 3. Testo / Corpo recensione
+    var bodyEl = revEl.querySelector('.jdgm-rev__body');
+    var body = bodyEl ? bodyEl.textContent.trim() : '';
+
+    // 4. Autore
+    var author = 'Cliente Verificata';
+    var authorEl = revEl.querySelector('.jdgm-rev__author');
+    if (authorEl) {
+      var cloneAuth = authorEl.cloneNode(true);
+      var badges = cloneAuth.querySelectorAll('.jdgm-rev__buyer-badge, .jdgm-rev__icon, .jdgm-rev__badge');
+      for (var b = 0; b < badges.length; b++) badges[b].remove();
+      var cleanText = cloneAuth.textContent.trim();
+      if (cleanText) author = cleanText;
+    }
+
+    // 5. Data
+    var timestampEl = revEl.querySelector('.jdgm-rev__timestamp');
+    var rawDate = '';
+    if (timestampEl) {
+      rawDate = timestampEl.getAttribute('data-content') 
+             || timestampEl.getAttribute('datetime') 
+             || timestampEl.getAttribute('data-timestamp') 
+             || timestampEl.textContent.trim();
+    }
+    var date = formatJudgeMeDate(rawDate);
+
+    // Inclusione se body o title significativo presenti
+    if (body || (title && title !== 'Esperienza eccellente')) {
+      return {
+        rating: rating,
+        title: title,
+        body: body,
+        author: author,
+        date: date,
+        fromJudgeMe: true
+      };
+    }
+    return null;
+  }
+
+  // 1. Estrazione recensioni approvate dal DOM di Judge.me (#judgeme-headless-bridge / #judgeme_product_reviews)
+  function getJudgeMeApprovedReviews() {
+    var list = [];
+    var bridge = document.getElementById('judgeme-headless-bridge');
+    var jdgmWidget = document.getElementById('judgeme_product_reviews');
+    var revNodes = [];
+
+    if (bridge) {
+      var bridgeNodes = bridge.querySelectorAll('.jdgm-rev');
+      for (var b = 0; b < bridgeNodes.length; b++) revNodes.push(bridgeNodes[b]);
+    }
+    if (jdgmWidget && jdgmWidget !== bridge) {
+      var widgetNodes = jdgmWidget.querySelectorAll('.jdgm-rev');
+      for (var w = 0; w < widgetNodes.length; w++) {
+        if (revNodes.indexOf(widgetNodes[w]) === -1) {
+          revNodes.push(widgetNodes[w]);
+        }
+      }
+    }
+    if (revNodes.length === 0) {
+      var anyNodes = document.querySelectorAll('.jdgm-rev');
+      for (var a = 0; a < anyNodes.length; a++) revNodes.push(anyNodes[a]);
+    }
+
+    for (var i = 0; i < revNodes.length; i++) {
+      var item = parseJudgeMeReviewElement(revNodes[i]);
+      if (item) list.push(item);
+    }
+    return list;
+  }
+  window.getJudgeMeApprovedReviews = getJudgeMeApprovedReviews;
+
+  // 2. Fallback asincrono resiliente di rete via API pubblica Judge.me
+  window._judgemeCachedReviews = window._judgemeCachedReviews || [];
+
+  function fetchJudgeMePublicReviews(pId) {
+    var targetId = pId || prodId;
+    if (!targetId) return;
+    var shopDomain = (window.jdgm && typeof window.jdgm.shopDomain === 'function' ? window.jdgm.shopDomain() : '') 
+                     || (window.jdgmSettings && window.jdgmSettings.shopDomain ? window.jdgmSettings.shopDomain : '') 
+                     || '{{ shop.permanent_domain }}';
+    if (!shopDomain) return;
+
+    var url = 'https://judge.me/api/v1/widgets/product_review?shop_domain=' + encodeURIComponent(shopDomain) + '&product_id=' + encodeURIComponent(targetId) + '&json_request=true';
+
+    fetch(url, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        if (data && data.widget) {
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = data.widget;
+          var revNodes = tempDiv.querySelectorAll('.jdgm-rev');
+          var list = [];
+          for (var i = 0; i < revNodes.length; i++) {
+            var item = parseJudgeMeReviewElement(revNodes[i]);
+            if (item) list.push(item);
+          }
+          if (list.length > 0) {
+            window._judgemeCachedReviews = list;
+            renderUserReviews(targetId, prodHandle);
+          }
+        }
+      })
+      .catch(function(err) {
+        console.warn('Judge.me public widget fetch notice:', err);
+      });
+  }
+  window.fetchJudgeMePublicReviews = fetchJudgeMePublicReviews;
+
+  // Helpers per deduplicazione robusta (autore normalizzato + prime 30 lettere del corpo + titolo normalizzato)
+  function normalizeKeyPart(str) {
+    if (!str) return '';
+    return str.toString().toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+  }
+
+  function getReviewDedupeKey(item) {
+    if (!item) return '';
+    var rawAuthor = (item.author || '').split('•')[0].trim();
+    var authorNorm = normalizeKeyPart(rawAuthor);
+    var bodyNorm = normalizeKeyPart((item.body || '').substring(0, 30));
+    var titleNorm = normalizeKeyPart(item.title || '');
+    return authorNorm + '|' + bodyNorm + '|' + titleNorm;
+  }
+
+  // 3. Unione deduplicata di localStorage, DOM Judge.me e API Judge.me
   function getMergedUserReviews(id, handle) {
     var pId = id || prodId;
     var pHandle = handle || prodHandle;
     var list = [];
     var seen = {};
 
-    function addKey(storageKey) {
+    function addReview(item) {
+      if (!item) return;
+      var key = getReviewDedupeKey(item);
+      if (!key) return;
+      if (seen[key]) {
+        // Upgrade status se confermato ufficialmente da Judge.me
+        if (item.fromJudgeMe && seen[key].item) {
+          seen[key].item.fromJudgeMe = true;
+        }
+        return;
+      }
+      seen[key] = { item: item };
+      list.push(item);
+    }
+
+    // 1. Recensioni da localStorage (0ms instant preview per autore locale)
+    function addStorageKeys(storageKey) {
       if (!storageKey) return;
       try {
         var raw = localStorage.getItem(storageKey);
         if (raw) {
           var arr = JSON.parse(raw);
           if (Array.isArray(arr)) {
-            arr.forEach(function(item) {
-              var dedupeKey = (item.title || '') + '|' + (item.body || '') + '|' + (item.author || '');
-              if (!seen[dedupeKey]) {
-                seen[dedupeKey] = true;
-                list.push(item);
-              }
+            arr.slice().reverse().forEach(function(item) {
+              addReview(item);
             });
           }
         }
       } catch(e) {}
     }
 
-    if (pId) addKey('mile_user_reviews_' + pId);
-    if (pHandle && pHandle !== pId) addKey('mile_user_reviews_' + pHandle);
+    if (pId) addStorageKeys('mile_user_reviews_' + pId);
+    if (pHandle && pHandle !== pId) addStorageKeys('mile_user_reviews_' + pHandle);
+
+    // 2. Recensioni estratte dal DOM via getJudgeMeApprovedReviews()
+    var domReviews = getJudgeMeApprovedReviews();
+    if (Array.isArray(domReviews)) {
+      domReviews.forEach(function(item) {
+        addReview(item);
+      });
+    }
+
+    // 3. Recensioni ottenute dall'API pubblica Judge.me
+    if (Array.isArray(window._judgemeCachedReviews)) {
+      window._judgemeCachedReviews.forEach(function(item) {
+        addReview(item);
+      });
+    }
 
     return list;
   }
+  window.getMergedUserReviews = getMergedUserReviews;
 
+  // 4. Rendering delle recensioni con Card Template Splendor Haute Couture
   function renderUserReviews(targetId, targetHandle) {
     var pId = targetId || prodId;
     var pHandle = targetHandle || prodHandle;
@@ -580,9 +811,11 @@
     var container = document.getElementById('reviews-grid-container');
     if (!container) return;
 
-    // Clean up previous user-local-review-card elements to prevent duplicates
+    // Rimozione card precedenti per evitare duplicazioni nel DOM
     var oldCards = container.querySelectorAll('.user-local-review-card');
-    oldCards.forEach(function(c) { c.remove(); });
+    for (var k = 0; k < oldCards.length; k++) {
+      oldCards[k].remove();
+    }
 
     var baseCount = {{ real_total }};
     var totalCountEl = document.getElementById('reviews-total-count-display');
@@ -592,9 +825,10 @@
         baseCount = parseInt(rawBase, 10) || 0;
       }
     }
-    var finalTotal = baseCount + (userReviews ? userReviews.length : 0);
+    var userReviewsCount = userReviews ? userReviews.length : 0;
+    var finalTotal = baseCount + userReviewsCount;
 
-    // Toggle empty state visibility
+    // Toggle visibilità stato vuoto
     var emptyState = document.getElementById('reviews-empty-state');
     if (emptyState) {
       if (finalTotal > 0) {
@@ -605,10 +839,11 @@
     }
 
     if (userReviews && userReviews.length > 0) {
-      // Insert cards in reverse chronological order (newest first)
-      userReviews.slice().reverse().forEach(function(rev) {
+      var firstStaticCard = container.querySelector(':not(.user-local-review-card)') || null;
+
+      userReviews.forEach(function(rev) {
         var card = document.createElement('div');
-        card.className = 'user-local-review-card bg-[#FAF8F5] p-6 border border-[#5C6B56]/50 flex flex-col justify-between transition-all duration-500 shadow-xs mb-4';
+        card.className = 'user-local-review-card bg-[#FAF8F5] p-6 border border-[#E5E0D8] flex flex-col justify-between transition-all duration-500 shadow-xs mb-4';
 
         var ratingNum = parseInt(rev.rating, 10) || 5;
         var starsHtml = '';
@@ -623,6 +858,7 @@
         }
 
         var authorDisplay = escapeHtml(window.formatReviewAuthor(rev.author));
+        var badgeText = rev.fromJudgeMe ? '&check; Acquisto Verificato' : '&check; Verifica Acquirente Club Mile';
 
         card.innerHTML = `
           <div>
@@ -637,19 +873,24 @@
           </div>
           <div class="pt-4 mt-6 border-t border-[#E5E0D8] flex items-center justify-between text-xs">
             <span class="font-medium text-[#1A1A1A]">${authorDisplay}</span>
-            <span class="text-[#5C6B56] text-[10px] font-semibold flex items-center gap-1">&check; Verifica Acquirente Club Mile</span>
+            <span class="text-[#5C6B56] text-[10px] font-semibold flex items-center gap-1">${badgeText}</span>
           </div>
         `;
 
-        container.insertBefore(card, container.firstChild);
+        container.insertBefore(card, firstStaticCard);
       });
     }
 
-    // Recalculate totals and average score
+    // Ricalcolo dinamico di conteggio complessivo
     if (totalCountEl) {
-      totalCountEl.textContent = finalTotal === 0 ? 'Nessuna recensione ancora presente' : (finalTotal === 1 ? 'Basato su 1 recensione certificata da acquirente reale' : 'Basato su ' + finalTotal + ' recensioni certificate da acquirenti reali');
+      totalCountEl.textContent = finalTotal === 0 
+        ? 'Nessuna recensione ancora presente' 
+        : (finalTotal === 1 
+            ? 'Basato su 1 recensione certificata da acquirente reale' 
+            : 'Basato su ' + finalTotal + ' recensioni certificate da acquirenti reali');
     }
 
+    // Ricalcolo dinamico di punteggio medio e stelline riassuntive
     var scoreDisplayEl = document.getElementById('reviews-overall-score-display');
     var starsDisplayEl = document.getElementById('reviews-stars-display');
     var baseScore = parseFloat("{{ overall_score_val }}") || 0.0;
@@ -664,10 +905,11 @@
       return acc + (parseFloat(r.rating) || 5);
     }, 0) : 0;
 
+    var newAvgScore = "0.0";
     if (finalTotal > 0) {
-      var newAvgScore = baseCount > 0 
+      newAvgScore = baseCount > 0 
         ? ((baseScore * baseCount + sumUserRatings) / finalTotal).toFixed(1)
-        : (sumUserRatings / userReviews.length).toFixed(1);
+        : (sumUserRatings / userReviewsCount).toFixed(1);
 
       if (scoreDisplayEl) {
         scoreDisplayEl.className = 'font-serif text-6xl text-ink font-normal leading-none mb-3';
@@ -675,6 +917,11 @@
       }
       if (starsDisplayEl) {
         starsDisplayEl.className = 'text-amber text-lg tracking-wider mb-2';
+        var roundedScore = Math.round(parseFloat(newAvgScore) || 5);
+        var sHtml = '';
+        for (var s = 1; s <= roundedScore; s++) sHtml += '&starf;';
+        for (var e = roundedScore + 1; e <= 5; e++) sHtml += '<span class="text-ash/40">&starf;</span>';
+        starsDisplayEl.innerHTML = sHtml;
       }
     } else {
       if (scoreDisplayEl) {
@@ -683,9 +930,11 @@
       }
       if (starsDisplayEl) {
         starsDisplayEl.className = 'text-ash/30 text-lg tracking-wider mb-2';
+        starsDisplayEl.innerHTML = '&starf;&starf;&starf;&starf;&starf;';
       }
     }
 
+    // Aggiornamento badge testata PDP
     var topReviewsText = document.getElementById('pdp-top-reviews-summary');
     if (topReviewsText) {
       if (finalTotal > 0) {
@@ -824,18 +1073,18 @@
           console.warn('Judge.me execution error:', errJdgm);
         }
 
-        // Show banner of success in-place
+        // Mostra messaggio di successo
         var successMsg = document.getElementById('ReviewFormSuccessMessage');
         if (successMsg) {
           successMsg.classList.remove('hidden');
           successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // Reset inputs (preserve author name & city)
+        // Reset input mantenendo autore e città
         if (titleInput) titleInput.value = '';
         if (bodyInput) bodyInput.value = '';
 
-        // Immediately inject and render review card
+        // Aggiornamento immediato UI
         renderUserReviews(prodId, prodHandle);
 
         if (typeof window.showToast === 'function') {
@@ -847,11 +1096,11 @@
     });
   }
 
-  // Execution triggers:
-  // 1. Immediately
+  // 5. Ascolto Eventi e Trigger di Sincronizzazione Real-Time
+  // Trigger 1: Immediato
   renderUserReviews(prodId, prodHandle);
 
-  // 2. DOMContentLoaded
+  // Trigger 2: DOMContentLoaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       renderUserReviews(prodId, prodHandle);
@@ -860,14 +1109,37 @@
     renderUserReviews(prodId, prodHandle);
   }
 
-  // 3. Safety timeout at 300ms
-  setTimeout(function() {
+  // Trigger 3: Evento ufficiale setup completato di Judge.me
+  window.addEventListener('jdgm.doneSetup', function() {
     renderUserReviews(prodId, prodHandle);
-  }, 300);
+  });
 
-  // 4. On Shopify theme section load event
+  // Trigger 4: MutationObserver su container Judge.me
+  var bridgeContainer = document.getElementById('judgeme-headless-bridge') || document.getElementById('judgeme_product_reviews');
+  if (bridgeContainer && window.MutationObserver) {
+    var observerDebounce = null;
+    var observer = new MutationObserver(function() {
+      if (observerDebounce) clearTimeout(observerDebounce);
+      observerDebounce = setTimeout(function() {
+        renderUserReviews(prodId, prodHandle);
+      }, 100);
+    });
+    observer.observe(bridgeContainer, { childList: true, subtree: true });
+  }
+
+  // Trigger 5: Trigger a scaglioni di sicurezza per catturare caricamenti asincroni
+  setTimeout(function() { renderUserReviews(prodId, prodHandle); }, 300);
+  setTimeout(function() { renderUserReviews(prodId, prodHandle); }, 800);
+  setTimeout(function() { renderUserReviews(prodId, prodHandle); }, 1500);
+  setTimeout(function() { renderUserReviews(prodId, prodHandle); }, 3000);
+
+  // Trigger 6: Avvio immediato chiamata API pubblica Judge.me
+  fetchJudgeMePublicReviews(prodId);
+
+  // Trigger 7: Evento Shopify theme section load
   document.addEventListener('shopify:section:load', function() {
     renderUserReviews(prodId, prodHandle);
+    fetchJudgeMePublicReviews(prodId);
   });
 })();
 
