@@ -395,9 +395,12 @@
             </p>
           </div>
 
-          <!-- Modulo Registrazione On-Site Senza Redirect Shop -->
-          {% form 'customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate', onsubmit: 'handleDrawerRegister(event); return false;' %}
-            <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
+          <!-- Modulo Registrazione Cliente Shopify Nativo -->
+          {% form 'create_customer', id: 'DrawerCustomerRegisterForm', class: 'space-y-3.5', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
+            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
+            <input type="hidden" name="customer[accepts_marketing]" value="true">
+            <input type="hidden" name="customer[password]" id="DrawerRegisterPassword" value="">
 
             {% if form.errors %}
               <div class="p-3 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs">
@@ -421,12 +424,12 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[first_name]"
+                  name="customer[first_name]"
                   id="DrawerRegisterFirstName"
                   required
                   autocomplete="given-name"
                   placeholder="Maria"
-                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleDrawerRegister(event); }" class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                 >
               </div>
               <div>
@@ -435,12 +438,12 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[last_name]"
+                  name="customer[last_name]"
                   id="DrawerRegisterLastName"
                   required
                   autocomplete="family-name"
                   placeholder="Rossi"
-                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleDrawerRegister(event); }" class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                  class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                 >
               </div>
             </div>
@@ -451,45 +454,13 @@
               </label>
               <input
                 type="email"
-                name="contact[email]"
+                name="customer[email]"
                 id="DrawerRegisterEmail"
                 required
                 autocomplete="email"
                 placeholder="es. maria.rossi@email.com"
-                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleDrawerRegister(event); }" class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
               >
-            </div>
-
-            <div>
-              <label for="DrawerRegisterPassword" class="block text-[11px] uppercase tracking-wider font-semibold text-[#1A1A1A] mb-1">
-                Password <span class="text-[#5C6B56]">*</span>
-              </label>
-              <div class="relative">
-                <input
-                  type="password"
-                  name="customer[note][password]"
-                  id="DrawerRegisterPassword"
-                  required
-                  minlength="6"
-                  autocomplete="new-password"
-                  placeholder="Almeno 6 caratteri"
-                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleDrawerRegister(event); }" class="w-full pl-3 pr-10 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
-                >
-                <button
-                  type="button"
-                  onclick="togglePasswordVisibility('DrawerRegisterPassword', this)"
-                  class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7A7265] hover:text-[#1A1A1A] bg-transparent border-0 cursor-pointer p-1 transition-colors"
-                  aria-label="Mostra password"
-                >
-                  <svg class="password-eye-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <svg class="password-eye-slash-icon w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
-                  </svg>
-                </button>
-              </div>
             </div>
 
             <div>
@@ -501,7 +472,7 @@
                 type="date"
                 name="customer[note][Data di Nascita]"
                 id="DrawerRegisterBirthdate"
-                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleDrawerRegister(event); }" class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                class="w-full px-3 py-2.5 bg-[#FAF8F5] border border-[#E5E0D8] text-xs text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
               >
               <p class="text-[9px] text-[#7A7265] mt-1 leading-relaxed">
                 Inserisci la tua data di nascita per ricevere automaticamente 50 Beauty Punti in omaggio nel giorno del tuo compleanno!
@@ -517,9 +488,8 @@
 
             <div class="pt-2">
               <button
-                type="button"
+                type="submit"
                 id="DrawerRegisterSubmitBtn"
-                onclick="handleDrawerRegister(event)"
                 class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-3.5 px-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-sm"
               >
                 <span id="DrawerRegisterSubmitBtnText">Crea Profilo &amp; Attiva Vantaggi</span>
@@ -818,7 +788,7 @@
     if (notice) notice.classList.add('hidden');
   }
 
-  // Gestione Registrazione On-Site Immediata Senza Redirect Shop
+  // Gestione Registrazione Cliente Shopify Nativa
   window.handleDrawerRegister = function(e) {
     if (e) {
       if (typeof e.preventDefault === 'function') e.preventDefault();
@@ -837,14 +807,9 @@
     var firstName = firstNameInput ? firstNameInput.value.trim() : '';
     var lastName = lastNameInput ? lastNameInput.value.trim() : '';
     var email = emailInput ? emailInput.value.trim() : '';
-    var password = passwordInput ? passwordInput.value : '';
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email) {
       alert('Compila tutti i campi obbligatori per procedere.');
-      return false;
-    }
-    if (password.length < 6) {
-      alert('La password deve contenere almeno 6 caratteri.');
       return false;
     }
     if (privacyCheckbox && !privacyCheckbox.checked) {
@@ -852,12 +817,18 @@
       return false;
     }
 
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      if (submitBtnText) submitBtnText.innerText = 'Attivazione profilo in corso...';
+    // Auto-generazione password robusta per Shopify (registrazione senza password visibile)
+    var autoPass = 'MbL_' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10).toUpperCase() + '!9';
+    if (passwordInput) {
+      passwordInput.value = autoPass;
     }
 
-    // Attivazione Immediata On-Site con accredito 20 Beauty Punti
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      if (submitBtnText) submitBtnText.innerText = 'Creazione profilo in corso...';
+    }
+
+    // Salvataggio dati profilo in localStorage
     try {
       localStorage.removeItem('mile_pending_activation_email');
       localStorage.setItem('mile_customer_logged_in', 'true');
@@ -876,50 +847,25 @@
       window.syncCustomerNameAndInitials();
     }
 
-    function showSuccessView() {
-      var emailNotice = document.getElementById('DrawerActivationSentEmail');
-      if (emailNotice) emailNotice.textContent = email;
-      var nameNotice = document.getElementById('DrawerSuccessCustomerName');
-      if (nameNotice) nameNotice.textContent = firstName + (lastName ? ' ' + lastName : '');
-
-      var successView = document.getElementById('DrawerRegisterSuccessView');
-      if (form) form.classList.add('hidden');
-      if (successView) successView.classList.remove('hidden');
-
-      if (typeof window.syncCustomerNameAndInitials === 'function') {
-        window.syncCustomerNameAndInitials();
+    // Invio nativo a Shopify
+    if (form) {
+      if (typeof HTMLFormElement.prototype.submit === 'function') {
+        HTMLFormElement.prototype.submit.call(form);
+      } else {
+        form.submit();
       }
     }
 
-    var formData = form ? new FormData(form) : new FormData();
-
-    fetch('/contact', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-      }
-    }).then(function() {
-      showSuccessView();
-    }).catch(function(err) {
-      console.warn('Registration contact notice:', err);
-      showSuccessView();
-    });
-
-    return false;
+    return true;
   };
 
   function initDrawerForms() {
     var regForm = document.getElementById('DrawerCustomerRegisterForm');
     if (regForm) {
-      regForm.onsubmit = function(event) {
-        return window.handleDrawerRegister(event);
-      };
       regForm.addEventListener('submit', function(event) {
         event.preventDefault();
-        event.stopPropagation();
-        return window.handleDrawerRegister(event);
-      }, true);
+        window.handleDrawerRegister(event);
+      });
     }
 
     var loginForm = document.getElementById('DrawerCustomerLoginForm');

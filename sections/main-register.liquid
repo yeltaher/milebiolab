@@ -95,9 +95,12 @@
             </p>
           </div>
 
-          <!-- Modulo Registrazione On-Site Senza Redirect Shop -->
-          {% form 'customer', id: 'MainRegisterCustomerForm', class: 'space-y-5', novalidate: 'novalidate', onsubmit: 'handleMainRegister(event); return false;' %}
-            <input type="hidden" name="contact[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
+          <!-- Modulo Registrazione Cliente Shopify Nativo -->
+          {% form 'create_customer', id: 'MainRegisterCustomerForm', class: 'space-y-5', novalidate: 'novalidate' %}
+            <input type="hidden" name="return_to" value="/pages/account">
+            <input type="hidden" name="customer[tags]" value="club_mile, welcome_20, beauty_club, cliente_registrato">
+            <input type="hidden" name="customer[accepts_marketing]" value="true">
+            <input type="hidden" name="customer[password]" id="RegisterPassword" value="">
 
             {% if form.errors %}
               <div class="p-4 bg-[#FFF5F5] border border-[#E5A8A8] text-[#9E2A2B] text-xs sm:text-sm">
@@ -114,12 +117,12 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[first_name]"
+                  name="customer[first_name]"
                   id="RegisterFirstName"
                   autocomplete="given-name"
                   required
                   placeholder="Maria"
-                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
                 >
               </div>
 
@@ -129,12 +132,12 @@
                 </label>
                 <input
                   type="text"
-                  name="contact[last_name]"
+                  name="customer[last_name]"
                   id="RegisterLastName"
                   autocomplete="family-name"
                   required
                   placeholder="Rossi"
-                  onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                  class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
                 >
               </div>
             </div>
@@ -146,35 +149,15 @@
               </label>
               <input
                 type="email"
-                name="contact[email]"
+                name="customer[email]"
                 id="RegisterEmail"
                 autocomplete="email"
                 autocorrect="off"
                 autocapitalize="off"
                 required
                 placeholder="es. maria.rossi@email.com"
-                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
               >
-            </div>
-
-            <!-- Password Field -->
-            <div>
-              <label for="RegisterPassword" class="block text-xs uppercase tracking-wider font-semibold text-ink mb-1.5">
-                Password <span class="text-sage">*</span>
-              </label>
-              <input
-                type="password"
-                name="customer[note][password]"
-                id="RegisterPassword"
-                autocomplete="new-password"
-                required
-                minlength="6"
-                placeholder="Almeno 6 caratteri"
-                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink placeholder-ash/50 focus:bg-white focus:border-sage focus:outline-none transition-colors"
-              >
-              <p class="text-[11px] text-ash mt-1">
-                La password deve contenere almeno 6 caratteri. Ti consigliamo di combinare lettere e numeri.
-              </p>
             </div>
 
             <!-- Birthdate Field (Opzionale con omaggio 50 punti) -->
@@ -187,7 +170,7 @@
                 type="date"
                 name="customer[note][Data di Nascita]"
                 id="RegisterBirthdate"
-                onkeydown="if(event.key==='Enter'){ event.preventDefault(); handleMainRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink focus:bg-white focus:border-sage focus:outline-none transition-colors"
+                class="w-full px-4 py-3 bg-[#FAF8F5] border border-borderLinen text-sm text-ink focus:bg-white focus:border-sage focus:outline-none transition-colors"
               >
               <p class="text-[11px] text-ash mt-1">
                 Inserisci la tua data di nascita per ricevere automaticamente 50 Beauty Punti in omaggio nel giorno del tuo compleanno!
@@ -213,9 +196,8 @@
             <!-- Submit Button -->
             <div class="pt-2">
               <button
-                type="button"
+                type="submit"
                 id="RegisterSubmitBtn"
-                onclick="handleMainRegister(event)"
                 class="w-full bg-ink hover:bg-sage text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
               >
                 <span id="RegisterSubmitBtnText">{{ section.settings.submit_btn_text | default: "Crea Account Club Mile (-10%)" }}</span>
@@ -331,14 +313,9 @@
     var firstName = firstNameInput ? firstNameInput.value.trim() : '';
     var lastName = lastNameInput ? lastNameInput.value.trim() : '';
     var email = emailInput ? emailInput.value.trim() : '';
-    var password = passwordInput ? passwordInput.value : '';
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email) {
       alert('Compila tutti i campi obbligatori per procedere.');
-      return false;
-    }
-    if (password.length < 6) {
-      alert('La password deve contenere almeno 6 caratteri.');
       return false;
     }
     if (privacyCheckbox && !privacyCheckbox.checked) {
@@ -346,12 +323,18 @@
       return false;
     }
 
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      if (submitBtnText) submitBtnText.innerText = 'Attivazione profilo in corso...';
+    // Auto-generazione password robusta per Shopify (registrazione senza password visibile)
+    var autoPass = 'MbL_' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10).toUpperCase() + '!9';
+    if (passwordInput) {
+      passwordInput.value = autoPass;
     }
 
-    // Attivazione Immediata On-Site con accredito di 20 Beauty Punti
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      if (submitBtnText) submitBtnText.innerText = 'Creazione account in corso...';
+    }
+
+    // Salvataggio dati profilo in localStorage
     try {
       localStorage.removeItem('mile_pending_activation_email');
       localStorage.setItem('mile_customer_logged_in', 'true');
@@ -370,56 +353,26 @@
       window.syncCustomerNameAndInitials();
     }
 
-    function showMainSuccess() {
-      var emailNotice = document.getElementById('MainRegisterSentEmail');
-      if (emailNotice) emailNotice.textContent = email;
-      var nameNotice = document.getElementById('MainRegisterCustomerName');
-      if (nameNotice) nameNotice.textContent = firstName + (lastName ? ' ' + lastName : '');
-
-      var successView = document.getElementById('MainRegisterSuccessView');
-      var headerBlock = document.getElementById('MainRegisterHeaderBlock');
-      var promptBlock = document.getElementById('MainRegisterLoginPrompt');
-
-      if (form) form.classList.add('hidden');
-      if (headerBlock) headerBlock.classList.add('hidden');
-      if (promptBlock) promptBlock.classList.add('hidden');
-      if (successView) successView.classList.remove('hidden');
-
-      if (typeof window.syncCustomerNameAndInitials === 'function') {
-        window.syncCustomerNameAndInitials();
+    // Invio nativo a Shopify
+    if (form) {
+      if (typeof HTMLFormElement.prototype.submit === 'function') {
+        HTMLFormElement.prototype.submit.call(form);
+      } else {
+        form.submit();
       }
     }
 
-    var formData = form ? new FormData(form) : new FormData();
-
-    fetch('/contact', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-      }
-    }).then(function() {
-      showMainSuccess();
-    }).catch(function(err) {
-      console.warn('Registration contact notice:', err);
-      showMainSuccess();
-    });
-
-    return false;
+    return true;
   };
 
   (function() {
     function initMainRegisterForm() {
       var form = document.getElementById('MainRegisterCustomerForm');
       if (!form) return;
-      form.onsubmit = function(e) {
-        return window.handleMainRegister(e);
-      };
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        e.stopPropagation();
-        return window.handleMainRegister(e);
-      }, true);
+        window.handleMainRegister(e);
+      });
     }
 
     if (document.readyState === 'loading') {

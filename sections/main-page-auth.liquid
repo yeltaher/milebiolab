@@ -242,8 +242,11 @@
           <!-- PANE 2: REGISTRATI (UNISCITI AL CLUB MILE) -->
           <div id="auth-page-pane-register" class="hidden" role="tabpanel">
             
-            {% form 'customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate', onsubmit: 'handlePageRegister(event); return false;' %}
-              <input type="hidden" name="contact[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
+            {% form 'create_customer', id: 'PageRegisterCustomerForm', class: 'space-y-4 sm:space-y-5', novalidate: 'novalidate' %}
+              <input type="hidden" name="return_to" value="/pages/account">
+              <input type="hidden" name="customer[tags]" value="club_mile, welcome_10, cliente_registrato, beauty_club, punti_benvenuto_20">
+              <input type="hidden" name="customer[accepts_marketing]" value="true">
+              <input type="hidden" name="customer[password]" id="PageRegisterPassword" value="">
 
               {% if form.posted_successfully? %}
                 <!-- SCHERMATA TRIONFALE DI BENVENUTO NEL CLUB MILE (SERVER-SIDE) -->
@@ -318,11 +321,11 @@
                       </label>
                       <input
                         type="text"
-                        name="contact[first_name]"
+                        name="customer[first_name]"
                         id="PageRegisterFirstName"
                         required
                         placeholder="Maria"
-                        onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                        class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                       >
                     </div>
                     <div>
@@ -331,11 +334,11 @@
                       </label>
                       <input
                         type="text"
-                        name="contact[last_name]"
+                        name="customer[last_name]"
                         id="PageRegisterLastName"
                         required
                         placeholder="Rossi"
-                        onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                        class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                       >
                     </div>
                   </div>
@@ -346,11 +349,11 @@
                     </label>
                     <input
                       type="email"
-                      name="contact[email]"
+                      name="customer[email]"
                       id="PageRegisterEmail"
                       required
                       placeholder="es. maria.rossi@email.com"
-                      onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                      class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                     >
                   </div>
 
@@ -363,7 +366,7 @@
                       type="date"
                       name="customer[note][Data di Nascita]"
                       id="PageRegisterBirthdate"
-                      onkeydown="if(event.key==='Enter'){ event.preventDefault(); handlePageRegister(event); }" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
+                      class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#E5E0D8] text-sm text-[#1A1A1A] focus:bg-white focus:border-[#5C6B56] focus:outline-none transition-colors"
                     >
                     <p class="text-[10px] text-[#7A7265] mt-1 leading-relaxed">
                       Inserisci la tua data di nascita per ricevere automaticamente 50 Beauty Punti in omaggio nel giorno del tuo compleanno!
@@ -372,7 +375,7 @@
 
                   <div class="pt-1">
                     <label class="flex items-start gap-2.5 text-xs text-[#7A7265] cursor-pointer">
-                      <input type="checkbox" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
+                      <input type="checkbox" id="PageRegisterPrivacy" required checked class="mt-0.5 accent-[#5C6B56] cursor-pointer">
                       <span>
                         Accetto l'informativa sulla <a href="/pages/privacy-policy" class="underline text-[#1A1A1A] hover:text-[#C8A878]">Privacy Policy</a> e richiedo l'iscrizione al Club Mile con il 10% di sconto.
                       </span>
@@ -381,9 +384,8 @@
 
                   <div class="pt-2">
                     <button
-                      type="button"
+                      type="submit"
                       id="PageRegisterSubmitBtn"
-                      onclick="handlePageRegister(event)"
                       class="w-full bg-[#1A1A1A] hover:bg-[#5C6B56] text-white py-4 px-6 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Crea Account Club Mile (-10%)</span>
@@ -486,63 +488,64 @@
       if (typeof e.stopPropagation === 'function') e.stopPropagation();
     }
     var form = document.getElementById('PageRegisterCustomerForm');
-    var emailInput = document.getElementById('PageRegisterEmail');
-    var email = emailInput ? emailInput.value.trim() : '';
-
     var firstNameInput = document.getElementById('PageRegisterFirstName');
     var lastNameInput = document.getElementById('PageRegisterLastName');
+    var emailInput = document.getElementById('PageRegisterEmail');
+    var passwordInput = document.getElementById('PageRegisterPassword');
+    var privacyCheckbox = document.getElementById('PageRegisterPrivacy');
+    var submitBtn = document.getElementById('PageRegisterSubmitBtn');
+
     var firstName = firstNameInput ? firstNameInput.value.trim() : '';
     var lastName = lastNameInput ? lastNameInput.value.trim() : '';
-    if (email) {
-      try {
-        localStorage.removeItem('mile_pending_activation_email');
-        localStorage.setItem('mile_customer_logged_in', 'true');
-        var profileData = {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          points: 20
-        };
-        localStorage.setItem('mile_customer_profile', JSON.stringify(profileData));
-        localStorage.setItem('mile_customer', JSON.stringify(profileData));
-      } catch (err) {}
-      if (typeof window.syncCustomerNameAndInitials === 'function') {
-        window.syncCustomerNameAndInitials();
-      }
+    var email = emailInput ? emailInput.value.trim() : '';
+
+    if (!firstName || !lastName || !email) {
+      alert('Compila tutti i campi obbligatori per procedere.');
+      return false;
+    }
+    if (privacyCheckbox && !privacyCheckbox.checked) {
+      alert('Accetta la privacy policy per completare la registrazione.');
+      return false;
     }
 
-    var submitBtn = document.getElementById('PageRegisterSubmitBtn');
+    // Auto-generazione password robusta per Shopify (senza password visibile)
+    var autoPass = 'MbL_' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10).toUpperCase() + '!9';
+    if (passwordInput) {
+      passwordInput.value = autoPass;
+    }
+
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Creazione account in corso...</span>';
     }
-    var formData = form ? new FormData(form) : new FormData();
-    fetch('/contact', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+
+    try {
+      localStorage.removeItem('mile_pending_activation_email');
+      localStorage.setItem('mile_customer_logged_in', 'true');
+      var profileData = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        points: 20
+      };
+      localStorage.setItem('mile_customer_profile', JSON.stringify(profileData));
+      localStorage.setItem('mile_customer', JSON.stringify(profileData));
+    } catch (err) {}
+
+    if (typeof window.syncCustomerNameAndInitials === 'function') {
+      window.syncCustomerNameAndInitials();
+    }
+
+    // Invio nativo a Shopify
+    if (form) {
+      if (typeof HTMLFormElement.prototype.submit === 'function') {
+        HTMLFormElement.prototype.submit.call(form);
+      } else {
+        form.submit();
       }
-    }).then(function() {
-      var fieldsEl = document.getElementById('PageRegisterFormFields');
-      var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
-      var switchEl = document.getElementById('PageRegisterLoginSwitch');
-      var introEl = document.getElementById('PageRegisterIntro');
-      if (fieldsEl) fieldsEl.classList.add('hidden');
-      if (switchEl) switchEl.classList.add('hidden');
-      if (introEl) introEl.classList.add('hidden');
-      if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
-    }).catch(function() {
-      var fieldsEl = document.getElementById('PageRegisterFormFields');
-      var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
-      var switchEl = document.getElementById('PageRegisterLoginSwitch');
-      var introEl = document.getElementById('PageRegisterIntro');
-      if (fieldsEl) fieldsEl.classList.add('hidden');
-      if (switchEl) switchEl.classList.add('hidden');
-      if (introEl) introEl.classList.add('hidden');
-      if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
-    });
-    return false;
+    }
+
+    return true;
   };
 
   function switchAuthPageTab(tab) {
@@ -634,42 +637,12 @@
       });
     }
 
-    // AJAX registration form handling
+    // Registration form handling
     var pageRegForm = document.getElementById('PageRegisterCustomerForm');
     if (pageRegForm) {
       pageRegForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        var submitBtn = document.getElementById('PageRegisterSubmitBtn');
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<span>Creazione account in corso...</span>';
-        }
-        var formData = new FormData(pageRegForm);
-        fetch('/contact', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-          }
-        }).then(function() {
-          var fieldsEl = document.getElementById('PageRegisterFormFields');
-          var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
-          var switchEl = document.getElementById('PageRegisterLoginSwitch');
-          var introEl = document.getElementById('PageRegisterIntro');
-          if (fieldsEl) fieldsEl.classList.add('hidden');
-          if (switchEl) switchEl.classList.add('hidden');
-          if (introEl) introEl.classList.add('hidden');
-          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
-        }).catch(function() {
-          var fieldsEl = document.getElementById('PageRegisterFormFields');
-          var jsSuccessEl = document.getElementById('PageRegisterJsSuccess');
-          var switchEl = document.getElementById('PageRegisterLoginSwitch');
-          var introEl = document.getElementById('PageRegisterIntro');
-          if (fieldsEl) fieldsEl.classList.add('hidden');
-          if (switchEl) switchEl.classList.add('hidden');
-          if (introEl) introEl.classList.add('hidden');
-          if (jsSuccessEl) jsSuccessEl.classList.remove('hidden');
-        });
+        window.handlePageRegister(e);
       });
     }
 
