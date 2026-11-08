@@ -93,6 +93,23 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_f469f31_4M7MC8": {
+          "type": "ai_gen_block_f469f31",
+          "settings": {
+            "target_product": "body-care-gift-box",
+            "target_product_list": [
+              "body-care-gift-box"
+            ],
+            "image_1": "shopify://shop_images/21298.jpg",
+            "link_1": "",
+            "image_2": "shopify://shop_images/21292.jpg",
+            "link_2": "",
+            "desktop_width_percent": 100,
+            "image_ratio": "square",
+            "gap": 20
+          },
+          "blocks": {}
+        },
         "ai_gen_block_f469f31_FnntAw": {
           "type": "ai_gen_block_f469f31",
           "settings": {
@@ -862,6 +879,7 @@
       "block_order": [
         "ai_gen_block_f469f31_dmRFxh",
         "ai_gen_block_f469f31_8kh9Bp",
+        "ai_gen_block_f469f31_4M7MC8",
         "ai_gen_block_f469f31_FnntAw",
         "ai_gen_block_f469f31_ckj6Wn",
         "ai_gen_block_f469f31_rmcGmg",
