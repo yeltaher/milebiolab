@@ -1024,6 +1024,17 @@
             "text": "Appena arrivato e subito provato! Ha un INCI pazzesco, 100% naturale e ricchissimo di estratti bio come l'olivello spinoso e il lampone artico. Nonostante sia un olio, si assorbe subito senza ungere e lascia la pelle luminosa, vellutata e con un profumo avvolgente."
           }
         },
+        "review_er6JEX": {
+          "type": "review",
+          "settings": {
+            "target_product": "nourishing-facial-oil",
+            "author": "Federica M. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Effetto seta immediato senza la classica untuosità",
+            "text": "Odio gli oli che restano appiccicosi, forse perchè non proprio naturali... Questo invece ha una texture setosa incredibile che penetra all'istante. Lo uso sul viso da solo il mattino prima del siero Peptidi mentre la sera prima del burro Unicho21 la pelle è morbida e rimpolpata, si vede che sta bene."
+          }
+        },
         "review_Vpbnc3": {
           "type": "review",
           "settings": {
@@ -3472,6 +3483,7 @@
       "block_order": [
         "review_79FzwP",
         "review_b46Xwk",
+        "review_er6JEX",
         "review_Vpbnc3",
         "review_rfnj3x",
         "review_KVGFwQ",
