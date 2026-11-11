@@ -1013,6 +1013,17 @@
             "text": "1. Ho gli occhi strasensibili che lacrimano con qualsiasi cosa. Questo bifasico è pazzesco: strucca benissimo anche il mascara waterproof senza bisogno di sfregare e non mi fa bruciare minimamente gli occhi. Il fatto che sia senza profumo per me è un valore aggiunto enorme."
           }
         },
+        "review_b46Xwk": {
+          "type": "review",
+          "settings": {
+            "target_product": "nourishing-facial-oil",
+            "author": "Alessia R. • Milano",
+            "date": "25 Ottobre 2026",
+            "rating": 5,
+            "title": "Un vero elisir di luce per viso e corpo!",
+            "text": "Appena arrivato e subito provato! Ha un INCI pazzesco, 100% naturale e ricchissimo di estratti bio come l'olivello spinoso e il lampone artico. Nonostante sia un olio, si assorbe subito senza ungere e lascia la pelle luminosa, vellutata e con un profumo avvolgente."
+          }
+        },
         "review_Vpbnc3": {
           "type": "review",
           "settings": {
@@ -3460,6 +3471,7 @@
       },
       "block_order": [
         "review_79FzwP",
+        "review_b46Xwk",
         "review_Vpbnc3",
         "review_rfnj3x",
         "review_KVGFwQ",
