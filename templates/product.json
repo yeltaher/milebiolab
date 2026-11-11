@@ -1035,6 +1035,17 @@
             "text": "Odio gli oli che restano appiccicosi, forse perchè non proprio naturali... Questo invece ha una texture setosa incredibile che penetra all'istante. Lo uso sul viso da solo il mattino prima del siero Peptidi mentre la sera prima del burro Unicho21 la pelle è morbida e rimpolpata, si vede che sta bene."
           }
         },
+        "review_ahaPpr": {
+          "type": "review",
+          "settings": {
+            "target_product": "nourishing-facial-oil",
+            "author": "Federica M. • Verona",
+            "date": "23 Ottobre 2026",
+            "rating": 5,
+            "title": "Ottimo nutriente per viso e capelli, ma attenzione alle dosi ne basta poco",
+            "text": "La formula è una bomba antiossidante. Sul viso lascia un effetto sano e radioso lo metto alternato al burro, lo uso anche sulle punte dei capelli secchi. Ne bastano davvero due gocce: è puro quindi altrimenti si spreca"
+          }
+        },
         "review_Vpbnc3": {
           "type": "review",
           "settings": {
@@ -3484,6 +3495,7 @@
         "review_79FzwP",
         "review_b46Xwk",
         "review_er6JEX",
+        "review_ahaPpr",
         "review_Vpbnc3",
         "review_rfnj3x",
         "review_KVGFwQ",
