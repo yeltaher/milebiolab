@@ -42,19 +42,6 @@
       "type": "_blocks",
       "settings": {}
     },
-    "trust-icon-bar": {
-      "type": "trust-icon-bar",
-      "settings": {
-        "item_1_title": "Purezza e Sostenibilità",
-        "item_1_sub": "Formule senza OGM per la massima purezza. Packaging riciclabile e spedizioni in imballaggi riciclati",
-        "item_2_title": "Cosmos Naturale ECOCERT",
-        "item_2_sub": "Ogni formula soddisfa gli standard internazionalmente riconosciuti con almeno il 95% di ingredienti naturali",
-        "item_3_title": "Ingredienti Origine Vegetale",
-        "item_3_sub": "Il 95% dei nostri ingredienti per la cura della pelle a base vegetale proviene da agricoltura biologica certificata",
-        "item_4_title": "FDA Compliant",
-        "item_4_sub": "Pienamente conforme alle normative UE (notifica CPNP), Regno Unito e Stati Uniti (registrazione FDA)"
-      }
-    },
     "blocks_g9adUC": {
       "type": "_blocks",
       "blocks": {
@@ -85,7 +72,7 @@
           "settings": {
             "product": "acne-spot-care",
             "heading": "IL PROTAGONISTA fino al 15 ottobre",
-            "description": "Pezzo esclusivo - immancabile per foruncoli e impurità",
+            "description": "Immancabile per foruncoli e impurità",
             "detail_one": "GREEN BALANCE - Spot Serum",
             "detail_two": "Concentrato ad azione urto che purifica, opacizza e spegne i foruncoli senza seccare la pelle, formulato per purificare i pori ostruiti e favorire una rapida rigenerazione cutanea.",
             "detail_three": "Attivi: L'Acido Salicilico, Olio E. di Tea Tree biologico, Caolino, Carbone attivo, Mirto Rosa e Mirtillo, Aloe Vera e l'olio di Argan biologico.",
@@ -117,6 +104,19 @@
       ],
       "name": "Striscia BOX REGALO",
       "settings": {}
+    },
+    "trust-icon-bar": {
+      "type": "trust-icon-bar",
+      "settings": {
+        "item_1_title": "Purezza e Sostenibilità",
+        "item_1_sub": "Formule senza OGM per la massima purezza. Packaging riciclabile e spedizioni in imballaggi riciclati",
+        "item_2_title": "Cosmos Naturale ECOCERT",
+        "item_2_sub": "Ogni formula soddisfa gli standard internazionalmente riconosciuti con almeno il 95% di ingredienti naturali",
+        "item_3_title": "Ingredienti Origine Vegetale",
+        "item_3_sub": "Il 95% dei nostri ingredienti per la cura della pelle a base vegetale proviene da agricoltura biologica certificata",
+        "item_4_title": "FDA Compliant",
+        "item_4_sub": "Pienamente conforme alle normative UE (notifica CPNP), Regno Unito e Stati Uniti (registrazione FDA)"
+      }
     },
     "1793377649b3796df4": {
       "type": "_blocks",
@@ -154,7 +154,7 @@
         "ai_gen_block_e4f11c6_bdkUiT": {
           "type": "ai_gen_block_e4f11c6",
           "settings": {
-            "collection_image": "shopify://shop_images/elixir12-novita-a459ac86.png",
+            "collection_image": "shopify://shop_images/20699.png",
             "image_alt": "Il TUO NUOVO ROSETTO NATURALE",
             "description": "<p><strong>Elixir12 Regenerating</strong> è un trattamento &nbsp;in olio secco <strong>100% naturale</strong>, formulato da ben<strong> 12 attivi,</strong> per infondere nutrimento vitale all'epidermide, riparare la barriera cutanea e restituire un viso straordinariamente radioso, morbido e compatto.</p>",
             "button_label": "SCOPRILO SUBITO",
@@ -454,8 +454,8 @@
     "hero-splendor",
     "ticker-marquee",
     "1793372234ef85e9e1",
-    "trust-icon-bar",
     "blocks_g9adUC",
+    "trust-icon-bar",
     "1793377649b3796df4",
     "blocks_idUrtt",
     "17927672840772904d",
