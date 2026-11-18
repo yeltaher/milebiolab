@@ -16,11 +16,66 @@
         "show_title": true,
         "show_breadcrumbs": true,
         "page_width": "medium",
-        "show_verona_banner": true
+        "show_verona_banner": true,
+        "verona_banner_eyebrow": "Boutique & Cabina Esclusiva",
+        "verona_banner_title": "Desideri una consulenza vis-à-vis a Verona?",
+        "verona_banner_text": "Presso la nostra sede di Via Torricelle, 2c in Lebestetik puoi ritirare i tuoi ordini o prenotare un trattamento dermo-specialistico.",
+        "verona_banner_btn_text": "Info Ritiro in Sede"
       }
+    },
+    "1794987235b5c56c84": {
+      "type": "apps",
+      "blocks": {
+        "em_product_recommendation_quiz_quiz_button_RYiEpa": {
+          "type": "shopify://apps/em-product-recommendation-quiz/blocks/quizButton/5093ed1b-2fc4-4877-aa6a-9642f18328a7",
+          "settings": {
+            "btnLabel": "Quiz",
+            "btn_bg": "#000",
+            "btn_text": "#fff",
+            "btn_border_color": "#000",
+            "btn_border_width": 1,
+            "border_radius": 5,
+            "btn_Padding": 6,
+            "font_size": 15,
+            "btn_width": "auto",
+            "text_align": "center",
+            "btn_float": false,
+            "btn_floating_position": "lb"
+          }
+        },
+        "em_product_recommendation_quiz_quiz_preview_DLyqNp": {
+          "type": "shopify://apps/em-product-recommendation-quiz/blocks/quiz_preview/5093ed1b-2fc4-4877-aa6a-9642f18328a7",
+          "settings": {
+            "containerBgColor": "#fef5f0",
+            "containerTextColor": "#565656",
+            "containerBgBorderColor": "#ccc",
+            "containerBorderWidth": 1,
+            "containerBorderRadius": 10,
+            "rightContentWidth": 100,
+            "imageContainerView": true,
+            "trackColor": "#d9d9d9",
+            "thumbColor": "#edaea5",
+            "loaderBorderRadius": 60,
+            "optionBorderColor": "#858585",
+            "optionSelectedBorderColor": "#d67c6f",
+            "optionBorderRadius": 10,
+            "btnBgColor": "#b86852",
+            "btnTextColor": "#fff",
+            "btnBorderRadius": 5,
+            "btnBorderWidth": 1,
+            "btnPadding": 10
+          }
+        }
+      },
+      "block_order": [
+        "em_product_recommendation_quiz_quiz_button_RYiEpa",
+        "em_product_recommendation_quiz_quiz_preview_DLyqNp"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "1794987235b5c56c84"
   ]
 }
