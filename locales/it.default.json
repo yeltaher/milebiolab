@@ -133,5 +133,12 @@
       "password": "Password",
       "submit": "Registrati"
     }
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "choose_shipping_method": "Metodo di spedizione ( Nota: gli ordini Black Friday potrebbero subire dei ritardi di consegna di alcuni giorni)"
+      }
+    }
   }
 }
