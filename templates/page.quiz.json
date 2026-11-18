@@ -29,6 +29,7 @@
       "blocks": {
         "em_product_recommendation_quiz_quiz_button_RYiEpa": {
           "type": "shopify://apps/em-product-recommendation-quiz/blocks/quizButton/5093ed1b-2fc4-4877-aa6a-9642f18328a7",
+          "disabled": true,
           "settings": {
             "btnLabel": "Quiz",
             "btn_bg": "#000",
