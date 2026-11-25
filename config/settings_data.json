@@ -150,7 +150,7 @@
       "newsletter-popup": {
         "type": "newsletter-popup",
         "settings": {
-          "enable_popup": true,
+          "enable_popup": false,
           "popup_delay": 5,
           "image": "shopify://shop_images/1792504535841.jpg",
           "location_badge": "MILE DERMOCOSMESI • Verona",
