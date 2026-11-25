@@ -3641,3 +3641,290 @@ button {
 }
 
 
+
+
+/* =========================================================================
+   SHOPIFY CUSTOMER PRIVACY BANNER - SLIM STRIP OVERRIDE (SPLENDOR HAUTE COUTURE)
+   ========================================================================= */
+html body #shopify-pc__banner,
+html body #shopify-pc__banner.shopify-pc__banner__dialog,
+html body div[id="shopify-pc__banner"] {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  background-color: #FAF8F5 !important;
+  border: none !important;
+  border-top: 1px solid #E5E0D8 !important;
+  box-shadow: 0 -3px 16px rgba(26, 26, 26, 0.08) !important;
+  z-index: 2147483647 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  border-radius: 0 !important;
+}
+
+/* --- MOBILE LAYOUT (< 768px): STRISCIA SOTTILE (~75px) --- */
+@media only screen and (max-width: 767px) {
+  html body #shopify-pc__banner,
+  html body #shopify-pc__banner.shopify-pc__banner__dialog,
+  html body div[id="shopify-pc__banner"] {
+    padding: 8px 12px 10px 12px !important;
+    max-height: 25vh !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Nascondi il titolo ridondante per salvare subito 40px */
+  html body #shopify-pc__banner #shopify-pc__banner__body-title,
+  html body #shopify-pc__banner .shopify-pc__banner__body h2 {
+    display: none !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__body p {
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #7A7265 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__body a,
+  html body #shopify-pc__banner #shopify-pc__banner__body-policy-link {
+    color: #1A1A1A !important;
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+    display: inline !important;
+  }
+
+  /* Pulsanti in riga orizzontale unica (ROW) anziché impilati in colonna */
+  html body #shopify-pc__banner .shopify-pc__banner__btns,
+  html body #shopify-pc__banner .shopify-pc__banner__btns-granular {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 5px !important;
+    width: 100% !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ordine e stile bottoni mobile */
+  html body #shopify-pc__banner .shopify-pc__banner__btns-granular :nth-child(1) { order: 3 !important; }
+  html body #shopify-pc__banner .shopify-pc__banner__btns-granular :nth-child(2) { order: 1 !important; }
+  html body #shopify-pc__banner .shopify-pc__banner__btns-granular :nth-child(3) { order: 2 !important; }
+
+  /* Bottone Accetta (Primary) */
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-accept,
+  html body #shopify-pc__banner #shopify-pc__banner__btn-accept {
+    flex: 1 1 auto !important;
+    background-color: #1A1A1A !important;
+    color: #FFFFFF !important;
+    border: 1px solid #1A1A1A !important;
+    padding: 6px 8px !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+  }
+
+  /* Bottone Rifiuta (Secondary) */
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-decline,
+  html body #shopify-pc__banner #shopify-pc__banner__btn-decline {
+    flex: 1 1 auto !important;
+    background-color: #FAF8F5 !important;
+    color: #1A1A1A !important;
+    border: 1px solid #E5E0D8 !important;
+    padding: 6px 8px !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+  }
+
+  /* Bottone Gestisci Preferenze (Discreto / Link) */
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-manage-prefs,
+  html body #shopify-pc__banner #shopify-pc__banner__btn-manage-prefs {
+    flex: 0 0 auto !important;
+    background: transparent !important;
+    border: none !important;
+    color: #7A7265 !important;
+    padding: 4px 6px !important;
+    font-size: 9.5px !important;
+    text-decoration: underline !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    height: auto !important;
+    min-height: auto !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --- DESKTOP & TABLET LAYOUT (>= 768px): BARRA ORIZZONTALE ELEGANTE --- */
+@media only screen and (min-width: 768px) {
+  html body #shopify-pc__banner,
+  html body #shopify-pc__banner.shopify-pc__banner__dialog,
+  html body div[id="shopify-pc__banner"] {
+    padding: 12px 28px !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__body {
+    flex: 1 1 auto !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  html body #shopify-pc__banner #shopify-pc__banner__body-title {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #1A1A1A !important;
+    margin: 0 0 2px 0 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__body p {
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+    color: #7A7265 !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__body a {
+    color: #1A1A1A !important;
+    text-decoration: underline !important;
+  }
+
+  html body #shopify-pc__banner .shopify-pc__banner__btns,
+  html body #shopify-pc__banner .shopify-pc__banner__btns-granular {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+  }
+
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-accept {
+    background-color: #1A1A1A !important;
+    color: #FFFFFF !important;
+    border: 1px solid #1A1A1A !important;
+    padding: 8px 18px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+  }
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-accept:hover {
+    background-color: #5C6B56 !important;
+    border-color: #5C6B56 !important;
+  }
+
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-decline {
+    background-color: #FAF8F5 !important;
+    color: #1A1A1A !important;
+    border: 1px solid #E5E0D8 !important;
+    padding: 8px 18px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-decline:hover {
+    border-color: #1A1A1A !important;
+  }
+
+  html body #shopify-pc__banner button.shopify-pc__banner__btn-manage-prefs {
+    background: transparent !important;
+    border: none !important;
+    color: #7A7265 !important;
+    font-size: 11px !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+    padding: 6px 8px !important;
+  }
+}
+
+/* --- MODAL PREFERENZE DETTAGLIATE (PREFS DIALOG) --- */
+html body #shopify-pc__prefs__dialog {
+  background-color: #FAF8F5 !important;
+  border: 1px solid #E5E0D8 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 10px 30px rgba(26, 26, 26, 0.15) !important;
+  max-width: 540px !important;
+  width: 92% !important;
+}
+html body #shopify-pc__prefs__overlay {
+  z-index: 2147483646 !important;
+}
+html body #shopify-pc__prefs {
+  z-index: 2147483647 !important;
+}
