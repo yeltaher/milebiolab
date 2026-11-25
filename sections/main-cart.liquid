@@ -75,7 +75,7 @@
                     <a href="{{ item.url }}" class="hover:text-[#C8A878] transition-colors">{{ item.product.title }}</a>
                   </h4>
                   {% unless item.variant.title contains 'Default' %}
-                    <div class="text-xs text-[#7A7265] mt-0.5">{{ item.variant.title }} &bull; Milebiolab Haute Couture</div>
+                    <div class="text-xs text-[#7A7265] mt-0.5">{{ item.variant.title }}</div>
                   {% endunless %}
                   {%- assign item_compare_at = item.variant.compare_at_price | default: 0 -%}
                   {%- if item_compare_at == 0 and item.properties['_compare_at_price'] -%}

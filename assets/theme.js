@@ -286,7 +286,7 @@ function mapShopifyCartItems(items) {
       id: itemId,
       key: item.key,
       title: translateProductTitleToItalian(item.product_title || item.title),
-      step: (item.properties && item.properties['step']) || (isBundle ? 'ROUTINE COMPLETA (-15%)' : 'RITUALE BOTANICO'),
+      step: (item.properties && item.properties['step']) || (isBundle ? 'ROUTINE COMPLETA (-15%)' : ''),
       price: finalPrice,
       compare_at_price: compPrice > finalPrice ? compPrice : 0,
       volume: item.variant_title || 'Formato Originale',
@@ -341,7 +341,7 @@ async function addShopifyCartItem(variantId, qty = 1, itemData = {}) {
       price: (itemData && typeof itemData.price === 'number') ? itemData.price : (parseFloat(itemData && itemData.price) || 75.00),
       compare_at_price: (itemData && itemData.compare_at_price) ? parseFloat(itemData.compare_at_price) : 0,
       volume: (itemData && itemData.volume) || '50 ml',
-      step: (itemData && itemData.step) || 'RITUALE BOTANICO',
+      step: (itemData && itemData.step) || '',
       qty: qty || 1,
       image: (itemData && itemData.image) || '',
       properties: (itemData && itemData.properties) || {},
@@ -517,10 +517,10 @@ function renderCartDrawer() {
       itemEl.innerHTML = `
         <img src="${item.image}" alt="${item.title}" class="cart-item-img">
         <div class="cart-item-details">
-          <span class="cart-item-step">${item.step || 'RITUALE BOTANICO'}</span>
+          ${(item.step && item.step !== 'RITUALE BOTANICO') ? `<span class="cart-item-step">${item.step}</span>` : ''}
           <h4 class="cart-item-title">${translateProductTitleToItalian(item.title)}</h4>
           ${priceHtml}
-          <div class="cart-item-meta">${item.volume} • Milebiolab Haute Couture</div>
+          ${item.volume ? `<div class="cart-item-meta">${item.volume}</div>` : ''}
           <div class="cart-item-qty">
             <button class="qty-btn" type="button" onclick="updateCartItemQty('${item.key || item.id}', -1)" aria-label="Riduci">-</button>
             <span class="qty-val">${item.qty}</span>
@@ -718,7 +718,7 @@ function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage, maybeVolume, ma
       price: (typeof maybePrice === 'number') ? maybePrice : (parseFloat(maybePrice) || 75.00),
       image: maybeImage || '',
       volume: maybeVolume || '50 ml',
-      step: maybeStep || 'RITUALE BOTANICO',
+      step: maybeStep || '',
       qty: 1
     };
   }
@@ -741,7 +741,7 @@ function addToCart(itemOrId, maybeTitle, maybePrice, maybeImage, maybeVolume, ma
     MilebiolabState.cart.push({
       id: targetId,
       title: item.title || 'Prodotto MileBioLab',
-      step: item.step || 'RITUALE BOTANICO',
+      step: item.step || '',
       price: (typeof item.price === 'number') ? item.price : (parseFloat(item.price) || 75.00),
       volume: item.volume || '50 ml',
       qty: item.qty || 1,
@@ -769,7 +769,7 @@ function quickAddProduct(btn, event) {
   const price = parseFloat(btn.getAttribute('data-product-price') || btn.dataset.productPrice) || 75.00;
   const volume = btn.getAttribute('data-product-volume') || btn.dataset.productVolume || '50 ml';
   const image = btn.getAttribute('data-product-image') || btn.dataset.productImage || '';
-  const step = btn.getAttribute('data-product-step') || btn.dataset.productStep || 'RITUALE BOTANICO';
+  const step = btn.getAttribute('data-product-step') || btn.dataset.productStep || '';
   const comparePrice = parseFloat(btn.getAttribute('data-product-compare-price') || btn.dataset.productComparePrice) || 0;
 
   const itemData = {
@@ -894,7 +894,7 @@ function addToCartMock(title, price, image, volume, step) {
   addToCart({
     id: id,
     title: title,
-    step: step || 'RITUALE BOTANICO',
+    step: step || '',
     price: price,
     volume: volume || '50 ml',
     qty: 1,
