@@ -257,22 +257,29 @@ function mapShopifyCartItems(items) {
       item.properties['_bundle_discount'] === '15%'
     );
 
-    const rawPrice = item.price / 100;
+    const origUnitCents = (typeof item.original_price === 'number') ? item.original_price : item.price;
+    const finalUnitCents = (typeof item.final_line_price === 'number' && item.quantity > 0)
+      ? (item.final_line_price / item.quantity)
+      : (typeof item.final_price === 'number' ? item.final_price : item.price);
+
+    const rawPrice = finalUnitCents / 100;
     let finalPrice = rawPrice;
 
     // Lookup compare_at_price
-    let compPrice = (item.compare_at_price ? (item.compare_at_price / 100) : 0) ||
-                    (item.properties && item.properties['_compare_at_price'] ? parseFloat(item.properties['_compare_at_price']) : 0) ||
-                    (window.mileComparePrices && window.mileComparePrices[itemId] ? parseFloat(window.mileComparePrices[itemId]) : 0) ||
-                    (item.original_price > item.price ? (item.original_price / 100) : 0);
+    const staticCompPrice = (item.compare_at_price ? (item.compare_at_price / 100) : 0) ||
+                            (item.properties && item.properties['_compare_at_price'] ? parseFloat(item.properties['_compare_at_price']) : 0) ||
+                            (window.mileComparePrices && window.mileComparePrices[itemId] ? parseFloat(window.mileComparePrices[itemId]) : 0);
+    let compPrice = (origUnitCents > finalUnitCents ? (origUnitCents / 100) : 0) || staticCompPrice;
 
     if (isBundle) {
-      compPrice = compPrice > rawPrice ? compPrice : rawPrice;
-      finalPrice = Math.round(rawPrice * 0.85 * 100) / 100;
+      compPrice = compPrice > rawPrice ? compPrice : (origUnitCents / 100);
+      if (finalUnitCents >= origUnitCents) {
+        finalPrice = Math.round(rawPrice * 0.85 * 100) / 100;
+      }
     }
 
-    if (compPrice > finalPrice) {
-      window.mileComparePrices[itemId] = compPrice;
+    if (staticCompPrice > finalPrice) {
+      window.mileComparePrices[itemId] = staticCompPrice;
     }
 
     return {
@@ -459,6 +466,7 @@ function renderCartDrawer() {
   // Calculate totals
   let totalQty = 0;
   let subtotal = 0;
+  let originalSubtotal = 0;
 
   container.innerHTML = '';
 
@@ -481,14 +489,19 @@ function renderCartDrawer() {
                            (item.compare_price && item.compare_price > item.price);
 
       const compareVal = item.compare_at_price || item.original_price || item.compare_price || 0;
+      originalSubtotal += (compareVal > item.price ? compareVal : item.price) * item.qty;
 
       let priceHtml = '';
       if (isDiscounted && compareVal > item.price) {
+        const discPct = Math.round((1 - (item.price / compareVal)) * 100);
+        const badgeHtml = item.is_bundle
+          ? '<span class="text-[10px] bg-[#5C6B56]/10 text-[#5C6B56] px-1.5 py-0.5 rounded font-mono font-medium">-15% Routine</span>'
+          : (discPct > 0 ? `<span class="text-[9px] font-mono font-semibold uppercase tracking-wider bg-[#1A1A1A] text-[#FAF8F5] px-1.5 py-0.5 leading-none">-${discPct}%</span>` : '');
         priceHtml = `
-          <div class="cart-item-price flex items-baseline gap-2">
+          <div class="cart-item-price flex items-baseline gap-2 flex-wrap">
             <span class="cart-item-current-price font-semibold text-[#1A1A1A]">€ ${item.price.toFixed(2).replace('.', ',')}</span>
             <span class="cart-item-compare-price text-xs text-[#7A7265] line-through font-normal">€ ${compareVal.toFixed(2).replace('.', ',')}</span>
-            ${item.is_bundle ? '<span class="text-[10px] bg-[#5C6B56]/10 text-[#5C6B56] px-1.5 py-0.5 rounded font-mono font-medium">-15% Routine</span>' : ''}
+            ${badgeHtml}
           </div>
         `;
       } else {
@@ -528,7 +541,13 @@ function renderCartDrawer() {
 
   // Update Subtotal
   const subtotalFormatted = `€ ${subtotal.toFixed(2).replace('.', ',')}`;
-  if (subtotalEl) subtotalEl.textContent = subtotalFormatted;
+  if (subtotalEl) {
+    if (originalSubtotal > subtotal + 0.005) {
+      subtotalEl.innerHTML = `<span class="text-xs text-[#7A7265] line-through font-normal mr-2">€ ${originalSubtotal.toFixed(2).replace('.', ',')}</span><span>${subtotalFormatted}</span>`;
+    } else {
+      subtotalEl.textContent = subtotalFormatted;
+    }
+  }
   if (checkoutBtnPrice) checkoutBtnPrice.textContent = subtotalFormatted;
 
   // Free shipping & sample progress bar (Threshold: €120)
