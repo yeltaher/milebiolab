@@ -57,6 +57,29 @@
       };
     </script>
 
+    <!-- Black Friday -20% Visual Display Guard (Automatic Cutoff: 28 Nov 2026 00:00:00 CET) -->
+    <script>
+      (function() {
+        var bfCutoffMs = 1795820400000;
+        window.isMileBlackFridayActive = function() {
+          return Date.now() < bfCutoffMs;
+        };
+        if (window.isMileBlackFridayActive()) {
+          document.documentElement.classList.add('bf-promo-active');
+          var remainingMs = bfCutoffMs - Date.now();
+          if (remainingMs > 0 && remainingMs < 86400000) {
+            setTimeout(function() {
+              document.documentElement.classList.remove('bf-promo-active');
+            }, remainingMs);
+          }
+        }
+      })();
+    </script>
+    <style>
+      html.bf-promo-active .bf-price-regular-only { display: none !important; }
+      html:not(.bf-promo-active) .bf-price-promo-wrap { display: none !important; }
+    </style>
+
     <style>
       @font-face {
         font-family: 'Century Gothic Web';

@@ -1,0 +1,101 @@
+{%- comment -%}
+  Black Friday -20% Visual Price Display Snippet
+  ==============================================
+  Renders visual-only discounted pricing (-20%) alongside the crossed-out
+  original price and a compact `-20%` badge until the automatic cutoff:
+  2026-11-28 00:00:00 CET (Unix timestamp: 1795820400).
+
+  Hybrid Zero-Flicker & Cache-Proof Architecture:
+  - Server-side Liquid checks `'now' | date: '%s'` against `1795820400`.
+  - When before cutoff, renders BOTH `.bf-price-promo-wrap` and `.bf-price-regular-only`
+    so the `<head>` JS/CSS guard in `theme.liquid` (`html.bf-promo-active`) can toggle
+    instantly at midnight CET even if Shopify CDN serves a cached HTML page.
+  - NEVER alters real product/variant prices, `data-product-price`, or cart payloads.
+
+  Parameters:
+  - price: Integer in cents (e.g. product.price)
+  - compare_at_price: Integer in cents (optional)
+  - fallback_price_num: Float/string in EUR for fallback cards (e.g. '76.00')
+  - price_class: CSS classes for the main displayed price
+  - compare_class: CSS classes for the crossed-out price
+  - layout: 'row' (default) or 'stack' (right-aligned column for narrow cards)
+  - show_badge: Boolean (default true) to display the '-20%' badge
+{%- endcomment -%}
+
+{%- liquid
+  assign bf_has_price = false
+  assign raw_cents = 0
+
+  if price != blank
+    assign bf_has_price = true
+    assign raw_cents = price | plus: 0 | round
+  elsif fallback_price_num != blank
+    assign bf_has_price = true
+    assign raw_cents = fallback_price_num | replace: ',', '.' | remove: '€' | strip | times: 100 | round
+  endif
+
+  assign bf_compare_cents = 0
+  if compare_at_price != blank
+    assign bf_compare_cents = compare_at_price | plus: 0 | round
+  endif
+
+  assign p_class = price_class | default: 'text-sm font-semibold text-[#1A1A1A] whitespace-nowrap'
+  assign c_class = compare_class | default: 'text-xs text-[#7A7265] line-through font-normal'
+  assign bf_layout = layout | default: 'row'
+
+  assign bf_now_ts = 'now' | date: '%s' | plus: 0
+  assign bf_cutoff_ts = 1795820400
+  assign bf_discounted_cents = raw_cents | times: 80 | plus: 50 | divided_by: 100
+-%}
+
+{%- if bf_has_price -%}
+  {%- if bf_now_ts < bf_cutoff_ts and raw_cents > 0 -%}
+    {%- if bf_layout == 'stack' -%}
+      <div class="bf-price-promo-wrap flex flex-col items-end text-right gap-0.5 shrink-0">
+        <span class="{{ p_class }}">{{ bf_discounted_cents | money }}</span>
+        <div class="flex items-center justify-end gap-1.5">
+          <span class="{{ c_class }}">{{ raw_cents | money }}</span>
+          {%- unless show_badge == false -%}
+            <span class="text-[9px] font-mono font-semibold uppercase tracking-wider bg-[#1A1A1A] text-[#FAF8F5] px-1.5 py-0.5 leading-none">-20%</span>
+          {%- endunless -%}
+        </div>
+      </div>
+      <div class="bf-price-regular-only flex flex-col items-end text-right shrink-0">
+        <span class="{{ p_class }}">{{ raw_cents | money }}</span>
+        {%- if bf_compare_cents > raw_cents -%}
+          <span class="block {{ c_class }}">{{ bf_compare_cents | money }}</span>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="bf-price-promo-wrap flex items-baseline gap-2 flex-wrap">
+        <span class="{{ p_class }}">{{ bf_discounted_cents | money }}</span>
+        <span class="{{ c_class }}">{{ raw_cents | money }}</span>
+        {%- unless show_badge == false -%}
+          <span class="text-[9px] font-mono font-semibold uppercase tracking-wider bg-[#1A1A1A] text-[#FAF8F5] px-1.5 py-0.5 leading-none">-20%</span>
+        {%- endunless -%}
+      </div>
+      <div class="bf-price-regular-only flex items-baseline gap-2 flex-wrap">
+        <span class="{{ p_class }}">{{ raw_cents | money }}</span>
+        {%- if bf_compare_cents > raw_cents -%}
+          <span class="{{ c_class }}">{{ bf_compare_cents | money }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    {%- if bf_layout == 'stack' -%}
+      <div class="flex flex-col items-end text-right shrink-0">
+        <span class="{{ p_class }}">{{ raw_cents | money }}</span>
+        {%- if bf_compare_cents > raw_cents -%}
+          <span class="block {{ c_class }}">{{ bf_compare_cents | money }}</span>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="flex items-baseline gap-2 flex-wrap">
+        <span class="{{ p_class }}">{{ raw_cents | money }}</span>
+        {%- if bf_compare_cents > raw_cents -%}
+          <span class="{{ c_class }}">{{ bf_compare_cents | money }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

@@ -97,9 +97,13 @@
                         {%- assign card_price_val = block.settings.price -%}
                         {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
                         {%- assign card_price_num = block.settings.price | replace: ',', '.' | remove: '€' | strip -%}
+                        {%- assign card_price_cents = nil -%}
+                        {%- assign card_compare_cents = nil -%}
                       {%- else -%}
                         {%- assign card_price_html = block_prod.price | money -%}
                         {%- assign card_price_num = block_prod.price | divided_by: 100.0 -%}
+                        {%- assign card_price_cents = block_prod.price -%}
+                        {%- assign card_compare_cents = block_prod.compare_at_price -%}
                       {%- endif -%}
                       {%- assign card_url = block_prod.url -%}
                       {%- assign card_variant_id = block_prod.selected_or_first_available_variant.id | default: block_prod.variants.first.id -%}
@@ -114,6 +118,8 @@
                       {%- assign card_price_val = block.settings.price | default: '42,00' -%}
                       {%- assign card_price_html = '&euro; ' | append: card_price_val -%}
                       {%- assign card_price_num = card_price_val | replace: ',', '.' | remove: '€' | strip -%}
+                      {%- assign card_price_cents = nil -%}
+                      {%- assign card_compare_cents = nil -%}
                       {%- assign card_url = '#' -%}
                       {%- assign card_variant_id = '1' -%}
                     {%- endif -%}
@@ -137,8 +143,8 @@
                         </h4>
                         <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
                       </div>
-                      <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                        <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                      <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                        {% render 'bf-price-display', price: card_price_cents, compare_at_price: card_compare_cents, fallback_price_num: card_price_num, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                         <button type="button"
                                 onclick="quickAddProduct(this, event)"
                                 data-variant-id="{{ card_variant_id }}"
@@ -147,7 +153,7 @@
                                 data-product-volume="{{ card_sub | escape }}"
                                 data-product-image="{{ card_img }}"
                                 data-product-step="{{ card_step | escape }}"
-                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                           + AGGIUNGI
                         </button>
                       </div>
@@ -173,6 +179,8 @@
                     {%- endif -%}
                     {%- assign card_price_html = meta_prod.price | money -%}
                     {%- assign card_price_num = meta_prod.price | divided_by: 100.0 -%}
+                    {%- assign card_price_cents = meta_prod.price -%}
+                    {%- assign card_compare_cents = meta_prod.compare_at_price -%}
                     {%- assign card_url = meta_prod.url -%}
                     {%- assign card_variant_id = meta_prod.selected_or_first_available_variant.id | default: meta_prod.variants.first.id | default: meta_prod.id -%}
                     {%- assign card_step = meta_step -%}
@@ -190,8 +198,8 @@
                         </h4>
                         <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
                       </div>
-                      <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                        <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                      <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                        {% render 'bf-price-display', price: card_price_cents, compare_at_price: card_compare_cents, fallback_price_num: card_price_num, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                         <button type="button"
                                 onclick="quickAddProduct(this, event)"
                                 data-variant-id="{{ card_variant_id }}"
@@ -200,7 +208,7 @@
                                 data-product-volume="{{ card_sub | escape }}"
                                 data-product-image="{{ card_img }}"
                                 data-product-step="{{ card_step | escape }}"
-                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                                class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                           + AGGIUNGI
                         </button>
                       </div>
@@ -425,10 +433,14 @@
                   {%- endif -%}
                   {%- assign card_price_html = slot_1_prod.price | money -%}
                   {%- assign card_price_num = slot_1_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_price_cents = slot_1_prod.price -%}
+                  {%- assign card_compare_cents = slot_1_prod.compare_at_price -%}
                   {%- assign card_url = slot_1_prod.url -%}
                   {%- assign card_variant_id = slot_1_prod.selected_or_first_available_variant.id | default: slot_1_prod.variants.first.id | default: slot_1_prod.id -%}
                   {%- assign card_step = slot_1_step -%}
                 {%- else -%}
+                  {%- assign card_price_cents = nil -%}
+                  {%- assign card_compare_cents = nil -%}
                   {%- if current_dept == 'hair' -%}
                     {%- assign card_title = 'Shampoo Botanico Rivitalizzante' -%}
                     {%- assign card_sub = "250 ml • Estratti d'alpeggio purificanti" -%}
@@ -472,8 +484,8 @@
                     </h4>
                     <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
                   </div>
-                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                  <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                    {% render 'bf-price-display', price: card_price_cents, compare_at_price: card_compare_cents, fallback_price_num: card_price_num, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
                             data-variant-id="{{ card_variant_id }}"
@@ -482,7 +494,7 @@
                             data-product-volume="{{ card_sub | escape }}"
                             data-product-image="{{ card_img }}"
                             data-product-step="{{ card_step | escape }}"
-                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                       + AGGIUNGI
                     </button>
                   </div>
@@ -500,10 +512,14 @@
                   {%- endif -%}
                   {%- assign card_price_html = slot_2_prod.price | money -%}
                   {%- assign card_price_num = slot_2_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_price_cents = slot_2_prod.price -%}
+                  {%- assign card_compare_cents = slot_2_prod.compare_at_price -%}
                   {%- assign card_url = slot_2_prod.url -%}
                   {%- assign card_variant_id = slot_2_prod.selected_or_first_available_variant.id | default: slot_2_prod.variants.first.id | default: slot_2_prod.id -%}
                   {%- assign card_step = slot_2_step -%}
                 {%- else -%}
+                  {%- assign card_price_cents = nil -%}
+                  {%- assign card_compare_cents = nil -%}
                   {%- if current_dept == 'hair' -%}
                     {%- assign card_title = 'Maschera Riparatrice Rigenerante' -%}
                     {%- assign card_sub = '200 ml • Proteine della seta e cheratina botanica' -%}
@@ -547,8 +563,8 @@
                     </h4>
                     <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
                   </div>
-                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                  <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                    {% render 'bf-price-display', price: card_price_cents, compare_at_price: card_compare_cents, fallback_price_num: card_price_num, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
                             data-variant-id="{{ card_variant_id }}"
@@ -557,7 +573,7 @@
                             data-product-volume="{{ card_sub | escape }}"
                             data-product-image="{{ card_img }}"
                             data-product-step="{{ card_step | escape }}"
-                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                       + AGGIUNGI
                     </button>
                   </div>
@@ -575,10 +591,14 @@
                   {%- endif -%}
                   {%- assign card_price_html = slot_3_prod.price | money -%}
                   {%- assign card_price_num = slot_3_prod.price | divided_by: 100.0 -%}
+                  {%- assign card_price_cents = slot_3_prod.price -%}
+                  {%- assign card_compare_cents = slot_3_prod.compare_at_price -%}
                   {%- assign card_url = slot_3_prod.url -%}
                   {%- assign card_variant_id = slot_3_prod.selected_or_first_available_variant.id | default: slot_3_prod.variants.first.id | default: slot_3_prod.id -%}
                   {%- assign card_step = slot_3_step -%}
                 {%- else -%}
+                  {%- assign card_price_cents = nil -%}
+                  {%- assign card_compare_cents = nil -%}
                   {%- if current_dept == 'hair' -%}
                     {%- assign card_title = 'Elisir Sublimatore Capelli' -%}
                     {%- assign card_sub = '50 ml • Olio sublimante anti-crespo protettivo' -%}
@@ -622,8 +642,8 @@
                     </h4>
                     <p class="text-xs text-ash mb-3">{{ card_sub }}</p>
                   </div>
-                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">{{ card_price_html }}</span>
+                  <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                    {% render 'bf-price-display', price: card_price_cents, compare_at_price: card_compare_cents, fallback_price_num: card_price_num, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
                             data-variant-id="{{ card_variant_id }}"
@@ -632,7 +652,7 @@
                             data-product-volume="{{ card_sub | escape }}"
                             data-product-image="{{ card_img }}"
                             data-product-step="{{ card_step | escape }}"
-                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                       + AGGIUNGI
                     </button>
                   </div>
@@ -681,8 +701,8 @@
                     </h4>
                     <p class="text-xs text-ash mb-3">{{ fb_sub_1 }}</p>
                   </div>
-                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">{{ fb_price_html_1 }}</span>
+                  <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                    {% render 'bf-price-display', fallback_price_num: fb_price_num_1, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
                             data-variant-id="{{ fb_var_id_1 }}"
@@ -691,7 +711,7 @@
                             data-product-volume="{{ fb_sub_1 | escape }}"
                             data-product-image="{{ fb_img_1 }}"
                             data-product-step="{{ fb_step_1 | escape }}"
-                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                       + AGGIUNGI
                     </button>
                   </div>
@@ -739,8 +759,8 @@
                     </h4>
                     <p class="text-xs text-ash mb-3">{{ fb_sub_2 }}</p>
                   </div>
-                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">{{ fb_price_html_2 }}</span>
+                  <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                    {% render 'bf-price-display', fallback_price_num: fb_price_num_2, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
                             data-variant-id="{{ fb_var_id_2 }}"
@@ -749,7 +769,7 @@
                             data-product-volume="{{ fb_sub_2 | escape }}"
                             data-product-image="{{ fb_img_2 }}"
                             data-product-step="{{ fb_step_2 | escape }}"
-                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                       + AGGIUNGI
                     </button>
                   </div>
@@ -797,8 +817,8 @@
                     </h4>
                     <p class="text-xs text-ash mb-3">{{ fb_sub_3 }}</p>
                   </div>
-                  <div class="flex items-center justify-between pt-4 border-t border-borderLinen mt-auto">
-                    <span class="font-serif text-base text-ink">{{ fb_price_html_3 }}</span>
+                  <div class="flex items-center justify-between gap-2 pt-4 border-t border-borderLinen mt-auto">
+                    {% render 'bf-price-display', fallback_price_num: fb_price_num_3, layout: 'row', price_class: 'font-serif text-base font-semibold text-ink', compare_class: 'text-xs text-ash line-through font-normal' %}
                     <button type="button"
                             onclick="quickAddProduct(this, event)"
                             data-variant-id="{{ fb_var_id_3 }}"
@@ -807,7 +827,7 @@
                             data-product-volume="{{ fb_sub_3 | escape }}"
                             data-product-image="{{ fb_img_3 }}"
                             data-product-step="{{ fb_step_3 | escape }}"
-                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive">
+                            class="bg-ink text-white px-3 py-1.5 text-[9px] uppercase tracking-widest hover:bg-amber transition-colors font-semibold luxury-interactive shrink-0">
                       + AGGIUNGI
                     </button>
                   </div>

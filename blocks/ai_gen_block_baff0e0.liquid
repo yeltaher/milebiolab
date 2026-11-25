@@ -76,7 +76,7 @@
         </ul>
       </div>
       <div class="ai-promo-{{ ai_gen_id }}__purchase">
-        {% if promo_variant.compare_at_price > promo_variant.price %}<p class="ai-promo-{{ ai_gen_id }}__price">{{ promo_variant.price | money }}<span class="ai-promo-{{ ai_gen_id }}__compare">{{ promo_variant.compare_at_price | money }}</span></p>{% else %}<p class="ai-promo-{{ ai_gen_id }}__price">{{ promo_variant.price | money }}</p>{% endif %}
+        {% render 'bf-price-display', price: promo_variant.price, compare_at_price: promo_variant.compare_at_price, layout: 'row', price_class: 'text-2xl font-semibold text-[#1A1A1A]', compare_class: 'text-sm text-[#7A7265] line-through font-normal' %}
         {% form 'product', promo_product, class: 'ai-promo-strip-form' %}
           <input type="hidden" name="id" value="{{ promo_variant.id }}"><input type="hidden" name="quantity" value="1">
           <button type="submit" name="add" class="ai-promo-{{ ai_gen_id }}__button" {% unless promo_variant.available %}disabled{% endunless %}>{% if promo_variant.available %}{{ block.settings.button_label | escape }}{% else %}Esaurito{% endif %}</button>

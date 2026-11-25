@@ -969,6 +969,19 @@ let activeQuickViewProduct = null;
 let activeQuickViewVolume = '50 ml';
 let activeQuickViewPrice = 84.00;
 
+function formatMileBfPriceHtml(price, options) {
+  const num = (typeof price === 'number') ? price : (parseFloat(price) || 0);
+  const formatted = num.toFixed(2).replace('.', ',');
+  if (!(window.isMileBlackFridayActive && window.isMileBlackFridayActive()) || num <= 0) {
+    return `€ ${formatted}`;
+  }
+  const bfDisc = (Math.round(num * 80) / 100).toFixed(2).replace('.', ',');
+  const opts = options || {};
+  const compareSize = opts.compareSize || '0.75rem';
+  const badgeSize = opts.badgeSize || '0.625rem';
+  return `€ ${bfDisc} <span style="font-size: ${compareSize}; font-weight: 400; color: #7A7265; text-decoration: line-through; margin-left: 4px;">€ ${formatted}</span> <span style="font-size: ${badgeSize}; font-family: monospace; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background: #1A1A1A; color: #FAF8F5; padding: 1px 5px; margin-left: 4px; vertical-align: middle;">-20%</span>`;
+}
+
 function openQuickView(productId) {
   const product = MilebiolabState.catalog.find(p => p.id === productId) || MilebiolabState.catalog[2];
   activeQuickViewProduct = product;
@@ -984,7 +997,10 @@ function openQuickView(productId) {
   document.getElementById('qv-product-title').textContent = product.title;
   document.getElementById('qv-product-step').textContent = product.step + ' • ' + product.category.toUpperCase();
   document.getElementById('qv-product-actives').textContent = product.actives;
-  document.getElementById('qv-product-price').textContent = `€ ${product.price.toFixed(2).replace('.', ',')}`;
+  const qvPriceEl = document.getElementById('qv-product-price');
+  if (qvPriceEl) {
+    qvPriceEl.innerHTML = formatMileBfPriceHtml(product.price, { compareSize: '0.95rem', badgeSize: '0.65rem' });
+  }
   const qvRatingEl = document.getElementById('qv-product-rating');
   if (qvRatingEl) {
     if (product.reviews && parseInt(product.reviews, 10) > 0) {
@@ -1016,7 +1032,10 @@ function openQuickView(productId) {
         btn.classList.add('active');
         activeQuickViewVolume = v.size;
         activeQuickViewPrice = v.price;
-        document.getElementById('qv-product-price').textContent = `€ ${v.price.toFixed(2).replace('.', ',')}`;
+        const qvPriceUpdateEl = document.getElementById('qv-product-price');
+        if (qvPriceUpdateEl) {
+          qvPriceUpdateEl.innerHTML = formatMileBfPriceHtml(v.price, { compareSize: '0.95rem', badgeSize: '0.65rem' });
+        }
       };
       volContainer.appendChild(btn);
     });
@@ -1189,7 +1208,7 @@ function filterSearch(query) {
         <span class="search-result-cat">${p.step} • ${p.category}</span>
         <h5 class="search-result-title">${p.title}</h5>
         <span class="search-result-actives">${p.actives}</span>
-        <span class="search-result-price">€ ${p.price.toFixed(2).replace('.', ',')}</span>
+        <span class="search-result-price">${formatMileBfPriceHtml(p.price, { compareSize: '0.72rem', badgeSize: '0.6rem' })}</span>
       </div>
       <button type="button" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.72rem;" onclick="addToCartMock('${p.title}', ${p.price}, '${p.image}', '${p.volume}', '${p.step}'); closeSearchModal();">+ Carrello</button>
     `;
@@ -1744,6 +1763,7 @@ function togglePdpWishlist(btn) {
 }
 
 function openWishlistDrawer() {
+  renderWishlistDrawer();
   const drawer = document.getElementById('wishlist-drawer');
   const overlay = document.getElementById('wishlist-drawer-overlay');
   if (drawer && overlay) {
@@ -1823,7 +1843,7 @@ function renderWishlistDrawer() {
         <img src="${imgUrl}" alt="${item.title || 'Prodotto Milebiolab'}" class="wishlist-item-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=200&q=80'">
         <div class="wishlist-item-info">
           <h5 class="wishlist-item-name">${formattedTitle}</h5>
-          <div class="wishlist-item-price">€ ${priceDisplay} <span style="font-size: 0.7rem; font-weight: 400; color: #8C867D;">(${item.volume || '50 ml'})</span></div>
+          <div class="wishlist-item-price">${formatMileBfPriceHtml(numPrice, { compareSize: '0.72rem', badgeSize: '0.6rem' })} <span style="font-size: 0.7rem; font-weight: 400; color: #8C867D;">(${item.volume || '50 ml'})</span></div>
         </div>
         <div class="wishlist-item-actions">
           <button type="button" class="btn-wishlist-cart" onclick="addWishlistItemToCart('${item.id}')" title="Sposta nel carrello">+ Carrello</button>

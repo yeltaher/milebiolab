@@ -61,13 +61,13 @@
                     {{ card_subtitle }}
                   </span>
                 {%- endif -%}
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ product.price | money }}</strong>
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                  {% render 'bf-price-display', price: product.price, compare_at_price: product.compare_at_price, layout: 'row', price_class: 'font-mono text-lg font-bold text-[#1A1A1A]', compare_class: 'text-xs text-[#7A7265] line-through font-normal' %}
                   {%- if product.available -%}
                     <button 
                       type="button" 
                       class="btn-primary cursor-pointer" 
-                      style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
+                      style="padding: 0.55rem 0.9rem; font-size: 0.72rem; flex-shrink: 0;" 
                       onclick="quickAddProduct(this, event)"
                       data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                       data-product-title="{{ product.title | escape }}"
@@ -82,7 +82,7 @@
                       type="button" 
                       class="btn-primary" 
                       disabled
-                      style="padding: 0.55rem 0.9rem; font-size: 0.72rem; opacity: 0.5; cursor: not-allowed;">
+                      style="padding: 0.55rem 0.9rem; font-size: 0.72rem; opacity: 0.5; cursor: not-allowed; flex-shrink: 0;">
                       Esaurito
                     </button>
                   {%- endif -%}
@@ -134,12 +134,12 @@
                 <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">
                   {{ card_subtitle }}
                 </span>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <strong style="font-family: var(--font-mono); font-size: 1.15rem;">{{ fallback_price }}</strong>
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                  {% render 'bf-price-display', fallback_price_num: fallback_price_num, layout: 'row', price_class: 'font-mono text-lg font-bold text-[#1A1A1A]', compare_class: 'text-xs text-[#7A7265] line-through font-normal' %}
                   <button 
                     type="button" 
                     class="btn-primary cursor-pointer" 
-                    style="padding: 0.55rem 0.9rem; font-size: 0.72rem;" 
+                    style="padding: 0.55rem 0.9rem; font-size: 0.72rem; flex-shrink: 0;" 
                     onclick="quickAddProduct(this, event)"
                     data-variant-id="routine-fallback-{{ forloop.index }}"
                     data-product-title="{{ fallback_title | escape }}"
@@ -175,9 +175,9 @@
           <div>
             <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Latte Detergente Delicato (200ml)</h4>
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Camomilla Bio & Fieno Greco</span>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 38,00</strong>
-              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;"
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              {% render 'bf-price-display', fallback_price_num: '38.00', layout: 'row', price_class: 'font-mono text-lg font-bold text-[#1A1A1A]', compare_class: 'text-xs text-[#7A7265] line-through font-normal' %}
+              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem; flex-shrink: 0;"
                 onclick="quickAddProduct(this, event)"
                 data-variant-id="step-01-reset"
                 data-product-title="Latte Detergente Delicato"
@@ -210,9 +210,9 @@
           <div>
             <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Siero Concentrato all'Acido Ialuronico (30ml)</h4>
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">5 Pesi Molecolari & Mirtillo Biofermentato</span>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 86,00</strong>
-              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;"
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              {% render 'bf-price-display', fallback_price_num: '86.00', layout: 'row', price_class: 'font-mono text-lg font-bold text-[#1A1A1A]', compare_class: 'text-xs text-[#7A7265] line-through font-normal' %}
+              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem; flex-shrink: 0;"
                 onclick="quickAddProduct(this, event)"
                 data-variant-id="step-02-concentrate"
                 data-product-title="Siero Concentrato all'Acido Ialuronico"
@@ -245,9 +245,9 @@
           <div>
             <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Crema Riparatrice Cellulare Suprema (50ml)</h4>
             <span style="font-size: 0.78rem; color: var(--color-accent-olive); display: block; margin-bottom: 0.8rem;">Staminali Stella Alpina & Jojoba Bio</span>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <strong style="font-family: var(--font-mono); font-size: 1.15rem;">€ 84,00</strong>
-              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem;"
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              {% render 'bf-price-display', fallback_price_num: '84.00', layout: 'row', price_class: 'font-mono text-lg font-bold text-[#1A1A1A]', compare_class: 'text-xs text-[#7A7265] line-through font-normal' %}
+              <button type="button" class="btn-primary cursor-pointer" style="padding: 0.55rem 0.9rem; font-size: 0.72rem; flex-shrink: 0;"
                 onclick="quickAddProduct(this, event)"
                 data-variant-id="step-03-hydrate"
                 data-product-title="Crema Riparatrice Cellulare Suprema"
