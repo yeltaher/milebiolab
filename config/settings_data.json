@@ -32,7 +32,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_text": "Ottieni il 10% di sconto sul tuo primo ordine  • Spedizione gratuita da € 75",
           "announcement_link_text": "Acquista Ora",
           "announcement_link": "shopify://collections",
