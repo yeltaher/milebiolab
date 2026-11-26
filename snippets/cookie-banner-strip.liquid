@@ -2,7 +2,7 @@
   -----------------------------------------------------------------------------
   MILEBIOLAB SPLENDOR - SLIM COOKIE BANNER STRIP OVERRIDE
   Trasforma il banner cookie Shopify Customer Privacy in una striscia compatta,
-  risolvendo l'ingombro su mobile (da 3/4 di pagina a striscia sottile ~75px).
+  risolvendo l'ingombro su mobile e assicurando layout ultra-snello su desktop.
   -----------------------------------------------------------------------------
 {%- endcomment -%}
 
@@ -33,13 +33,13 @@
     border-radius: 0 !important;
   }
 
-  /* --- MOBILE LAYOUT (< 768px): STRISCIA SOTTILE (~75px) --- */
+  /* --- MOBILE LAYOUT (< 768px): STRISCIA SOTTILE (~90-95px) --- */
   @media only screen and (max-width: 767px) {
     html body #shopify-pc__banner,
     html body #shopify-pc__banner.shopify-pc__banner__dialog,
     html body div[id="shopify-pc__banner"] {
       padding: 8px 12px 10px 12px !important;
-      max-height: 25vh !important;
+      max-height: 35vh !important;
     }
 
     html body #shopify-pc__banner .shopify-pc__banner__wrapper {
@@ -67,16 +67,13 @@
     }
 
     html body #shopify-pc__banner .shopify-pc__banner__body p {
-      font-size: 10.5px !important;
-      line-height: 1.35 !important;
+      display: block !important;
+      font-size: 10px !important;
+      line-height: 1.3 !important;
       margin: 0 !important;
       padding: 0 !important;
       color: #7A7265 !important;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-      display: -webkit-box !important;
-      -webkit-line-clamp: 2 !important;
-      -webkit-box-orient: vertical !important;
-      overflow: hidden !important;
     }
 
     html body #shopify-pc__banner .shopify-pc__banner__body a,
@@ -177,12 +174,14 @@
     }
   }
 
-  /* --- DESKTOP & TABLET LAYOUT (>= 768px): BARRA ORIZZONTALE ELEGANTE --- */
+  /* --- DESKTOP & TABLET LAYOUT (>= 768px): BARRA ORIZZONTALE ELEGANTE (~60-70px) --- */
   @media only screen and (min-width: 768px) {
     html body #shopify-pc__banner,
     html body #shopify-pc__banner.shopify-pc__banner__dialog,
     html body div[id="shopify-pc__banner"] {
       padding: 12px 28px !important;
+      max-height: none !important;
+      overflow: visible !important;
     }
 
     html body #shopify-pc__banner .shopify-pc__banner__wrapper {
@@ -196,8 +195,9 @@
     }
 
     html body #shopify-pc__banner .shopify-pc__banner__body {
-      flex: 1 1 auto !important;
-      margin: 0 !important;
+      flex: 1 1 0% !important;
+      min-width: 0 !important;
+      margin: 0 16px 0 0 !important;
       text-align: left !important;
     }
 
@@ -227,11 +227,31 @@
       flex-direction: row !important;
       align-items: center !important;
       gap: 10px !important;
+      width: auto !important;
+      flex: 0 0 auto !important;
+      flex-basis: auto !important;
       flex-shrink: 0 !important;
       margin: 0 !important;
     }
 
+    html body #shopify-pc__banner button,
+    html body #shopify-pc__banner .shopify-pc__banner__btns button,
+    html body #shopify-pc__banner .shopify-pc__banner__btns-granular button {
+      width: auto !important;
+      min-width: 0 !important;
+      flex: 0 0 auto !important;
+      flex-basis: auto !important;
+      white-space: nowrap !important;
+      height: auto !important;
+    }
+
     html body #shopify-pc__banner button.shopify-pc__banner__btn-accept {
+      width: auto !important;
+      min-width: 0 !important;
+      flex: 0 0 auto !important;
+      flex-basis: auto !important;
+      white-space: nowrap !important;
+      height: auto !important;
       background-color: #1A1A1A !important;
       color: #FFFFFF !important;
       border: 1px solid #1A1A1A !important;
@@ -250,6 +270,12 @@
     }
 
     html body #shopify-pc__banner button.shopify-pc__banner__btn-decline {
+      width: auto !important;
+      min-width: 0 !important;
+      flex: 0 0 auto !important;
+      flex-basis: auto !important;
+      white-space: nowrap !important;
+      height: auto !important;
       background-color: #FAF8F5 !important;
       color: #1A1A1A !important;
       border: 1px solid #E5E0D8 !important;
@@ -267,6 +293,12 @@
     }
 
     html body #shopify-pc__banner button.shopify-pc__banner__btn-manage-prefs {
+      width: auto !important;
+      min-width: 0 !important;
+      flex: 0 0 auto !important;
+      flex-basis: auto !important;
+      white-space: nowrap !important;
+      height: auto !important;
       background: transparent !important;
       border: none !important;
       color: #7A7265 !important;
