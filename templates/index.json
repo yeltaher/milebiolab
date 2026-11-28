@@ -9,6 +9,31 @@
  */
 {
   "sections": {
+    "17949896370a0a24a5": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5136238_k8fhai": {
+          "type": "ai_gen_block_5136238",
+          "settings": {
+            "promo_title": "🖤 EXTRA BLACK DAYS",
+            "promo_details": "FINO AL 29 NOVEMBRE -20% AUTOMATICO AL CHECKOUT su tutto · Ritiro Gratis Verona",
+            "desktop_width_percent": 100,
+            "vertical_padding": 8,
+            "font_size": 13,
+            "mobile_font_size": 11,
+            "background_color": "#f7f5f0",
+            "text_color": "#1a1a1a",
+            "accent_color": "#4a5340",
+            "border_color": "#ede5db"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5136238_k8fhai"
+      ],
+      "settings": {}
+    },
     "hero-splendor": {
       "type": "hero-splendor",
       "settings": {
@@ -27,31 +52,6 @@
         "card_btn_text": "SCOPRI IL PRODOTTO",
         "card_btn_url": "shopify://collections/unicho-21-prodotti"
       }
-    },
-    "17949896370a0a24a5": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_5136238_k8fhai": {
-          "type": "ai_gen_block_5136238",
-          "settings": {
-            "promo_title": "BLACK FRIDAY MILE",
-            "promo_details": "-20% al Check-Out per tutti i prodotti • dal 22 al 27 novembre",
-            "desktop_width_percent": 100,
-            "vertical_padding": 8,
-            "font_size": 13,
-            "mobile_font_size": 11,
-            "background_color": "#F7F5F0",
-            "text_color": "#1A1A1A",
-            "accent_color": "#4A5340",
-            "border_color": "#EDE5DB"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_5136238_k8fhai"
-      ],
-      "settings": {}
     },
     "ticker-marquee": {
       "type": "ticker-marquee",
