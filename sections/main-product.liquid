@@ -218,7 +218,7 @@
                                 </button>
                             </div>
                             {%- assign bf_now_ts = 'now' | date: '%s' | plus: 0 -%}
-                            {%- assign bf_cutoff_ts = 1795820400 -%}
+                            {%- assign bf_cutoff_ts = 1795993200 -%}
                             {%- assign bf_v_price = product.selected_or_first_available_variant.price | default: 7600 -%}
                             {%- assign bf_v_disc = bf_v_price | times: 80 | plus: 50 | divided_by: 100 -%}
                             <div id="product-price-container" class="flex items-baseline gap-2 justify-end">

@@ -3,10 +3,10 @@
   ==============================================
   Renders visual-only discounted pricing (-20%) alongside the crossed-out
   original price and a compact `-20%` badge until the automatic cutoff:
-  2026-11-28 00:00:00 CET (Unix timestamp: 1795820400).
+  2026-11-30 00:00:00 CET (active until 2026-11-29 23:59:59 CET; Unix timestamp: 1795993200).
 
   Hybrid Zero-Flicker & Cache-Proof Architecture:
-  - Server-side Liquid checks `'now' | date: '%s'` against `1795820400`.
+  - Server-side Liquid checks `'now' | date: '%s'` against `1795993200`.
   - When before cutoff, renders BOTH `.bf-price-promo-wrap` and `.bf-price-regular-only`
     so the `<head>` JS/CSS guard in `theme.liquid` (`html.bf-promo-active`) can toggle
     instantly at midnight CET even if Shopify CDN serves a cached HTML page.
@@ -44,7 +44,7 @@
   assign bf_layout = layout | default: 'row'
 
   assign bf_now_ts = 'now' | date: '%s' | plus: 0
-  assign bf_cutoff_ts = 1795820400
+  assign bf_cutoff_ts = 1795993200
   assign bf_discounted_cents = raw_cents | times: 80 | plus: 50 | divided_by: 100
 -%}
 
